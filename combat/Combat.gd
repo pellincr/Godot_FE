@@ -43,7 +43,6 @@ var skills_lists = [
 	["attack_melee", "basic_magic"] #Magic
 ]
 
-
 func _ready():
 	emit_signal("register_combat", self)
 	randomize()
@@ -69,10 +68,18 @@ func create_combatant(definition: CombatantDefinition, override_name = ""):
 		"name" = definition.name,
 		"max_hp" = definition.max_hp,
 		"hp" = definition.max_hp,
+		"attack" = definition.attack,
+		"skill" = definition.skill,
+		"speed" = definition.speed,
+		"luck" = definition.luck,
+		"defense" = definition.defense,
 		"class" = definition.class_t,
 		"alive" = true,
 		"movement_class" = definition.class_m,
 		"skill_list" = skills_lists[definition.class_t].duplicate(),
+		"currently_equipped" = definition.currently_equipped,
+		"constitution" = definition.constitution,
+		##"item_list" = item_lists[definition.class_t].duplicate(),
 		"icon" = definition.icon,
 		"map_sprite" = definition.map_sprite,
 		"movement" = definition.movement,
@@ -149,9 +156,36 @@ func attack(attacker: Dictionary, target: Dictionary, attack: String):
 		if attacker.side == 1:
 			advance_turn()
 
+func attack_item(attacker: Dictionary, target: Dictionary, itemName: String):
+	var distance = get_distance(attacker, target)
+	#check if attacker has melee or ranged weapon
+	#i.e. check the class
+	var item = ItemDatabase.items[itemName]
+	var valid = item.hit_ranges.has(distance)
+	if valid:
+#		var prob = calc_prob(attacker.class, distance)
+		var prob = calc_hit(item, attacker, target)
+		#continue if distance is correct
+		#check if we hit
+		var random_number = randi() % 100
+		var random_number2 = randi() % 100
+		var trueHit = (random_number + random_number2)/2
+		if random_number < prob:
+			do_damage_item(attacker, target)
+		else:
+			update_information.emit("{0} missed.\n".format([attacker.name]))
+		if groups[Group.ENEMIES].size() < 1:
+			combat_finish()
+		advance_turn()
+	else:
+		update_information.emit("Target too far to attack.\n")
+		#advance turn if its currently the enemy turn
+		if attacker.side == 1:
+			advance_turn()
 
 func attack_melee(attacker: Dictionary, target: Dictionary):
-	attack(attacker, target, "attack_melee")
+	##attack(attacker, target, "attack_melee")
+	attack_item(attacker, target, "iron_sword")
 
 
 func attack_ranged(attacker: Dictionary, target: Dictionary):
@@ -203,6 +237,19 @@ func do_damage(attacker: Dictionary, target: Dictionary, skill: SkillDefinition)
 	if target.hp <= 0:
 		combatant_die(target)
 
+func do_damage_item(attacker: Dictionary, target: Dictionary):
+	var item = ItemDatabase.items[attacker.currently_equipped]
+	var damage = (attacker.attack + item.damage) - target.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
+	if (damage > 0):
+		target.hp -= damage
+	update_combatants.emit(combatants)
+	update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
+		attacker.name,
+		damage,
+		target.name
+		]))
+	if target.hp <= 0:
+		combatant_die(target)
 
 func combatant_die(combatant: Dictionary):
 	var	comb_id = combatants.find(combatant)
@@ -229,6 +276,16 @@ func calc_skill_prob(skill: SkillDefinition, distance: int) -> int:
 		return 90 - 10 * (distance - 1)
 	return 0
 
+func calc_hit(item: ItemDefinition, attacker: Dictionary, target: Dictionary) -> int:
+	var attacker_hit = item.hit + (2 * attacker.skill) + (attacker.luck/2)
+	var target_avoid = 2 * calc_attack_speed(target) + target.luck
+	var hit = attacker_hit - target_avoid
+	print(attacker.name + " attacked with a " + item.name + " and hit chance of : " + str(hit) )
+	return hit
+
+func calc_attack_speed(combatant: Dictionary) -> int:
+	var item = ItemDatabase.items[combatant.currently_equipped]
+	return combatant.speed - (item.weight - combatant.constitution)
 
 func calc_prob(attack: String, distance: int):
 	if attack == "melee" or attack == "magic":
