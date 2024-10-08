@@ -8,6 +8,7 @@ signal combatant_died(combatant: Dictionary)
 signal update_turn_queue(combatants: Array, turn_queue: Array)
 signal update_information(text: String)
 signal update_combatants(combatants: Array)
+signal target_selected(combat_exchange_info: Dictionary)
 signal combat_finished()
 
 var combatants = []
@@ -159,15 +160,17 @@ func attack(attacker: Dictionary, target: Dictionary, attack: String):
 
 #calculates key combat values to show the user potential combat outcomes
 func calculate_combat_exchange(attacker: Dictionary, defender:Dictionary):
-		var combat_exchange = {
+	var combat_exchange = {
+		"attacker_name" = attacker.name,
 		"attacker_hp" = attacker.hp,
 		"attacker_damage" = (attacker.attack + get_itemDefinition(attacker.currently_equipped).damage) - defender.defense,
 		"attacker_hit_chance" = calc_hit(attacker, defender),
 		"defender_hp" = defender.hp,
 		"defender_damage" = (defender.attack + get_itemDefinition(defender.currently_equipped).damage) - attacker.defense,
 		"defender_hit_chance" = calc_hit(defender, attacker)
-		}
-		
+	}
+	emit_signal("target_selected", combat_exchange)
+
 #Called when the attacker can hit and begin combat sequence
 func enact_combat_exchange(attacker: Dictionary, defender:Dictionary):
 	#Compre attacks speeds to see if anyone is double attacking
@@ -249,18 +252,16 @@ func attack_item(attacker: Dictionary, target: Dictionary):
 
 func attack_melee(attacker: Dictionary, target: Dictionary):
 	##attack(attacker, target, "attack_melee")
+	calculate_combat_exchange(attacker, target)
 	attack_item(attacker, target)
-
 
 func attack_ranged(attacker: Dictionary, target: Dictionary):
 	attack(attacker, target, "attack_ranged")
-
 
 func basic_magic(attacker: Dictionary, target: Dictionary):
 	var skill = SkillDatabase.skills["basic_magic"]
 	do_damage(attacker, target, skill)
 	advance_turn()
-
 
 func set_next_combatant():
 	turn += 1
@@ -269,7 +270,6 @@ func set_next_combatant():
 			comb.turn_taken = false
 		turn = 0
 	current_combatant = turn_queue[turn]
-
 
 func advance_turn():
 	combatants[current_combatant].turn_taken = true
@@ -283,11 +283,9 @@ func advance_turn():
 		await get_tree().create_timer(0.6).timeout
 		ai_process(comb)
 
-
 func combat_finish():
 	emit_signal("combat_finished")
 	pass
-
 
 func do_damage(attacker: Dictionary, target: Dictionary, skill: SkillDefinition):
 	var damage = randi_range(skill.min_damage, skill.max_damage)
@@ -326,8 +324,6 @@ func combatant_die(combatant: Dictionary):
 	))
 	combatant.texture = combatant.death_sprite
 	combatant_died.emit(combatant)
-
-
 
 func calc_skill_prob(skill: SkillDefinition, distance: int) -> int:
 	var min_range = skill.min_range

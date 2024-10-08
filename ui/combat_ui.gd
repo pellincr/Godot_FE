@@ -42,6 +42,24 @@ func add_combatant_status(comb: Dictionary):
 		new_status.set_health(comb.hp, comb.max_hp)
 		new_status.name = comb.name
 
+func target_selected(info: Dictionary): 
+	populate_combat_info(info)
+	print("RECIEVED TARGET SELECTED IN UI")
+	##$Actions/CombatInfo.show()
+	
+func populate_combat_info(info: Dictionary):
+	var attacker_info_name= $Actions/CombatInfo/Container/ActionsGrid/AttackerInfo/Name
+	attacker_info_name.text = info.attacker_name
+	##populate attack stats
+	$Actions/CombatInfo/Container/ActionsGrid/AttackerStats/HP.text = info.attacker_hp
+	$Actions/CombatInfo/Container/ActionsGrid/AttackerStats/Damage.text = info.attacker_damage
+	$Actions/CombatInfo/Container/ActionsGrid/AttackerStats/Hit.text = info.attacker_hit_chance
+	##populate defender stats
+	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/HP.text = info.defender_hp
+	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Damage.text = info.defender_damage
+	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Hit.text = info.defender_hit_chance
+	
+
 
 func show_combatant_status_main(comb: Dictionary):
 	if comb.side == 0:
