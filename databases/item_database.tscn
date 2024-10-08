@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=5 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Script" path="res://combat/resources/ItemDefinition.gd" id="3_aix4b"]
@@ -16,8 +16,22 @@ hit = 85
 critical_chance = 1
 weight = 1
 
+[sub_resource type="Resource" id="Resource_fq83r"]
+script = ExtResource("3_aix4b")
+name = "unarmed"
+item_t = 1
+item_dmg_t = 0
+uses = 1
+value = 1
+hit_ranges = Array[int]([1])
+damage = 0
+hit = 55
+critical_chance = 0
+weight = 3
+
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
 items = {
-"iron_sword": SubResource("Resource_qons6")
+"iron_sword": SubResource("Resource_qons6"),
+"unarmed": SubResource("Resource_fq83r")
 }

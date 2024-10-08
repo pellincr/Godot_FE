@@ -62,9 +62,9 @@ offset_bottom = 592.0
 
 [node name="Actions" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 335.0
+offset_left = 145.0
 offset_top = 519.0
-offset_right = 479.0
+offset_right = 289.0
 offset_bottom = 631.0
 
 [node name="StatusIcon" parent="Actions" instance=ExtResource("4_mn0g0")]
@@ -76,6 +76,10 @@ offset_bottom = 122.0
 
 [node name="Icon" parent="Actions/StatusIcon" index="0"]
 material = SubResource("ShaderMaterial_1qt58")
+
+[node name="Health" parent="Actions/StatusIcon/Icon" index="0"]
+offset_left = -1.0
+offset_right = -1.0
 
 [node name="ActionsPanel" type="PanelContainer" parent="Actions"]
 layout_mode = 0
@@ -206,9 +210,9 @@ text = "End Turn"
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
 offset_left = 546.0
-offset_top = 21.0
-offset_right = 794.0
-offset_bottom = 106.0
+offset_top = -9.0
+offset_right = 958.0
+offset_bottom = 115.0
 
 [node name="Text" type="RichTextLabel" parent="Actions/Information"]
 layout_mode = 2
