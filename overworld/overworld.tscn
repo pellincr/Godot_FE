@@ -1,0 +1,203 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7po17088nvmy"]
+
+[ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
+
+[node name="Overworld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r8x5d")
+
+[node name="MainVcontainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -39.5
+offset_right = 57.5
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ManageParty_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Manage Party"
+
+[node name="Recruit_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Recruit Members"
+
+[node name="TrainParty_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Train Members"
+
+[node name="Shop_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Shop"
+
+[node name="BeginAdventure_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Begin Adventure!"
+
+[node name="MainMenu_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="PartyVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -267.0
+offset_right = 72.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PartyVContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyVContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Member_Button1" type="Button" parent="PartyVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Member 1"
+
+[node name="Member_Button2" type="Button" parent="PartyVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Member 2"
+
+[node name="Member_Button3" type="Button" parent="PartyVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Member 3"
+
+[node name="Member_Button4" type="Button" parent="PartyVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Member 4"
+
+[node name="Return_Button" type="Button" parent="PartyVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="ShopVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -155.5
+offset_right = 70.5
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopVContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopVContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WoodSword_Button" type="Button" parent="ShopVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wood Sword"
+
+[node name="WoodAxe_Button" type="Button" parent="ShopVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wood Axe"
+
+[node name="WoodSpear_Button3" type="Button" parent="ShopVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wood Spear"
+
+[node name="WoodBow_Button" type="Button" parent="ShopVContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wood Bow"
+
+[node name="Return_Button" type="Button" parent="ShopVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="RecruitVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -33.0
+offset_right = 120.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RecruitHContainer" type="HBoxContainer" parent="RecruitVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Recruit_Button1" type="Button" parent="RecruitVContainer/RecruitHContainer"]
+layout_mode = 2
+text = "Recruit 1"
+
+[node name="Recruit_Button2" type="Button" parent="RecruitVContainer/RecruitHContainer"]
+layout_mode = 2
+text = "Recruit 2"
+
+[node name="Recruit_Button3" type="Button" parent="RecruitVContainer/RecruitHContainer"]
+layout_mode = 2
+text = "Recruit 3"
+
+[node name="Return_Button" type="Button" parent="RecruitVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="TrainingVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -20.0
+offset_right = 30.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Return_Button" type="Button" parent="TrainingVContainer"]
+layout_mode = 2
+text = "Return"
+
+[connection signal="pressed" from="MainVcontainer/ManageParty_Button" to="." method="_on_manage_party_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/Recruit_Button" to="." method="_on_recruit_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/TrainParty_Button" to="." method="_on_train_party_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/Shop_Button" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PartyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="ShopVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="RecruitVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="TrainingVContainer/Return_Button" to="." method="_on_return_button_pressed"]
