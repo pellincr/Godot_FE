@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 SkillDatabase="*res://databases/skill_database.tscn"
 CombatantDatabase="*res://databases/combatant_database.tscn"
 ItemDatabase="*res://databases/item_database.tscn"
+SelectedSaveFile="*res://selected_save_file.gd"
 
 [display]
 

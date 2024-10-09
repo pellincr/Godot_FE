@@ -96,9 +96,10 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Slot 1"
+text = "Slot 1 - NEW"
 
 [node name="Delete_Button" type="Button" parent="SaveVContainer/Save1HContainer"]
+visible = false
 layout_mode = 2
 text = "X"
 
@@ -110,9 +111,10 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Slot 2"
+text = "Slot 2 - NEW"
 
 [node name="Delete_Button" type="Button" parent="SaveVContainer/Save2HContainer"]
+visible = false
 layout_mode = 2
 text = "X"
 
@@ -124,9 +126,10 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Slot 3"
+text = "Slot 3 - NEW"
 
 [node name="Delete_Button" type="Button" parent="SaveVContainer/Save3HContainer"]
+visible = false
 layout_mode = 2
 text = "X"
 
@@ -138,7 +141,10 @@ text = "Return"
 [connection signal="pressed" from="MainVContainer/Options_Button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MainVContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="OptionVContainer/HBoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="SaveVContainer/Save1HContainer/Save_Button1" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="SaveVContainer/Save2HContainer/Save_Button2" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="SaveVContainer/Save3HContainer/Save_Button3" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save1HContainer/Save_Button1" to="." method="_on_save_button_1_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save1HContainer/Delete_Button" to="." method="_on_save_slot_1_delete_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save2HContainer/Save_Button2" to="." method="_on_save_button_2_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save2HContainer/Delete_Button" to="." method="_on_save_slot_2_delete_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save3HContainer/Save_Button3" to="." method="_on_save_button_3_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save3HContainer/Delete_Button" to="." method="_on_save_slot_3_delete_button_pressed"]
 [connection signal="pressed" from="SaveVContainer/Return_Button" to="." method="_on_return_button_pressed"]
