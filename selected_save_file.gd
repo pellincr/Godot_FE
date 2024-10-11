@@ -1,4 +1,4 @@
 extends Node
 
 
-var selected_save_file = ""
+var selected_save_path = ""
