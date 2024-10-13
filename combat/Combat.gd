@@ -52,7 +52,7 @@ func _ready():
 	add_combatant(create_combatant(CombatantDatabase.combatants["fighter"], "Dorcas"), 0, Vector2i(8,6))
 	add_combatant(create_combatant(CombatantDatabase.combatants["mage"], "grizzwald"), 0, Vector2i(4,7))
 	#ADD ENEMIES
-	add_combatant(create_combatant(CombatantDatabase.combatants["zombie"], "Undead Townie"), 1, Vector2i(10,5))
+	add_combatant(create_combatant(CombatantDatabase.combatants["zombie"], "Undead Townie"), 1, Vector2i(16,6))
 	add_combatant(create_combatant(CombatantDatabase.combatants["zombie"], "Undead Townie2"), 1, Vector2i(10,7))
 	add_combatant(create_combatant(CombatantDatabase.combatants["grizzly_bear"], "Wild Grizzly"), 1, Vector2i(10,9))
 	
@@ -123,7 +123,6 @@ func add_combatant(combatant: Dictionary, side: int, position: Vector2i):
 	
 	emit_signal("combatant_added", combatant)
 
-
 func get_current_combatant():
 	return combatants[current_combatant]
 
@@ -131,7 +130,6 @@ func get_distance(attacker: Dictionary, target: Dictionary):
 	var point1 = attacker.position
 	var point2 = target.position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
-
 
 func attack(attacker: Dictionary, target: Dictionary, attack: String):
 	var distance = get_distance(attacker, target)
@@ -304,6 +302,7 @@ func do_damage_item(attacker: Dictionary, target: Dictionary):
 	var damage = (attacker.attack + item.damage) - target.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
 	if (damage > 0):
 		target.hp -= damage
+		DamageNumbers.display_number(damage, (32* target.position + Vector2i(16,16)), false)
 	update_combatants.emit(combatants)
 	update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
 		attacker.name,
@@ -322,7 +321,7 @@ func combatant_die(combatant: Dictionary):
 			combatant.name
 		]
 	))
-	combatant.texture = combatant.death_sprite
+	##combatant.texture = combatant.death_texture
 	combatant_died.emit(combatant)
 
 func calc_skill_prob(skill: SkillDefinition, distance: int) -> int:

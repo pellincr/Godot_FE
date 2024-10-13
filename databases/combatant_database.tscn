@@ -11,6 +11,34 @@
 atlas = ExtResource("7_qgfb4")
 region = Rect2(0, 707, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj7al"]
+atlas = ExtResource("7_vl8x0")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="Resource" id="Resource_74beo"]
+script = ExtResource("2_rggep")
+name = "Fighter"
+class_t = 0
+class_m = 0
+max_hp = 16
+attack = 6
+skill = 6
+speed = 8
+luck = 1
+defense = 3
+magic_defense = 1
+movement = 3
+constitution = 1
+aid = 1
+affinity = 0
+initiative = 1
+icon = SubResource("AtlasTexture_dj7al")
+death_sprite = SubResource("AtlasTexture_33y6f")
+map_sprite = SubResource("AtlasTexture_dj7al")
+skills = Array[String]([])
+items = Array[String]([])
+currently_equipped = "iron_sword"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ly1nj"]
 atlas = ExtResource("2_efhp3")
 region = Rect2(0, 0, 32, 32)
@@ -63,34 +91,6 @@ initiative = 1
 icon = SubResource("AtlasTexture_ocdxq")
 death_sprite = SubResource("AtlasTexture_33y6f")
 map_sprite = SubResource("AtlasTexture_ocdxq")
-skills = Array[String]([])
-items = Array[String]([])
-currently_equipped = "iron_sword"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dj7al"]
-atlas = ExtResource("7_vl8x0")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="Resource" id="Resource_74beo"]
-script = ExtResource("2_rggep")
-name = "Fighter"
-class_t = 0
-class_m = 0
-max_hp = 16
-attack = 6
-skill = 6
-speed = 8
-luck = 1
-defense = 3
-magic_defense = 1
-movement = 3
-constitution = 1
-aid = 1
-affinity = 0
-initiative = 1
-icon = SubResource("AtlasTexture_dj7al")
-death_sprite = SubResource("AtlasTexture_33y6f")
-map_sprite = SubResource("AtlasTexture_dj7al")
 skills = Array[String]([])
 items = Array[String]([])
 currently_equipped = "iron_sword"
