@@ -21,6 +21,7 @@ SkillDatabase="*res://databases/skill_database.tscn"
 CombatantDatabase="*res://databases/combatant_database.tscn"
 ItemDatabase="*res://databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
+SelectedSaveFile="*res://selected_save_file.gd"
 
 [display]
 
