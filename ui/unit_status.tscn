@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://d7stbwsxbso8"]
+
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="1_epwpa"]
+[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_javf8"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_3t73r"]
+[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_d33sv"]
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="4_escbd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1jew"]
+atlas = ExtResource("1_javf8")
+region = Rect2(128, 130, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_070pv"]
+atlas = ExtResource("4_escbd")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llg6x"]
+
+[sub_resource type="Theme" id="Theme_fvh6g"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_llg6x")
+
+[node name="UnitStatus" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -857.0
+offset_bottom = -520.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 294.0
+offset_bottom = 128.0
+theme = ExtResource("1_epwpa")
+
+[node name="Unit_Icon" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = -17.0
+offset_top = -20.0
+offset_right = 79.0
+offset_bottom = 20.0
+texture = SubResource("AtlasTexture_o1jew")
+
+[node name="Unit_Name2" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 197.0
+offset_bottom = 32.0
+theme = ExtResource("3_d33sv")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Zombah St. Rah"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unit_equipment_icon" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 33.0
+offset_right = 277.0
+offset_bottom = 65.0
+rotation = -1.5708
+texture = SubResource("AtlasTexture_070pv")
+
+[node name="health_bar2" type="Control" parent="Panel"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 42.0
+offset_bottom = 42.0
+
+[node name="HP" type="Label" parent="Panel/health_bar2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 44.0
+offset_right = 49.0
+offset_bottom = 67.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+text = "HP
+"
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel/health_bar2"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 62.0
+offset_right = 177.0
+offset_bottom = 67.0
+theme = SubResource("Theme_fvh6g")
+value = 45.0
+show_percentage = false
+
+[node name="XP_bar" type="Control" parent="Panel"]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 41.0
+
+[node name="Unit_Level" type="Label" parent="Panel/XP_bar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 40.0
+offset_bottom = 104.0
+theme = ExtResource("3_3t73r")
+theme_override_font_sizes/font_size = 12
+text = "Lv.12"
+vertical_alignment = 1
+
+[node name="HP" type="Label" parent="Panel/XP_bar"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 75.0
+offset_right = 78.0
+offset_bottom = 98.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+text = "XP"
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel/XP_bar"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 93.0
+offset_right = 178.0
+offset_bottom = 98.0
+theme = SubResource("Theme_fvh6g")
+value = 45.0
+show_percentage = false
+
+[node name="Panel" type="Panel" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 32.0
+offset_right = 198.0
+offset_bottom = 33.0
+
+[node name="Panel" type="Panel" parent="Panel/Panel"]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 1.0
+offset_right = 188.0
+offset_bottom = 77.0

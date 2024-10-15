@@ -1,6 +1,7 @@
 extends Node
 class_name Combat
 
+##Signals
 signal register_combat(combat_node: Node)
 signal turn_advanced(combatant: Dictionary)
 signal combatant_added(combatant: Dictionary)
@@ -11,33 +12,70 @@ signal update_combatants(combatants: Array)
 signal target_selected(combat_exchange_info: Dictionary)
 signal combat_finished()
 
-var combatants = []
-
+#Constants 
+enum Turn_Phase
+{
+	BEGINNING,
+	MAIN,
+	COMBAT,
+	ENDING
+}
+enum Player_State
+{
+	IDLE,
+	SELECTION,
+	MOVEMENT,
+	TARGETING,
+	COMBAT,
+	PAUSE,
+}
 enum Group
 {
 	PLAYERS,
-	ENEMIES
+	ENEMIES,
+	FRIENDLY,
+	NOMAD
 }
-
-enum UnitClass
+enum UNIT_CLASS
 {
-	Melee,
-	Ranged,
-	Magic
+	Infantry,
+	Monster,
+	Animal,
+	Calvary,
+	Armored
+} 
+enum VICTORY_CONDITION
+{
+DEFEAT_ALL,
+DEFEAT_BOSS,
+CAPTURE_TILE,
+DEFEND_TILE,
+SURVIVE_TURNS	
 }
-
+	
+var combatants = []
 var groups = [
 	[], #players
-	[]  #enemies
+	[], #enemies
+	[], #FRIENDLY
+	[]  #NOMAD
 ]
-
+var turn_state = Turn_Phase.BEGINNING
 var current_combatant = 0
 var turn = 0
 var turn_queue = []
-
+var victory_condition = VICTORY_CONDITION.DEFEAT_ALL
 @export var game_ui : Control
 @export var controller : CController
 
+var combatant_options = [
+	["attack"],
+	["staff"],
+	["skill"],
+	["Inventory"],
+	["trade"],
+	["end"]
+]
 var skills_lists = [
 	["attack_melee"], #Melee
 	["attack_melee", "attack_ranged"], #Ranged
@@ -47,14 +85,15 @@ var skills_lists = [
 func _ready():
 	emit_signal("register_combat", self)
 	randomize()
+	#ADD ITEMS
 
 	#ADD PLAYERS
-	add_combatant(create_combatant(CombatantDatabase.combatants["fighter"], "Dorcas"), 0, Vector2i(8,6))
-	add_combatant(create_combatant(CombatantDatabase.combatants["mage"], "grizzwald"), 0, Vector2i(4,7))
+	add_combatant(create_combatant(CombatantDatabase.combatants["fighter"], Item.create(ItemDatabase.items["iron_axe"]), "Dorcas"), 0, Vector2i(8,6))
+	add_combatant(create_combatant(CombatantDatabase.combatants["mage"], Item.create(ItemDatabase.items["fire"]), "grizzwald"), 0, Vector2i(4,7))
 	#ADD ENEMIES
-	add_combatant(create_combatant(CombatantDatabase.combatants["zombie"], "Undead Townie"), 1, Vector2i(16,6))
-	add_combatant(create_combatant(CombatantDatabase.combatants["zombie"], "Undead Townie2"), 1, Vector2i(10,7))
-	add_combatant(create_combatant(CombatantDatabase.combatants["grizzly_bear"], "Wild Grizzly"), 1, Vector2i(10,9))
+	add_combatant(create_combatant(CombatantDatabase.combatants["archer"], Item.create(ItemDatabase.items["iron_bow"]), "Undead Townie"), 1, Vector2i(16,6))
+	add_combatant(create_combatant(CombatantDatabase.combatants["archer"], Item.create(ItemDatabase.items["iron_bow"]), "Undead Townie2"), 1, Vector2i(10,7))
+	add_combatant(create_combatant(CombatantDatabase.combatants["archer"], Item.create(ItemDatabase.items["iron_bow"]), "Wild Grizzly"), 1, Vector2i(10,9))
 	
 	emit_signal("update_turn_queue", combatants, turn_queue)
 	
@@ -62,29 +101,30 @@ func _ready():
 	game_ui.set_skill_list(combatants[turn_queue[0]].skill_list)
 
 
-func create_combatant(definition: CombatantDefinition, override_name = ""):
+func create_combatant(definition: CombatantDefinition, item:Item, override_name = "", ):
 	var comb = {
-		"name" = definition.name,
-		"max_hp" = definition.max_hp,
-		"hp" = definition.max_hp,
-		"attack" = definition.attack,
+		"name" = definition.unit_type_name,
+		"max_hp" = definition.hp,
+		"hp" = definition.hp,
+		"strength" = definition.strength,
+		"magic" = definition.magic,
 		"skill" = definition.skill,
 		"speed" = definition.speed,
 		"luck" = definition.luck,
 		"defense" = definition.defense,
+		"magic_defense" = definition.magic_defense,
 		"class" = definition.class_t,
 		"alive" = true,
-		"movement_class" = definition.class_m,
+		"movement_class" = definition.movement_class,
 		"skill_list" = skills_lists[definition.class_t].duplicate(),
-		"currently_equipped" = definition.currently_equipped,
 		"constitution" = definition.constitution,
 		##"item_list" = item_lists[definition.class_t].duplicate(),
 		"icon" = definition.icon,
 		"map_sprite" = definition.map_sprite,
-		"death_sprite" = definition.death_sprite,
 		"movement" = definition.movement,
 		"initiative" = definition.initiative,
-		"turn_taken" = false
+		"turn_taken" = false,
+		"currently_equipped" = item
 		}
 	if override_name != "":
 		comb.name = override_name
@@ -130,41 +170,16 @@ func get_distance(attacker: Dictionary, target: Dictionary):
 	var point1 = attacker.position
 	var point2 = target.position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
-
-func attack(attacker: Dictionary, target: Dictionary, attack: String):
-	var distance = get_distance(attacker, target)
-	#check if attacker has melee or ranged weapon
-	#i.e. check the class
-	var skill = SkillDatabase.skills[attack]
-	var valid = distance <= skill.max_range and distance >= skill.min_range
-	if valid:
-#		var prob = calc_prob(attacker.class, distance)
-		var prob = calc_skill_prob(skill, distance)
-		#continue if distance is correct
-		#check if we hit
-		var random_number = randi() % 100
-		if random_number < prob:
-			do_damage(attacker, target, skill)
-		else:
-			update_information.emit("{0} missed.\n".format([attacker.name]))
-		if groups[Group.ENEMIES].size() < 1:
-			combat_finish()
-		advance_turn()
-	else:
-		update_information.emit("Target too far to attack.\n")
-		#advance turn if its currently the enemy turn
-		if attacker.side == 1:
-			advance_turn()
-
+	
 #calculates key combat values to show the user potential combat outcomes
 func calculate_combat_exchange(attacker: Dictionary, defender:Dictionary):
 	var combat_exchange = {
 		"attacker_name" = attacker.name,
 		"attacker_hp" = attacker.hp,
-		"attacker_damage" = (attacker.attack + get_itemDefinition(attacker.currently_equipped).damage) - defender.defense,
+		"attacker_damage" = (attacker.attack + attacker.currently_equipped.damage) - defender.defense,
 		"attacker_hit_chance" = calc_hit(attacker, defender),
 		"defender_hp" = defender.hp,
-		"defender_damage" = (defender.attack + get_itemDefinition(defender.currently_equipped).damage) - attacker.defense,
+		"defender_damage" = (defender.attack + attacker.currently_equipped.damage) - attacker.defense,
 		"defender_hit_chance" = calc_hit(defender, attacker)
 	}
 	emit_signal("target_selected", combat_exchange)
@@ -183,7 +198,7 @@ func enact_combat_exchange(attacker: Dictionary, defender:Dictionary):
 	else :
 		double_attack = null
 	var attacker_hit_chance = calc_hit(attacker, defender)
-	var defender_can_attack = get_itemDefinition(defender.currently_equipped).hit_ranges.has(distance)
+	var defender_can_attack = defender.currently_equipped.attack_range.has(distance)
 	var defender_hit_chance = calc_hit(defender, attacker)
 	#the aggressor attacks
 	var attack_hit = check_hit(attacker_hit_chance)
@@ -191,29 +206,40 @@ func enact_combat_exchange(attacker: Dictionary, defender:Dictionary):
 		do_damage_item(attacker, defender)
 	else :
 		update_information.emit(attacker.name +" missed!\n")
+		DamageNumbers.display_number(-1, (32* defender.position + Vector2i(16,16)), true)
+		print("<" + attacker.name +"> missed!\n")
 	#the defender counters if able
 	if (defender_can_attack): 
 		update_information.emit(defender.name + " tries to counter!\n")
+		print("<" + defender.name + "> tries to counter!\n")
 		attack_hit = check_hit(defender_hit_chance)
 		if(attack_hit):
 			do_damage_item(defender, attacker)
 		else :
 			update_information.emit(defender.name + " missed!\n")
+			DamageNumbers.display_number(-1, (32* attacker.position + Vector2i(16,16)), true)
+			print("<" + defender.name + "> missed!\n")
 		#the double attacker attacks if applicable
 		if(double_attack == "defender") :
 			update_information.emit(defender.name + " follows up their strike with another!\n")
+			print("<" + defender.name + "> follows up their strike with another!\n")
 			attack_hit = check_hit(defender_hit_chance)
 			if(attack_hit):
 				do_damage_item(defender, attacker)
 			else :
 				update_information.emit(defender.name + " missed!\n")
+				DamageNumbers.display_number(-1, (32* attacker.position + Vector2i(16,16)), true)
+				print("<" + defender.name +">" + " missed!\n")
 		elif (double_attack == "attacker") :
 			update_information.emit(attacker.name + " responds with an attack!\n")
+			print("<" + attacker.name + ">" + " responds with an attack!\n")
 			attack_hit = check_hit(attacker_hit_chance)
 			if(attack_hit):
 				do_damage_item(attacker, defender)
 			else :
-				update_information.emit(defender.name + " missed!\n")
+				update_information.emit(attacker.name + " missed!\n")
+				DamageNumbers.display_number(-1, (32* defender.position + Vector2i(16,16)), true)
+				print("<" + attacker.name + ">"+ " missed!\n")
 
 #checks if the current RNG is successful
 func check_hit(hitChance: int) -> bool:
@@ -228,16 +254,13 @@ func check_hit(hitChance: int) -> bool:
 func get_itemDefinition(itemName: String) -> ItemDefinition:
 	return ItemDatabase.items[itemName]
 	
-func attack_item(attacker: Dictionary, target: Dictionary):
+func attack(attacker: Dictionary, target: Dictionary):
 	var distance = get_distance(attacker, target)
 	#check if attacker has melee or ranged weapon
 	#i.e. check the class
-	var item = get_itemDefinition(attacker.currently_equipped)
-	var valid = item.hit_ranges.has(distance)
+	var item = attacker.currently_equipped
+	var valid = item.attack_range.has(distance)
 	if valid:
-		var prob = calc_hit(attacker, target)
-		#does the unit double?
-		#can the enemy counter attack?
 		enact_combat_exchange(attacker, target)
 		if groups[Group.ENEMIES].size() < 1:
 			combat_finish()
@@ -249,12 +272,7 @@ func attack_item(attacker: Dictionary, target: Dictionary):
 			advance_turn()
 
 func attack_melee(attacker: Dictionary, target: Dictionary):
-	##attack(attacker, target, "attack_melee")
-	calculate_combat_exchange(attacker, target)
-	attack_item(attacker, target)
-
-func attack_ranged(attacker: Dictionary, target: Dictionary):
-	attack(attacker, target, "attack_ranged")
+	attack(attacker, target)
 
 func basic_magic(attacker: Dictionary, target: Dictionary):
 	var skill = SkillDatabase.skills["basic_magic"]
@@ -298,13 +316,18 @@ func do_damage(attacker: Dictionary, target: Dictionary, skill: SkillDefinition)
 		combatant_die(target)
 
 func do_damage_item(attacker: Dictionary, target: Dictionary):
-	var item = ItemDatabase.items[attacker.currently_equipped]
-	var damage = (attacker.attack + item.damage) - target.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
+	var item = attacker.currently_equipped
+	var damage
+	if item.damage_type == 0 : ##Physical Dmg
+		damage = (attacker.strength + item.damage) - target.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
+	else :
+		damage = (attacker.magic + item.damage) - target.magic_defense
+	print("<" + attacker.name + "> HIT " + target.name + " for [" + str(damage) + "] damage! < " +target.name + "> has " + str(target.hp) + " HP")
 	if (damage > 0):
 		target.hp -= damage
 		DamageNumbers.display_number(damage, (32* target.position + Vector2i(16,16)), false)
-	update_combatants.emit(combatants)
-	update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
+		update_combatants.emit(combatants)
+		update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
 		attacker.name,
 		damage,
 		target.name
@@ -336,15 +359,15 @@ func calc_skill_prob(skill: SkillDefinition, distance: int) -> int:
 	return 0
 
 func calc_hit(attacker: Dictionary, target: Dictionary) -> int:
-	var item = get_itemDefinition(attacker.currently_equipped)
+	var item = attacker.currently_equipped
 	var attacker_hit = item.hit + (2 * attacker.skill) + (attacker.luck/2)
 	var target_avoid = 2 * calc_attack_speed(target) + target.luck
 	var hit = attacker_hit - target_avoid
-	print(attacker.name + " attacked with a " + item.name + " and hit chance of : " + str(hit) )
+	print(attacker.name + " hit calc with " + item.item_name + " is : " + str(hit))
 	return hit
 
 func calc_attack_speed(combatant: Dictionary) -> int:
-	var item = ItemDatabase.items[combatant.currently_equipped]
+	var item = combatant.currently_equipped
 	return combatant.speed - (item.weight - combatant.constitution)
 
 func calc_prob(attack: String, distance: int):
@@ -364,21 +387,20 @@ func sort_weight_array(a, b):
 
 func ai_process(comb : Dictionary):
 	var nearest_target: Dictionary
-	if comb.class == UnitClass.Melee:
-		var l = INF
-		for target_comb_index in groups[Group.PLAYERS]:
-			var target = combatants[target_comb_index]
-			var distance = get_distance(comb, target)
-			if distance < l:
-				l = distance
-				nearest_target = target
-				print(nearest_target.name)
-		if get_distance(comb, nearest_target) == 1:
-			attack_item(comb, nearest_target)
-			return
+	var l = INF
+	for target_comb_index in groups[Group.PLAYERS]:
+		var target = combatants[target_comb_index]
+		var distance = get_distance(comb, target)
+		if distance < l:
+			l = distance
+			nearest_target = target
+			print(nearest_target.name)
+	if get_distance(comb, nearest_target) == 1:
+		attack(comb, nearest_target)
+		return
 	await controller.ai_process(nearest_target.position)
-	attack_item(comb, nearest_target)
-
+	attack(comb, nearest_target)
+	
 
 func ai_pick_target(weights):
 	var rand_num = randf()

@@ -1,14 +1,17 @@
 [gd_scene load_steps=21 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
-[ext_resource type="Shader" path="res://ui/GrayscaleIcon.gdshader" id="3_pilcd"]
+[ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
+[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://resources/themes/ui_status_tile.tscn" id="3_ha77v"]
+[ext_resource type="Shader" path="res://resources/shaders/GrayscaleIcon.gdshader" id="3_pilcd"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="4_57c2t"]
 [ext_resource type="PackedScene" uid="uid://d0hcis8q3seqg" path="res://ui/status_icon.tscn" id="4_mn0g0"]
-[ext_resource type="Texture2D" uid="uid://b5bhqfskef7lb" path="res://imagese/icon/melee_attack.png" id="6_puss2"]
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://imagese/icon/items/items.png" id="7_g5es8"]
-[ext_resource type="Texture2D" uid="uid://bonh4ibo7lwda" path="res://imagese/icon/ranged_attack.png" id="7_i51fj"]
+[ext_resource type="Texture2D" uid="uid://b5bhqfskef7lb" path="res://resources/sprites/icons/melee_attack.png" id="6_puss2"]
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="7_g5es8"]
+[ext_resource type="Texture2D" uid="uid://bonh4ibo7lwda" path="res://resources/sprites/icons/ranged_attack.png" id="7_i51fj"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="8_bkqn3"]
-[ext_resource type="Texture2D" uid="uid://wxkh5qyiy8c1" path="res://imagese/icon/basic_magic.png" id="8_do1mp"]
+[ext_resource type="Texture2D" uid="uid://wxkh5qyiy8c1" path="res://resources/sprites/icons/basic_magic.png" id="8_do1mp"]
+[ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/header_ui.tscn" id="11_m0dmj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qt58"]
 shader = ExtResource("3_pilcd")
@@ -25,30 +28,22 @@ region = Rect2(0, 416, 32, 32)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj4jo"]
 bg_color = Color(0, 0, 0, 0.52549)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7wir"]
+bg_color = Color(0, 0, 0, 0.470588)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.607843, 0.607843, 0.607843, 1)
+shadow_offset = Vector2(1, 1)
+
 [sub_resource type="Theme" id="Theme_irj7g"]
 default_font = ExtResource("8_27of8")
 default_font_size = 32
+Button/styles/normal = SubResource("StyleBoxFlat_l7wir")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_um0nj"]
-bg_color = Color(0.152941, 0.152941, 0.152941, 1)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dsm8"]
-shadow_size = 10
-shadow_offset = Vector2(0, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_do5rw"]
-bg_color = Color(0.243137, 0.243137, 0.243137, 1)
-shadow_size = 10
-shadow_offset = Vector2(0, -5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdlup"]
-bg_color = Color(0.360784, 0.360784, 0.360784, 1)
-shadow_size = 10
-
-[sub_resource type="Theme" id="Theme_83plh"]
-default_font = ExtResource("8_27of8")
-default_font_size = 32
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvosb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nfj8"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -69,7 +64,22 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
+[node name="UnitStatus" parent="." instance=ExtResource("2_xlwki")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 517.0
+offset_right = -855.0
+offset_bottom = -3.0
+
+[node name="TerrianStatus" parent="." instance=ExtResource("3_ha77v")]
+layout_mode = 1
+offset_left = 313.0
+offset_top = 594.0
+offset_right = -639.0
+offset_bottom = -4.0
+
 [node name="TurnQueue" type="PanelContainer" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = 632.0
@@ -87,6 +97,7 @@ offset_left = 16.0
 offset_top = 336.0
 offset_right = 99.0
 offset_bottom = 592.0
+theme = ExtResource("4_57c2t")
 
 [node name="Actions" type="Control" parent="."]
 anchors_preset = 0
@@ -112,10 +123,10 @@ offset_right = -1.0
 
 [node name="ActionsPanel" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -130.0
-offset_top = 68.0
-offset_right = 136.0
-offset_bottom = 118.0
+offset_left = -126.0
+offset_top = -63.0
+offset_right = 140.0
+offset_bottom = -13.0
 
 [node name="ActionsGrid" type="GridContainer" parent="Actions/ActionsPanel"]
 layout_mode = 2
@@ -296,10 +307,10 @@ horizontal_alignment = 1
 
 [node name="Movement" type="Label" parent="Actions"]
 layout_mode = 0
-offset_left = 144.0
-offset_top = 91.0
-offset_right = 184.0
-offset_bottom = 117.0
+offset_left = 111.0
+offset_top = 15.0
+offset_right = 151.0
+offset_bottom = 41.0
 tooltip_text = "Movement"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.960784, 0.898039, 0.231373, 1)
@@ -310,30 +321,22 @@ vertical_alignment = 1
 
 [node name="EndTurnButton" type="Button" parent="Actions"]
 layout_mode = 0
-offset_left = 900.0
-offset_top = 73.0
-offset_right = 1000.0
-offset_bottom = 121.0
+offset_left = 256.0
+offset_top = -470.0
+offset_right = 606.0
+offset_bottom = -420.0
 focus_mode = 0
 theme = SubResource("Theme_irj7g")
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 0.156863)
-theme_override_constants/outline_size = 1
-theme_override_fonts/font = ExtResource("8_bkqn3")
-theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_um0nj")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3dsm8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_do5rw")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pdlup")
 text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -128.0
-offset_top = -65.0
-offset_right = 284.0
-offset_bottom = 59.0
+offset_left = -141.0
+offset_top = -492.0
+offset_right = 253.0
+offset_bottom = -421.0
+theme = ExtResource("4_57c2t")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 
 [node name="Text" type="RichTextLabel" parent="Actions/Information"]
 layout_mode = 2
@@ -358,15 +361,8 @@ theme_override_constants/margin_right = 50
 layout_mode = 2
 text = "Select Target"
 
-[node name="CenterHeader" type="MarginContainer" parent="."]
-layout_mode = 2
-offset_right = 350.0
-offset_bottom = 50.0
-theme = SubResource("Theme_83plh")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CenterHeader"]
-layout_mode = 2
-text = "Defeat Enemies"
+[node name="Control" parent="." instance=ExtResource("11_m0dmj")]
+layout_mode = 1
 
 [node name="Header" type="PanelContainer" parent="."]
 visible = false

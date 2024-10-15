@@ -1,17 +1,23 @@
 extends Node
 
-func display_number(value:int, position:Vector2, is_critical: bool = false):
+func display_number(value:int, position:Vector2, is_miss: bool = false, is_critical: bool = false, is_damage:bool = true ):
 		var number = Label.new()
 		number.global_position = position
-		number.text = str(value)
+		if value == 0 :
+			number.text = "NO DAMAGE"
+		elif is_miss :
+			number.text = "MISS"
+		else :
+			number.text = str(value)
+
 		number.z_index = 5
 		number.label_settings = LabelSettings.new()
 		
 		var color = "#FFF"
 		if is_critical:
 			color = "#B22"
-		if value == 0:
-			color = "#FFF*"
+		if !is_damage :
+			color  = "#FFF"
 			
 		number.label_settings.font_color = color
 		number.label_settings.font_size = 18

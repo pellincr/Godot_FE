@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://scenes/terrain.tscn" id="1_huxbe"]
-[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://imagese/Grid.png" id="2_icbvx"]
+[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
 [ext_resource type="Script" path="res://scenes/cameraController.gd" id="2_vv001"]
 [ext_resource type="Script" path="res://control/CController.gd" id="3_dbxfm"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]

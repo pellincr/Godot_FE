@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://8y216guxyi22"]
+
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="1_avg24"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="2_6k2s5"]
+[ext_resource type="Texture2D" uid="uid://c5rfcg3i4335j" path="res://resources/sprites/tilemaps/tiles.png" id="3_pv6ns"]
+[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="4_kr5gs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3521q"]
+atlas = ExtResource("3_pv6ns")
+region = Rect2(64, 254, 32, 32)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -952.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_avg24")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 50.0
+theme = ExtResource("2_6k2s5")
+
+[node name="terrain_icon_border" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 44.0
+theme = ExtResource("2_6k2s5")
+
+[node name="terrian_icon" type="TextureRect" parent="terrain_icon_border"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 39.0
+offset_bottom = 39.0
+texture = SubResource("AtlasTexture_3521q")
+
+[node name="name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 1.0
+offset_right = 199.0
+offset_bottom = 33.0
+theme = ExtResource("4_kr5gs")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Rocky Field"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 27.0
+offset_right = 199.0
+offset_bottom = 49.0
+alignment = 1
+
+[node name="Def" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Def. 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Avoid" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Avo. 35"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Special" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "+HP 3"
+horizontal_alignment = 1
+vertical_alignment = 1

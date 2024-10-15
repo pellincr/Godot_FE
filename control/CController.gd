@@ -8,11 +8,32 @@ signal target_selection_started()
 signal target_selection_finished()
 
 @export var controlled_node : Node2D
-@export var combat: Combat ##this is the entire combat script
+@export var combat: Combat 
 
 var tile_map : TileMap
 
-const grid_tex = preload("res://imagese/grid_marker_2.png")
+const grid_tex = preload("res://resources/sprites/grid/grid_marker_2.png")
+const path_tex = preload("res://resources/sprites/grid/path_ellipse.png")
+const tiles_to_check = [
+	Vector2i.RIGHT,
+	Vector2i.UP,
+	Vector2i.LEFT,
+	Vector2i.DOWN
+]
+const tile_nieghbor_index = [
+	0, ##CELL_NEIGHBOR_RIGHT_SIDE
+	4, ##CELL_NEIGHBOR_BOTTOM_SIDE
+	8, ##CELL_NEIGHBOR_LEFT_SIDE
+	12 ##CELL_NEIGHBOR_TOP_SIDE
+]
+
+var _occupied_spaces = []
+
+var _blocking_spaces = [
+	[],#Ground
+	[],#Flying
+	[] #Mounted
+]
 
 var movement = 3:
 	set = set_movement,
@@ -24,8 +45,20 @@ var player_turn = true
 
 var _attack_target_position
 var _blocked_target_position
+var _arrived = true
+
+var _path : PackedVector2Array
+
+var _next_position
+
+var _position_id = 0
+
+var move_speed = 96
+
+var _previous_position : Vector2i
 
 var _skill_selected = false
+var _selected_skill: String
 
 var move_range : PackedVector2Array
 var attack_range : PackedVector2Array
@@ -34,7 +67,6 @@ var skill_range : PackedVector2Array
 func _unhandled_input(event):
 	if player_turn == false:
 		return
-		
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_released():
@@ -74,24 +106,9 @@ func get_combatant_at_position(target_position: Vector2i):
 			return comb
 	return null
 
-var _occupied_spaces = []
-
-var _blocking_spaces = [
-	[],#Ground
-	[],#Flying
-	[]#Mounted
-]
-
-const tile_nieghbor_index = [
-	0, ##CELL_NEIGHBOR_RIGHT_SIDE
-	4, ##CELL_NEIGHBOR_BOTTOM_SIDE
-	8, ##CELL_NEIGHBOR_LEFT_SIDE
-	12 ##CELL_NEIGHBOR_TOP_SIDE
-]
 
 func _ready():
 	tile_map = get_node("../Terrain/TileMap")
-#	controlled_node = tile_map.get_node("Steve")
 	_astargrid.region = Rect2i(0, 0, 36, 21)
 	_astargrid.cell_size = Vector2i(32, 32)
 	_astargrid.offset = Vector2(16, 16)
@@ -127,6 +144,7 @@ func set_controlled_combatant(combatant: Dictionary):
 	movement = combatant.movement
 	update_points_weight()
 
+
 func update_points_weight():
 	#Update occupied spaces for flying units
 	for point in _occupied_spaces:
@@ -134,7 +152,7 @@ func update_points_weight():
 			_astargrid.set_point_weight_scale(point, 1)
 		else:
 			_astargrid.set_point_weight_scale(point, INF)
-	#Update point weights for blocking spaces
+		#Update point weights for blocking spaces
 		for class_m in range(_blocking_spaces.size()):
 			for space in _blocking_spaces[class_m]:
 				if(_astargrid.is_in_bounds(space.x, space.y)):
@@ -142,23 +160,11 @@ func update_points_weight():
 						_astargrid.set_point_weight_scale(space, INF)
 					else:
 						_astargrid.set_point_weight_scale(space, 1)
-	
+
 
 func get_distance(point1: Vector2i, point2: Vector2i):
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
-
-var _arrived = true
-
-var _path : PackedVector2Array
-
-var _next_position
-
-var _position_id = 0
-
-var move_speed = 96
-
-var _previous_position : Vector2i
 
 func _process(delta):
 	process_inputs()
@@ -185,6 +191,7 @@ func _process(delta):
 				finished_move.emit()
 				_arrived = true
 
+
 func set_movement(value):
 	movement = value
 	movement_changed.emit(value)
@@ -193,13 +200,6 @@ func set_movement(value):
 func get_movement():
 	return movement
 
-
-const tiles_to_check = [
-	Vector2i.RIGHT,
-	Vector2i.UP,
-	Vector2i.LEFT,
-	Vector2i.DOWN
-]
 
 func ai_process(target_position: Vector2i):
 	#find nearest non-solid tile to target_position
@@ -258,8 +258,6 @@ func move_on_path(current_position):
 	queue_redraw()
 
 
-var _selected_skill: String
-
 func set_selected_skill(skill: String):
 	_selected_skill = skill
 
@@ -295,8 +293,8 @@ func get_tile_cost_at_point(point):
 
 
 func _draw():
-	##drawSelectedpath()
 	draw_ranges(move_range, true, attack_range,true, skill_range, true)
+	drawSelectedpath()
 
 
 ##Draw the path between the selected Combatant and the mouse cursor
@@ -306,16 +304,16 @@ func drawSelectedpath():
 		#Get the length of the path
 		for i in range(_path.size()):
 			var point = _path[i]
-			var draw_color = Color.WHITE
+			var draw_color = Color.DARK_SLATE_GRAY
 			if path_length > 0:
-				draw_color = Color.ROYAL_BLUE
+				draw_color = Color.WHITE
 			if i > 0:
 				path_length -= get_tile_cost_at_point(point)
-			draw_texture(grid_tex, point - Vector2(16, 16), draw_color)
+			draw_texture(path_tex, point - Vector2(16, 16), draw_color)
 		if _attack_target_position != null:
-			draw_texture(grid_tex, _attack_target_position - Vector2(16, 16), Color.CRIMSON)
+			draw_texture(path_tex, _attack_target_position - Vector2(16, 16), Color.CRIMSON)
 		if _blocked_target_position != null:
-			draw_texture(grid_tex, _blocked_target_position - Vector2(16, 16))
+			draw_texture(path_tex, _blocked_target_position - Vector2(16, 16))
 
 
 ##Use DPS to retrieve the available cells from an origin point
@@ -345,7 +343,7 @@ func retrieveAvailableRange(range:int, origin: Vector2i, movement_type:int, effe
 						retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
 	return visited
 
-
+## Used in retreieveAvailableRange
 func retrieveAvailableRange_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_terrain:bool, visited:PackedVector2Array) -> PackedVector2Array:
 	var target_tile_move_cost = 1
 	var remaining_range
@@ -373,8 +371,8 @@ func retrieveAvailableRange_recursion(range:int, origin: Vector2i, movement_type
 						visited.append(target_tile)
 					retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
 	return visited
-	
 
+#Draws a units move and attack ranges
 func draw_ranges(move_range:PackedVector2Array, draw_move_range:bool, attack_range:PackedVector2Array, draw_attack_range:bool, skill_range:PackedVector2Array, draw_skill_range:bool):
 	var move_range_color = Color.BLUE
 	var attack_range_color = Color.CRIMSON
@@ -390,8 +388,8 @@ func draw_ranges(move_range:PackedVector2Array, draw_move_range:bool, attack_ran
 		for tile in skill_range :
 			if(!attack_range.has(tile) and !move_range.has(tile)) : 
 				draw_texture(grid_tex, tile  * Vector2(32, 32), skill_range_color)
-	
 
+#Processes User inputs
 func process_inputs():
 	if Input.is_action_pressed("debug_button"):
 		attack_range.clear()
@@ -400,10 +398,11 @@ func process_inputs():
 		##print("move_range : " + str(move_range))
 		var edge_array = find_edges(move_range)
 		for tile in edge_array :
-			attack_range.append_array(retrieveAvailableRange(1, tile, 0, false))
-			skill_range.append_array(retrieveAvailableRange(3, tile, 0, false))
+			attack_range.append_array(retrieveAvailableRange(combat.get_current_combatant().currently_equipped.attack_range.max(), tile, 0, false))
+			skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
-
+#Finds the edges of a list of tiles
+# tiles : an array of vector2 tile coords
 func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
 	var edge_tiles :PackedVector2Array
 	for tile in tiles :

@@ -26,7 +26,7 @@ SelectedSaveFile="*res://selected_save_file.gd"
 [display]
 
 window/size/resizable=false
-mouse_cursor/custom_image="res://imagese/cursor.png"
+mouse_cursor/custom_image="res://resources/sprites/grid/cursor.png"
 mouse_cursor/tooltip_position_offset=Vector2(64, 10)
 
 [input]
@@ -79,5 +79,6 @@ debug_button={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

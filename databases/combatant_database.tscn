@@ -1,43 +1,108 @@
-[gd_scene load_steps=16 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=17 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://databases/combatant_database.gd" id="1_5ebs0"]
-[ext_resource type="Texture2D" uid="uid://bu6jn1c7gnxpb" path="res://imagese/animals.png" id="2_efhp3"]
+[ext_resource type="Texture2D" uid="uid://bu6jn1c7gnxpb" path="res://resources/sprites/sheets/animals.png" id="2_efhp3"]
+[ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_kq5lk"]
 [ext_resource type="Script" path="res://combat/resources/CombatantDefinition.gd" id="2_rggep"]
-[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://imagese/monsters.png" id="4_72lse"]
-[ext_resource type="Texture2D" uid="uid://c5rfcg3i4335j" path="res://imagese/tiles.png" id="7_qgfb4"]
-[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://imagese/units.png" id="7_vl8x0"]
+[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="4_72lse"]
+[ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/fighter_map.tres" id="4_yd62j"]
+[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="7_vl8x0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_33y6f"]
-atlas = ExtResource("7_qgfb4")
-region = Rect2(0, 707, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8862t"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dj7al"]
-atlas = ExtResource("7_vl8x0")
-region = Rect2(0, 96, 32, 32)
+[sub_resource type="Resource" id="Resource_hyqvt"]
+script = ExtResource("2_rggep")
+unit_type_name = "Archer"
+class_t = 0
+movement_class = 0
+can_use_axe = false
+can_use_sword = false
+can_use_lance = false
+can_use_bow = true
+can_use_Anima = false
+can_use_Light = false
+can_use_Dark = false
+can_use_Staff = false
+can_use_Monster = false
+hp = 18
+strength = 5
+magic = 0
+skill = 3
+speed = 3
+luck = 0
+defense = 3
+magic_defense = 0
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
+movement = 5
+constitution = 7
+aid = 7
+initiative = 1
+hp_growth = 70
+strength_growth = 0
+magic_growth = 0
+skill_growth = 40
+speed_growth = 30
+luck_growth = 35
+defense_growth = 15
+magic_defense_growth = 10
+icon = SubResource("AtlasTexture_8862t")
+map_sprite = ExtResource("2_kq5lk")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_74beo"]
 script = ExtResource("2_rggep")
-name = "Fighter"
+unit_type_name = ""
 class_t = 0
-class_m = 0
-max_hp = 16
-attack = 6
+movement_class = 0
+can_use_axe = true
+can_use_sword = false
+can_use_lance = false
+can_use_bow = false
+can_use_Anima = false
+can_use_Light = false
+can_use_Dark = false
+can_use_Staff = false
+can_use_Monster = false
+hp = 20
+strength = 1
+magic = 1
 skill = 6
 speed = 8
-luck = 1
+luck = 0
 defense = 3
 magic_defense = 1
-movement = 3
-constitution = 1
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
+movement = 5
+constitution = 6
 aid = 1
-affinity = 0
 initiative = 1
-icon = SubResource("AtlasTexture_dj7al")
-death_sprite = SubResource("AtlasTexture_33y6f")
-map_sprite = SubResource("AtlasTexture_dj7al")
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0
+icon = ExtResource("4_yd62j")
+map_sprite = ExtResource("4_yd62j")
 skills = Array[String]([])
-items = Array[String]([])
-currently_equipped = "iron_sword"
+skilL_unlock_level = Array[int]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ly1nj"]
 atlas = ExtResource("2_efhp3")
@@ -45,27 +110,50 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="Resource" id="Resource_dyimc"]
 script = ExtResource("2_rggep")
-name = "Grizzly Bear"
+unit_type_name = ""
 class_t = 0
-class_m = 0
-max_hp = 32
-attack = 8
+movement_class = 0
+can_use_axe = false
+can_use_sword = false
+can_use_lance = false
+can_use_bow = false
+can_use_Anima = false
+can_use_Light = false
+can_use_Dark = false
+can_use_Staff = false
+can_use_Monster = true
+hp = 20
+strength = 1
+magic = 1
 skill = 3
 speed = 6
-luck = 1
+luck = 0
 defense = 3
 magic_defense = 1
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
 movement = 4
 constitution = 12
 aid = 1
-affinity = 0
 initiative = 1
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0
 icon = SubResource("AtlasTexture_ly1nj")
-death_sprite = SubResource("AtlasTexture_33y6f")
 map_sprite = SubResource("AtlasTexture_ly1nj")
 skills = Array[String]([])
-items = Array[String]([])
-currently_equipped = "unarmed"
+skilL_unlock_level = Array[int]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ocdxq"]
 atlas = ExtResource("7_vl8x0")
@@ -73,27 +161,50 @@ region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="Resource" id="Resource_erbkq"]
 script = ExtResource("2_rggep")
-name = "Mage"
-class_t = 2
-class_m = 0
-max_hp = 8
-attack = 3
-skill = 6
-speed = 12
-luck = 1
-defense = 0
-magic_defense = 1
-movement = 3
-constitution = 7
-aid = 1
-affinity = 0
+unit_type_name = "Mage"
+class_t = 0
+movement_class = 0
+can_use_axe = false
+can_use_sword = false
+can_use_lance = false
+can_use_bow = false
+can_use_Anima = true
+can_use_Light = true
+can_use_Dark = true
+can_use_Staff = false
+can_use_Monster = false
+hp = 16
+strength = 1
+magic = 5
+skill = 2
+speed = 3
+luck = 0
+defense = 3
+magic_defense = 3
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
+movement = 5
+constitution = 4
+aid = 4
 initiative = 1
+hp_growth = 55
+strength_growth = 0
+magic_growth = 0
+skill_growth = 40
+speed_growth = 35
+luck_growth = 20
+defense_growth = 5
+magic_defense_growth = 35
 icon = SubResource("AtlasTexture_ocdxq")
-death_sprite = SubResource("AtlasTexture_33y6f")
 map_sprite = SubResource("AtlasTexture_ocdxq")
 skills = Array[String]([])
-items = Array[String]([])
-currently_equipped = "iron_sword"
+skilL_unlock_level = Array[int]([])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gjmo6"]
 atlas = ExtResource("4_72lse")
@@ -101,30 +212,55 @@ region = Rect2(128, 128, 32, 32)
 
 [sub_resource type="Resource" id="Resource_4b14i"]
 script = ExtResource("2_rggep")
-name = "Zombie"
+unit_type_name = ""
 class_t = 0
-class_m = 0
-max_hp = 12
-attack = 3
-skill = 2
-speed = 1
-luck = 1
+movement_class = 0
+can_use_axe = false
+can_use_sword = false
+can_use_lance = false
+can_use_bow = false
+can_use_Anima = false
+can_use_Light = false
+can_use_Dark = false
+can_use_Staff = false
+can_use_Monster = true
+hp = 20
+strength = 1
+magic = 1
+skill = 1
+speed = 0
+luck = 0
 defense = 1
 magic_defense = 1
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
 movement = 2
-constitution = 4
-aid = 1
-affinity = 0
+constitution = 7
+aid = 6
 initiative = 1
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0
 icon = SubResource("AtlasTexture_gjmo6")
 map_sprite = SubResource("AtlasTexture_gjmo6")
 skills = Array[String]([])
-items = Array[String]([])
-currently_equipped = "unarmed"
+skilL_unlock_level = Array[int]([])
 
 [node name="CombatantDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
 combatants = {
+"archer": SubResource("Resource_hyqvt"),
 "fighter": SubResource("Resource_74beo"),
 "grizzly_bear": SubResource("Resource_dyimc"),
 "mage": SubResource("Resource_erbkq"),
