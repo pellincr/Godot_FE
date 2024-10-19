@@ -1,0 +1,303 @@
+[gd_scene load_steps=14 format=3 uid="uid://d7stbwsxbso8"]
+
+[ext_resource type="Script" path="res://ui/unit_status.gd" id="1_d7fwg"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="1_epwpa"]
+[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_javf8"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_3t73r"]
+[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_d33sv"]
+[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_wvmh7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1jew"]
+atlas = ExtResource("1_javf8")
+region = Rect2(128, 130, 32, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
+bg_color = Color(0.368627, 0.368627, 0.368627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llg6x"]
+bg_color = Color(1, 0.336699, 0.329185, 1)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_fvh6g"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_2yp1e")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_llg6x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1e8l"]
+bg_color = Color(0.370364, 0.370364, 0.370364, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5urym"]
+bg_color = Color(4.42803e-06, 0.697319, 0.604282, 1)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_detail = 10
+shadow_size = 1
+
+[sub_resource type="Theme" id="Theme_1usmj"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_c1e8l")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5urym")
+
+[node name="UnitStatus" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -857.0
+offset_bottom = -520.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7fwg")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 366.0
+offset_bottom = 165.0
+theme = ExtResource("1_epwpa")
+
+[node name="Divider" type="Panel" parent="Background"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 52.0
+offset_right = 232.0
+offset_bottom = 53.0
+
+[node name="Divider2" type="Panel" parent="Background"]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 13.0
+offset_right = 233.0
+offset_bottom = 138.0
+
+[node name="UnitIcon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 97.0
+offset_bottom = 41.0
+scale = Vector2(1.5, 1.5)
+texture = SubResource("AtlasTexture_o1jew")
+
+[node name="UnitName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 249.0
+offset_bottom = 67.0
+theme = ExtResource("3_d33sv")
+theme_override_constants/outline_size = 4
+text = "Zombah St. Rah"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="StatsGrid" type="GridContainer" parent="."]
+layout_mode = 2
+offset_left = 253.0
+offset_top = 29.0
+offset_right = 359.0
+offset_bottom = 164.0
+columns = 2
+
+[node name="AttackLabel" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "DMG"
+vertical_alignment = 1
+
+[node name="AttackValue" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HitLabel" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+tooltip_text = "The percentage chance of a unit landing a hit in battle"
+mouse_filter = 1
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "HIT"
+vertical_alignment = 1
+
+[node name="HitValue" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CriticalLabel" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "CRIT"
+vertical_alignment = 1
+
+[node name="HitValue2" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AvoidLabel" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "AVOID"
+vertical_alignment = 1
+
+[node name="AvoidValue" type="Label" parent="StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_wvmh7")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="health_bar2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 17.0
+offset_top = 38.0
+offset_right = 57.0
+offset_bottom = 78.0
+
+[node name="Label" type="Label" parent="health_bar2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 39.0
+offset_right = 49.0
+offset_bottom = 62.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+text = "HP
+"
+
+[node name="Value" type="Label" parent="health_bar2"]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 31.0
+offset_right = 227.0
+offset_bottom = 66.0
+theme = ExtResource("3_d33sv")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "0042 / 0212"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="health_bar2"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 62.0
+offset_right = 226.0
+offset_bottom = 72.0
+theme = SubResource("Theme_fvh6g")
+value = 100.0
+rounded = true
+show_percentage = false
+
+[node name="XP_bar" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 18.0
+offset_top = 48.0
+offset_right = 58.0
+offset_bottom = 88.0
+
+[node name="Unit_Level" type="Label" parent="XP_bar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 76.0
+offset_right = 45.0
+offset_bottom = 97.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(0.691357, 0.691357, 0.691357, 1)
+theme_override_font_sizes/font_size = 16
+text = "LV 12"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Label" type="Label" parent="XP_bar"]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 78.0
+offset_right = 87.0
+offset_bottom = 97.0
+theme = ExtResource("3_3t73r")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+text = "XP"
+
+[node name="Value" type="Label" parent="XP_bar"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 64.0
+offset_right = 225.0
+offset_bottom = 99.0
+theme = ExtResource("3_d33sv")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "0042 / 0212"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="XPBar" type="ProgressBar" parent="XP_bar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 98.0
+offset_right = 222.0
+offset_bottom = 108.0
+theme = SubResource("Theme_1usmj")
+max_value = 212.0
+value = 42.0
+show_percentage = false

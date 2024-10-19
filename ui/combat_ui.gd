@@ -131,3 +131,11 @@ func _target_selection_finished():
 
 func _target_selection_started():
 	$Actions/SelectTargetMessage.visible = true
+
+
+func _set_tile_info(tile : Dictionary) :
+	$combat_tile_info.set_all(tile.name, tile.x,tile.y,tile.defense,tile.avoid)
+
+
+func _on_controller_tile_info_updated(tile: Dictionary) -> void:
+	pass # Replace with function body.

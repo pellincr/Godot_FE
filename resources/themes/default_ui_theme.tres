@@ -1,0 +1,31 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://basxgfcidqdr7"]
+
+[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="1_qpcsq"]
+[ext_resource type="FontFile" uid="uid://0nkb2haw6p2f" path="res://resources/fonts/CrimsonText-BoldItalic.ttf" id="2_02117"]
+[ext_resource type="FontFile" uid="uid://ddxy1m7knpqhy" path="res://resources/fonts/CrimsonText-Italic.ttf" id="3_m7rfi"]
+[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="4_sjqa3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w05uo"]
+bg_color = Color(0, 0, 0, 0.768627)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.607843, 0.607843, 0.607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hub1"]
+bg_color = Color(0.482353, 0.654902, 0.462745, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c61y"]
+bg_color = Color(0.278431, 0.709804, 0, 0)
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxFlat_w05uo")
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/fonts/bold_font = ExtResource("1_qpcsq")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_02117")
+RichTextLabel/fonts/italics_font = ExtResource("3_m7rfi")
+RichTextLabel/fonts/mono_font = ExtResource("1_qpcsq")
+RichTextLabel/fonts/normal_font = ExtResource("4_sjqa3")
+RichTextLabel/styles/background = SubResource("StyleBoxFlat_8hub1")
+RichTextLabel/styles/fill = SubResource("StyleBoxFlat_3c61y")

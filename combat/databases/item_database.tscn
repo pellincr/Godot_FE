@@ -1,0 +1,196 @@
+[gd_scene load_steps=14 format=3 uid="uid://cm5gan74bnf37"]
+
+[ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" path="res://scripts/resources/ItemDefinition.gd" id="3_aix4b"]
+
+[sub_resource type="Resource" id="Resource_gyj5c"]
+script = ExtResource("3_aix4b")
+name = "Fire"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1, 2])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 5
+hit = 95
+critical_chance = 0
+weight = 1
+
+[sub_resource type="Resource" id="Resource_ue0je"]
+script = ExtResource("3_aix4b")
+name = "Iron Axe"
+item_type = 0
+item_damage_type = 0
+uses = 45
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 8
+hit = 65
+critical_chance = 0
+weight = 10
+
+[sub_resource type="Resource" id="Resource_cddqr"]
+script = ExtResource("3_aix4b")
+name = "Iron Bow"
+item_type = 0
+item_damage_type = 0
+uses = 45
+value = 35
+attack_ranges = Array[int]([2])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 6
+hit = 80
+critical_chance = 0
+weight = 5
+
+[sub_resource type="Resource" id="Resource_mxei3"]
+script = ExtResource("3_aix4b")
+name = "Iron Lance"
+item_type = 0
+item_damage_type = 0
+uses = 45
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 7
+hit = 70
+critical_chance = 0
+weight = 8
+
+[sub_resource type="Resource" id="Resource_m7y3q"]
+script = ExtResource("3_aix4b")
+name = "Iron Sword"
+item_type = 0
+item_damage_type = 0
+uses = 46
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 5
+hit = 85
+critical_chance = 0
+weight = 5
+
+[sub_resource type="Resource" id="Resource_mm7wk"]
+script = ExtResource("3_aix4b")
+name = "Sharp Claw"
+item_type = 0
+item_damage_type = 0
+uses = 999
+value = 0
+attack_ranges = Array[int]([1])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 14
+hit = 65
+critical_chance = 0
+weight = 14
+
+[sub_resource type="Resource" id="Resource_ymv30"]
+script = ExtResource("3_aix4b")
+name = "Steel Axe"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 11
+hit = 50
+critical_chance = 0
+weight = 13
+
+[sub_resource type="Resource" id="Resource_ewkxc"]
+script = ExtResource("3_aix4b")
+name = "Steel Bow"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([2])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 9
+hit = 65
+critical_chance = 0
+weight = 9
+
+[sub_resource type="Resource" id="Resource_p5sk8"]
+script = ExtResource("3_aix4b")
+name = "Steel Lance"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 10
+hit = 55
+critical_chance = 0
+weight = 13
+
+[sub_resource type="Resource" id="Resource_5to4n"]
+script = ExtResource("3_aix4b")
+name = "Steel Sword"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 8
+hit = 70
+critical_chance = 0
+weight = 10
+
+[sub_resource type="Resource" id="Resource_ch8gw"]
+script = ExtResource("3_aix4b")
+name = "unarmed"
+item_type = 0
+item_damage_type = 0
+uses = 1
+value = 0
+attack_ranges = Array[int]([1])
+required_mastery = 0
+class_locked = false
+locked_class_name = ""
+damage = 0
+hit = 85
+critical_chance = 0
+weight = 0
+
+[node name="ItemDatabase" type="Node"]
+script = ExtResource("1_t0tvu")
+items = {
+"fire": SubResource("Resource_gyj5c"),
+"iron_axe": SubResource("Resource_ue0je"),
+"iron_bow": SubResource("Resource_cddqr"),
+"iron_lance": SubResource("Resource_mxei3"),
+"iron_sword": SubResource("Resource_m7y3q"),
+"sharp_claw": SubResource("Resource_mm7wk"),
+"steel_axe": SubResource("Resource_ymv30"),
+"steel_bow": SubResource("Resource_ewkxc"),
+"steel_lance": SubResource("Resource_p5sk8"),
+"steel_sword": SubResource("Resource_5to4n"),
+"unarmed": SubResource("Resource_ch8gw")
+}

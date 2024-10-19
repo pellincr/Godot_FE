@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://yyhqghprxfs0"]
+
+[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_ia6d3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykce7"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.607843, 0.607843, 0.607843, 1)
+
+[sub_resource type="Theme" id="Theme_7pnet"]
+default_font = ExtResource("1_ia6d3")
+Panel/styles/panel = SubResource("StyleBoxFlat_ykce7")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7pnet")
+
+[node name="header_under" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 25.0
+grow_horizontal = 2
+
+[node name="expedition_label" type="Label" parent="header_under"]
+layout_mode = 0
+offset_right = 401.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Current Expedition Name and Stage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="phase_label" type="Label" parent="header_under"]
+layout_mode = 0
+offset_left = 750.0
+offset_right = 1151.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Allies Phase : Turn 1          Turns till Event : 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="header_center" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_right = 175.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="header_center"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -174.0
+offset_right = 173.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Defeat Enemies
+"
+horizontal_alignment = 1
+vertical_alignment = 1
