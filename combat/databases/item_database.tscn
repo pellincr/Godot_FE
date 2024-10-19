@@ -1,45 +1,29 @@
 [gd_scene load_steps=14 format=3 uid="uid://cm5gan74bnf37"]
 
-[ext_resource type="Script" path="res://databases/item_database.gd" id="1_t0tvu"]
-[ext_resource type="Script" path="res://combat/resources/ItemDefinition.gd" id="3_aix4b"]
+[ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" path="res://scripts/resources/ItemDefinition.gd" id="3_aix4b"]
 
-[sub_resource type="Resource" id="Resource_ch8gw"]
+[sub_resource type="Resource" id="Resource_gyj5c"]
 script = ExtResource("3_aix4b")
-name = "unarmed"
-item_t = 7
-item_dmg_t = 0
-uses = 1
-value = 0
-attack_ranges = Array[int]([1])
-required_mastery = 0
-class_locked = false
-locked_class_name = ""
-damage = 0
-hit = 85
-critical_chance = 0
-weight = 0
-
-[sub_resource type="Resource" id="Resource_m7y3q"]
-script = ExtResource("3_aix4b")
-name = "Iron Sword"
-item_t = 1
-item_dmg_t = 0
-uses = 46
+name = "Fire"
+item_type = 0
+item_damage_type = 0
+uses = 30
 value = 35
-attack_ranges = Array[int]([1])
+attack_ranges = Array[int]([1, 2])
 required_mastery = 0
 class_locked = false
 locked_class_name = ""
 damage = 5
-hit = 85
+hit = 95
 critical_chance = 0
-weight = 5
+weight = 1
 
 [sub_resource type="Resource" id="Resource_ue0je"]
 script = ExtResource("3_aix4b")
 name = "Iron Axe"
-item_t = 0
-item_dmg_t = 0
+item_type = 0
+item_damage_type = 0
 uses = 45
 value = 35
 attack_ranges = Array[int]([1])
@@ -51,27 +35,11 @@ hit = 65
 critical_chance = 0
 weight = 10
 
-[sub_resource type="Resource" id="Resource_mxei3"]
-script = ExtResource("3_aix4b")
-name = "Iron Lance"
-item_t = 2
-item_dmg_t = 0
-uses = 45
-value = 35
-attack_ranges = Array[int]([1])
-required_mastery = 0
-class_locked = false
-locked_class_name = ""
-damage = 7
-hit = 70
-critical_chance = 0
-weight = 8
-
 [sub_resource type="Resource" id="Resource_cddqr"]
 script = ExtResource("3_aix4b")
 name = "Iron Bow"
-item_t = 3
-item_dmg_t = 0
+item_type = 0
+item_damage_type = 0
 uses = 45
 value = 35
 attack_ranges = Array[int]([2])
@@ -83,75 +51,43 @@ hit = 80
 critical_chance = 0
 weight = 5
 
-[sub_resource type="Resource" id="Resource_5to4n"]
+[sub_resource type="Resource" id="Resource_mxei3"]
 script = ExtResource("3_aix4b")
-name = "Steel Sword"
-item_t = 1
-item_dmg_t = 0
-uses = 30
+name = "Iron Lance"
+item_type = 0
+item_damage_type = 0
+uses = 45
 value = 35
 attack_ranges = Array[int]([1])
-required_mastery = 1
+required_mastery = 0
 class_locked = false
 locked_class_name = ""
-damage = 8
+damage = 7
 hit = 70
 critical_chance = 0
-weight = 10
+weight = 8
 
-[sub_resource type="Resource" id="Resource_ymv30"]
+[sub_resource type="Resource" id="Resource_m7y3q"]
 script = ExtResource("3_aix4b")
-name = "Steel Axe"
-item_t = 0
-item_dmg_t = 0
-uses = 30
+name = "Iron Sword"
+item_type = 0
+item_damage_type = 0
+uses = 46
 value = 35
 attack_ranges = Array[int]([1])
-required_mastery = 1
+required_mastery = 0
 class_locked = false
 locked_class_name = ""
-damage = 11
-hit = 50
+damage = 5
+hit = 85
 critical_chance = 0
-weight = 13
-
-[sub_resource type="Resource" id="Resource_p5sk8"]
-script = ExtResource("3_aix4b")
-name = "Steel Lance"
-item_t = 2
-item_dmg_t = 0
-uses = 30
-value = 35
-attack_ranges = Array[int]([1])
-required_mastery = 1
-class_locked = false
-locked_class_name = ""
-damage = 10
-hit = 55
-critical_chance = 0
-weight = 13
-
-[sub_resource type="Resource" id="Resource_ewkxc"]
-script = ExtResource("3_aix4b")
-name = "Steel Bow"
-item_t = 3
-item_dmg_t = 0
-uses = 30
-value = 35
-attack_ranges = Array[int]([2])
-required_mastery = 1
-class_locked = false
-locked_class_name = ""
-damage = 9
-hit = 65
-critical_chance = 0
-weight = 9
+weight = 5
 
 [sub_resource type="Resource" id="Resource_mm7wk"]
 script = ExtResource("3_aix4b")
 name = "Sharp Claw"
-item_t = 8
-item_dmg_t = 0
+item_type = 0
+item_damage_type = 0
 uses = 999
 value = 0
 attack_ranges = Array[int]([1])
@@ -163,21 +99,85 @@ hit = 65
 critical_chance = 0
 weight = 14
 
-[sub_resource type="Resource" id="Resource_gyj5c"]
+[sub_resource type="Resource" id="Resource_ymv30"]
 script = ExtResource("3_aix4b")
-name = "Fire"
-item_t = 4
-item_dmg_t = 1
+name = "Steel Axe"
+item_type = 0
+item_damage_type = 0
 uses = 30
 value = 35
-attack_ranges = Array[int]([1, 2])
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 11
+hit = 50
+critical_chance = 0
+weight = 13
+
+[sub_resource type="Resource" id="Resource_ewkxc"]
+script = ExtResource("3_aix4b")
+name = "Steel Bow"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([2])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 9
+hit = 65
+critical_chance = 0
+weight = 9
+
+[sub_resource type="Resource" id="Resource_p5sk8"]
+script = ExtResource("3_aix4b")
+name = "Steel Lance"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 10
+hit = 55
+critical_chance = 0
+weight = 13
+
+[sub_resource type="Resource" id="Resource_5to4n"]
+script = ExtResource("3_aix4b")
+name = "Steel Sword"
+item_type = 0
+item_damage_type = 0
+uses = 30
+value = 35
+attack_ranges = Array[int]([1])
+required_mastery = 1
+class_locked = false
+locked_class_name = ""
+damage = 8
+hit = 70
+critical_chance = 0
+weight = 10
+
+[sub_resource type="Resource" id="Resource_ch8gw"]
+script = ExtResource("3_aix4b")
+name = "unarmed"
+item_type = 0
+item_damage_type = 0
+uses = 1
+value = 0
+attack_ranges = Array[int]([1])
 required_mastery = 0
 class_locked = false
 locked_class_name = ""
-damage = 5
-hit = 95
+damage = 0
+hit = 85
 critical_chance = 0
-weight = 1
+weight = 0
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")

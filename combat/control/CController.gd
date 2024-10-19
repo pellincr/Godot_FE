@@ -6,12 +6,21 @@ signal movement_changed(movement: int)
 signal finished_move
 signal target_selection_started()
 signal target_selection_finished()
+signal tile_info_updated(tile : Dictionary)
 
 @export var controlled_node : Node2D
 @export var combat: Combat 
 
 var tile_map : TileMap
-
+var current_tile_info = {
+	"name" = "",
+	"x" = 0,
+	"y" = 0,
+	"texture" = "",
+	"defense" = 0,
+	"avoid" = 0,
+}
+	
 const grid_tex = preload("res://resources/sprites/grid/grid_marker_2.png")
 const path_tex = preload("res://resources/sprites/grid/path_ellipse.png")
 const tiles_to_check = [
@@ -53,7 +62,7 @@ var _next_position
 
 var _position_id = 0
 
-var move_speed = 96
+var move_speed = 192 #96 default
 
 var _previous_position : Vector2i
 
@@ -87,6 +96,7 @@ func _unhandled_input(event):
 			find_path(mouse_position_i)
 			var comb = get_combatant_at_position(mouse_position_i)
 			var local_map = tile_map.map_to_local(mouse_position_i)
+			get_tile_info(mouse_position_i)
 			if comb != null:
 				if comb.side == 1 and comb.alive:
 					_attack_target_position = local_map
@@ -138,6 +148,7 @@ func combatant_died(combatant):
 func set_controlled_combatant(combatant: Dictionary):
 	if combatant.side == 0:
 		player_turn = true
+		draw_comb_range(combatant)
 	else:
 		player_turn = false
 	controlled_node = combatant.sprite
@@ -168,6 +179,7 @@ func get_distance(point1: Vector2i, point2: Vector2i):
 
 func _process(delta):
 	process_inputs()
+	# See if a unit is in motion
 	if _arrived == false:
 		controlled_node.position += controlled_node.position.direction_to(_next_position) * delta * move_speed
 		if controlled_node.position.distance_to(_next_position) < 1:
@@ -392,6 +404,7 @@ func draw_ranges(move_range:PackedVector2Array, draw_move_range:bool, attack_ran
 #Processes User inputs
 func process_inputs():
 	if Input.is_action_pressed("debug_button"):
+		get_tile_info(get_global_mouse_position())
 		attack_range.clear()
 		skill_range.clear()
 		move_range = retrieveAvailableRange(movement, combat.get_current_combatant().position, 0, true)
@@ -416,6 +429,34 @@ func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
 		elif(!tiles.has(tile + Vector2.LEFT)) : 
 			edge_tiles.append(tile)
 		else : 
+			continue
 			#its not an edge
-			print(str(tile) + " is an internal tile")
+			##print(str(tile) + " is an internal tile")
 	return edge_tiles
+
+func get_tile_info(position : Vector2i): 
+	##var coords = tile_map.get_cell_atlas_coords(0, position)
+	if position == Vector2i(current_tile_info.x, current_tile_info.y)  :
+		return
+	current_tile_info.x = position.x
+	current_tile_info.y = position.y
+	var tile_data = tile_map.get_cell_tile_data(0, position)
+	if(tile_data != null):
+		if(tile_data.get_custom_data("Tile_Name") != null):
+			current_tile_info.name = tile_data.get_custom_data("Tile_Name")
+		if(tile_data.get_custom_data("Avoid") != null):
+			current_tile_info.avoid = tile_data.get_custom_data("Avoid")
+		if(tile_data.get_custom_data("Defense") != null):
+			current_tile_info.defense = tile_data.get_custom_data("Defense")	
+	tile_info_updated.emit(current_tile_info)
+	##print(current_tile_info)
+	
+func draw_comb_range(combatant: Dictionary) :
+	attack_range.clear()
+	skill_range.clear()
+	move_range = retrieveAvailableRange(combatant.movement, combatant.position, 0, true)
+	##print("move_range : " + str(move_range))
+	var edge_array = find_edges(move_range)
+	for tile in edge_array :
+		attack_range.append_array(retrieveAvailableRange(combatant.currently_equipped.attack_range.max(), tile, 0, false))
+		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))

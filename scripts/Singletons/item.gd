@@ -34,8 +34,8 @@ enum WEAPON_RANK
 }
 
 var item_name :String
-var type: int
-var damage_type : int
+var item_type: int
+var item_damage_type : int
 
 var max_uses : int
 var uses : int
@@ -51,11 +51,12 @@ var weight : int
 
 var icon: Texture2D
 
+
 static func create(definition: ItemDefinition) -> Item:
 	var instance = Item.new()
 	instance.item_name = definition.name
-	instance.type = definition.item_t
-	instance.damage_type = definition.item_dmg_t
+	instance.item_type = definition.item_type
+	instance.item_damage_type = definition.item_damage_type
 	instance.max_uses = definition.uses
 	instance.uses = definition.uses
 	instance.attack_range = definition.attack_ranges
@@ -68,6 +69,10 @@ static func create(definition: ItemDefinition) -> Item:
 	instance.icon = definition.icon
 	return instance
 
+func create_itemDefinition() -> ItemDefinition:
+	
+	var return_object = ItemDefinition.new()
+	return return_object
 
 func use_item():
 	--uses

@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Godot_FE"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://combat/game.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.png"
 
 [autoload]
 
-SkillDatabase="*res://databases/skill_database.tscn"
-CombatantDatabase="*res://databases/combatant_database.tscn"
-ItemDatabase="*res://databases/item_database.tscn"
+SkillDatabase="*res://combat/databases/skill_database.tscn"
+CombatantDatabase="*res://combat/databases/combatant_database.tscn"
+ItemDatabase="*res://combat/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
 

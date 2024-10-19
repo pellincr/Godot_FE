@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8x27pjcjh8k1"
-path="res://.godot/imported/preview.PNG-d60a8173c14a2bb549077fb3ec6bd119.ctex"
+uid="uid://cx1516od8owqh"
+path="res://.godot/imported/boss_unit.png-f921701cdb93afc6f18d0935b225f229.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://preview.PNG"
-dest_files=["res://.godot/imported/preview.PNG-d60a8173c14a2bb549077fb3ec6bd119.ctex"]
+source_file="res://resources/sprites/icons/boss_unit.png"
+dest_files=["res://.godot/imported/boss_unit.png-f921701cdb93afc6f18d0935b225f229.ctex"]
 
 [params]
 

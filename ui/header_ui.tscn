@@ -43,6 +43,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="phase_label" type="Label" parent="header_under"]
+layout_mode = 0
 offset_left = 750.0
 offset_right = 1151.0
 offset_bottom = 24.0

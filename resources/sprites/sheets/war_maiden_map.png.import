@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tho1dgha8gr1"
-path="res://.godot/imported/monsters_old.png-2c8b1310dbf1dbc03db46fa15576c3b8.ctex"
+uid="uid://de7ue0begqno4"
+path="res://.godot/imported/war_maiden_map.png-8b99026b183eb26ae257de112a65f9cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imagese/monsters_old.png"
-dest_files=["res://.godot/imported/monsters_old.png-2c8b1310dbf1dbc03db46fa15576c3b8.ctex"]
+source_file="res://resources/sprites/sheets/war_maiden_map.png"
+dest_files=["res://.godot/imported/war_maiden_map.png-8b99026b183eb26ae257de112a65f9cf.ctex"]
 
 [params]
 

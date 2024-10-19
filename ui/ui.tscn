@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
-[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://resources/themes/ui_status_tile.tscn" id="3_ha77v"]
+[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://resources/themes/combat_tile_info.tscn" id="3_ha77v"]
 [ext_resource type="Shader" path="res://resources/shaders/GrayscaleIcon.gdshader" id="3_pilcd"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="4_57c2t"]
 [ext_resource type="PackedScene" uid="uid://d0hcis8q3seqg" path="res://ui/status_icon.tscn" id="4_mn0g0"]
@@ -66,17 +66,17 @@ script = ExtResource("1_cy8ae")
 
 [node name="UnitStatus" parent="." instance=ExtResource("2_xlwki")]
 layout_mode = 1
-offset_left = 2.0
-offset_top = 517.0
-offset_right = -855.0
-offset_bottom = -3.0
+offset_left = 13.0
+offset_top = 455.0
+offset_right = -844.0
+offset_bottom = -65.0
 
-[node name="TerrianStatus" parent="." instance=ExtResource("3_ha77v")]
+[node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
 layout_mode = 1
-offset_left = 313.0
-offset_top = 594.0
-offset_right = -639.0
-offset_bottom = -4.0
+offset_left = 939.0
+offset_top = 588.0
+offset_right = -13.0
+offset_bottom = -10.0
 
 [node name="TurnQueue" type="PanelContainer" parent="."]
 visible = false
@@ -101,10 +101,10 @@ theme = ExtResource("4_57c2t")
 
 [node name="Actions" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 145.0
-offset_top = 519.0
-offset_right = 289.0
-offset_bottom = 631.0
+offset_left = 792.0
+offset_top = 652.0
+offset_right = 936.0
+offset_bottom = 764.0
 
 [node name="StatusIcon" parent="Actions" instance=ExtResource("4_mn0g0")]
 visible = false
@@ -159,6 +159,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Slot4" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 focus_mode = 0
@@ -166,6 +167,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Slot5" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 focus_mode = 0
@@ -321,20 +323,20 @@ vertical_alignment = 1
 
 [node name="EndTurnButton" type="Button" parent="Actions"]
 layout_mode = 0
-offset_left = 256.0
-offset_top = -470.0
-offset_right = 606.0
-offset_bottom = -420.0
+offset_left = -391.0
+offset_top = -602.0
+offset_right = -41.0
+offset_bottom = -552.0
 focus_mode = 0
 theme = SubResource("Theme_irj7g")
 text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -141.0
-offset_top = -492.0
-offset_right = 253.0
-offset_bottom = -421.0
+offset_left = -35.0
+offset_top = -625.0
+offset_right = 359.0
+offset_bottom = -554.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 
