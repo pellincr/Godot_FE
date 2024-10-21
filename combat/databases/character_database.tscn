@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtfsditcdug2a"]
+[gd_scene load_steps=5 format=3 uid="uid://dtfsditcdug2a"]
 
 [ext_resource type="Script" path="res://combat/databases/characters_database.gd" id="1_ggwmx"]
 [ext_resource type="Script" path="res://scripts/resources/CharacterDefinition.gd" id="2_6ggxi"]
 
-[sub_resource type="Resource" id="Resource_odw2s"]
+[sub_resource type="Resource" id="Resource_esf28"]
 script = ExtResource("2_6ggxi")
-unit_name = "place_holder"
+unit_name = ""
 level = 1
-experience = 0
+experience = 1
 uses_custom_growths = false
 hp = 0
 strength = 0
@@ -30,8 +30,36 @@ luck_growth = 0
 defense_growth = 0
 magic_defense_growth = 0
 
+[sub_resource type="Resource" id="Resource_odw2s"]
+script = ExtResource("2_6ggxi")
+unit_name = "place_holder"
+level = 1
+experience = 1
+uses_custom_growths = false
+hp = 1
+strength = 1
+magic = 1
+skill = 1
+speed = 1
+luck = 1
+defense = 1
+magic_defense = 1
+movement = 0
+constitution = 0
+aid = 0
+initiative = 1
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0
+
 [node name="CharacterDatabase" type="Node"]
 script = ExtResource("1_ggwmx")
 characters = {
+"ally": SubResource("Resource_esf28"),
 "default": SubResource("Resource_odw2s")
 }

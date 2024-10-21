@@ -200,7 +200,7 @@ static func set_stat_bases(target_unit : Unit, unitDefinition: CombatantDefiniti
 
 static func set_stat_caps(target_unit : Unit, unitDefinition: CombatantDefinition):
 	target_unit.hp_cap = unitDefinition.max_hp
-	target_unit.strength_cap = unitDefinition.max_trength
+	target_unit.strength_cap = unitDefinition.max_strength
 	target_unit.magic_cap = unitDefinition.max_magic
 	target_unit.skill_cap = unitDefinition.max_skill
 	target_unit.speed_cap = unitDefinition.max_speed
@@ -245,3 +245,7 @@ func calculate_bonus_stats(stat:String, equipment_bonus: int, status_bonus: int,
 	
 func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> int:
 	return clampi(base + char_stat, 0, stat_cap) + bonus
+
+#func unit_type_to_string():
+#	match unit_type:
+		

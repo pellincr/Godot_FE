@@ -52,22 +52,36 @@ func _on_return_button_pressed():
 	recruit_container.visible = false
 	training_container.visible = false
 
-#num string container -> void
+#num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container
 func create_buttons_list(button_count, button_text, button_function, button_container):
+	var accum = []
 	for i in range(button_count):
 		var button := Button.new()
 		button.text = str(button_text)
 		button.pressed.connect(button_function)
 		button_container.add_child(button)
+		accum.append(button)
+	return accum
 
 
 #-----------MANAGE PARTY------------
 #This section will have all the methods for managing the party
+@onready var total_party = []
+@onready var party_buttons = []
 
 #Creates the initial amount of buttons needed in the Manage Party menu
 func _instantiate_manage_party_buttons():
-	create_buttons_list(total_party_capacity,"-EMPTY-",_on_return_button_pressed,$PartyVContainer/ScrollContainer/VBoxContainer)
+	party_buttons = create_buttons_list(total_party_capacity,"-EMPTY-",_on_return_button_pressed,$PartyVContainer/ScrollContainer/VBoxContainer)
+
+#When party is changed, this will allow the buttons to reflect the changes
+func update_total_party_buttons():
+	for i in range(total_party.size()):
+		set_party_button(party_buttons[i],total_party[i])
+
+func set_party_button(button, unit):
+	button.set_meta("unit", unit) #Associates the button to the recruit
+	button.text = "Name: " + unit.unit_name + "\n" + "Class: " + unit.unit_class_key + "\n" + "HP: " + str(unit.hp)
 
 #Shows the Mange Party Screen and minimizes the main container
 func _on_manage_party_button_pressed():
@@ -96,10 +110,38 @@ func _on_available_party_capacity_upgrade_button_pressed():
 #-----------RECRUIT UNITS------------
 #This section will have all the methods for recruiting new units to the party
 
+@onready var new_recruits = []
+@onready var recruit_buttons = []
+@onready var temp_name_list = ["Paul", "Steven", "Porter", "Jacob"]
+
 #Creates the initial amount of buttons needed in the Recruit Units menu
 func _instantiate_recruit_selection_buttons():
-	create_buttons_list(total_recruits_available,"-EMPTY-",_on_return_button_pressed,$RecruitVContainer/RecruitHContainer)
+	recruit_buttons = create_buttons_list(total_recruits_available,"-EMPTY-",_on_new_recruit_button_pressed,$RecruitVContainer/RecruitHContainer)
+	new_recruits = generate_recruits(total_recruits_available)
+	set_buttons_text(recruit_buttons, new_recruits)
 
+#int -> array of units
+#creates an array of random units of the given size
+func generate_recruits(num):
+	var accum = []
+	var unit_classes = CombatantDatabase.combatants.keys()
+	for i in range(num):
+		var new_recruit_class = unit_classes.pick_random()
+		var new_recruit = Unit.create(CombatantDatabase.combatants[new_recruit_class], CharactersDatabase.characters["ally"])
+		new_recruit.unit_name = temp_name_list.pick_random()
+		new_recruit.unit_class_key = new_recruit_class
+		accum.append(new_recruit)
+	return accum
+
+#Sets the text on the given Recruit button to be what is on the given unit
+func set_recruit_button_text(button:Button, unit:Unit):
+	button.set_meta("unit", unit) #Associates the button to the recruit
+	button.text = "Name: " + unit.unit_name + "\n" + "Class: " + unit.unit_class_key + "\n" + "HP: " + str(unit.hp)
+
+#Sets the given list of button to the text from the function
+func set_buttons_text(buttons : Array, recruits: Array):
+	for i in range(buttons.size()):
+		set_recruit_button_text(buttons[i],recruits[i])
 
 #Shows the Recruit Unit Screen and minimizes the main container
 func _on_recruit_button_pressed():
@@ -130,6 +172,12 @@ func _on_upgrade_selection_levels_button_pressed():
 	#Level 9 – 0.9%
 	#Level 10 – 0.1%
 
+#When a new recruit is pressed, they are added to the memebers total party and then rerolled
+func _on_new_recruit_button_pressed():
+	#total_party.append(self.get_meta("Unit"))
+	#total_party.append(new_recruits[0])
+	total_party.append(self.get_meta("unit"))
+	update_total_party_buttons()
 
 #-----------SHOP------------
 #This section will have all the methods for interacting with the shop menu

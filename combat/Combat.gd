@@ -135,6 +135,8 @@ func create_combatant_unit(unit:Unit, item:Item, override_name = "", ):
 	if override_name != "":
 		comb.unit.unit_name = override_name
 	return comb
+
+
 func sort_turn_queue(a, b):
 	if combatants[b].initiative < combatants[a].initiative:
 		return true

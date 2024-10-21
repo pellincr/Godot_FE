@@ -22,6 +22,7 @@ CombatantDatabase="*res://combat/databases/combatant_database.tscn"
 ItemDatabase="*res://combat/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
+CharactersDatabase="*res://combat/databases/character_database.tscn"
 
 [display]
 
