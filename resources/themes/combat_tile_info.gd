@@ -13,11 +13,11 @@ func set_tile_type_name(value: String) :
 	self.tile_type_name = value
 	
 func set_avoid_bonus(value: int) : 
-	$BonusContainer/Avoid.text = "Avo. " +str(value)
+	$BonusContainer/Avoid.text = "AVO " +str(value)
 	self.avoid_bonus = value
 	
 func set_defense_bonus(value: int) : 
-	$BonusContainer/Defense.text = "Def. " + str(value)
+	$BonusContainer/Defense.text = "DEF " + str(value)
 	self.defense_bonus = value
 
 func set_x_coordinates(value: int) :

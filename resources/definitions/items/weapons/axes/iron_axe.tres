@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3 uid="uid://bmyc03suasno"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="1_cp6t3"]
+
+[resource]
+script = ExtResource("1_cp6t3")
+weapon_type = 0
+item_damage_type = 0
+required_mastery = 0
+attack_range = Array[int]([1])
+class_locked = false
+locked_unit_type_key = ""
+damage = 8
+hit = 65
+critical_chance = 0
+weight = 10
+name = "Iron Axe"
+db_key = "iron_axe"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2

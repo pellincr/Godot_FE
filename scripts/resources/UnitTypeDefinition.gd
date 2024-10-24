@@ -1,13 +1,15 @@
 extends Resource
-class_name CombatantDefinition
+class_name UnitTypeDefinition
 
 
 @export_group("Unit Type")
 @export var unit_type_name = ""
-@export var unit_type_dictionary_key = ""
-@export_enum("Infantry", "Monster", "Animal", "Calvary", "Armored") var class_t = 0
+@export var db_key = ""
+@export_enum("Infantry", "Monster", "Animal", "Calvary", "Armored") var class_type : Array[String] = []
 @export_enum("Ground", "Flying", "Mounted") var movement_class = 0
 @export_range(1, 5, 1, "or_greater") var xp_worth = 2
+@export var promoted: bool
+@export var unit_promoted_from_key: String
 
 @export_group("Usable Weapon Types")
 @export var can_use_axe = false ##"Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Other" ) var item_t = 0
@@ -45,10 +47,9 @@ class_name CombatantDefinition
 @export_range(1, 20, 1, "or_greater") var movement = 5
 @export_range(1, 20, 1, "or_greater") var max_movement = 20
 @export_range(1, 20, 1, "or_greater") var constitution = 6
-@export_range(1, 20, 1, "or_greater") var max_constitution = 6
+@export_range(1, 20, 1, "or_greater") var max_constitution = 20
 @export_range(1, 20, 1, "or_greater") var aid = 6
 @export_range(1, 2, 1, "or_greater") var initiative = 1 ## initative for AI to check on class move
-
 
 @export_group("Growths")
 @export_range(0, 300, 5, "or_greater") var hp_growth = 0
@@ -59,6 +60,16 @@ class_name CombatantDefinition
 @export_range(0, 300, 5, "or_greater") var luck_growth = 0
 @export_range(0, 300, 5, "or_greater") var defense_growth = 0
 @export_range(0, 300, 5, "or_greater") var magic_defense_growth = 0
+
+@export_group("Promotion Bonuses")
+@export_range(0, 300, 5, "or_greater") var hp_promo = 0
+@export_range(0, 300, 5, "or_greater") var strength_promo = 0
+@export_range(0, 300, 5, "or_greater") var magic_promo = 0
+@export_range(0, 300, 5, "or_greater") var skill_promo = 0
+@export_range(0, 300, 5, "or_greater") var speed_promo = 0
+@export_range(0, 300, 5, "or_greater") var luck_promo = 0
+@export_range(0, 300, 5, "or_greater") var defense_promo = 0
+@export_range(0, 300, 5, "or_greater") var magic_defense_promo = 0
 
 
 @export_group("Visual")

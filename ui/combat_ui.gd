@@ -7,15 +7,15 @@ signal turn_ended()
 
 const TQIcon = preload("res://ui/tq_icon.tscn")
 const StatusIcon = preload("res://ui/status_icon.tscn")
-	
-func add_turn_queue_icon(combatant: Dictionary):
+
+func add_turn_queue_icon(combatant: CombatUnit):
 	var new_icon = TQIcon.instantiate()
 	$TurnQueue/Queue.add_child(new_icon)
-	new_icon.set_max_hp(combatant.max_hp)
-	new_icon.set_hp(combatant.hp)
-	new_icon.texture = combatant.icon
-	new_icon.name = combatant.name
-	new_icon.set_side(combatant.side)
+	new_icon.set_max_hp(combatant.unit.max_hp)
+	new_icon.set_hp(combatant.unit.hp)
+	new_icon.texture = combatant.unit.icon
+	new_icon.name = combatant.unit.unit_name
+	new_icon.set_side(combatant.allegience)
 
 
 func update_turn_queue(combatants: Array, turn_queue: Array):
@@ -25,7 +25,7 @@ func update_turn_queue(combatants: Array, turn_queue: Array):
 
 
 func combatant_died(combatant):
-	var turn_queue_icon = $TurnQueue/Queue.find_child(combatant.name, false, false)
+	var turn_queue_icon = $TurnQueue/Queue.find_child(combatant.unit.unit_name, false, false)
 #	if combatant.side == 0:
 #		var status = $Status.find_child(combatant.name, false, false)
 #		if status != null:
@@ -110,14 +110,14 @@ func clear_action_button_connections(action: Button):
 
 func update_combatants(combatants: Array):
 	for comb in combatants:
-		if comb.side == 0:
-			var status = $Status.find_child(comb.name, false, false)
+		if comb.allegience == 0:
+			var status = $Status.find_child(comb.unit.unit_name, false, false)
 			if status != null:
 				status.set_health(comb.hp, comb.max_hp)
-		var turn_queue_icon = $TurnQueue/Queue.get_node(comb.name)
+		var turn_queue_icon = $TurnQueue/Queue.get_node(comb.unit.unit_name)
 		if turn_queue_icon != null:
-			turn_queue_icon.set_hp(comb.hp)
-			turn_queue_icon.set_side(comb.side)
+			turn_queue_icon.set_hp(comb.unit.hp)
+			turn_queue_icon.set_side(comb.allegience)
 			turn_queue_icon.set_turn_taken(comb.turn_taken)
 
 
@@ -132,10 +132,27 @@ func _target_selection_finished():
 func _target_selection_started():
 	$Actions/SelectTargetMessage.visible = true
 
+func _target_detailed_info(combat_unit: CombatUnit):
+	if combat_unit:
+		if not $UnitStatusDetailed.visible :
+			$UnitStatusDetailed.set_unit(combat_unit.unit)
+			$UnitStatusDetailed.visible = true
+	else :
+		$UnitStatusDetailed.visible = false	
+	
 
 func _set_tile_info(tile : Dictionary) :
 	$combat_tile_info.set_all(tile.name, tile.x,tile.y,tile.defense,tile.avoid)
+	if(tile.unit):
+		$UnitStatus.set_unit(tile.unit)
+		$UnitStatus.visible = true
+	else:
+		$UnitStatus.visible = false
 
 
 func _on_controller_tile_info_updated(tile: Dictionary) -> void:
+	pass # Replace with function body.
+
+
+func _on_controller_target_detailed_info(combat_unit: CombatUnit) -> void:
 	pass # Replace with function body.

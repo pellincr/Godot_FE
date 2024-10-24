@@ -18,10 +18,11 @@ config/icon="res://icon.png"
 [autoload]
 
 SkillDatabase="*res://combat/databases/skill_database.tscn"
-CombatantDatabase="*res://combat/databases/combatant_database.tscn"
+UnitTypeDatabase="*res://combat/databases/unit_type_database.tscn"
 ItemDatabase="*res://combat/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
+CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
 
 [display]
 

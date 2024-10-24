@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://chyi446dfmveq"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="1_jprba"]
+[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/iron_lance.tres" id="1_olk82"]
+
+[resource]
+script = ExtResource("1_jprba")
+weapon_type = 2
+item_damage_type = 0
+required_mastery = 0
+attack_range = Array[int]([1])
+class_locked = false
+locked_unit_type_key = ""
+damage = 7
+hit = 70
+critical_chance = 0
+weight = 8
+name = "Iron Lance"
+db_key = "iron_lance"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = ExtResource("1_olk82")

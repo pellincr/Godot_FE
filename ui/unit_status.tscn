@@ -1,18 +1,23 @@
-[gd_scene load_steps=14 format=3 uid="uid://d7stbwsxbso8"]
+[gd_scene load_steps=16 format=3 uid="uid://d7stbwsxbso8"]
 
 [ext_resource type="Script" path="res://ui/unit_status.gd" id="1_d7fwg"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="1_epwpa"]
 [ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_javf8"]
+[ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_gh8ds"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_3t73r"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_d33sv"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_wvmh7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgufo"]
+shader = ExtResource("2_gh8ds")
+shader_parameter/lod = 2.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1jew"]
 atlas = ExtResource("1_javf8")
 region = Rect2(128, 130, 32, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
-bg_color = Color(0.368627, 0.368627, 0.368627, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llg6x"]
 bg_color = Color(1, 0.336699, 0.329185, 1)
@@ -25,7 +30,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_2yp1e")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_llg6x")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1e8l"]
-bg_color = Color(0.370364, 0.370364, 0.370364, 1)
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5urym"]
 bg_color = Color(4.42803e-06, 0.697319, 0.604282, 1)
@@ -49,7 +54,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d7fwg")
 
-[node name="Background" type="Panel" parent="."]
+[node name="BackgroundBlur" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_hgufo")
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
@@ -57,14 +63,20 @@ offset_right = 366.0
 offset_bottom = 165.0
 theme = ExtResource("1_epwpa")
 
-[node name="Divider" type="Panel" parent="Background"]
+[node name="BackgroundContainer" type="Panel" parent="BackgroundBlur"]
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 149.0
+theme = ExtResource("1_epwpa")
+
+[node name="HDivider" type="Panel" parent="BackgroundBlur"]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 52.0
 offset_right = 232.0
 offset_bottom = 53.0
 
-[node name="Divider2" type="Panel" parent="Background"]
+[node name="VDivider" type="Panel" parent="BackgroundBlur"]
 layout_mode = 0
 offset_left = 232.0
 offset_top = 13.0
@@ -152,7 +164,7 @@ text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CriticalLabel" type="Label" parent="StatsGrid"]
+[node name="AttackSpeedLabel" type="Label" parent="StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -161,10 +173,10 @@ theme = ExtResource("3_3t73r")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_wvmh7")
 theme_override_font_sizes/font_size = 21
-text = "CRIT"
+text = "AS"
 vertical_alignment = 1
 
-[node name="HitValue2" type="Label" parent="StatsGrid"]
+[node name="AttackSpeedValue" type="Label" parent="StatsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -186,7 +198,8 @@ theme = ExtResource("3_3t73r")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_wvmh7")
 theme_override_font_sizes/font_size = 21
-text = "AVOID"
+text = "AVO
+"
 vertical_alignment = 1
 
 [node name="AvoidValue" type="Label" parent="StatsGrid"]
@@ -202,7 +215,7 @@ text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="health_bar2" type="Control" parent="."]
+[node name="HealthBar" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 17.0
@@ -210,7 +223,7 @@ offset_top = 38.0
 offset_right = 57.0
 offset_bottom = 78.0
 
-[node name="Label" type="Label" parent="health_bar2"]
+[node name="Label" type="Label" parent="HealthBar"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 39.0
@@ -221,7 +234,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 text = "HP
 "
 
-[node name="Value" type="Label" parent="health_bar2"]
+[node name="Value" type="Label" parent="HealthBar"]
 layout_mode = 0
 offset_left = 66.0
 offset_top = 31.0
@@ -235,7 +248,7 @@ text = "0042 / 0212"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HealthBar" type="ProgressBar" parent="health_bar2"]
+[node name="Bar" type="ProgressBar" parent="HealthBar"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 62.0
@@ -246,14 +259,14 @@ value = 100.0
 rounded = true
 show_percentage = false
 
-[node name="XP_bar" type="Control" parent="."]
+[node name="XpBar" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 18.0
 offset_top = 48.0
 offset_right = 58.0
 offset_bottom = 88.0
 
-[node name="Unit_Level" type="Label" parent="XP_bar"]
+[node name="UnitLevelLabel" type="Label" parent="XpBar"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 76.0
@@ -263,10 +276,9 @@ theme = ExtResource("3_3t73r")
 theme_override_colors/font_color = Color(0.691357, 0.691357, 0.691357, 1)
 theme_override_font_sizes/font_size = 16
 text = "LV 12"
-horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Label" type="Label" parent="XP_bar"]
+[node name="Label" type="Label" parent="XpBar"]
 visible = false
 layout_mode = 0
 offset_left = 47.0
@@ -277,7 +289,7 @@ theme = ExtResource("3_3t73r")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 text = "XP"
 
-[node name="Value" type="Label" parent="XP_bar"]
+[node name="Value" type="Label" parent="XpBar"]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 64.0
@@ -291,7 +303,7 @@ text = "0042 / 0212"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="XPBar" type="ProgressBar" parent="XP_bar"]
+[node name="Bar" type="ProgressBar" parent="XpBar"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 98.0
