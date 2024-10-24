@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dd1ykyn7p5ryd"]
+
+[ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/iron_sword.tres" id="1_qxu5e"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_18nxv"]
+
+[resource]
+script = ExtResource("2_18nxv")
+weapon_type = 1
+item_damage_type = 0
+required_mastery = 0
+attack_range = Array[int]([1])
+class_locked = false
+locked_unit_type_key = ""
+damage = 5
+hit = 85
+critical_chance = 0
+weight = 5
+name = "Iron Sword"
+db_key = "iron_sword"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = ExtResource("1_qxu5e")

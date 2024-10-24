@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 
 class_name Unit
 
@@ -19,7 +19,7 @@ enum MOVEMENT_CLASS {
 var unit_name : String
 ##var uid: String
 var unit_class_key : String
-var unit_type : int
+var unit_type : Array[String]
 var movement_class : int
 var xp_worth : int ## The multiplier given when unit is defeated
 var uses_custom_growths : bool
@@ -41,10 +41,10 @@ var can_use_Monster : bool
 @export_group("Unit Stats")
 @export_subgroup("HP")
 @export_range(1, 100, 1, "or_greater") var hp_cap = 100
-@export_range(1, 100, 1, "or_greater") var max_hp = 20
-@export_range(0, 100, 1, "or_greater") var hp = 20
+@export_range(1, 100, 1, "or_greater") var max_hp = 1
+@export_range(0, 100, 1, "or_greater") var hp = 1
 @export_range(0, 100, 1, "or_greater") var hp_base = 1
-@export_range(0, 100, 1, "or_greater") var hp_char = 1
+@export_range(0, 100, 1, "or_greater") var hp_char = 0
 @export_range(0, 20, 1, "or_greater") var hp_bonus = 0
 @export_range(-100, 300, 5, "or_greater") var hp_growth = 0
 
@@ -121,9 +121,11 @@ var can_use_Monster : bool
 @export_range(1, 20, 1, "or_greater") var aid = 6 ## To be removed?
 @export_range(1, 2, 1, "or_greater") var initiative = 1 ## to be removed
 
+
+
 @export_group("Inventory")
-@export var equipped_item : Item
-##@export var inventory: ItemInventory
+@export var inventory : Array[ItemDefinition] = [null, null, null, null]
+@export var equipped_item: ItemDefinition = null
 
 @export_group("Skills")
 ##@export var skills: Array[String]
@@ -135,7 +137,14 @@ var can_use_Monster : bool
 var icon: Texture2D
 var map_sprite: Texture2D
 
-static func create(unitDefinition: CombatantDefinition, characterDefinition: CharacterDefinition) -> Unit:
+var attack : int
+var hit : int
+var avoid : int
+var attack_speed : int
+var critical_hit : int
+var critical_avoid : int
+
+static func create(unitDefinition: UnitTypeDefinition, characterDefinition: CharacterDefinition, reference_inventory: Array[ItemDefinition]) -> Unit:
 	var new_unit = Unit.new()
 	new_unit.unit_name = characterDefinition.unit_name
 	new_unit.unit_class_key = unitDefinition.unit_type_dictionary_key
@@ -154,6 +163,7 @@ static func create(unitDefinition: CombatantDefinition, characterDefinition: Cha
 	new_unit.can_use_Dark = unitDefinition.can_use_Dark
 	new_unit.can_use_Staff = unitDefinition.can_use_Staff
 	new_unit.can_use_Monster = unitDefinition.can_use_Monster	
+	create_inventory(new_unit, reference_inventory)
 	set_growths(new_unit, unitDefinition, characterDefinition)
 	set_stat_bases(new_unit, unitDefinition)
 	set_stat_caps(new_unit, unitDefinition)
@@ -162,11 +172,82 @@ static func create(unitDefinition: CombatantDefinition, characterDefinition: Cha
 	new_unit.icon = unitDefinition.icon
 	new_unit.map_sprite = unitDefinition.map_sprite
 	new_unit.update_stats()
+	new_unit.hp = new_unit.max_hp
 	##TO BE REMOVED
 	new_unit.initiative = unitDefinition.initiative
 	return new_unit
 
-static func set_growths(target_unit : Unit, unitDefinition: CombatantDefinition, characterDefinition: CharacterDefinition):
+static func create_generic(unitDefinition: UnitTypeDefinition, reference_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int) -> Unit:
+	var new_unit = Unit.new()
+	new_unit.unit_name = name
+	new_unit.unit_class_key = unitDefinition.db_key
+	new_unit.unit_type = unitDefinition.class_type
+	new_unit.movement_class = unitDefinition.movement_class
+	new_unit.xp_worth = unitDefinition.xp_worth
+	new_unit.uses_custom_growths = false
+	new_unit.level = level
+	new_unit.can_use_axe = unitDefinition.can_use_axe
+	new_unit.can_use_sword = unitDefinition.can_use_sword
+	new_unit.can_use_lance = unitDefinition.can_use_lance
+	new_unit.can_use_bow = unitDefinition.can_use_bow
+	new_unit.can_use_Anima = unitDefinition.can_use_Anima
+	new_unit.can_use_Light = unitDefinition.can_use_Light
+	new_unit.can_use_Dark = unitDefinition.can_use_Dark
+	new_unit.can_use_Staff = unitDefinition.can_use_Staff
+	new_unit.can_use_Monster = unitDefinition.can_use_Monster
+	set_stat_bases(new_unit, unitDefinition)
+	set_stat_caps(new_unit, unitDefinition)
+	var level_stats = calculate_generic_stats(unitDefinition, level, bonus_levels, false)
+	new_unit.hp_char = level_stats[0]
+	new_unit.strength_char = level_stats[1]
+	new_unit.magic_char = level_stats[2]
+	new_unit.skill_char = level_stats[3]
+	new_unit.speed_char = level_stats[4]
+	new_unit.luck_char = level_stats[5]
+	new_unit.defense_char = level_stats[6]
+	new_unit.magic_defense_char = level_stats[7]
+	create_inventory(new_unit, reference_inventory)
+	new_unit.icon = unitDefinition.icon
+	new_unit.map_sprite = unitDefinition.map_sprite
+	new_unit.update_stats()
+	new_unit.hp = new_unit.max_hp
+	##TO BE REMOVED
+	new_unit.initiative = unitDefinition.initiative
+	return new_unit
+
+static func calculate_generic_stats(unitDefinition: UnitTypeDefinition, level: int, bonus_level:int, hardmode:bool) -> Array[int]:
+	var stat_increase_array : Array[int] = [0,0,0,0,0,0,0,0]
+	var effective_level = level -1 + bonus_level
+	if(unitDefinition.promoted): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
+		if(UnitTypeDatabase.unit_types.has(unitDefinition.unit_promoted_from_key)):
+			if(hardmode):
+				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],20,0, false)
+			else :
+				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],10,0, false)
+	##Do the actual stat calcs here
+	stat_increase_array[0]  += calculate_generic_stat(unitDefinition.hp_growth, effective_level)
+	stat_increase_array[1]  += calculate_generic_stat(unitDefinition.strength_growth, effective_level)
+	stat_increase_array[2]  += calculate_generic_stat(unitDefinition.magic_growth, effective_level)
+	stat_increase_array[3]  += calculate_generic_stat(unitDefinition.skill_growth, effective_level)
+	stat_increase_array[4]  += calculate_generic_stat(unitDefinition.speed_growth, effective_level)
+	stat_increase_array[5]  += calculate_generic_stat(unitDefinition.luck_growth, effective_level)
+	stat_increase_array[6]  += calculate_generic_stat(unitDefinition.defense_growth, effective_level)
+	stat_increase_array[7]  += calculate_generic_stat(unitDefinition.magic_defense_growth, effective_level)
+	return stat_increase_array
+	
+static func	calculate_generic_stat(growth: int, levels:int) -> int:
+	var return_value = 0
+	var stat_gain_center = float(growth * levels) / float(100)
+	var gain_low = stat_gain_center * 7 / 8
+	var gain_high = stat_gain_center * 9/8
+	var stat_gain = randf_range(gain_low, gain_high)
+	return_value = floor(stat_gain)
+	var stat_chance = fmod(stat_gain, return_value)
+	if CustomUtilityLibrary.random_rolls_bool(stat_chance, 1) :
+		return_value += 1
+	return return_value
+	
+static func set_growths(target_unit : Unit, unitDefinition: UnitTypeDefinition, characterDefinition: CharacterDefinition):
 	if target_unit.uses_custom_growths :
 		target_unit.hp_growth = characterDefinition.hp_growth
 		target_unit.strength_growth = characterDefinition.strength_growth
@@ -186,7 +267,7 @@ static func set_growths(target_unit : Unit, unitDefinition: CombatantDefinition,
 		target_unit.defense_growth = characterDefinition.defense_growth + unitDefinition.defense_growth
 		target_unit.magic_defense_growth = characterDefinition.magic_defense_growth + unitDefinition.magic_defense_growth
 
-static func set_stat_bases(target_unit : Unit, unitDefinition: CombatantDefinition):
+static func set_stat_bases(target_unit : Unit, unitDefinition: UnitTypeDefinition):
 	target_unit.hp_base = unitDefinition.hp
 	target_unit.strength_base = unitDefinition.strength
 	target_unit.magic_base = unitDefinition.magic
@@ -198,9 +279,9 @@ static func set_stat_bases(target_unit : Unit, unitDefinition: CombatantDefiniti
 	target_unit.movement_base = unitDefinition.movement
 	target_unit.constitution_base = unitDefinition.constitution
 
-static func set_stat_caps(target_unit : Unit, unitDefinition: CombatantDefinition):
+static func set_stat_caps(target_unit : Unit, unitDefinition: UnitTypeDefinition):
 	target_unit.hp_cap = unitDefinition.max_hp
-	target_unit.strength_cap = unitDefinition.max_trength
+	target_unit.strength_cap = unitDefinition.max_strength
 	target_unit.magic_cap = unitDefinition.max_magic
 	target_unit.skill_cap = unitDefinition.max_skill
 	target_unit.speed_cap = unitDefinition.max_speed
@@ -222,12 +303,62 @@ static func set_stat_char(target_unit : Unit, characterDefinition: CharacterDefi
 	target_unit.movement_char = characterDefinition.movement
 	target_unit.constitution_char = characterDefinition.constitution
 
+static func create_inventory(target_unit: Unit , reference_inventory: Array[ItemDefinition]): 
+	## insert a duplicate entry of each item in the
+	target_unit.inventory.clear()
+	for item in reference_inventory :
+		if item != null:
+			var new_item_instance = item.duplicate()
+			target_unit.inventory.append(new_item_instance)
+			if new_item_instance.equippable and target_unit.equipped_item == null :
+				target_unit.equipped_item = new_item_instance
+		else :
+			target_unit.inventory.append(null)
+
 func get_effective_stat(stat_name: String) -> int:
 	return 0
 	
-func level_up():
-	return
+func level_up_player():
+	var total_stat_increase
+	var stat_increase_array = [0,0,0,0,0,0,0,0] #hp,str,mag,skill,speed,luck,def,mdef
+	stat_increase_array[0] = level_up_stat_roll(hp_growth)
+	stat_increase_array[1] = level_up_stat_roll(strength_growth)
+	stat_increase_array[2] = level_up_stat_roll(magic_growth)
+	stat_increase_array[3] = level_up_stat_roll(skill_growth)
+	stat_increase_array[4] = level_up_stat_roll(speed_growth)
+	stat_increase_array[5] = level_up_stat_roll(luck_growth)
+	stat_increase_array[6] = level_up_stat_roll(defense_growth)
+	stat_increase_array[7] = level_up_stat_roll(magic_defense_growth)
+	## check if all stats low rolled 
+	for stat in stat_increase_array :
+		total_stat_increase += stat_increase_array[stat]
+	## Did the user get any stat increases? If not re-randomize
+	if total_stat_increase == 0 :
+		stat_increase_array[0] = level_up_stat_roll(hp_growth)
+		stat_increase_array[1] = level_up_stat_roll(strength_growth)
+		stat_increase_array[2] = level_up_stat_roll(magic_growth)
+		stat_increase_array[3] = level_up_stat_roll(skill_growth)
+		stat_increase_array[4] = level_up_stat_roll(speed_growth)
+		stat_increase_array[5] = level_up_stat_roll(luck_growth)
+		stat_increase_array[6] = level_up_stat_roll(defense_growth)
+		stat_increase_array[7] = level_up_stat_roll(magic_defense_growth)
+	##Now we update the char stats with the increased versions
+	hp_char += stat_increase_array[0] 
+	strength_char += stat_increase_array[1] 
+	magic_char += stat_increase_array[2] 
+	skill_char += stat_increase_array[3] 
+	speed_char += stat_increase_array[4] 
+	luck_char += stat_increase_array[5] 
+	defense_char += stat_increase_array[6] 
+	magic_defense_char += stat_increase_array[7] 
+	update_stats()
 	
+func level_up_stat_roll(target_growth : int) -> int:
+	var amount = floor(target_growth/100)
+	if (CustomUtilityLibrary.random_rolls_bool(fmod(target_growth, 100),1)):
+		amount += 1
+	return amount
+
 func update_stats() :
 	max_hp = calculate_stat(hp_base, hp_char, hp_cap,hp_bonus)
 	strength = calculate_stat(strength_base, strength_char, strength_cap,strength_bonus)
@@ -239,9 +370,60 @@ func update_stats() :
 	magic_defense = calculate_stat(magic_defense_base, magic_defense_char, magic_defense_cap, magic_defense_bonus)	
 	movement = calculate_stat(movement_base, movement_char, movement_cap, movement_bonus)	
 	constitution = calculate_stat(constitution_base, constitution_char, constitution_cap, constitution_bonus)	
+	##Combat stats
+	calculate_attack()
+	calculate_attack_speed()
+	calculate_hit()
+	calculate_avoid()
+	calculate_critical_hit()
+	calculate_critical_avoid()
 
 func calculate_bonus_stats(stat:String, equipment_bonus: int, status_bonus: int, skill_bonus: int) -> int: 
 	return 0
 	
 func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> int:
 	return clampi(base + char_stat, 0, stat_cap) + bonus
+
+func calculate_attack_speed():
+	attack_speed =  clampi(speed - clampi(equipped_item.weight - constitution, 0, 100), 0 , 100)
+	
+func calculate_hit():
+	hit =  clampi(equipped_item.hit + (2 * skill) + (luck/2), 0, 500)
+	
+func calculate_critical_hit():
+	critical_hit = clampi(equipped_item.critical_chance + (skill/2), 0 , 100) 
+
+func calculate_critical_avoid():
+	critical_avoid =  luck 
+
+func calculate_avoid():
+	avoid = (2 * attack_speed) + luck
+
+func calculate_attack() : 
+	if(equipped_item.item_damage_type == 0) :
+		attack = strength  + equipped_item.damage
+	else :
+		attack = magic  + equipped_item.damage
+
+func calculate_experience_gain_hit(hit_unit:Unit) -> int:
+	var experience_gain = 0
+	var target_unit_value = 0
+	var my_unit_value = 0
+	if(UnitTypeDatabase.unit_types[hit_unit.unit_class_key].unit_promoted_from_key != null) :
+		target_unit_value = 20
+	if (UnitTypeDatabase.unit_typess[unit_class_key].unit_promoted_from_key != null) :
+		my_unit_value = 20
+	experience_gain = ((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / xp_worth
+	return experience_gain
+
+func calculate_experience_gain_kill(killed_unit:Unit) -> int:
+	var experience_gain = 0
+	var target_unit_value = 0
+	var my_unit_value = 0
+	experience_gain = calculate_experience_gain_hit(killed_unit)
+	if(UnitTypeDatabase.unit_types[killed_unit.unit_class_key].unit_promoted_from_key != null) :
+		target_unit_value = 60
+	if (UnitTypeDatabase.unit_types[unit_class_key].unit_promoted_from_key != null) :
+		my_unit_value = 60
+	experience_gain =+ ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + xp_worth)) + 20
+	return experience_gain

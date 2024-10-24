@@ -7,10 +7,12 @@ signal finished_move
 signal target_selection_started()
 signal target_selection_finished()
 signal tile_info_updated(tile : Dictionary)
+signal target_detailed_info(combat_unit : CombatUnit)
 
-@export var controlled_node : Node2D
+@export var controlled_node : Control
 @export var combat: Combat 
 
+var unit_detail_open = false
 var tile_map : TileMap
 var current_tile_info = {
 	"name" = "",
@@ -19,6 +21,7 @@ var current_tile_info = {
 	"texture" = "",
 	"defense" = 0,
 	"avoid" = 0,
+	"unit" = null
 }
 	
 const grid_tex = preload("res://resources/sprites/grid/grid_marker_2.png")
@@ -88,7 +91,17 @@ func _unhandled_input(event):
 						target_selected(comb)
 				elif _arrived == true:
 					move_player()
-	
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			var mouse_position = get_global_mouse_position()
+			var mouse_position_i = tile_map.local_to_map(mouse_position)
+			var comb = get_combatant_at_position(mouse_position_i)
+			if comb != null and comb.alive:
+				target_detailed_info.emit(comb)
+				unit_detail_open = true
+			elif unit_detail_open:
+				target_detailed_info.emit(null)
+				unit_detail_open = false
+				
 	if event is InputEventMouseMotion:
 		if _arrived == true:
 			var mouse_position = get_global_mouse_position()
@@ -98,12 +111,13 @@ func _unhandled_input(event):
 			var local_map = tile_map.map_to_local(mouse_position_i)
 			get_tile_info(mouse_position_i)
 			if comb != null:
-				if comb.side == 1 and comb.alive:
+				
+				if comb.allegience == 1 and comb.alive:
 					_attack_target_position = local_map
 				else:
 					_attack_target_position = null
 					_blocked_target_position = local_map
-			elif mouse_position_i in _blocking_spaces[combat.get_current_combatant().movement_class]:
+			elif mouse_position_i in _blocking_spaces[combat.get_current_combatant().unit.movement_class]:
 				_blocked_target_position = local_map
 			else:
 				_attack_target_position = null
@@ -112,7 +126,7 @@ func _unhandled_input(event):
 
 func get_combatant_at_position(target_position: Vector2i):
 	for comb in combat.combatants:
-		if comb.position == target_position and comb.alive:
+		if comb.map_position == target_position and comb.alive:
 			return comb
 	return null
 
@@ -136,30 +150,31 @@ func _ready():
 func combatant_added(combatant):
 #	_astargrid.set_point_solid(combatant.position, true)
 #	_astargrid.set_point_weight_scale(combatant.position, INF)
-	_occupied_spaces.append(combatant.position)
+	_occupied_spaces.append(combatant.map_position)
 
 
 func combatant_died(combatant):
 #	_astargrid.set_point_solid(combatant.position, false)
-	_astargrid.set_point_weight_scale(combatant.position, 1)
-	_occupied_spaces.erase(combatant.position)
+	_astargrid.set_point_weight_scale(combatant.map_position, 1)
+	_occupied_spaces.erase(combatant.map_position)
+	combatant.map_display.queue_free()
 
 
-func set_controlled_combatant(combatant: Dictionary):
-	if combatant.side == 0:
+func set_controlled_combatant(combatant: CombatUnit):
+	if combatant.allegience == 0:
 		player_turn = true
 		draw_comb_range(combatant)
 	else:
 		player_turn = false
-	controlled_node = combatant.sprite
-	movement = combatant.movement
+	controlled_node = combatant.map_display
+	movement = combatant.unit.movement
 	update_points_weight()
 
 
 func update_points_weight():
 	#Update occupied spaces for flying units
 	for point in _occupied_spaces:
-		if combat.get_current_combatant().movement_class == 1:
+		if combat.get_current_combatant().unit.movement_class == 1:
 			_astargrid.set_point_weight_scale(point, 1)
 		else:
 			_astargrid.set_point_weight_scale(point, INF)
@@ -167,7 +182,7 @@ func update_points_weight():
 		for class_m in range(_blocking_spaces.size()):
 			for space in _blocking_spaces[class_m]:
 				if(_astargrid.is_in_bounds(space.x, space.y)):
-					if combat.get_current_combatant().movement_class == class_m:
+					if combat.get_current_combatant().unit.movement_class == class_m:
 						_astargrid.set_point_weight_scale(space, INF)
 					else:
 						_astargrid.set_point_weight_scale(space, 1)
@@ -189,7 +204,7 @@ func _process(delta):
 			var tile_cost = get_tile_cost(_previous_position)
 			controlled_node.position = _next_position
 			var new_position: Vector2i = tile_map.local_to_map(_next_position)
-			combat.get_current_combatant().position = new_position
+			combat.get_current_combatant().map_position = new_position
 			_previous_position = new_position
 #			_astargrid.set_point_solid(new_position, true)
 			_occupied_spaces.append(new_position)
@@ -279,7 +294,7 @@ func begin_target_selection():
 	target_selection_started.emit()
 
 
-func target_selected(target: Dictionary):
+func target_selected(target: CombatUnit):
 	combat.call(_selected_skill, combat.get_current_combatant(), target)
 	_skill_selected = false
 	target_selection_finished.emit()
@@ -287,7 +302,7 @@ func target_selected(target: Dictionary):
 
 func get_tile_cost(tile):
 	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if combat.get_current_combatant().movement_class == 0:
+	if combat.get_current_combatant().unit.movement_class == 0:
 		return int(tile_data.get_custom_data("Cost"))
 	else:
 		return 1
@@ -296,7 +311,7 @@ func get_tile_cost(tile):
 func get_tile_cost_at_point(point):
 	var tile = tile_map.local_to_map(point)
 	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if combat.get_current_combatant().movement_class == 0:
+	if combat.get_current_combatant().unit.movement_class == 0:
 		if(tile_data != null):
 			return int(tile_data.get_custom_data("Cost"))
 		else : return INF
@@ -407,11 +422,11 @@ func process_inputs():
 		get_tile_info(get_global_mouse_position())
 		attack_range.clear()
 		skill_range.clear()
-		move_range = retrieveAvailableRange(movement, combat.get_current_combatant().position, 0, true)
+		move_range = retrieveAvailableRange(movement, combat.get_current_combatant().map_position, 0, true)
 		##print("move_range : " + str(move_range))
 		var edge_array = find_edges(move_range)
 		for tile in edge_array :
-			attack_range.append_array(retrieveAvailableRange(combat.get_current_combatant().currently_equipped.attack_range.max(), tile, 0, false))
+			attack_range.append_array(retrieveAvailableRange(combat.get_current_combatant().unit.equipped_item.attack_range.max(), tile, 0, false))
 			skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
 #Finds the edges of a list of tiles
@@ -448,15 +463,20 @@ func get_tile_info(position : Vector2i):
 			current_tile_info.avoid = tile_data.get_custom_data("Avoid")
 		if(tile_data.get_custom_data("Defense") != null):
 			current_tile_info.defense = tile_data.get_custom_data("Defense")	
+	##get the unit info
+	if get_combatant_at_position(position):
+		current_tile_info.unit = get_combatant_at_position(position).unit
+	else : 
+		current_tile_info.unit = null
 	tile_info_updated.emit(current_tile_info)
 	##print(current_tile_info)
 	
-func draw_comb_range(combatant: Dictionary) :
+func draw_comb_range(combatant: CombatUnit) :
 	attack_range.clear()
 	skill_range.clear()
-	move_range = retrieveAvailableRange(combatant.movement, combatant.position, 0, true)
+	move_range = retrieveAvailableRange(combatant.unit.movement, combatant.map_position, 0, true)
 	##print("move_range : " + str(move_range))
 	var edge_array = find_edges(move_range)
 	for tile in edge_array :
-		attack_range.append_array(retrieveAvailableRange(combatant.currently_equipped.attack_range.max(), tile, 0, false))
+		attack_range.append_array(retrieveAvailableRange(combatant.unit.equipped_item.attack_range.max(), tile, 0, false))
 		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))

@@ -75,6 +75,12 @@ offset_right = 199.0
 offset_bottom = 49.0
 alignment = 1
 
+[node name="Special" type="Label" parent="BonusContainer"]
+layout_mode = 2
+text = "MDEF 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Defense" type="Label" parent="BonusContainer"]
 layout_mode = 2
 text = "DEF 5"
@@ -84,10 +90,5 @@ vertical_alignment = 1
 [node name="Avoid" type="Label" parent="BonusContainer"]
 layout_mode = 2
 text = "AVO 35"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Special" type="Label" parent="BonusContainer"]
-layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1

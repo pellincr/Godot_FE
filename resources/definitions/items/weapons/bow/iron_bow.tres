@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://db355gw1lvem7"]
+
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="1_w3dgm"]
+[ext_resource type="Texture2D" uid="uid://btxwexlw6u1n5" path="res://resources/sprites/items/iron_bow.tres" id="1_y1kr3"]
+
+[resource]
+script = ExtResource("1_w3dgm")
+weapon_type = 3
+item_damage_type = 0
+required_mastery = 0
+attack_range = Array[int]([2])
+class_locked = false
+locked_unit_type_key = ""
+damage = 6
+hit = 80
+critical_chance = 0
+weight = 5
+name = "Iron Bow"
+db_key = "iron_bow"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = ExtResource("1_y1kr3")

@@ -38,6 +38,7 @@ controller = NodePath("../../Controller")
 metadata/_edit_use_anchors_ = true
 
 [connection signal="movement_changed" from="Controller" to="CanvasLayer/UI" method="set_movement"]
+[connection signal="target_detailed_info" from="Controller" to="CanvasLayer/UI" method="_target_detailed_info"]
 [connection signal="target_selection_finished" from="Controller" to="CanvasLayer/UI" method="_target_selection_finished"]
 [connection signal="target_selection_started" from="Controller" to="CanvasLayer/UI" method="_target_selection_started"]
 [connection signal="tile_info_updated" from="Controller" to="CanvasLayer/UI" method="_set_tile_info"]
