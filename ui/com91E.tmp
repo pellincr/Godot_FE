@@ -1,9 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfk8uscbu36eu"]
+[gd_scene load_steps=10 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" path="res://ui/combat_unit_display.gd" id="1_sxmuu"]
+[ext_resource type="Shader" path="res://resources/shaders/OutLineShader.gdshader" id="2_1iwys"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_a14u6"]
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="3_mgjym"]
 [ext_resource type="Texture2D" uid="uid://cx1516od8owqh" path="res://resources/sprites/icons/boss_unit.png" id="4_pyuub"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5mwn"]
+shader = ExtResource("2_1iwys")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fape2"]
 bg_color = Color(0.201527, 0.201527, 0.201527, 1)
@@ -37,6 +46,7 @@ grow_vertical = 2
 script = ExtResource("1_sxmuu")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_r5mwn")
 position = Vector2(16, 16)
 texture = ExtResource("2_a14u6")
 

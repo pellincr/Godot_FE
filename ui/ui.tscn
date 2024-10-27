@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ddgx1hll377nx"]
+[gd_scene load_steps=23 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
@@ -12,6 +12,8 @@
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
 [ext_resource type="Texture2D" uid="uid://wxkh5qyiy8c1" path="res://resources/sprites/icons/basic_magic.png" id="8_do1mp"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/header_ui.tscn" id="11_m0dmj"]
+[ext_resource type="PackedScene" uid="uid://dfmvtergmya12" path="res://ui/unit_status_combat_exchange.tscn" id="13_lfc13"]
+[ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/unit_status_detailed.tscn" id="14_snhky"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1qt58"]
 shader = ExtResource("3_pilcd")
@@ -65,6 +67,7 @@ mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
 [node name="UnitStatus" parent="." instance=ExtResource("2_xlwki")]
+visible = false
 layout_mode = 1
 offset_left = 13.0
 offset_top = 455.0
@@ -365,6 +368,25 @@ text = "Select Target"
 
 [node name="Control" parent="." instance=ExtResource("11_m0dmj")]
 layout_mode = 1
+
+[node name="UnitStatusCombatExchange" parent="." instance=ExtResource("13_lfc13")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="UnitStatusDetailed" parent="." instance=ExtResource("14_snhky")]
+visible = false
+layout_mode = 1
+offset_left = 298.0
+offset_top = 125.0
+offset_right = -356.0
+offset_bottom = -122.0
 
 [node name="Header" type="PanelContainer" parent="."]
 visible = false

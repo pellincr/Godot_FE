@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="4_sjqa3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w05uo"]
-bg_color = Color(0, 0, 0, 0.768627)
+bg_color = Color(0, 0, 0, 0.454902)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1

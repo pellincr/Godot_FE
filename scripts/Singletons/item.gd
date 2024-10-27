@@ -2,20 +2,6 @@ extends Node
 
 class_name Item
 
-enum WEAPON_TYPE
-{
-	AXE,
-	SWORD,
-	LANCE,
-	BOW,
-	ANIMA,
-	LIGHT,
-	DARK,
-	STAFF,
-	MONSTER,
-	OTHER
-}
-
 enum DAMAGE_TYPE
 {
 	PHYSICAL,
