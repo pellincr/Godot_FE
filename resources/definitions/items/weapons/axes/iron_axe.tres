@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3 uid="uid://bmyc03suasno"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bmyc03suasno"]
 
 [ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="1_cp6t3"]
+[ext_resource type="Texture2D" uid="uid://coap74eeqxw4f" path="res://resources/sprites/items/iron_axe.tres" id="1_excfp"]
 
 [resource]
 script = ExtResource("1_cp6t3")
 weapon_type = 0
 item_damage_type = 0
+weapon_effectiveness = Array[String]([])
 required_mastery = 0
 attack_range = Array[int]([1])
 class_locked = false
@@ -22,3 +24,4 @@ item_type = 0
 uses = 45
 max_uses = 45
 value = 2
+icon = ExtResource("1_excfp")

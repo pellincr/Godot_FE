@@ -1,0 +1,34 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cm5r2ata30slh"]
+
+[ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="1_emun0"]
+[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="2_8207n"]
+[ext_resource type="FontFile" uid="uid://0nkb2haw6p2f" path="res://resources/fonts/CrimsonText-BoldItalic.ttf" id="3_67oqi"]
+[ext_resource type="FontFile" uid="uid://ddxy1m7knpqhy" path="res://resources/fonts/CrimsonText-Italic.ttf" id="4_551rt"]
+[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="5_b14kw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rx6c"]
+bg_color = Color(0.431373, 0.156863, 0.160784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.219608, 0.027451, 0.0509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hub1"]
+bg_color = Color(0.482353, 0.654902, 0.462745, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3c61y"]
+bg_color = Color(0.278431, 0.709804, 0, 0)
+
+[resource]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/fonts/font = ExtResource("1_emun0")
+Panel/styles/panel = SubResource("StyleBoxFlat_4rx6c")
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/fonts/bold_font = ExtResource("2_8207n")
+RichTextLabel/fonts/bold_italics_font = ExtResource("3_67oqi")
+RichTextLabel/fonts/italics_font = ExtResource("4_551rt")
+RichTextLabel/fonts/mono_font = ExtResource("2_8207n")
+RichTextLabel/fonts/normal_font = ExtResource("5_b14kw")
+RichTextLabel/styles/background = SubResource("StyleBoxFlat_8hub1")
+RichTextLabel/styles/fill = SubResource("StyleBoxFlat_3c61y")

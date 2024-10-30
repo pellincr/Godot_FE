@@ -10,6 +10,7 @@
 script = ExtResource("2_efiut")
 weapon_type = 0
 item_damage_type = 0
+weapon_effectiveness = Array[String]([])
 required_mastery = 0
 attack_range = Array[int]([1])
 class_locked = false

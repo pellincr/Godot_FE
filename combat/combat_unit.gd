@@ -15,12 +15,10 @@ var turn_taken : bool
 var unit : Unit
 var action_list :  Array[String]
 var map_position : Vector2i
+var move_position: Vector2i
 var skill_list = ["attack_melee"]
 var map_display : Control
-
 var allegience : int
-
-
 
 static func create(unit: Unit) -> CombatUnit:
 	var instance = CombatUnit.new()

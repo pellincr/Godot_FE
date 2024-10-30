@@ -52,6 +52,8 @@ func set_outline_color():
 		else: 
 			pass
 	return
+	
+
 
 static func create() -> CombatUnitDisplay:
 	var unit_display = CombatUnitDisplay.new()

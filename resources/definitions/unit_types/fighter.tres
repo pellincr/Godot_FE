@@ -11,6 +11,7 @@ db_key = "fighter"
 class_type = Array[String](["Infantry"])
 movement_class = 0
 xp_worth = 2
+promoted = false
 unit_promoted_from_key = ""
 can_use_axe = true
 can_use_sword = false

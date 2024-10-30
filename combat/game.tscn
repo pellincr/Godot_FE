@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=8 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/terrain.tscn" id="1_huxbe"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://combat/control/CController.gd" id="3_dbxfm"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/ui.tscn" id="5_pc8ih"]
+[ext_resource type="Script" path="res://combat/combat_exchange.gd" id="6_k7fva"]
 
 [node name="Game" type="Node"]
 
@@ -25,6 +26,9 @@ texture_filter = 1
 script = ExtResource("3_dbxfm")
 combat = NodePath("../VisualCombat")
 
+[node name="CombatExchange" type="Node" parent="."]
+script = ExtResource("6_k7fva")
+
 [node name="VisualCombat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller")]
 script = ExtResource("4_cujqt")
 game_ui = NodePath("../CanvasLayer/UI")
@@ -42,6 +46,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="target_selection_finished" from="Controller" to="CanvasLayer/UI" method="_target_selection_finished"]
 [connection signal="target_selection_started" from="Controller" to="CanvasLayer/UI" method="_target_selection_started"]
 [connection signal="tile_info_updated" from="Controller" to="CanvasLayer/UI" method="_set_tile_info"]
+[connection signal="unit_defeated" from="CombatExchange" to="VisualCombat" method="combatant_die"]
 [connection signal="combatant_added" from="VisualCombat" to="Controller" method="combatant_added"]
 [connection signal="combatant_added" from="VisualCombat" to="CanvasLayer/UI" method="add_combatant_status"]
 [connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]

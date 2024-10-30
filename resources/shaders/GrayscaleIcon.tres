@@ -1,8 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cvu2s3jiaeps2"]
-
-[ext_resource type="Shader" path="res://resources/shaders/GrayscaleIcon.gdshader" id="1_hy4ql"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cvu2s3jiaeps2"]
 
 [resource]
 resource_local_to_scene = true
-shader = ExtResource("1_hy4ql")
-shader_parameter/color_factor = 0.0

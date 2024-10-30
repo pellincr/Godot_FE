@@ -103,10 +103,10 @@ offset_bottom = 764.0
 
 [node name="ActionsPanel" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = 37.0
-offset_top = -622.0
-offset_right = 303.0
-offset_bottom = -464.0
+offset_left = 93.0
+offset_top = -612.0
+offset_right = 359.0
+offset_bottom = -454.0
 
 [node name="ActionsMenu" type="VBoxContainer" parent="Actions/ActionsPanel"]
 layout_mode = 2
@@ -294,10 +294,10 @@ text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -789.0
-offset_top = -626.0
-offset_right = -395.0
-offset_bottom = -555.0
+offset_left = -35.0
+offset_top = -625.0
+offset_right = 359.0
+offset_bottom = -554.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 

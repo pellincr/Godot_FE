@@ -97,7 +97,7 @@ func update_m_defense_stat(current: int, max:int):
 	$RightPanel/StatsGrid/MagicDefenseContainer/Bar.value = current
 
 
-func set_inventory_slot_1(item: ItemDefinition):
+func set_slot_info(item: ItemDefinition):
 	$RightPanel/Inventory/Slot1Container/Equipped.visible = true
 	if item :
 		$RightPanel/Inventory/Slot1Container/HBoxContainer/icon.texture = item.icon
@@ -142,10 +142,15 @@ func set_inventory_slot_4(item: ItemDefinition):
 		$RightPanel/Inventory/Slot4Container/HBoxContainer/Uses.text = ""
 
 func set_inventory() : 
-	set_inventory_slot_1(unit.inventory[0])
-	set_inventory_slot_2(unit.inventory[1])
-	set_inventory_slot_3(unit.inventory[2])
-	set_inventory_slot_4(unit.inventory[3])
+	var inventory_slots = $RightPanel/Inventory.get_children()
+	var i = 0
+	for slot in inventory_slots: 
+		if(i < unit.inventory.items.size()):
+			var slot_box = slot.get_child(1)
+			slot_box.get_child(0).texture = unit.inventory.items[i].icon
+			slot_box.get_child(1).text = unit.inventory.items[i].name
+			slot_box.get_child(2).text = str(unit.inventory.items[i].uses)
+			++i
 
 func update_fields():
 	update_unit_name(unit.unit_name)

@@ -22,3 +22,8 @@ enum ITEM_TYPE {
 
 @export_group("Visuals")
 @export var icon: Texture2D
+
+
+func use():
+	#Do something
+	--uses;

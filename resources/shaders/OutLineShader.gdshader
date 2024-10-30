@@ -1,10 +1,13 @@
 shader_type canvas_item;
-
-uniform vec4 color : source_color = vec4(1.0);
+//outline variables
+uniform vec4 outline_color : source_color = vec4(1.0);
 uniform float width : hint_range(0, 10) = 1.0;
 uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
 uniform bool inside = false;
 uniform bool add_margins = true; // only useful when inside is false
+//Flah variables
+uniform vec4 flash_color : source_color = vec4(1.0);
+uniform float flash_value: hint_range(0.0, 1.0, 0.1);
 
 void vertex() {
 	if (add_margins) {
@@ -56,7 +59,11 @@ void fragment() {
 	}
 
 	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
-		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
-		COLOR.a += (1.0 - COLOR.a) * color.a;
+		COLOR.rgb = inside ? mix(COLOR.rgb, outline_color.rgb, outline_color.a) : outline_color.rgb;
+		COLOR.a += (1.0 - COLOR.a) * outline_color.a;
 	}
+	//CODE FOR FLASH
+	//vec4 texture_color = texture(TEXTURE, UV);
+	//COLOR = mix(texture_color, flash_color, flash_value);
+	//COLOR.a = texture_color.a;
 }

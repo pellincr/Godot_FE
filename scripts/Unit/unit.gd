@@ -2,14 +2,6 @@ extends Resource
 
 class_name Unit
 
-enum UNIT_TYPE {
-	INFANTRY,
-	MONSTER,
-	ANIMAL,
-	CALVARY,
-	ARMORED
-}
-
 enum MOVEMENT_CLASS {
 	GROUND,
 	FLYING,
@@ -124,8 +116,7 @@ var can_use_Monster : bool
 
 
 @export_group("Inventory")
-@export var inventory : Array[ItemDefinition] = [null, null, null, null]
-@export var equipped_item: ItemDefinition = null
+@export var inventory : Inventory
 
 @export_group("Skills")
 ##@export var skills: Array[String]
@@ -177,7 +168,7 @@ static func create(unitDefinition: UnitTypeDefinition, characterDefinition: Char
 	new_unit.initiative = unitDefinition.initiative
 	return new_unit
 
-static func create_generic(unitDefinition: UnitTypeDefinition, reference_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int) -> Unit:
+static func create_generic(unitDefinition: UnitTypeDefinition, reference_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int = 0, hard_mode:bool = false) -> Unit:
 	var new_unit = Unit.new()
 	new_unit.unit_name = name
 	new_unit.unit_class_key = unitDefinition.db_key
@@ -197,7 +188,7 @@ static func create_generic(unitDefinition: UnitTypeDefinition, reference_invento
 	new_unit.can_use_Monster = unitDefinition.can_use_Monster
 	set_stat_bases(new_unit, unitDefinition)
 	set_stat_caps(new_unit, unitDefinition)
-	var level_stats = calculate_generic_stats(unitDefinition, level, bonus_levels, false)
+	var level_stats = calculate_generic_stats(unitDefinition, level, bonus_levels, hard_mode)
 	new_unit.hp_char = level_stats[0]
 	new_unit.strength_char = level_stats[1]
 	new_unit.magic_char = level_stats[2]
@@ -221,9 +212,11 @@ static func calculate_generic_stats(unitDefinition: UnitTypeDefinition, level: i
 	if(unitDefinition.promoted): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
 		if(UnitTypeDatabase.unit_types.has(unitDefinition.unit_promoted_from_key)):
 			if(hardmode):
+				print("HARDMODE")
 				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],20,0, false)
 			else :
 				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],10,0, false)
+			print("FIRST: "+ "[UnitType] " + unitDefinition.unit_type_name +" " + str(stat_increase_array))
 	##Do the actual stat calcs here
 	stat_increase_array[0]  += calculate_generic_stat(unitDefinition.hp_growth, effective_level)
 	stat_increase_array[1]  += calculate_generic_stat(unitDefinition.strength_growth, effective_level)
@@ -233,6 +226,7 @@ static func calculate_generic_stats(unitDefinition: UnitTypeDefinition, level: i
 	stat_increase_array[5]  += calculate_generic_stat(unitDefinition.luck_growth, effective_level)
 	stat_increase_array[6]  += calculate_generic_stat(unitDefinition.defense_growth, effective_level)
 	stat_increase_array[7]  += calculate_generic_stat(unitDefinition.magic_defense_growth, effective_level)
+	print("SECOND: " + "[UnitType] " + unitDefinition.unit_type_name +" " + str(stat_increase_array))
 	return stat_increase_array
 	
 static func	calculate_generic_stat(growth: int, levels:int) -> int:
@@ -305,15 +299,7 @@ static func set_stat_char(target_unit : Unit, characterDefinition: CharacterDefi
 
 static func create_inventory(target_unit: Unit , reference_inventory: Array[ItemDefinition]): 
 	## insert a duplicate entry of each item in the
-	target_unit.inventory.clear()
-	for item in reference_inventory :
-		if item != null:
-			var new_item_instance = item.duplicate()
-			target_unit.inventory.append(new_item_instance)
-			if new_item_instance.equippable and target_unit.equipped_item == null :
-				target_unit.equipped_item = new_item_instance
-		else :
-			target_unit.inventory.append(null)
+	target_unit.inventory = Inventory.create(reference_inventory)
 
 func get_effective_stat(stat_name: String) -> int:
 	return 0
@@ -385,13 +371,13 @@ func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> in
 	return clampi(base + char_stat, 0, stat_cap) + bonus
 
 func calculate_attack_speed():
-	attack_speed =  clampi(speed - clampi(equipped_item.weight - constitution, 0, 100), 0 , 100)
+	attack_speed =  clampi(speed - clampi(inventory.equipped.weight - constitution, 0, 100), 0 , 100)
 	
 func calculate_hit():
-	hit =  clampi(equipped_item.hit + (2 * skill) + (luck/2), 0, 500)
+	hit =  clampi(inventory.equipped.hit + (2 * skill) + (luck/2), 0, 500)
 	
 func calculate_critical_hit():
-	critical_hit = clampi(equipped_item.critical_chance + (skill/2), 0 , 100) 
+	critical_hit = clampi(inventory.equipped.critical_chance + (skill/2), 0 , 100) 
 
 func calculate_critical_avoid():
 	critical_avoid =  luck 
@@ -400,10 +386,10 @@ func calculate_avoid():
 	avoid = (2 * attack_speed) + luck
 
 func calculate_attack() : 
-	if(equipped_item.item_damage_type == 0) :
-		attack = strength  + equipped_item.damage
+	if(inventory.equipped.item_damage_type == 0) :
+		attack = strength  + inventory.equipped.damage
 	else :
-		attack = magic  + equipped_item.damage
+		attack = magic  + inventory.equipped.damage
 
 func calculate_experience_gain_hit(hit_unit:Unit) -> int:
 	var experience_gain = 0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/unit_status_combat_exchange.gd" id="1_nb1t3"]
 [ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_gd6mb"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="3_tguvc"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_tguvc"]
 [ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="4_d0wh2"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_p5p1g"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="6_ld7ob"]
@@ -17,7 +17,7 @@ atlas = ExtResource("4_d0wh2")
 region = Rect2(128, 130, 32, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
-bg_color = Color(0.368627, 0.368627, 0.368627, 1)
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llg6x"]
 bg_color = Color(1, 0.336699, 0.329185, 1)
@@ -34,8 +34,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -645.0
-offset_bottom = -483.0
+offset_right = -918.0
+offset_bottom = -497.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nb1t3")
@@ -52,7 +52,6 @@ theme = ExtResource("3_tguvc")
 layout_mode = 0
 offset_right = 234.0
 offset_bottom = 149.0
-theme = ExtResource("3_tguvc")
 
 [node name="StatsGrid" type="GridContainer" parent="BackgroundBlur/AttackingUnit"]
 layout_mode = 2
@@ -223,7 +222,6 @@ layout_mode = 0
 offset_left = 233.0
 offset_right = 467.0
 offset_bottom = 149.0
-theme = ExtResource("3_tguvc")
 
 [node name="StatsGrid" type="GridContainer" parent="BackgroundBlur/DefendingUnit"]
 layout_mode = 2
@@ -240,8 +238,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 tooltip_text = "The percentage chance of a unit landing a hit in battle"
 mouse_filter = 1
-theme = ExtResource("6_ld7ob")
-theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
 text = "HIT"
@@ -252,7 +248,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -266,7 +261,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -278,7 +272,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -291,7 +284,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -304,7 +296,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -317,7 +308,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21
@@ -329,7 +319,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("6_ld7ob")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("7_2wqpm")
 theme_override_font_sizes/font_size = 21

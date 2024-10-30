@@ -62,9 +62,6 @@ func populate_combat_info(info: Dictionary):
 
 
 func show_combatant_status_main(comb: Dictionary):
-	if comb.side == 0:
-		$Actions/StatusIcon.set_icon(comb.icon)
-		$Actions/StatusIcon.set_health(comb.hp, comb.max_hp)
 	set_skill_list(comb.skill_list)
 
 
@@ -76,27 +73,33 @@ func update_information(info: String):
 	$Actions/Information/Text.append_text(info)
 
 
+func set_action_list(available_actions: Array[String]):
+	pass
+
 func set_skill_list(skill_list: Array):
-	var actions_grid_children = $Actions/ActionsPanel/ActionsGrid.get_children()
+	#var actions_grid_children = $Actions/ActionsPanel/ActionsGrid.get_children()
+	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
+	$Actions/ActionsPanel.visible = true
 	var player_turn = controller.player_turn
 	for i in range(actions_grid_children.size()):
 		var action = actions_grid_children[i] as Button
 		if player_turn == false:
-			action.disabled = true
+			##action.disabled = true
 			continue
 		else:
 			action.disabled = false
 		if skill_list.size() > i:
 			var skill_key = skill_list[i]
 			var skill = SkillDatabase.skills[skill_key]
-			action.icon = skill.icon
-			action.tooltip_text = skill.name
+			#action.icon = skill.icon
+			action.text = skill.name
 			action.pressed.connect(func():
 				controller.set_selected_skill(skill_key)
 				controller.begin_target_selection()
 				)
 		else:
 			action.icon = null
+			action.text = ""
 			action.tooltip_text = ""
 			clear_action_button_connections(action)
 	$Actions/EndTurnButton.disabled = !player_turn
@@ -134,11 +137,15 @@ func _target_selection_started():
 
 func _target_detailed_info(combat_unit: CombatUnit):
 	if combat_unit:
+		#if not $AttackActionInventory.visible:
+	#		$AttackActionInventory.set_unit(combat_unit)
+		#	$AttackActionInventory.visible = true
 		if not $UnitStatusDetailed.visible :
 			$UnitStatusDetailed.set_unit(combat_unit.unit)
 			$UnitStatusDetailed.visible = true
 	else :
 		$UnitStatusDetailed.visible = false	
+		$AttackActionInventory.visible = false
 	
 
 func _set_tile_info(tile : Dictionary) :

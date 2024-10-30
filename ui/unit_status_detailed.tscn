@@ -1,14 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1mja0j0own6p"]
+[gd_scene load_steps=23 format=3 uid="uid://c1mja0j0own6p"]
 
 [ext_resource type="Script" path="res://ui/unit_status_detailed.gd" id="1_6m1bp"]
 [ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_etfuc"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="3_ssh48"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_ssh48"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="4_6drah"]
+[ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="4_hq6tf"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_bppi7"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="6_k8b2s"]
 [ext_resource type="Shader" path="res://resources/shaders/OutLineShader.gdshader" id="7_06tjh"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_77j75"]
 [ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/iron_sword.tres" id="8_0mf55"]
+[ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="9_bah1f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hgufo"]
 shader = ExtResource("2_etfuc")
@@ -18,7 +20,7 @@ shader_parameter/lod = 3.5
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plcvx"]
-bg_color = Color(1, 0.336699, 0.329185, 1)
+bg_color = Color(0, 0.701961, 0.572549, 1)
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 shadow_size = 2
@@ -27,25 +29,11 @@ shadow_size = 2
 ProgressBar/styles/background = SubResource("StyleBoxFlat_2yp1e")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_plcvx")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ar4gm"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sprpm"]
-bg_color = Color(0.992974, 0.700768, 3.85046e-07, 1)
-corner_radius_top_right = 2
-corner_radius_bottom_right = 3
-shadow_color = Color(0.992157, 0.701961, 0, 0.541176)
-shadow_size = 5
-
-[sub_resource type="Theme" id="Theme_5b2px"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_ar4gm")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_sprpm")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkjgm"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2ybl"]
-bg_color = Color(0.333333, 0.333333, 0.333333, 1)
+bg_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
@@ -59,7 +47,7 @@ border_blend = true
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_detail = 10
-shadow_size = 1
+shadow_size = 3
 
 [sub_resource type="Theme" id="Theme_147ov"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_rkjgm")
@@ -67,7 +55,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_y2ybl")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_rfueb")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_submf"]
-bg_color = Color(0.568627, 0.568627, 0.568627, 0.419608)
+bg_color = Color(0.486275, 0.478431, 0.443137, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -75,17 +63,20 @@ corner_radius_bottom_left = 2
 corner_detail = 10
 expand_margin_left = 10.0
 expand_margin_right = 15.0
+shadow_size = 3
 
 [sub_resource type="Theme" id="Theme_17sy8"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_submf")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_064cd"]
 shader = ExtResource("7_06tjh")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = null
 
 [node name="UnitStatusDetailed" type="Control"]
 layout_mode = 3
@@ -110,7 +101,7 @@ theme = ExtResource("3_ssh48")
 layout_mode = 0
 offset_right = 250.0
 offset_bottom = 400.0
-theme = ExtResource("3_ssh48")
+theme = ExtResource("4_hq6tf")
 
 [node name="UnitName" type="Label" parent="LeftPanel"]
 layout_mode = 0
@@ -125,12 +116,12 @@ vertical_alignment = 2
 [node name="UnitSubHeader" type="Label" parent="LeftPanel"]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 40.0
+offset_top = 33.0
 offset_right = 245.0
-offset_bottom = 60.0
+offset_bottom = 54.0
 theme = ExtResource("5_bppi7")
 theme_override_colors/font_color = Color(0.581033, 0.581033, 0.581033, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 16
 text = "Level 15 Zombified Villager"
 
 [node name="UnitSprite" type="TextureRect" parent="LeftPanel"]
@@ -334,16 +325,16 @@ offset_left = 10.0
 offset_top = 59.0
 offset_right = 240.0
 offset_bottom = 69.0
-theme = SubResource("Theme_5b2px")
+theme = ExtResource("9_bah1f")
 rounded = true
 show_percentage = false
 
 [node name="RightPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 249.0
-offset_right = 499.0
+offset_left = 255.0
+offset_right = 505.0
 offset_bottom = 400.0
-theme = ExtResource("3_ssh48")
+theme = ExtResource("4_hq6tf")
 
 [node name="StatsGrid" type="GridContainer" parent="RightPanel"]
 layout_mode = 0
@@ -604,6 +595,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InventoryHeader" type="Label" parent="RightPanel"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = 223.0
 offset_right = 249.0
