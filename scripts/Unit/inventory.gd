@@ -42,6 +42,10 @@ func is_full() -> bool:
 			return true
 	return false
 
+func use_at_index(index : int): 
+	if index < capacity:
+		items[index].use
+
 func give_item(item: ItemDefinition) -> bool:
 	var item_gave = false
 	if is_full() :
@@ -54,12 +58,11 @@ func give_item(item: ItemDefinition) -> bool:
 static func create(input_items:Array[ItemDefinition]) -> Inventory:
 	var inv = Inventory.new()
 	if(input_items.size() > inv.capacity):
-		print("Tried to create an inventory over capacity") 
 		input_items.resize(inv.capacity)
 	for input_item in input_items:
 		if input_item:
+			var item = input_item.duplicate()
 			if input_item.equippable and inv.equipped == null:
-				inv.equipped = input_item
-			inv.give_item(input_item)
+				inv.equipped = item
+			inv.give_item(item)
 	return inv
-	

@@ -44,8 +44,6 @@ func add_combatant_status(comb: Dictionary):
 
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)
-	print("RECIEVED TARGET SELECTED IN UI")
-	##$Actions/CombatInfo.show()
 	
 func populate_combat_info(info: Dictionary):
 	var attacker_info_name= $Actions/CombatInfo/Container/ActionsGrid/AttackerInfo/Name
@@ -60,7 +58,6 @@ func populate_combat_info(info: Dictionary):
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Hit.text = info.defender_hit_chance
 	
 
-
 func show_combatant_status_main(comb: Dictionary):
 	set_skill_list(comb.skill_list)
 
@@ -72,9 +69,6 @@ func _on_end_turn_button_pressed():
 func update_information(info: String):
 	$Actions/Information/Text.append_text(info)
 
-
-func set_action_list(available_actions: Array[String]):
-	pass
 
 func set_skill_list(skill_list: Array):
 	#var actions_grid_children = $Actions/ActionsPanel/ActionsGrid.get_children()
@@ -94,7 +88,8 @@ func set_skill_list(skill_list: Array):
 			#action.icon = skill.icon
 			action.text = skill.name
 			action.pressed.connect(func():
-				controller.set_selected_skill(skill_key)
+				##controller.set_selected_skill(skill_key)
+				controller.set_selected_unit_action(skill_key)
 				controller.begin_target_selection()
 				)
 		else:
@@ -123,6 +118,36 @@ func update_combatants(combatants: Array):
 			turn_queue_icon.set_side(comb.allegience)
 			turn_queue_icon.set_turn_taken(comb.turn_taken)
 
+func hide_action_list():
+	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
+	$Actions/ActionsPanel.visible = false
+	
+func set_action_list(available_actions: Array[UnitAction]):
+	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
+	$Actions/ActionsPanel.visible = true
+	var player_turn = controller.player_turn
+	for i in range(actions_grid_children.size()):
+		var action_btn = actions_grid_children[i] as Button
+		if player_turn == false:
+			##action.disabled = true
+			continue
+		else:
+			action_btn.disabled = false
+		if available_actions.size() > i:
+			var action = available_actions[i]
+			#action.icon = skill.icon
+			action_btn.text = action.name
+			action_btn.pressed.connect(func():
+				controller.set_selected_unit_action(action)
+				controller.begin_target_selection()
+				)
+		else:
+			action_btn.icon = null
+			action_btn.text = ""
+			action_btn.tooltip_text = ""
+			clear_action_button_connections(action_btn)
+	$Actions/EndTurnButton.disabled = !player_turn
+
 
 func set_movement(movement):
 	$Actions/Movement.text = str(movement)
@@ -137,9 +162,6 @@ func _target_selection_started():
 
 func _target_detailed_info(combat_unit: CombatUnit):
 	if combat_unit:
-		#if not $AttackActionInventory.visible:
-	#		$AttackActionInventory.set_unit(combat_unit)
-		#	$AttackActionInventory.visible = true
 		if not $UnitStatusDetailed.visible :
 			$UnitStatusDetailed.set_unit(combat_unit.unit)
 			$UnitStatusDetailed.visible = true

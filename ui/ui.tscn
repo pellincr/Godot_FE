@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ddgx1hll377nx"]
+[gd_scene load_steps=19 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
@@ -38,6 +38,8 @@ Button/styles/normal = SubResource("StyleBoxFlat_l7wir")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvosb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_r421v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nfj8"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -102,11 +104,12 @@ offset_right = 936.0
 offset_bottom = 764.0
 
 [node name="ActionsPanel" type="PanelContainer" parent="Actions"]
+visible = false
 layout_mode = 0
 offset_left = 37.0
 offset_top = -622.0
 offset_right = 303.0
-offset_bottom = -464.0
+offset_bottom = -572.0
 
 [node name="ActionsMenu" type="VBoxContainer" parent="Actions/ActionsPanel"]
 layout_mode = 2
@@ -295,14 +298,30 @@ text = "END"
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
 offset_left = -789.0
-offset_top = -626.0
+offset_top = -553.0
 offset_right = -395.0
-offset_bottom = -555.0
+offset_bottom = -482.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 
 [node name="Text" type="RichTextLabel" parent="Actions/Information"]
 layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+shortcut_keys_enabled = false
+
+[node name="Guide" type="PanelContainer" parent="Actions"]
+layout_mode = 0
+offset_left = -789.0
+offset_top = -626.0
+offset_right = -395.0
+offset_bottom = -602.0
+theme = ExtResource("4_57c2t")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
+
+[node name="Text" type="RichTextLabel" parent="Actions/Guide"]
+layout_mode = 2
+theme = SubResource("Theme_r421v")
 bbcode_enabled = true
 scroll_following = true
 shortcut_keys_enabled = false

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://basxgfcidqdr7"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://basxgfcidqdr7"]
 
 [ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="1_jlr26"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="2_58gg0"]
@@ -14,6 +14,9 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.117647, 0.117647, 0.117647, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ih8f"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8hub1"]
 bg_color = Color(0.482353, 0.654902, 0.462745, 0)
 
@@ -26,6 +29,7 @@ Button/fonts/font = ExtResource("1_jlr26")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/fonts/font = ExtResource("1_jlr26")
 Panel/styles/panel = SubResource("StyleBoxFlat_lhkvr")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_0ih8f")
 RichTextLabel/font_sizes/bold_font_size = 16
 RichTextLabel/fonts/bold_font = ExtResource("2_58gg0")
 RichTextLabel/fonts/bold_italics_font = ExtResource("3_q43ph")

@@ -3,11 +3,15 @@ extends Node
 class_name CombatExchange
 
 signal unit_defeated(unit: CombatUnit)
+signal combat_exchange_finished()
+signal unit_hit_ui(hit_unit: Unit)
 
+signal update_information(text: String)
 enum DAMAGE_OUTCOME 
 {
 	DAMAGE_DEALT,
-	OPPONENT_DEFEATED,
+	DEFENDER_DEFEATED,
+	ATTACKER_DEFEATED,
 	NO_DAMAGE,
 	MISS
 }
@@ -18,11 +22,10 @@ enum DOUBLE_ATTACKER
 	ATTACKER,
 	DEFENDER
 }
-
-signal combat_exchange_finished()
-signal unit_hit_ui(hit_unit: Unit)
-
 var combat_exchange_display : UnitStatusCombatExchange
+
+
+
 #calculates key combat values to show the user potential combat outcomes
 #Called when the attacker can hit and begin combat sequence
 func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:int):
@@ -35,6 +38,7 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 	var defender_critical_chance = calc_crit(defender.unit,attacker.unit)
 	## Emit the combat UI to be populated?
 	perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+	## Is the defender alive?
 	if defender.alive :
 		if (defender_can_attack): 
 			perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
@@ -46,14 +50,28 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 						perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 					else:
 						unit_defeated.emit(defender)
+						combat_exchange_finished.emit()
+						attacker.turn_taken = true
+						return
+			else: 
+				unit_defeated.emit(attacker)
+				combat_exchange_finished.emit()
+				attacker.turn_taken = true
+				return
 		else :
 			if(double_attacker == DOUBLE_ATTACKER.ATTACKER) :
 				if defender.alive :
 					perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 				else:
 					unit_defeated.emit(defender)
+					combat_exchange_finished.emit()
+					attacker.turn_taken = true
+					return
+	else:
+		unit_defeated.emit(defender)
 	attacker.turn_taken = true
-	#combat_exchange_finished.emit()
+	combat_exchange_finished.emit()
+
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var damage_dealt
@@ -149,3 +167,24 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 		"defender_critical_chance" = calc_crit(defender.unit,attacker.unit),
 	}
 	return combat_exchange_preview
+
+
+func do_damage_old(attacker: CombatUnit, target: CombatUnit):
+	var item = attacker.unit.inventory.equipped
+	var damage
+	if item.item_damage_type == 0 : ##Physical Dmg
+		damage = (attacker.unit.strength + item.damage) - target.unit.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
+	else :
+		damage = (attacker.unit.magic + item.damage) - target.unit.magic_defense
+	if (damage > 0):
+		target.unit.hp -= damage
+		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+		update_combatants.emit(combatants)
+		update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
+		attacker.unit.unit_name,
+		damage,
+		target.unit.unit_name
+		]))
+		target.map_display.set_values()
+	if target.unit.hp <= 0:
+		combatant_die(target)

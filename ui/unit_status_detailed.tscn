@@ -7,7 +7,6 @@
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="4_hq6tf"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_bppi7"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="6_k8b2s"]
-[ext_resource type="Shader" path="res://resources/shaders/OutLineShader.gdshader" id="7_06tjh"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_77j75"]
 [ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/iron_sword.tres" id="8_0mf55"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="9_bah1f"]
@@ -68,15 +67,75 @@ shadow_size = 3
 [sub_resource type="Theme" id="Theme_17sy8"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_submf")
 
+[sub_resource type="Shader" id="Shader_uihp7"]
+code = "shader_type canvas_item;
+//outline variables
+uniform vec4 outline_color : source_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+//GrayScaleIcon variables
+uniform vec4 color_factor : source_color = vec4(1.0);
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a <= 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+void fragment() {
+	vec2 uv = UV;
+
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+		uv = (uv - texture_pixel_size * width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		vec4 sample = texture(TEXTURE, UV);
+		float gray = 0.21 * sample.r + 0.71 * sample.g + 0.07 * sample.b;
+		COLOR = mix(COLOR.rgb, color_factor.rgb, color_factor.a) sample.a);
+	}
+
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, outline_color.rgb, outline_color.a) : outline_color.rgb;
+		COLOR.a += (1.0 - COLOR.a) * outline_color.a;
+	}
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_064cd"]
-shader = ExtResource("7_06tjh")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/flash_value = null
+shader = SubResource("Shader_uihp7")
 
 [node name="UnitStatusDetailed" type="Control"]
 layout_mode = 3

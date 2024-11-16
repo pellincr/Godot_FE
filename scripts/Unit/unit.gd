@@ -212,11 +212,9 @@ static func calculate_generic_stats(unitDefinition: UnitTypeDefinition, level: i
 	if(unitDefinition.promoted): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
 		if(UnitTypeDatabase.unit_types.has(unitDefinition.unit_promoted_from_key)):
 			if(hardmode):
-				print("HARDMODE")
 				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],20,0, false)
 			else :
 				stat_increase_array = calculate_generic_stats(UnitTypeDatabase.unit_types[unitDefinition.unit_promoted_from_key],10,0, false)
-			print("FIRST: "+ "[UnitType] " + unitDefinition.unit_type_name +" " + str(stat_increase_array))
 	##Do the actual stat calcs here
 	stat_increase_array[0]  += calculate_generic_stat(unitDefinition.hp_growth, effective_level)
 	stat_increase_array[1]  += calculate_generic_stat(unitDefinition.strength_growth, effective_level)
@@ -226,7 +224,6 @@ static func calculate_generic_stats(unitDefinition: UnitTypeDefinition, level: i
 	stat_increase_array[5]  += calculate_generic_stat(unitDefinition.luck_growth, effective_level)
 	stat_increase_array[6]  += calculate_generic_stat(unitDefinition.defense_growth, effective_level)
 	stat_increase_array[7]  += calculate_generic_stat(unitDefinition.magic_defense_growth, effective_level)
-	print("SECOND: " + "[UnitType] " + unitDefinition.unit_type_name +" " + str(stat_increase_array))
 	return stat_increase_array
 	
 static func	calculate_generic_stat(growth: int, levels:int) -> int:

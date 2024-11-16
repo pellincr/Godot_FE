@@ -41,7 +41,6 @@ combat = NodePath("../../VisualCombat")
 controller = NodePath("../../Controller")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="target_detailed_info" from="Controller" to="CanvasLayer/UI" method="_target_detailed_info"]
 [connection signal="combatant_added" from="VisualCombat" to="Controller" method="combatant_added"]
 [connection signal="combatant_added" from="VisualCombat" to="CanvasLayer/UI" method="add_combatant_status"]
 [connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]
