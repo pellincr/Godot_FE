@@ -5,8 +5,8 @@ class_name CombatExchange
 signal unit_defeated(unit: CombatUnit)
 signal combat_exchange_finished()
 signal unit_hit_ui(hit_unit: Unit)
-
 signal update_information(text: String)
+
 enum DAMAGE_OUTCOME 
 {
 	DAMAGE_DEALT,
@@ -37,17 +37,17 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 	var defender_hit_chance = calc_hit(defender.unit, attacker.unit)
 	var defender_critical_chance = calc_crit(defender.unit,attacker.unit)
 	## Emit the combat UI to be populated?
-	perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+	await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 	## Is the defender alive?
 	if defender.alive :
 		if (defender_can_attack): 
-			perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
+			await perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
 			if attacker.alive :
 				if(double_attacker == DOUBLE_ATTACKER.DEFENDER) :
-					perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
+					await perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
 				elif (double_attacker == DOUBLE_ATTACKER.ATTACKER) :
 					if defender.alive :
-						perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+						await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 					else:
 						unit_defeated.emit(defender)
 						combat_exchange_finished.emit()
@@ -61,14 +61,19 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 		else :
 			if(double_attacker == DOUBLE_ATTACKER.ATTACKER) :
 				if defender.alive :
-					perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+					await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 				else:
 					unit_defeated.emit(defender)
+					attacker.unit.experience += attacker.unit.calculate_experience_gain_kill(defender.unit)
+					print("EXP FROM COMBAT : " + str(attacker.unit.experience))
 					combat_exchange_finished.emit()
 					attacker.turn_taken = true
 					return
 	else:
 		unit_defeated.emit(defender)
+		attacker.unit.experience += attacker.unit.calculate_experience_gain_kill(defender.unit)
+		print("EXP FROM COMBAT : " + str(attacker.unit.experience))
+	attacker.unit.experience += attacker.unit.calculate_experience_gain_hit(defender.unit)
 	attacker.turn_taken = true
 	combat_exchange_finished.emit()
 
@@ -80,11 +85,11 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		if check_critical(critical_chance) :
 			#emit critical
 			damage_dealt = 3 * calc_damage(attacker.unit, target.unit)
-			do_damage(target,damage_dealt, true)
+			await do_damage(target,damage_dealt, true)
 		else : 
 			#emit generic damage
 			damage_dealt = calc_damage(attacker.unit, target.unit)
-			do_damage(target,damage_dealt)
+			await do_damage(target,damage_dealt)
 	else : ## Attack has missed
 		hit_missed(target)
 
@@ -105,13 +110,19 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	if (damage > 0):
 		target.unit.hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
+		if is_critical:
+			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false, true)
+		else :
+			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+		target.map_display.update_values()
+		await target.map_display.update_complete
 	##check and see if the unit has died
 	if target.unit.hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED
 		target.alive = false
+		target.map_display.update_values()
+		await target.map_display.update_complete
 		emit_signal("unit_defeated", target)
-	DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
-	target.map_display.update_values()
 		#broadcast unit death
 	#return outcome
 
@@ -160,31 +171,33 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, distance:int) -> Dictionary:
 	var combat_exchange_preview = {
 		"double_attacker" = check_double(attacker.unit, defender.unit),
-		"attacker_hit_chance" = calc_hit(attacker.unit, defender.unit),
-		"attacker_critical_chance" = calc_crit(attacker.unit, defender.unit),
 		"defender_can_attack" = defender.unit.inventory.equipped.attack_range.has(distance),
+		"attacker_hit_chance" = calc_hit(attacker.unit, defender.unit),
+		"attacker_damage" = calc_damage(attacker.unit, defender.unit),
+		"attacker_critical_chance" = calc_crit(attacker.unit, defender.unit),
 		"defender_hit_chance" = calc_hit(defender.unit, attacker.unit),
+		"defender_damage" = calc_damage(defender.unit, attacker.unit),
 		"defender_critical_chance" = calc_crit(defender.unit,attacker.unit),
 	}
 	return combat_exchange_preview
 
 
-func do_damage_old(attacker: CombatUnit, target: CombatUnit):
-	var item = attacker.unit.inventory.equipped
-	var damage
-	if item.item_damage_type == 0 : ##Physical Dmg
-		damage = (attacker.unit.strength + item.damage) - target.unit.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
-	else :
-		damage = (attacker.unit.magic + item.damage) - target.unit.magic_defense
-	if (damage > 0):
-		target.unit.hp -= damage
-		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
-		update_combatants.emit(combatants)
-		update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
-		attacker.unit.unit_name,
-		damage,
-		target.unit.unit_name
-		]))
-		target.map_display.set_values()
-	if target.unit.hp <= 0:
-		combatant_die(target)
+#func do_damage_old(attacker: CombatUnit, target: CombatUnit):
+	#var item = attacker.unit.inventory.equipped
+	#var damage
+	#if item.item_damage_type == 0 : ##Physical Dmg
+		#damage = (attacker.unit.strength + item.damage) - target.unit.defense ##TO BE IMPLEMENTED ITEM EFFECTIVENESS & DAMAGE TYPE
+	#else :
+		#damage = (attacker.unit.magic + item.damage) - target.unit.magic_defense
+	#if (damage > 0):
+		#target.unit.hp -= damage
+		#DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+		#update_combatants.emit(combatants)
+		#update_information.emit("[color=yellow]{0}[/color] did [color=gray]{1} damage[/color] to [color=red]{2}[/color]\n".format([
+		#attacker.unit.unit_name,
+		#damage,
+		#target.unit.unit_name
+		#]))
+		#target.map_display.set_values()
+	#if target.unit.hp <= 0:
+		#combatant_die(target)

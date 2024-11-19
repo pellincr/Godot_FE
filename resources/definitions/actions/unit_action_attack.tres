@@ -7,4 +7,6 @@ script = ExtResource("1_5jkgm")
 name = "Attack"
 is_major = true
 requires_target = true
+requires_item = true
 description = ""
+flow = Array[int]([0, 1, 2])

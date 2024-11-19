@@ -2,11 +2,14 @@ extends Control
 
 class_name UnitInventorySlot
 
-var reference_item : ItemDefinition
+@export var reference_item : ItemDefinition
 var equipped : bool
 
+func get_button() -> Button:
+	return $Button
+
 func update_item_fields():
-	check_if_item()
+	##check_if_item()
 	if reference_item :
 		$Button.icon = reference_item.icon
 		$Button.text = reference_item.name
@@ -36,12 +39,6 @@ func create(item:ItemDefinition, e:bool = false) -> UnitInventorySlot:
 func set_all(item:ItemDefinition, e:bool = false) :
 	set_reference_item(item)
 	set_equipped(e)
-
-func _ready():
-	self.pressed.connect(self._button_pressed)
-
-func _button_pressed():
-	pass
 	
 func check_if_item():
 	if(reference_item) :

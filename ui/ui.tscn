@@ -297,10 +297,10 @@ text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -789.0
-offset_top = -553.0
-offset_right = -395.0
-offset_bottom = -482.0
+offset_left = -788.0
+offset_top = -602.0
+offset_right = -394.0
+offset_bottom = -531.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 
@@ -368,10 +368,11 @@ offset_bottom = -122.0
 [node name="AttackActionInventory" parent="." instance=ExtResource("15_vlk4f")]
 visible = false
 layout_mode = 1
-offset_left = 6.0
-offset_top = 37.0
-offset_right = -874.0
-offset_bottom = -569.0
+offset_left = 830.0
+offset_top = 30.0
+offset_right = -50.0
+offset_bottom = -576.0
+mouse_filter = 0
 
 [node name="Header" type="PanelContainer" parent="."]
 visible = false

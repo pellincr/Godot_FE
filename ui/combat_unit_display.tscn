@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfk8uscbu36eu"]
+[gd_scene load_steps=11 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" path="res://ui/combat_unit_display.gd" id="1_sxmuu"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_a14u6"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="3_mgjym"]
 [ext_resource type="Texture2D" uid="uid://cx1516od8owqh" path="res://resources/sprites/icons/boss_unit.png" id="4_pyuub"]
+[ext_resource type="Script" path="res://ui/healthbar.gd" id="6_13a20"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
 resource_local_to_scene = true
@@ -67,3 +68,4 @@ theme = SubResource("Theme_h8nj1")
 step = 1.0
 value = 55.0
 show_percentage = false
+script = ExtResource("6_13a20")

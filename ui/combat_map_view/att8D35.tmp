@@ -40,7 +40,6 @@ layout_mode = 2
 
 [node name="UnitInventorySlot" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
 layout_mode = 2
-mouse_filter = 0
 
 [node name="UnitInventorySlot2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
 layout_mode = 2

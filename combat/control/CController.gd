@@ -6,9 +6,9 @@ class_name CController
 const grid_tex = preload("res://resources/sprites/grid/grid_marker_2.png")
 const path_tex = preload("res://resources/sprites/grid/path_ellipse.png")
 	#ACTIONS
-const attack_action = preload("res://resources/definitions/actions/unit_action_attack.tres")
-const wait_action = preload("res://resources/definitions/actions/unit_action_wait.tres")
-const trade_action = null
+const attack_action : UnitAction = preload("res://resources/definitions/actions/unit_action_attack.tres")
+const wait_action : UnitAction = preload("res://resources/definitions/actions/unit_action_wait.tres")
+const trade_action : UnitAction = null
 ##SIGNALS
 signal movement_changed(movement: int)
 signal finished_move
@@ -45,15 +45,12 @@ const tile_nieghbor_index = [
 	8, ##CELL_NEIGHBOR_LEFT_SIDE
 	12 ##CELL_NEIGHBOR_TOP_SIDE
 ]
-
 var _occupied_spaces : Array[Vector2i]
-
 var _blocking_spaces = [ ##UPDATE THIS FOR ALL MOVEMENT TYPES
 	[],#Ground
 	[],#Flying
 	[] #Mounted
 ]
-
 var movement = 0:
 	set = set_movement,
 	get = get_movement
@@ -76,15 +73,24 @@ var move_speed = 192 #96 default
 
 var _previous_position : Vector2i
 
-var _skill_selected : bool = false
+
 var _selected_skill: String
 
 var _selected_unit : CombatUnit
+var _action_target_unit : CombatUnit
+var _action_target_unit_selected : bool = false
+
 var _unit_action_completed : bool = false
+var _unit_action_initiated : bool = false
 var _available_actions : Array[UnitAction]
-var _selected_action: UnitAction
+var _action: UnitAction
 var _action_selected: bool
 var _action_tiles : PackedVector2Array
+var _action_valid_targets : Array[CombatUnit]
+
+var _selected_item: ItemDefinition
+var _item_selected: bool
+
 
 var move_range : PackedVector2Array
 var attack_range : PackedVector2Array
@@ -94,23 +100,39 @@ var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
 var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
 var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
 
-func ready():
-	##combat.connect("combat_finished", unit_major_action_complete)
-	pass
+func _ready():
+	tile_map = get_node("../Terrain/TileMap")
+	_astargrid.region = Rect2i(0, 0, 36, 21)
+	_astargrid.cell_size = Vector2i(32, 32)
+	_astargrid.offset = Vector2(16, 16)
+	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	_astargrid.update()
+	
+	#build blocking spaces arrays
+	for tile in tile_map.get_used_cells(0):
+		var tile_blocking = tile_map.get_cell_tile_data(0, tile)
+		for block in tile_blocking.get_custom_data("Blocks"):
+			_blocking_spaces[block].append(tile)
+	
+	#combat.connect("advance_turn", advance_turn)
+	#Once Game initialization is complete begin player turn
+	game_state = Constants.GAME_STATE.PLAYER_TURN
 
 ##Processes user input if not on a menu
 func _unhandled_input(event):
 	## Player Turn
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			var mouse_position = get_global_mouse_position()
+			var mouse_position_i = tile_map.local_to_map(mouse_position)
+			get_tile_info(mouse_position_i)
 			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
 				if event is InputEventMouseButton:
 					## Select Unit
 					if event.button_index == MOUSE_BUTTON_LEFT:
 						if event.is_released():
 							##Player selects a unit
-								var mouse_position = get_global_mouse_position()
-								var mouse_position_i = tile_map.local_to_map(mouse_position)
 								var selected_unit = get_combatant_at_position(mouse_position_i)
 								if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
 									if selected_unit.allegience == 0:
@@ -121,8 +143,6 @@ func _unhandled_input(event):
 										pass 
 					## Display info Panel
 					if event.button_index == MOUSE_BUTTON_RIGHT:
-						var mouse_position = get_global_mouse_position()
-						var mouse_position_i = tile_map.local_to_map(mouse_position)
 						var comb = get_combatant_at_position(mouse_position_i)
 						if comb != null and comb.alive:
 							target_detailed_info.emit(comb)
@@ -136,15 +156,19 @@ func _unhandled_input(event):
 						if event.is_released():
 							## Players selects a move
 							if _arrived == true:
-								move_player()
+								if mouse_position_i != _selected_unit.map_position:
+									move_player()
+								else :
+									_selected_unit.move_position = _selected_unit.map_position
+									finished_move.emit()
+									combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
+									player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
 					if event.button_index == MOUSE_BUTTON_RIGHT:
 						if event.is_released():
 							_action_tiles.clear()
 							player_state = Constants.PLAYER_STATE.UNIT_SELECT
 				if event is InputEventMouseMotion:
 					if _arrived == true:
-						var mouse_position = get_global_mouse_position()
-						var mouse_position_i = tile_map.local_to_map(mouse_position)
 						find_path(mouse_position_i)
 						var comb = get_combatant_at_position(mouse_position_i)
 						var local_map = tile_map.map_to_local(mouse_position_i)
@@ -165,121 +189,85 @@ func _unhandled_input(event):
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_RIGHT:
 							if event.is_released():
+								combat.game_ui.hide_action_list()
 								##MOVE THE UNIT BACK 
 								move_speed = 320
-								find_path(_selected_unit.map_position)
-								return_player()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION:
+								if _selected_unit.map_position != _selected_unit.move_position:
+									find_path(_selected_unit.map_position)
+									return_player()
+								else : 
+									finished_move.emit()
+									_arrived = true
+									movement = _selected_unit.unit.movement
+									player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
 				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_LEFT:
+					if event.button_index == MOUSE_BUTTON_RIGHT:
 						if event.is_released():
-							if _action_selected == true and _selected_action.requires_target == true:
-								##Targeting
-								var mouse_position = get_global_mouse_position()
-								var mouse_position_i = tile_map.local_to_map(mouse_position)
-								var comb = get_combatant_at_position(mouse_position_i)
-								if comb != null and comb.alive:
-									_selected_unit.map_position = _selected_unit.move_position
-									action_target_selected(comb)
+							combat.game_ui.hide_attack_action_inventory()
+							revert_action_flow()
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+					if event is InputEventMouseButton:
+						if event.button_index == MOUSE_BUTTON_LEFT:
+							if event.is_released():
+								if _action_selected == true and _action.requires_target == true:
+									##Targeting
+									var comb = get_combatant_at_position(mouse_position_i)
+									if comb != null and comb.alive:
+										if _action_valid_targets.has(comb):
+											_selected_unit.map_position = _selected_unit.move_position
+											action_target_selected(comb)
+										else:
+											print("Invalid Target")
+											comb = null
+											pass
+						if event.button_index == MOUSE_BUTTON_RIGHT:
+							if event.is_released():
+								revert_action_flow()
 		else :
 			return
-
-func get_combatant_at_position(target_position: Vector2i):
-	for comb in combat.combatants:
-		if comb.map_position == target_position and comb.alive:
-			return comb
-	return null
-
-
-func _ready():
-	tile_map = get_node("../Terrain/TileMap")
-	_astargrid.region = Rect2i(0, 0, 36, 21)
-	_astargrid.cell_size = Vector2i(32, 32)
-	_astargrid.offset = Vector2(16, 16)
-	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-	_astargrid.update()
-	
-	#build blocking spaces arrays
-	for tile in tile_map.get_used_cells(0):
-		var tile_blocking = tile_map.get_cell_tile_data(0, tile)
-		for block in tile_blocking.get_custom_data("Blocks"):
-			_blocking_spaces[block].append(tile)
-			
-	#Once Game initialization is complete begin player turn
-	game_state = Constants.GAME_STATE.PLAYER_TURN
-
-
-func combatant_added(combatant):
-	_occupied_spaces.append(combatant.map_position)
-
-
-func combatant_died(combatant):
-	_astargrid.set_point_weight_scale(combatant.map_position, 1)
-	_occupied_spaces.erase(combatant.map_position)
-	combatant.map_display.queue_free()
-
-
-func set_controlled_combatant(combatant: CombatUnit):
-	if combatant.allegience == 0:
-		_selected_unit = combatant
-	else:
-		player_turn = false
-	combat.set_current_combatant(combatant)
-	controlled_node = combatant.map_display
-	movement = combatant.unit.movement
-	update_points_weight()
-
-
-func update_points_weight():
-	#Update occupied spaces for flying units
-	for point in _occupied_spaces:
-		
-		if combat.get_current_combatant().unit.movement_class == 1:
-			_astargrid.set_point_weight_scale(point, 1)
-		else:
-			_astargrid.set_point_weight_scale(point, INF)
-		#Update point weights for blocking spaces
-		for class_m in range(_blocking_spaces.size()):
-			for space in _blocking_spaces[class_m]:
-				if(_astargrid.is_in_bounds(space.x, space.y)):
-					if combat.get_current_combatant().unit.movement_class == class_m:
-						_astargrid.set_point_weight_scale(space, INF)
-					else:
-						_astargrid.set_point_weight_scale(space, 1)
-
-
-func get_distance(point1: Vector2i, point2: Vector2i):
-	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 #process called on frame
 func _process(delta):
 	queue_redraw()
-	# See if a unit is in motion if not do movement?
+	# Player Turn
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if(turn_phase == Constants.TURN_PHASE.INIT):
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
 		elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
-			#DO THE BEGINNING PHASE STUFF HERE EX. STATUS EFFECTS REMOVE BUFFS, TERRAIN HEALING AND MORE
 			turn_phase = Constants.TURN_PHASE.MAIN_PHASE
 			player_state = Constants.PLAYER_STATE.UNIT_SELECT
-		elif(turn_phase == Constants.TURN_PHASE.MAIN_PHASE):
+		elif turn_phase == Constants.TURN_PHASE.MAIN_PHASE :
+			combat.game_ui._set_tile_info(current_tile_info)
 			#DO PLAYER ACTION PROCESS HERE, WE GIVE PLAYER CONTROL
 			if player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				if _action_selected == true:
-					player_state = Constants.PLAYER_STATE.UNIT_ACTION
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION:					
-				if _unit_action_completed == true: 
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION:
+				if not _unit_action_initiated: 
+					perform_action()
+					_unit_action_initiated = true
+				if not _unit_action_completed and _unit_action_initiated:
+					pass
+				else: 
 					_unit_action_completed = false
+					_unit_action_initiated = false
 					_selected_unit.turn_taken = true
-					_selected_unit.map_display.update_values()
+					if _selected_unit.alive:
+						_selected_unit.map_display.update_values()
 					player_state = Constants.PLAYER_STATE.UNIT_SELECT
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				pass
 		elif(turn_phase == Constants.TURN_PHASE.ENDING_PHASE):
 			#do turn end stuff for player 
 			game_state = Constants.GAME_STATE.ENEMY_TURN
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
-			
+	#Enemy Turn
 	elif game_state == Constants.GAME_STATE.ENEMY_TURN:
+		print("In Enemy Turn")
 		if(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			#DO THE BEGINNING PHASE STUFF HERE EX. STATUS EFFECTS REMOVE BUFFS, TERRAIN HEALING AND MORE
 			turn_phase = Constants.TURN_PHASE.MAIN_PHASE
@@ -325,29 +313,61 @@ func _process(delta):
 					combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
 					player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
 
-func set_movement(value):
-	movement = value
-	movement_changed.emit(value)
+
+func _draw():
+	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
+		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
+			if(_selected_unit):
+				draw_comb_range(_selected_unit)
+				draw_ranges(move_range, true, attack_range,true, skill_range, true)
+				drawSelectedpath()
+		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
+			draw_action_tiles(_action_tiles, _action)
+
+func advance_turn():
+	turn_phase = Constants.TURN_PHASE.ENDING_PHASE
+
+func get_combatant_at_position(target_position: Vector2i):
+	for comb in combat.combatants:
+		if comb.map_position == target_position and comb.alive:
+			return comb
+	return null
+
+
+func combatant_added(combatant):
+	_occupied_spaces.append(combatant.map_position)
+
+
+func combatant_died(combatant):
+	_astargrid.set_point_weight_scale(combatant.map_position, 1)
+	_occupied_spaces.erase(combatant.map_position)
+	combatant.map_display.queue_free()
+
+
+func update_points_weight():
+	#Update occupied spaces for flying units
+	for point in _occupied_spaces:
+		
+		if combat.get_current_combatant().unit.movement_class == 1:
+			_astargrid.set_point_weight_scale(point, 1)
+		else:
+			_astargrid.set_point_weight_scale(point, INF)
+		#Update point weights for blocking spaces
+		for class_m in range(_blocking_spaces.size()):
+			for space in _blocking_spaces[class_m]:
+				if(_astargrid.is_in_bounds(space.x, space.y)):
+					if combat.get_current_combatant().unit.movement_class == class_m:
+						_astargrid.set_point_weight_scale(space, INF)
+					else:
+						_astargrid.set_point_weight_scale(space, 1)
+
+
+func get_distance(point1: Vector2i, point2: Vector2i):
+	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 
 func get_movement():
 	return movement
-
-
-func ai_process(target_position: Vector2i):
-	#find nearest non-solid tile to target_position
-	var current_position = tile_map.local_to_map(controlled_node.position)
-	for tile in tiles_to_check:
-		if !_astargrid.get_point_weight_scale(target_position + tile) > 999999:
-			ai_move(target_position + tile)
-			break
-	return finished_move
-
-
-func ai_move(target_position: Vector2i):
-	var current_position = tile_map.local_to_map(controlled_node.position)
-	find_path(target_position)
-	move_on_path(current_position)
 
 
 func find_path(tile_position: Vector2i):
@@ -367,6 +387,7 @@ func find_path(tile_position: Vector2i):
 		_path = _astargrid.get_point_path(current_position, tile_position)
 		queue_redraw()
 
+
 func move_player():
 	var current_position = tile_map.local_to_map(controlled_node.position)
 	_selected_unit.move_position = current_position
@@ -382,6 +403,7 @@ func return_player():
 	if _path_size >= 1:
 		move_on_path(original_position)
 
+
 func move_on_path(current_position):
 	_previous_position = current_position
 	_position_id = 1
@@ -390,27 +412,48 @@ func move_on_path(current_position):
 	queue_redraw()
 
 
-func set_selected_skill(skill: String):
-	_selected_skill = skill
-
-func set_selected_unit_action(action: UnitAction):
-	_selected_action = action
-
 func begin_target_selection():
 	combat.game_ui.hide_action_list()
-	_action_selected = true
-	if _selected_action.requires_target : #does the skill require a target?
+	if _action.requires_target : #does the skill require a target?
 		target_selection_started.emit()
 	else :
-		combat.call(_selected_action.name, combat.get_current_combatant())
+		combat.call(_action.name, combat.get_current_combatant())
 		target_selection_finished.emit()
 		_selected_unit.map_position = _selected_unit.move_position
 
+func begin_action_item_selection():
+	combat.game_ui.hide_action_list()
+	if _action.requires_item :
+		combat.game_ui._set_attack_action_inventory(_selected_unit)
+	else: 
+		pass ## do nothing??
 
 func action_target_selected(target: CombatUnit):
-	combat.call(_selected_action.name, combat.get_current_combatant(), target)
-	_action_selected = false
+	_action_target_unit = target
+	##combat.call(_action.name, combat.get_current_combatant(), target)
 	target_selection_finished.emit()
+	player_state = get_next_action_state()
+
+func perform_action():
+	if(_action.requires_target):
+		combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
+	else :
+		combat.call(_action.name, combat.get_current_combatant())
+	_action_selected = false
+	_action = null
+	_selected_item = null
+	_item_selected = false
+
+func action_item_selected():
+	print("Ran action Item selected")
+	if _action == attack_action: 
+		if _selected_item is WeaponDefinition:
+			_selected_unit.unit.inventory.set_equipped(_selected_item)
+			_item_selected = true
+			_action_valid_targets = get_potential_targets(_selected_unit, _selected_item.attack_range)
+			combat.game_ui.hide_attack_action_inventory()
+			player_state = get_next_action_state()
+	print("invalid item selected for action")
 
 
 func get_tile_cost(tile):
@@ -430,18 +473,6 @@ func get_tile_cost_at_point(point):
 		else : return INF
 	else:
 		return 1
-
-
-func _draw():
-	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
-		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
-			if(_selected_unit):
-				draw_comb_range(_selected_unit)
-				draw_ranges(move_range, true, attack_range,true, skill_range, true)
-				drawSelectedpath()
-		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION):
-			draw_action_tiles(_action_tiles, _selected_action)
-			
 
 
 ##Draw the path between the selected Combatant and the mouse cursor
@@ -544,10 +575,92 @@ func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
 	##Set the tile color based on the type of action
 		for tile in tiles : 
 			draw_texture(grid_tex, tile  * Vector2(32, 32), Color.CRIMSON)
-#Processes User inputs
+
+
 func process_inputs():
 	if Input.is_action_pressed("debug_button"):
 		pass
+
+
+func get_next_action_state()-> Constants.PLAYER_STATE:
+	if _action and _action_selected:
+		#find the first occurance of an action
+		print("player state = " + str(player_state))
+		var flow_index = _action.flow.find(map_player_state_to_action_state(player_state))
+		if flow_index + 1 < _action.flow.size():
+			#Navigate the user to the next appriopriate state1]:
+			print("new player state = " + str(map_action_state_to_player_state(_action.flow[flow_index+1])))
+			return map_action_state_to_player_state(_action.flow[flow_index+1])
+	print("new player state = " + str(player_state))
+	return player_state
+
+
+func get_previous_action_state() -> Constants.PLAYER_STATE:
+	if _action and _action_selected:
+		#print("player state = " + str(player_state))
+		var flow_index = _action.flow.find(map_player_state_to_action_state(player_state))
+		if flow_index == 0:
+			##combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
+			return Constants.PLAYER_STATE.UNIT_ACTION_SELECT
+		if flow_index != 0 and flow_index -1 < _action.flow.size():
+			#Navigate the user to the next appriopriate state1]:
+			print("new player state = " + str(map_action_state_to_player_state(_action.flow[flow_index-1])))
+			return map_action_state_to_player_state(_action.flow[flow_index-1])
+	print("new player state = " + str(player_state))
+	return player_state
+
+func begin_action_flow():
+	print("in action flow")
+	if _action:
+		_action_selected = true
+		if not _action.flow.is_empty():
+			if _action.flow.front() == Constants.UNIT_ACTION_STATE.ITEM_SELECT: 
+				begin_action_item_selection()
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT
+			elif _action.flow.front() == Constants.UNIT_ACTION_STATE.TARGET_SELECT: 
+				begin_target_selection()
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT
+			else:
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION
+
+
+func revert_action_flow():
+	if _action:
+		if not _action.flow.is_empty():
+			var previous_state = get_previous_action_state()
+			if previous_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				_action = null
+				_action_selected = false
+				combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
+			elif previous_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				_item_selected = false
+				_selected_item = null
+				begin_action_item_selection()
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT
+			elif previous_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				_action_target_unit = null
+				_action_target_unit_selected = false
+				begin_target_selection()
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT
+			else:
+				player_state = Constants.PLAYER_STATE.UNIT_ACTION
+
+func map_player_state_to_action_state(player_state: Constants.PLAYER_STATE) -> Constants.UNIT_ACTION_STATE:
+	if player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+		return Constants.UNIT_ACTION_STATE.ITEM_SELECT
+	elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+		return Constants.UNIT_ACTION_STATE.TARGET_SELECT
+	else :
+		return Constants.UNIT_ACTION_STATE.ACTION
+
+func map_action_state_to_player_state(action_state: Constants.UNIT_ACTION_STATE) -> Constants.PLAYER_STATE:
+	if action_state == Constants.UNIT_ACTION_STATE.ITEM_SELECT:
+		return Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT
+	elif action_state == Constants.UNIT_ACTION_STATE.TARGET_SELECT:
+		return Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT
+	else :
+		return Constants.PLAYER_STATE.UNIT_ACTION
 #Finds the edges of a list of tiles
 # tiles : an array of vector2 tile coords
 func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
@@ -565,6 +678,7 @@ func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
 		else : 
 			continue
 	return edge_tiles
+
 
 func get_tile_info(position : Vector2i): 
 	##var coords = tile_map.get_cell_atlas_coords(0, position)
@@ -586,7 +700,8 @@ func get_tile_info(position : Vector2i):
 	else : 
 		current_tile_info.unit = null
 	tile_info_updated.emit(current_tile_info)
-	
+
+
 func draw_comb_range(combatant: CombatUnit) :
 	attack_range.clear()
 	skill_range.clear()
@@ -596,8 +711,13 @@ func draw_comb_range(combatant: CombatUnit) :
 		attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.equipped.attack_range.max(), tile, 0, false))
 		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
-func get_potential_targets(cu : CombatUnit) -> Array[CombatUnit]:
-	var range_list : Array[int]= cu.unit.inventory.get_available_attack_ranges()
+
+func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
+	var range_list :Array[int] = []
+	if range.is_empty():
+		range_list = cu.unit.inventory.get_available_attack_ranges()
+	else:
+		range_list = range.duplicate()
 	var attackable_tiles : PackedVector2Array
 	var response : Array[CombatUnit]
 	if range_list.is_empty() : ##There is no attack range
@@ -610,12 +730,14 @@ func get_potential_targets(cu : CombatUnit) -> Array[CombatUnit]:
 				response.append(get_combatant_at_position(tile))
 	return response
 
+
 func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
 	var attackable_tiles : PackedVector2Array
 	for range in range_list:
 		if cu.move_position :
 			attackable_tiles.append_array(get_tiles_at_range(range, cu.move_position)[1])
 	return attackable_tiles
+
 
 func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array = [] , edge:PackedVector2Array= []) -> Array[PackedVector2Array]:
 	var return_object :Array[PackedVector2Array] = [
@@ -639,6 +761,7 @@ func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array 
 					edge.append(target_tile)
 	return return_object
 
+
 func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 	var action_array : Array[UnitAction] = [wait_action]
 	if not get_potential_targets(cu).is_empty():
@@ -649,3 +772,50 @@ func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 func _on_visual_combat_major_action_completed() -> void:
 	_unit_action_completed = true
 	pass # Replace with function body.
+
+
+# AI Methods
+
+func ai_process(target_position: Vector2i):
+	#find nearest non-solid tile to target_position
+	var current_position = tile_map.local_to_map(controlled_node.position)
+	for tile in tiles_to_check:
+		if !_astargrid.get_point_weight_scale(target_position + tile) > 999999:
+			ai_move(target_position + tile)
+			break
+	return finished_move
+
+
+func ai_move(target_position: Vector2i):
+	var current_position = tile_map.local_to_map(controlled_node.position)
+	find_path(target_position)
+	move_on_path(current_position)
+
+
+#Getter & Setters
+func set_selected_skill(skill: String):
+	_selected_skill = skill
+
+
+func set_selected_item(item: ItemDefinition):
+	_selected_item = item
+
+
+func set_unit_action(action: UnitAction):
+	_action = action
+
+
+func set_movement(value):
+	movement = value
+	movement_changed.emit(value)
+
+
+func set_controlled_combatant(combatant: CombatUnit):
+	if combatant.allegience == 0:
+		_selected_unit = combatant
+	else:
+		player_turn = false
+	combat.set_current_combatant(combatant)
+	controlled_node = combatant.map_display
+	movement = combatant.unit.movement
+	update_points_weight()

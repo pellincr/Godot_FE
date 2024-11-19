@@ -394,7 +394,7 @@ func calculate_experience_gain_hit(hit_unit:Unit) -> int:
 	var my_unit_value = 0
 	if(UnitTypeDatabase.unit_types[hit_unit.unit_class_key].unit_promoted_from_key != null) :
 		target_unit_value = 20
-	if (UnitTypeDatabase.unit_typess[unit_class_key].unit_promoted_from_key != null) :
+	if (UnitTypeDatabase.unit_types[unit_class_key].unit_promoted_from_key != null) :
 		my_unit_value = 20
 	experience_gain = ((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / xp_worth
 	return experience_gain
@@ -408,5 +408,5 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 		target_unit_value = 60
 	if (UnitTypeDatabase.unit_types[unit_class_key].unit_promoted_from_key != null) :
 		my_unit_value = 60
-	experience_gain =+ ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + xp_worth)) + 20
+	experience_gain = experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + xp_worth)) + 20
 	return experience_gain

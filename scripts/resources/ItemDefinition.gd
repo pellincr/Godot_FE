@@ -26,4 +26,8 @@ enum ITEM_TYPE {
 
 func use():
 	#Do something
-	--uses;
+	print(name + " was used!")
+	uses = uses - 1
+	print(str(uses) + " uses remain")
+	if uses == 0:
+		print(name + " broke!")

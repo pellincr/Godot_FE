@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=9 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_efiut"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_o8mgg"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="5_ge5kc"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="6_meveu"]
+[ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="7_x6uf5"]
 
 [sub_resource type="Resource" id="Resource_3yur8"]
 script = ExtResource("2_efiut")
@@ -34,5 +36,7 @@ items = {
 "iron_axe": ExtResource("3_u1np0"),
 "iron_bow": ExtResource("5_ge5kc"),
 "iron_lance": ExtResource("4_o8mgg"),
-"iron_sword": SubResource("Resource_3yur8")
+"iron_sword": SubResource("Resource_3yur8"),
+"short_bow": ExtResource("7_x6uf5"),
+"steel_axe": ExtResource("6_meveu")
 }

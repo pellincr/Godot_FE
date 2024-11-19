@@ -56,11 +56,6 @@ func populate_combat_info(info: Dictionary):
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/HP.text = info.defender_hp
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Damage.text = info.defender_damage
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Hit.text = info.defender_hit_chance
-	
-
-func show_combatant_status_main(comb: Dictionary):
-	set_skill_list(comb.skill_list)
-
 
 func _on_end_turn_button_pressed():
 	turn_ended.emit()
@@ -69,42 +64,10 @@ func _on_end_turn_button_pressed():
 func update_information(info: String):
 	$Actions/Information/Text.append_text(info)
 
-
-func set_skill_list(skill_list: Array):
-	#var actions_grid_children = $Actions/ActionsPanel/ActionsGrid.get_children()
-	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
-	$Actions/ActionsPanel.visible = true
-	var player_turn = controller.player_turn
-	for i in range(actions_grid_children.size()):
-		var action = actions_grid_children[i] as Button
-		if player_turn == false:
-			##action.disabled = true
-			continue
-		else:
-			action.disabled = false
-		if skill_list.size() > i:
-			var skill_key = skill_list[i]
-			var skill = SkillDatabase.skills[skill_key]
-			#action.icon = skill.icon
-			action.text = skill.name
-			action.pressed.connect(func():
-				##controller.set_selected_skill(skill_key)
-				controller.set_selected_unit_action(skill_key)
-				controller.begin_target_selection()
-				)
-		else:
-			action.icon = null
-			action.text = ""
-			action.tooltip_text = ""
-			clear_action_button_connections(action)
-	$Actions/EndTurnButton.disabled = !player_turn
-
-
 func clear_action_button_connections(action: Button):
 	var connections = action.pressed.get_connections()
 	for connection in connections:
 		action.pressed.disconnect(connection.callable)
-
 
 func update_combatants(combatants: Array):
 	for comb in combatants:
@@ -138,8 +101,9 @@ func set_action_list(available_actions: Array[UnitAction]):
 			#action.icon = skill.icon
 			action_btn.text = action.name
 			action_btn.pressed.connect(func():
-				controller.set_selected_unit_action(action)
-				controller.begin_target_selection()
+				controller.set_unit_action(action)
+				#controller.begin_target_selection()
+				controller.begin_action_flow()
 				)
 		else:
 			action_btn.icon = null
@@ -147,6 +111,33 @@ func set_action_list(available_actions: Array[UnitAction]):
 			action_btn.tooltip_text = ""
 			clear_action_button_connections(action_btn)
 	$Actions/EndTurnButton.disabled = !player_turn
+
+
+func set_inventory_list(inventory: Inventory):
+	var attack_action_inventory = $AttackActionInventory
+	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = false
+			clear_action_button_connections(item_btn)
+			if inventory.items.size() > i:
+				print (str(inventory.items.size()))
+				var item = inventory.items[i]
+				var equipped = false
+				if i == 0: 
+					equipped = true
+				inventory_container_children[i].set_all(item, equipped)
+				inventory_container_children[i].visible = true
+				item_btn.pressed.connect(func():
+					controller.set_selected_item(item)
+					controller.action_item_selected()
+					)
+			else : 
+				inventory_container_children[i].visible = false
+				clear_action_button_connections(item_btn)
+
+	
 
 
 func set_movement(movement):
@@ -178,10 +169,13 @@ func _set_tile_info(tile : Dictionary) :
 	else:
 		$UnitStatus.visible = false
 
-
-func _on_controller_tile_info_updated(tile: Dictionary) -> void:
-	pass # Replace with function body.
-
+func _set_attack_action_inventory(combat_unit: CombatUnit) -> void:
+	set_inventory_list(combat_unit.unit.inventory)
+	if $AttackActionInventory.visible == false :
+		$AttackActionInventory.visible = true 
+		
+func hide_attack_action_inventory():
+	$AttackActionInventory.visible = false 
 
 func _on_controller_target_detailed_info(combat_unit: CombatUnit) -> void:
 	pass # Replace with function body.

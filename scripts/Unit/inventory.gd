@@ -7,9 +7,10 @@ var equipped: ItemDefinition
 
 func set_equipped(item : ItemDefinition):
 	if (item.equippable) :
-		items.push_front(item)
-		equipped = item
-		items.remove_at(items.rfind(item))
+		if items.has(item):
+			items.push_front(item)
+			equipped = item
+			items.remove_at(items.rfind(item))
 
 func get_available_attack_ranges()-> Array[int]:
 	var ranges : Array[int]

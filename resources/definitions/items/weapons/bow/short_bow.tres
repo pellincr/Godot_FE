@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bo6o65qd7agqb"]
+
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_6hyuo"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_mshj3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp7ry"]
+atlas = ExtResource("1_6hyuo")
+region = Rect2(32, 288, 32, 32)
+
+[resource]
+script = ExtResource("2_mshj3")
+weapon_type = 3
+item_damage_type = 0
+weapon_effectiveness = Array[String](["Flying"])
+required_mastery = 1
+attack_range = Array[int]([1])
+class_locked = false
+locked_unit_type_key = ""
+damage = 6
+hit = 80
+critical_chance = 0
+weight = 5
+name = "Short Bow"
+db_key = "short_bow"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = SubResource("AtlasTexture_jp7ry")
