@@ -159,7 +159,7 @@ theme = ExtResource("3_ssh48")
 [node name="LeftPanel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 250.0
-offset_bottom = 400.0
+offset_bottom = 482.0
 theme = ExtResource("4_hq6tf")
 
 [node name="UnitName" type="Label" parent="LeftPanel"]
@@ -391,15 +391,15 @@ show_percentage = false
 [node name="RightPanel" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 255.0
-offset_right = 505.0
-offset_bottom = 400.0
+offset_right = 550.0
+offset_bottom = 482.0
 theme = ExtResource("4_hq6tf")
 
 [node name="StatsGrid" type="GridContainer" parent="RightPanel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 5.0
-offset_right = 243.0
+offset_right = 287.0
 offset_bottom = 225.0
 theme = SubResource("Theme_147ov")
 columns = 2
@@ -657,7 +657,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 3.0
 offset_top = 223.0
-offset_right = 249.0
+offset_right = 294.0
 offset_bottom = 265.0
 theme = ExtResource("5_bppi7")
 theme_override_constants/outline_size = 4
@@ -669,7 +669,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 16.0
 offset_top = 258.0
-offset_right = 229.0
+offset_right = 272.0
 offset_bottom = 392.0
 theme = SubResource("Theme_17sy8")
 
@@ -708,7 +708,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Equipped" type="Label" parent="RightPanel/Inventory/Slot2Container"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("6_k8b2s")
@@ -716,7 +715,6 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Inventory/Slot2Container"]
-visible = false
 layout_mode = 2
 
 [node name="icon" type="TextureRect" parent="RightPanel/Inventory/Slot2Container/HBoxContainer"]
@@ -739,7 +737,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Equipped" type="Label" parent="RightPanel/Inventory/Slot3Container"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("6_k8b2s")
@@ -747,7 +744,6 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Inventory/Slot3Container"]
-visible = false
 layout_mode = 2
 
 [node name="icon" type="TextureRect" parent="RightPanel/Inventory/Slot3Container/HBoxContainer"]
@@ -770,7 +766,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Equipped" type="Label" parent="RightPanel/Inventory/Slot4Container"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("6_k8b2s")
@@ -778,7 +773,6 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "E"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RightPanel/Inventory/Slot4Container"]
-visible = false
 layout_mode = 2
 
 [node name="icon" type="TextureRect" parent="RightPanel/Inventory/Slot4Container/HBoxContainer"]

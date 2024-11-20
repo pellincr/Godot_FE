@@ -22,9 +22,6 @@ enum DOUBLE_ATTACKER
 	ATTACKER,
 	DEFENDER
 }
-var combat_exchange_display : UnitStatusCombatExchange
-
-
 
 #calculates key combat values to show the user potential combat outcomes
 #Called when the attacker can hit and begin combat sequence
@@ -127,10 +124,10 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	#return outcome
 
 func calc_hit(attacker: Unit, target: Unit) -> int:
-	return attacker.hit - target.avoid
+	return clamp(attacker.hit - target.avoid, 0, 100)
 
 func calc_crit(attacker: Unit, target: Unit) -> int:
-	return attacker.critical_hit - target.critical_avoid
+	return clamp(attacker.critical_hit - target.critical_avoid, 0, 100)
 
 func calc_damage(attacker: Unit, target: Unit) -> int:
 	var damage
@@ -152,7 +149,7 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 			damage = (attacker.magic + effective_damage_multiplier * attacker.inventory.equipped.damage) - target.magic_defense
 		else :
 			damage = (attacker.magic + attacker.inventory.equipped.damage) - target.magic_defense
-	return damage
+	return clamp(damage, 0, INF)
 
 func check_hit(hit_chance: int) -> bool:
 	return CustomUtilityLibrary.random_rolls_bool(hit_chance, 2)

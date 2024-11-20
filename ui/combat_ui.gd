@@ -177,5 +177,9 @@ func _set_attack_action_inventory(combat_unit: CombatUnit) -> void:
 func hide_attack_action_inventory():
 	$AttackActionInventory.visible = false 
 
-func _on_controller_target_detailed_info(combat_unit: CombatUnit) -> void:
-	pass # Replace with function body.
+func display_unit_combat_exchange_preview(combat_unit_a: CombatUnit, combat_unit_d: CombatUnit, distance:int):
+	$unit_combat_exchange_preview.set_all(combat_unit_a,combat_unit_d,distance)
+	$unit_combat_exchange_preview.visible = true
+
+func hide_unit_combat_exchange_preview():
+	$unit_combat_exchange_preview.visible = false

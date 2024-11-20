@@ -86,7 +86,7 @@ alignment = 1
 
 [node name="Special" type="Label" parent="BonusContainer"]
 layout_mode = 2
-text = "MDEF 2"
+text = "RES 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 

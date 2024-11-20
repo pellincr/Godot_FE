@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://d7stbwsxbso8"]
+[gd_scene load_steps=14 format=3 uid="uid://d7stbwsxbso8"]
 
 [ext_resource type="Script" path="res://ui/unit_status.gd" id="1_d7fwg"]
 [ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_javf8"]
 [ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_gh8ds"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_3t73r"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_d2x7u"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_d33sv"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_wvmh7"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="8_tng3c"]
@@ -51,6 +52,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 366.0
 offset_bottom = 165.0
+theme = ExtResource("3_d2x7u")
 
 [node name="BackgroundContainer" type="Panel" parent="."]
 layout_mode = 0
@@ -58,6 +60,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 366.0
 offset_bottom = 165.0
+theme = ExtResource("3_d2x7u")
 
 [node name="HDivider" type="Panel" parent="BackgroundContainer"]
 layout_mode = 0

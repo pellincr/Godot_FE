@@ -143,14 +143,26 @@ func set_inventory_slot_4(item: ItemDefinition):
 
 func set_inventory() : 
 	var inventory_slots = $RightPanel/Inventory.get_children()
-	var i = 0
-	for slot in inventory_slots: 
+	for i in range(inventory_slots.size()):
+		print (str(i))
+		var slot = inventory_slots[i]
 		if(i < unit.inventory.items.size()):
+			if unit.inventory.items.size() > i:
+				var item = unit.inventory.items[i]
+				if i == 0: 
+					slot.get_child(0).visible = true
+				else : 
+					slot.get_child(0).visible = false
+				var slot_box = slot.get_child(1)
+				slot_box.get_child(0).texture = item.icon
+				slot_box.get_child(1).text = item.name
+				slot_box.get_child(2).text = str(item.uses)
+		else : 
+			slot.get_child(0).visible = false
 			var slot_box = slot.get_child(1)
-			slot_box.get_child(0).texture = unit.inventory.items[i].icon
-			slot_box.get_child(1).text = unit.inventory.items[i].name
-			slot_box.get_child(2).text = str(unit.inventory.items[i].uses)
-			++i
+			slot_box.get_child(0).texture = null
+			slot_box.get_child(1).text = ''
+			slot_box.get_child(2).text = ''
 
 func update_fields():
 	update_unit_name(unit.unit_name)

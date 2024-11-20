@@ -1,0 +1,113 @@
+extends Control
+
+var combatExchange: CombatExchange
+
+var distance : int
+
+var tween_complete :bool = true
+var tween_active : bool = false
+var tween_target : Label = null
+
+var double_attacker : int
+var attacker: CombatUnit
+var attacker_hit_chance: int
+var attacker_damage : int
+var attacker_critical_chance : int 
+
+var defender : CombatUnit #name, hp, equipped - name, uses,icon
+var defender_can_attack : bool
+var defender_hit_chance: int
+var defender_damage : int
+var defender_critical_chance : int 
+
+func _ready():
+	combatExchange = CombatExchange.new()
+	
+func _process(delta):
+	if tween_active: 
+		if tween_target:
+			if tween_complete:
+				tween_complete = false 
+				tween_label()
+
+func set_all(attacker : CombatUnit, defender : CombatUnit, distance:int):
+	self.defender = defender
+	self.attacker = attacker
+	self.distance = distance
+	var combat_exchange_preview = combatExchange.calc_combat_exchange_preview(self.attacker, self.defender,self.distance)
+	self.double_attacker = combat_exchange_preview.double_attacker
+	self.attacker_hit_chance = combat_exchange_preview.attacker_hit_chance
+	self.attacker_damage = combat_exchange_preview.attacker_damage
+	self.attacker_critical_chance = combat_exchange_preview.attacker_critical_chance
+	self.defender_can_attack = combat_exchange_preview.defender_can_attack
+	self.defender_hit_chance = combat_exchange_preview.defender_hit_chance
+	self.defender_damage = combat_exchange_preview.defender_damage
+	self.defender_critical_chance = combat_exchange_preview.defender_critical_chance
+	update_display()
+
+
+func update_display():
+	update_attacker_display()
+	update_defender_display()
+	update_attacker_combat_values()
+	update_defender_combat_values()
+	update_double()
+
+func update_attacker_display():
+	$CenterContainer/HBoxContainer/AttackerInfo/Name.text = attacker.unit.unit_name
+	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Icon.texture = attacker.unit.inventory.equipped.icon
+	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Name.text = attacker.unit.inventory.equipped.name
+	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Uses.text = str(attacker.unit.inventory.equipped.uses)
+	
+func update_defender_display():
+	$CenterContainer/HBoxContainer/DefenderInfo/Name.text = defender.unit.unit_name
+	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon.texture = defender.unit.inventory.equipped.icon
+	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name.text = defender.unit.inventory.equipped.name
+	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Uses.text = str(defender.unit.inventory.equipped.uses)
+
+func update_attacker_combat_values():
+	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/HP.text = str(attacker.unit.hp)
+	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/Damage.text = str(attacker_damage)
+	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/Hit.text = str(attacker_hit_chance)
+	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/Crit.text = str(attacker_critical_chance)
+	
+	
+func update_defender_combat_values():
+	$CenterContainer/HBoxContainer/CombatStats/DefenderStats/HP.text = str(defender.unit.hp)
+	if defender_can_attack: 
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Damage.text = str(defender_damage)
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Hit.text = str(defender_hit_chance)
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Crit.text = str(defender_critical_chance)
+	else : 
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Damage.text = "--"
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Hit.text = "--"
+		$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Crit.text = "--"
+
+func update_double():
+	if double_attacker == 1:
+		$double_atk.visible = true
+		tween_active = true
+		tween_target = $double_atk
+		$double_def.visible = false
+	elif double_attacker == 2 and defender_can_attack:
+		$double_atk.visible = false
+		$double_def.visible = true
+		tween_active = true
+		tween_target = $double_def
+	else:
+		tween_active = false
+		$double_atk.visible = false
+		$double_def.visible = false
+
+
+func tween_label():
+	var tween = get_tree().create_tween()
+	tween.tween_property(
+	tween_target, "scale", Vector2(.75,.75), .35
+	).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+	tween_target, "scale", Vector2(1,1), .35
+	).set_delay(.2)
+	await tween.finished
+	tween_complete = true
+	

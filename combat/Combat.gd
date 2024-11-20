@@ -47,16 +47,19 @@ func _ready():
 	#Dummy Inventory for temp unit gen
 	var iventory_array :Array[ItemDefinition] = [ItemDatabase.items["iron_axe"], ItemDatabase.items["steel_axe"], null, null]
 	#ADD combatants
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "FriendlyGuy2", 20,16, true), 0), Vector2i(8,7))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fighter"], iventory_array, "EnemyGuy", 3,0), 1), Vector2i(16,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "FriendlyGuy2", 20,16, false), 1), Vector2i(11,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "EnemyGuy3", 20,8, false), 1), Vector2i(10,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fighter"], iventory_array, "Enemy1", 3,0), 1), Vector2i(16,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,16, false), 1), Vector2i(11,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Chris Murphy", 20,8, false), 1), Vector2i(10,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "FriendlyGuy", 20,0, false),0), Vector2i(8,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "FriendlyGuy", 20,0, false),0), Vector2i(8,5))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "EnemyGuy", 3,0),1), Vector2i(10,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Will Still", 20,0, false),0), Vector2i(8,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Gun Owner", 20,0, false),0), Vector2i(8,5))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Bastard Jr.", 3,0),1), Vector2i(10,7))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 20,16, true), 0), Vector2i(8,7))
+
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
 

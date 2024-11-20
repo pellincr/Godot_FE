@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dfmvtergmya12"]
+[gd_scene load_steps=14 format=3 uid="uid://dfmvtergmya12"]
 
 [ext_resource type="Script" path="res://ui/unit_status_combat_exchange.gd" id="1_nb1t3"]
 [ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_gd6mb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_p5p1g"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="6_ld7ob"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_2wqpm"]
+[ext_resource type="Script" path="res://ui/healthbar.gd" id="8_xpvs5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hgufo"]
 shader = ExtResource("2_gd6mb")
@@ -378,3 +379,4 @@ theme = SubResource("Theme_fvh6g")
 value = 42.0
 rounded = true
 show_percentage = false
+script = ExtResource("8_xpvs5")

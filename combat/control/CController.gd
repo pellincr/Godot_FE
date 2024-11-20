@@ -189,17 +189,18 @@ func _unhandled_input(event):
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_RIGHT:
 							if event.is_released():
-								combat.game_ui.hide_action_list()
-								##MOVE THE UNIT BACK 
-								move_speed = 320
-								if _selected_unit.map_position != _selected_unit.move_position:
-									find_path(_selected_unit.map_position)
-									return_player()
-								else : 
-									finished_move.emit()
-									_arrived = true
-									movement = _selected_unit.unit.movement
-									player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
+								if (_arrived):
+									combat.game_ui.hide_action_list()
+									##MOVE THE UNIT BACK 
+									move_speed = 320
+									if _selected_unit.map_position != _selected_unit.move_position:
+										find_path(_selected_unit.map_position)
+										return_player()
+									else : 
+										finished_move.emit()
+										_arrived = true
+										movement = _selected_unit.unit.movement
+										player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
 				pass
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
@@ -217,6 +218,7 @@ func _unhandled_input(event):
 									var comb = get_combatant_at_position(mouse_position_i)
 									if comb != null and comb.alive:
 										if _action_valid_targets.has(comb):
+											combat.game_ui.hide_unit_combat_exchange_preview()
 											_selected_unit.map_position = _selected_unit.move_position
 											action_target_selected(comb)
 										else:
@@ -225,6 +227,7 @@ func _unhandled_input(event):
 											pass
 						if event.button_index == MOUSE_BUTTON_RIGHT:
 							if event.is_released():
+								combat.game_ui.hide_unit_combat_exchange_preview()
 								revert_action_flow()
 		else :
 			return
@@ -260,7 +263,14 @@ func _process(delta):
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
 				pass
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
-				pass
+				var mouse_position = get_global_mouse_position()
+				var mouse_position_i = tile_map.local_to_map(mouse_position)
+				var comb = get_combatant_at_position(mouse_position_i)
+				if comb != null and comb.alive:
+					if _action_valid_targets.has(comb):
+						combat.game_ui.display_unit_combat_exchange_preview(_selected_unit, comb,  get_distance(_selected_unit.move_position, comb.map_position))
+						return
+				combat.game_ui.hide_unit_combat_exchange_preview()
 		elif(turn_phase == Constants.TURN_PHASE.ENDING_PHASE):
 			#do turn end stuff for player 
 			game_state = Constants.GAME_STATE.ENEMY_TURN
@@ -327,7 +337,7 @@ func _draw():
 func advance_turn():
 	turn_phase = Constants.TURN_PHASE.ENDING_PHASE
 
-func get_combatant_at_position(target_position: Vector2i):
+func get_combatant_at_position(target_position: Vector2i) -> CombatUnit:
 	for comb in combat.combatants:
 		if comb.map_position == target_position and comb.alive:
 			return comb
@@ -696,7 +706,7 @@ func get_tile_info(position : Vector2i):
 			current_tile_info.defense = tile_data.get_custom_data("Defense")	
 	##get the unit info
 	if get_combatant_at_position(position):
-		current_tile_info.unit = get_combatant_at_position(position).unit
+		current_tile_info.unit = get_combatant_at_position(position)
 	else : 
 		current_tile_info.unit = null
 	tile_info_updated.emit(current_tile_info)

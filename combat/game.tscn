@@ -34,6 +34,8 @@ controller = NodePath("../Controller")
 [node name="CombatExchange" type="Node" parent="VisualCombat"]
 script = ExtResource("6_k7fva")
 
+[node name="CombatAudio" type="AudioStreamPlayer" parent="VisualCombat"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller") instance=ExtResource("5_pc8ih")]
