@@ -8,7 +8,8 @@ const path_tex = preload("res://resources/sprites/grid/path_ellipse.png")
 	#ACTIONS
 const attack_action : UnitAction = preload("res://resources/definitions/actions/unit_action_attack.tres")
 const wait_action : UnitAction = preload("res://resources/definitions/actions/unit_action_wait.tres")
-const trade_action : UnitAction = null
+const trade_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_trade.tres")
+const item_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_item.tres")
 ##SIGNALS
 signal movement_changed(movement: int)
 signal finished_move
@@ -109,6 +110,7 @@ func _ready():
 	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	_astargrid.update()
 	
+	
 	#build blocking spaces arrays
 	for tile in tile_map.get_used_cells(0):
 		var tile_blocking = tile_map.get_cell_tile_data(0, tile)
@@ -133,14 +135,15 @@ func _unhandled_input(event):
 					if event.button_index == MOUSE_BUTTON_LEFT:
 						if event.is_released():
 							##Player selects a unit
-								var selected_unit = get_combatant_at_position(mouse_position_i)
-								if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
-									if selected_unit.allegience == 0:
-										set_controlled_combatant(selected_unit)
-										player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
-									else : 
-										#Draw the attack range for enemy, or ally
-										pass 
+							combat.game_ui.play_menu_confirm()
+							var selected_unit = get_combatant_at_position(mouse_position_i)
+							if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
+								if selected_unit.allegience == 0:
+									set_controlled_combatant(selected_unit)
+									player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
+								else : 
+									#Draw the attack range for enemy, or ally
+									pass 
 					## Display info Panel
 					if event.button_index == MOUSE_BUTTON_RIGHT:
 						var comb = get_combatant_at_position(mouse_position_i)
@@ -154,6 +157,7 @@ func _unhandled_input(event):
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_LEFT:
 						if event.is_released():
+							combat.game_ui.play_menu_confirm()
 							## Players selects a move
 							if _arrived == true:
 								if mouse_position_i != _selected_unit.map_position:
@@ -189,6 +193,7 @@ func _unhandled_input(event):
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_RIGHT:
 							if event.is_released():
+								combat.game_ui.play_menu_back()
 								if (_arrived):
 									combat.game_ui.hide_action_list()
 									##MOVE THE UNIT BACK 
@@ -227,6 +232,7 @@ func _unhandled_input(event):
 											pass
 						if event.button_index == MOUSE_BUTTON_RIGHT:
 							if event.is_released():
+								combat.game_ui.play_menu_back()
 								combat.game_ui.hide_unit_combat_exchange_preview()
 								revert_action_flow()
 		else :
@@ -445,6 +451,7 @@ func action_target_selected(target: CombatUnit):
 	player_state = get_next_action_state()
 
 func perform_action():
+	combat.game_ui.hide_action_list()
 	if(_action.requires_target):
 		combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
 	else :
@@ -455,15 +462,13 @@ func perform_action():
 	_item_selected = false
 
 func action_item_selected():
-	print("Ran action Item selected")
 	if _action == attack_action: 
 		if _selected_item is WeaponDefinition:
-			_selected_unit.unit.inventory.set_equipped(_selected_item)
+			_selected_unit.unit.set_equipped(_selected_item)
 			_item_selected = true
 			_action_valid_targets = get_potential_targets(_selected_unit, _selected_item.attack_range)
 			combat.game_ui.hide_attack_action_inventory()
 			player_state = get_next_action_state()
-	print("invalid item selected for action")
 
 
 func get_tile_cost(tile):
@@ -595,13 +600,10 @@ func process_inputs():
 func get_next_action_state()-> Constants.PLAYER_STATE:
 	if _action and _action_selected:
 		#find the first occurance of an action
-		print("player state = " + str(player_state))
 		var flow_index = _action.flow.find(map_player_state_to_action_state(player_state))
 		if flow_index + 1 < _action.flow.size():
 			#Navigate the user to the next appriopriate state1]:
-			print("new player state = " + str(map_action_state_to_player_state(_action.flow[flow_index+1])))
 			return map_action_state_to_player_state(_action.flow[flow_index+1])
-	print("new player state = " + str(player_state))
 	return player_state
 
 
@@ -614,13 +616,10 @@ func get_previous_action_state() -> Constants.PLAYER_STATE:
 			return Constants.PLAYER_STATE.UNIT_ACTION_SELECT
 		if flow_index != 0 and flow_index -1 < _action.flow.size():
 			#Navigate the user to the next appriopriate state1]:
-			print("new player state = " + str(map_action_state_to_player_state(_action.flow[flow_index-1])))
 			return map_action_state_to_player_state(_action.flow[flow_index-1])
-	print("new player state = " + str(player_state))
 	return player_state
 
 func begin_action_flow():
-	print("in action flow")
 	if _action:
 		_action_selected = true
 		if not _action.flow.is_empty():
@@ -694,6 +693,7 @@ func get_tile_info(position : Vector2i):
 	##var coords = tile_map.get_cell_atlas_coords(0, position)
 	if position == Vector2i(current_tile_info.x, current_tile_info.y)  :
 		return
+	combat.game_ui.play_cursor()
 	current_tile_info.x = position.x
 	current_tile_info.y = position.y
 	var tile_data = tile_map.get_cell_tile_data(0, position)
@@ -718,7 +718,8 @@ func draw_comb_range(combatant: CombatUnit) :
 	move_range = retrieveAvailableRange(combatant.unit.movement, combatant.map_position, 0, true)
 	var edge_array = find_edges(move_range)
 	for tile in edge_array :
-		attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.equipped.attack_range.max(), tile, 0, false))
+		if combatant.unit.inventory.equipped:
+			attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.equipped.attack_range.max(), tile, 0, false))
 		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
 
@@ -773,9 +774,12 @@ func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array 
 
 
 func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
-	var action_array : Array[UnitAction] = [wait_action]
+	var action_array : Array[UnitAction] = []
+	if not cu.unit.inventory.is_empty():
+		action_array.append(item_action)
 	if not get_potential_targets(cu).is_empty():
 		action_array.push_front(attack_action)
+	action_array.append(wait_action)
 	return action_array
 
 

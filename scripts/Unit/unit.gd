@@ -19,16 +19,7 @@ var uses_custom_growths : bool
 var level : int
 var experience : int
 
-var can_use_axe : bool
-var can_use_sword : bool
-var can_use_lance : bool
-var can_use_bow : bool 
-var can_use_Anima : bool
-var can_use_Light : bool 
-var can_use_Dark : bool 
-var can_use_Staff : bool
-var can_use_Monster : bool
-
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[int] = []
 
 @export_group("Unit Stats")
 @export_subgroup("HP")
@@ -138,22 +129,14 @@ var critical_avoid : int
 static func create(unitDefinition: UnitTypeDefinition, characterDefinition: CharacterDefinition, reference_inventory: Array[ItemDefinition]) -> Unit:
 	var new_unit = Unit.new()
 	new_unit.unit_name = characterDefinition.unit_name
-	new_unit.unit_class_key = unitDefinition.unit_type_dictionary_key
+	new_unit.unit_class_key = unitDefinition.db_key
 	new_unit.unit_type = unitDefinition.class_t
 	new_unit.movement_class = unitDefinition.movement_class
 	new_unit.xp_worth = unitDefinition.xp_worth
 	new_unit.uses_custom_growths = characterDefinition.uses_custom_growths
 	new_unit.level = characterDefinition.level
 	new_unit.experience = characterDefinition.level
-	new_unit.can_use_axe = unitDefinition.can_use_axe
-	new_unit.can_use_sword = unitDefinition.can_use_sword
-	new_unit.can_use_lance = unitDefinition.can_use_lance
-	new_unit.can_use_bow = unitDefinition.can_use_bow
-	new_unit.can_use_Anima = unitDefinition.can_use_Anima
-	new_unit.can_use_Light = unitDefinition.can_use_Light
-	new_unit.can_use_Dark = unitDefinition.can_use_Dark
-	new_unit.can_use_Staff = unitDefinition.can_use_Staff
-	new_unit.can_use_Monster = unitDefinition.can_use_Monster	
+	new_unit.usable_weapon_types = unitDefinition.usable_weapon_types
 	create_inventory(new_unit, reference_inventory)
 	set_growths(new_unit, unitDefinition, characterDefinition)
 	set_stat_bases(new_unit, unitDefinition)
@@ -177,15 +160,7 @@ static func create_generic(unitDefinition: UnitTypeDefinition, reference_invento
 	new_unit.xp_worth = unitDefinition.xp_worth
 	new_unit.uses_custom_growths = false
 	new_unit.level = level
-	new_unit.can_use_axe = unitDefinition.can_use_axe
-	new_unit.can_use_sword = unitDefinition.can_use_sword
-	new_unit.can_use_lance = unitDefinition.can_use_lance
-	new_unit.can_use_bow = unitDefinition.can_use_bow
-	new_unit.can_use_Anima = unitDefinition.can_use_Anima
-	new_unit.can_use_Light = unitDefinition.can_use_Light
-	new_unit.can_use_Dark = unitDefinition.can_use_Dark
-	new_unit.can_use_Staff = unitDefinition.can_use_Staff
-	new_unit.can_use_Monster = unitDefinition.can_use_Monster
+	new_unit.usable_weapon_types = unitDefinition.usable_weapon_types
 	set_stat_bases(new_unit, unitDefinition)
 	set_stat_caps(new_unit, unitDefinition)
 	var level_stats = calculate_generic_stats(unitDefinition, level, bonus_levels, hard_mode)
@@ -297,12 +272,18 @@ static func set_stat_char(target_unit : Unit, characterDefinition: CharacterDefi
 static func create_inventory(target_unit: Unit , reference_inventory: Array[ItemDefinition]): 
 	## insert a duplicate entry of each item in the
 	target_unit.inventory = Inventory.create(reference_inventory)
+	if not target_unit.inventory.items.is_empty():
+		for item in target_unit.inventory.items:
+			if target_unit.inventory.equipped == null:
+				target_unit.set_equipped(item)
 
 func get_effective_stat(stat_name: String) -> int:
 	return 0
 	
 func level_up_player():
-	var total_stat_increase
+	self.level += 1
+	self.experience = 0
+	var total_stat_increase = 0 
 	var stat_increase_array = [0,0,0,0,0,0,0,0] #hp,str,mag,skill,speed,luck,def,mdef
 	stat_increase_array[0] = level_up_stat_roll(hp_growth)
 	stat_increase_array[1] = level_up_stat_roll(strength_growth)
@@ -327,17 +308,59 @@ func level_up_player():
 		stat_increase_array[7] = level_up_stat_roll(magic_defense_growth)
 	##Now we update the char stats with the increased versions
 	hp_char += stat_increase_array[0] 
+	print("hp increased : " + str( stat_increase_array[0]))
 	strength_char += stat_increase_array[1] 
+	print("str increased : " + str( stat_increase_array[1]))
 	magic_char += stat_increase_array[2] 
+	print("magic increased : " + str( stat_increase_array[2]))
 	skill_char += stat_increase_array[3] 
+	print("skill increased : " + str( stat_increase_array[3]))
 	speed_char += stat_increase_array[4] 
+	print("speed increased : " + str( stat_increase_array[4]))
 	luck_char += stat_increase_array[5] 
+	print("luck increased : " + str( stat_increase_array[5]))
 	defense_char += stat_increase_array[6] 
+	print("def increased : " + str( stat_increase_array[6]))
 	magic_defense_char += stat_increase_array[7] 
+	print("mdef increased : " + str( stat_increase_array[7]))
 	update_stats()
-	
+
+
+func level_up_generic():
+	self.level += 1
+	self.experience = 0
+	var stat_increase_array : Array[int] = [0,0,0,0,0,0,0,0]
+	stat_increase_array[0]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].hp_growth)
+	stat_increase_array[1]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].strength_growth)
+	stat_increase_array[2]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].magic_growth)
+	stat_increase_array[3]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].skill_growth)
+	stat_increase_array[4]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].speed_growth)
+	stat_increase_array[5]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].luck_growth)
+	stat_increase_array[6]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].defense_growth)
+	stat_increase_array[7]  += level_up_stat_roll(UnitTypeDatabase.unit_types[unit_class_key].magic_defense_growth)
+	hp_char += stat_increase_array[0] 
+	print("hp increased : " + str( stat_increase_array[0]))
+	strength_char += stat_increase_array[1] 
+	print("str increased : " + str( stat_increase_array[1]))
+	magic_char += stat_increase_array[2] 
+	print("magic increased : " + str( stat_increase_array[2]))
+	skill_char += stat_increase_array[3] 
+	print("skill increased : " + str( stat_increase_array[3]))
+	speed_char += stat_increase_array[4] 
+	print("speed increased : " + str( stat_increase_array[4]))
+	luck_char += stat_increase_array[5] 
+	print("luck increased : " + str( stat_increase_array[5]))
+	defense_char += stat_increase_array[6] 
+	print("def increased : " + str( stat_increase_array[6]))
+	magic_defense_char += stat_increase_array[7] 
+	print("mdef increased : " + str( stat_increase_array[7]))
+	update_stats()
+
+
 func level_up_stat_roll(target_growth : int) -> int:
+	print("Entered level_up_stat_roll")
 	var amount = floor(target_growth/100)
+	print("Growth : " + str(target_growth))
 	if (CustomUtilityLibrary.random_rolls_bool(fmod(target_growth, 100),1)):
 		amount += 1
 	return amount
@@ -354,11 +377,12 @@ func update_stats() :
 	movement = calculate_stat(movement_base, movement_char, movement_cap, movement_bonus)	
 	constitution = calculate_stat(constitution_base, constitution_char, constitution_cap, constitution_bonus)	
 	##Combat stats
-	calculate_attack()
-	calculate_attack_speed()
-	calculate_hit()
-	calculate_avoid()
-	calculate_critical_hit()
+	attack = calculate_attack()
+	attack_speed = calculate_attack_speed()
+	print(str(attack_speed))
+	hit = calculate_hit()
+	avoid = calculate_avoid()
+	critical_hit = calculate_critical_hit()
 	calculate_critical_avoid()
 
 func calculate_bonus_stats(stat:String, equipment_bonus: int, status_bonus: int, skill_bonus: int) -> int: 
@@ -367,46 +391,103 @@ func calculate_bonus_stats(stat:String, equipment_bonus: int, status_bonus: int,
 func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> int:
 	return clampi(base + char_stat, 0, stat_cap) + bonus
 
-func calculate_attack_speed():
-	attack_speed =  clampi(speed - clampi(inventory.equipped.weight - constitution, 0, 100), 0 , 100)
+func calculate_attack_speed(weapon: WeaponDefinition = null) -> int:
+	var as_val : int = 0
+	if weapon:
+		print ("Speed : " +str(speed))
+		print ("weapon weight : " +str(weapon.weight))
+		print ("constitution : " +str(constitution))
+		as_val =  speed - (weapon.weight - constitution)
+	else : 
+		if inventory.equipped:
+			as_val = speed - (inventory.equipped.weight - constitution)
+			print ("Speed : " +str(speed))
+			print ("weapon weight : " +str(inventory.equipped.weight))
+			print ("constitution : " +str(constitution))
+		else : 
+			as_val = speed
+	print("attack speed : " + str(as_val))
+	return as_val
 	
-func calculate_hit():
-	hit =  clampi(inventory.equipped.hit + (2 * skill) + (luck/2), 0, 500)
+func calculate_hit(weapon: WeaponDefinition = null) -> int:
+	var hit_value : int = 0
+	if weapon:
+		hit_value = clampi(weapon.hit + (2 * skill) + (luck/2), 0, 500)
+	else :
+		if inventory.equipped:
+			hit_value = clampi(inventory.equipped.hit + (2 * skill) + (luck/2), 0, 500)
+	return hit_value
 	
-func calculate_critical_hit():
-	critical_hit = clampi(inventory.equipped.critical_chance + (skill/2), 0 , 100) 
+func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
+	var critcal_value : int = 0
+	if weapon:
+		critcal_value = clampi(weapon.critical_chance + (skill/2), 0 , 100)
+	else :
+		if inventory.equipped:
+			critcal_value = clampi(inventory.equipped.critical_chance + (skill/2), 0 , 100) 
+	return critcal_value
 
 func calculate_critical_avoid():
 	critical_avoid =  luck 
 
-func calculate_avoid():
-	avoid = (2 * attack_speed) + luck
-
-func calculate_attack() : 
-	if(inventory.equipped.item_damage_type == 0) :
-		attack = strength  + inventory.equipped.damage
+func calculate_avoid(weapon: WeaponDefinition = null) -> int:
+	var avoid_value: int = 0
+	if weapon:
+		avoid_value = (2 * calculate_attack_speed(weapon)) + luck
 	else :
-		attack = magic  + inventory.equipped.damage
+		avoid_value = (2 * calculate_attack_speed()) + luck
+	print("Avoid Val : " + str(avoid_value))
+	return avoid_value
+
+func calculate_attack(weapon: WeaponDefinition = null) -> int: 
+	var attack_value : int = 0
+	if weapon:
+		if(weapon.item_damage_type == 0) :
+			attack_value = strength  + weapon.damage
+		else :
+			attack_value = magic  + weapon.damage
+	else :
+		if inventory.equipped:
+			if(inventory.equipped.item_damage_type == 0) :
+				attack_value = strength  + inventory.equipped.damage
+			else :
+				attack_value = magic  + inventory.equipped.damage
+	return attack_value
 
 func calculate_experience_gain_hit(hit_unit:Unit) -> int:
+	print ("Entered calculate_experience_gain_hit")
 	var experience_gain = 0
 	var target_unit_value = 0
 	var my_unit_value = 0
-	if(UnitTypeDatabase.unit_types[hit_unit.unit_class_key].unit_promoted_from_key != null) :
+	if(UnitTypeDatabase.unit_types[hit_unit.unit_class_key].promoted) :
 		target_unit_value = 20
-	if (UnitTypeDatabase.unit_types[unit_class_key].unit_promoted_from_key != null) :
+	if (UnitTypeDatabase.unit_types[self.unit_class_key].promoted) :
 		my_unit_value = 20
-	experience_gain = ((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / xp_worth
+	experience_gain = clamp(((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / xp_worth, 0, 100)
+	print ("calculate_experience_gain_hit = " + str(experience_gain))
 	return experience_gain
 
 func calculate_experience_gain_kill(killed_unit:Unit) -> int:
+	print ("Entered calculate_experience_gain_kill")
 	var experience_gain = 0
 	var target_unit_value = 0
 	var my_unit_value = 0
 	experience_gain = calculate_experience_gain_hit(killed_unit)
-	if(UnitTypeDatabase.unit_types[killed_unit.unit_class_key].unit_promoted_from_key != null) :
+	if(UnitTypeDatabase.unit_types[killed_unit.unit_class_key].promoted) :
 		target_unit_value = 60
-	if (UnitTypeDatabase.unit_types[unit_class_key].unit_promoted_from_key != null) :
+	if (UnitTypeDatabase.unit_types[unit_class_key].promoted) :
 		my_unit_value = 60
-	experience_gain = experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + xp_worth)) + 20
+	experience_gain = clamp(experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + xp_worth)) + 20, 0, 100)
+	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
+
+	
+func set_equipped(item : ItemDefinition):
+	if item is WeaponDefinition:
+		if item.weapon_type in usable_weapon_types:
+			inventory.set_equipped(item)
+			update_stats()
+		else :
+			print("Tried to equip weapon that class can't use")
+	else :
+		print("Tried to equip a non-weapon")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=11 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -7,6 +7,9 @@
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_inufr"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="6_meveu"]
 [ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="7_x6uf5"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="8_l7lwn"]
+[ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="9_vblr4"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="10_n4irs"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -16,5 +19,8 @@ items = {
 "iron_lance": ExtResource("4_o8mgg"),
 "iron_sword": ExtResource("5_inufr"),
 "short_bow": ExtResource("7_x6uf5"),
-"steel_axe": ExtResource("6_meveu")
+"silver_sword": ExtResource("9_vblr4"),
+"steel_axe": ExtResource("6_meveu"),
+"steel_sword": ExtResource("8_l7lwn"),
+"warhammer": ExtResource("10_n4irs")
 }

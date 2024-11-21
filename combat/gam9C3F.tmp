@@ -18,7 +18,6 @@ zoom = Vector2(2, 2)
 script = ExtResource("2_vv001")
 
 [node name="Select" type="Sprite2D" parent="Terrain"]
-visible = false
 position = Vector2(272, 208)
 texture = ExtResource("2_icbvx")
 
@@ -54,8 +53,8 @@ metadata/_edit_use_anchors_ = true
 [connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]
 [connection signal="combatant_died" from="VisualCombat" to="CanvasLayer/UI" method="combatant_died"]
 [connection signal="major_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_major_action_completed"]
-[connection signal="turn_advanced" from="VisualCombat" to="Controller" method="set_controlled_combatant"]
 [connection signal="turn_advanced" from="VisualCombat" to="Controller" method="advance_turn"]
+[connection signal="turn_advanced" from="VisualCombat" to="Controller" method="set_controlled_combatant"]
 [connection signal="turn_advanced" from="VisualCombat" to="CanvasLayer/UI" method="show_combatant_status_main"]
 [connection signal="update_combatants" from="VisualCombat" to="CanvasLayer/UI" method="update_combatants"]
 [connection signal="update_information" from="VisualCombat" to="CanvasLayer/UI" method="update_information"]

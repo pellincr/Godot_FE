@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_5lqdl")
 name = "Trade"
-is_major = true
+is_major = false
 requires_target = true
 requires_item = true
 description = ""

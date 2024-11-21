@@ -12,15 +12,7 @@ class_name UnitTypeDefinition
 @export var unit_promoted_from_key: String
 
 @export_group("Usable Weapon Types")
-@export var can_use_axe = false ##"Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Other" ) var item_t = 0
-@export var can_use_sword = false
-@export var can_use_lance = false
-@export var can_use_bow = false
-@export var can_use_Anima = false 
-@export var can_use_Light = false
-@export var can_use_Dark = false
-@export var can_use_Staff = false
-@export var can_use_Monster = false
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" )var usable_weapon_types : Array[int] = []
 
 @export_group("Base Combat Stats")
 @export_range(1, 60, 1, "or_greater") var hp = 20

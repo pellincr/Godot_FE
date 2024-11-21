@@ -3,6 +3,10 @@ extends Control
 class_name UnitStatusDetailedUI
 
 var unit : Unit
+var stats_grid_bar_max_bar_length = 150
+
+func _ready():
+	stats_grid_bar_max_bar_length = $RightPanel/StatsGrid/StrengthContainer.size.x
 
 func set_unit(input_unit:Unit):
 	self.unit = input_unit
@@ -62,40 +66,44 @@ func update_unit_stats():
 	update_m_defense_stat(unit.magic_defense, unit.magic_defense_cap)
 
 func update_strength_stat(current: int, max:int):
-	$RightPanel/StatsGrid/StrengthContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/StrengthContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/StrengthContainer/Bar.value = current
+	update_target_stat(current, max, $RightPanel/StatsGrid/StrengthContainer)
+	#$RightPanel/StatsGrid/StrengthContainer/Value.text = str(current)
+	#$RightPanel/StatsGrid/StrengthContainer/Bar.max_value = max
+	#$RightPanel/StatsGrid/StrengthContainer/Bar.value = current
+	#set_stat_bar_size(max,$RightPanel/StatsGrid/StrengthContainer/Bar)
+	#
 
 func update_magic_stat(current: int, max:int):
-	$RightPanel/StatsGrid/MagicContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/MagicContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/MagicContainer/Bar.value = current
+	update_target_stat(current, max, $RightPanel/StatsGrid/MagicContainer)
 
 func update_skill_stat(current: int, max:int):
-	$RightPanel/StatsGrid/SkillContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/SkillContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/SkillContainer/Bar.value = current
-
+	update_target_stat(current, max, $RightPanel/StatsGrid/SkillContainer)
+	
 func update_speed_stat(current: int, max:int):
-	$RightPanel/StatsGrid/SpeedContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/SpeedContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/SpeedContainer/Bar.value = current
+	update_target_stat(current, max, $RightPanel/StatsGrid/SpeedContainer)	
+
 
 func update_luck_stat(current: int, max:int):
-	$RightPanel/StatsGrid/LuckContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/LuckContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/LuckContainer/Bar.value = current
-
+	update_target_stat(current, max, $RightPanel/StatsGrid/LuckContainer)	
+	
 func update_defense_stat(current: int, max:int):
-	$RightPanel/StatsGrid/DefenseContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/DefenseContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/DefenseContainer/Bar.value = current
+	update_target_stat(current, max, $RightPanel/StatsGrid/DefenseContainer)		
 
 func update_m_defense_stat(current: int, max:int):
-	$RightPanel/StatsGrid/MagicDefenseContainer/Value.text = str(current)
-	$RightPanel/StatsGrid/MagicDefenseContainer/Bar.max_value = max
-	$RightPanel/StatsGrid/MagicDefenseContainer/Bar.value = current
+	update_target_stat(current, max, $RightPanel/StatsGrid/MagicDefenseContainer)	
 
+
+func update_target_stat(current:int, max:int, ui_target:PanelContainer):
+	var ui_elements = ui_target.get_children()
+	if(current == max ):
+		ui_elements[1].add_theme_color_override("font_color", Color.GREEN)
+	else : 
+		ui_elements[1].add_theme_color_override("font_color", Color.WHITE)
+	ui_elements[1].text = str(current)
+	ui_elements[0].max_value = max
+	ui_elements[0].value = current
+	set_stat_bar_size(max,ui_elements[0])
+	
 
 func set_slot_info(item: ItemDefinition):
 	$RightPanel/Inventory/Slot1Container/Equipped.visible = true
@@ -144,7 +152,6 @@ func set_inventory_slot_4(item: ItemDefinition):
 func set_inventory() : 
 	var inventory_slots = $RightPanel/Inventory.get_children()
 	for i in range(inventory_slots.size()):
-		print (str(i))
 		var slot = inventory_slots[i]
 		if(i < unit.inventory.items.size()):
 			if unit.inventory.items.size() > i:
@@ -173,4 +180,12 @@ func update_fields():
 	update_stats_grid(unit.attack, unit.hit,unit.attack_speed, unit.avoid)
 	update_unit_stats()
 	set_inventory()
+
+func set_stat_bar_size(cap:int, target : ProgressBar):
+	var max_stat = 30
+	var size_ratio : float = float(cap)/float(max_stat)
+	target.custom_minimum_size = Vector2(int(size_ratio * stats_grid_bar_max_bar_length),0)
+	##get the length
+	
+	
 	

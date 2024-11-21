@@ -2,6 +2,8 @@ extends Control
 
 class_name UnitInventorySlot
 
+signal btn_entered(item: ItemDefinition)
+
 @export var reference_item : ItemDefinition
 var equipped : bool
 
@@ -39,6 +41,9 @@ func create(item:ItemDefinition, e:bool = false) -> UnitInventorySlot:
 func set_all(item:ItemDefinition, e:bool = false) :
 	set_reference_item(item)
 	set_equipped(e)
+	
+func mouse_entered():
+	emit_signal("btn_entered", reference_item )
 	
 func check_if_item():
 	if(reference_item) :

@@ -38,27 +38,33 @@ var combatExchange: CombatExchange
 
 @export var game_ui : Control
 @export var controller : CController
+@export var combat_audio : AudioStreamPlayer
 
 func _ready():
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
+	combat_audio = $CombatAudio
 	combatExchange.connect("combat_exchange_finished", major_action_complete)
+	combatExchange.connect("play_audio", play_audio)
+	combatExchange.connect("gain_experience", unit_gain_experience)
 	randomize()
 	#Dummy Inventory for temp unit gen
 	var iventory_array :Array[ItemDefinition] = [ItemDatabase.items["iron_axe"], ItemDatabase.items["steel_axe"], null, null]
 	#ADD combatants
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fighter"], iventory_array, "Enemy1", 3,0), 1), Vector2i(16,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,16, false), 1), Vector2i(11,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(11,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Chris Murphy", 20,8, false), 1), Vector2i(10,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Will Still", 20,0, false),0), Vector2i(8,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Will Still", 5,35, false),0), Vector2i(8,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Gun Owner", 20,0, false),0), Vector2i(8,5))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Bastard Jr.", 3,0),1), Vector2i(10,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 3,0),1), Vector2i(10,7))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 20,16, true), 0), Vector2i(8,7))
+	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
+	iventory_array.insert(1, ItemDatabase.items["warhammer"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,45, true), 0), Vector2i(8,7))
 
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
@@ -108,6 +114,7 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 	var valid = item.attack_range.has(distance)
 	if valid:
 		await combatExchange.enact_combat_exchange(attacker, target, distance)
+		await game_ui.unit_experience_ended
 		if groups[Constants.FACTION.ENEMIES].size() < 1:
 			major_action_complete()
 		if attacker.allegience == Constants.FACTION.ENEMIES:
@@ -130,6 +137,9 @@ func Attack(attacker: CombatUnit, target: CombatUnit):
 #Wait Action
 func Wait(unit: CombatUnit):
 	major_action_complete()
+
+func Inv(unit: CombatUnit):
+	pass
 
 #func set_next_combatant():
 	#turn += 1
@@ -243,3 +253,15 @@ func ai_calc_expected_damage(attacker:CombatUnit, target:CombatUnit) -> Dictiona
 		"expected_damage" = expected_damage
 	}
 	return expected_combat_outcome
+
+func unit_gain_experience(u: Unit, value: int):
+	game_ui.display_unit_experience_bar(u)
+	game_ui.unit_experience_bar_gain(value)
+	await game_ui.unit_experience_ended
+	combatExchange.unit_gain_experience_complete()
+
+func play_audio(sound : AudioStream):
+	combat_audio.stream = sound
+	combat_audio.play()
+	await combat_audio.finished
+	combatExchange.audio_player_ready()

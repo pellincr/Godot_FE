@@ -5,6 +5,8 @@ var combatExchange: CombatExchange
 var distance : int
 
 var tween_complete :bool = true
+var effectiveness_tween_def_complete :bool = true
+var effectiveness_tween_atk_complete :bool = true
 var tween_active : bool = false
 var tween_target : Label = null
 
@@ -13,12 +15,14 @@ var attacker: CombatUnit
 var attacker_hit_chance: int
 var attacker_damage : int
 var attacker_critical_chance : int 
+var attacker_effective: bool = false
 
 var defender : CombatUnit #name, hp, equipped - name, uses,icon
 var defender_can_attack : bool
 var defender_hit_chance: int
 var defender_damage : int
 var defender_critical_chance : int 
+var defender_effective: bool = false
 
 func _ready():
 	combatExchange = CombatExchange.new()
@@ -29,6 +33,15 @@ func _process(delta):
 			if tween_complete:
 				tween_complete = false 
 				tween_label()
+	if attacker_effective: 
+		if effectiveness_tween_atk_complete:
+				effectiveness_tween_atk_complete = false 
+				effectiveness_tween_atk()
+	if defender_effective: 
+		if effectiveness_tween_def_complete:
+				effectiveness_tween_def_complete = false 
+				effectiveness_tween_atk()
+		
 
 func set_all(attacker : CombatUnit, defender : CombatUnit, distance:int):
 	self.defender = defender
@@ -43,6 +56,8 @@ func set_all(attacker : CombatUnit, defender : CombatUnit, distance:int):
 	self.defender_hit_chance = combat_exchange_preview.defender_hit_chance
 	self.defender_damage = combat_exchange_preview.defender_damage
 	self.defender_critical_chance = combat_exchange_preview.defender_critical_chance
+	self.attacker_effective = combat_exchange_preview.attacker_effective
+	self.defender_effective = combat_exchange_preview.defender_effective
 	update_display()
 
 
@@ -61,9 +76,14 @@ func update_attacker_display():
 	
 func update_defender_display():
 	$CenterContainer/HBoxContainer/DefenderInfo/Name.text = defender.unit.unit_name
-	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon.texture = defender.unit.inventory.equipped.icon
-	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name.text = defender.unit.inventory.equipped.name
-	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Uses.text = str(defender.unit.inventory.equipped.uses)
+	if defender.unit.inventory.equipped:
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon.texture = defender.unit.inventory.equipped.icon
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name.text = defender.unit.inventory.equipped.name
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Uses.text = str(defender.unit.inventory.equipped.uses)
+	else: 
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon.texture = null
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name.text = "--"
+		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Uses.text = "--"
 
 func update_attacker_combat_values():
 	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/HP.text = str(attacker.unit.hp)
@@ -110,4 +130,33 @@ func tween_label():
 	).set_delay(.2)
 	await tween.finished
 	tween_complete = true
-	
+
+
+
+func effectiveness_tween_atk():
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Icon, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/CombatStats/AttackerStats/Damage, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Name, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Icon, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/CombatStats/AttackerStats/Damage, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Name, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	await tween.finished
+	effectiveness_tween_atk_complete = true
+
+func effectiveness_tween_def():
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/CombatStats/DefenderStats/Damage, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(
+	$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name, "modulate", Color.GREEN, .5).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/CombatStats/DefenderStats/Damage, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	tween.parallel().tween_property($CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name, "modulate", Color.WHITE, .5).set_trans(Tween.TRANS_SINE).set_delay(.5)
+	await tween.finished
+	effectiveness_tween_atk_complete = true
