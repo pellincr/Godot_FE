@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://8y216guxyi22"]
+[gd_scene load_steps=8 format=3 uid="uid://8y216guxyi22"]
 
-[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="1_k8ife"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="2_f7ms8"]
-[ext_resource type="Script" path="res://resources/themes/combat_tile_info.gd" id="2_qy013"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_f7ms8"]
+[ext_resource type="Script" path="res://ui/combat_map_view/combat_tile_info.gd" id="2_qy013"]
+[ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="3_f3jxd"]
 [ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="3_l5uaj"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="4_upl8d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eaf6o"]
+shader = ExtResource("3_f3jxd")
+shader_parameter/lod = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3521q"]
 atlas = ExtResource("3_l5uaj")
@@ -19,8 +23,14 @@ offset_right = -952.0
 offset_bottom = -598.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_k8ife")
+theme = ExtResource("2_f7ms8")
 script = ExtResource("2_qy013")
+
+[node name="BackgroundBlur" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_eaf6o")
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 50.0
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 0
@@ -34,7 +44,6 @@ offset_left = 5.0
 offset_top = 4.0
 offset_right = 45.0
 offset_bottom = 44.0
-theme = ExtResource("2_f7ms8")
 
 [node name="terrian_icon" type="TextureRect" parent="terrain_icon_border"]
 layout_mode = 0
@@ -69,7 +78,7 @@ vertical_alignment = 1
 
 [node name="BonusContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 45.0
+offset_left = 46.0
 offset_top = 27.0
 offset_right = 199.0
 offset_bottom = 49.0
@@ -77,7 +86,7 @@ alignment = 1
 
 [node name="Special" type="Label" parent="BonusContainer"]
 layout_mode = 2
-text = "MDEF 2"
+text = "RES 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 

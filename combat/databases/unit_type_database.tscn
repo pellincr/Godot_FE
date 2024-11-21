@@ -1,14 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=8 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://q71h87n0faia" path="res://resources/definitions/unit_types/fighter.tres" id="2_gcl2o"]
 [ext_resource type="Resource" uid="uid://dxlhosk46m34j" path="res://resources/definitions/unit_types/warrior.tres" id="3_gtnsj"]
 [ext_resource type="Resource" uid="uid://c11niej1sbuyr" path="res://resources/definitions/unit_types/archer.tres" id="4_oe4uj"]
+[ext_resource type="Resource" uid="uid://be4ubqt71pmce" path="res://resources/definitions/unit_types/man_at_arms.tres" id="5_xm2j0"]
+[ext_resource type="Resource" uid="uid://cpp2spdxmfh1n" path="res://resources/definitions/unit_types/mercenary.tres" id="6_qa60v"]
+[ext_resource type="Resource" uid="uid://dw3imhfi6j8rr" path="res://resources/definitions/unit_types/knight.tres" id="7_v5raa"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
 unit_types = {
 "archer": ExtResource("4_oe4uj"),
+"armor_lance": ExtResource("7_v5raa"),
 "fighter": ExtResource("2_gcl2o"),
+"man_at_arms": ExtResource("5_xm2j0"),
+"mercenary": ExtResource("6_qa60v"),
 "warrior": ExtResource("3_gtnsj")
 }

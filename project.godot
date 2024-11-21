@@ -23,6 +23,7 @@ ItemDatabase="*res://combat/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
 CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
+Constants="*res://scripts/Constants/Constants.gd"
 
 [display]
 

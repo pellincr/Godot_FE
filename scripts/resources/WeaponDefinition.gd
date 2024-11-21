@@ -24,6 +24,7 @@ enum DAMAGE_TYPE
 @export_subgroup("Weapon Type")
 @export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var weapon_type = 0
 @export_enum("Physical", "Magic") var item_damage_type = 0
+@export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var weapon_effectiveness : Array[String] = []
 
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED

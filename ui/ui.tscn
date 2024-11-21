@@ -1,31 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://ddgx1hll377nx"]
+[gd_scene load_steps=18 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
-[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://resources/themes/combat_tile_info.tscn" id="3_ha77v"]
-[ext_resource type="Shader" path="res://resources/shaders/GrayscaleIcon.gdshader" id="3_pilcd"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/default_ui_theme.tres" id="4_57c2t"]
-[ext_resource type="PackedScene" uid="uid://d0hcis8q3seqg" path="res://ui/status_icon.tscn" id="4_mn0g0"]
-[ext_resource type="Texture2D" uid="uid://b5bhqfskef7lb" path="res://resources/sprites/icons/melee_attack.png" id="6_puss2"]
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="7_g5es8"]
-[ext_resource type="Texture2D" uid="uid://bonh4ibo7lwda" path="res://resources/sprites/icons/ranged_attack.png" id="7_i51fj"]
+[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat_map_view/combat_tile_info.tscn" id="3_ha77v"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_57c2t"]
+[ext_resource type="PackedScene" uid="uid://dfb20o5wgprx0" path="res://ui/combat_map_view/unit_combat_exchange_preview.tscn" id="6_xo23b"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
-[ext_resource type="Texture2D" uid="uid://wxkh5qyiy8c1" path="res://resources/sprites/icons/basic_magic.png" id="8_do1mp"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/header_ui.tscn" id="11_m0dmj"]
+[ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat_map_view/unit_experience_bar.tscn" id="11_xgqke"]
 [ext_resource type="PackedScene" uid="uid://dfmvtergmya12" path="res://ui/unit_status_combat_exchange.tscn" id="13_lfc13"]
 [ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/unit_status_detailed.tscn" id="14_snhky"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1qt58"]
-shader = ExtResource("3_pilcd")
-shader_parameter/color_factor = 0.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5cp0p"]
-atlas = ExtResource("7_g5es8")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nj67d"]
-atlas = ExtResource("7_g5es8")
-region = Rect2(0, 416, 32, 32)
+[ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat_map_view/attack_action_inventory.tscn" id="15_vlk4f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj4jo"]
 bg_color = Color(0, 0, 0, 0.52549)
@@ -47,6 +32,8 @@ Button/styles/normal = SubResource("StyleBoxFlat_l7wir")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvosb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="Theme" id="Theme_r421v"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nfj8"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
 border_width_left = 1
@@ -67,7 +54,6 @@ mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
 [node name="UnitStatus" parent="." instance=ExtResource("2_xlwki")]
-visible = false
 layout_mode = 1
 offset_left = 13.0
 offset_top = 455.0
@@ -76,10 +62,10 @@ offset_bottom = -65.0
 
 [node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
 layout_mode = 1
-offset_left = 939.0
-offset_top = 588.0
-offset_right = -13.0
-offset_bottom = -10.0
+offset_left = 925.0
+offset_top = 570.0
+offset_right = -27.0
+offset_bottom = -28.0
 
 [node name="TurnQueue" type="PanelContainer" parent="."]
 visible = false
@@ -109,213 +95,47 @@ offset_top = 652.0
 offset_right = 936.0
 offset_bottom = 764.0
 
-[node name="StatusIcon" parent="Actions" instance=ExtResource("4_mn0g0")]
-visible = false
-layout_mode = 2
-offset_left = -38.0
-offset_top = 10.0
-offset_right = 74.0
-offset_bottom = 122.0
-
-[node name="Icon" parent="Actions/StatusIcon" index="0"]
-material = SubResource("ShaderMaterial_1qt58")
-
-[node name="Health" parent="Actions/StatusIcon/Icon" index="0"]
-offset_left = -1.0
-offset_right = -1.0
-
 [node name="ActionsPanel" type="PanelContainer" parent="Actions"]
-layout_mode = 0
-offset_left = -126.0
-offset_top = -63.0
-offset_right = 140.0
-offset_bottom = -13.0
-
-[node name="ActionsGrid" type="GridContainer" parent="Actions/ActionsPanel"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-columns = 5
-
-[node name="Slot1" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon = ExtResource("6_puss2")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot2" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon = ExtResource("7_i51fj")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot3" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon = ExtResource("8_do1mp")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot4" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot5" type="Button" parent="Actions/ActionsPanel/ActionsGrid"]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="CombatInfo" type="PanelContainer" parent="Actions"]
 visible = false
 layout_mode = 0
-offset_left = -130.0
-offset_top = -509.0
-offset_right = 72.0
-offset_bottom = -268.0
+offset_left = 37.0
+offset_top = -622.0
+offset_right = 303.0
+offset_bottom = -572.0
 
-[node name="Container" type="VBoxContainer" parent="Actions/CombatInfo"]
+[node name="ActionsMenu" type="VBoxContainer" parent="Actions/ActionsPanel"]
 layout_mode = 2
-alignment = 1
+theme = ExtResource("4_57c2t")
 
-[node name="AttackerInfo" type="VBoxContainer" parent="Actions/CombatInfo/Container"]
+[node name="Slot1" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_vertical = 3
+focus_mode = 0
+icon_alignment = 1
+expand_icon = true
 
-[node name="Name" type="Label" parent="Actions/CombatInfo/Container/AttackerInfo"]
+[node name="Slot2" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "Joe Biden
-"
-horizontal_alignment = 1
+focus_mode = 0
+disabled = true
+icon_alignment = 1
+expand_icon = true
 
-[node name="ItemInfo" type="HBoxContainer" parent="Actions/CombatInfo/Container/AttackerInfo"]
+[node name="Slot3" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Icon" type="TextureRect" parent="Actions/CombatInfo/Container/AttackerInfo/ItemInfo"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_5cp0p")
-expand_mode = 2
-
-[node name="Name" type="Label" parent="Actions/CombatInfo/Container/AttackerInfo/ItemInfo"]
-layout_mode = 2
-text = "Zweihander"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Uses" type="Label" parent="Actions/CombatInfo/Container/AttackerInfo/ItemInfo"]
-layout_mode = 2
-text = "45"
-horizontal_alignment = 2
-
-[node name="CombatStats" type="HBoxContainer" parent="Actions/CombatInfo/Container"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="AttackerStats" type="VBoxContainer" parent="Actions/CombatInfo/Container/CombatStats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP" type="Label" parent="Actions/CombatInfo/Container/CombatStats/AttackerStats"]
-layout_mode = 2
-text = "18"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Damage" type="Label" parent="Actions/CombatInfo/Container/CombatStats/AttackerStats"]
-layout_mode = 2
-text = "5"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Hit" type="Label" parent="Actions/CombatInfo/Container/CombatStats/AttackerStats"]
-layout_mode = 2
-text = "100"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Labels" type="VBoxContainer" parent="Actions/CombatInfo/Container/CombatStats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP" type="Label" parent="Actions/CombatInfo/Container/CombatStats/Labels"]
-layout_mode = 2
-text = "HP"
-horizontal_alignment = 1
-
-[node name="Damage" type="Label" parent="Actions/CombatInfo/Container/CombatStats/Labels"]
-layout_mode = 2
-text = "Damage"
-horizontal_alignment = 1
-
-[node name="Hit" type="Label" parent="Actions/CombatInfo/Container/CombatStats/Labels"]
-layout_mode = 2
-text = "Hit"
-horizontal_alignment = 1
-
-[node name="DefenderStats" type="VBoxContainer" parent="Actions/CombatInfo/Container/CombatStats"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP" type="Label" parent="Actions/CombatInfo/Container/CombatStats/DefenderStats"]
-layout_mode = 2
-text = "13"
-
-[node name="Damage" type="Label" parent="Actions/CombatInfo/Container/CombatStats/DefenderStats"]
-layout_mode = 2
-text = "13"
-
-[node name="Hit" type="Label" parent="Actions/CombatInfo/Container/CombatStats/DefenderStats"]
-layout_mode = 2
-text = "13"
-
-[node name="DefenderInfo" type="VBoxContainer" parent="Actions/CombatInfo/Container"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ItemInfo" type="HBoxContainer" parent="Actions/CombatInfo/Container/DefenderInfo"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Icon" type="TextureRect" parent="Actions/CombatInfo/Container/DefenderInfo/ItemInfo"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_nj67d")
-expand_mode = 2
-
-[node name="Name" type="Label" parent="Actions/CombatInfo/Container/DefenderInfo/ItemInfo"]
-layout_mode = 2
-text = "Unarmed"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Uses" type="Label" parent="Actions/CombatInfo/Container/DefenderInfo/ItemInfo"]
-layout_mode = 2
-text = "∞"
-horizontal_alignment = 2
-
-[node name="Name" type="Label" parent="Actions/CombatInfo/Container/DefenderInfo"]
-layout_mode = 2
-text = "Porter Lubin
-"
-horizontal_alignment = 1
+focus_mode = 0
+icon_alignment = 1
+expand_icon = true
 
 [node name="Movement" type="Label" parent="Actions"]
+visible = false
 layout_mode = 0
-offset_left = 111.0
-offset_top = 15.0
-offset_right = 151.0
-offset_bottom = 41.0
+offset_left = 100.0
+offset_top = -91.0
+offset_right = 140.0
+offset_bottom = -65.0
 tooltip_text = "Movement"
 mouse_filter = 1
 theme_override_colors/font_color = Color(0.960784, 0.898039, 0.231373, 1)
@@ -336,15 +156,31 @@ text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
 layout_mode = 0
-offset_left = -35.0
-offset_top = -625.0
-offset_right = 359.0
-offset_bottom = -554.0
+offset_left = -760.0
+offset_top = -286.0
+offset_right = -416.0
+offset_bottom = -189.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
 
 [node name="Text" type="RichTextLabel" parent="Actions/Information"]
 layout_mode = 2
+bbcode_enabled = true
+scroll_following = true
+shortcut_keys_enabled = false
+
+[node name="Guide" type="PanelContainer" parent="Actions"]
+layout_mode = 0
+offset_left = -789.0
+offset_top = -626.0
+offset_right = -395.0
+offset_bottom = -602.0
+theme = ExtResource("4_57c2t")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
+
+[node name="Text" type="RichTextLabel" parent="Actions/Guide"]
+layout_mode = 2
+theme = SubResource("Theme_r421v")
 bbcode_enabled = true
 scroll_following = true
 shortcut_keys_enabled = false
@@ -365,6 +201,15 @@ theme_override_constants/margin_right = 50
 [node name="Label" type="Label" parent="Actions/SelectTargetMessage/MarginContainer"]
 layout_mode = 2
 text = "Select Target"
+
+[node name="unit_combat_exchange_preview" parent="." instance=ExtResource("6_xo23b")]
+visible = false
+layout_mode = 1
+offset_left = 833.0
+offset_top = 70.0
+offset_right = 832.824
+offset_bottom = 69.768
+scale = Vector2(2, 2)
 
 [node name="Control" parent="." instance=ExtResource("11_m0dmj")]
 layout_mode = 1
@@ -388,6 +233,24 @@ offset_top = 125.0
 offset_right = -356.0
 offset_bottom = -122.0
 
+[node name="AttackActionInventory" parent="." instance=ExtResource("15_vlk4f")]
+visible = false
+layout_mode = 1
+offset_left = 830.0
+offset_top = 30.0
+offset_right = -41.0
+offset_bottom = -436.0
+mouse_filter = 0
+
+[node name="unit_experience_bar" parent="." instance=ExtResource("11_xgqke")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
 [node name="Header" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 0
@@ -402,5 +265,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5nfj8")
 layout_mode = 2
 
 [connection signal="pressed" from="Actions/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
-
-[editable path="Actions/StatusIcon"]
+[connection signal="finished" from="unit_experience_bar" to="." method="_on_unit_experience_bar_finished"]

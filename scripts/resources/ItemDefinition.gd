@@ -22,3 +22,12 @@ enum ITEM_TYPE {
 
 @export_group("Visuals")
 @export var icon: Texture2D
+
+
+func use():
+	#Do something
+	print(name + " was used!")
+	uses = uses - 1
+	print(str(uses) + " uses remain")
+	if uses == 0:
+		print(name + " broke!")
