@@ -133,21 +133,23 @@ func set_inventory_list(unit: Unit):
 			var item_btn = inventory_container_children[i].get_button() as Button
 			item_btn.disabled = false
 			clear_action_button_connections(item_btn)
-			if unit.inventory.items.size() > i:
-				var item = unit.inventory.items[i]
-				var equipped = false
-				if i == 0: 
-					equipped = true
-				inventory_container_children[i].set_all(item, equipped)
-				inventory_container_children[i].visible = true
-				item_btn.pressed.connect(func():
-					play_menu_confirm()
-					controller.set_selected_item(item)
-					controller.action_item_selected()
-					)
-			else : 
-				inventory_container_children[i].visible = false
-				clear_action_button_connections(item_btn)
+			var weapon_list = unit.get_equippable_weapons()
+			if not weapon_list.is_empty():
+				if weapon_list.size() > i:
+					var item = weapon_list[i]
+					var equipped = false
+					if i == 0: 
+						equipped = true
+					inventory_container_children[i].set_all(item, equipped)
+					inventory_container_children[i].visible = true
+					item_btn.pressed.connect(func():
+						play_menu_confirm()
+						controller.set_selected_item(item)
+						controller.action_item_selected()
+						)
+				else : 
+					inventory_container_children[i].visible = false
+					clear_action_button_connections(item_btn)
 
 	
 

@@ -4,7 +4,7 @@ class_name AttackActionInventory
 
 #var selected_item: ItemDefinition
 var unit: Unit
-var inventory: Inventory
+var inventory: Array[WeaponDefinition]
 var equippable_item_info : EquippableItemInformation
 #Imports
 const UnitInventorySlot = preload("res://ui/combat_map_view/unit_inventory_slot.tscn")
@@ -20,7 +20,7 @@ static func create(unit: Unit) -> AttackActionInventory:
 
 func set_unit(unit: Unit):
 	self.unit = unit
-	self.inventory = unit.inventory
+	self.inventory = unit.get_equippable_weapons()
 	equippable_item_info.set_unit(unit)
 
 func get_inventory_container_children() -> Array[Node]:

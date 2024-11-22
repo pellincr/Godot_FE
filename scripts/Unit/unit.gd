@@ -271,7 +271,7 @@ static func set_stat_char(target_unit : Unit, characterDefinition: CharacterDefi
 
 static func create_inventory(target_unit: Unit , reference_inventory: Array[ItemDefinition]): 
 	## insert a duplicate entry of each item in the
-	target_unit.inventory = Inventory.create(reference_inventory)
+	target_unit.inventory = Inventory.create(reference_inventory, target_unit)
 	if not target_unit.inventory.items.is_empty():
 		for item in target_unit.inventory.items:
 			if target_unit.inventory.equipped == null:
@@ -481,13 +481,36 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
 
-	
-func set_equipped(item : ItemDefinition):
+
+func can_equip(item:ItemDefinition) -> bool:
+	var can_equip : bool = false
 	if item is WeaponDefinition:
 		if item.weapon_type in usable_weapon_types:
-			inventory.set_equipped(item)
-			update_stats()
+			can_equip = true
 		else :
 			print("Tried to equip weapon that class can't use")
 	else :
 		print("Tried to equip a non-weapon")
+	return can_equip
+	
+func set_equipped(item : ItemDefinition):
+	if can_equip(item):
+		inventory.set_equipped(item)
+		update_stats()
+		print(self.unit_name + " equipped : " + item.name)
+
+func get_equippable_weapons() ->  Array[WeaponDefinition]:
+	var equippable_weapons : Array[WeaponDefinition]
+	var weapons_in_inventory : Array[WeaponDefinition] = inventory.get_weapons()
+	for weapon:WeaponDefinition in weapons_in_inventory:
+		if can_equip(weapon):
+			equippable_weapons.append(weapon)
+	return  equippable_weapons
+
+func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
+	var usable_weapons : Array[WeaponDefinition]
+	var weapons_in_inventory : Array[WeaponDefinition] = get_equippable_weapons()
+	for weapon : WeaponDefinition in weapons_in_inventory:
+		if weapon.attack_range.has(distance):
+			usable_weapons.append(weapon)
+	return usable_weapons

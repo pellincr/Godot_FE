@@ -4,6 +4,7 @@ var capacity : int = 4
 #first item in the array is always equipped
 var items: Array[ItemDefinition]
 var equipped: ItemDefinition
+var inventory_owner = Unit
 
 func set_equipped(item : ItemDefinition):
 	if (item.equippable) :
@@ -61,7 +62,17 @@ func give_item(item: ItemDefinition) -> bool:
 		item_gave = true
 	return item_gave
 
-static func create(input_items:Array[ItemDefinition]) -> Inventory:
+func get_weapons() -> Array[WeaponDefinition]:
+	var weapon_array : Array[WeaponDefinition]
+	for item in items:
+		if item is WeaponDefinition: 
+			weapon_array.append(item)
+	return weapon_array
+
+func get_stalves():
+	pass
+
+static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inventory:
 	var inv = Inventory.new()
 	if(input_items.size() > inv.capacity):
 		input_items.resize(inv.capacity)

@@ -63,7 +63,8 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
-	iventory_array.insert(1, ItemDatabase.items["warhammer"])
+	iventory_array.insert(2, ItemDatabase.items["warhammer"])
+	iventory_array.insert(2, ItemDatabase.items["iron_bow"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,45, true), 0), Vector2i(8,7))
 
 	##emit_signal("update_turn_queue", combatants, turn_queue)
