@@ -49,24 +49,25 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	randomize()
 	#Dummy Inventory for temp unit gen
-	var iventory_array :Array[ItemDefinition] = [ItemDatabase.items["iron_axe"], ItemDatabase.items["steel_axe"], null, null]
+	var iventory_array :Array[ItemDefinition] 
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
+	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["steel_axe"], null, null]
 	#ADD combatants
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fighter"], iventory_array, "Enemy1", 3,0), 1), Vector2i(16,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(11,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Chris Murphy", 20,8, false), 1), Vector2i(10,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1), Vector2i(11,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 20,8, false), 1), Vector2i(10,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Will Still", 5,35, false),0), Vector2i(8,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Gun Owner", 20,0, false),0), Vector2i(8,5))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 3,0),1), Vector2i(10,7))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
 	iventory_array.insert(2, ItemDatabase.items["warhammer"])
 	iventory_array.insert(2, ItemDatabase.items["iron_bow"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,45, true), 0), Vector2i(8,7))
-
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
 
@@ -107,33 +108,33 @@ func get_distance(attacker: CombatUnit, target: CombatUnit):
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 func perform_attack(attacker: CombatUnit, target: CombatUnit):
+	print("Entered Perform_attack in combat.gd")
 	#check the distance between the target and attacker
 	var distance = get_distance(attacker, target)
 	#get the item info from the attacker
 	var item = attacker.unit.inventory.equipped
 	# check if that item can hit the target
-	var valid = item.attack_range.has(distance)
+	var valid = (item and item.attack_range.has(distance))
 	if valid:
 		await combatExchange.enact_combat_exchange(attacker, target, distance)
-		await game_ui.unit_experience_ended
+		if attacker.allegience == Constants.FACTION.PLAYERS:	
+			await game_ui.unit_experience_ended
 		if groups[Constants.FACTION.ENEMIES].size() < 1:
 			major_action_complete()
 		if attacker.allegience == Constants.FACTION.ENEMIES:
+			major_action_complete()
 			complete_unit_turn()
 	else:
 		update_information.emit("Target too far to attack.\n")
-		##UPDATE THIS TO RETURN UNIT TO TARGETTING?
-		major_action_complete()
-		complete_unit_turn()
-		#advance turn if its currently the enemy turn
 		if attacker.allegience == Constants.FACTION.ENEMIES:
 			complete_unit_turn()
+			major_action_complete()
 
 #Attack Action
 func Attack(attacker: CombatUnit, target: CombatUnit):
 	##make the combat_unit_inventory appear
-	ai_calc_expected_damage(attacker, target)
-	perform_attack(attacker, target)
+	##ai_calc_expected_damage(attacker, target)
+	await perform_attack(attacker, target)
 
 #Wait Action
 func Wait(unit: CombatUnit):
@@ -154,12 +155,13 @@ func complete_unit_turn():
 	##units[current_unit].turn_taken = true
 	pass
 
-func advance_turn():
+func advance_turn(faction: int):
 	## Reset Players to active
-	for entry in groups[Constants.FACTION.PLAYERS]:
-		if combatants[entry]:
-			combatants[entry].turn_taken = false
-			combatants[entry].map_display.update_values()
+	if faction < groups.size():
+		for entry in groups[faction]:
+			if combatants[entry]:
+				combatants[entry].turn_taken = false
+				combatants[entry].map_display.update_values()
 	emit_signal("turn_advanced")
 	#combatants[current_combatant].turn_taken = true
 	#set_next_combatant()
@@ -196,19 +198,37 @@ func sort_weight_array(a, b):
 ##AI MEHTODS
 #Process does the legwork for targetting for AI
 func ai_process(comb : CombatUnit):
+	print("In ai_process combat.gd")
+	var comb_attack_range : Array[int]
 	var nearest_target: CombatUnit
 	var l = INF
+	comb_attack_range = comb.unit.inventory.get_available_attack_ranges()
 	for target_comb_index in groups[Constants.FACTION.PLAYERS]:
 		var target = combatants[target_comb_index]
 		var distance = get_distance(comb, target)
 		if distance < l:
 			l = distance
 			nearest_target = target
-	if get_distance(comb, nearest_target) == 1:
-		perform_attack(comb, nearest_target)
+	if comb_attack_range.has(get_distance(comb, nearest_target)):
+		await Attack(comb, nearest_target)
 		return
-	await controller.ai_process(nearest_target.map_position)
-	perform_attack(comb, nearest_target)	
+	controller.ai_process(comb, nearest_target.map_position)
+	await controller.finished_move
+	print("finished waiting for controller")
+	await Attack(comb, nearest_target)
+	if comb:
+		if comb.map_display:
+			comb.map_display.update_values()
+	return	 
+
+func get_ai_units() -> Array[CombatUnit]:
+	var enemy_unit_array : Array[CombatUnit]
+	for enemy_unit in groups[Constants.FACTION.ENEMIES]:
+		if combatants[enemy_unit]:
+			enemy_unit_array.append(combatants[enemy_unit])
+	return enemy_unit_array
+
+
 
 #AI logic to pick a target in range
 func ai_pick_target(weights):
@@ -243,11 +263,11 @@ func ai_calc_expected_damage(attacker:CombatUnit, target:CombatUnit) -> Dictiona
 	if (max_damage > target.unit.hp ):
 		can_lethal = true
 	# analyze damage and compare to other options
-	for key in exchange_info:
-		var value = exchange_info[key]
-		print(str(key) + " : " + str(value))
-	print("Expected Damage : " + str(expected_damage))
-	print("max_damage : " + str(max_damage))
+	#for key in exchange_info:
+		#var value = exchange_info[key]
+		#print(str(key) + " : " + str(value))
+	#print("Expected Damage : " + str(expected_damage))
+	#print("max_damage : " + str(max_damage))
 	
 	var expected_combat_outcome = {
 		"can_lethal"  = can_lethal,

@@ -12,11 +12,12 @@ const trade_action : UnitAction =  preload("res://resources/definitions/actions/
 const item_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_item.tres")
 ##SIGNALS
 signal movement_changed(movement: int)
-signal finished_move
+signal finished_move(position: Vector2i)
 signal target_selection_started()
 signal target_selection_finished()
 signal tile_info_updated(tile : Dictionary)
 signal target_detailed_info(combat_unit : CombatUnit)
+
 
 ##EXPORTS
 @export var controlled_node : Control
@@ -92,6 +93,8 @@ var _action_valid_targets : Array[CombatUnit]
 var _selected_item: ItemDefinition
 var _item_selected: bool
 
+var _in_ai_process: bool = false
+var _enemy_units_turn_taken: bool = false
 
 var move_range : PackedVector2Array
 var attack_range : PackedVector2Array
@@ -164,7 +167,7 @@ func _unhandled_input(event):
 									move_player()
 								else :
 									_selected_unit.move_position = _selected_unit.map_position
-									finished_move.emit()
+									#finished_move.emit()
 									combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
 									player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
 					if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -202,7 +205,7 @@ func _unhandled_input(event):
 										find_path(_selected_unit.map_position)
 										return_player()
 									else : 
-										finished_move.emit()
+										#finished_move.emit()
 										_arrived = true
 										movement = _selected_unit.unit.movement
 										player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
@@ -283,14 +286,25 @@ func _process(delta):
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
 	#Enemy Turn
 	elif game_state == Constants.GAME_STATE.ENEMY_TURN:
-		print("In Enemy Turn")
+		#print("In Enemy Turn")
 		if(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			#DO THE BEGINNING PHASE STUFF HERE EX. STATUS EFFECTS REMOVE BUFFS, TERRAIN HEALING AND MORE
+			
 			turn_phase = Constants.TURN_PHASE.MAIN_PHASE
 		elif(turn_phase == Constants.TURN_PHASE.MAIN_PHASE):
-			#DO AI PROCESS?
-			turn_phase = Constants.TURN_PHASE.ENDING_PHASE
+			if _in_ai_process:
+				pass
+			else : 
+				if not _enemy_units_turn_taken:
+					ai_turn()
+				else :
+					print("moved to enemy end phase")
+					turn_phase = Constants.TURN_PHASE.ENDING_PHASE
 		elif(turn_phase == Constants.TURN_PHASE.ENDING_PHASE):
+			print("Enemy Ended Turn")
+			_in_ai_process = false
+			_enemy_units_turn_taken = false
+			combat.advance_turn(Constants.FACTION.ENEMIES)
 			#do stuff like spawn re-inforcements
 			game_state = Constants.GAME_STATE.PLAYER_TURN
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
@@ -315,19 +329,23 @@ func _process(delta):
 				_position_id += 1
 				_next_position = _path[_position_id]
 			else:
-				finished_move.emit()
 				_arrived = true
-				if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT) :
-					#Move complete on action select (cancelled move)
-					#remove old space from occupied spaces
-					_occupied_spaces.erase(_selected_unit.move_position)
-					_astargrid.set_point_weight_scale(_selected_unit.move_position, 1)
-					movement = _selected_unit.unit.movement
-					player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
-				elif(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
-					_selected_unit.move_position = new_position
-					combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
-					player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
+				finished_move.emit(new_position)
+				print("Unit finished move")
+				if game_state == Constants.GAME_STATE.PLAYER_TURN:
+					if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT) :
+						#Move complete on action select (cancelled move)
+						#remove old space from occupied spaces
+						_occupied_spaces.erase(_selected_unit.move_position)
+						_astargrid.set_point_weight_scale(_selected_unit.move_position, 1)
+						movement = _selected_unit.unit.movement
+						player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
+					elif(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
+						_selected_unit.move_position = new_position
+						combat.game_ui.set_action_list(get_available_unit_actions(_selected_unit))
+						player_state = Constants.PLAYER_STATE.UNIT_ACTION_SELECT
+				else:
+					pass
 
 
 func _draw():
@@ -790,21 +808,39 @@ func _on_visual_combat_major_action_completed() -> void:
 
 # AI Methods
 
-func ai_process(target_position: Vector2i):
+func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
+	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
 	var current_position = tile_map.local_to_map(controlled_node.position)
 	for tile in tiles_to_check:
 		if !_astargrid.get_point_weight_scale(target_position + tile) > 999999:
 			ai_move(target_position + tile)
 			break
-	return finished_move
+	await finished_move
+	print("Actual Node position is " + str(tile_map.local_to_map(controlled_node.position)))
+	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)
 
 
 func ai_move(target_position: Vector2i):
+	print("AI attempting to move to "+ str(target_position))
 	var current_position = tile_map.local_to_map(controlled_node.position)
 	find_path(target_position)
 	move_on_path(current_position)
 
+
+func ai_turn ():
+	_in_ai_process = true
+	var enemy_units  = combat.get_ai_units()
+	for unit  :CombatUnit in enemy_units:
+		print(unit.unit.unit_name)
+	for unit :CombatUnit in enemy_units:
+		print("Began AI processing unit : "+ unit.unit.unit_name)
+		set_controlled_combatant(unit)
+		await combat.ai_process(unit)
+		print("finished Processing Unit : " + unit.unit.unit_name)
+	_enemy_units_turn_taken = true
+	print("finished AI Turn")
+	_in_ai_process = false
 
 #Getter & Setters
 func set_selected_skill(skill: String):
@@ -827,8 +863,7 @@ func set_movement(value):
 func set_controlled_combatant(combatant: CombatUnit):
 	if combatant.allegience == 0:
 		_selected_unit = combatant
-	else:
-		player_turn = false
+		#player_turn = false
 	combat.set_current_combatant(combatant)
 	controlled_node = combatant.map_display
 	movement = combatant.unit.movement
