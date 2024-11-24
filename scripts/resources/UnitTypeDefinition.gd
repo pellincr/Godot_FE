@@ -4,23 +4,15 @@ class_name UnitTypeDefinition
 
 @export_group("Unit Type")
 @export var unit_type_name = ""
-@export var db_key = ""
-@export_enum("Infantry", "Monster", "Animal", "Calvary", "Armored") var class_type : Array[String] = []
-@export_enum("Ground", "Flying", "Mounted") var movement_class = 0
+@export var db_key : String
+@export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var class_type : Array[String] = []
+@export_enum("Generic","Mobile", "Heavy", "Mounted", "Flying")var movement_class = 0
 @export_range(1, 5, 1, "or_greater") var xp_worth = 2
 @export var promoted: bool
 @export var unit_promoted_from_key: String
 
 @export_group("Usable Weapon Types")
-@export var can_use_axe = false ##"Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Other" ) var item_t = 0
-@export var can_use_sword = false
-@export var can_use_lance = false
-@export var can_use_bow = false
-@export var can_use_Anima = false 
-@export var can_use_Light = false
-@export var can_use_Dark = false
-@export var can_use_Staff = false
-@export var can_use_Monster = false
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" )var usable_weapon_types : Array[int] = []
 
 @export_group("Base Combat Stats")
 @export_range(1, 60, 1, "or_greater") var hp = 20
@@ -62,14 +54,14 @@ class_name UnitTypeDefinition
 @export_range(0, 300, 5, "or_greater") var magic_defense_growth = 0
 
 @export_group("Promotion Bonuses")
-@export_range(0, 300, 5, "or_greater") var hp_promo = 0
-@export_range(0, 300, 5, "or_greater") var strength_promo = 0
-@export_range(0, 300, 5, "or_greater") var magic_promo = 0
-@export_range(0, 300, 5, "or_greater") var skill_promo = 0
-@export_range(0, 300, 5, "or_greater") var speed_promo = 0
-@export_range(0, 300, 5, "or_greater") var luck_promo = 0
-@export_range(0, 300, 5, "or_greater") var defense_promo = 0
-@export_range(0, 300, 5, "or_greater") var magic_defense_promo = 0
+@export_range(0, 10, 1, "or_greater") var hp_promo = 0
+@export_range(0, 10, 1, "or_greater") var strength_promo = 0
+@export_range(0, 10, 1, "or_greater") var magic_promo = 0
+@export_range(0, 10, 1, "or_greater") var skill_promo = 0
+@export_range(0, 10, 1, "or_greater") var speed_promo = 0
+@export_range(0, 10, 1, "or_greater") var luck_promo = 0
+@export_range(0, 10, 1, "or_greater") var defense_promo = 0
+@export_range(0, 10, 1, "or_greater") var magic_defense_promo = 0
 
 
 @export_group("Visual")

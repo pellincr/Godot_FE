@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UnitAction" load_steps=2 format=3 uid="uid://dh18nalpwejp3"]
+
+[ext_resource type="Script" path="res://scripts/resources/UnitAction.gd" id="1_6div0"]
+
+[resource]
+script = ExtResource("1_6div0")
+name = "Wait"
+is_major = true
+requires_target = false
+requires_item = false
+description = ""
+flow = Array[int]([2])

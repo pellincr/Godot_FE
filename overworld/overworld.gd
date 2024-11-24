@@ -23,11 +23,10 @@ func load_data():
 		var gold = file.get_var()
 		gold_counter.update_gold_count(gold)
 	else:
-		print("No Data Found")
+		pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(SelectedSaveFile.selected_save_path + " Path Loaded!")
 	gold_counter.update_gold_count(gold)
 	_instantiate_manage_party_buttons()
 	_instantiate_recruit_selection_buttons()

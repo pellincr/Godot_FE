@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://dw3imhfi6j8rr"]
+
+[ext_resource type="Texture2D" uid="uid://cw0kpurie5xc0" path="res://resources/sprites/units/knight_map.tres" id="1_1opyh"]
+[ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="2_b0luc"]
+[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_b62f6"]
+
+[resource]
+script = ExtResource("3_b62f6")
+unit_type_name = "Lance Armor"
+db_key = "armor_lance"
+class_type = Array[String](["Armored"])
+movement_class = 0
+xp_worth = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([2])
+hp = 17
+strength = 5
+magic = 0
+skill = 2
+speed = 0
+luck = 0
+defense = 9
+magic_defense = 0
+max_hp = 60
+max_strength = 20
+max_magic = 20
+max_skill = 20
+max_speed = 20
+max_luck = 30
+max_defense = 20
+max_magic_defense = 20
+movement = 4
+max_movement = 15
+constitution = 13
+max_constitution = 15
+aid = 13
+initiative = 1
+hp_growth = 80
+strength_growth = 40
+magic_growth = 15
+skill_growth = 35
+speed_growth = 15
+luck_growth = 25
+defense_growth = 30
+magic_defense_growth = 5
+hp_promo = 0
+strength_promo = 0
+magic_promo = 0
+skill_promo = 0
+speed_promo = 0
+luck_promo = 0
+defense_promo = 0
+magic_defense_promo = 0
+icon = ExtResource("1_1opyh")
+map_sprite = ExtResource("2_b0luc")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

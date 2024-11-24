@@ -2,9 +2,13 @@ extends Control
 
 class_name UnitStatusUI
 
-var unit : Unit
+const ally_theme = preload("res://resources/themes/combat/ally_ui_theme.tres")
+const enemy_theme = preload("res://resources/themes/combat/enemy_ui_theme.tres")
+const generic_theme = preload("res://resources/themes/combat/default_ui_theme.tres")
 
-func set_unit(input_unit:Unit):
+var unit : CombatUnit
+
+func set_unit(input_unit:CombatUnit):
 	self.unit = input_unit
 	update_fields()
 
@@ -51,11 +55,20 @@ func update_avoid_value(value: int):
 func update_unit_name(value: String): 
 	$UnitName.text = value
 
+func update_background():
+	if unit.allegience == Constants.FACTION.PLAYERS:
+		$BackgroundContainer.theme = ally_theme
+	elif unit.allegience == Constants.FACTION.ENEMIES:
+		$BackgroundContainer.theme = enemy_theme
+	else:
+		$BackgroundContainer.theme = generic_theme
+
 func update_fields():
-	update_unit_name(unit.unit_name)
-	set_unit_icon(unit.icon)
-	set_unit_health_bar_values(unit.max_hp, unit.hp)
-	set_unit_xp_bar_values(100, unit.experience)
-	set_unit_level_label(unit.level)
-	update_stats_grid(unit.attack, unit.hit,unit.attack_speed, unit.avoid)
+	update_unit_name(unit.unit.unit_name)
+	set_unit_icon(unit.unit.icon)
+	set_unit_health_bar_values(unit.unit.max_hp, unit.unit.hp)
+	set_unit_xp_bar_values(100, unit.unit.experience)
+	set_unit_level_label(unit.unit.level)
+	update_stats_grid(unit.unit.attack, unit.unit.hit,unit.unit.attack_speed, unit.unit.avoid)
+	update_background()
 	

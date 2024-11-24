@@ -1,10 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://csoe2cma4kbg6"]
+[gd_scene load_steps=11 format=3 uid="uid://csoe2cma4kbg6"]
 
 [ext_resource type="Script" path="res://combat/databases/skill_database.gd" id="1_bnr7k"]
 [ext_resource type="Script" path="res://scripts/resources/SkillDefinition.gd" id="2_twktv"]
 [ext_resource type="Texture2D" uid="uid://b5bhqfskef7lb" path="res://resources/sprites/icons/melee_attack.png" id="2_wuynl"]
 [ext_resource type="Texture2D" uid="uid://bonh4ibo7lwda" path="res://resources/sprites/icons/ranged_attack.png" id="4_gjsae"]
 [ext_resource type="Texture2D" uid="uid://wxkh5qyiy8c1" path="res://resources/sprites/icons/basic_magic.png" id="5_vgs37"]
+
+[sub_resource type="Resource" id="Resource_rl41v"]
+script = ExtResource("2_twktv")
+name = "Attack"
+min_range = 0
+max_range = 0
+min_damage = 0
+max_damage = 0
+min_prob = 0
+max_prob = 0
 
 [sub_resource type="Resource" id="Resource_lgmlb"]
 script = ExtResource("2_twktv")
@@ -39,10 +49,22 @@ min_prob = 100
 max_prob = 100
 icon = ExtResource("5_vgs37")
 
+[sub_resource type="Resource" id="Resource_ly68y"]
+script = ExtResource("2_twktv")
+name = "Wait"
+min_range = 0
+max_range = 0
+min_damage = 0
+max_damage = 0
+min_prob = 0
+max_prob = 0
+
 [node name="SkillDatabase" type="Node"]
 script = ExtResource("1_bnr7k")
 skills = {
+"attack": SubResource("Resource_rl41v"),
 "attack_melee": SubResource("Resource_lgmlb"),
 "attack_ranged": SubResource("Resource_4cuap"),
-"basic_magic": SubResource("Resource_xxs2r")
+"basic_magic": SubResource("Resource_xxs2r"),
+"wait": SubResource("Resource_ly68y")
 }
