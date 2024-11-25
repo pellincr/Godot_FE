@@ -430,12 +430,14 @@ func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 func calculate_critical_avoid():
 	critical_avoid =  luck 
 
-func calculate_avoid(weapon: WeaponDefinition = null) -> int:
+func calculate_avoid(weapon: WeaponDefinition = null, terrain : Terrain = null) -> int:
 	var avoid_value: int = 0
 	if weapon:
 		avoid_value = (2 * calculate_attack_speed(weapon)) + luck
 	else :
 		avoid_value = (2 * calculate_attack_speed()) + luck
+	if terrain:
+		avoid_value += terrain.avoid
 	print("Avoid Val : " + str(avoid_value))
 	return avoid_value
 
@@ -507,6 +509,15 @@ func get_equippable_weapons() ->  Array[WeaponDefinition]:
 			equippable_weapons.append(weapon)
 	return  equippable_weapons
 
+func get_attackable_ranges() -> Array[int]:
+	var attack_ranges : Array[int]
+	for weapon: WeaponDefinition in get_equippable_weapons():
+		if not weapon.attack_range.is_empty():
+			for attack_range in weapon.attack_range:
+				if not attack_ranges.has(attack_range):
+					attack_ranges.append(attack_range)
+	return attack_ranges
+	
 func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
 	var usable_weapons : Array[WeaponDefinition]
 	var weapons_in_inventory : Array[WeaponDefinition] = get_equippable_weapons()

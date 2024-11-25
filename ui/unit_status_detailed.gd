@@ -2,14 +2,14 @@ extends Control
 
 class_name UnitStatusDetailedUI
 
-var unit : Unit
+var Cunit : CombatUnit
 var stats_grid_bar_max_bar_length = 150
 
 func _ready():
 	stats_grid_bar_max_bar_length = $RightPanel/StatsGrid/StrengthContainer.size.x
 
-func set_unit(input_unit:Unit):
-	self.unit = input_unit
+func set_unit(input_unit:CombatUnit):
+	self.Cunit = input_unit
 	update_fields()
 
 func set_unit_icon(value: Texture2D) : 
@@ -57,13 +57,13 @@ func update_unit_name(value: String):
 	$LeftPanel/UnitName.text = value
 	
 func update_unit_stats():
-	update_strength_stat(unit.strength, unit.strength_cap)
-	update_magic_stat(unit.magic, unit.magic_cap)
-	update_skill_stat(unit.skill, unit.skill_cap)
-	update_speed_stat(unit.speed, unit.speed_cap)
-	update_luck_stat(unit.luck, unit.luck_cap)
-	update_defense_stat(unit.defense, unit.defense_cap)
-	update_m_defense_stat(unit.magic_defense, unit.magic_defense_cap)
+	update_strength_stat(Cunit.unit.strength, Cunit.unit.strength_cap)
+	update_magic_stat(Cunit.unit.magic, Cunit.unit.magic_cap)
+	update_skill_stat(Cunit.unit.skill, Cunit.unit.skill_cap)
+	update_speed_stat(Cunit.unit.speed, Cunit.unit.speed_cap)
+	update_luck_stat(Cunit.unit.luck, Cunit.unit.luck_cap)
+	update_defense_stat(Cunit.unit.defense, Cunit.unit.defense_cap)
+	update_m_defense_stat(Cunit.unit.magic_defense, Cunit.unit.magic_defense_cap)
 
 func update_strength_stat(current: int, max:int):
 	update_target_stat(current, max, $RightPanel/StatsGrid/StrengthContainer)
@@ -153,9 +153,9 @@ func set_inventory() :
 	var inventory_slots = $RightPanel/Inventory.get_children()
 	for i in range(inventory_slots.size()):
 		var slot = inventory_slots[i]
-		if(i < unit.inventory.items.size()):
-			if unit.inventory.items.size() > i:
-				var item = unit.inventory.items[i]
+		if(i < Cunit.unit.inventory.items.size()):
+			if Cunit.unit.inventory.items.size() > i:
+				var item = Cunit.unit.inventory.items[i]
 				if i == 0: 
 					slot.get_child(0).visible = true
 				else : 
@@ -172,12 +172,12 @@ func set_inventory() :
 			slot_box.get_child(2).text = ''
 
 func update_fields():
-	update_unit_name(unit.unit_name)
-	set_unit_icon(unit.map_sprite)
-	set_unit_health_bar_values(unit.max_hp, unit.hp)
-	set_unit_xp_bar_values(100, unit.experience)
-	set_unit_sub_header(unit.level, UnitTypeDatabase.unit_types[unit.unit_class_key].unit_type_name)
-	update_stats_grid(unit.attack, unit.hit,unit.attack_speed, unit.avoid)
+	update_unit_name(Cunit.unit.unit_name)
+	set_unit_icon(Cunit.unit.map_sprite)
+	set_unit_health_bar_values(Cunit.unit.max_hp, Cunit.unit.hp)
+	set_unit_xp_bar_values(100, Cunit.unit.experience)
+	set_unit_sub_header(Cunit.unit.level, UnitTypeDatabase.unit_types[Cunit.unit.unit_class_key].unit_type_name)
+	update_stats_grid(Cunit.unit.attack, Cunit.unit.hit,Cunit.unit.attack_speed, Cunit.calc_avoid())
 	update_unit_stats()
 	set_inventory()
 

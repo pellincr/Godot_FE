@@ -1,24 +1,23 @@
 extends Control
+const placeholder = preload("res://resources/definitions/terrians/blank_terrain.tres")
 
-var tile_type_name : String
-var avoid_bonus : int
-var defense_bonus : int
 var x_coordinate : int
 var y_coordinate: int
 
+var terrain : Terrain = placeholder
 var terrain_icon: Texture2D
 
-func set_tile_type_name(value: String) : 
-	$Name.text = value
-	self.tile_type_name = value
+func update_name() : 
+	$Name.text = terrain.name
 	
-func set_avoid_bonus(value: int) : 
-	$BonusContainer/Avoid.text = "AVO " +str(value)
-	self.avoid_bonus = value
+func update_avoid_bonus() : 
+	$BonusContainer/Avoid.text = "AVO " +str(terrain.avoid)
 	
-func set_defense_bonus(value: int) : 
-	$BonusContainer/Defense.text = "DEF " + str(value)
-	self.defense_bonus = value
+func update_defense_bonus() : 
+	$BonusContainer/Defense.text = "DEF " + str(terrain.defense)
+
+func update_magic_defense_bonus() : 
+	$BonusContainer/Special.text = "RES " + str(terrain.magic_defense)
 
 func set_x_coordinates(value: int) :
 	self.x_coordinate = value
@@ -40,9 +39,16 @@ func set_terrain_icon(texture: Texture2D) :
 func set_coord_string() : 
 	$Coordinates.text =  ("(" + str(x_coordinate) + "," + str(y_coordinate)+ ")")
 	
-func set_all(tile_name:String, x: int, y:int, def:int, avo:int) : ##texture:Texture2D,
-	set_tile_type_name(tile_name)
-	set_avoid_bonus(avo)
-	set_defense_bonus(def)
+func set_terrain(t: Terrain):
+	self.terrain = t
+	
+func set_all(t:Terrain, x: int, y:int) : ##texture:Texture2D,
 	set_xy_coordinate(x,y)
+	if t:
+		set_terrain(t)
+		update_name()
+		update_avoid_bonus()
+		update_defense_bonus()
+		update_magic_defense_bonus()
+	
 	##set_terrain_icon(texture)

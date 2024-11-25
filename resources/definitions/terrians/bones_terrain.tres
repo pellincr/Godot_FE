@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://cu7shacnlicgb"]
+
+[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_gqqar"]
+
+[resource]
+script = ExtResource("1_gqqar")
+name = "Remains"
+db_key = "remains"
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+magic_defense = 0
+avoid = 20

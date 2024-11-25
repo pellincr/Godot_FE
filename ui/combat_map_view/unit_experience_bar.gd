@@ -49,9 +49,10 @@ func generate_bar_time() -> float:
 
 func check_level_up():
 	if $Panel/ProgressBar.value == 100:
+		$Panel/ProgressBar.value = 0	
 		print("Unit Leveled up!")
 		reference_unit.level_up_generic()
-		$Panel/ProgressBar.value == 0
+
 		
 
 func tween_done():

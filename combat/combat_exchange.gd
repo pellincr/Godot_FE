@@ -43,46 +43,71 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 	var defender_can_attack = combat_exchange_calc.defender_can_attack
 	var defender_hit_chance = combat_exchange_calc.defender_hit_chance
 	var defender_critical_chance = combat_exchange_calc.defender_critical_chance
+	var player_unit: CombatUnit
+	if attacker.allegience == Constants.FACTION.PLAYERS:
+		player_unit = attacker
+	else : 
+		player_unit = defender
 	## Emit the combat UI to be populated?
 	await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 	## Is the defender alive?
 	if defender.alive :
-		if (defender_can_attack): 
+		if (defender_can_attack): #Can the defender respond?
 			await perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
 			if attacker.alive :
 				if(double_attacker == DOUBLE_ATTACKER.DEFENDER) :
 					await perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
+					if attacker.alive :
+						pass					
 				elif (double_attacker == DOUBLE_ATTACKER.ATTACKER) :
+					await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 					if defender.alive :
-						await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+						pass
 					else:
 						unit_defeated.emit(defender)
-						emit_signal("gain_experience", attacker.unit, attacker.unit.calculate_experience_gain_kill(defender.unit))
+						if player_unit != defender:
+							emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_kill(defender.unit))
+							await unit_gain_experience_finished
 						combat_exchange_finished.emit()
 						attacker.turn_taken = true
 						return
 			else: 
 				unit_defeated.emit(attacker)
+				if player_unit != attacker:
+					emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_kill(attacker.unit))
+					await unit_gain_experience_finished
 				combat_exchange_finished.emit()
 				attacker.turn_taken = true
 				return
 		else :
 			if(double_attacker == DOUBLE_ATTACKER.ATTACKER) :
+				await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 				if defender.alive :
-					await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
+					pass
 				else:
 					unit_defeated.emit(defender)
-					emit_signal("gain_experience", attacker.unit, attacker.unit.calculate_experience_gain_kill(defender.unit))
+					if player_unit != defender:
+						emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_kill(defender.unit))
+						await unit_gain_experience_finished
 					combat_exchange_finished.emit()
 					attacker.turn_taken = true
 					return
 	else:
 		unit_defeated.emit(defender)
-		emit_signal("gain_experience", attacker.unit, attacker.unit.calculate_experience_gain_kill(defender.unit))
+		if player_unit != defender:
+			emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_kill(defender.unit))
+			await unit_gain_experience_finished
 		combat_exchange_finished.emit()
 		attacker.turn_taken = true
 		return
-	emit_signal("gain_experience", attacker.unit, attacker.unit.calculate_experience_gain_hit(defender.unit))
+	if player_unit ==  attacker:
+		emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_hit(defender.unit))
+	else :
+		if defender_can_attack:
+			emit_signal("gain_experience", player_unit.unit, player_unit.unit.calculate_experience_gain_hit(attacker.unit))
+		else:
+			emit_signal("gain_experience", player_unit.unit, 1)
+	await unit_gain_experience_finished
 	attacker.turn_taken = true
 	combat_exchange_finished.emit()
 
@@ -136,8 +161,8 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#broadcast unit death
 	#return outcome
 
-func calc_hit(attacker: Unit, target: Unit) -> int:
-	return clamp(attacker.hit - target.avoid, 0, 100)
+func calc_hit(attacker: Unit, target: CombatUnit) -> int:
+	return clamp(attacker.hit - target.calc_avoid(), 0, 100)
 
 func calc_crit(attacker: Unit, target: Unit) -> int:
 	return clamp(attacker.critical_hit - target.critical_avoid, 0, 100)
@@ -189,7 +214,7 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 		attacker_effective = true
 	if defender.unit.inventory.equipped:
 		defender_can_attack = defender.unit.inventory.equipped.attack_range.has(distance)
-		defender_hit_chance = calc_hit(defender.unit, attacker.unit)
+		defender_hit_chance = calc_hit(defender.unit, attacker)
 		defender_damage = calc_damage(defender.unit, attacker.unit)
 		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
 		if	defender.unit.inventory.equipped.weapon_effectiveness == UnitTypeDatabase.unit_types[attacker.unit.unit_class_key].class_type:
@@ -197,7 +222,7 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 	var combat_exchange_preview = {
 		"double_attacker" = check_double(attacker.unit, defender.unit),
 		"defender_can_attack" = defender_can_attack,
-		"attacker_hit_chance" = calc_hit(attacker.unit, defender.unit),
+		"attacker_hit_chance" = calc_hit(attacker.unit, defender),
 		"attacker_damage" = calc_damage(attacker.unit, defender.unit),
 		"attacker_critical_chance" = calc_crit(attacker.unit, defender.unit),
 		"attacker_effective" =  attacker_effective,

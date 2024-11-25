@@ -168,7 +168,7 @@ func _target_selection_started():
 func _target_detailed_info(combat_unit: CombatUnit):
 	if combat_unit:
 		if not $UnitStatusDetailed.visible :
-			$UnitStatusDetailed.set_unit(combat_unit.unit)
+			$UnitStatusDetailed.set_unit(combat_unit)
 			$UnitStatusDetailed.visible = true
 	else :
 		$UnitStatusDetailed.visible = false	
@@ -176,7 +176,7 @@ func _target_detailed_info(combat_unit: CombatUnit):
 	
 
 func _set_tile_info(tile : Dictionary) :
-	$combat_tile_info.set_all(tile.name, tile.x,tile.y,tile.defense,tile.avoid)
+	$combat_tile_info.set_all(tile.terrain, tile.x,tile.y)
 	if(tile.unit):
 		$UnitStatus.set_unit(tile.unit)
 		$UnitStatus.visible = true
@@ -229,3 +229,9 @@ func play_audio(sound : AudioStream, audio_source: AudioStreamPlayer):
 func _on_unit_experience_bar_finished() -> void:
 	hide_unit_experience_bar()
 	emit_signal("unit_experience_ended")
+
+func hide_end_turn_button():
+		$Actions/EndTurnButton.visible = false
+
+func show_end_turn_button():
+		$Actions/EndTurnButton.visible = true

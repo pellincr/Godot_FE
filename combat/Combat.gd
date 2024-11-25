@@ -53,11 +53,11 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
-	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["steel_axe"], null, null]
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(9,6))
+	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["hand_axe"], null, null]
 	#ADD combatants
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(11,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(30,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1), Vector2i(11,7))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 20,8, false), 1), Vector2i(10,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
@@ -66,7 +66,7 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
 	iventory_array.insert(2, ItemDatabase.items["warhammer"])
-	iventory_array.insert(2, ItemDatabase.items["iron_bow"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,45, true), 0), Vector2i(8,7))
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
@@ -83,6 +83,7 @@ func sort_turn_queue(a, b):
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	combat_unit.map_position = position
+	combat_unit.map_terrain = controller.get_terrain_at_position(position)
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 
@@ -209,15 +210,21 @@ func ai_process(comb : CombatUnit):
 		if distance < l:
 			l = distance
 			nearest_target = target
+	## can they reach?
 	if comb_attack_range.has(get_distance(comb, nearest_target)):
+		ai_equip_best_weapon(comb, nearest_target)
 		await Attack(comb, nearest_target)
 		return
+	#
 	controller.ai_process(comb, nearest_target.map_position)
 	await controller.finished_move
 	print("finished waiting for controller")
-	await Attack(comb, nearest_target)
+	if comb_attack_range.has(get_distance(comb, nearest_target)):
+		ai_equip_best_weapon(comb, nearest_target)
+		await Attack(comb, nearest_target)
+		return
 	if comb:
-		if comb.map_display:
+		if is_instance_valid(comb.map_display) :
 			comb.map_display.update_values()
 	return	 
 
@@ -227,8 +234,6 @@ func get_ai_units() -> Array[CombatUnit]:
 		if combatants[enemy_unit]:
 			enemy_unit_array.append(combatants[enemy_unit])
 	return enemy_unit_array
-
-
 
 #AI logic to pick a target in range
 func ai_pick_target(weights):
@@ -241,7 +246,7 @@ func ai_pick_target(weights):
 			return w[1]
 
 
-func ai_calc_expected_damage(attacker:CombatUnit, target:CombatUnit) -> Dictionary:
+func calc_expected_combat_exchange(attacker:CombatUnit, target:CombatUnit) -> Dictionary:
 	#Get the values to run calcs on
 	var max_damage : int = 0 # What is our max potential damage?
 	var can_lethal : bool = false
@@ -274,6 +279,21 @@ func ai_calc_expected_damage(attacker:CombatUnit, target:CombatUnit) -> Dictiona
 		"expected_damage" = expected_damage
 	}
 	return expected_combat_outcome
+
+func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit):
+	## get weapon options
+	var usable_weapons : Array[WeaponDefinition] =  comb.unit.get_usable_weapons_at_range(get_distance(comb, target))
+	if not usable_weapons.is_empty():
+		var expected_damage : Array[Vector2]
+		for i in range(usable_weapons.size()):
+			comb.unit.set_equipped(usable_weapons[i])
+			expected_damage.append(Vector2(i, calc_expected_combat_exchange(comb, target).expected_damage))
+		expected_damage.sort_custom(sort_by_y_value)
+		print("@ EXPECTED DAMAGE CALC : " + str(expected_damage))
+		comb.unit.set_equipped(usable_weapons[expected_damage.front().x])
+
+func sort_by_y_value(a: Vector2, b : Vector2):
+	return a.y > b.y
 
 func unit_gain_experience(u: Unit, value: int):
 	game_ui.display_unit_experience_bar(u)

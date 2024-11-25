@@ -4,9 +4,15 @@
 
 [resource]
 script = ExtResource("1_pa8fd")
-name = "plain"
+name = "Plain"
 db_key = "plain"
-movement_cost = Array[int]([1, 1, 1, 1, 1])
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
 defense = 0
 magic_defense = 0
 avoid = 0

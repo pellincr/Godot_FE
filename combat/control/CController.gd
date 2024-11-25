@@ -32,7 +32,8 @@ var current_tile_info = {
 	"texture" = "",
 	"defense" = 0,
 	"avoid" = 0,
-	"unit" = null
+	"unit" = null,
+	"terrain" = null
 }
 
 const tiles_to_check = [
@@ -49,9 +50,11 @@ const tile_nieghbor_index = [
 ]
 var _occupied_spaces : Array[Vector2i]
 var _blocking_spaces = [ ##UPDATE THIS FOR ALL MOVEMENT TYPES
-	[],#Ground
-	[],#Flying
-	[] #Mounted
+	[],#GENERIC
+	[],#MOBILE
+	[],#HEAVY
+	[],#MOUNTED
+	[]#FLYING
 ]
 var movement = 0:
 	set = set_movement,
@@ -117,8 +120,10 @@ func _ready():
 	#build blocking spaces arrays
 	for tile in tile_map.get_used_cells(0):
 		var tile_blocking = tile_map.get_cell_tile_data(0, tile)
-		for block in tile_blocking.get_custom_data("Blocks"):
-			_blocking_spaces[block].append(tile)
+		if tile_blocking.get_custom_data("Terrain") is Terrain:
+			var terrain :Terrain =  tile_blocking.get_custom_data("Terrain")
+			for block_index in terrain.blocks:
+				_blocking_spaces[block_index].append(tile)
 	
 	#combat.connect("advance_turn", advance_turn)
 	#Once Game initialization is complete begin player turn
@@ -138,11 +143,12 @@ func _unhandled_input(event):
 					if event.button_index == MOUSE_BUTTON_LEFT:
 						if event.is_released():
 							##Player selects a unit
-							combat.game_ui.play_menu_confirm()
 							var selected_unit = get_combatant_at_position(mouse_position_i)
 							if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
+								combat.game_ui.play_menu_confirm()
 								if selected_unit.allegience == 0:
 									set_controlled_combatant(selected_unit)
+									combat.game_ui.hide_end_turn_button()
 									player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
 								else : 
 									#Draw the attack range for enemy, or ally
@@ -247,6 +253,7 @@ func _process(delta):
 	# Player Turn
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if(turn_phase == Constants.TURN_PHASE.INIT):
+			combat.game_ui.hide_end_turn_button()
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
 		elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			turn_phase = Constants.TURN_PHASE.MAIN_PHASE
@@ -254,9 +261,12 @@ func _process(delta):
 		elif turn_phase == Constants.TURN_PHASE.MAIN_PHASE :
 			combat.game_ui._set_tile_info(current_tile_info)
 			#DO PLAYER ACTION PROCESS HERE, WE GIVE PLAYER CONTROL
+			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				combat.game_ui.show_end_turn_button()
 			if player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				pass
+				combat.game_ui.hide_end_turn_button()
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION:
+				combat.game_ui.hide_end_turn_button()
 				if not _unit_action_initiated: 
 					perform_action()
 					_unit_action_initiated = true
@@ -272,6 +282,7 @@ func _process(delta):
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
 				pass
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				combat.game_ui.hide_end_turn_button()
 				var mouse_position = get_global_mouse_position()
 				var mouse_position_i = tile_map.local_to_map(mouse_position)
 				var comb = get_combatant_at_position(mouse_position_i)
@@ -286,6 +297,7 @@ func _process(delta):
 			turn_phase = Constants.TURN_PHASE.BEGINNING_PHASE
 	#Enemy Turn
 	elif game_state == Constants.GAME_STATE.ENEMY_TURN:
+		combat.game_ui.hide_end_turn_button()
 		#print("In Enemy Turn")
 		if(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			#DO THE BEGINNING PHASE STUFF HERE EX. STATUS EFFECTS REMOVE BUFFS, TERRAIN HEALING AND MORE
@@ -470,6 +482,7 @@ func action_target_selected(target: CombatUnit):
 
 func perform_action():
 	combat.game_ui.hide_action_list()
+	_selected_unit.map_position = _selected_unit.move_position
 	if(_action.requires_target):
 		combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
 	else :
@@ -491,8 +504,9 @@ func action_item_selected():
 
 func get_tile_cost(tile):
 	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if combat.get_current_combatant().unit.movement_class == 0:
-		return int(tile_data.get_custom_data("Cost"))
+	if combat.get_current_combatant().unit.movement_class != Constants.UNIT_MOVEMENT_CLASS.FLYING:
+		var tile_terrain :Terrain = tile_data.get_custom_data("Terrain")
+		return int (tile_terrain.cost[combat.get_current_combatant().unit.movement_class])
 	else:
 		return 1
 
@@ -500,12 +514,14 @@ func get_tile_cost(tile):
 func get_tile_cost_at_point(point):
 	var tile = tile_map.local_to_map(point)
 	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if combat.get_current_combatant().unit.movement_class == 0:
-		if(tile_data != null):
-			return int(tile_data.get_custom_data("Cost"))
+	if combat.get_current_combatant().unit.movement_class != Constants.UNIT_MOVEMENT_CLASS.FLYING:
+		if tile_data:
+			var tile_terrain :Terrain = tile_data.get_custom_data("Terrain")
+			return int (tile_terrain.cost[combat.get_current_combatant().unit.movement_class])
 		else : return INF
 	else:
 		return 1
+
 
 
 ##Draw the path between the selected Combatant and the mouse cursor
@@ -716,12 +732,15 @@ func get_tile_info(position : Vector2i):
 	current_tile_info.y = position.y
 	var tile_data = tile_map.get_cell_tile_data(0, position)
 	if(tile_data != null):
-		if(tile_data.get_custom_data("Tile_Name") != null):
-			current_tile_info.name = tile_data.get_custom_data("Tile_Name")
-		if(tile_data.get_custom_data("Avoid") != null):
-			current_tile_info.avoid = tile_data.get_custom_data("Avoid")
-		if(tile_data.get_custom_data("Defense") != null):
-			current_tile_info.defense = tile_data.get_custom_data("Defense")	
+		if tile_data.get_custom_data("Terrain"):
+			var terrain :Terrain =  tile_data.get_custom_data("Terrain")
+			current_tile_info.terrain = terrain
+		#if(tile_data.get_custom_data("Tile_Name") != null):
+			#current_tile_info.name = tile_data.get_custom_data("Tile_Name")
+		#if(tile_data.get_custom_data("Avoid") != null):
+			#current_tile_info.avoid = tile_data.get_custom_data("Avoid")
+		#if(tile_data.get_custom_data("Defense") != null):
+			#current_tile_info.defense = tile_data.get_custom_data("Defense")	
 	##get the unit info
 	if get_combatant_at_position(position):
 		current_tile_info.unit = get_combatant_at_position(position)
@@ -729,6 +748,26 @@ func get_tile_info(position : Vector2i):
 		current_tile_info.unit = null
 	tile_info_updated.emit(current_tile_info)
 
+func get_terrain_at_position(position: Vector2) ->  Terrain:
+	var terrain_at_position: Terrain = null
+	var tile = tile_map.local_to_map(position)
+	var tile_data = tile_map.get_cell_tile_data(0, tile)
+	if tile_data :
+		if tile_data.get_custom_data("Terrain") is Terrain:
+			terrain_at_position =  tile_data.get_custom_data("Terrain")
+	else :
+		print("ERROR TERRAIN IS NULL")
+	return terrain_at_position
+
+func get_terrain_at_map_position(position: Vector2) ->  Terrain:
+	var terrain_at_position: Terrain = null
+	var tile_data = tile_map.get_cell_tile_data(0, position)
+	if tile_data :
+		if tile_data.get_custom_data("Terrain") is Terrain:
+			terrain_at_position =  tile_data.get_custom_data("Terrain")
+	else :
+		print("ERROR TERRAIN IS NULL")
+	return terrain_at_position
 
 func draw_comb_range(combatant: CombatUnit) :
 	attack_range.clear()
@@ -811,15 +850,42 @@ func _on_visual_combat_major_action_completed() -> void:
 func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
+	#Get Attack Range to see what are "attackable tiles"	
 	var current_position = tile_map.local_to_map(controlled_node.position)
-	for tile in tiles_to_check:
-		if !_astargrid.get_point_weight_scale(target_position + tile) > 999999:
-			ai_move(target_position + tile)
-			break
+	var moveable_tiles : PackedVector2Array= retrieveAvailableRange(ai_unit.unit.movement,current_position, 0, true)
+	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
+	var actionable_tiles :PackedVector2Array
+	var has_actionable_move : bool = false
+	print("@ MOVABLE_TILES : " + str(moveable_tiles))
+	for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
+		for range in actionable_range:
+			for tile in get_tiles_at_range(range,combat.combatants[targetable_unit_index].map_position)[1]:
+				if not actionable_tiles.has(tile):
+					actionable_tiles.append(tile)
+	print("@ ACTIONABLE_TILES : " + str(actionable_tiles))
+	for moveable_tile in moveable_tiles:
+		if actionable_tiles.has(moveable_tile):
+			print("@ TILE MOVE TARGETTED : " + str(moveable_tile))
+			if not _occupied_spaces.has(moveable_tile):
+				for tile in tiles_to_check:
+					if !_astargrid.get_point_weight_scale(moveable_tile) > 999999:
+						ai_move(moveable_tile)
+						has_actionable_move = true
+					break
+	if not has_actionable_move: 
+		print("@ TARGET TILE : " + str(target_position))
+		for tile in actionable_tiles:
+			print("@ astar check " + str(_astargrid.get_point_weight_scale(tile)))
+			if !_astargrid.get_point_weight_scale(tile) > 999999:
+				ai_move(tile )
+				break
 	await finished_move
 	print("Actual Node position is " + str(tile_map.local_to_map(controlled_node.position)))
+	ai_unit.map_terrain = get_terrain_at_position(controlled_node.position)
 	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)
 
+func get_closet_tile(target: Vector2, array:PackedVector2Array):
+	pass
 
 func ai_move(target_position: Vector2i):
 	print("AI attempting to move to "+ str(target_position))
