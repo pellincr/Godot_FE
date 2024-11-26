@@ -11,7 +11,7 @@
 [node name="Game" type="Node"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(417, 247)
+position = Vector2(356, 302)
 zoom = Vector2(2, 2)
 script = ExtResource("2_vv001")
 

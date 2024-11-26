@@ -1,17 +1,19 @@
 extends Resource
 class_name Terrain
 
-#enum UNIT_MOVEMENT_CLASS {
-	#GENERIC,
-	#MOBILE,
+enum TYPE {
+	BASIC,
+	NATURE
 	#HEAVY,
 	#MOUNTED,
 	#FLYING
-#}
+}
 
 @export_group("Terrain Info")
 @export var name = ""
 @export var db_key = ""
+@export_enum("Basic", "Nature") var type : Array[int] = [0]
+
 
 @export_group("Cost")
 @export  var cost : Array[int] = [1,1,1,1,1]

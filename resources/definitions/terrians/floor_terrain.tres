@@ -6,6 +6,7 @@
 script = ExtResource("1_wyncc")
 name = "Floor"
 db_key = "floor"
+type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 1, 1])
 blocks = Array[int]([])
 strength = 0

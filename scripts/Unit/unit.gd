@@ -2,12 +2,6 @@ extends Resource
 
 class_name Unit
 
-enum MOVEMENT_CLASS {
-	GROUND,
-	FLYING,
-	MOUNTED
-}
-
 var unit_name : String
 ##var uid: String
 var unit_class_key : String
