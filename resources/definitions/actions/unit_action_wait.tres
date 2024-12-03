@@ -9,4 +9,4 @@ is_major = true
 requires_target = false
 requires_item = false
 description = ""
-flow = Array[int]([2])
+flow = Array[int]([3])

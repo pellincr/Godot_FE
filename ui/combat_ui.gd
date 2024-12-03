@@ -8,9 +8,11 @@ signal unit_experience_ended()
 @export var ui_map_audio : AudioStreamPlayer
 @export var ui_menu_audio : AudioStreamPlayer
 
-const TQIcon = preload("res://ui/tq_icon.tscn")
-const StatusIcon = preload("res://ui/status_icon.tscn")
+#Scene Imports
 
+const inventoryOptionsContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
+
+#Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
 const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
@@ -18,20 +20,11 @@ func _ready():
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 
-func add_turn_queue_icon(combatant: CombatUnit):
-	var new_icon = TQIcon.instantiate()
-	$TurnQueue/Queue.add_child(new_icon)
-	new_icon.set_max_hp(combatant.unit.max_hp)
-	new_icon.set_hp(combatant.unit.hp)
-	new_icon.texture = combatant.unit.icon
-	new_icon.name = combatant.unit.unit_name
-	new_icon.set_side(combatant.allegience)
-
 
 func update_turn_queue(combatants: Array, turn_queue: Array):
 	for c in turn_queue:
 		var comb = combatants[c]
-		add_turn_queue_icon(comb)
+		#add_turn_queue_icon(comb)
 
 
 func combatant_died(combatant):
@@ -43,14 +36,6 @@ func combatant_died(combatant):
 	if turn_queue_icon != null:
 		turn_queue_icon.queue_free()
 
-
-func add_combatant_status(comb: Dictionary):
-	if comb.side == 0:
-		var new_status = StatusIcon.instantiate()
-		$Status.add_child(new_status)
-		new_status.set_icon(comb.icon)
-		new_status.set_health(comb.hp, comb.max_hp)
-		new_status.name = comb.name
 
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)
@@ -68,6 +53,7 @@ func populate_combat_info(info: Dictionary):
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Hit.text = info.defender_hit_chance
 
 func _on_end_turn_button_pressed():
+	print("End Turn Button pressed")
 	turn_ended.emit()
 
 
@@ -124,7 +110,8 @@ func set_action_list(available_actions: Array[UnitAction]):
 	$Actions/EndTurnButton.disabled = !player_turn
 
 
-func set_inventory_list(unit: Unit):
+func set_inventory_list_attack(unit: Unit):
+	print("@# set_inventory_list_attack called")
 	var attack_action_inventory = $AttackActionInventory
 	attack_action_inventory.set_unit(unit)
 	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
@@ -151,8 +138,92 @@ func set_inventory_list(unit: Unit):
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
 
-	
 
+
+func set_inventory_list(unit: Unit):
+	print("@# set_inventory_list called")
+	var attack_action_inventory:  = $AttackActionInventory
+	attack_action_inventory.set_unit(unit)
+	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = false
+			clear_action_button_connections(item_btn)
+			var item_list = unit.inventory.items
+			if not item_list.is_empty():
+				if item_list.size() > i:
+					var item = item_list[i]
+					var equipped = false
+					if i == 0: 
+						equipped = true
+					inventory_container_children[i].set_all(item, equipped)
+					inventory_container_children[i].visible = true
+					item_btn.pressed.connect(func():
+						play_menu_confirm()
+						controller.set_selected_item(item)
+						controller.action_item_selected()
+						create_inventory_options_container(unit, item, attack_action_inventory)
+						)
+				else : 
+					inventory_container_children[i].visible = false
+					clear_action_button_connections(item_btn)
+
+func create_inventory_options_container(unit:Unit, item: ItemDefinition, parent: Node):
+	var inv_op_con = inventoryOptionsContainer.instantiate()
+	parent.add_child(inv_op_con)
+	inv_op_con.position = Vector2(0,0)
+	var btn_1 : Button = inv_op_con.get_button1()
+	var btn_2 : Button = inv_op_con.get_button2()
+	if item is WeaponDefinition:
+		btn_1.text = "Equip"
+		btn_1.disabled = not unit.can_equip(item)
+		btn_1.pressed.connect(func():
+			unit.set_equipped(item)
+			play_menu_confirm()
+			set_inventory_list(unit)
+			inv_op_con.queue_free())
+	if item is ConsumableItemDefinition:
+		btn_1.text = "Use"
+		btn_1.disabled = not unit.can_use_consumable_item(item)
+		btn_1.pressed.connect(func(): 
+			controller.set_unit_action(controller.use_action)
+			controller.use_action_selected()
+			#controller.combat.Use_Consumable_Item(item)
+			play_menu_confirm()
+			inv_op_con.queue_free())
+	btn_2.text = "Discard"
+	btn_2.pressed.connect(func():
+		unit.discard_item(item)
+		play_menu_confirm()
+		set_inventory_list(unit)
+		inv_op_con.queue_free())
+
+func remove_inventory_options_container():
+	var a_a_i = $AttackActionInventory
+	var children = a_a_i.get_children()
+	for child in children:
+		if child is IventoryOptionsContainer :
+			child.queue_free()
+	enable_inventory_list_butttons()
+
+func disable_inventory_list_butttons():
+	var attack_action_inventory = $AttackActionInventory
+	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = true
+			item_btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func enable_inventory_list_butttons():
+	var attack_action_inventory = $AttackActionInventory
+	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = false
+			item_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func set_movement(movement):
 	$Actions/Movement.text = str(movement)
@@ -184,10 +255,15 @@ func _set_tile_info(tile : Dictionary) :
 		$UnitStatus.visible = false
 
 func _set_attack_action_inventory(combat_unit: CombatUnit) -> void:
+	set_inventory_list_attack(combat_unit.unit)
+	if $AttackActionInventory.visible == false :
+		$AttackActionInventory.visible = true 
+
+func _set_inventory_list(combat_unit: CombatUnit) -> void:
 	set_inventory_list(combat_unit.unit)
 	if $AttackActionInventory.visible == false :
 		$AttackActionInventory.visible = true 
-		
+
 func hide_attack_action_inventory():
 	$AttackActionInventory.visible = false 
 

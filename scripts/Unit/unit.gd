@@ -477,7 +477,6 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
 
-
 func can_equip(item:ItemDefinition) -> bool:
 	var can_equip : bool = false
 	if item is WeaponDefinition:
@@ -511,7 +510,7 @@ func get_attackable_ranges() -> Array[int]:
 				if not attack_ranges.has(attack_range):
 					attack_ranges.append(attack_range)
 	return attack_ranges
-	
+
 func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
 	var usable_weapons : Array[WeaponDefinition]
 	var weapons_in_inventory : Array[WeaponDefinition] = get_equippable_weapons()
@@ -519,3 +518,25 @@ func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
 		if weapon.attack_range.has(distance):
 			usable_weapons.append(weapon)
 	return usable_weapons
+
+func use_consumable_item(item:ItemDefinition ):
+	if item is ConsumableItemDefinition:
+		if item.use_effect == item.USE_EFFECTS.HEAL:
+			heal(item.use_effect_power)
+			item.use()
+
+func can_use_consumable_item(item:ItemDefinition) -> bool:
+	var can_use :bool
+	if item is ConsumableItemDefinition:
+		if item.use_effect == item.USE_EFFECTS.HEAL:
+			if self.hp == self.max_hp:
+				can_use =  false
+			else: 
+				can_use =  true
+	return can_use
+
+func discard_item(item:ItemDefinition):
+	inventory.discard_item(item)
+
+func heal(value: int) :
+	self.hp  =  clamp(self.hp + value, 0, self.max_hp)

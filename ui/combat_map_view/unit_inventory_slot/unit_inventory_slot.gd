@@ -50,3 +50,12 @@ func check_if_item():
 		self.visible =  true
 	else :
 		self.visible =  false	
+
+
+func show_options(item:ItemDefinition):
+	$OptionsContainer.visible = true
+	if item is WeaponDefinition:
+		$OptionsContainer/Panel/VBoxContainer/Button1.text = "Equip"
+	else :
+		$OptionsContainer/Panel/VBoxContainer/Button1.text = "Use"
+	$OptionsContainer/Panel/VBoxContainer/Button2.text = "Discard"

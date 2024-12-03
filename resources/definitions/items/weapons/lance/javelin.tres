@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b6bof28m5atar"]
+
+[ext_resource type="Texture2D" uid="uid://d0vvrij6lu4a5" path="res://resources/sprites/items/javelin.png" id="1_s0uti"]
+[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_g10sh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thphj"]
+atlas = ExtResource("1_s0uti")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_g10sh")
+weapon_type = 2
+item_damage_type = 0
+weapon_effectiveness = Array[String]([])
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+class_locked = false
+locked_unit_type_key = ""
+damage = 6
+hit = 65
+critical_chance = 0
+weight = 11
+name = "Javelin"
+db_key = "javelin"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = SubResource("AtlasTexture_thphj")

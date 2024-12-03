@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7q7e586v7bpx"]
 
-[ext_resource type="Script" path="res://ui/combat_map_view/attack_action_inventory.gd" id="1_sbh7l"]
-[ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://equippable_item_information.tscn" id="2_1pmif"]
-[ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat_map_view/unit_inventory_slot.tscn" id="3_xugd8"]
+[ext_resource type="Script" path="res://ui/combat_map_view/attack_action_inventory/attack_action_inventory.gd" id="1_sbh7l"]
+[ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat_map_view/equippable_item_information/equippable_item_information.tscn" id="2_1pmif"]
+[ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat_map_view/unit_inventory_slot/unit_inventory_slot.tscn" id="3_xugd8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htxf2"]
 bg_color = Color(0, 0, 0, 1)
@@ -30,6 +30,7 @@ anchor_bottom = 1.621
 offset_top = 194.0
 offset_right = -282.0
 offset_bottom = -99.401
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

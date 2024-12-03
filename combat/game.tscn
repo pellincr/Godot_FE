@@ -10,10 +10,11 @@
 
 [node name="Game" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
 position = Vector2(356, 302)
 zoom = Vector2(2, 2)
 script = ExtResource("2_vv001")
+map = NodePath("../Terrain")
 
 [node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
 
@@ -64,4 +65,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="unit_defeated" from="VisualCombat/CombatExchange" to="VisualCombat" method="combatant_die"]
 [connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat" method="play_audio_complete"]
 [connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat/CombatExchange" method="play_audio_complete"]
-[connection signal="turn_ended" from="CanvasLayer/UI" to="VisualCombat" method="advance_turn" binds= [0]]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

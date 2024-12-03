@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
-[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat_map_view/combat_tile_info.tscn" id="3_ha77v"]
+[ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat_map_view/combat_tile_info/combat_tile_info.tscn" id="3_ha77v"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_57c2t"]
-[ext_resource type="PackedScene" uid="uid://dfb20o5wgprx0" path="res://ui/combat_map_view/unit_combat_exchange_preview.tscn" id="6_xo23b"]
+[ext_resource type="PackedScene" uid="uid://dfb20o5wgprx0" path="res://ui/combat_map_view/unit_combat_exchange_preview/unit_combat_exchange_preview.tscn" id="6_xo23b"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/header_ui.tscn" id="11_m0dmj"]
-[ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat_map_view/unit_experience_bar.tscn" id="11_xgqke"]
+[ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat_map_view/unit_experience_bar/unit_experience_bar.tscn" id="11_xgqke"]
 [ext_resource type="PackedScene" uid="uid://dfmvtergmya12" path="res://ui/unit_status_combat_exchange.tscn" id="13_lfc13"]
 [ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/unit_status_detailed.tscn" id="14_snhky"]
-[ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat_map_view/attack_action_inventory.tscn" id="15_vlk4f"]
+[ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat_map_view/attack_action_inventory/attack_action_inventory.tscn" id="15_vlk4f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj4jo"]
 bg_color = Color(0, 0, 0, 0.52549)
@@ -66,27 +66,6 @@ offset_left = 925.0
 offset_top = 570.0
 offset_right = -27.0
 offset_bottom = -28.0
-
-[node name="TurnQueue" type="PanelContainer" parent="."]
-visible = false
-texture_filter = 1
-layout_mode = 0
-offset_left = 632.0
-offset_top = 577.0
-offset_right = 1036.0
-offset_bottom = 641.0
-
-[node name="Queue" type="HBoxContainer" parent="TurnQueue"]
-layout_mode = 2
-
-[node name="Status" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 16.0
-offset_top = 336.0
-offset_right = 99.0
-offset_bottom = 592.0
-theme = ExtResource("4_57c2t")
 
 [node name="Actions" type="Control" parent="."]
 anchors_preset = 0

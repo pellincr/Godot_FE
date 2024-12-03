@@ -5,11 +5,12 @@ class_name CController
 ##CONST
 const grid_tex = preload("res://resources/sprites/grid/grid_marker_2.png")
 const path_tex = preload("res://resources/sprites/grid/path_ellipse.png")
-	#ACTIONS
+##ACTIONS
 const attack_action : UnitAction = preload("res://resources/definitions/actions/unit_action_attack.tres")
 const wait_action : UnitAction = preload("res://resources/definitions/actions/unit_action_wait.tres")
 const trade_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_trade.tres")
-const item_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_item.tres")
+const item_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_inventory.tres")
+const use_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_use_item.tres")
 ##SIGNALS
 signal movement_changed(movement: int)
 signal finished_move(position: Vector2i)
@@ -32,8 +33,8 @@ var current_tile_info = {
 	"texture" = "",
 	"defense" = 0,
 	"avoid" = 0,
-	"unit" = null,
-	"terrain" = null
+	"unit" = null,  #CombatUnit
+	"terrain" = null #Terrain
 }
 
 const tiles_to_check = [
@@ -81,7 +82,6 @@ var _previous_position : Vector2i
 
 var _selected_skill: String
 
-#var combat.get_current_combatant() : CombatUnit
 var _action_target_unit : CombatUnit
 var _action_target_unit_selected : bool = false
 
@@ -106,6 +106,8 @@ var skill_range : PackedVector2Array
 var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
 var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
 var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
+
+var turn_count : int = 1
 
 func _ready():
 	tile_map = get_node("../Terrain/TileMap")
@@ -219,6 +221,15 @@ func _unhandled_input(event):
 										player_state = Constants.PLAYER_STATE.UNIT_MOVEMENT
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
 				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+				print("IN OPTION SELECT")
+				if event is InputEventMouseButton:
+					if event.button_index == MOUSE_BUTTON_RIGHT:
+						if event.is_released():
+							if(_action == item_action):
+								combat.game_ui.remove_inventory_options_container()
+								combat.game_ui.enable_inventory_list_butttons()
+							revert_action_flow()
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -316,8 +327,12 @@ func _process(delta):
 					turn_phase = Constants.TURN_PHASE.ENDING_PHASE
 		elif(turn_phase == Constants.TURN_PHASE.ENDING_PHASE):
 			print("Enemy Ended Turn")
+			if (turn_count % 3 == 0):
+				trigger_reinforcements()
 			_in_ai_process = false
 			_enemy_units_turn_taken = false
+			turn_count += 1
+			
 			combat.advance_turn(Constants.FACTION.ENEMIES)
 			#do stuff like spawn re-inforcements
 			game_state = Constants.GAME_STATE.PLAYER_TURN
@@ -361,7 +376,7 @@ func _process(delta):
 				else:
 					pass
 
-
+#draw the area
 func _draw():
 	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
 		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
@@ -372,6 +387,8 @@ func _draw():
 		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
 			draw_action_tiles(_action_tiles, _action)
 
+#advance_the game turn
+#connect to UI end turn
 func advance_turn():
 	turn_phase = Constants.TURN_PHASE.ENDING_PHASE
 
@@ -477,7 +494,10 @@ func begin_target_selection():
 func begin_action_item_selection():
 	combat.game_ui.hide_action_list()
 	if _action.requires_item :
-		combat.game_ui._set_attack_action_inventory(combat.get_current_combatant())
+		if _action == attack_action:
+			combat.game_ui._set_attack_action_inventory(combat.get_current_combatant())
+		elif _action == item_action:
+			combat.game_ui._set_inventory_list(combat.get_current_combatant())
 	else: 
 		pass ## do nothing??
 
@@ -489,9 +509,12 @@ func action_target_selected(target: CombatUnit):
 
 func perform_action():
 	combat.game_ui.hide_action_list()
+	combat.game_ui.hide_attack_action_inventory()
 	combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
 	if(_action.requires_target):
 		combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
+	elif(_action.requires_item and not _action.requires_target): 
+		combat.call(_action.name, combat.get_current_combatant(), _selected_item)
 	else :
 		combat.call(_action.name, combat.get_current_combatant())
 	_action_selected = false
@@ -507,6 +530,15 @@ func action_item_selected():
 			_action_valid_targets = get_potential_targets(combat.get_current_combatant(), _selected_item.attack_range)
 			combat.game_ui.hide_attack_action_inventory()
 			player_state = get_next_action_state()
+	elif _action == item_action: 
+		#combat.get_current_combatant().unit.set_equipped(_selected_item)
+		_item_selected = true
+		combat.game_ui.disable_inventory_list_butttons()
+		player_state = get_next_action_state()
+		
+
+func use_action_selected():
+	player_state = get_next_action_state()
 
 
 func get_tile_cost(tile):
@@ -699,6 +731,8 @@ func map_player_state_to_action_state(player_state: Constants.PLAYER_STATE) -> C
 		return Constants.UNIT_ACTION_STATE.ITEM_SELECT
 	elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
 		return Constants.UNIT_ACTION_STATE.TARGET_SELECT
+	elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+		return Constants.UNIT_ACTION_STATE.OPTION_SELECT
 	else :
 		return Constants.UNIT_ACTION_STATE.ACTION
 
@@ -707,6 +741,8 @@ func map_action_state_to_player_state(action_state: Constants.UNIT_ACTION_STATE)
 		return Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT
 	elif action_state == Constants.UNIT_ACTION_STATE.TARGET_SELECT:
 		return Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT
+	elif action_state == Constants.UNIT_ACTION_STATE.OPTION_SELECT:
+		return Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT
 	else :
 		return Constants.PLAYER_STATE.UNIT_ACTION
 #Finds the edges of a list of tiles
@@ -847,7 +883,6 @@ func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 
 func _on_visual_combat_major_action_completed() -> void:
 	_unit_action_completed = true
-	pass # Replace with function body.
 
 
 # AI Methods
@@ -881,18 +916,21 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 						ai_move(moveable_tile)
 						has_actionable_move = true
 						break
-
+	#current combatant AI allows them to move without target
 	print("@ EXITED SEARCH")
-	if not has_actionable_move: 
-		print("@ NO ACTION TARGET TILE : " + str(target_position))
-		for tile in actionable_tiles:
-			#print("@ astar check " + str(_astargrid.get_point_weight_scale(tile)))
-			for dir in tiles_to_check:
-				if not _occupied_spaces.has(tile):
-					if !_astargrid.get_point_weight_scale(tile + Vector2(dir)) > 999999:
-						ai_move(tile + Vector2(dir))
-						break
-	await finished_move
+	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+		if not has_actionable_move: 
+			print("@ NO ACTION TARGET TILE : " + str(target_position))
+			for tile in actionable_tiles:
+				#print("@ astar check " + str(_astargrid.get_point_weight_scale(tile)))
+				for dir in tiles_to_check:
+					if not _occupied_spaces.has(tile):
+						if !_astargrid.get_point_weight_scale(tile + Vector2(dir)) > 999999:
+							ai_move(tile + Vector2(dir))
+							break
+							has_actionable_move = true
+	if has_actionable_move:
+		await finished_move
 	print("Actual Node position is " + str(tile_map.local_to_map(controlled_node.position)))
 	ai_unit.map_terrain = get_terrain_at_position(controlled_node.position)
 	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)
@@ -910,8 +948,6 @@ func ai_move(target_position: Vector2i):
 func ai_turn ():
 	_in_ai_process = true
 	var enemy_units  = combat.get_ai_units()
-	for unit  :CombatUnit in enemy_units:
-		print(unit.unit.unit_name)
 	for unit :CombatUnit in enemy_units:
 		print("Began AI processing unit : "+ unit.unit.unit_name)
 		set_controlled_combatant(unit)
@@ -945,3 +981,6 @@ func set_controlled_combatant(combatant: CombatUnit):
 	controlled_node = combatant.map_display
 	movement = combatant.unit.movement
 	update_points_weight()
+
+func trigger_reinforcements():
+	combat.spawn_reinforcements()

@@ -22,11 +22,12 @@ var map_display : CombatUnitDisplay
 var allegience : int
 var ai_type: int
 
-static func create(unit: Unit, team: int) -> CombatUnit:
+static func create(unit: Unit, team: int, ai:int = 0) -> CombatUnit:
 	var instance = CombatUnit.new()
 	instance.alive = true
 	instance.turn_taken = false
 	instance.unit = unit
+	instance.ai_type = ai
 	##instance.map_position = position
 	instance.allegience = team
 	return instance

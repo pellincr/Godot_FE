@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://8y216guxyi22"]
 
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_f7ms8"]
-[ext_resource type="Script" path="res://ui/combat_map_view/combat_tile_info.gd" id="2_qy013"]
+[ext_resource type="Script" path="res://ui/combat_map_view/combat_tile_info/combat_tile_info.gd" id="2_qy013"]
 [ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="3_f3jxd"]
 [ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="3_l5uaj"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="4_upl8d"]

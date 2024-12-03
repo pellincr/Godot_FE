@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://c11niej1sbuyr"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://c11niej1sbuyr"]
 
+[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_t1q70"]
 [ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="1_vb1ea"]
-[ext_resource type="Texture2D" uid="uid://bawxrbd0ffc4e" path="res://resources/sprites/units/archer_icon.tres" id="1_xlbc4"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_e600p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jroy"]
+atlas = ExtResource("1_t1q70")
+region = Rect2(64, 0, 32, 16)
 
 [resource]
 script = ExtResource("1_vb1ea")
@@ -52,7 +56,7 @@ speed_promo = 0
 luck_promo = 0
 defense_promo = 0
 magic_defense_promo = 0
-icon = ExtResource("1_xlbc4")
+icon = SubResource("AtlasTexture_7jroy")
 map_sprite = ExtResource("2_e600p")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_4cdvv"]
 [ext_resource type="Theme" uid="uid://ed4yl6dd47sc" path="res://resources/themes/combat/ally_ui_theme.tres" id="1_e5awf"]
-[ext_resource type="Script" path="res://ui/combat_map_view/unit_combat_exchange_preview.gd" id="1_ujlkr"]
+[ext_resource type="Script" path="res://ui/combat_map_view/unit_combat_exchange_preview/unit_combat_exchange_preview.gd" id="1_ujlkr"]
 [ext_resource type="Theme" uid="uid://cm5r2ata30slh" path="res://resources/themes/combat/enemy_ui_theme.tres" id="2_w2375"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_wkcdj"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="6_2i8wt"]

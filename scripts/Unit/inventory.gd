@@ -72,6 +72,11 @@ func get_weapons() -> Array[WeaponDefinition]:
 func get_stalves():
 	pass
 
+func get_item_index(item: ItemDefinition):
+	for index in items.size():
+		if items[index] == item:
+			return index
+
 static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inventory:
 	var inv = Inventory.new()
 	if(input_items.size() > inv.capacity):
@@ -83,3 +88,9 @@ static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inven
 				#inv.equipped = item
 			inv.give_item(item)
 	return inv
+
+func discard_at_index(index : int):
+	items.remove_at(index)
+
+func discard_item(target_item: ItemDefinition):
+	items.erase(target_item)

@@ -1,10 +1,10 @@
 extends Control
-const placeholder = preload("res://resources/definitions/terrians/blank_terrain.tres")
+const placeholder_terrain = preload("res://resources/definitions/terrians/blank_terrain.tres")
 
 var x_coordinate : int
 var y_coordinate: int
 
-var terrain : Terrain = placeholder
+var terrain : Terrain = placeholder_terrain
 var terrain_icon: Texture2D
 
 func update_name() : 

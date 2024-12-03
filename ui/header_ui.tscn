@@ -15,64 +15,105 @@ Panel/styles/panel = SubResource("StyleBoxFlat_ykce7")
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -598.0
 grow_horizontal = 2
-grow_vertical = 2
 theme = SubResource("Theme_7pnet")
 
-[node name="header_under" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -576.0
-offset_right = 576.0
-offset_bottom = 25.0
-grow_horizontal = 2
-
-[node name="expedition_label" type="Label" parent="header_under"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 401.0
-offset_bottom = 24.0
+offset_right = 1150.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="LeftPanel" type="Panel" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/LeftPanel"]
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 30.0
+
+[node name="expedition_label" type="Label" parent="HBoxContainer/MarginContainer/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
-text = "Current Expedition Name and Stage"
+text = "Skeletal Sieze"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="phase_label" type="Label" parent="header_under"]
-layout_mode = 0
-offset_left = 750.0
-offset_right = 1151.0
-offset_bottom = 24.0
+[node name="expedition_label2" type="Label" parent="HBoxContainer/MarginContainer/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
-text = "Allies Phase : Turn 1          Turns till Event : 2"
+text = "Turn 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="header_center" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -175.0
-offset_right = 175.0
-offset_bottom = 50.0
-grow_horizontal = 2
+[node name="phase_label" type="Label" parent="HBoxContainer/MarginContainer/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Time 0:12:54"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label" type="Label" parent="header_center"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -174.0
-offset_right = 173.0
-offset_bottom = 48.0
-grow_horizontal = 2
+[node name="header_center" type="Panel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/header_center"]
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 42.0
+
+[node name="ObjectLabel" type="Label" parent="HBoxContainer/header_center/CenterContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Defeat Enemies
 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 10
+
+[node name="LeftPanel" type="Panel" parent="HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/LeftPanel"]
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 30.0
+
+[node name="expedition_label" type="Label" parent="HBoxContainer/MarginContainer2/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Skeletal Sieze"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="expedition_label2" type="Label" parent="HBoxContainer/MarginContainer2/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Turn 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="phase_label" type="Label" parent="HBoxContainer/MarginContainer2/LeftPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.509804)
+text = "Time 0:12:54"
 horizontal_alignment = 1
 vertical_alignment = 1

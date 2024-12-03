@@ -3,7 +3,7 @@ class_name Combat
 
 #Imports
 const CombatUnitDisplay = preload("res://ui/combat_unit_display.tscn")
-
+const InventoryOptionContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
 ##
 #Combat Node
 #This node controlls the combat actions on the map
@@ -52,12 +52,14 @@ func _ready():
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(9,6))
+	iventory_array.insert(0, ItemDatabase.items["javelin"])
+	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
+	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(9,6))
 	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["hand_axe"], null, null]
 	#ADD combatants
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(30,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1), Vector2i(11,7))
+	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(30,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(0,7))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
@@ -66,13 +68,21 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
 	iventory_array.insert(2, ItemDatabase.items["warhammer"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,45, true), 0), Vector2i(8,7))
+	iventory_array.insert(2, ItemDatabase.items["potion"])
+	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,20, true), 0), Vector2i(8,7))
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
 
-func create_combatant_unit(unit:Unit, team:int, override_name = ""):
-	var comb = CombatUnit.create(unit, team)
+func spawn_reinforcements():
+	var iventory_array : Array[ItemDefinition]  = [ItemDatabase.items["iron_axe"]]
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "spawned_dude", 0,20, false), 1), Vector2i(4,6))
+	for index in groups[Constants.FACTION.ENEMIES]:
+		print("! " + str(combatants[index]))
+	print("! SPAWNED DUDES")
+
+func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0):
+	var comb = CombatUnit.create(unit, team, ai_type)
 	return comb
 
 func sort_turn_queue(a, b):
@@ -141,9 +151,13 @@ func Attack(attacker: CombatUnit, target: CombatUnit):
 func Wait(unit: CombatUnit):
 	major_action_complete()
 
-func Inv(unit: CombatUnit):
+func Items(unit: CombatUnit): ##should never be called
 	pass
-
+func Use(unit: CombatUnit, item: ConsumableItemDefinition):
+	get_current_combatant().unit.use_consumable_item(item)
+	await get_current_combatant().map_display.update_values() ##display for healing
+	major_action_complete()
+	#complete_unit_turn()
 #func set_next_combatant():
 	#turn += 1
 	#if turn >= turn_queue.size():
@@ -215,14 +229,15 @@ func ai_process(comb : CombatUnit):
 		ai_equip_best_weapon(comb, nearest_target)
 		await Attack(comb, nearest_target)
 		return
-	#
-	controller.ai_process(comb, nearest_target.map_position)
-	await controller.finished_move
-	print("finished waiting for controller")
-	if comb_attack_range.has(get_distance(comb, nearest_target)):
-		ai_equip_best_weapon(comb, nearest_target)
-		await Attack(comb, nearest_target)
-		return
+	#if the current unit AI types lets them move on map
+	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
+		await controller.ai_process(comb, nearest_target.map_position)
+		#await controller.finished_move
+		print("finished waiting for controller")
+		if comb_attack_range.has(get_distance(comb, nearest_target)):
+			ai_equip_best_weapon(comb, nearest_target)
+			await Attack(comb, nearest_target)
+			return
 	if comb:
 		if is_instance_valid(comb.map_display) :
 			comb.map_display.update_values()
