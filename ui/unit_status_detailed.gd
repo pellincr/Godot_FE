@@ -22,18 +22,18 @@ func set_unit_sub_header(level: int, unit_type: String) :
 	#Level 15 Classname
 	$LeftPanel/UnitSubHeader.text = "Level " + str(level) + " " + unit_type
 	
-func set_unit_health_bar_values(max: int, current:int) : 
-	$LeftPanel/HealthBar/Bar.max_value = max
+func set_unit_health_bar_values(maximum: int, current:int) : 
+	$LeftPanel/HealthBar/Bar.max_value = maximum
 	$LeftPanel/HealthBar/Bar.value = current
-	$LeftPanel/HealthBar/Value.text = convert_int_to_bar_format(max, current)
+	$LeftPanel/HealthBar/Value.text = convert_int_to_bar_format(maximum, current)
 
-func set_unit_xp_bar_values(max: int, current:int) : 
-	$LeftPanel/ExperienceBar/Bar.max_value = max
+func set_unit_xp_bar_values(maximum: int, current:int) : 
+	$LeftPanel/ExperienceBar/Bar.max_value = maximum
 	$LeftPanel/ExperienceBar/Bar.value = current
-	$LeftPanel/ExperienceBar/Value.text = convert_int_to_bar_format(max, current)
+	$LeftPanel/ExperienceBar/Value.text = convert_int_to_bar_format(maximum, current)
 
-func convert_int_to_bar_format(max:int, current: int) -> String:
-	return str(current) + " / " + str(max) 
+func convert_int_to_bar_format(maximum:int, current: int) -> String:
+	return str(current) + " / " + str(maximum) 
 
 func update_stats_grid(attack: int, hit:int, attack_speed:int, avoid:int): 	
 	update_attack_value(attack)
@@ -65,44 +65,44 @@ func update_unit_stats():
 	update_defense_stat(Cunit.unit.defense, Cunit.unit.defense_cap)
 	update_m_defense_stat(Cunit.unit.magic_defense, Cunit.unit.magic_defense_cap)
 
-func update_strength_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/StrengthContainer)
+func update_strength_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/StrengthContainer)
 	#$RightPanel/StatsGrid/StrengthContainer/Value.text = str(current)
 	#$RightPanel/StatsGrid/StrengthContainer/Bar.max_value = max
 	#$RightPanel/StatsGrid/StrengthContainer/Bar.value = current
 	#set_stat_bar_size(max,$RightPanel/StatsGrid/StrengthContainer/Bar)
 	#
 
-func update_magic_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/MagicContainer)
+func update_magic_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/MagicContainer)
 
-func update_skill_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/SkillContainer)
+func update_skill_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/SkillContainer)
 	
-func update_speed_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/SpeedContainer)	
+func update_speed_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/SpeedContainer)	
 
 
-func update_luck_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/LuckContainer)	
+func update_luck_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/LuckContainer)	
 	
-func update_defense_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/DefenseContainer)		
+func update_defense_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/DefenseContainer)		
 
-func update_m_defense_stat(current: int, max:int):
-	update_target_stat(current, max, $RightPanel/StatsGrid/MagicDefenseContainer)	
+func update_m_defense_stat(current: int, maximum:int):
+	update_target_stat(current, maximum, $RightPanel/StatsGrid/MagicDefenseContainer)	
 
 
-func update_target_stat(current:int, max:int, ui_target:PanelContainer):
+func update_target_stat(current:int, maximum:int, ui_target:PanelContainer):
 	var ui_elements = ui_target.get_children()
-	if(current == max ):
+	if(current == maximum ):
 		ui_elements[1].add_theme_color_override("font_color", Color.GREEN)
 	else : 
 		ui_elements[1].add_theme_color_override("font_color", Color.WHITE)
 	ui_elements[1].text = str(current)
-	ui_elements[0].max_value = max
+	ui_elements[0].max_value = maximum
 	ui_elements[0].value = current
-	set_stat_bar_size(max,ui_elements[0])
+	set_stat_bar_size(maximum,ui_elements[0])
 	
 
 func set_slot_info(item: ItemDefinition):
@@ -177,7 +177,7 @@ func update_fields():
 	set_unit_health_bar_values(Cunit.unit.max_hp, Cunit.unit.hp)
 	set_unit_xp_bar_values(100, Cunit.unit.experience)
 	set_unit_sub_header(Cunit.unit.level, UnitTypeDatabase.unit_types[Cunit.unit.unit_class_key].unit_type_name)
-	update_stats_grid(Cunit.unit.attack, Cunit.unit.hit,Cunit.unit.attack_speed, Cunit.calc_avoid())
+	update_stats_grid(Cunit.unit.attack, Cunit.unit.hit,Cunit.unit.attack_speed, Cunit.calc_map_avoid())
 	update_unit_stats()
 	set_inventory()
 

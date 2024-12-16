@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8x27pjcjh8k1"
-path="res://.godot/imported/preview.PNG-d60a8173c14a2bb549077fb3ec6bd119.ctex"
+uid="uid://b8dt01ypfassm"
+path="res://.godot/imported/Ironchests_RPG_items_pico8_transparentbg_v1.png-099e2c05e150155856a1f9876d1b52a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://preview.PNG"
-dest_files=["res://.godot/imported/preview.PNG-d60a8173c14a2bb549077fb3ec6bd119.ctex"]
+source_file="res://resources/sprites/sheets/Ironchests_RPG_items_pico8_transparentbg_v1.png"
+dest_files=["res://.godot/imported/Ironchests_RPG_items_pico8_transparentbg_v1.png-099e2c05e150155856a1f9876d1b52a5.ctex"]
 
 [params]
 

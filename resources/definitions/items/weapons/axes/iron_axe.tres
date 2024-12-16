@@ -1,21 +1,24 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bmyc03suasno"]
 
-[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="1_cp6t3"]
 [ext_resource type="Texture2D" uid="uid://coap74eeqxw4f" path="res://resources/sprites/items/iron_axe.tres" id="1_excfp"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_53rw2"]
 
 [resource]
-script = ExtResource("1_cp6t3")
-weapon_type = 0
+script = ExtResource("2_53rw2")
+weapon_type = "Axe"
+physical_weapon_triangle_type = "Axe"
+magic_weapon_triangle_type = "none"
 item_damage_type = 0
-weapon_effectiveness = Array[String]([])
 required_mastery = 0
 attack_range = Array[int]([1])
-class_locked = false
-locked_unit_type_key = ""
 damage = 8
 hit = 65
 critical_chance = 0
 weight = 10
+weapon_effectiveness = Array[String]([])
+is_slayer = false
+is_brave = false
+applies_status_effect = false
 name = "Iron Axe"
 db_key = "iron_axe"
 equippable = true

@@ -47,13 +47,13 @@ func set_defending_unit_icon(value: Texture2D) :
 func set_unit_name(value: String) : 
 	$UnitName.text = value
 	
-func set_attacking_unit_health_bar_values(max: int, current:int) : 
-	$Background/AttackingUnit/HealthBar/Bar.max_value = max
+func set_attacking_unit_health_bar_values(maximum: int, current:int) : 
+	$Background/AttackingUnit/HealthBar/Bar.max_value = maximum
 	$Background/AttackingUnit/HealthBar/Bar.value = current
 	$Background/AttackingUnit/HealthBar/Value.text = str(current)
 	
-func set_defending_unit_health_bar_values(max: int, current:int) : 
-	$Background/DefendingUnit/HealthBar/Bar.max_value = max
+func set_defending_unit_health_bar_values(maximum: int, current:int) : 
+	$Background/DefendingUnit/HealthBar/Bar.max_value = maximum
 	$Background/DefendingUnit/HealthBar/Bar.value = current
 	$Background/DefendingUnit/HealthBar/Value.text = str(current)
 

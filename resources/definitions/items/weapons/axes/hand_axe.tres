@@ -1,25 +1,28 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://xw5blar04bqb"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_s0bh1"]
-[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_uagcd"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_2ad6o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_er04g"]
 atlas = ExtResource("1_s0bh1")
 region = Rect2(96, 132, 32, 32)
 
 [resource]
-script = ExtResource("2_uagcd")
-weapon_type = 0
+script = ExtResource("2_2ad6o")
+weapon_type = "Axe"
+physical_weapon_triangle_type = "Axe"
+magic_weapon_triangle_type = "none"
 item_damage_type = 0
-weapon_effectiveness = Array[String]([])
 required_mastery = 1
 attack_range = Array[int]([1, 2])
-class_locked = false
-locked_unit_type_key = ""
 damage = 7
 hit = 60
 critical_chance = 0
 weight = 12
+weapon_effectiveness = Array[String]([])
+is_slayer = false
+is_brave = false
+applies_status_effect = false
 name = "Hand Axe"
 db_key = "hand_axe"
 equippable = true

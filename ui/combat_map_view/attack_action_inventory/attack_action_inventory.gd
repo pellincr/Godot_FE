@@ -13,14 +13,14 @@ func _ready():
 	equippable_item_info = $Equippable_item_information
 
 
-static func create(unit: Unit) -> AttackActionInventory: 
+static func create(target_unit: Unit) -> AttackActionInventory: 
 	var a_a_inv = AttackActionInventory.new()
-	a_a_inv.set_unit(unit)
+	a_a_inv.set_unit(target_unit)
 	return a_a_inv
 
-func set_unit(unit: Unit):
-	self.unit = unit
-	equippable_item_info.set_unit(unit)
+func set_unit(target_unit: Unit):
+	self.unit = target_unit
+	equippable_item_info.set_unit(target_unit)
 
 func get_inventory_container_children() -> Array[Node]:
 	return $MarginContainer/VBoxContainer.get_children()

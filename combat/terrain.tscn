@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://ww05yde5nb2t"]
+[gd_scene load_steps=16 format=3 uid="uid://ww05yde5nb2t"]
 
 [ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="1_ol4pc"]
 [ext_resource type="Texture2D" uid="uid://cu82x5hvakoo" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_yqtwc"]
+[ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_81kdn"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_hrnf1"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="3_wi53r"]
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="4_afflb"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="4_qknpy"]
 [ext_resource type="Resource" uid="uid://cu7shacnlicgb" path="res://resources/definitions/terrians/bones_terrain.tres" id="4_xgc7e"]
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="5_8s1gw"]
+[ext_resource type="Resource" uid="uid://2qq6yi3brlv0" path="res://resources/definitions/terrians/grass_terrain.tres" id="5_e081y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]
 texture = ExtResource("1_yqtwc")
@@ -193,13 +195,15 @@ texture_region_size = Vector2i(32, 32)
 1:7/0 = 0
 1:7/0/terrain_set = 0
 1:7/0/terrain = 0
-1:7/0/custom_data_0 = ExtResource("3_wi53r")
+1:7/0/custom_data_0 = ExtResource("5_e081y")
 2:7/0 = 0
 2:7/0/terrain_set = 0
 2:7/0/terrain = 0
+2:7/0/custom_data_0 = ExtResource("5_e081y")
 3:7/0 = 0
 3:7/0/terrain_set = 0
 3:7/0/terrain = 0
+3:7/0/custom_data_0 = ExtResource("5_e081y")
 1:8/0 = 0
 1:8/0/terrain_set = 0
 1:8/0/terrain = 0
@@ -246,6 +250,7 @@ texture_region_size = Vector2i(32, 32)
 0:13/0/terrains_peering_bit/bottom_left_corner = 1
 0:13/0/terrains_peering_bit/top_left_corner = 1
 0:13/0/terrains_peering_bit/top_right_corner = 1
+0:13/0/custom_data_0 = ExtResource("2_81kdn")
 1:13/0 = 0
 1:13/0/terrain_set = 0
 1:13/0/terrain = 1
@@ -274,6 +279,7 @@ texture_region_size = Vector2i(32, 32)
 1:14/0/terrains_peering_bit/bottom_left_corner = 1
 1:14/0/terrains_peering_bit/top_left_corner = 1
 1:14/0/terrains_peering_bit/top_right_corner = 1
+1:14/0/custom_data_0 = ExtResource("5_e081y")
 2:14/0 = 0
 2:14/0/terrain_set = 0
 2:14/0/terrain = 1
@@ -281,6 +287,7 @@ texture_region_size = Vector2i(32, 32)
 2:14/0/terrains_peering_bit/bottom_left_corner = 1
 2:14/0/terrains_peering_bit/top_left_corner = 1
 2:14/0/terrains_peering_bit/top_right_corner = 1
+2:14/0/custom_data_0 = ExtResource("5_e081y")
 3:14/0 = 0
 3:14/0/terrain_set = 0
 3:14/0/terrain = 1
@@ -288,6 +295,7 @@ texture_region_size = Vector2i(32, 32)
 3:14/0/terrains_peering_bit/bottom_left_corner = 1
 3:14/0/terrains_peering_bit/top_left_corner = 1
 3:14/0/terrains_peering_bit/top_right_corner = 1
+3:14/0/custom_data_0 = ExtResource("5_e081y")
 0:15/0 = 0
 1:15/0 = 0
 2:15/0 = 0

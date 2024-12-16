@@ -28,14 +28,7 @@ func update_turn_queue(combatants: Array, turn_queue: Array):
 
 
 func combatant_died(combatant):
-	var turn_queue_icon = $TurnQueue/Queue.find_child(combatant.unit.unit_name, false, false)
-#	if combatant.side == 0:
-#		var status = $Status.find_child(combatant.name, false, false)
-#		if status != null:
-#			status.queue_free()
-	if turn_queue_icon != null:
-		turn_queue_icon.queue_free()
-
+	pass
 
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)
@@ -93,6 +86,7 @@ func set_action_list(available_actions: Array[UnitAction]):
 		else:
 			action_btn.disabled = false
 		if available_actions.size() > i:
+			action_btn.visible = true
 			var action = available_actions[i]
 			#action.icon = skill.icon
 			action_btn.text = action.name
@@ -103,6 +97,7 @@ func set_action_list(available_actions: Array[UnitAction]):
 				controller.begin_action_flow()
 				)
 		else:
+			action_btn.visible = false
 			action_btn.icon = null
 			action_btn.text = ""
 			action_btn.tooltip_text = ""

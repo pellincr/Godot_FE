@@ -1,7 +1,7 @@
 extends Node
 ##const font = preload("res://resources/fonts/CrimsonText-Bold.ttf")
 const theme = preload("res://resources/themes/Damage_Numbers.tres")
-func display_number(value:int, position:Vector2, is_miss: bool = false, is_critical: bool = false):
+func display_number(value:int, position:Vector2, is_critical: bool = false):
 	var number = Label.new()
 	number.global_position = position
 	number.z_index = 5
@@ -38,37 +38,37 @@ func display_number(value:int, position:Vector2, is_miss: bool = false, is_criti
 	number.queue_free()		
 
 func display_text(value:String, position:Vector2, text_color:Color, outline_color:Color, text_size: int) :
-	var display_text = Label.new()
-	display_text.global_position = position
-	display_text.z_index = 5
-	display_text.theme = theme
-	display_text.text = value
+	var display_text_object = Label.new()
+	display_text_object.global_position = position
+	display_text_object.z_index = 5
+	display_text_object.theme = theme
+	display_text_object.text = value
 	#display_text.theme.set_font(font)
-	display_text.label_settings = LabelSettings.new()
-	display_text.label_settings.font_color = text_color
-	display_text.label_settings.font_size = text_size
-	display_text.label_settings.outline_color = outline_color
-	display_text.label_settings.outline_size = 3
+	display_text_object.label_settings = LabelSettings.new()
+	display_text_object.label_settings.font_color = text_color
+	display_text_object.label_settings.font_size = text_size
+	display_text_object.label_settings.outline_color = outline_color
+	display_text_object.label_settings.outline_size = 3
 	
-	call_deferred("add_child", display_text)
+	call_deferred("add_child", display_text_object)
 	
-	await display_text.resized
-	display_text.pivot_offset = Vector2(display_text.size / 2)
+	await display_text_object.resized
+	display_text_object.pivot_offset = Vector2(display_text_object.size / 2)
 	
 	var tween = get_tree().create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(
-		display_text, "position:y", display_text.position.y -24, 0.25
+		display_text_object, "position:y", display_text_object.position.y -24, 0.25
 	).set_ease(Tween.EASE_OUT)
 	tween.tween_property(
-		display_text, "position:y", display_text.position.y -24, 0.25
+		display_text_object, "position:y", display_text_object.position.y -24, 0.25
 	).set_ease(Tween.EASE_IN).set_delay(0.25)
 	tween.tween_property(
-		display_text, "scale", Vector2.ZERO, 0.25
+		display_text_object, "scale", Vector2.ZERO, 0.25
 	).set_ease(Tween.EASE_IN).set_delay(0.5)
 	
 	await tween.finished
-	display_text.queue_free()		
+	display_text_object.queue_free()		
 
 func no_damage(position:Vector2):
 	display_text("No Damage", position, Color.WHITE, Color.BLACK, 18)

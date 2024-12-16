@@ -32,7 +32,10 @@ static func create(unit: Unit, team: int, ai:int = 0) -> CombatUnit:
 	instance.allegience = team
 	return instance
 
-func calc_avoid()-> int:
+func set_terrain(terrain : Terrain) :
+	map_terrain = terrain
+	 
+func calc_map_avoid()-> int:
 	if map_terrain:
 		return unit.avoid + map_terrain.avoid
 	else: 

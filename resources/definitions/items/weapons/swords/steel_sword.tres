@@ -1,25 +1,28 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://2w80i71bep67"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_3al5q"]
-[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_6itxv"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_h0xpr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v7uj"]
 atlas = ExtResource("1_3al5q")
 region = Rect2(0, 32, 32, 32)
 
 [resource]
-script = ExtResource("2_6itxv")
-weapon_type = 1
+script = ExtResource("2_h0xpr")
+weapon_type = "Sword"
+physical_weapon_triangle_type = "Sword"
+magic_weapon_triangle_type = "none"
 item_damage_type = 0
-weapon_effectiveness = Array[String]([])
 required_mastery = 1
 attack_range = Array[int]([1])
-class_locked = false
-locked_unit_type_key = ""
 damage = 8
 hit = 70
 critical_chance = 0
 weight = 10
+weapon_effectiveness = Array[String]([])
+is_slayer = false
+is_brave = false
+applies_status_effect = false
 name = "Steel Sword"
 db_key = "steel_sword"
 equippable = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfb20o5wgprx0"]
+[gd_scene load_steps=12 format=3 uid="uid://dfb20o5wgprx0"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_4cdvv"]
 [ext_resource type="Theme" uid="uid://ed4yl6dd47sc" path="res://resources/themes/combat/ally_ui_theme.tres" id="1_e5awf"]
@@ -6,6 +6,8 @@
 [ext_resource type="Theme" uid="uid://cm5r2ata30slh" path="res://resources/themes/combat/enemy_ui_theme.tres" id="2_w2375"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_wkcdj"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="6_2i8wt"]
+[ext_resource type="Theme" uid="uid://cde4yqaacjrsc" path="res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_up.tres" id="6_c4lvq"]
+[ext_resource type="Theme" uid="uid://b6k51qllipmtk" path="res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_down.tres" id="8_hffua"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ods2c"]
 atlas = ExtResource("1_4cdvv")
@@ -18,7 +20,7 @@ region = Rect2(0, 416, 32, 32)
 [sub_resource type="Theme" id="Theme_f31u6"]
 default_font = ExtResource("6_2i8wt")
 default_font_size = 12
-Label/colors/font_color = Color(0.235294, 1, 0.803922, 1)
+Label/colors/font_color = Color(0, 1, 1, 1)
 
 [node name="unit_combat_exchange_preview" type="Control"]
 layout_mode = 3
@@ -219,6 +221,15 @@ text = "Porter Lubin
 "
 horizontal_alignment = 1
 
+[node name="wpn_triangle_attack" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 35.0
+offset_right = 28.0
+offset_bottom = 51.0
+theme = ExtResource("6_c4lvq")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "↑"
+
 [node name="double_def" type="Label" parent="."]
 layout_mode = 0
 offset_left = 114.0
@@ -228,6 +239,15 @@ offset_bottom = 101.0
 theme = SubResource("Theme_f31u6")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "x2"
+
+[node name="wpn_triangle_def" type="Label" parent="."]
+offset_left = 19.0
+offset_top = 159.0
+offset_right = 25.0
+offset_bottom = 175.0
+theme = ExtResource("8_hffua")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "↓"
 
 [node name="double_atk" type="Label" parent="."]
 layout_mode = 0

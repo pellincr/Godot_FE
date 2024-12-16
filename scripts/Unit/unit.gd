@@ -13,7 +13,7 @@ var uses_custom_growths : bool
 var level : int
 var experience : int
 
-@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[int] = []
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[String] = []
 
 @export_group("Unit Stats")
 @export_subgroup("HP")
@@ -388,19 +388,19 @@ func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> in
 func calculate_attack_speed(weapon: WeaponDefinition = null) -> int:
 	var as_val : int = 0
 	if weapon:
-		print ("Speed : " +str(speed))
-		print ("weapon weight : " +str(weapon.weight))
-		print ("constitution : " +str(constitution))
+		#print ("Speed : " +str(speed))
+		#print ("weapon weight : " +str(weapon.weight))
+		#print ("constitution : " +str(constitution))
 		as_val =  speed - (weapon.weight - constitution)
 	else : 
 		if inventory.equipped:
 			as_val = speed - (inventory.equipped.weight - constitution)
-			print ("Speed : " +str(speed))
-			print ("weapon weight : " +str(inventory.equipped.weight))
-			print ("constitution : " +str(constitution))
+			#print ("Speed : " +str(speed))
+			#print ("weapon weight : " +str(inventory.equipped.weight))
+			#print ("constitution : " +str(constitution))
 		else : 
 			as_val = speed
-	print("attack speed : " + str(as_val))
+	#print("attack speed : " + str(as_val))
 	return as_val
 	
 func calculate_hit(weapon: WeaponDefinition = null) -> int:
@@ -478,15 +478,15 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	return experience_gain
 
 func can_equip(item:ItemDefinition) -> bool:
-	var can_equip : bool = false
+	var can_equip_item : bool = false
 	if item is WeaponDefinition:
 		if item.weapon_type in usable_weapon_types:
-			can_equip = true
+			can_equip_item = true
 		else :
 			print("Tried to equip weapon that class can't use")
 	else :
 		print("Tried to equip a non-weapon")
-	return can_equip
+	return can_equip_item
 	
 func set_equipped(item : ItemDefinition):
 	if can_equip(item):

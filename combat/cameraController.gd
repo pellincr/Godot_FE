@@ -7,7 +7,7 @@ var zoomTarget :Vector2
 var dragStartMousePos = Vector2.ZERO
 var dragStartCameraPos = Vector2.ZERO
 var isDragging : bool = false
-var zoomMin: Vector2 = Vector2(0.1, 0.1)
+var zoomMin: Vector2 = Vector2(1, 1)
 var zoomMax: Vector2 = Vector2(5.0, 5.0)
 
 # Called when the node enters the scene tree for the first time.

@@ -36,6 +36,7 @@ var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITIO
 
 var combatExchange: CombatExchange
 
+var _player_unit_alive : bool = true
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
@@ -44,7 +45,7 @@ func _ready():
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
-	combatExchange.connect("combat_exchange_finished", major_action_complete)
+	combatExchange.connect("combat_exchange_finished", combatExchangeComplete)
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	randomize()
@@ -55,11 +56,11 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["javelin"])
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
 	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(9,6))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(11,7))
 	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["hand_axe"], null, null]
 	#ADD combatants
 	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(30,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(0,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(0,7))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["short_bow"])
@@ -68,8 +69,8 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["silver_sword"])
 	iventory_array.insert(2, ItemDatabase.items["warhammer"])
-	iventory_array.insert(2, ItemDatabase.items["potion"])
-	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
+	iventory_array.insert(2, ItemDatabase.items["sword_reaver"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,20, true), 0), Vector2i(8,7))
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
@@ -120,6 +121,7 @@ func get_distance(attacker: CombatUnit, target: CombatUnit):
 
 func perform_attack(attacker: CombatUnit, target: CombatUnit):
 	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
 	#check the distance between the target and attacker
 	var distance = get_distance(attacker, target)
 	#get the item info from the attacker
@@ -128,9 +130,9 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 	var valid = (item and item.attack_range.has(distance))
 	if valid:
 		await combatExchange.enact_combat_exchange(attacker, target, distance)
-		if attacker.allegience == Constants.FACTION.PLAYERS:	
+		if _player_unit_alive:
 			await game_ui.unit_experience_ended
-		if groups[Constants.FACTION.ENEMIES].size() < 1:
+		if attacker.allegience == Constants.FACTION.PLAYERS:
 			major_action_complete()
 		if attacker.allegience == Constants.FACTION.ENEMIES:
 			major_action_complete()
@@ -143,6 +145,7 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 
 #Attack Action
 func Attack(attacker: CombatUnit, target: CombatUnit):
+	print("Entered Attack in Combat.gd")
 	##make the combat_unit_inventory appear
 	##ai_calc_expected_damage(attacker, target)
 	await perform_attack(attacker, target)
@@ -177,7 +180,8 @@ func advance_turn(faction: int):
 			if combatants[entry]:
 				combatants[entry].turn_taken = false
 				combatants[entry].map_display.update_values()
-	emit_signal("turn_advanced")
+	#emit_signal("turn_advanced")
+	
 	#combatants[current_combatant].turn_taken = true
 	#set_next_combatant()
 	#while !combatants[current_combatant].alive:
@@ -192,6 +196,10 @@ func advance_turn(faction: int):
 
 func major_action_complete():
 	emit_signal("major_action_completed")
+
+func combatExchangeComplete(friendly_unit_alive:bool):
+	_player_unit_alive = friendly_unit_alive
+	major_action_complete()
 
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)

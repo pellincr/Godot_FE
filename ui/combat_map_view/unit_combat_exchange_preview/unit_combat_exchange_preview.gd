@@ -2,8 +2,13 @@ extends Control
 
 var combatExchange: CombatExchange
 
-var distance : int
+const up_theme = preload("res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_up.tres")
+const down_theme = preload("res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_down.tres")
 
+const down_arrow_char = "↓"
+const up_arrow_char = "↑"
+
+var distance : int
 var tween_complete :bool = true
 var effectiveness_tween_def_complete :bool = true
 var effectiveness_tween_atk_complete :bool = true
@@ -23,6 +28,8 @@ var defender_hit_chance: int
 var defender_damage : int
 var defender_critical_chance : int 
 var defender_effective: bool = false
+
+var wpn_triangle_adv_unit : Unit = null
 
 func _ready():
 	combatExchange = CombatExchange.new()
@@ -58,6 +65,7 @@ func set_all(attacker : CombatUnit, defender : CombatUnit, distance:int):
 	self.defender_critical_chance = combat_exchange_preview.defender_critical_chance
 	self.attacker_effective = combat_exchange_preview.attacker_effective
 	self.defender_effective = combat_exchange_preview.defender_effective
+	self.wpn_triangle_adv_unit = combatExchange.check_weapon_triangle(attacker.unit, defender.unit)
 	update_display()
 
 
@@ -67,7 +75,28 @@ func update_display():
 	update_attacker_combat_values()
 	update_defender_combat_values()
 	update_double()
+	update_weapon_triangle()
 
+
+func update_weapon_triangle():
+	if (wpn_triangle_adv_unit == attacker.unit):
+		$wpn_triangle_attack.visible = true
+		$wpn_triangle_def.visible = true
+		$wpn_triangle_attack.text = up_arrow_char
+		$wpn_triangle_attack.theme = up_theme
+		$wpn_triangle_def.text = down_arrow_char
+		$wpn_triangle_def.theme = down_theme
+	elif(wpn_triangle_adv_unit == defender.unit):
+		$wpn_triangle_attack.visible = true
+		$wpn_triangle_def.visible = true
+		$wpn_triangle_attack.text = down_arrow_char
+		$wpn_triangle_attack.theme = down_theme
+		$wpn_triangle_def.text = up_arrow_char
+		$wpn_triangle_def.theme = up_theme
+	else : 
+		$wpn_triangle_attack.visible = false
+		$wpn_triangle_def.visible = false
+	
 func update_attacker_display():
 	$CenterContainer/HBoxContainer/AttackerInfo/Name.text = attacker.unit.unit_name
 	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Icon.texture = attacker.unit.inventory.equipped.icon
