@@ -29,10 +29,10 @@ shadow_size = 2
 ProgressBar/styles/background = SubResource("StyleBoxFlat_2yp1e")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_plcvx")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkjgm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjoci"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2ybl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcnbp"]
 bg_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 2
@@ -40,7 +40,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rfueb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe6d1"]
 bg_color = Color(0.487777, 0.478876, 0.441957, 1)
 border_color = Color(5.77569e-07, 0.923315, 0.836303, 1)
 border_blend = true
@@ -50,9 +50,9 @@ corner_detail = 10
 shadow_size = 3
 
 [sub_resource type="Theme" id="Theme_147ov"]
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_rkjgm")
-ProgressBar/styles/background = SubResource("StyleBoxFlat_y2ybl")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_rfueb")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_kjoci")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_fcnbp")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_fe6d1")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_submf"]
 bg_color = Color(0.184599, 0.180567, 0.162498, 1)

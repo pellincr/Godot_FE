@@ -47,6 +47,6 @@ enum HIT_EFFECT
 
 @export_group("Weapon Effects & Specials") ## TO BE IMPLEMENTED
 @export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var weapon_effectiveness : Array[String] = []
-@export var is_slayer = false
+@export var is_wpn_triangle_effective = false
 @export var is_brave = false
 @export var applies_status_effect = false

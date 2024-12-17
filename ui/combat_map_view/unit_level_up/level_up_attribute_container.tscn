@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://pmy8teg4tftq"]
+
+[ext_resource type="Script" path="res://ui/combat_map_view/unit_level_up/level_up_attribute_container.gd" id="1_qrcrj"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="1_r2dw3"]
+[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="2_1pa5r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6oo0h"]
+bg_color = Color(0.187176, 0.187176, 0.187176, 1)
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_cwjc6"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6oo0h")
+
+[node name="Attribute Container" type="PanelContainer"]
+offset_right = 200.0
+offset_bottom = 28.0
+theme = SubResource("Theme_cwjc6")
+script = ExtResource("1_qrcrj")
+
+[node name="HSplitContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="AttributeLabel" type="Label" parent="HSplitContainer/MarginContainer2"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("1_r2dw3")
+theme_override_fonts/font = ExtResource("2_1pa5r")
+theme_override_font_sizes/font_size = 21
+text = "Attribute"
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HSplitContainer" type="HBoxContainer" parent="HSplitContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="HSplitContainer/MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("1_r2dw3")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_1pa5r")
+theme_override_font_sizes/font_size = 21
+text = "18"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelValue" type="Label" parent="HSplitContainer/MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("1_r2dw3")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("2_1pa5r")
+theme_override_font_sizes/font_size = 21
+text = "+ 1"
+horizontal_alignment = 1
+vertical_alignment = 1

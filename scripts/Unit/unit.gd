@@ -274,7 +274,7 @@ static func create_inventory(target_unit: Unit , reference_inventory: Array[Item
 func get_effective_stat(stat_name: String) -> int:
 	return 0
 	
-func level_up_player():
+func level_up_player()-> Array[int]:
 	self.level += 1
 	self.experience = 0
 	var total_stat_increase = 0 
@@ -318,9 +318,10 @@ func level_up_player():
 	magic_defense_char += stat_increase_array[7] 
 	print("mdef increased : " + str( stat_increase_array[7]))
 	update_stats()
+	return stat_increase_array
 
 
-func level_up_generic():
+func level_up_generic() -> Array[int]:
 	self.level += 1
 	self.experience = 0
 	var stat_increase_array : Array[int] = [0,0,0,0,0,0,0,0]
@@ -349,7 +350,7 @@ func level_up_generic():
 	magic_defense_char += stat_increase_array[7] 
 	print("mdef increased : " + str( stat_increase_array[7]))
 	update_stats()
-
+	return stat_increase_array
 
 func level_up_stat_roll(target_growth : int) -> int:
 	print("Entered level_up_stat_roll")
@@ -540,3 +541,15 @@ func discard_item(item:ItemDefinition):
 
 func heal(value: int) :
 	self.hp  =  clamp(self.hp + value, 0, self.max_hp)
+	
+func get_basic_stat_array() -> Array[int]:
+	var stat_array : Array[int] = [0,0,0,0,0,0,0,0]
+	stat_array[0] = hp
+	stat_array[1] = strength
+	stat_array[2]  = magic
+	stat_array[3]  = skill
+	stat_array[4]  = speed
+	stat_array[5]  = luck
+	stat_array[6]  = defense
+	stat_array[7]  = magic_defense
+	return stat_array

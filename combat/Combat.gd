@@ -40,11 +40,13 @@ var _player_unit_alive : bool = true
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
+@export var unit_experience_manager : UnitExperienceManager 
 
 func _ready():
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
+	unit_experience_manager = $UnitExperienceManager
 	combatExchange.connect("combat_exchange_finished", combatExchangeComplete)
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
@@ -63,7 +65,7 @@ func _ready():
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(0,7))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
-	iventory_array.insert(1, ItemDatabase.items["short_bow"])
+	iventory_array.insert(1, ItemDatabase.items["killer_bow"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Will Still", 5,35, false),0), Vector2i(8,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
@@ -130,8 +132,6 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 	var valid = (item and item.attack_range.has(distance))
 	if valid:
 		await combatExchange.enact_combat_exchange(attacker, target, distance)
-		if _player_unit_alive:
-			await game_ui.unit_experience_ended
 		if attacker.allegience == Constants.FACTION.PLAYERS:
 			major_action_complete()
 		if attacker.allegience == Constants.FACTION.ENEMIES:
@@ -319,9 +319,7 @@ func sort_by_y_value(a: Vector2, b : Vector2):
 	return a.y > b.y
 
 func unit_gain_experience(u: Unit, value: int):
-	game_ui.display_unit_experience_bar(u)
-	game_ui.unit_experience_bar_gain(value)
-	await game_ui.unit_experience_ended
+	await unit_experience_manager.process_experience_gain(u, value)
 	combatExchange.unit_gain_experience_complete()
 
 func play_audio(sound : AudioStream):

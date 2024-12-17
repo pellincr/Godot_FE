@@ -1,9 +1,8 @@
 extends Control
 
-var reference_unit : Unit
-
-var initial_value
-var desired_value
+var initial_value : int
+var desired_value : int
+var displayed_value : int
 var overflow_value = 0
 var tween = null
 
@@ -15,17 +14,16 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if tween:
-		check_level_up()
 		update_xp_label($Panel/ProgressBar.value)
 
-func set_reference_unit(u:Unit):
-	self.reference_unit = u
-	set_value()
-	update_xp_label(u.experience)
+func set_value(amount: int):
+	self.displayed_value = amount
+	$Panel/ProgressBar.value = self.displayed_value
 
-func set_value():
-	$Panel/ProgressBar.value = reference_unit.experience
-	self.initial_value = $Panel/ProgressBar.value
+func set_initial_value(experience_amount: int):
+	self.initial_value = experience_amount
+	set_value(self.initial_value)
+	update_xp_label(self.initial_value)
 
 func activate_tween():
 	tween = get_tree().create_tween()
@@ -35,31 +33,17 @@ func activate_tween():
 func update_xp_label(f: float):
 	$Panel/xpValue.text = str(int(f)) 
 
-func update_xp(input: int) :
-	desired_value = input + $Panel/ProgressBar.value
-	if desired_value >= 100: 
-		overflow_value = desired_value - 100
-		desired_value = 100
-	activate_tween()
-	reference_unit.experience = input + $Panel/ProgressBar.value
+#func update_xp(input: int) :
+	#desired_value = input + $Panel/ProgressBar.value
+	#activate_tween()
+
+func set_desired_value(value :int):
+	self.desired_value = value
 
 func generate_bar_time() -> float:
 	return sqrt(desired_value - initial_value)/3
 
 
-func check_level_up():
-	if $Panel/ProgressBar.value == 100:
-		$Panel/ProgressBar.value = 0	
-		print("Unit Leveled up!")
-		reference_unit.level_up_generic()
-
-		
-
 func tween_done():
-	tween = null
-	if overflow_value > 0:
-		desired_value = overflow_value
-		overflow_value = 0
-		activate_tween()
 	await get_tree().create_timer(0.5).timeout
 	emit_signal("finished")

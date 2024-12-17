@@ -63,53 +63,53 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 				if(double_attacker == DOUBLE_ATTACKER.DEFENDER) :
 					await perform_hit(defender,attacker,defender_hit_chance,defender_critical_chance)
 					if attacker.alive :
-						complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 					else:
 						unit_defeated.emit(attacker)
 						if player_unit == attacker:
-							complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 						else : 
-							complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 				elif (double_attacker == DOUBLE_ATTACKER.ATTACKER) :
 					await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 					if defender.alive :
-						complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 					else:
 						unit_defeated.emit(defender)
 						if player_unit == defender:
-							complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 						else : 
-							complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 				else:
-					complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+					await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 				return
 			else: 
 				if attacker == player_unit: 
-					complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+					await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 				else:
-					complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+					await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 				return
 		else :
 			if(double_attacker == DOUBLE_ATTACKER.ATTACKER) : # does the attacker attack twice?
 				await perform_hit(attacker,defender,attacker_hit_chance,attacker_critical_chance)
 				if defender.alive :
-					complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+					await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 				else:
 					unit_defeated.emit(defender)
 					if player_unit == defender:
-						complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else : 
-						complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 				return
 			else : 
-				complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+				await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 				return
 	else:
 		unit_defeated.emit(defender)
 		if player_unit == defender:
-			complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+			await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 		else : 
-			complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+			await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 		return
 	attacker.turn_taken = true
 
@@ -138,7 +138,7 @@ func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
 		combat_exchange_finished.emit(false)
 		return
-	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or EXCHANGE_OUTCOME.NO_DAMAGE:
+	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
 		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_hit(enemy_unit))
@@ -195,9 +195,7 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	var effective = false
 	var wpn_triangle_active_bonus = 0
 	#is the weapon effective?
-	if not attacker.inventory.equipped.weapon_effectiveness.is_empty() :
-		if attacker.inventory.equipped.weapon_effectiveness == UnitTypeDatabase.unit_types[target.unit_class_key].class_type :
-			effective = true
+	effective = check_effective(attacker, target)
 	#does the attacker have weapon triangle advantage? 
 	if (check_weapon_triangle(attacker, target) == attacker): 
 		wpn_triangle_active_bonus = wpn_triangle_damage_bonus
@@ -237,15 +235,13 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 	var defender_critical_chance : int = 0
 	var defender_effective : bool = false
 	var attacker_effective : bool = false
-	if attacker.unit.inventory.equipped.weapon_effectiveness == UnitTypeDatabase.unit_types[defender.unit.unit_class_key].class_type: 
-		attacker_effective = true
+	attacker_effective = check_effective(attacker.unit, defender.unit)
 	if defender.unit.inventory.equipped:
 		defender_can_attack = defender.unit.inventory.equipped.attack_range.has(distance)
 		defender_hit_chance = calc_hit(defender.unit, attacker)
 		defender_damage = calc_damage(defender.unit, attacker.unit)
 		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
-		if	defender.unit.inventory.equipped.weapon_effectiveness == UnitTypeDatabase.unit_types[attacker.unit.unit_class_key].class_type:
-			defender_effective = true
+		defender_effective = check_effective(defender.unit, attacker.unit)
 	var combat_exchange_preview = {
 		"double_attacker" = check_double(attacker.unit, defender.unit),
 		"defender_can_attack" = defender_can_attack,
@@ -315,6 +311,14 @@ func use_audio_player(sound:AudioStream):
 		emit_signal("play_audio", sound)
 		audio_player_busy = true
 
+func check_effective(attacker: Unit, target:Unit) -> bool:
+	if not attacker.inventory.equipped.weapon_effectiveness.is_empty() :
+		if attacker.inventory.equipped.weapon_effectiveness == UnitTypeDatabase.unit_types[target.unit_class_key].class_type :
+			return true
+	if (check_weapon_triangle(attacker, target) == attacker): 
+		if(attacker.inventory.equipped.is_wpn_triangle_effective):
+				return true
+	return false
 
 func audio_player_ready():
 	emit_signal("play_audio_finished")
