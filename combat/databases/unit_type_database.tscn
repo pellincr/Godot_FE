@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=11 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://q71h87n0faia" path="res://resources/definitions/unit_types/fighter.tres" id="2_gcl2o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dw3imhfi6j8rr" path="res://resources/definitions/unit_types/knight.tres" id="7_v5raa"]
 [ext_resource type="Resource" uid="uid://bmpd6pgk3fn10" path="res://resources/definitions/unit_types/general.tres" id="8_6kb4w"]
 [ext_resource type="Resource" uid="uid://bb0md7oy0f7w6" path="res://resources/definitions/unit_types/cavalier.tres" id="9_4ooye"]
+[ext_resource type="Resource" uid="uid://dvl8rqe6qcaqk" path="res://resources/definitions/unit_types/paladin.tres" id="10_w4hgp"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -20,5 +21,6 @@ unit_types = {
 "general": ExtResource("8_6kb4w"),
 "man_at_arms": ExtResource("5_xm2j0"),
 "mercenary": ExtResource("6_qa60v"),
+"paladin": ExtResource("10_w4hgp"),
 "warrior": ExtResource("3_gtnsj")
 }

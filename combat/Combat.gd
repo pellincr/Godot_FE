@@ -18,6 +18,8 @@ signal update_information(text: String)
 signal update_combatants(combatants: Array)
 signal target_selected(combat_exchange_info: CombatUnit)
 signal major_action_completed()
+signal minor_action_completed()
+signal trading_completed()
 	
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
@@ -54,15 +56,15 @@ func _ready():
 	#Dummy Inventory for temp unit gen
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
-	iventory_array.insert(0, ItemDatabase.items["javelin"])
+	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
+	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
 	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["armor_lance"], iventory_array, "Bastard Jr.", 20,20),1), Vector2i(10,7))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(11,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["paladin"], iventory_array, "oswin Jr.", 20,20),0), Vector2i(11,7))
 	iventory_array = [ItemDatabase.items["iron_axe"], ItemDatabase.items["hand_axe"], null, null]
 	#ADD combatants
 	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Harry Kane", 20,0, false), 1), Vector2i(30,6))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(0,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "POWERMAN", 20,20, false), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT), Vector2i(20,6))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["killer_bow"])
@@ -84,7 +86,7 @@ func spawn_reinforcements():
 		print("! " + str(combatants[index]))
 	print("! SPAWNED DUDES")
 
-func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0):
+func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type)
 	return comb
 
@@ -126,10 +128,8 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 	_player_unit_alive = true
 	#check the distance between the target and attacker
 	var distance = get_distance(attacker, target)
-	#get the item info from the attacker
-	var item = attacker.unit.inventory.equipped
 	# check if that item can hit the target
-	var valid = (item and item.attack_range.has(distance))
+	var valid = combatExchange.check_can_attack(attacker, target, distance)
 	if valid:
 		await combatExchange.enact_combat_exchange(attacker, target, distance)
 		if attacker.allegience == Constants.FACTION.PLAYERS:
@@ -143,12 +143,46 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit):
 			complete_unit_turn()
 			major_action_complete()
 
+func perform_staff(user: CombatUnit, target: CombatUnit):
+	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
+	#check the distance between the target and attacker
+	var distance = get_distance(user, target)
+	#get the item info from the attacker
+	var item = user.unit.inventory.equipped
+	# check if that item can hit the target
+	var valid = (item and item.attack_range.has(distance))
+	if valid:
+		await combatExchange.enact_staff_exchange(user, target, distance)
+		if user.allegience == Constants.FACTION.PLAYERS:
+			major_action_complete()
+		if user.allegience == Constants.FACTION.ENEMIES:
+			major_action_complete()
+			complete_unit_turn()
+	else:
+		update_information.emit("Target too far to attack.\n")
+		if user.allegience == Constants.FACTION.ENEMIES:
+			complete_unit_turn()
+			major_action_complete()
+
 #Attack Action
 func Attack(attacker: CombatUnit, target: CombatUnit):
 	print("Entered Attack in Combat.gd")
 	##make the combat_unit_inventory appear
 	##ai_calc_expected_damage(attacker, target)
 	await perform_attack(attacker, target)
+
+func Trade(unit: CombatUnit, target: CombatUnit):
+	game_ui.show_trade_container(unit, target)
+	await trading_completed
+	minor_action_complete()
+	
+
+#Staff Action
+func Support(user: CombatUnit, target: CombatUnit):
+	print("Entered Staff in Combat.gd")
+	await perform_staff(user, target)
+	major_action_complete()
 
 #Wait Action
 func Wait(unit: CombatUnit):
@@ -317,6 +351,14 @@ func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit):
 
 func sort_by_y_value(a: Vector2, b : Vector2):
 	return a.y > b.y
+
+func complete_trade():
+	trading_completed.emit()
+	game_ui.destroy_trade_container()
+	major_action_complete()
+
+func minor_action_complete():
+	emit_signal("minor_action_completed")
 
 func unit_gain_experience(u: Unit, value: int):
 	await unit_experience_manager.process_experience_gain(u, value)

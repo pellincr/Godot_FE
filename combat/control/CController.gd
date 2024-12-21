@@ -11,6 +11,7 @@ const wait_action : UnitAction = preload("res://resources/definitions/actions/un
 const trade_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_trade.tres")
 const item_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_inventory.tres")
 const use_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_use_item.tres")
+const support_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_support.tres")
 ##SIGNALS
 signal movement_changed(movement: int)
 signal finished_move(position: Vector2i)
@@ -221,7 +222,9 @@ func _unhandled_input(event):
 										movement = combat.get_current_combatant().unit.movement
 										update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
-				pass
+				if event is InputEventMouseButton:
+					if event.button_index == MOUSE_BUTTON_RIGHT:
+						combat.complete_trade()
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
 				if event is InputEventMouseButton:
 					if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -268,6 +271,7 @@ func _process(delta):
 			combat.game_ui.hide_end_turn_button()
 			update_turn_phase(Constants.TURN_PHASE.BEGINNING_PHASE)
 		elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
+			await process_terrain_effects()
 			update_turn_phase(Constants.TURN_PHASE.MAIN_PHASE)
 			update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
 		elif turn_phase == Constants.TURN_PHASE.MAIN_PHASE :
@@ -300,7 +304,10 @@ func _process(delta):
 				var comb = get_combatant_at_position(mouse_position_i)
 				if comb != null and comb.alive:
 					if _action_valid_targets.has(comb):
-						combat.game_ui.display_unit_combat_exchange_preview(combat.get_current_combatant(), comb,  get_distance(combat.get_current_combatant().move_position, comb.map_position))
+						if _action == attack_action:
+							combat.game_ui.display_unit_combat_exchange_preview(combat.get_current_combatant(), comb,  get_distance(combat.get_current_combatant().move_position, comb.map_position))
+						elif _action == support_action:
+							pass
 						return
 				combat.game_ui.hide_unit_combat_exchange_preview()
 		elif(turn_phase == Constants.TURN_PHASE.ENDING_PHASE):
@@ -312,7 +319,7 @@ func _process(delta):
 		#print("In Enemy Turn")
 		if(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			#DO THE BEGINNING PHASE STUFF HERE EX. STATUS EFFECTS REMOVE BUFFS, TERRAIN HEALING AND MORE
-			
+			await process_terrain_effects()
 			update_turn_phase(Constants.TURN_PHASE.MAIN_PHASE)
 		elif(turn_phase == Constants.TURN_PHASE.MAIN_PHASE):
 			if _in_ai_process:
@@ -505,7 +512,10 @@ func move_on_path(current_position):
 func begin_target_selection():
 	combat.game_ui.hide_action_list()
 	if _action.requires_target : #does the skill require a target?
-		target_selection_started.emit()
+		if _action == trade_action: 
+			_action_valid_targets = get_potential_support_targets(combat.get_current_combatant(), [1])
+		else :
+			target_selection_started.emit()
 	else :
 		combat.call(_action.name, combat.get_current_combatant())
 		target_selection_finished.emit()
@@ -516,6 +526,8 @@ func begin_action_item_selection():
 	if _action.requires_item :
 		if _action == attack_action:
 			combat.game_ui._set_attack_action_inventory(combat.get_current_combatant())
+		elif _action == support_action:
+			combat.game_ui._set_support_action_inventory(combat.get_current_combatant())
 		elif _action == item_action:
 			combat.game_ui._set_inventory_list(combat.get_current_combatant())
 	else: 
@@ -532,15 +544,14 @@ func perform_action():
 	combat.game_ui.hide_attack_action_inventory()
 	combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
 	if(_action.requires_target):
-		combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
-	elif(_action.requires_item and not _action.requires_target): 
+		if(_action.requires_item): 
+			combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
+		else :
+			combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
+	elif(_action.requires_item): 
 		combat.call(_action.name, combat.get_current_combatant(), _selected_item)
 	else :
 		combat.call(_action.name, combat.get_current_combatant())
-	_action_selected = false
-	_action = null
-	_selected_item = null
-	_item_selected = false
 
 func action_item_selected():
 	if _action == attack_action: 
@@ -550,12 +561,18 @@ func action_item_selected():
 			_action_valid_targets = get_potential_targets(combat.get_current_combatant(), _selected_item.attack_range)
 			combat.game_ui.hide_attack_action_inventory()
 			update_player_state(get_next_action_state())
+	elif _action == support_action:
+		if _selected_item is WeaponDefinition:
+			combat.get_current_combatant().unit.set_equipped(_selected_item)
+			_item_selected = true
+			_action_valid_targets = get_potential_support_targets(combat.get_current_combatant(), _selected_item.attack_range)
+			combat.game_ui.hide_attack_action_inventory()
+			update_player_state(get_next_action_state())
 	elif _action == item_action: 
 		#combat.get_current_combatant().unit.set_equipped(_selected_item)
 		_item_selected = true
 		combat.game_ui.disable_inventory_list_butttons()
 		update_player_state(get_next_action_state())
-		
 
 func use_action_selected():
 	update_player_state(get_next_action_state())
@@ -680,13 +697,17 @@ func draw_attack_range(attack_range:PackedVector2Array):
 
 func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
 	##Set the tile color based on the type of action
-		for tile in tiles : 
-			draw_texture(grid_tex, tile  * Vector2(32, 32), Color.CRIMSON)
+	var tile_color : Color = Color.CRIMSON
+	if _action:
+		if _action == support_action: 
+			tile_color = Color.SEA_GREEN
+	for tile in tiles : 
+		draw_texture(grid_tex, tile  * Vector2(32, 32), tile_color)
 
 
 func process_inputs():
 	if Input.is_action_pressed("debug_button"):
-		pass
+		print("pressed_debug_button")
 
 
 func get_next_action_state()-> Constants.PLAYER_STATE:
@@ -841,7 +862,6 @@ func draw_comb_range(combatant: CombatUnit) :
 			attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.equipped.attack_range.max(), tile, 0, false))
 		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
-
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
 	var range_list :Array[int] = []
 	if range.is_empty():
@@ -857,6 +877,25 @@ func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Com
 	for tile in attackable_tiles :
 		if get_combatant_at_position(tile) :
 			if(get_combatant_at_position(tile).allegience != cu.allegience) :
+				response.append(get_combatant_at_position(tile))
+	return response
+
+func get_potential_support_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
+	var range_list :Array[int] = []
+	if range.is_empty():
+		range_list = cu.unit.inventory.get_available_support_ranges()
+	else:
+		range_list = range.duplicate()
+	var attackable_tiles : PackedVector2Array
+	var response : Array[CombatUnit]
+	if range_list.is_empty() : ##There is no attack range
+		return response
+	attackable_tiles = get_attackable_tiles(range_list, cu)
+	print(str(attackable_tiles))
+	_action_tiles = attackable_tiles.duplicate()
+	for tile in attackable_tiles :
+		if get_combatant_at_position(tile) :
+			if(get_combatant_at_position(tile).allegience == cu.allegience and get_combatant_at_position(tile) != cu) :
 				response.append(get_combatant_at_position(tile))
 	return response
 
@@ -892,10 +931,26 @@ func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array 
 	return return_object
 
 
+func process_terrain_effects():
+	for combat_unit in combat.combatants:
+		if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == Constants.GAME_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == Constants.GAME_STATE.ENEMY_TURN):
+			if get_terrain_at_map_position(combat_unit.map_position): 
+				var target_terrain = get_terrain_at_map_position(combat_unit.map_position)
+				if target_terrain.active_effect_phases == Constants.TURN_PHASE.keys()[turn_phase]:
+					if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
+						if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
+							if combat_unit.unit.hp < combat_unit.unit.max_hp:
+								print("HEALED UNIT : " + combat_unit.unit.unit_name)
+								combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
+
 func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 	var action_array : Array[UnitAction] = []
 	if not cu.unit.inventory.is_empty():
 		action_array.append(item_action)
+	if not get_potential_support_targets(cu, [1]).is_empty():
+		action_array.push_front(trade_action)
+	if not get_potential_support_targets(cu).is_empty():
+		action_array.push_front(support_action)
 	if not get_potential_targets(cu).is_empty():
 		action_array.push_front(attack_action)
 	action_array.append(wait_action)
@@ -904,7 +959,17 @@ func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 
 func _on_visual_combat_major_action_completed() -> void:
 	_unit_action_completed = true
-
+	_action_selected = false
+	_action = null
+	_selected_item = null
+	_item_selected = false
+func _on_visual_combat_minor_action_completed() -> void:
+	_unit_action_completed = true
+	_action_selected = false
+	_action = null
+	_selected_item = null
+	_item_selected = false
+	update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
 
 # AI Methods
 

@@ -17,7 +17,7 @@ func update_fields():
 
 func set_unit(unit:Unit):
 	self.reference_unit = unit
-	set_unit_icon(self.reference_unit.icon)
+	set_unit_icon(self.reference_unit.map_sprite)
 	set_base_stat_array(self.reference_unit.get_basic_stat_array())
 	set_unit_type(self.reference_unit.unit_class_key)
 	set_unit_level(self.reference_unit.level)

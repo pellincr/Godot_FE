@@ -16,7 +16,10 @@ func update_item_fields():
 		$Button.icon = reference_item.icon
 		$Button.text = reference_item.name
 		$InfoMargin/Uses.text = str(reference_item.uses)
-
+	else : 
+		$Button.icon = null
+		$Button.text = ""
+		$InfoMargin/Uses.text = ""
 func set_equipped(is_equipped: bool) :
 	$EquippedMargin.visible = is_equipped
 	self.equipped = is_equipped

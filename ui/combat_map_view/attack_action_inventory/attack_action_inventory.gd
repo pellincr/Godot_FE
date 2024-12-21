@@ -12,7 +12,11 @@ const UnitInventorySlot = preload("res://ui/combat_map_view/unit_inventory_slot/
 func _ready():
 	equippable_item_info = $Equippable_item_information
 
+func hide_equippable_item_info():
+	equippable_item_info.visible = false
 
+func show_equippable_item_info():
+	equippable_item_info.visible = true
 static func create(target_unit: Unit) -> AttackActionInventory: 
 	var a_a_inv = AttackActionInventory.new()
 	a_a_inv.set_unit(target_unit)
@@ -28,4 +32,3 @@ func get_inventory_container_children() -> Array[Node]:
 func btn_entered(item: ItemDefinition):
 	if item is WeaponDefinition:
 		equippable_item_info.update_values(item)
-		

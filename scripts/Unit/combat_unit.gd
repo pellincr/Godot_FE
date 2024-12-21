@@ -12,6 +12,7 @@ enum Group
 
 var alive : bool
 var turn_taken : bool
+var minor_action_taken: bool
 var unit : Unit
 var map_terrain : Terrain
 var action_list :  Array[String]
@@ -40,3 +41,9 @@ func calc_map_avoid()-> int:
 		return unit.avoid + map_terrain.avoid
 	else: 
 		return unit.avoid
+
+func calc_map_avoid_staff() -> int:
+	if map_terrain:
+		return int(unit.magic_defense * 1.5) + int(unit.luck * .5) + map_terrain.avoid
+	else: 
+		return (unit.magic_defense * 1.5) + int(unit.luck * .5)

@@ -75,4 +75,6 @@ func no_damage(position:Vector2):
 
 func miss(position:Vector2):
 	display_text("Miss", position, Color.WHITE, Color.BLACK, 18)
-	
+
+func heal(position:Vector2, value: int):
+	display_text(str(value), position, Color.GREEN, Color.WEB_GREEN, 18)

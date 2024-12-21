@@ -32,9 +32,8 @@ func set_xy_coordinate(x: int, y:int) :
 	self.y_coordinate = y
 	set_coord_string()
 
-func set_terrain_icon(texture: Texture2D) :
-	self.terrain_icon = texture;
-	$terrain_icon_border/terrian_icon.texture = texture
+func update_terrain_icon() :
+	$terrain_icon_border/terrian_icon.texture = terrain.tile_texture
 
 func set_coord_string() : 
 	$Coordinates.text =  ("(" + str(x_coordinate) + "," + str(y_coordinate)+ ")")
@@ -50,5 +49,5 @@ func set_all(t:Terrain, x: int, y:int) : ##texture:Texture2D,
 		update_avoid_bonus()
 		update_defense_bonus()
 		update_magic_defense_bonus()
-	
+		update_terrain_icon()
 	##set_terrain_icon(texture)

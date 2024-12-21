@@ -9,9 +9,8 @@ signal unit_experience_ended()
 @export var ui_menu_audio : AudioStreamPlayer
 
 #Scene Imports
-
+const traceContainer = preload("res://ui/combat_map_view/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
-
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -108,6 +107,7 @@ func set_action_list(available_actions: Array[UnitAction]):
 func set_inventory_list_attack(unit: Unit):
 	print("@# set_inventory_list_attack called")
 	var attack_action_inventory = $AttackActionInventory
+	attack_action_inventory.show_equippable_item_info()
 	attack_action_inventory.set_unit(unit)
 	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
 	for i in range(inventory_container_children.size()):
@@ -119,25 +119,61 @@ func set_inventory_list_attack(unit: Unit):
 			if not weapon_list.is_empty():
 				if weapon_list.size() > i:
 					var item = weapon_list[i]
-					var equipped = false
-					if i == 0: 
-						equipped = true
-					inventory_container_children[i].set_all(item, equipped)
-					inventory_container_children[i].visible = true
-					item_btn.pressed.connect(func():
-						play_menu_confirm()
-						controller.set_selected_item(item)
-						controller.action_item_selected()
-						)
+					if item.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ENEMY:
+						var equipped = false
+						if i == 0: 
+							equipped = true
+						inventory_container_children[i].set_all(item, equipped)
+						inventory_container_children[i].visible = true
+						item_btn.pressed.connect(func():
+							play_menu_confirm()
+							controller.set_selected_item(item)
+							controller.action_item_selected()
+							)
+					else: 
+						inventory_container_children[i].visible = false
+						clear_action_button_connections(item_btn)
 				else : 
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
 
-
+func set_inventory_list_support(unit: Unit):
+	print("set_inventory_list_support")
+	var attack_action_inventory = $AttackActionInventory
+	attack_action_inventory.set_unit(unit)
+	attack_action_inventory.hide_equippable_item_info()
+	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = false
+			clear_action_button_connections(item_btn)
+			var weapon_list = unit.get_equippable_weapons()
+			if not weapon_list.is_empty():
+				if weapon_list.size() > i:
+					var item = weapon_list[i]
+					if item.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ALLY:
+						var equipped = false
+						if i == 0: 
+							equipped = true
+						inventory_container_children[i].set_all(item, equipped)
+						inventory_container_children[i].visible = true
+						item_btn.pressed.connect(func():
+							play_menu_confirm()
+							controller.set_selected_item(item)
+							controller.action_item_selected()
+							)
+					else : 
+						inventory_container_children[i].visible = false
+						clear_action_button_connections(item_btn)
+				else : 
+					inventory_container_children[i].visible = false
+					clear_action_button_connections(item_btn)
 
 func set_inventory_list(unit: Unit):
 	print("@# set_inventory_list called")
 	var attack_action_inventory:  = $AttackActionInventory
+	attack_action_inventory.show_equippable_item_info()
 	attack_action_inventory.set_unit(unit)
 	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
 	for i in range(inventory_container_children.size()):
@@ -254,6 +290,12 @@ func _set_attack_action_inventory(combat_unit: CombatUnit) -> void:
 	if $AttackActionInventory.visible == false :
 		$AttackActionInventory.visible = true 
 
+func _set_support_action_inventory(combat_unit: CombatUnit) -> void:
+	set_inventory_list_support(combat_unit.unit)
+	if $AttackActionInventory.visible == false :
+		$AttackActionInventory.visible = true 
+
+
 func _set_inventory_list(combat_unit: CombatUnit) -> void:
 	set_inventory_list(combat_unit.unit)
 	if $AttackActionInventory.visible == false :
@@ -306,3 +348,18 @@ func hide_end_turn_button():
 
 func show_end_turn_button():
 		$Actions/EndTurnButton.visible = true
+
+func show_trade_container(ua,ub):
+	var tc : TradeContainer = traceContainer.instantiate()
+	await tc
+	tc.set_unit_a(ua.unit)
+	tc.set_unit_b(ub.unit)
+	tc.update_trade_inventories()
+	self.add_child(tc)
+
+func destroy_trade_container():
+	var children = self.get_children()
+	for child in children:
+		if child is TradeContainer:
+			child.queue_free()
+			return

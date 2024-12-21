@@ -18,9 +18,16 @@ enum WEAPON_TYPE
 enum DAMAGE_TYPE
 {
 	PHYSICAL,
-	MAGICAL
+	MAGICAL,
+	NONE
 }
 
+enum SCALING_TYPE
+{
+	PHYSICAL,
+	MAGICAL,
+	NONE
+}
 enum HIT_EFFECT
 {
 	PHYSICAL_DAMAGE,
@@ -29,12 +36,20 @@ enum HIT_EFFECT
 	SLEEP,
 	PLACEHOLDER
 }
+enum AVAILABLE_TARGETS #this will expanded when more factions are added
+{
+	ENEMY,
+	ALLY,
+	SELF
+}
 
 @export_subgroup("Weapon Type")
 @export_enum("Axe", "Sword", "Lance", "Bow", "Nature", "Light", "Dark", "Staff", "Monster", "Other" ) var weapon_type : String
 @export_enum("none", "Axe", "Sword", "Lance") var physical_weapon_triangle_type : String
 @export_enum("none","Dark", "Light", "Nature") var magic_weapon_triangle_type : String
-@export_enum("Physical", "Magic") var item_damage_type : int = 0
+@export_enum("Physical", "Magic", "NONE" ) var item_damage_type : int = 0
+@export_enum("Physical", "Magic", "NONE" ) var item_scaling_type : int = 0
+@export_enum("Enemy", "Ally", "Self") var item_target_faction : int = 0
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED
 @export_enum("E","D","C","B","A","S", "NONE") var required_mastery = 0
@@ -47,6 +62,8 @@ enum HIT_EFFECT
 
 @export_group("Weapon Effects & Specials") ## TO BE IMPLEMENTED
 @export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var weapon_effectiveness : Array[String] = []
+@export_enum("PHYSICAL_DAMAGE","MAGICAL_DAMAGE","HEAL","SLEEP","PLACEHOLDER") var weapon_hit_effect = 0
 @export var is_wpn_triangle_effective = false
 @export var is_brave = false
 @export var applies_status_effect = false
+@export var negates_defense = false

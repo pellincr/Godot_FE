@@ -4,6 +4,7 @@ class_name CombatExchange
 
 const crit_sound = preload("res://resources/sounds/combat/Crit.wav")
 const hit_sound = preload("res://resources/sounds/combat/hit.wav")
+const heal_sound = preload("res://resources/sounds/combat/heal.wav")
 const miss_sound = preload("res://resources/sounds/combat/miss.wav")
 const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 
@@ -21,7 +22,8 @@ enum EXCHANGE_OUTCOME
 	ENEMY_DEFEATED,
 	PLAYER_DEFEATED,
 	NO_DAMAGE,
-	MISS
+	MISS,
+	ALLY_SUPPORTED
 }
 
 enum DOUBLE_ATTACKER 
@@ -111,8 +113,6 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 		else : 
 			await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 		return
-	attacker.turn_taken = true
-
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var damage_dealt
@@ -129,6 +129,23 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 	else : ## Attack has missed
 		await hit_missed(target)
 
+
+func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
+	var heal_amount = calc_damage(attacker.unit, target.unit)
+	attacker.unit.inventory.equipped.use()
+	await use_audio_player(heal_sound)
+	target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.max_hp )
+	DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
+	target.map_display.update_values()
+	await target.map_display.update_complete
+
+func heal_unit(unit: CombatUnit, amount: int):
+	await use_audio_player(heal_sound)
+	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.max_hp )
+	DamageNumbers.heal((32* unit.map_position + Vector2i(16,16)), amount)
+	unit.map_display.update_values()
+	await unit.map_display.update_complete
+	
 func hit_missed(dodging_unt: CombatUnit):
 	await use_audio_player(miss_sound)
 	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
@@ -144,6 +161,8 @@ func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange
 		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_hit(enemy_unit))
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
 		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_kill(enemy_unit))
+	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ALLY_SUPPORTED:
+		emit_signal("gain_experience", player_unit, 10)
 	await unit_gain_experience_finished
 	combat_exchange_finished.emit(true)
 
@@ -176,6 +195,10 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#broadcast unit death
 	#return outcome
 
+func calc_hit_staff(attacker: Unit, target: CombatUnit, staff: WeaponDefinition) :
+	return clamp((staff.hit + attacker.skill + attacker.magic) - target.calc_map_avoid_staff(), 0, 100)
+
+
 func calc_hit(attacker: Unit, target: CombatUnit) -> int:
 	const wpn_triangle_hit_bonus = 20
 	var wpn_triangle_hit_active_bonus = 0
@@ -194,9 +217,12 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	const effective_damage_multiplier = 3
 	var effective = false
 	var wpn_triangle_active_bonus = 0
+	var defense_mult = 1
 	#is the weapon effective?
 	effective = check_effective(attacker, target)
 	#does the attacker have weapon triangle advantage? 
+	if attacker.inventory.equipped.negates_defense:
+		defense_mult = 0
 	if (check_weapon_triangle(attacker, target) == attacker): 
 		wpn_triangle_active_bonus = wpn_triangle_damage_bonus
 	elif (check_weapon_triangle(attacker, target) == target):
@@ -204,14 +230,14 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	#get the item damage_type
 	if attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		if(effective): 
-			damage = (attacker.strength + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - target.defense
+			damage = (attacker.strength + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.defense * defense_mult)
 		else :
-			damage = (attacker.strength + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - target.defense
+			damage = (attacker.strength + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.defense * defense_mult)
 	elif attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
 		if(effective): 
-			damage = (attacker.magic + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - target.magic_defense
+			damage = (attacker.magic + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.magic_defense * defense_mult)
 		else :
-			damage = (attacker.magic + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - target.magic_defense
+			damage = (attacker.magic + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.magic_defense * defense_mult)
 	return clamp(damage, 0, INF)
 
 func check_hit(hit_chance: int) -> bool:
@@ -228,6 +254,15 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 	else :
 		return DOUBLE_ATTACKER.NONE
 
+func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
+	if attacker.unit.inventory.equipped: 
+		if attacker.unit.inventory.equipped is WeaponDefinition:
+			if not attacker.unit.inventory.equipped.weapon_type == WeaponDefinition.WEAPON_TYPE.keys()[WeaponDefinition.WEAPON_TYPE.STAFF]:
+				if attacker.unit.inventory.equipped.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ENEMY:
+					if attacker.unit.inventory.equipped.attack_range.has(distance):
+						return true
+	return false
+
 func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, distance:int) -> Dictionary:
 	var defender_can_attack: bool = false
 	var defender_hit_chance : int = 0
@@ -237,7 +272,7 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 	var attacker_effective : bool = false
 	attacker_effective = check_effective(attacker.unit, defender.unit)
 	if defender.unit.inventory.equipped:
-		defender_can_attack = defender.unit.inventory.equipped.attack_range.has(distance)
+		defender_can_attack = check_can_attack(defender, attacker, distance)
 		defender_hit_chance = calc_hit(defender.unit, attacker)
 		defender_damage = calc_damage(defender.unit, attacker.unit)
 		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
@@ -336,3 +371,27 @@ func unit_gain_experience(sound:AudioStream):
 func unit_gain_experience_complete():
 	emit_signal("unit_gain_experience_finished")
 	in_experience_flow = false
+
+func enact_staff_exchange(attacker: CombatUnit, defender:CombatUnit, distance:int):
+	#Compre attacks speeds to see if anyone is double attacking
+	var staff : WeaponDefinition
+	var give_xp = false
+	#get the allegience of the units
+	if attacker.allegience == Constants.FACTION.PLAYERS:
+		give_xp = true
+	attacker.turn_taken = true
+	if attacker.unit.inventory.equipped is WeaponDefinition and attacker.unit.inventory.equipped.item_type == 1:
+		staff = attacker.unit.inventory.equipped
+		if staff.item_damage_type == WeaponDefinition.DAMAGE_TYPE.MAGICAL:
+			if staff.weapon_hit_effect == WeaponDefinition.HIT_EFFECT.HEAL: 
+				await perform_heal(attacker, defender, staff.item_damage_type)
+				if attacker.allegience == Constants.FACTION.PLAYERS:
+					await complete_combat_exchange(attacker.unit, defender.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+			elif staff.weapon_hit_effect ==  WeaponDefinition.HIT_EFFECT.PHYSICAL_DAMAGE or staff.item_hit_effect == WeaponDefinition.HIT_EFFECT.MAGICAL_DAMAGE : 
+				## NEEDS TO BE FLUSHED OUT
+				var attacker_hit_chance = calc_hit_staff(attacker.unit,defender,staff)
+				await perform_hit(attacker,defender,attacker_hit_chance, 0)
+				return
+			else :
+				pass
+		

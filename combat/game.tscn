@@ -59,6 +59,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]
 [connection signal="combatant_died" from="VisualCombat" to="CanvasLayer/UI" method="combatant_died"]
 [connection signal="major_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_major_action_completed"]
+[connection signal="minor_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_minor_action_completed"]
 [connection signal="turn_advanced" from="VisualCombat" to="Controller" method="set_controlled_combatant"]
 [connection signal="turn_advanced" from="VisualCombat" to="Controller" method="advance_turn"]
 [connection signal="turn_advanced" from="VisualCombat" to="CanvasLayer/UI" method="show_combatant_status_main"]
