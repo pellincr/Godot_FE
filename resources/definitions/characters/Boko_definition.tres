@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CharacterDefinition" load_steps=2 format=3 uid="uid://bdtt11y341q6y"]
+
+[ext_resource type="Script" path="res://scripts/resources/CharacterDefinition.gd" id="1_mn2vd"]
+
+[resource]
+script = ExtResource("1_mn2vd")
+unit_name = "Boko"
+level = 4
+experience = 0
+uses_custom_growths = true
+hp = 21
+strength = 6
+magic = 3
+skill = 5
+speed = 6
+luck = 7
+defense = 4
+magic_defense = 2
+movement = 5
+constitution = 7
+aid = 0
+initiative = 1
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0

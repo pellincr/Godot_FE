@@ -5,7 +5,7 @@ class_name CharacterDefinition
 @export_group("Unit Type")
 @export var unit_name= ""
 @export_range(1, 20, 1, "or_greater") var level = 1
-@export_range(0, 100, 1, "or_greater") var experience = 1
+@export_range(0, 100, 1, "or_greater") var experience = 0
 @export var uses_custom_growths = false
 
 @export_group("Unit Combat Stats") ## from levels and defaults

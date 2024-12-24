@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://pm3p8kf4cm30"]
+
+[ext_resource type="Texture2D" uid="uid://btxwexlw6u1n5" path="res://resources/sprites/items/iron_bow.tres" id="1_r65l0"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_p1dpy"]
+
+[resource]
+script = ExtResource("2_p1dpy")
+weapon_type = "Bow"
+physical_weapon_triangle_type = "none"
+magic_weapon_triangle_type = "none"
+item_damage_type = 0
+item_scaling_type = 0
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([2])
+damage = 14
+hit = 80
+critical_chance = 55
+weight = 5
+weapon_effectiveness = Array[String](["Flying"])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
+name = "Killer Bow"
+db_key = "killer_bow"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = ExtResource("1_r65l0")

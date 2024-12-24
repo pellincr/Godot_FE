@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Terrian" load_steps=2 format=3 uid="uid://bkttoao5i5xvk"]
+
+[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_pa8fd"]
+
+[resource]
+script = ExtResource("1_pa8fd")
+name = "Plain"
+db_key = "plain"
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+magic_defense = 0
+avoid = 0

@@ -1,25 +1,32 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dqb48wswsnj1e"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_twnt5"]
-[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_81pip"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ijbgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toe2n"]
 atlas = ExtResource("1_twnt5")
 region = Rect2(32, 128, 32, 32)
 
 [resource]
-script = ExtResource("2_81pip")
-weapon_type = 0
+script = ExtResource("2_ijbgy")
+weapon_type = "Axe"
+physical_weapon_triangle_type = "Axe"
+magic_weapon_triangle_type = "none"
 item_damage_type = 0
-weapon_effectiveness = Array[String](["Armored"])
+item_scaling_type = 0
+item_target_faction = 0
 required_mastery = 0
 attack_range = Array[int]([1])
-class_locked = false
-locked_unit_type_key = ""
 damage = 12
 hit = 45
 critical_chance = 0
 weight = 18
+weapon_effectiveness = Array[String](["Armored"])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
 name = "Warhammer"
 db_key = "warhammer"
 equippable = true
