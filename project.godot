@@ -27,6 +27,7 @@ Constants="*res://scripts/Constants/Constants.gd"
 
 [display]
 
+window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://resources/sprites/grid/cursor.png"
 mouse_cursor/tooltip_position_offset=Vector2(64, 10)
 

@@ -6,6 +6,7 @@
 script = ExtResource("1_6div0")
 name = "Wait"
 is_major = true
+is_minor = false
 requires_target = false
 requires_item = false
 description = ""

@@ -1,12 +1,13 @@
 extends Node
 class_name Combat
-
+##
+# Combate Node
+# This works with the CController to perform combat actions
+# It stores unit data and information
+##
 #Imports
 const CombatUnitDisplay = preload("res://ui/combat_unit_display.tscn")
 const InventoryOptionContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
-##
-#Combat Node
-#This node controlls the combat actions on the map
 
 ##Signals
 signal register_combat(combat_node: Node)
@@ -17,10 +18,13 @@ signal update_turn_queue(combatants: Array, turn_queue: Array)
 signal update_information(text: String)
 signal update_combatants(combatants: Array)
 signal target_selected(combat_exchange_info: CombatUnit)
+signal perform_shove(unit: CombatUnit, push_vector : Vector2i)
 signal major_action_completed()
 signal minor_action_completed()
 signal trading_completed()
+signal shove_completed()
 	
+var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
 var groups = [
@@ -53,6 +57,7 @@ func _ready():
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	randomize()
+	##Create units and dummy inventories
 	#Dummy Inventory for temp unit gen
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
@@ -77,7 +82,6 @@ func _ready():
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Gamer man", 1,45, false), 1), Vector2i(10,6))
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Joe Gelhart", 1,20, true), 0), Vector2i(8,7))
 	##emit_signal("update_turn_queue", combatants, turn_queue)
-
 
 func spawn_reinforcements():
 	var iventory_array : Array[ItemDefinition]  = [ItemDatabase.items["iron_axe"]]
@@ -165,18 +169,20 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 			complete_unit_turn()
 			major_action_complete()
 
+##ACTIONS
 #Attack Action
 func Attack(attacker: CombatUnit, target: CombatUnit):
 	print("Entered Attack in Combat.gd")
-	##make the combat_unit_inventory appear
-	##ai_calc_expected_damage(attacker, target)
 	await perform_attack(attacker, target)
 
+#trade
 func Trade(unit: CombatUnit, target: CombatUnit):
+	print("Entered Trade in Combat.gd")
 	game_ui.show_trade_container(unit, target)
 	await trading_completed
-	minor_action_complete()
-	
+	game_ui.destroy_trade_container()
+	minor_action_complete(unit)
+	print("Exited Trade in Combat.gd")
 
 #Staff Action
 func Support(user: CombatUnit, target: CombatUnit):
@@ -188,8 +194,11 @@ func Support(user: CombatUnit, target: CombatUnit):
 func Wait(unit: CombatUnit):
 	major_action_complete()
 
+#inventory
 func Items(unit: CombatUnit): ##should never be called
 	pass
+
+#Use item
 func Use(unit: CombatUnit, item: ConsumableItemDefinition):
 	get_current_combatant().unit.use_consumable_item(item)
 	await get_current_combatant().map_display.update_values() ##display for healing
@@ -203,6 +212,21 @@ func Use(unit: CombatUnit, item: ConsumableItemDefinition):
 		#turn = 0
 	#current_combatant = turn_queue[turn]
 
+#Shove
+func Shove(unit:CombatUnit, target:CombatUnit):
+	#check if action is available
+	if get_distance(unit, target) == 1:
+		var push_vector : Vector2i = target.map_position - unit.map_position
+		perform_shove.emit(target, push_vector)
+		await shove_completed
+		set_current_combatant(unit)
+	else : 
+		print("Invalid Shove Target")
+	complete_unit_turn()
+	major_action_complete()
+
+	
+	
 func complete_unit_turn():
 	##units[current_unit].turn_taken = true
 	pass
@@ -212,21 +236,8 @@ func advance_turn(faction: int):
 	if faction < groups.size():
 		for entry in groups[faction]:
 			if combatants[entry]:
-				combatants[entry].turn_taken = false
+				combatants[entry].refresh_unit()
 				combatants[entry].map_display.update_values()
-	#emit_signal("turn_advanced")
-	
-	#combatants[current_combatant].turn_taken = true
-	#set_next_combatant()
-	#while !combatants[current_combatant].alive:
-		#set_next_combatant()
-	#var comb = combatants[current_combatant]
-	#emit_signal("turn_advanced", comb)
-	#emit_signal("update_combatants", combatants)
-	#if comb.allegience == 1:
-		#await get_tree().create_timer(0.6).timeout
-		#ai_process(comb)
-		#
 
 func major_action_complete():
 	emit_signal("major_action_completed")
@@ -240,6 +251,7 @@ func combatant_die(combatant: CombatUnit):
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
+		dead_units.append(comb_id)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.unit_name
 		]
@@ -302,7 +314,6 @@ func ai_pick_target(weights):
 		if rand_num > full_weight - 0.001: #full_weight - 0.001 due to float inaccuracy
 			return w[1]
 
-
 func calc_expected_combat_exchange(attacker:CombatUnit, target:CombatUnit) -> Dictionary:
 	#Get the values to run calcs on
 	var max_damage : int = 0 # What is our max potential damage?
@@ -354,10 +365,13 @@ func sort_by_y_value(a: Vector2, b : Vector2):
 
 func complete_trade():
 	trading_completed.emit()
-	game_ui.destroy_trade_container()
-	major_action_complete()
 
-func minor_action_complete():
+func complete_shove():
+	shove_completed.emit()
+	
+func minor_action_complete(unit: CombatUnit):
+	unit.minor_action_taken = true
+	set_current_combatant(unit)
 	emit_signal("minor_action_completed")
 
 func unit_gain_experience(u: Unit, value: int):

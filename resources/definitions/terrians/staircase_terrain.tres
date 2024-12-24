@@ -17,3 +17,6 @@ luck = 0
 defense = 0
 magic_defense = 0
 avoid = 5
+active_effect_phases = ""
+effect = 0
+effect_weight = 4

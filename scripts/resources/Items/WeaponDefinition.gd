@@ -64,6 +64,7 @@ enum AVAILABLE_TARGETS #this will expanded when more factions are added
 @export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var weapon_effectiveness : Array[String] = []
 @export_enum("PHYSICAL_DAMAGE","MAGICAL_DAMAGE","HEAL","SLEEP","PLACEHOLDER") var weapon_hit_effect = 0
 @export var is_wpn_triangle_effective = false
+@export var crit_disabled : bool = false
 @export var is_brave = false
 @export var applies_status_effect = false
 @export var negates_defense = false

@@ -6,6 +6,7 @@
 script = ExtResource("1_i41sk")
 name = "Items"
 is_major = true
+is_minor = false
 requires_target = false
 requires_item = true
 description = ""

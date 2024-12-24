@@ -129,7 +129,6 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 	else : ## Attack has missed
 		await hit_missed(target)
 
-
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	var heal_amount = calc_damage(attacker.unit, target.unit)
 	attacker.unit.inventory.equipped.use()
@@ -149,7 +148,6 @@ func heal_unit(unit: CombatUnit, amount: int):
 func hit_missed(dodging_unt: CombatUnit):
 	await use_audio_player(miss_sound)
 	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
-	
 
 func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
@@ -197,7 +195,6 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 
 func calc_hit_staff(attacker: Unit, target: CombatUnit, staff: WeaponDefinition) :
 	return clamp((staff.hit + attacker.skill + attacker.magic) - target.calc_map_avoid_staff(), 0, 100)
-
 
 func calc_hit(attacker: Unit, target: CombatUnit) -> int:
 	const wpn_triangle_hit_bonus = 20
@@ -394,4 +391,3 @@ func enact_staff_exchange(attacker: CombatUnit, defender:CombatUnit, distance:in
 				return
 			else :
 				pass
-		

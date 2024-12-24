@@ -6,6 +6,7 @@
 script = ExtResource("1_5jkgm")
 name = "Attack"
 is_major = true
+is_minor = false
 requires_target = true
 requires_item = true
 description = ""

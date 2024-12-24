@@ -6,6 +6,7 @@
 script = ExtResource("1_cxxqx")
 name = "Use"
 is_major = false
+is_minor = false
 requires_target = false
 requires_item = true
 description = ""

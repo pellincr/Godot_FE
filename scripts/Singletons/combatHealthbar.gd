@@ -1,6 +1,5 @@
 extends Node
 
-
 func display_number(value:int, position:Vector2, is_miss: bool = false, is_critical: bool = false, is_damage:bool = true ):
 		var number = Label.new()
 		number.global_position = position
@@ -44,4 +43,3 @@ func display_number(value:int, position:Vector2, is_miss: bool = false, is_criti
 		
 		await tween.finished
 		number.queue_free()
-		
