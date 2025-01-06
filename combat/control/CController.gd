@@ -70,7 +70,6 @@ var player_turn = true
 var _attack_target_position
 var _blocked_target_position
 
-
 var _next_position
 
 var _position_id = 0
@@ -88,14 +87,16 @@ var _previous_position : Vector2i
 
 var _selected_skill: String
 
-#Action Variables
-var _action_target_unit : CombatUnit
-var _action_target_unit_selected : bool = false
-var _unit_action_completed : bool = false
-var _unit_action_initiated : bool = false
+#Action Select
 var _available_actions : Array[UnitAction]
 var _action: UnitAction
-var _action_selected: bool
+var _action_selected: bool # Is this redundant?
+
+#Action Variables
+var _action_target_unit : CombatUnit
+var _action_target_unit_selected : bool = false # is this redundant? 
+var _unit_action_completed : bool = false
+var _unit_action_initiated : bool = false
 var _action_tiles : PackedVector2Array
 var _action_valid_targets : Array[CombatUnit]
 
@@ -130,7 +131,6 @@ func _ready():
 	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
 	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	_astargrid.update()
-	
 	combat.connect("perform_shove", perform_shove)
 	
 	#build blocking spaces arrays
@@ -143,6 +143,132 @@ func _ready():
 	#Once Game initialization is complete begin player turn
 	game_state = Constants.GAME_STATE.PLAYER_TURN
 
+#	if Input.is_action_just_pressed("ui_accept"):	
+func process_ui_confirm_inputs(delta):
+	if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			var mouse_position = get_global_mouse_position()
+			var mouse_position_i = tile_map.local_to_map(mouse_position)
+			get_tile_info(mouse_position_i)
+			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				##Player selects a unit
+				var selected_unit = get_combatant_at_position(mouse_position_i)
+				if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
+					combat.game_ui.play_menu_confirm()
+					if selected_unit.allegience == 0:
+						set_controlled_combatant(selected_unit)
+						combat.game_ui.hide_end_turn_button()
+						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
+					else : 
+						pass 
+			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
+				combat.game_ui.play_menu_confirm()
+				## Players selects a move
+				if _arrived == true:
+					if mouse_position_i != combat.get_current_combatant().map_position:
+						if not _occupied_spaces.has(mouse_position_i):
+							if not _blocking_spaces[combat.get_current_combatant().unit.movement_class].has(mouse_position_i):
+								move_player()
+					else :
+						combat.get_current_combatant().move_position = combat.get_current_combatant().map_position
+						combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
+						update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
+					if _arrived == true:
+						find_path(mouse_position_i)
+						var comb = get_combatant_at_position(mouse_position_i)
+						var local_map = tile_map.map_to_local(mouse_position_i)
+						get_tile_info(mouse_position_i)
+						if comb != null:	
+							if comb.allegience == 1 and comb.alive:
+								_attack_target_position = local_map
+							else:
+								_attack_target_position = null
+								_blocked_target_position = local_map
+						elif mouse_position_i in _blocking_spaces[combat.get_current_combatant().unit.movement_class]:
+							_blocked_target_position = local_map
+						else:
+							_attack_target_position = null
+							_blocked_target_position = null
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				pass
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				if _action_selected == true and _action.requires_target == true:
+					##Targeting
+					var comb = get_combatant_at_position(mouse_position_i)
+					if comb != null and comb.alive:
+						if _action_valid_targets.has(comb):
+							combat.game_ui.hide_unit_combat_exchange_preview()
+							combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
+							action_target_selected(comb)
+						else:
+							print("Invalid Target")
+							comb = null
+							pass
+		else :
+			return
+
+func process_ui_cancel_inputs(delta):
+	if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			var mouse_position = get_global_mouse_position()
+			var mouse_position_i = tile_map.local_to_map(mouse_position)
+			get_tile_info(mouse_position_i)
+			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				if unit_detail_open:
+					target_detailed_info.emit(null)
+					unit_detail_open = false
+			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
+				_action_tiles.clear()
+				update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				combat.game_ui.play_menu_back()
+				if (_arrived):
+					combat.game_ui.hide_action_list()
+					##MOVE THE UNIT BACK 
+					if combat.get_current_combatant().map_position != combat.get_current_combatant().move_position:
+						find_path(combat.get_current_combatant().map_position)
+						return_player()
+					else : 
+						#finished_move.emit()
+						_arrived = true
+						movement = combat.get_current_combatant().unit.movement
+						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
+				combat.complete_trade()
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+				if(_action == item_action):
+					combat.game_ui.remove_inventory_options_container()
+					combat.game_ui.enable_inventory_list_butttons()
+				revert_action_flow()
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				combat.game_ui.hide_attack_action_inventory()
+				revert_action_flow()
+			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				combat.game_ui.play_menu_back()
+				combat.game_ui.hide_unit_combat_exchange_preview()
+				revert_action_flow()
+		else :
+			return
+
+func process_ui_info_inputs(delta):
+	if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			var mouse_position = get_global_mouse_position()
+			var mouse_position_i = tile_map.local_to_map(mouse_position)
+			get_tile_info(mouse_position_i)
+			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				var comb = get_combatant_at_position(mouse_position_i)
+				if comb != null and comb.alive:
+					if unit_detail_open == false:
+						target_detailed_info.emit(comb)
+						unit_detail_open = true
+	
 ##Processes user input if not on a menu
 func _unhandled_input(event):
 	## Player Turn
@@ -272,6 +398,13 @@ func _unhandled_input(event):
 
 #process called on frame
 func _process(delta):
+	if Input:
+		if Input.is_action_pressed("ui_confirm"):
+			process_ui_confirm_inputs(delta)
+		elif Input.is_action_pressed("ui_cancel"):
+			process_ui_cancel_inputs(delta)
+		elif Input.is_action_just_pressed("ui_info"):
+			process_ui_info_inputs(delta)
 	queue_redraw()
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if(turn_phase == Constants.TURN_PHASE.INIT):
@@ -290,9 +423,10 @@ func _process(delta):
 				combat.game_ui.hide_end_turn_button()
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION:
 				if not _unit_action_initiated: 
-					combat.game_ui.hide_end_turn_button()
-					perform_action()
-					_unit_action_initiated = true
+					if _action:
+						combat.game_ui.hide_end_turn_button()
+						perform_action()
+						_unit_action_initiated = true
 				if not _unit_action_completed and _unit_action_initiated:
 					#We await the action completion
 					pass
@@ -743,7 +877,16 @@ func get_previous_action_state() -> Constants.PLAYER_STATE:
 			return map_action_state_to_player_state(_action.flow[flow_index-1])
 	return player_state
 
+func clear_action_variables():
+	_action_target_unit = null
+	_action_target_unit_selected = false
+	_unit_action_completed = false
+	_unit_action_initiated= false
+	#_action_tiles.clear()
+	#_action_valid_targets.clear()
+
 func begin_action_flow():
+	clear_action_variables()
 	if _action:
 		_action_selected = true
 		if not _action.flow.is_empty():
@@ -868,7 +1011,7 @@ func draw_comb_range(combatant: CombatUnit) :
 	var edge_array = find_edges(move_range)
 	for tile in edge_array :
 		if combatant.unit.inventory.equipped:
-			attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.equipped.attack_range.max(), tile, 0, false))
+			attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.get_available_attack_ranges().max(), tile, 0, false))
 		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
 
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
@@ -978,9 +1121,6 @@ func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 		if not get_potential_targets(cu).is_empty():
 			action_array.push_front(attack_action)
 	action_array.append(wait_action)
-
-
-
 	return action_array
 
 func _on_visual_combat_major_action_completed() -> void:

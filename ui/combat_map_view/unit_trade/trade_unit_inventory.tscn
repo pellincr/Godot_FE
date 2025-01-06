@@ -29,6 +29,9 @@ offset_right = 300.0
 offset_bottom = 275.0
 theme = SubResource("Theme_enuf2")
 
+[node name="Background" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+
 [node name="MarginContainer" type="CenterContainer" parent="PanelContainer"]
 layout_mode = 2
 

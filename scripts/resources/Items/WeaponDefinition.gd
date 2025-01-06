@@ -44,7 +44,7 @@ enum AVAILABLE_TARGETS #this will expanded when more factions are added
 }
 
 @export_subgroup("Weapon Type")
-@export_enum("Axe", "Sword", "Lance", "Bow", "Nature", "Light", "Dark", "Staff", "Monster", "Other" ) var weapon_type : String
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var weapon_type : String
 @export_enum("none", "Axe", "Sword", "Lance") var physical_weapon_triangle_type : String
 @export_enum("none","Dark", "Light", "Nature") var magic_weapon_triangle_type : String
 @export_enum("Physical", "Magic", "NONE" ) var item_damage_type : int = 0

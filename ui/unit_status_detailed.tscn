@@ -736,3 +736,416 @@ text = "Iron Sword"
 [node name="Uses" type="Label" parent="RightPanel/Inventory/Slot4Container/HBoxContainer"]
 layout_mode = 2
 text = "46"
+
+[node name="CenterPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 255.0
+offset_right = 550.0
+offset_bottom = 482.0
+theme = ExtResource("4_hq6tf")
+
+[node name="StatsGrid" type="GridContainer" parent="CenterPanel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 287.0
+offset_bottom = 225.0
+theme = SubResource("Theme_147ov")
+columns = 2
+
+[node name="StrengthLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Strength"
+vertical_alignment = 1
+
+[node name="StrengthContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/StrengthContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+max_value = 30.0
+value = 1.0
+rounded = true
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/StrengthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MagicLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Magic"
+vertical_alignment = 1
+
+[node name="MagicContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/MagicContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/MagicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkillLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Skill"
+vertical_alignment = 1
+
+[node name="SkillContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/SkillContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/SkillContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeedLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Speed
+"
+vertical_alignment = 1
+
+[node name="SpeedContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/SpeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/SpeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LuckLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Luck"
+vertical_alignment = 1
+
+[node name="LuckContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/LuckContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/LuckContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefenseLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "Defense"
+vertical_alignment = 1
+
+[node name="DefenseContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/DefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/DefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MagicDefenseLabel" type="Label" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "M Defense"
+vertical_alignment = 1
+
+[node name="MagicDefenseContainer" type="PanelContainer" parent="CenterPanel/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bar" type="ProgressBar" parent="CenterPanel/StatsGrid/MagicDefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 75.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="CenterPanel/StatsGrid/MagicDefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_77j75")
+theme_override_font_sizes/font_size = 21
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InventoryHeader" type="Label" parent="CenterPanel"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 223.0
+offset_right = 294.0
+offset_bottom = 265.0
+theme = ExtResource("5_bppi7")
+theme_override_constants/outline_size = 4
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inventory" type="VBoxContainer" parent="CenterPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 258.0
+offset_right = 272.0
+offset_bottom = 471.0
+theme = SubResource("Theme_17sy8")
+
+[node name="Slot1Container" type="PanelContainer" parent="CenterPanel/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Equipped" type="Label" parent="CenterPanel/Inventory/Slot1Container"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterPanel/Inventory/Slot1Container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="CenterPanel/Inventory/Slot1Container/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_0mf55")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="CenterPanel/Inventory/Slot1Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Iron Sword"
+
+[node name="Uses" type="Label" parent="CenterPanel/Inventory/Slot1Container/HBoxContainer"]
+layout_mode = 2
+text = "46"
+
+[node name="Slot2Container" type="PanelContainer" parent="CenterPanel/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Equipped" type="Label" parent="CenterPanel/Inventory/Slot2Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterPanel/Inventory/Slot2Container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="CenterPanel/Inventory/Slot2Container/HBoxContainer"]
+material = SubResource("ShaderMaterial_064cd")
+layout_mode = 2
+texture = ExtResource("8_0mf55")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="CenterPanel/Inventory/Slot2Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "--"
+
+[node name="Uses" type="Label" parent="CenterPanel/Inventory/Slot2Container/HBoxContainer"]
+layout_mode = 2
+text = "46"
+
+[node name="Slot3Container" type="PanelContainer" parent="CenterPanel/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Equipped" type="Label" parent="CenterPanel/Inventory/Slot3Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterPanel/Inventory/Slot3Container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="CenterPanel/Inventory/Slot3Container/HBoxContainer"]
+material = SubResource("ShaderMaterial_064cd")
+layout_mode = 2
+texture = ExtResource("8_0mf55")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="CenterPanel/Inventory/Slot3Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Iron Sword"
+
+[node name="Uses" type="Label" parent="CenterPanel/Inventory/Slot3Container/HBoxContainer"]
+layout_mode = 2
+text = "46"
+
+[node name="Slot4Container" type="PanelContainer" parent="CenterPanel/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Equipped" type="Label" parent="CenterPanel/Inventory/Slot4Container"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_k8b2s")
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterPanel/Inventory/Slot4Container"]
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="CenterPanel/Inventory/Slot4Container/HBoxContainer"]
+material = SubResource("ShaderMaterial_064cd")
+layout_mode = 2
+texture = ExtResource("8_0mf55")
+expand_mode = 3
+
+[node name="Name" type="Label" parent="CenterPanel/Inventory/Slot4Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Iron Sword"
+
+[node name="Uses" type="Label" parent="CenterPanel/Inventory/Slot4Container/HBoxContainer"]
+layout_mode = 2
+text = "46"

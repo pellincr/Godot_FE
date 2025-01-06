@@ -24,6 +24,7 @@ weight = 5
 weapon_effectiveness = Array[String]([])
 weapon_hit_effect = 0
 is_wpn_triangle_effective = false
+crit_disabled = false
 is_brave = false
 applies_status_effect = false
 negates_defense = false

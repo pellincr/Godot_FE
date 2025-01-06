@@ -12,7 +12,7 @@ func show_options(item:ItemDefinition):
 
 
 func get_button1() -> Button:
-	return $Container/Panel/CenterContainer/VBoxContainer/Button1
+	return $Container/PanelContainer/CenterContainer/VBoxContainer/Button1
 
 func get_button2() -> Button:
-	return $Container/Panel/CenterContainer/VBoxContainer/Button2
+	return $Container/PanelContainer/CenterContainer/VBoxContainer/Button2

@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://ui/combat_map_view/unit_inventory_slot/unit_inventory_slot.gd" id="1_kpyca"]
 [ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="1_mnk0y"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="3_5ks25"]
+[ext_resource type="Theme" uid="uid://c721m7lwm7mq3" path="res://ui/combat_map_view/unit_inventory_slot/inventory_slot_theme.tres" id="3_nmnge"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_3ax6y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55rkq"]
-bg_color = Color(0, 0.380392, 0.313726, 1)
-draw_center = false
+bg_color = Color(9.32533e-08, 0.144987, 0.114366, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -28,10 +28,6 @@ border_width_bottom = 1
 Button/fonts/font = ExtResource("1_mnk0y")
 Button/styles/hover = SubResource("StyleBoxFlat_55rkq")
 Button/styles/normal = SubResource("StyleBoxFlat_fyniy")
-
-[sub_resource type="Theme" id="Theme_5ooet"]
-default_font = ExtResource("1_mnk0y")
-default_font_size = 18
 
 [node name="UnitInventorySlot" type="Control"]
 custom_minimum_size = Vector2(270, 40)
@@ -58,7 +54,7 @@ layout_mode = 2
 offset_right = 270.0
 offset_bottom = 40.0
 mouse_filter = 2
-theme = SubResource("Theme_5ooet")
+theme = ExtResource("3_nmnge")
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 15
 
@@ -82,7 +78,7 @@ theme_override_constants/margin_right = 15
 
 [node name="Uses" type="Label" parent="InfoMargin"]
 layout_mode = 2
-theme = SubResource("Theme_5ooet")
+theme = ExtResource("3_nmnge")
 theme_override_font_sizes/font_size = 18
 text = "46"
 horizontal_alignment = 2

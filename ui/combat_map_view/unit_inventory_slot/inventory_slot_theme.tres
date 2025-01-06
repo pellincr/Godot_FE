@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c721m7lwm7mq3"]
+
+[ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="1_0ypk3"]
+
+[resource]
+default_font = ExtResource("1_0ypk3")
+default_font_size = 18
