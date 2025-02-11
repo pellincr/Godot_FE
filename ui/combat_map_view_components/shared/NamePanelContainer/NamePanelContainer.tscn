@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://4cwp6trqmprl"]
+
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_8kwsp"]
+[ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="2_swxck"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1o8g6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.775063, 0.775063, 0.775063, 1)
+
+[sub_resource type="Theme" id="Theme_ci6aj"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_1o8g6")
+
+[sub_resource type="Gradient" id="Gradient_5vujr"]
+offsets = PackedFloat32Array(0, 0.165432, 0.718518, 0.995062)
+colors = PackedColorArray(0.133333, 0.517647, 0.72549, 1, 0.0941176, 0.427451, 0.67451, 1, 0.0941176, 0.152941, 0.247059, 1, 0.0941176, 0.152941, 0.247059, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ia80d"]
+gradient = SubResource("Gradient_5vujr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssicp"]
+texture = SubResource("GradientTexture1D_ia80d")
+
+[sub_resource type="Theme" id="Theme_k71kc"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ssicp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxv38"]
+shader = ExtResource("1_8kwsp")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/color_factor = null
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[node name="NamePanelContainer" type="Control"]
+custom_minimum_size = Vector2(250, 45)
+layout_mode = 3
+anchor_right = 0.19
+anchor_bottom = 0.07
+offset_right = -218.88
+offset_bottom = -45.36
+
+[node name="OutlineContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 45.0
+theme = SubResource("Theme_ci6aj")
+
+[node name="GradientContainer" type="PanelContainer" parent="OutlineContainer"]
+layout_mode = 2
+theme = SubResource("Theme_k71kc")
+
+[node name="MarginContainer" type="MarginContainer" parent="OutlineContainer/GradientContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OutlineContainer/GradientContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitIcon" type="TextureRect" parent="OutlineContainer/GradientContainer/MarginContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_uxv38")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_swxck")
+
+[node name="UnitName" type="Label" parent="OutlineContainer/GradientContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Example Unit Name"

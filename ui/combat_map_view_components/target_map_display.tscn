@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbnkk7n0yix5d"]
+
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_53an3"]
+[ext_resource type="Texture2D" uid="uid://djmgqwn7shbuv" path="res://resources/sprites/sheets/crosshairs_and_more.png" id="2_l1pqi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ks8n5"]
+resource_local_to_scene = true
+shader = ExtResource("1_53an3")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/color_factor = 1.0
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0s01"]
+atlas = ExtResource("2_l1pqi")
+region = Rect2(1168, 208, 128, 32)
+
+[node name="target_map_display" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnitSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ks8n5")
+texture = SubResource("AtlasTexture_e0s01")
+hframes = 4

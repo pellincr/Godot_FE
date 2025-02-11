@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://diqrf4hmvqdtg"]
+
+[ext_resource type="Script" path="res://ui/combat_map_view_components/unit_selected_footer/inventory_item_icon.gd" id="1_e1388"]
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_maem8"]
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="2_c40ou"]
+[ext_resource type="StyleBox" uid="uid://bgfknw7p6efaw" path="res://ui/combat_map_view_components/unit_selected_footer/InventoryItemIcon.tres" id="2_gv8d5"]
+
+[sub_resource type="Theme" id="Theme_s5d3b"]
+Panel/styles/panel = ExtResource("2_gv8d5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nman0"]
+shader = ExtResource("1_maem8")
+shader_parameter/line_color = Color(0, 0, 0, 1)
+shader_parameter/line_thickness = 0.75
+shader_parameter/color_factor = null
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lhtx"]
+atlas = ExtResource("2_c40ou")
+region = Rect2(160, 32, 32, 32)
+
+[node name="InventoryItemIcon" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e1388")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_s5d3b")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_nman0")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8lhtx")

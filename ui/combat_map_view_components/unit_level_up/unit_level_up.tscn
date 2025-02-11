@@ -1,12 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://dr5gv3nhxomby"]
 
-[ext_resource type="Script" path="res://ui/combat_map_view/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
+[ext_resource type="Script" path="res://ui/combat_map_view_components/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="1_3jusj"]
-[ext_resource type="PackedScene" uid="uid://pmy8teg4tftq" path="res://ui/combat_map_view/unit_level_up/level_up_attribute_container.tscn" id="1_obgw1"]
+[ext_resource type="PackedScene" uid="uid://pmy8teg4tftq" path="res://ui/combat_map_view_components/unit_level_up/level_up_attribute_container.tscn" id="1_obgw1"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_7xwk1"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="3_85s4i"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="3_lh7o5"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="4_qcc2n"]
+
 
 [sub_resource type="Theme" id="Theme_v3vgv"]
 default_font_size = 1

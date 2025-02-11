@@ -7,7 +7,7 @@ var unit: Unit
 var inventory: Array[ItemDefinition]
 var equippable_item_info : EquippableItemInformation
 #Imports
-const UnitInventorySlot = preload("res://ui/combat_map_view/unit_inventory_slot/unit_inventory_slot.tscn")
+const UnitInventorySlot = preload("res://ui/combat_map_view_components/unit_inventory_slot/unit_inventory_slot.tscn")
 
 func _ready():
 	equippable_item_info = $Equippable_item_information

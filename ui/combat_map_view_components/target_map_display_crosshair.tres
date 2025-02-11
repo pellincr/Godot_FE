@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://yu5cv4fy28yq"]
+
+[ext_resource type="Texture2D" uid="uid://djmgqwn7shbuv" path="res://resources/sprites/sheets/crosshairs_and_more.png" id="1_ixh4w"]
+
+[resource]
+atlas = ExtResource("1_ixh4w")
+region = Rect2(1168, 208, 128, 32)

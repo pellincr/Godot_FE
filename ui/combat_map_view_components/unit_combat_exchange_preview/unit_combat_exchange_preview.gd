@@ -2,8 +2,8 @@ extends Control
 
 var combatExchange: CombatExchange
 
-const up_theme = preload("res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_up.tres")
-const down_theme = preload("res://ui/combat_map_view/unit_combat_exchange_preview/wpn_triangle_down.tres")
+const up_theme = preload("res://ui/combat_map_view_components/unit_combat_exchange_preview/wpn_triangle_up.tres")
+const down_theme = preload("res://ui/combat_map_view_components/unit_combat_exchange_preview/wpn_triangle_down.tres")
 
 const down_arrow_char = "↓"
 const up_arrow_char = "↑"

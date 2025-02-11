@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6nq6c3ygsuni"]
 
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="1_6yady"]
-[ext_resource type="Script" path="res://ui/combat_map_view/equippable_item_information/equippable_item_information.gd" id="1_uilya"]
+[ext_resource type="Script" path="res://ui/combat_map_view_components/equippable_item_information/equippable_item_information.gd" id="1_uilya"]
 
 [node name="Equippable_item_information" type="Control"]
 layout_mode = 3

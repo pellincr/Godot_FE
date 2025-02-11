@@ -7,7 +7,7 @@ class_name Combat
 ##
 #Imports
 const CombatUnitDisplay = preload("res://ui/combat_unit_display.tscn")
-const InventoryOptionContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
+const InventoryOptionContainer = preload("res://ui/combat_map_view_components/option_container/inventory_options_container.tscn")
 
 ##Signals
 signal register_combat(combat_node: Node)
@@ -256,7 +256,7 @@ func combatant_die(combatant: CombatUnit):
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
-		dead_units.append(comb_id)
+		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.unit_name
 		]
@@ -278,16 +278,17 @@ func ai_process(comb : CombatUnit):
 	var l = INF
 	comb_attack_range = comb.unit.inventory.get_available_attack_ranges()
 	for target_comb_index in groups[Constants.FACTION.PLAYERS]:
-		var target = combatants[target_comb_index]
+		var target = combatants[target_comb_index] #DO A CHECK TO MAKE SURE THERE ARE AVAILABLE TARGETS
 		var distance = get_distance(comb, target)
 		if distance < l:
 			l = distance
 			nearest_target = target
 	## can they reach?
-	if comb_attack_range.has(get_distance(comb, nearest_target)):
-		ai_equip_best_weapon(comb, nearest_target)
-		await Attack(comb, nearest_target)
-		return
+	if nearest_target:
+		if comb_attack_range.has(get_distance(comb, nearest_target)):
+			ai_equip_best_weapon(comb, nearest_target)
+			await Attack(comb, nearest_target)
+			return
 	#if the current unit AI types lets them move on map
 	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
 		await controller.ai_process(comb, nearest_target.map_position)

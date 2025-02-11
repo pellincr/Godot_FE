@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy2uj4lwelppk"]
 
-[ext_resource type="Script" path="res://ui/combat_map_view/unit_trade/trade_container.gd" id="1_jj83a"]
-[ext_resource type="PackedScene" uid="uid://1f3vadqgcqf3" path="res://ui/combat_map_view/unit_trade/trade_unit_inventory.tscn" id="1_n474w"]
+[ext_resource type="Script" path="res://ui/combat_map_view_components/unit_trade/trade_container.gd" id="1_jj83a"]
+[ext_resource type="PackedScene" uid="uid://1f3vadqgcqf3" path="res://ui/combat_map_view_components/unit_trade/trade_unit_inventory.tscn" id="1_n474w"]
 
 [node name="TradeContainer" type="Control"]
 custom_minimum_size = Vector2(610, 275)

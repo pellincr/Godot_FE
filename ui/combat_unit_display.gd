@@ -93,4 +93,6 @@ static func create() -> CombatUnitDisplay:
 	var unit_display = CombatUnitDisplay.new()
 	##unit_display.global_position = position * Vector2(32, 32)
 	return unit_display
-	
+
+func set_healthbar_visability(visibility : bool):
+	$Healthbar.visible = visibility

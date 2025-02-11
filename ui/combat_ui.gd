@@ -9,8 +9,8 @@ signal unit_experience_ended()
 @export var ui_menu_audio : AudioStreamPlayer
 
 #Scene Imports
-const traceContainer = preload("res://ui/combat_map_view/unit_trade/trade_container.tscn")
-const inventoryOptionsContainer = preload("res://ui/combat_map_view/option_container/inventory_options_container.tscn")
+const traceContainer = preload("res://ui/combat_map_view_components/unit_trade/trade_container.tscn")
+const inventoryOptionsContainer = preload("res://ui/combat_map_view_components/option_container/inventory_options_container.tscn")
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")

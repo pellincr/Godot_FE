@@ -11,11 +11,11 @@
 resource_local_to_scene = true
 shader = ExtResource("2_gmc6e")
 shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 1.0
+shader_parameter/line_thickness = 0.5
 shader_parameter/color_factor = 1.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fape2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o7by"]
 bg_color = Color(0.201527, 0.201527, 0.201527, 1)
 border_width_left = 1
 border_width_top = 1
@@ -23,7 +23,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57qh8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tesjc"]
 bg_color = Color(4.52429e-06, 0.700928, 0.572457, 1)
 border_width_left = 1
 border_width_top = 1
@@ -32,8 +32,8 @@ border_width_bottom = 1
 border_color = Color(0, 0.776471, 0.882353, 0)
 
 [sub_resource type="Theme" id="Theme_h8nj1"]
-ProgressBar/styles/background = SubResource("StyleBoxFlat_fape2")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_57qh8")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_3o7by")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_tesjc")
 
 [node name="combat_unit_display" type="Control"]
 layout_mode = 3

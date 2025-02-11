@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2ed4bicvkhwj"]
 
-[ext_resource type="Script" path="res://ui/combat_map_view/unit_experience_bar/unit_experience_bar.gd" id="1_qrr7v"]
+[ext_resource type="Script" path="res://ui/combat_map_view_components/unit_experience_bar/unit_experience_bar.gd" id="1_qrr7v"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_t670g"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="3_ln63o"]
 

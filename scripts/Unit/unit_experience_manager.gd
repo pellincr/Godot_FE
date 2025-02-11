@@ -2,8 +2,8 @@ extends Node
 
 class_name UnitExperienceManager
 
-const experience_bar = preload("res://ui/combat_map_view/unit_experience_bar/unit_experience_bar.tscn")
-const level_up_component = preload("res://ui/combat_map_view/unit_level_up/unit_level_up.tscn")
+const experience_bar = preload("res://ui/combat_map_view_components/unit_experience_bar/unit_experience_bar.tscn")
+const level_up_component = preload("res://ui/combat_map_view_components/unit_level_up/unit_level_up.tscn")
 
 func process_experience_gain(unit:Unit, experience_amount: int):
 	print ("Enteredprocess_experience_gain")

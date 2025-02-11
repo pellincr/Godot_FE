@@ -53,7 +53,7 @@ const tile_nieghbor_index = [
 	12 ##CELL_NEIGHBOR_TOP_SIDE
 ]
 
-var _occupied_spaces : Array[Vector2i]
+var _occupied_spaces : PackedVector2Array #Array of spacing currently containing a unit
 var _blocking_spaces = [ #Needs to be updated when adding additional unit types
 	[],#GENERIC
 	[],#MOBILE
@@ -497,7 +497,7 @@ func _process(delta):
 			else :
 				controlled_node.position += controlled_node.position.direction_to(_next_position) * delta * move_speed
 			if controlled_node.position.distance_to(_next_position) < 1:
-				_occupied_spaces.erase(_previous_position)
+				CustomUtilityLibrary.erase_packedVector2Array(_occupied_spaces, _previous_position)
 				_astargrid.set_point_weight_scale(_previous_position, 1)
 				var tile_cost = get_tile_cost(_previous_position)
 				controlled_node.position = _next_position
@@ -519,7 +519,7 @@ func _process(delta):
 						if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT) :
 							#Move complete on action select (cancelled move)
 							#remove old space from occupied spaces
-							_occupied_spaces.erase(combat.get_current_combatant().move_position)
+							CustomUtilityLibrary.erase_packedVector2Array(_occupied_spaces, combat.get_current_combatant().move_position)
 							_astargrid.set_point_weight_scale(combat.get_current_combatant().move_position, 1)
 							movement = combat.get_current_combatant().unit.movement
 							update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
@@ -561,7 +561,7 @@ func combatant_added(combatant):
 
 func combatant_died(combatant):
 	_astargrid.set_point_weight_scale(combatant.map_position, 1)
-	_occupied_spaces.erase(combatant.map_position)
+	CustomUtilityLibrary.erase_packedVector2Array(_occupied_spaces,combatant.map_position)
 	combatant.map_display.queue_free()
 
 func update_points_weight():
@@ -1146,23 +1146,27 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
 	#Get Attack Range to see what are "attackable tiles"	
+	update_points_weight() #Is this redundant? 
 	var current_position = tile_map.local_to_map(controlled_node.position)
 	var moveable_tiles : PackedVector2Array= retrieveAvailableRange(ai_unit.unit.movement,current_position, ai_unit.unit.movement_class, true)
 	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
 	var actionable_tiles :PackedVector2Array
 	var has_actionable_move : bool = false
-	update_points_weight()
-	#print("@ MOVABLE_TILES : " + str(moveable_tiles))
-	print("@MY POSITION : " + str(ai_unit.map_position))
+	#Step 1 : Get all possible actionable tiles
+	#print("@MY POSITION : " + str(ai_unit.map_position))
 	print("@ CREATING ACTIONABLE TILE LIST")
+	print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
 	for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
 		for range in actionable_range:
 			for tile in get_tiles_at_range(range,combat.combatants[targetable_unit_index].map_position)[1]:
 				if tile not in _occupied_spaces:
 					if tile not in actionable_tiles:
 						actionable_tiles.append(tile)
+				else :
+					print("@DIDNT ADD TILE : " + str(tile) + " B/C in occupied spaces")
 	print("@ FINISHED CREATING ACTIONABLE TILE LIST : " + str(actionable_tiles))
-	#print("@ ACTIONABLE_TILES : " + str(actionable_tiles))
+	print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
+	#STEP 2 : BEGIN Search for move
 	print("@ BEGAN MOVE & TARGET SEARCH")
 	for moveable_tile in moveable_tiles:
 		if has_actionable_move: #break the parent loop when the solution is found
@@ -1175,25 +1179,24 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 					ai_move(moveable_tile)
 					has_actionable_move = true
 	#current combatant AI allows them to move without target
+	#STEP 3 : If there is no move to be made that would also perform an action, path towards actionable tile
 	if not has_actionable_move: 
 		print("@ FINISHED MOVE AND TARGET SEARCH, NO TARGET FOUND")
-	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
-		if not has_actionable_move: 
+		if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
 			for tile in actionable_tiles:
 				if has_actionable_move: 
 					break
-					#print("@ astar check " + str(_astargrid.get_point_weight_scale(tile)))
-				if has_actionable_move:
-					break
+				#check the tile is in bounds
 				if not _astargrid.get_point_weight_scale(tile) > 999999:
 					print("@ TILE MOVE CHOSEN : " + str(tile))
 					print("@ OCCUPIED SPACES : " +str(_occupied_spaces))
 					ai_move(tile)
 					has_actionable_move = true
-	if has_actionable_move:
+	#STEP 4 : Await actionable move finished
+	if has_actionable_move: 
 		print("@ AWAIT AI MOVE FINISH")
 		await finished_move
-		print("@ OCCUPIED SPACES : " +str(_occupied_spaces))
+		print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
 	#print("Actual Node position is " + str(tile_map.local_to_map(controlled_node.position)))
 	ai_unit.map_terrain = get_terrain_at_position(controlled_node.position)
 	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)

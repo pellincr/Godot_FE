@@ -1,0 +1,254 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckrpuok3owxp1"]
+
+[ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="1_fcpt8"]
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_m1qjs"]
+[ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat_map_view_components/unit_selected_footer/InventoryItemIcon.tscn" id="2_hj75g"]
+[ext_resource type="StyleBox" uid="uid://bf8b2trdy2qhy" path="res://ui/combat_map_view_components/unit_selected_footer/InventorySelectedItemIcon.tres" id="3_y8v6r"]
+
+[sub_resource type="Gradient" id="Gradient_5vujr"]
+offsets = PackedFloat32Array(0, 0.165432, 0.718518, 0.995062)
+colors = PackedColorArray(0.133333, 0.517647, 0.72549, 1, 0.0941176, 0.427451, 0.67451, 1, 0.0941176, 0.152941, 0.247059, 1, 0.0941176, 0.152941, 0.247059, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b7bfi"]
+gradient = SubResource("Gradient_5vujr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssicp"]
+texture = SubResource("GradientTexture1D_b7bfi")
+
+[sub_resource type="Theme" id="Theme_tsldd"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ssicp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ce3qh"]
+shader = ExtResource("1_m1qjs")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/color_factor = null
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_pw8d8"]
+Panel/styles/panel = ExtResource("3_y8v6r")
+
+[node name="unit_selected_footer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -146.0
+offset_right = 171.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -144.0
+offset_right = 91.0
+offset_bottom = -101.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_tsldd")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitIcon" type="TextureRect" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_ce3qh")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("1_fcpt8")
+
+[node name="UnitName" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Example Unit Name"
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+offset_right = 1152.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="UnitInfoInventoryContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="UnitInfoContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitTypeLabel" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lance Armor
+"
+
+[node name="LevelContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="LevelLabel" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/LevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lvl"
+
+[node name="LevelValue" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/LevelContainer"]
+layout_mode = 2
+text = "20
+"
+
+[node name="MoveContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="MoveLabel" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move
+"
+
+[node name="MoveValue" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+layout_mode = 2
+text = "5
+"
+
+[node name="UnitInventoryContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryPanelBack" type="PanelContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="InventoryContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="SelectedItemContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer" instance=ExtResource("2_hj75g")]
+layout_mode = 2
+theme = SubResource("Theme_pw8d8")
+
+[node name="EquippedItemName" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer"]
+layout_mode = 2
+text = "Javelin"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer2" instance=ExtResource("2_hj75g")]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer3" instance=ExtResource("2_hj75g")]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer4" instance=ExtResource("2_hj75g")]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer/UnitInfoInventoryContainer/UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer5" instance=ExtResource("2_hj75g")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="Health" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer2/Health"]
+layout_mode = 2
+text = "HP"
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/MarginContainer2/Health"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "56/60
+"
+
+[node name="StatsGrid" type="GridContainer" parent="PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Attack" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid/Attack"]
+layout_mode = 2
+text = "P Attack"
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid/Attack"]
+layout_mode = 2
+text = "Value"
+
+[node name="Speed" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid/Speed"]
+layout_mode = 2
+text = "Speed"
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/StatsGrid/Speed"]
+layout_mode = 2
+text = "Value"
+
+[node name="PLACEHOLDER" type="MarginContainer" parent="PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="Health" type="HBoxContainer" parent="PanelContainer2/MarginContainer/HBoxContainer/PLACEHOLDER"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/HBoxContainer/PLACEHOLDER/Health"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "PLACEHOLDER
+"
