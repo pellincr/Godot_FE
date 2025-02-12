@@ -25,7 +25,6 @@ func get_available_attack_ranges()-> Array[int]:
 								ranges.append(attack_range)
 	return ranges
 
-
 func get_available_support_ranges()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:

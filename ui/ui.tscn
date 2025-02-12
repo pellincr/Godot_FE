@@ -49,15 +49,15 @@ script = ExtResource("1_cy8ae")
 layout_mode = 1
 offset_left = -4.0
 offset_top = 452.0
-offset_right = -4.0
-offset_bottom = 452.0
+offset_right = -788.0
+offset_bottom = -29.0
 
 [node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
 layout_mode = 1
-offset_left = 909.0
-offset_top = 564.0
-offset_right = -43.0
-offset_bottom = -34.0
+offset_left = 9.0
+offset_top = 43.0
+offset_right = -943.0
+offset_bottom = -555.0
 
 [node name="Actions" type="Control" parent="."]
 anchors_preset = 0
@@ -198,6 +198,7 @@ scale = Vector2(2, 2)
 
 [node name="Header" parent="." instance=ExtResource("11_m0dmj")]
 layout_mode = 1
+offset_bottom = 45.0
 
 [node name="UnitStatusCombatExchange" parent="." instance=ExtResource("13_lfc13")]
 visible = false

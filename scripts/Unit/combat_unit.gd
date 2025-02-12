@@ -16,10 +16,14 @@ var major_action_taken : bool = false
 var minor_action_taken: bool = false
 var effective_move : int = 0
 var unit : Unit
-var map_terrain : Terrain # this will be updated to "Tile"
 var action_list :  Array[String]
+var map_tile :  MapTile
+var move_tile : MapTile
+
 var map_position : Vector2i
+var map_terrain : Terrain
 var move_position: Vector2i
+var move_terrain : Terrain
 var skill_list = []
 var map_display : CombatUnitDisplay
 var allegience : int
@@ -33,21 +37,26 @@ static func create(unit: Unit, team: int, ai:int = 0) -> CombatUnit:
 	instance.ai_type = ai
 	instance.allegience = team
 	instance.effective_move = unit.movement
+	instance.map_tile = MapTile.new()
+	instance.move_tile = MapTile.new()
 	return instance
 
-func set_terrain(terrain : Terrain) :
-	map_terrain = terrain
+func set_map_terrain(ter : Terrain) :
+	map_terrain = ter
 	 
 func calc_map_avoid()-> int:
-	if map_terrain:
-		return unit.avoid + map_terrain.avoid
-	else: 
+	#if move_position != map_position:
+		#if move_terrain:
+			#return unit.avoid + move_terrain.avoid
+	#else: 
+		#if map_terrain:
+			#return unit.avoid + move_terrain.avoid
 		return unit.avoid
 
 func calc_map_avoid_staff() -> int:
-	if map_terrain:
-		return int(unit.magic_defense * 1.5) + int(unit.luck * .5) + map_terrain.avoid
-	else: 
+	#if current_map_tile:
+		#return int(unit.magic_defense * 1.5) + int(unit.luck * .5) + current_map_tile.avoid
+	#else: 
 		return (unit.magic_defense * 1.5) + int(unit.luck * .5)
 
 func refresh_unit():

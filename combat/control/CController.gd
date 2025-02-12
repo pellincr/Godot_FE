@@ -125,7 +125,7 @@ var turn_count : int = 1
 
 func _ready():
 	tile_map = get_node("../Terrain/TileMap")
-	_astargrid.region = Rect2i(0, 0, 36, 21)
+	_astargrid.region = Rect2i(0, 0, 18, 26)
 	_astargrid.cell_size = Vector2i(32, 32)
 	_astargrid.offset = Vector2(16, 16)
 	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
@@ -383,6 +383,7 @@ func _unhandled_input(event):
 										if _action_valid_targets.has(comb):
 											combat.game_ui.hide_unit_combat_exchange_preview()
 											combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
+											combat.get_current_combatant().current_map_tile = MapTile.create(combat.get_current_combatant().move_position, get_terrain_at_position(combat.get_current_combatant().move_position))
 											action_target_selected(comb)
 										else:
 											print("Invalid Target")
@@ -614,7 +615,7 @@ func find_path(tile_position: Vector2i):
 			if tile_position.y > current_position.y:
 				dir = Vector2i.UP
 			tile_position += dir
-		_path = _astargrid.get_point_path(current_position, tile_position)
+		_path = _astargrid.get_point_path(current_position, tile_position, true)
 		#print("@ PATH FOUND : " + str(_path))
 		queue_redraw()
 
@@ -1142,6 +1143,73 @@ func _on_visual_combat_minor_action_completed() -> void:
 	update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
 	
 # AI Methods
+
+func ai_process_new(ai_unit: CombatUnit) -> aiAction:
+	print("Entered ai_process in cController.gd")
+	#find nearest non-solid tile to target_position
+	#Get Attack Range to see what are "attackable tiles"	
+	update_points_weight() #Is this redundant? 
+	var current_position = tile_map.local_to_map(controlled_node.position)
+	var moveable_tiles : PackedVector2Array
+	var actionable_tiles :PackedVector2Array
+	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
+	var action_tile_options: PackedVector2Array
+	var selected_action: aiAction
+	var called_move : bool = false
+	#Step 1 : Get all moveable tiles
+	print("@ BEGAN TILE ANALYSIS WITH CURRENT TILE")
+	selected_action = ai_get_best_move_at_tile(ai_unit, current_position, actionable_range)
+	# Step 2, if the unit can move do analysis on movable tiles
+	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
+		print("@ BEGAN MOVABLE TILE ANALYSIS")
+		moveable_tiles = retrieveAvailableRange(ai_unit.unit.movement,current_position, ai_unit.unit.movement_class, true)
+		for moveable_tile in moveable_tiles:
+			if moveable_tile not in _occupied_spaces:
+				if not _astargrid.get_point_weight_scale(moveable_tile) > 999999:
+					var best_tile_action: aiAction = ai_get_best_move_at_tile(ai_unit, moveable_tile, actionable_range)
+					if selected_action == null or selected_action.rating < best_tile_action.rating:
+						selected_action = best_tile_action
+						print("@ FOUND BETTER ACTION AT TILE : "+ str(moveable_tile) + ". WITH A RATING OF : " + str(selected_action.rating))
+	# Step 3, if the unit still doesnt have a good move, and is able have it seek one
+	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+		if selected_action != null:
+			if selected_action.action_type == "MOVE":
+				#TO BE IMPLEMENTED : SEARCH FOR HIGH POTENTIAL TILES AND MOVE
+				print("@ CREATING ACTIONABLE TILE LIST")
+				print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
+				for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
+					for range in actionable_range:
+						for tile in get_tiles_at_range(range,combat.combatants[targetable_unit_index].map_position)[1]:
+							if tile not in _occupied_spaces:
+								if tile not in actionable_tiles:
+									actionable_tiles.append(tile)
+				print("@ FINISHED MOVE AND TARGET SEARCH, NO TARGET FOUND")
+				var closet_tile
+				var closet_distance = 99999
+				for tile in actionable_tiles:
+					var distance = get_distance(tile, ai_unit.map_position)
+					if closet_tile == null or distance < closet_distance:
+						closet_tile = tile
+						closet_distance = distance
+				if not _astargrid.get_point_weight_scale(closet_tile) > 999999:
+					if closet_tile != Vector2(current_position):
+						ai_move(closet_tile)
+						called_move = true
+			else: 
+				if Vector2(current_position) != selected_action.action_position:
+					ai_move(selected_action.action_position)
+					called_move = true
+	# Step 4, Perform the move if it is required
+	if(called_move):
+		print("@ AWAIT AI MOVE FINISH")
+		await finished_move
+		print("@ COMPLTED WAITING CALLING AI ACTION")
+	#update the combat_unit info with the new tile info
+	ai_unit.map_terrain = get_terrain_at_position(controlled_node.position)
+	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)
+	return selected_action
+
+
 func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
@@ -1152,6 +1220,8 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
 	var actionable_tiles :PackedVector2Array
 	var has_actionable_move : bool = false
+	var action_tile_options: PackedVector2Array
+	var selected_action: aiAction
 	#Step 1 : Get all possible actionable tiles
 	#print("@MY POSITION : " + str(ai_unit.map_position))
 	print("@ CREATING ACTIONABLE TILE LIST")
@@ -1170,20 +1240,18 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 	print("@ BEGAN MOVE & TARGET SEARCH")
 	for moveable_tile in moveable_tiles:
 		if has_actionable_move: #break the parent loop when the solution is found
-			break
-		if moveable_tile in actionable_tiles:
-			if has_actionable_move:
-				break
-				if not _astargrid.get_point_weight_scale(moveable_tile) > 999999:
-					print("@ TILE MOVE & ACTION CHOSEN : " + str(moveable_tile))
-					ai_move(moveable_tile)
-					has_actionable_move = true
+			if moveable_tile in actionable_tiles:
+				if has_actionable_move:
+					if not _astargrid.get_point_weight_scale(moveable_tile) > 999999:
+						action_tile_options.append(moveable_tile)
+						print("@ TILE MOVE & ACTION CHOSEN : " + str(moveable_tile))
+						ai_move(moveable_tile)
+						has_actionable_move = true
 	#current combatant AI allows them to move without target
-	#STEP 3 : If there is no move to be made that would also perform an action, path towards actionable tile
-	if not has_actionable_move: 
-		print("@ FINISHED MOVE AND TARGET SEARCH, NO TARGET FOUND")
-		if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
-			for tile in actionable_tiles:
+	#STEP 3 a : If there is no move to be made that would also perform an action, path towards actionable tile
+	print("@ FINISHED MOVE AND TARGET SEARCH, NO TARGET FOUND")
+	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+		for tile in actionable_tiles:
 				if has_actionable_move: 
 					break
 				#check the tile is in bounds
@@ -1192,14 +1260,34 @@ func ai_process(ai_unit: CombatUnit, target_position: Vector2i):
 					print("@ OCCUPIED SPACES : " +str(_occupied_spaces))
 					ai_move(tile)
 					has_actionable_move = true
-	#STEP 4 : Await actionable move finished
+	#STEP 3 b : Await actionable move finished
 	if has_actionable_move: 
+		#STEP 4.a Assess the best move and perform it 
+		
 		print("@ AWAIT AI MOVE FINISH")
 		await finished_move
-		print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
-	#print("Actual Node position is " + str(tile_map.local_to_map(controlled_node.position)))
 	ai_unit.map_terrain = get_terrain_at_position(controlled_node.position)
 	ai_unit.map_position = tile_map.local_to_map(controlled_node.position)
+
+func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, attack_range: Array[int]) -> aiAction:
+	#print("@ ENTERED ai_get_best_move_at_tile")
+	#are there targets?
+	var tile_best_action: aiAction = aiAction.new()
+	tile_best_action.action_type = "MOVE"
+	tile_best_action.rating = 0
+	for range in attack_range:
+		for tile in get_tiles_at_range(range,tile_position)[1]:
+			if get_combatant_at_position(tile) != null:
+				if get_combatant_at_position(tile).allegience == Constants.FACTION.PLAYERS:
+					if not ai_unit.unit.get_usable_weapons_at_range(range).is_empty():
+						if get_terrain_at_map_position(tile):
+							var best_action_target : aiAction = combat.ai_get_best_attack_action(ai_unit, get_distance(tile, tile_position), get_combatant_at_position(tile), get_terrain_at_map_position(tile))
+							best_action_target.target_position = tile
+							best_action_target.action_position = tile_position
+							if tile_best_action.rating < best_action_target.rating:
+								tile_best_action = best_action_target
+	#print("@ EXITED ai_get_best_move_at_tile")
+	return tile_best_action
 
 func get_closet_tile(target: Vector2, array:PackedVector2Array):
 	pass
@@ -1216,7 +1304,7 @@ func ai_turn ():
 	for unit :CombatUnit in enemy_units:
 		print("Began AI processing unit : "+ unit.unit.unit_name)
 		set_controlled_combatant(unit)
-		await combat.ai_process(unit)
+		await combat.ai_process_new(unit)
 		print("finished Processing Unit : " + unit.unit.unit_name)
 	_enemy_units_turn_taken = true
 	print("finished AI Turn")

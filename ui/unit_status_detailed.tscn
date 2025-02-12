@@ -1,8 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://c1mja0j0own6p"]
+[gd_scene load_steps=20 format=3 uid="uid://c1mja0j0own6p"]
 
 [ext_resource type="Script" path="res://ui/unit_status_detailed.gd" id="1_6m1bp"]
-[ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_etfuc"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_ssh48"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="4_6drah"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="4_hq6tf"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_bppi7"]
@@ -11,10 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/iron_sword.tres" id="8_0mf55"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="9_bah1f"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="10_cchag"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgufo"]
-shader = ExtResource("2_etfuc")
-shader_parameter/lod = 3.5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
 bg_color = Color(0, 0, 0, 1)
@@ -84,14 +78,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6m1bp")
-
-[node name="BackgroundBlur" type="Panel" parent="."]
-material = SubResource("ShaderMaterial_hgufo")
-layout_mode = 0
-offset_top = 1.0
-offset_right = 552.0
-offset_bottom = 490.0
-theme = ExtResource("3_ssh48")
 
 [node name="LeftPanel" type="Panel" parent="."]
 layout_mode = 0
