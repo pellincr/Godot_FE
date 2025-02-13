@@ -64,35 +64,77 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
 	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,10),0), Vector2i(11,10))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,10),0), Vector2i(7,14))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
 	iventory_array.insert(1, ItemDatabase.items["great_bow"])
 	iventory_array.insert(2, ItemDatabase.items["short_bow"])
 	iventory_array.insert(3, ItemDatabase.items["potion"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Boko", 5,10, false),0), Vector2i(11,9))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Boko", 5,10, false),0), Vector2i(7,15))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
 	iventory_array.insert(1, ItemDatabase.items["rapier"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fencer"], iventory_array, "Christian", 6,12, false), 0), Vector2i(10,9))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fencer"], iventory_array, "Christian", 6,12, false), 0), Vector2i(7,16))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
 	iventory_array.insert(1, ItemDatabase.items["warhammer"])
 	iventory_array.insert(1, ItemDatabase.items["hand_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Devin", 4,10, false), 0), Vector2i(10,7))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Devin", 4,10, false), 0), Vector2i(8,14))
 	iventory_array.clear()
 	iventory_array.append(ItemDatabase.items["steel_lance"])
 	iventory_array.append(ItemDatabase.items["javelin"])
 	iventory_array.append(ItemDatabase.items["halberd"])
 	iventory_array.append(ItemDatabase.items["potion"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["legionary_lance"], iventory_array, "Justin", 8,15),0), Vector2i(10,8))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["legionary_lance"], iventory_array, "Justin", 8,15),0), Vector2i(8,15))
+	#ENEMY
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["javelin"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["gargoyle"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(9,2))
-	var unit_posn_array : Array[Vector2i] = [Vector2i(5,5),Vector2i(5,25)]
-	for unit_posn in unit_posn_array: 
-		add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["gargoyle"], iventory_array, "Legion" + str(unit_posn), 9,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), unit_posn)
-	#add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["legionary"], iventory_array, "Legion", 9,15),0), Vector2i(10,8))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["gargoyle"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(17,11))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_archer"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(6,2))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["halberd"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,12, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(2,4))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["steel_lance"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(3,3))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["javelin"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(15,8))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 9,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(3,14))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 7,12, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(13,3))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 9,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(7,7))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(14,8))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["silver_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(6,9))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 9,9, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(7,9))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(15,3))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["killer_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(16,4))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["mercenary"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,23))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(8,23))
+	iventory_array.clear()
+	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
+	iventory_array.insert(0, ItemDatabase.items["killer_sword"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["man_at_arms"], iventory_array, "Ge-ORG", 5,15, true), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT), Vector2i(10,24))
 	
 	##emit_signal("update_turn_queue", combatants, turn_queue)
 
@@ -114,8 +156,8 @@ func sort_turn_queue(a, b):
 		return false
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
-	combat_unit.map_position = position
-	combat_unit.map_terrain = controller.get_terrain_at_position(position)
+	combat_unit.map_tile.position = position
+	combat_unit.map_tile.terrain = controller.get_terrain_at_position(position)
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 
@@ -136,8 +178,8 @@ func set_current_combatant(cu:CombatUnit):
 	current_combatant = combatants.find(cu)
 
 func get_distance(attacker: CombatUnit, target: CombatUnit):
-	var point1 = attacker.map_position
-	var point2 = target.map_position
+	var point1 = attacker.map_tile.position
+	var point2 = target.map_tile.position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 func perform_attack(attacker: CombatUnit, target: CombatUnit):
@@ -223,7 +265,7 @@ func Use(unit: CombatUnit, item: ConsumableItemDefinition):
 func Shove(unit:CombatUnit, target:CombatUnit):
 	#check if action is available
 	if get_distance(unit, target) == 1:
-		var push_vector : Vector2i = target.map_position - unit.map_position
+		var push_vector : Vector2i = target.map_tile.position - unit.map_tile.position
 		perform_shove.emit(target, push_vector)
 		await shove_completed
 		set_current_combatant(unit)
@@ -292,7 +334,7 @@ func ai_process(comb : CombatUnit):
 			return
 	#if the current unit AI types lets them move on map
 	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
-		await controller.ai_process(comb, nearest_target.map_position)
+		await controller.ai_process(comb, nearest_target.map_tile.position)
 		#await controller.finished_move
 		print("finished waiting for controller")
 		if comb_attack_range.has(get_distance(comb, nearest_target)):

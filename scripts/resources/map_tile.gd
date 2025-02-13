@@ -9,3 +9,9 @@ func create(posn: Vector2i, input_terrain: Terrain) -> MapTile:
 	instance.terrain = input_terrain
 	instance.position = posn
 	return instance
+
+func set_position(posn: Vector2i):
+	self.position = posn
+
+func set_terrain(ter: Terrain):
+	self.terrain = ter

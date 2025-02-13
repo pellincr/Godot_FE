@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=22 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://q71h87n0faia" path="res://resources/definitions/unit_types/fighter.tres" id="2_gcl2o"]
@@ -16,12 +16,20 @@
 [ext_resource type="Resource" uid="uid://bsg8pliy8fn23" path="res://resources/definitions/unit_types/legionary_sword.tres" id="14_i82vg"]
 [ext_resource type="Resource" uid="uid://biviwx5fbrry5" path="res://resources/definitions/unit_types/legionary_lance.tres" id="15_g7kw2"]
 [ext_resource type="Resource" uid="uid://cp1q4i5gc6uwq" path="res://resources/definitions/unit_types/gargoyle.tres" id="16_aptxd"]
+[ext_resource type="Resource" uid="uid://dtjqh7dk3gabr" path="res://resources/definitions/unit_types/bonewalker_archer.tres" id="17_xihqt"]
+[ext_resource type="Resource" uid="uid://gjc8gggxo6lo" path="res://resources/definitions/unit_types/bonewalker_lance.tres" id="18_o8sx1"]
+[ext_resource type="Resource" uid="uid://ks53ch08qfcf" path="res://resources/definitions/unit_types/bonewalker_sword.tres" id="19_xls8p"]
+[ext_resource type="Resource" uid="uid://dcdw3nsdqmsw2" path="res://resources/definitions/unit_types/zombie.tres" id="20_m17yl"]
+[ext_resource type="Resource" uid="uid://cfhjoq7auurfy" path="res://resources/definitions/unit_types/imp.tres" id="21_u8atu"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
 unit_types = {
 "archer": ExtResource("4_oe4uj"),
 "armor_lance": ExtResource("7_v5raa"),
+"bonewalker_archer": ExtResource("17_xihqt"),
+"bonewalker_lance": ExtResource("18_o8sx1"),
+"bonewalker_sword": ExtResource("19_xls8p"),
 "cavalier": ExtResource("9_4ooye"),
 "cavalier_axe": ExtResource("13_io31r"),
 "cleric": ExtResource("12_t2hts"),
@@ -29,10 +37,12 @@ unit_types = {
 "fighter": ExtResource("2_gcl2o"),
 "gargoyle": ExtResource("16_aptxd"),
 "general": ExtResource("8_6kb4w"),
+"imp": ExtResource("21_u8atu"),
 "legionary_lance": ExtResource("15_g7kw2"),
 "legionary_sword": ExtResource("14_i82vg"),
 "man_at_arms": ExtResource("5_xm2j0"),
 "mercenary": ExtResource("6_qa60v"),
 "paladin": ExtResource("10_w4hgp"),
-"warrior": ExtResource("3_gtnsj")
+"warrior": ExtResource("3_gtnsj"),
+"zombie": ExtResource("20_m17yl")
 }

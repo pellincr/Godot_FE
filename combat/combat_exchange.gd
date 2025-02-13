@@ -134,20 +134,20 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	attacker.unit.inventory.equipped.use()
 	await use_audio_player(heal_sound)
 	target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.max_hp )
-	DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
+	DamageNumbers.heal((32* target.map_tile.position + Vector2i(16,16)), heal_amount)
 	target.map_display.update_values()
 	await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
 	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.max_hp )
-	DamageNumbers.heal((32* unit.map_position + Vector2i(16,16)), amount)
+	DamageNumbers.heal((32* unit.map_tile.position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	await unit.map_display.update_complete
 	
 func hit_missed(dodging_unt: CombatUnit):
 	await use_audio_player(miss_sound)
-	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
+	DamageNumbers.miss(32* dodging_unt.map_tile.position + Vector2i(16,16))
 
 func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
@@ -170,17 +170,17 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
 		await use_audio_player(no_damage_sound)
-		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
+		DamageNumbers.no_damage(32* target.map_tile.position + Vector2i(16,16))
 		#play no damage noise
 	if (damage > 0):
 		target.unit.hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
 			await use_audio_player(crit_sound)
-			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
+			DamageNumbers.display_number(damage, (32* target.map_tile.position + Vector2i(16,16)), true)
 		else :
 			await use_audio_player(hit_sound)
-			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+			DamageNumbers.display_number(damage, (32* target.map_tile.position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 	##check and see if the unit has died
