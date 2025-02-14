@@ -1,15 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://cx62x7tpnmudj"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://cx62x7tpnmudj"]
 
-[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_8rcc3"]
+[ext_resource type="Texture2D" uid="uid://dayrt2j5o11db" path="res://resources/sprites/units/Cleric.png" id="1_ak7bj"]
 [ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_os8o0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7aesg"]
-atlas = ExtResource("1_8rcc3")
-region = Rect2(128, 132, 32, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fmuce"]
-atlas = ExtResource("1_8rcc3")
-region = Rect2(128, 128, 32, 32)
+atlas = ExtResource("1_ak7bj")
+region = Rect2(0, 0, 32, 16)
 
 [resource]
 script = ExtResource("3_os8o0")
@@ -20,7 +16,7 @@ movement_class = 0
 xp_worth = 4
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[String](["Anima", "Staff"])
+usable_weapon_types = Array[String](["Staff"])
 hp = 16
 strength = 1
 magic = 2
@@ -60,6 +56,6 @@ luck_promo = 0
 defense_promo = 0
 magic_defense_promo = 0
 icon = SubResource("AtlasTexture_7aesg")
-map_sprite = SubResource("AtlasTexture_fmuce")
+map_sprite = ExtResource("1_ak7bj")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

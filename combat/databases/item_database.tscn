@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=24 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -22,6 +22,7 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="20_kc6t1"]
 [ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="21_6erag"]
 [ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/lance/halberd.tres" id="22_epcxq"]
+[ext_resource type="Resource" uid="uid://dmxfjectp0ih3" path="res://resources/definitions/items/weapons/axes/silver_axe.tres" id="23_7wv7v"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -41,6 +42,7 @@ items = {
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
 "short_bow": ExtResource("7_x6uf5"),
+"silver_axe": ExtResource("23_7wv7v"),
 "silver_sword": ExtResource("9_vblr4"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_lance": ExtResource("20_kc6t1"),

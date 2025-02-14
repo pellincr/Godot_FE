@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://cv6q1g0m73cm"]
+
+[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_mii03"]
+
+[resource]
+script = ExtResource("1_mii03")
+name = "Thicket"
+db_key = "thicket"
+type = Array[int]([0])
+cost = Array[int]([2, 3, 2, 3, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 1
+magic_defense = 0
+avoid = 10
+active_effect_phases = ""
+effect = 0
+effect_weight = 4
