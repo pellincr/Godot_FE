@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://psk2h1mn514a"]
+
+[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_scw58"]
+
+[resource]
+script = ExtResource("1_scw58")
+name = "Throne"
+db_key = "throne"
+type = Array[int]([0])
+cost = Array[int]([2, 2, 3, 3, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 3
+magic_defense = 3
+avoid = 30
+active_effect_phases = "BEGINNING_PHASE"
+effect = 1
+effect_weight = 4

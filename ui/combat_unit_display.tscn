@@ -58,6 +58,9 @@ visible = false
 position = Vector2(11, 7)
 texture = ExtResource("4_pyuub")
 
+[node name="weapon_icon" type="Sprite2D" parent="."]
+visible = false
+
 [node name="Healthbar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = -16.0

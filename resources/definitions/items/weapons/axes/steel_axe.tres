@@ -1,25 +1,32 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://c2luf4vxvy80p"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_en0gt"]
-[ext_resource type="Script" path="res://scripts/resources/WeaponDefinition.gd" id="2_u15hk"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_idqj7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2e7c"]
 atlas = ExtResource("1_en0gt")
 region = Rect2(32, 96, 32, 32)
 
 [resource]
-script = ExtResource("2_u15hk")
-weapon_type = 0
+script = ExtResource("2_idqj7")
+weapon_type = "Axe"
+physical_weapon_triangle_type = "Axe"
+magic_weapon_triangle_type = "none"
 item_damage_type = 0
-weapon_effectiveness = Array[String]([])
+item_scaling_type = 0
+item_target_faction = 0
 required_mastery = 1
 attack_range = Array[int]([1])
-class_locked = false
-locked_unit_type_key = ""
 damage = 11
 hit = 50
 critical_chance = 0
 weight = 10
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
 name = "Steel Axe"
 db_key = "steel_axe"
 equippable = true

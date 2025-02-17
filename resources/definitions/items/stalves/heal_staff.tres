@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://5b1f8mg0j3te"]
+
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_3ms5o"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vln2y"]
+atlas = ExtResource("1_3ms5o")
+region = Rect2(160, 512, 32, 32)
+
+[resource]
+script = ExtResource("1_wwyp7")
+weapon_type = "Staff"
+physical_weapon_triangle_type = "none"
+magic_weapon_triangle_type = "none"
+item_damage_type = 1
+item_scaling_type = 1
+item_target_faction = 1
+required_mastery = 0
+attack_range = Array[int]([1])
+damage = 10
+hit = 100
+critical_chance = 0
+weight = 5
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 2
+is_wpn_triangle_effective = false
+is_brave = false
+applies_status_effect = false
+negates_defense = true
+name = "Heal"
+db_key = "heal"
+equippable = true
+description = ""
+item_type = 1
+uses = 40
+max_uses = 40
+value = 0
+icon = SubResource("AtlasTexture_vln2y")

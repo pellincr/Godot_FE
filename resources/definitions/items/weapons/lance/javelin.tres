@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b6bof28m5atar"]
+
+[ext_resource type="Texture2D" uid="uid://d0vvrij6lu4a5" path="res://resources/sprites/items/javelin.png" id="1_4cukc"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_irhin"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thphj"]
+atlas = ExtResource("1_4cukc")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_irhin")
+weapon_type = "Lance"
+physical_weapon_triangle_type = "Lance"
+magic_weapon_triangle_type = "none"
+item_damage_type = 0
+item_scaling_type = 0
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 6
+hit = 65
+critical_chance = 0
+weight = 11
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
+name = "Javelin"
+db_key = "javelin"
+equippable = true
+description = ""
+item_type = 0
+uses = 45
+max_uses = 45
+value = 2
+icon = SubResource("AtlasTexture_thphj")

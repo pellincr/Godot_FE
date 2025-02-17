@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=9 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/terrain.tscn" id="1_huxbe"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
@@ -7,15 +7,17 @@
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/ui.tscn" id="5_pc8ih"]
 [ext_resource type="Script" path="res://combat/combat_exchange.gd" id="6_k7fva"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
 
 [node name="Game" type="Node"]
 
-[node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
-
-[node name="Camera2D" type="Camera2D" parent="Terrain"]
-position = Vector2(417, 247)
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+position = Vector2(356, 302)
 zoom = Vector2(2, 2)
 script = ExtResource("2_vv001")
+map = NodePath("../Terrain")
+
+[node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
 
 [node name="Select" type="Sprite2D" parent="Terrain"]
 visible = false
@@ -34,6 +36,9 @@ controller = NodePath("../Controller")
 
 [node name="CombatExchange" type="Node" parent="VisualCombat"]
 script = ExtResource("6_k7fva")
+
+[node name="UnitExperienceManager" type="Node" parent="VisualCombat"]
+script = ExtResource("7_2stc1")
 
 [node name="CombatAudio" type="AudioStreamPlayer" parent="VisualCombat"]
 
@@ -54,6 +59,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]
 [connection signal="combatant_died" from="VisualCombat" to="CanvasLayer/UI" method="combatant_died"]
 [connection signal="major_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_major_action_completed"]
+[connection signal="minor_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_minor_action_completed"]
 [connection signal="turn_advanced" from="VisualCombat" to="Controller" method="set_controlled_combatant"]
 [connection signal="turn_advanced" from="VisualCombat" to="Controller" method="advance_turn"]
 [connection signal="turn_advanced" from="VisualCombat" to="CanvasLayer/UI" method="show_combatant_status_main"]
@@ -64,4 +70,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="unit_defeated" from="VisualCombat/CombatExchange" to="VisualCombat" method="combatant_die"]
 [connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat" method="play_audio_complete"]
 [connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat/CombatExchange" method="play_audio_complete"]
-[connection signal="turn_ended" from="CanvasLayer/UI" to="VisualCombat" method="advance_turn"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

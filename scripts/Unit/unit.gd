@@ -2,12 +2,6 @@ extends Resource
 
 class_name Unit
 
-enum MOVEMENT_CLASS {
-	GROUND,
-	FLYING,
-	MOUNTED
-}
-
 var unit_name : String
 ##var uid: String
 var unit_class_key : String
@@ -19,7 +13,7 @@ var uses_custom_growths : bool
 var level : int
 var experience : int
 
-@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[int] = []
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[String] = []
 
 @export_group("Unit Stats")
 @export_subgroup("HP")
@@ -271,7 +265,7 @@ static func set_stat_char(target_unit : Unit, characterDefinition: CharacterDefi
 
 static func create_inventory(target_unit: Unit , reference_inventory: Array[ItemDefinition]): 
 	## insert a duplicate entry of each item in the
-	target_unit.inventory = Inventory.create(reference_inventory)
+	target_unit.inventory = Inventory.create(reference_inventory, target_unit)
 	if not target_unit.inventory.items.is_empty():
 		for item in target_unit.inventory.items:
 			if target_unit.inventory.equipped == null:
@@ -280,7 +274,7 @@ static func create_inventory(target_unit: Unit , reference_inventory: Array[Item
 func get_effective_stat(stat_name: String) -> int:
 	return 0
 	
-func level_up_player():
+func level_up_player()-> Array[int]:
 	self.level += 1
 	self.experience = 0
 	var total_stat_increase = 0 
@@ -324,9 +318,10 @@ func level_up_player():
 	magic_defense_char += stat_increase_array[7] 
 	print("mdef increased : " + str( stat_increase_array[7]))
 	update_stats()
+	return stat_increase_array
 
 
-func level_up_generic():
+func level_up_generic() -> Array[int]:
 	self.level += 1
 	self.experience = 0
 	var stat_increase_array : Array[int] = [0,0,0,0,0,0,0,0]
@@ -355,7 +350,7 @@ func level_up_generic():
 	magic_defense_char += stat_increase_array[7] 
 	print("mdef increased : " + str( stat_increase_array[7]))
 	update_stats()
-
+	return stat_increase_array
 
 func level_up_stat_roll(target_growth : int) -> int:
 	print("Entered level_up_stat_roll")
@@ -394,19 +389,19 @@ func calculate_stat(base: int, char_stat: int, stat_cap : int, bonus: int) -> in
 func calculate_attack_speed(weapon: WeaponDefinition = null) -> int:
 	var as_val : int = 0
 	if weapon:
-		print ("Speed : " +str(speed))
-		print ("weapon weight : " +str(weapon.weight))
-		print ("constitution : " +str(constitution))
+		#print ("Speed : " +str(speed))
+		#print ("weapon weight : " +str(weapon.weight))
+		#print ("constitution : " +str(constitution))
 		as_val =  speed - (weapon.weight - constitution)
 	else : 
 		if inventory.equipped:
 			as_val = speed - (inventory.equipped.weight - constitution)
-			print ("Speed : " +str(speed))
-			print ("weapon weight : " +str(inventory.equipped.weight))
-			print ("constitution : " +str(constitution))
+			#print ("Speed : " +str(speed))
+			#print ("weapon weight : " +str(inventory.equipped.weight))
+			#print ("constitution : " +str(constitution))
 		else : 
 			as_val = speed
-	print("attack speed : " + str(as_val))
+	#print("attack speed : " + str(as_val))
 	return as_val
 	
 func calculate_hit(weapon: WeaponDefinition = null) -> int:
@@ -430,12 +425,14 @@ func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 func calculate_critical_avoid():
 	critical_avoid =  luck 
 
-func calculate_avoid(weapon: WeaponDefinition = null) -> int:
+func calculate_avoid(weapon: WeaponDefinition = null, terrain : Terrain = null) -> int:
 	var avoid_value: int = 0
 	if weapon:
 		avoid_value = (2 * calculate_attack_speed(weapon)) + luck
 	else :
 		avoid_value = (2 * calculate_attack_speed()) + luck
+	if terrain:
+		avoid_value += terrain.avoid
 	print("Avoid Val : " + str(avoid_value))
 	return avoid_value
 
@@ -481,13 +478,78 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
 
-	
-func set_equipped(item : ItemDefinition):
+func can_equip(item:ItemDefinition) -> bool:
+	var can_equip_item : bool = false
 	if item is WeaponDefinition:
 		if item.weapon_type in usable_weapon_types:
-			inventory.set_equipped(item)
-			update_stats()
+			can_equip_item = true
 		else :
 			print("Tried to equip weapon that class can't use")
 	else :
 		print("Tried to equip a non-weapon")
+	return can_equip_item
+	
+func set_equipped(item : ItemDefinition):
+	if can_equip(item):
+		inventory.set_equipped(item)
+		update_stats()
+		print(self.unit_name + " equipped : " + item.name)
+
+func get_equippable_weapons() ->  Array[WeaponDefinition]:
+	var equippable_weapons : Array[WeaponDefinition]
+	var weapons_in_inventory : Array[WeaponDefinition] = inventory.get_weapons()
+	for weapon:WeaponDefinition in weapons_in_inventory:
+		if can_equip(weapon):
+			equippable_weapons.append(weapon)
+	return  equippable_weapons
+
+func get_attackable_ranges() -> Array[int]:
+	var attack_ranges : Array[int]
+	for weapon: WeaponDefinition in get_equippable_weapons():
+		if not weapon.attack_range.is_empty():
+			for attack_range in weapon.attack_range:
+				if not attack_ranges.has(attack_range):
+					attack_ranges.append(attack_range)
+	return attack_ranges
+
+func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
+	var usable_weapons : Array[WeaponDefinition]
+	var weapons_in_inventory : Array[WeaponDefinition] = get_equippable_weapons()
+	for weapon : WeaponDefinition in weapons_in_inventory:
+		if weapon.attack_range.has(distance):
+			usable_weapons.append(weapon)
+	return usable_weapons
+
+func use_consumable_item(item:ItemDefinition ):
+	if item is ConsumableItemDefinition:
+		if item.use_effect == item.USE_EFFECTS.HEAL:
+			heal(item.use_effect_power)
+			item.use()
+
+func can_use_consumable_item(item:ItemDefinition) -> bool:
+	var can_use :bool
+	if item is ConsumableItemDefinition:
+		if item.use_effect == item.USE_EFFECTS.HEAL:
+			if self.hp == self.max_hp:
+				can_use =  false
+			else: 
+				can_use =  true
+	return can_use
+
+func discard_item(item:ItemDefinition):
+	inventory.discard_item(item)
+
+func heal(value: int) :
+	self.hp  =  clamp(self.hp + value, 0, self.max_hp)
+	
+func get_basic_stat_array() -> Array[int]:
+	var stat_array : Array[int] = [0,0,0,0,0,0,0,0]
+	stat_array[0] = hp
+	stat_array[1] = strength
+	stat_array[2]  = magic
+	stat_array[3]  = skill
+	stat_array[4]  = speed
+	stat_array[5]  = luck
+	stat_array[6]  = defense
+	stat_array[7]  = magic_defense
+	return stat_array

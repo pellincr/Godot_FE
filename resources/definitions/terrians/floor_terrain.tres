@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://s8ulhy8iwrso"]
+
+[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_wyncc"]
+
+[resource]
+script = ExtResource("1_wyncc")
+name = "Floor"
+db_key = "floor"
+type = Array[int]([0])
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+magic_defense = 0
+avoid = 0
+active_effect_phases = ""
+effect = 0
+effect_weight = 4

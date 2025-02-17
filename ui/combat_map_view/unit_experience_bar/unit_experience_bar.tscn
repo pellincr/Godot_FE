@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ed4bicvkhwj"]
+
+[ext_resource type="Script" path="res://ui/combat_map_view/unit_experience_bar/unit_experience_bar.gd" id="1_qrr7v"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_t670g"]
+[ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="3_ln63o"]
+
+[node name="unit_experience_bar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_qrr7v")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -25.0
+offset_right = 250.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_t670g")
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -12.5
+offset_right = 175.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ln63o")
+show_percentage = false
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -26.0
+offset_right = 74.0
+offset_bottom = 26.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "EXP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="xpValue" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = -26.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
