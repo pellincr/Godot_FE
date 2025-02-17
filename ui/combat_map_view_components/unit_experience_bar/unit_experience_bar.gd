@@ -41,9 +41,9 @@ func set_desired_value(value :int):
 	self.desired_value = value
 
 func generate_bar_time() -> float:
-	return sqrt(desired_value - initial_value)/3
+	return sqrt(desired_value - initial_value)/6
 
 
 func tween_done():
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.3).timeout
 	emit_signal("finished")

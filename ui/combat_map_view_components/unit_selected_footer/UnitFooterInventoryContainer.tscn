@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://h72bu6iftir2"]
+
+[ext_resource type="Script" path="res://ui/combat_map_view_components/unit_selected_footer/unit_footer_inventory_container.gd" id="1_gtupe"]
+[ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat_map_view_components/unit_selected_footer/InventoryItemIcon.tscn" id="1_xlauk"]
+[ext_resource type="StyleBox" uid="uid://bf8b2trdy2qhy" path="res://ui/combat_map_view_components/unit_selected_footer/InventorySelectedItemIcon.tres" id="2_67qhr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnipn"]
+bg_color = Color(0, 0, 0, 0.247059)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_c81bj"]
+Panel/styles/panel = ExtResource("2_67qhr")
+
+[node name="UnitFooterInventoryContainer" type="Control"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -852.0
+offset_bottom = -608.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gtupe")
+
+[node name="UnitInventoryContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 40.0
+
+[node name="InventoryPanelBack" type="PanelContainer" parent="UnitInventoryContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnipn")
+
+[node name="InventoryContainer" type="HBoxContainer" parent="UnitInventoryContainer/InventoryPanelBack"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="SelectedItemContainer" type="HBoxContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer" instance=ExtResource("1_xlauk")]
+layout_mode = 2
+theme = SubResource("Theme_c81bj")
+
+[node name="EquippedItemName" type="Label" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer"]
+layout_mode = 2
+text = "Javelin"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer2" instance=ExtResource("1_xlauk")]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer3" instance=ExtResource("1_xlauk")]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer4" instance=ExtResource("1_xlauk")]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer"]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer5" instance=ExtResource("1_xlauk")]
+layout_mode = 2

@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://8ljsagtku4bh"]
+
+[ext_resource type="Script" path="res://ui/combat_map_view_components/attack_action_inventory/attack_action_inventory.gd" id="1_radq5"]
+[ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat_map_view_components/equippable_item_information/equippable_item_information.tscn" id="2_rr5vp"]
+[ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat_map_view_components/unit_inventory_slot/unit_inventory_slot.tscn" id="3_1x7h3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htxf2"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="AttackActionInventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -870.0
+offset_bottom = -354.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_radq5")
+
+[node name="Equippable_item_information" parent="." instance=ExtResource("2_rr5vp")]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.621
+offset_top = 194.0
+offset_right = -282.0
+offset_bottom = -99.401
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 42.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="background" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_htxf2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UnitInventorySlot" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_1x7h3")]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="UnitInventorySlot2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_1x7h3")]
+layout_mode = 2
+
+[node name="UnitInventorySlot3" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_1x7h3")]
+layout_mode = 2
+
+[node name="UnitInventorySlot4" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_1x7h3")]
+layout_mode = 2
+
+[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot" to="." method="btn_entered"]
+[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot2" to="." method="btn_entered"]
+[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot3" to="." method="btn_entered"]

@@ -57,6 +57,7 @@ func set_values():
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)
+	set_is_boss(self.reference_unit.is_boss)
 	
 	
 func update_values():
@@ -66,6 +67,7 @@ func update_values():
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)
+	set_is_boss(self.reference_unit.is_boss)
 	
 func set_allegience(team : int):
 	self.allegience = team
@@ -85,6 +87,9 @@ func set_color_factor(turn_taken: bool):
 		$UnitSprite.material.set_shader_parameter("color_factor", 0)
 		$UnitSprite.material.set_shader_parameter("line_color", Color.WHITE)
 
+func set_is_boss(state: bool):
+	self.is_boss = state
+	$boss_indicator.visible = is_boss
 func healthbar_update_completed():
 	healthbar_update_complete = true
 	emit_signal("update_complete")

@@ -7,6 +7,7 @@ const hit_sound = preload("res://resources/sounds/combat/hit.wav")
 const heal_sound = preload("res://resources/sounds/combat/heal.wav")
 const miss_sound = preload("res://resources/sounds/combat/miss.wav")
 const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
+const combat_exchange_display = preload("res://ui/CombatExchangeDisplay.tscn")
 
 signal unit_defeated(unit: CombatUnit)
 signal combat_exchange_finished(friendly_unit_alive: bool)
@@ -34,6 +35,7 @@ enum DOUBLE_ATTACKER
 }
 var audio_player_busy: bool = false
 var in_experience_flow: bool = false
+var ce_display : CombatExchangeDisplay
 #calculates key combat values to show the user potential combat outcomes
 #Called when the attacker can hit and begin combat sequence
 func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:int):
@@ -47,6 +49,14 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 	var defender_critical_chance = combat_exchange_calc.defender_critical_chance
 	var player_unit: CombatUnit
 	var enemy_unit: CombatUnit
+	
+	ce_display = combat_exchange_display.instantiate()
+	await ce_display
+	$"../../CanvasLayer/UI".add_child(ce_display) 
+	ce_display.visible = false
+	await ce_display.set_all(attacker.unit, defender.unit, attacker_hit_chance, defender_hit_chance,combat_exchange_calc.attacker_damage, combat_exchange_calc.defender_damage, attacker_critical_chance, defender_critical_chance,
+	combat_exchange_calc.attacker_effective, combat_exchange_calc.defender_effective, check_weapon_triangle(attacker.unit,defender.unit))
+	ce_display.visible = true
 	#get the allegience of the units
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		player_unit = attacker
@@ -150,6 +160,7 @@ func hit_missed(dodging_unt: CombatUnit):
 	DamageNumbers.miss(32* dodging_unt.map_tile.position + Vector2i(16,16))
 
 func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
+	ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
 		combat_exchange_finished.emit(false)
 		return
@@ -180,9 +191,10 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 			DamageNumbers.display_number(damage, (32* target.map_tile.position + Vector2i(16,16)), true)
 		else :
 			await use_audio_player(hit_sound)
-			DamageNumbers.display_number(damage, (32* target.map_tile.position + Vector2i(16,16)), false)
+			DamageNumbers.display_number(damage, (32* target.map_tile.position + Vector2i(16,16)), false)	
 		target.map_display.update_values()
-		await target.map_display.update_complete
+		await ce_display.update_unit_hp(target.unit, target.unit.hp)
+		#await target.map_display.update_complete
 	##check and see if the unit has died
 	if target.unit.hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED

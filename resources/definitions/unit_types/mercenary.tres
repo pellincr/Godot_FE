@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://cpp2spdxmfh1n"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://cpp2spdxmfh1n"]
 
-[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_1cxdd"]
-[ext_resource type="Texture2D" uid="uid://c2jtwksybv815" path="res://resources/sprites/units/mercenary_map.tres" id="2_mdp71"]
+[ext_resource type="Texture2D" uid="uid://y7rfo8ww2yfs" path="res://resources/sprites/units/mercenary.png" id="1_j1klx"]
 [ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_titpu"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_txip5"]
-atlas = ExtResource("1_1cxdd")
-region = Rect2(32, 32, 32, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3lr5"]
+atlas = ExtResource("1_j1klx")
+region = Rect2(0, 0, 0, 16)
 
 [resource]
 script = ExtResource("3_titpu")
@@ -17,7 +16,7 @@ movement_class = 0
 xp_worth = 4
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[String]([])
+usable_weapon_types = Array[String](["Sword"])
 hp = 18
 strength = 4
 magic = 1
@@ -56,7 +55,7 @@ speed_promo = 0
 luck_promo = 0
 defense_promo = 0
 magic_defense_promo = 0
-icon = SubResource("AtlasTexture_txip5")
-map_sprite = ExtResource("2_mdp71")
+icon = SubResource("AtlasTexture_g3lr5")
+map_sprite = ExtResource("1_j1klx")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

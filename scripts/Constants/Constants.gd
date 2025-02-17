@@ -1,7 +1,7 @@
 extends Node
 
 enum UNIT_TYPE {
-	INFANTRY,
+	INFANTRY, 
 	CALVARY,
 	ARMORED,
 	MONSTER,

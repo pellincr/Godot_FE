@@ -1,0 +1,252 @@
+[gd_scene load_steps=14 format=3 uid="uid://5nnlh8ovljap"]
+
+[ext_resource type="Script" path="res://ui/combat_exchange_unit_info_display.gd" id="1_tnf71"]
+[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="2_v2im8"]
+[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_s6ves"]
+[ext_resource type="Texture2D" uid="uid://8cxdskj6ti44" path="res://resources/sprites/items/enchanted_shotel.png" id="4_k76vi"]
+[ext_resource type="Theme" uid="uid://cde4yqaacjrsc" path="res://ui/combat_map_view_components/unit_combat_exchange_preview/wpn_triangle_up.tres" id="5_l7al5"]
+[ext_resource type="Theme" uid="uid://b6k51qllipmtk" path="res://ui/combat_map_view_components/unit_combat_exchange_preview/wpn_triangle_down.tres" id="6_jr8h1"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="7_emlac"]
+[ext_resource type="Script" path="res://ui/progressBarTween.gd" id="7_vy4ah"]
+[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="8_w3q6r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hbku"]
+atlas = ExtResource("2_v2im8")
+region = Rect2(128, 130, 32, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llg6x"]
+bg_color = Color(1, 0.336699, 0.329185, 1)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_ujilv"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_2yp1e")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_llg6x")
+
+[node name="CombatExchangeUnitInfoDisplay" type="Control"]
+custom_minimum_size = Vector2(300, 160)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tnf71")
+
+[node name="Unit" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 160)
+layout_mode = 0
+offset_right = 262.0
+offset_bottom = 159.0
+
+[node name="UnitIcon" type="TextureRect" parent="Unit"]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 81.0
+offset_bottom = 25.0
+scale = Vector2(1.5, 1.5)
+texture = SubResource("AtlasTexture_5hbku")
+
+[node name="MarginContainer" type="MarginContainer" parent="Unit"]
+custom_minimum_size = Vector2(300, 160)
+layout_mode = 2
+offset_right = 261.0
+offset_bottom = 160.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Unit/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Unit/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme = ExtResource("3_s6ves")
+theme_override_constants/outline_size = 4
+text = "Zombah St. Rah"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("4_k76vi")
+
+[node name="wpn_triangle_win" type="Label" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 2
+offset_left = 27.0
+offset_top = 17.0
+offset_right = 32.0
+offset_bottom = 33.0
+theme = ExtResource("5_l7al5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "↑"
+
+[node name="wpn_triangle_loss" type="Label" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 17.0
+offset_right = 33.0
+offset_bottom = 33.0
+theme = ExtResource("6_jr8h1")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "↓"
+
+[node name="HealthBar" type="Control" parent="Unit/MarginContainer/VBoxContainer" node_paths=PackedStringArray("progressBar", "value_label")]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+script = ExtResource("7_vy4ah")
+progressBar = NodePath("MarginContainer/HBoxContainer/CenterContainer/Bar")
+value_label = NodePath("MarginContainer/HBoxContainer/Value")
+
+[node name="MarginContainer" type="MarginContainer" parent="Unit/MarginContainer/VBoxContainer/HealthBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+
+[node name="Value" type="Label" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("3_s6ves")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "242
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Bar" type="ProgressBar" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(200, 18)
+layout_mode = 2
+theme = SubResource("Theme_ujilv")
+value = 42.0
+rounded = true
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StatsGrid" type="GridContainer" parent="Unit/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="HitLabel" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+tooltip_text = "The percentage chance of a unit landing a hit in battle"
+mouse_filter = 1
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "HIT"
+vertical_alignment = 1
+
+[node name="HitValue" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackLabel" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "DMG"
+vertical_alignment = 1
+
+[node name="AttackValue" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CriticalLabel" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "CRIT
+"
+vertical_alignment = 1
+
+[node name="CriticalValue" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AttackSpeedLabel" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "AS"
+vertical_alignment = 1
+
+[node name="AttackSpeedValue" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("7_emlac")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("8_w3q6r")
+theme_override_font_sizes/font_size = 21
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1

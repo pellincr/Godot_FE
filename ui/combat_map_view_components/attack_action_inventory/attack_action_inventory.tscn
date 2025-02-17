@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat_map_view_components/equippable_item_information/equippable_item_information.tscn" id="2_1pmif"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat_map_view_components/unit_inventory_slot/unit_inventory_slot.tscn" id="3_xugd8"]
 
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htxf2"]
 bg_color = Color(0, 0, 0, 1)
 expand_margin_left = 5.0

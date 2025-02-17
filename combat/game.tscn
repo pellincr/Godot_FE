@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=10 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/terrain.tscn" id="1_huxbe"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://combat/control/CController.gd" id="3_dbxfm"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/ui.tscn" id="5_pc8ih"]
+[ext_resource type="Resource" uid="uid://dgl1qnn5tffsy" path="res://combat/reinforcements.tres" id="6_8h87d"]
 [ext_resource type="Script" path="res://combat/combat_exchange.gd" id="6_k7fva"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
 
@@ -33,6 +34,7 @@ combat = NodePath("../VisualCombat")
 script = ExtResource("4_cujqt")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
+mapReinforcementData = ExtResource("6_8h87d")
 
 [node name="CombatExchange" type="Node" parent="VisualCombat"]
 script = ExtResource("6_k7fva")

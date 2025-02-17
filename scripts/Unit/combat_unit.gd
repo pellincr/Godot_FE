@@ -26,10 +26,11 @@ var move_position: Vector2i
 var move_terrain : Terrain
 var skill_list = []
 var map_display : CombatUnitDisplay
-var allegience : int
-var ai_type: int
+var allegience : Constants.FACTION
+var ai_type: Constants.UNIT_AI_TYPE
+var is_boss: bool = false
 
-static func create(unit: Unit, team: int, ai:int = 0) -> CombatUnit:
+static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> CombatUnit:
 	var instance = CombatUnit.new()
 	instance.alive = true
 	instance.turn_taken = false
@@ -37,6 +38,7 @@ static func create(unit: Unit, team: int, ai:int = 0) -> CombatUnit:
 	instance.ai_type = ai
 	instance.allegience = team
 	instance.effective_move = unit.movement
+	instance.is_boss = boss
 	instance.map_tile = MapTile.new()
 	instance.move_tile = MapTile.new()
 	return instance

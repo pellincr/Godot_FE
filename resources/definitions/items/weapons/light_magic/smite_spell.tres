@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dh26e1safsfu5"]
+
+[ext_resource type="Texture2D" uid="uid://b8oogxax1jije" path="res://resources/sprites/items/book8.png" id="1_lq5r8"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_602l1"]
+
+[resource]
+script = ExtResource("2_602l1")
+weapon_type = "Light"
+physical_weapon_triangle_type = "none"
+magic_weapon_triangle_type = "Light"
+item_damage_type = 1
+item_scaling_type = 1
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 2
+hit = 85
+critical_chance = 10
+weight = 2
+weapon_effectiveness = Array[String](["Monster"])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
+name = "Smite"
+db_key = "smite"
+equippable = true
+description = ""
+item_type = 0
+uses = 25
+max_uses = 25
+value = 35
+icon = ExtResource("1_lq5r8")

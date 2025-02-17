@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfmvtergmya12"]
+
+[ext_resource type="Script" path="res://ui/CombatExchangeDisplay.gd" id="1_nb1t3"]
+[ext_resource type="Shader" path="res://resources/shaders/BlurShader.gdshader" id="2_gd6mb"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_tguvc"]
+[ext_resource type="PackedScene" uid="uid://5nnlh8ovljap" path="res://ui/combat_exchange_unit_info_display.tscn" id="4_0ap02"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgufo"]
+shader = ExtResource("2_gd6mb")
+shader_parameter/lod = 5.0
+
+[node name="CombatExchangeDisplay" type="Control"]
+custom_minimum_size = Vector2(604, 160)
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -302.0
+offset_top = -160.0
+offset_right = 302.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_nb1t3")
+
+[node name="BackgroundBlur" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_hgufo")
+custom_minimum_size = Vector2(604, 160)
+layout_mode = 0
+offset_right = 604.0
+offset_bottom = 160.0
+theme = ExtResource("3_tguvc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundBlur"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UnitDisplayL" parent="BackgroundBlur/HBoxContainer" instance=ExtResource("4_0ap02")]
+layout_mode = 2
+
+[node name="UnitDisplayR" parent="BackgroundBlur/HBoxContainer" instance=ExtResource("4_0ap02")]
+layout_mode = 2

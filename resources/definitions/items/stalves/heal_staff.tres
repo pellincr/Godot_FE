@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://5b1f8mg0j3te"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://5b1f8mg0j3te"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_3ms5o"]
+[ext_resource type="Texture2D" uid="uid://d2lf27h2x18p3" path="res://resources/sprites/items/staff3.png" id="1_no0c5"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vln2y"]
-atlas = ExtResource("1_3ms5o")
-region = Rect2(160, 512, 32, 32)
 
 [resource]
 script = ExtResource("1_wwyp7")
@@ -36,4 +32,4 @@ item_type = 1
 uses = 40
 max_uses = 40
 value = 0
-icon = SubResource("AtlasTexture_vln2y")
+icon = ExtResource("1_no0c5")

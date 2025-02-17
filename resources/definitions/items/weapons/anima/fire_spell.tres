@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cwiws7bsjnbyk"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://cwiws7bsjnbyk"]
 
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_gkfxg"]
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_q5jrt"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_opriu"]
-atlas = ExtResource("1_q5jrt")
-region = Rect2(32, 672, 32, 32)
+[ext_resource type="Texture2D" uid="uid://b46kmti1805bn" path="res://resources/sprites/items/fire.png" id="1_twfyo"]
 
 [resource]
 script = ExtResource("1_gkfxg")
@@ -17,10 +13,10 @@ item_scaling_type = 1
 item_target_faction = 0
 required_mastery = 0
 attack_range = Array[int]([1, 2])
-damage = 3
+damage = 5
 hit = 80
 critical_chance = 0
-weight = 3
+weight = 1
 weapon_effectiveness = Array[String]([])
 weapon_hit_effect = 0
 is_wpn_triangle_effective = false
@@ -36,4 +32,4 @@ item_type = 0
 uses = 50
 max_uses = 50
 value = 35
-icon = SubResource("AtlasTexture_opriu")
+icon = ExtResource("1_twfyo")

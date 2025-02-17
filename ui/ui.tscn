@@ -1,14 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddgx1hll377nx"]
+[gd_scene load_steps=16 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat_ui.gd" id="1_cy8ae"]
-[ext_resource type="PackedScene" uid="uid://d7stbwsxbso8" path="res://ui/unit_status.tscn" id="2_xlwki"]
+[ext_resource type="PackedScene" uid="uid://ckrpuok3owxp1" path="res://ui/combat_map_view_components/unit_selected_footer/unit_selected_footer.tscn" id="2_aaxjh"]
 [ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat_map_view_components/combat_tile_info/combat_tile_info.tscn" id="3_ha77v"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_57c2t"]
 [ext_resource type="PackedScene" uid="uid://dfb20o5wgprx0" path="res://ui/combat_map_view_components/unit_combat_exchange_preview/unit_combat_exchange_preview.tscn" id="6_xo23b"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/header_ui.tscn" id="11_m0dmj"]
 [ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat_map_view_components/unit_experience_bar/unit_experience_bar.tscn" id="11_xgqke"]
-[ext_resource type="PackedScene" uid="uid://dfmvtergmya12" path="res://ui/unit_status_combat_exchange.tscn" id="13_lfc13"]
 [ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/unit_status_detailed.tscn" id="14_snhky"]
 [ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat_map_view_components/attack_action_inventory/attack_action_inventory.tscn" id="15_vlk4f"]
 
@@ -45,12 +44,8 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
-[node name="UnitStatus" parent="." instance=ExtResource("2_xlwki")]
+[node name="UnitStatus" parent="." instance=ExtResource("2_aaxjh")]
 layout_mode = 1
-offset_left = -4.0
-offset_top = 452.0
-offset_right = -788.0
-offset_bottom = -29.0
 
 [node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
 layout_mode = 1
@@ -140,10 +135,11 @@ theme = SubResource("Theme_irj7g")
 text = "END"
 
 [node name="Information" type="PanelContainer" parent="Actions"]
+visible = false
 layout_mode = 0
-offset_left = -760.0
+offset_left = -776.0
 offset_top = -286.0
-offset_right = -416.0
+offset_right = -422.0
 offset_bottom = -189.0
 theme = ExtResource("4_57c2t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
@@ -155,6 +151,7 @@ scroll_following = true
 shortcut_keys_enabled = false
 
 [node name="Guide" type="PanelContainer" parent="Actions"]
+visible = false
 layout_mode = 0
 offset_left = -789.0
 offset_top = -626.0
@@ -199,17 +196,6 @@ scale = Vector2(2, 2)
 [node name="Header" parent="." instance=ExtResource("11_m0dmj")]
 layout_mode = 1
 offset_bottom = 45.0
-
-[node name="UnitStatusCombatExchange" parent="." instance=ExtResource("13_lfc13")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 0.0
-offset_bottom = 0.0
 
 [node name="UnitStatusDetailed" parent="." instance=ExtResource("14_snhky")]
 visible = false

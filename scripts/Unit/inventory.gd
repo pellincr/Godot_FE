@@ -130,3 +130,8 @@ func swap_at_indexes(index_a:int , index_b : int):
 func replace_item_at_index(index:int, item: ItemDefinition):
 	items.insert(index,item)
 	items.remove_at(index + 1)
+
+func get_item(index:int) -> ItemDefinition:
+	if index < items.size():
+		return items[index]
+	return null
