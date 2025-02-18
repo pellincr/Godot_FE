@@ -18,7 +18,7 @@ func update():
 
 func show_icons():
 	##UnitTypeDatabase.unit_types[target.unit_class_key].class_type
-	#("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying"
+	#("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying""res://resources/definitions/unit_types/fighter.tres"
 	var unit_types = UnitTypeDatabase.unit_types[unit.unit.unit_class_key].class_type
 	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/calvaryIcon.visible = unit_types.has("Calvary")
 	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/monsterIcon.visible = unit_types.has("Monster")

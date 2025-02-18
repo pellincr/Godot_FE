@@ -9,5 +9,6 @@ is_major = true
 is_minor = false
 requires_target = false
 requires_item = true
+requires_entity = false
 description = ""
 flow = Array[int]([0, 2, 3])

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwfctg2kg6qea"]
+
+[ext_resource type="Script" path="res://ui/combat_map_entity_display.gd" id="1_sqd6k"]
+
+[node name="CombatMapEntityDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sqd6k")
+
+[node name="Sprite" type="Sprite2D" parent="."]

@@ -7,12 +7,14 @@ class_name Combat
 ##
 #Imports
 const CombatUnitDisplay = preload("res://ui/combat_unit_display.tscn")
+const CombatMapEntityDisplay = preload("res://ui/combat_map_entity_display.tscn")
 const InventoryOptionContainer = preload("res://ui/combat_map_view_components/option_container/inventory_options_container.tscn")
 
 ##Signals
 signal register_combat(combat_node: Node)
 signal turn_advanced()
 signal combatant_added(combatant: CombatUnit)
+signal entity_added(cme:CombatMapEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_turn_queue(combatants: Array, turn_queue: Array)
 signal update_information(text: String)
@@ -27,6 +29,8 @@ signal shove_completed()
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
+var entities: Array[CombatMapEntity]
+var disabled_entities : Array[CombatMapEntity]
 var groups = [
 	[], #players
 	[], #enemies
@@ -49,6 +53,7 @@ var _player_unit_alive : bool = true
 @export var combat_audio : AudioStreamPlayer
 @export var unit_experience_manager : UnitExperienceManager 
 @export var mapReinforcementData : MapReinforcementData
+@export var mapEntityData: Array[CombatMapEntity]
 
 func _ready():
 	emit_signal("register_combat", self)
@@ -64,6 +69,7 @@ func _ready():
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
+	iventory_array.insert(1, ItemDatabase.items["key"])
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,9),0), Vector2i(7,14))
 	iventory_array.clear()
@@ -176,6 +182,12 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Gemni's Guard", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,26))
 	##emit_signal("update_turn_queue", combatants, turn_queue)
+	load_entities()
+
+func load_entities():
+	for entity in mapEntityData:
+		add_entity(entity)
+	
 
 func spawn_reinforcements(turn_number : int):
 	for group in mapReinforcementData.reinforcements: 
@@ -209,6 +221,16 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 		combat_unit.unit.initiative -= 1
 	combat_unit.map_display = new_combatant_sprite
 	emit_signal("combatant_added", combat_unit)
+	
+func add_entity(cme:CombatMapEntity):
+	entities.append(cme)
+	var new_entity_sprite : CombatMapEntityDisplay = CombatMapEntityDisplay.instantiate()
+	new_entity_sprite.set_reference_entity(cme)
+	$"../Terrain/TileMap".add_child(new_entity_sprite)
+	new_entity_sprite.position = Vector2((cme.position.x * 32.0) + 16,(cme.position.y * 32.0) + 16)
+	new_entity_sprite.z_index = 0
+	cme.display = new_entity_sprite
+	emit_signal("entity_added", cme)
 
 func get_current_combatant():
 	return combatants[current_combatant]
@@ -278,6 +300,13 @@ func Trade(unit: CombatUnit, target: CombatUnit):
 	minor_action_complete(unit)
 	print("Exited Trade in Combat.gd")
 
+func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
+	print("Entered Chest in Combat.gd")
+	key.use()
+	chest.interact(unit)
+	entity_disable(chest)
+	major_action_complete()
+
 #Staff Action
 func Support(user: CombatUnit, target: CombatUnit):
 	print("Entered Staff in Combat.gd")
@@ -344,6 +373,11 @@ func combatant_die(combatant: CombatUnit):
 		]
 	))
 	combatant_died.emit(combatant)
+
+func entity_disable(e: CombatMapEntity):
+	e.active = false
+	disabled_entities.append(e)
+	e.display.queue_free()
 
 func sort_weight_array(a, b):
 	if a[0] > b[0]:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxd4y8qg56hq3"]
+[gd_scene load_steps=10 format=3 uid="uid://cxd4y8qg56hq3"]
 
 [ext_resource type="Script" path="res://ui/combat_map_view_components/unit_inventory_slot/unit_inventory_slot.gd" id="1_kpyca"]
 [ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="1_mnk0y"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="3_5ks25"]
+[ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat_map_view_components/unit_selected_footer/InventoryItemIcon.tscn" id="3_11e7w"]
 [ext_resource type="Theme" uid="uid://c721m7lwm7mq3" path="res://ui/combat_map_view_components/unit_inventory_slot/inventory_slot_theme.tres" id="3_nmnge"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_3ax6y"]
 
@@ -48,6 +49,19 @@ layout_mode = 0
 offset_right = 270.0
 offset_bottom = 40.0
 theme = SubResource("Theme_3w7h2")
+
+[node name="InventoryItemIcon" parent="." instance=ExtResource("3_11e7w")]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 36.0
+mouse_filter = 1
 
 [node name="EquippedMargin" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -170,6 +170,30 @@ func set_inventory_list_support(unit: Unit):
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
 
+func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
+	print("set_inventory_list_support")
+	var  action_inv = $ActionInventory
+	
+	var inventory_container_children = action_inv.get_inventory_container_children()
+	for i in range(inventory_container_children.size()):
+		if inventory_container_children[i] is UnitInventorySlot:
+			var item_btn = inventory_container_children[i].get_button() as Button
+			item_btn.disabled = false
+			clear_action_button_connections(item_btn)
+			if not items.is_empty():
+				if items.size() > i:
+					var item = items[i]
+					inventory_container_children[i].set_all(item)
+					inventory_container_children[i].visible = true
+					item_btn.pressed.connect(func():
+						play_menu_confirm()
+						controller.set_selected_item(item)
+						controller.action_item_selected()
+						)
+				else : 
+					inventory_container_children[i].visible = false
+					clear_action_button_connections(item_btn)
+
 func set_inventory_list(unit: Unit):
 	print("@# set_inventory_list called")
 	var attack_action_inventory:  = $AttackActionInventory
@@ -295,6 +319,11 @@ func _set_support_action_inventory(combat_unit: CombatUnit) -> void:
 	if $AttackActionInventory.visible == false :
 		$AttackActionInventory.visible = true 
 
+func _set_item_action_inventory(combat_unit: CombatUnit, items:Array[ItemDefinition]) -> void:
+	set_inventory_list_item_select(combat_unit.unit, items)
+	if $ActionInventory.visible == false :
+		$ActionInventory.visible = true 
+
 
 func _set_inventory_list(combat_unit: CombatUnit) -> void:
 	set_inventory_list(combat_unit.unit)
@@ -303,6 +332,10 @@ func _set_inventory_list(combat_unit: CombatUnit) -> void:
 
 func hide_attack_action_inventory():
 	$AttackActionInventory.visible = false 
+
+func hide_action_inventory():
+	$ActionInventory.visible = false 
+
 
 func display_unit_combat_exchange_preview(combat_unit_a: CombatUnit, combat_unit_d: CombatUnit, distance:int):
 	$unit_combat_exchange_preview.set_all(combat_unit_a,combat_unit_d,distance)

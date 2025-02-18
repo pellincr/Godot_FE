@@ -14,6 +14,7 @@ const item_action : UnitAction =  preload("res://resources/definitions/actions/u
 const use_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_use_item.tres")
 const support_action : UnitAction =  preload("res://resources/definitions/actions/unit_action_support.tres")
 const shove_action: UnitAction = preload("res://resources/definitions/actions/unit_action_shove.tres")
+const chest_action: UnitAction = preload("res://resources/definitions/actions/unit_action_chest.tres")
 ##SIGNALS
 signal movement_changed(movement: int)
 signal finished_move(position: Vector2i)
@@ -102,6 +103,7 @@ var _action_valid_targets : Array[CombatUnit]
 
 #Item Selection Variables
 var _selected_item: ItemDefinition
+var _selected_entity: CombatMapEntity
 var _item_selected: bool
 
 #AI Variables
@@ -561,13 +563,25 @@ func get_combatant_at_position(target_position: Vector2i) -> CombatUnit:
 			return comb
 	return null
 
+func get_entity_at_position(target_position:Vector2i)-> CombatMapEntity:
+	for ent in combat.entities:
+		if ent.position == target_position and ent.active:
+			return ent
+	return null
+
 func combatant_added(combatant):
 	_occupied_spaces.append(combatant.map_tile.position)
+	
+func entity_added(cme: CombatMapEntity):
+	pass
 
 func combatant_died(combatant):
 	_astargrid.set_point_weight_scale(combatant.map_tile.position, 1)
 	CustomUtilityLibrary.erase_packedVector2Array(_occupied_spaces,combatant.map_tile.position)
 	combatant.map_display.queue_free()
+
+func entity_disabled(e :CombatMapEntity):
+	pass
 
 func update_points_weight():
 	for cell in tile_map.get_used_cells(0):
@@ -600,6 +614,10 @@ func update_points_weight():
 						#do nothing if its out of bounds?
 						pass
 						#_astargrid.set_point_weight_scale(point, 1)
+	for e in combat.entities:
+		if combat.get_current_combatant().unit.movement_class in e.blocks:
+			if(_astargrid.is_in_boundsv(e.position)):
+				_astargrid.set_point_solid(e.position)
 
 func get_distance(point1: Vector2i, point2: Vector2i):
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
@@ -681,6 +699,9 @@ func begin_action_item_selection():
 			combat.game_ui._set_support_action_inventory(combat.get_current_combatant())
 		elif _action == item_action:
 			combat.game_ui._set_inventory_list(combat.get_current_combatant())
+		elif _action == chest_action:
+			_selected_entity = get_entity_at_position(combat.get_current_combatant().move_tile.position)
+			combat.game_ui._set_item_action_inventory(combat.get_current_combatant(), get_viable_chest_items(combat.get_current_combatant()))
 	else: 
 		pass ## do nothing??
 
@@ -694,6 +715,7 @@ func perform_action():
 	#Hide the interactable UI
 	combat.game_ui.hide_action_list()
 	combat.game_ui.hide_attack_action_inventory()
+	combat.game_ui.hide_action_inventory()
 	combat.get_current_combatant().map_tile.position = combat.get_current_combatant().move_tile.position
 	combat.get_current_combatant().map_tile.terrain = get_terrain_at_map_position(combat.get_current_combatant().move_tile.position)
 	#Use logic to call the correct method in the Combat.gd
@@ -705,8 +727,10 @@ func perform_action():
 			combat.call(_action.name, combat.get_current_combatant(), _action_target_unit)
 		#only item (unit, item)
 	elif(_action.requires_item and not _action.requires_target):
-		 #this second half of logic is redundant but added for readability
-		combat.call(_action.name, combat.get_current_combatant(), _selected_item)
+		if(_action.requires_entity):
+			combat.call(_action.name, combat.get_current_combatant(), _selected_item, _selected_entity)
+		else:
+			combat.call(_action.name, combat.get_current_combatant(), _selected_item)
 	else :
 		#call with just method method(unit)
 		combat.call(_action.name, combat.get_current_combatant())
@@ -729,6 +753,10 @@ func action_item_selected():
 	elif _action == item_action: 
 		_item_selected = true
 		combat.game_ui.disable_inventory_list_butttons()
+		update_player_state(get_next_action_state())
+	elif _action == chest_action:
+		_item_selected = true
+		combat.game_ui.hide_action_inventory()
 		update_player_state(get_next_action_state())
 
 func use_action_selected():
@@ -1079,6 +1107,36 @@ func get_potential_shove_targets(cu: CombatUnit) -> Array[CombatUnit]:
 						pushable_targets.append(pushable_unit)
 	return pushable_targets
 
+#func get_potential_door_targets(position: Vector2i)-> Array[CombatMapEntity]:
+	#var door_targets : Array[CombatMapEntity]
+	#for tile in grid_get_target_tile_neighbors(position):
+		#if get_entity_at_position(tile) :
+			#var _entity = get_entity_at_position(tile)
+			#if _entity is CombatMapChestEntity:
+				#door_targets.append(_entity)
+	#return door_targets
+
+func get_viable_chest_items(cu: CombatUnit) -> Array[ItemDefinition]:
+	var _items : Array[ItemDefinition]
+	if get_entity_at_position(cu.move_tile.position) :
+		var _entity = get_entity_at_position(cu.move_tile.position)
+		if _entity is CombatMapChestEntity:
+			for item : ItemDefinition in _entity.required_item:
+				if cu.unit.inventory.has(item):
+					_items.append(item)
+					#TO BE IMPLEMENTED if unit can use item
+	return _items
+func chest_action_available(cu:CombatUnit)-> bool:
+	if get_entity_at_position(cu.move_tile.position) :
+		var _entity = get_entity_at_position(cu.move_tile.position)
+		if _entity is CombatMapChestEntity:
+			for item : ItemDefinition in _entity.required_item:
+				print(item.name)
+				if cu.unit.inventory.has(item):
+					#TO BE IMPLEMENTED if unit can use item
+					return true
+	return false
+
 func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
 	var attackable_tiles : PackedVector2Array
 	for range in range_list:
@@ -1131,6 +1189,8 @@ func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 	if cu.major_action_taken == false:
 		if not get_potential_shove_targets(cu).is_empty():
 			action_array.push_front(shove_action)
+		if chest_action_available(cu):
+			action_array.push_front(chest_action)
 		if not get_potential_support_targets(cu).is_empty():
 			action_array.push_front(support_action)
 		if not get_potential_targets(cu).is_empty():

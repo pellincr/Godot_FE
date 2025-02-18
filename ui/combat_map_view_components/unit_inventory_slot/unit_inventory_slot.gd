@@ -13,7 +13,7 @@ func get_button() -> Button:
 func update_item_fields():
 	##check_if_item()
 	if reference_item :
-		$Button.icon = reference_item.icon
+		$InventoryItemIcon.set_item(reference_item)
 		$Button.text = reference_item.name
 		$InfoMargin/Uses.text = str(reference_item.uses)
 	else : 

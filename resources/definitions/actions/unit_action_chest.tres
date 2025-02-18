@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitAction" load_steps=2 format=3 uid="uid://6pke3puhquxp"]
+
+[ext_resource type="Script" path="res://scripts/resources/UnitAction.gd" id="1_vk8fj"]
+
+[resource]
+script = ExtResource("1_vk8fj")
+name = "Chest"
+is_major = true
+is_minor = false
+requires_target = false
+requires_item = true
+requires_entity = true
+description = ""
+flow = Array[int]([0, 3])

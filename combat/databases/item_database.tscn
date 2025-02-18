@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=38 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -36,6 +36,7 @@
 [ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/anima/wind_blade.tres" id="34_ttak5"]
 [ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/anima/bolting.tres" id="35_xal3d"]
 [ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/swords/enchanted_shotel.tres" id="36_1rwxd"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="37_psnnm"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -58,6 +59,7 @@ items = {
 "iron_lance": ExtResource("4_o8mgg"),
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
+"key": ExtResource("37_psnnm"),
 "killer_bow": ExtResource("15_jhgao"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),

@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://diqrf4hmvqdtg"]
+[gd_scene load_steps=6 format=3 uid="uid://diqrf4hmvqdtg"]
 
 [ext_resource type="Script" path="res://ui/combat_map_view_components/unit_selected_footer/inventory_item_icon.gd" id="1_e1388"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_maem8"]
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="2_c40ou"]
 [ext_resource type="StyleBox" uid="uid://bgfknw7p6efaw" path="res://ui/combat_map_view_components/unit_selected_footer/InventoryItemIcon.tres" id="2_gv8d5"]
 
 [sub_resource type="Theme" id="Theme_s5d3b"]
@@ -14,10 +13,6 @@ shader_parameter/line_color = Color(0, 0, 0, 1)
 shader_parameter/line_thickness = 0.75
 shader_parameter/color_factor = null
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8lhtx"]
-atlas = ExtResource("2_c40ou")
-region = Rect2(160, 32, 32, 32)
 
 [node name="InventoryItemIcon" type="Control"]
 custom_minimum_size = Vector2(32, 32)
@@ -60,4 +55,3 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_8lhtx")

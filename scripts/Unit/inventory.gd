@@ -85,6 +85,12 @@ func get_weapons() -> Array[WeaponDefinition]:
 func get_stalves():
 	pass
 
+func has(item: ItemDefinition) -> bool:
+	for i in items:
+		if i.db_key == item.db_key:
+			return true
+	return false
+	
 func get_item_index(item: ItemDefinition)-> int:
 	for index in items.size():
 		if items[index] == item:
