@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://bp7ibodvmd4sx"]
 
-[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_8s00c"]
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_woacd"]
 
 [resource]
-script = ExtResource("1_8s00c")
+script = ExtResource("1_woacd")
 name = "House"
 db_key = "house"
 type = Array[int]([0])

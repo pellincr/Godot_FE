@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4xca7lc8vsi8"]
+
+[ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/example_level/terrain.tscn" id="1_huxbe"]
+[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="5_pc8ih"]
+[ext_resource type="Script" path="res://combat/combat_exchange.gd" id="6_k7fva"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
+
+[node name="Game" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(356, 302)
+zoom = Vector2(3, 3)
+
+[node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
+
+[node name="Select" type="Sprite2D" parent="Terrain"]
+visible = false
+position = Vector2(272, 208)
+texture = ExtResource("2_icbvx")
+
+[node name="Controller" type="Node2D" parent="."]
+texture_filter = 1
+
+[node name="VisualCombat" type="Node" parent="."]
+
+[node name="CombatExchange" type="Node" parent="VisualCombat"]
+script = ExtResource("6_k7fva")
+
+[node name="UnitExperienceManager" type="Node" parent="VisualCombat"]
+script = ExtResource("7_2stc1")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="VisualCombat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller") instance=ExtResource("5_pc8ih")]
+combat = NodePath("../../VisualCombat")
+controller = NodePath("../../Controller")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="combat_exchange_finished" from="VisualCombat/CombatExchange" to="Controller" method="_on_combat_exchange_combat_exchange_finished"]
+[connection signal="unit_defeated" from="VisualCombat/CombatExchange" to="VisualCombat" method="combatant_die"]
+[connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat" method="play_audio_complete"]
+[connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://c2ltfhxc7knfr"]
 
 [ext_resource type="Texture2D" uid="uid://cakynh0bfrxyw" path="res://resources/sprites/units/pegasus_lance.png" id="1_kucmr"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="2_ryiqa"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_ryiqa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uvjvw"]
 atlas = ExtResource("1_kucmr")

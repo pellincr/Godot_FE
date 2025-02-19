@@ -52,10 +52,8 @@ func get_available_weapons_at_attack_range(attack_range: int) -> Array[ItemDefin
 func is_full() -> bool:
 	if (items.size() < capacity) :
 		return false 
-	for item in items:
-		if item == null :
-			return true
-	return false
+	else :
+		return true
 
 func is_empty() -> bool:
 	if items.is_empty() :
@@ -109,8 +107,12 @@ static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inven
 			inv.give_item(item)
 	return inv
 
-func discard_at_index(index : int):
-	items.remove_at(index)
+func discard_at_index(index : int) -> bool:
+	if(index < items.size() - 1):
+		items.remove_at(index)
+		return true
+	else: 
+		return false
 
 func discard_item(target_item: ItemDefinition):
 	items.erase(target_item)

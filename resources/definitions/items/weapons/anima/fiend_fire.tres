@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://nbx0ga6nag7e"]
 
-[ext_resource type="Texture2D" uid="uid://b46kmti1805bn" path="res://resources/sprites/items/fire.png" id="1_urh3p"]
+[ext_resource type="Texture2D" uid="uid://mstj7qwxwb8s" path="res://resources/sprites/items/fiend_fire.png" id="1_betd0"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_l7xgx"]
 
 [resource]
@@ -22,7 +22,7 @@ weapon_hit_effect = 1
 is_wpn_triangle_effective = false
 crit_disabled = false
 is_brave = false
-applies_status_effect = false
+is_vampyric = false
 negates_defense = false
 name = "Fiend Fire"
 db_key = "fiend_fire"
@@ -32,4 +32,4 @@ item_type = 0
 uses = 50
 max_uses = 50
 value = 35
-icon = ExtResource("1_urh3p")
+icon = ExtResource("1_betd0")

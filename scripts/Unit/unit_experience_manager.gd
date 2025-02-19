@@ -2,14 +2,14 @@ extends Node
 
 class_name UnitExperienceManager
 
-const experience_bar = preload("res://ui/combat_map_view_components/unit_experience_bar/unit_experience_bar.tscn")
-const level_up_component = preload("res://ui/combat_map_view_components/unit_level_up/unit_level_up.tscn")
+const EXPERIENCE_BAR_COMPONENT = preload("res://ui/combat/unit_experience_bar/unit_experience_bar.tscn")
+const LEVEL_UP_COMPONENT = preload("res://ui/combat/unit_level_up/unit_level_up.tscn")
 
 func process_experience_gain(unit:Unit, experience_amount: int):
 	print ("Enteredprocess_experience_gain")
 	if (unit.experience + experience_amount >= 100):
 		var experience_excess = unit.experience + experience_amount - 100
-		var experience_bar = experience_bar.instantiate()
+		var experience_bar = EXPERIENCE_BAR_COMPONENT.instantiate()
 		await experience_bar
 		$"../../CanvasLayer/UI".add_child(experience_bar)
 		experience_bar.visible = false
@@ -20,7 +20,7 @@ func process_experience_gain(unit:Unit, experience_amount: int):
 		await experience_bar.finished
 		experience_bar.visible = false
 		##level up fan fare goes here
-		var level_up_component = level_up_component.instantiate()
+		var level_up_component = LEVEL_UP_COMPONENT.instantiate()
 		await level_up_component
 		$"../../CanvasLayer/UI".add_child(level_up_component)
 		level_up_component.visible = false
@@ -41,7 +41,7 @@ func process_experience_gain(unit:Unit, experience_amount: int):
 		experience_bar.queue_free()
 		unit.experience = experience_excess
 	else :
-		var experience_bar = experience_bar.instantiate()
+		var experience_bar = EXPERIENCE_BAR_COMPONENT.instantiate()
 		await experience_bar
 		$"../../CanvasLayer/UI".add_child(experience_bar) 
 		experience_bar.visible = false

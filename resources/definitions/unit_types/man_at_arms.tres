@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_8w1lm"]
 [ext_resource type="Texture2D" uid="uid://cw7sf8fk5ppec" path="res://resources/sprites/units/man_at_arms_map.tres" id="2_ssmfu"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_wgtl8"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_wgtl8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c68d3"]
 atlas = ExtResource("1_8w1lm")

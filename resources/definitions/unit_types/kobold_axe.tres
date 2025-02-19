@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://oxyxjq53wm2s"]
 
 [ext_resource type="Texture2D" uid="uid://bbn656345lm78" path="res://resources/sprites/units/Kobold_axe.png" id="1_p0mu6"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="2_nqaq5"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_nqaq5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7ktv"]
 atlas = ExtResource("1_p0mu6")

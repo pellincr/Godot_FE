@@ -17,7 +17,6 @@ func random_rolls_bool(chance: int, number_of_rolls : int) -> bool:
 func equals_ignore_case(string_a: String, string_b : String) -> bool:
 	return string_a.to_upper() == string_b.to_upper()
 
-
 func erase_packedVector2Array(target_array: PackedVector2Array, target:Vector2) -> bool:
 	if target_array.has(target):
 		target_array.remove_at(target_array.find(target))

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://cgnrhm33281oo"]
 
 [ext_resource type="Texture2D" uid="uid://b0gknjdusylln" path="res://resources/sprites/units/cavalier_axe.png" id="1_s1c08"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_ytx67"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_ytx67"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkv7o"]
 atlas = ExtResource("1_s1c08")

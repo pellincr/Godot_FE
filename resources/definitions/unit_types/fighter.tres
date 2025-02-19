@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://q71h87n0faia"]
 
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="1_4ob4q"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_4ob4q"]
 [ext_resource type="Texture2D" uid="uid://1rn34xxcqpsw" path="res://resources/sprites/units/fighter_icon.tres" id="1_7l3rc"]
 [ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/fighter_map.tres" id="2_dye5s"]
 
