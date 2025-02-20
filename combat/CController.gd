@@ -144,13 +144,23 @@ func _ready():
 	#combat.combatExchange.connect("combat_exchange_finished", _on_combat)
 	#build blocking spaces arrays
 	for tile in tile_map.get_used_cells(0):
-		var tile_blocking = tile_map.get_cell_tile_data(0, tile)
-		if tile_blocking.get_custom_data("Terrain") is Terrain:
-			var terrain :Terrain =  tile_blocking.get_custom_data("Terrain")
-			for block_index in terrain.blocks:
-				_blocking_spaces[block_index].append(tile)
+		update_blocking_space_at_tile(tile)
 	#Once Game initialization is complete begin player turn
 	game_state = Constants.GAME_STATE.PLAYER_TURN
+
+func update_blocking_space_at_tile(tile:Vector2i):
+	if get_terrain_at_map_position(tile):
+		var terrain :Terrain =  get_terrain_at_map_position(tile)
+		for movement_type_index in range(_blocking_spaces.size()):
+			#does terrain have the movement time in its blacklist?
+			if movement_type_index in terrain.blocks:
+				#does blocking tiles need to be updated
+				if tile not in _blocking_spaces[movement_type_index]:
+					_blocking_spaces[movement_type_index].append(tile)
+			else : 
+				#does the old reference to the tile need to be removed
+				if tile in _blocking_spaces[movement_type_index]:
+					_blocking_spaces[movement_type_index].remove(tile)
 
 #	if Input.is_action_just_pressed("ui_accept"):	
 func process_ui_confirm_inputs(delta):
@@ -572,8 +582,14 @@ func get_combatant_at_position(target_position: Vector2i) -> CombatUnit:
 	return null
 
 func get_entity_at_position(target_position:Vector2i)-> CombatMapEntity:
+	var tile = tile_map.local_to_map(position)
+	if _astargrid.is_in_boundsv(tile):
+		return get_entity_at_tile(tile)
+	return null
+
+func get_entity_at_tile(tile:Vector2i)-> CombatMapEntity:
 	for ent in combat.entities:
-		if ent.position == target_position and ent.active:
+		if ent.position == tile and ent.active:
 			return ent
 	return null
 
@@ -589,7 +605,7 @@ func combatant_died(combatant):
 	combatant.map_display.queue_free()
 
 func entity_disabled(e :CombatMapEntity):
-	pass
+	update_blocking_space_at_tile(e.position)
 
 func update_points_weight():
 	for cell in tile_map.get_used_cells(0):
@@ -623,9 +639,11 @@ func update_points_weight():
 						pass
 						#_astargrid.set_point_weight_scale(point, 1)
 	for e in combat.entities:
-		if combat.get_current_combatant().unit.movement_class in e.blocks:
-			if(_astargrid.is_in_boundsv(e.position)):
-				_astargrid.set_point_solid(e.position)
+		if e.active:
+			if e.terrain != null:
+				if combat.get_current_combatant().unit.movement_class in e.terrain.blocks:
+					if(_astargrid.is_in_boundsv(e.position)):
+						_astargrid.set_point_solid(e.position)
 
 func get_distance(point1: Vector2i, point2: Vector2i):
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
@@ -771,25 +789,21 @@ func use_action_selected():
 	update_player_state(get_next_action_state())
 
 func get_tile_cost(tile, unit:CombatUnit = null):
-	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if tile_data:
-		var tile_terrain :Terrain = tile_data.get_custom_data("Terrain")
+	if _astargrid.is_in_boundsv(tile):
+		var tile_terrain :Terrain = get_terrain_at_map_position(tile)
 		if tile_terrain:
 			if unit:
 				return int (tile_terrain.cost[unit.unit.movement_class])
 			else: 
 				return int (tile_terrain.cost[combat.get_current_combatant().unit.movement_class])
+	else : 
+		print("get_tile_cost called with out of bounds tile")
 	return INF
 
-func get_tile_cost_at_point(point):
+func get_tile_cost_at_position(point, unit:CombatUnit = null):
 	var tile = tile_map.local_to_map(point)
-	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if tile_data:
-		var tile_terrain : Terrain = tile_data.get_custom_data("Terrain")
-		if tile_terrain:
-			return int (tile_terrain.cost[combat.get_current_combatant().unit.movement_class])
-		else: 
-			return INF
+	if _astargrid.is_in_boundsv(tile):
+		return get_tile_cost(tile, unit)
 	else: 
 		return INF
 
@@ -803,70 +817,185 @@ func drawSelectedpath():
 			var draw_color = Color.TRANSPARENT
 			if !_blocking_spaces[combat.get_current_combatant().unit.movement_class].has(point):
 				draw_color = Color.DIM_GRAY
-				if path_length - get_tile_cost_at_point(point) >= 0:
+				if path_length - get_tile_cost_at_position(point, combat.get_current_combatant()) >= 0:
 					draw_color = Color.WHITE
 				if i > 0:
-					path_length -= get_tile_cost_at_point(point)
+					path_length -= get_tile_cost_at_position(point, combat.get_current_combatant())
 			else : 
 				break
 			draw_texture(PATH_TEXTURE, point - Vector2(16, 16), draw_color)
 
-##Use DPS to retrieve the available cells from an origin point
-func retrieveAvailableRange(range:int, origin: Vector2i, movement_type:int, effected_by_terrain:bool) -> PackedVector2Array:
-	var visited : PackedVector2Array
-	var target_tile_cost = 1
+
+##Use DFS to retrieve the available cells from an origin point
+func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
+	var _return_array : PackedVector2Array
+	var tile_edge_dictionary : Dictionary
+	for tile in tiles:
+		tile_edge_dictionary.get_or_add(Vector2i(tile), false)
+	for tile in tiles: 
+		for neighbors in tile_nieghbor_index :
+			if tile_edge_dictionary.has(Vector2i(tile + neighbors)):
+				pass
+			else:
+				tile_edge_dictionary[tile] = true
+				_return_array.append(tile)
+	return _return_array
+
+func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type:int = 0, effected_by_terrain:bool = false):
+	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
+	const DEFAULT_TILE_COST = 1
 	var remaining_range
-	if _arrived == true and player_turn == true:
+	if _arrived == true and player_turn == true: #this may be redundant
+		#add our first tile into the front of the visited array
+		
+		visited.get_or_add(tiles[0], range)
 		#if the player has movement otherwise this is meaningless
-		visited.append(origin)
 		if range > 0:
-			#add our first tile into the front of the visited array
+			for tile in tiles: 
+			#recursively call on the tiles around until range is empty
+				for neighbors in tile_nieghbor_index :
+					#get the correct tile in the direction
+					var target_tile = tile_map.get_neighbor_cell(tile, neighbors)
+					if _astargrid.is_in_boundsv(target_tile):
+						if(effected_by_terrain) :
+							#should we even be considering this tile?
+							if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+								var target_tile_cost = get_tile_cost(target_tile)
+								remaining_range = range - target_tile_cost 
+								if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
+									#check if visited has the tile
+									if visited.has(target_tile):
+										#Is there already a better value in the map?
+										if visited.get(target_tile) > remaining_range:
+											# this is a dead end.. We have already reached this tile with a superior range
+											pass
+										else: 
+											visited[target_tile] = remaining_range
+											DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									else: 
+										visited.get_or_add(target_tile, remaining_range)
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+						else : 
+							remaining_range = range - DEFAULT_TILE_COST 
+							if (remaining_range >= 0) :
+								visited.get_or_add(target_tile, remaining_range)
+								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+	return visited.keys()
+	
+##Use DFS to retrieve the available cells from an origin point
+func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false) -> PackedVector2Array:
+	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
+	const DEFAULT_TILE_COST = 1
+	var remaining_range
+	if _arrived == true and player_turn == true: #this may be redundant
+		#add our first tile into the front of the visited array
+		visited.get_or_add(origin, range)
+		#if the player has movement otherwise this is meaningless
+		if range > 0:
 			#recursively call on the tiles around until range is empty
 			for neighbors in tile_nieghbor_index :
 				#get the correct tile in the direction
 				var target_tile = tile_map.get_neighbor_cell(origin, neighbors)
-				if(effected_by_terrain) :
-					target_tile_cost = get_tile_cost(target_tile)
-					remaining_range = range - target_tile_cost 
-					if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)) :
+				if _astargrid.is_in_boundsv(target_tile):
+					if(effected_by_terrain) :
+						#should we even be considering this tile?
 						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
-							visited.append(target_tile)
-							retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
-				else : 
-					remaining_range = range - target_tile_cost 
-					if (remaining_range >= 0) :
-						visited.append(target_tile)
-						retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+							var target_tile_cost = get_tile_cost(target_tile)
+							remaining_range = range - target_tile_cost 
+							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
+								#check if visited has the tile
+								if visited.has(target_tile):
+									#Is there already a better value in the map?
+									if visited.get(target_tile) > remaining_range:
+										# this is a dead end.. We have already reached this tile with a superior range
+										pass
+									else: 
+										visited[target_tile] = remaining_range
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								else: 
+									visited.get_or_add(target_tile, remaining_range)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+					else : 
+						remaining_range = range - DEFAULT_TILE_COST 
+						if (remaining_range >= 0) :
+							visited.get_or_add(target_tile, remaining_range)
+							DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+	return visited.keys()
+
+##Use DFS to retrieve the available cells from an origin point
+func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false) -> Dictionary:
+	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, highest_move_at_tile>
+	const DEFAULT_TILE_COST = 1
+	var remaining_range
+	if _arrived == true and player_turn == true: #this may be redundant
+		#add our first tile into the front of the visited array
+		visited.get_or_add(origin, range)
+		#if the player has movement otherwise this is meaningless
+		if range > 0:
+			#recursively call on the tiles around until range is empty
+			for neighbors in tile_nieghbor_index :
+				#get the correct tile in the direction
+				var target_tile = tile_map.get_neighbor_cell(origin, neighbors)
+				if _astargrid.is_in_boundsv(target_tile):
+					if(effected_by_terrain) :
+						#should we even be considering this tile?
+						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+							var target_tile_cost = get_tile_cost(target_tile)
+							remaining_range = range - target_tile_cost 
+							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
+								#check if visited has the tile
+								if visited.has(target_tile):
+									#Is there already a better value in the map?
+									if visited.get(target_tile) > remaining_range:
+										# this is a dead end.. We have already reached this tile with a superior range
+										pass
+									else: 
+										visited.erase(target_tile)
+										visited.get_or_add(target_tile, remaining_range)
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								else: 
+									visited.get_or_add(target_tile, remaining_range)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+					else : 
+						remaining_range = range - DEFAULT_TILE_COST 
+						if (remaining_range >= 0) :
+							visited.get_or_add(target_tile, remaining_range)
+							DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
 	return visited
 
 ## Used in retreieveAvailableRange
-func retrieveAvailableRange_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_terrain:bool, visited:PackedVector2Array) -> PackedVector2Array:
-	var target_tile_move_cost = 1
+func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_terrain:bool, visited:Dictionary) -> Dictionary:
+	var DEFAULT_TILE_COST = 1
 	var remaining_range
 	if range > 0:
-	#add our first tile into the front of the visited array
-		#recursively call on the tiles around until range is empty
 		for neighbors in tile_nieghbor_index :
-		#get neighbor in direction
-			var target_tile = tile_map.get_neighbor_cell(origin, neighbors)
-			#Is the calculation for whether or not we can visit it effected by terrain?
-			if(effected_by_terrain) :
-				target_tile_move_cost = get_tile_cost(target_tile)
-				remaining_range = range - target_tile_move_cost 
-				##if the tile is within our move cost & not blacklisted by our move type
-				if (remaining_range >= 0 and not _blocking_spaces[movement_type].has(target_tile)) :
-					if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
-					#visit the tile and call the recursion
-						if(!visited.has(target_tile)) :
-							visited.append(target_tile)
-						retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
-			else :  #if not do we have the power to reach it
-				remaining_range = range - target_tile_move_cost 
-				if (remaining_range >= 0) :
-					##we visit the target tile and call the DFS on it
-					if(!visited.has(target_tile)) : 
-						visited.append(target_tile)
-					retrieveAvailableRange_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+				#get the correct tile in the direction
+				var target_tile = tile_map.get_neighbor_cell(origin, neighbors)
+				if _astargrid.is_in_boundsv(target_tile):
+					if(effected_by_terrain) :
+						#should we even be considering this tile?
+						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+							var target_tile_cost = get_tile_cost(target_tile)
+							remaining_range = range - target_tile_cost 
+							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
+								#check if visited has the tile
+								if visited.has(target_tile):
+									#Is there already a better value in the map?
+									if visited.get(target_tile) >= remaining_range:
+										# this is a dead end.. We have already reached this tile with a superior range
+										pass
+									else: 
+										visited.erase(target_tile)
+										visited.get_or_add(target_tile, remaining_range)
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								else: 
+									visited.get_or_add(target_tile, remaining_range)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+					else : 
+						remaining_range = range - DEFAULT_TILE_COST 
+						if (remaining_range >= 0) :
+							visited.get_or_add(target_tile, remaining_range)
+							DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
 	return visited
 
 #Draws a units move and attack ranges
@@ -1013,20 +1142,12 @@ func get_tile_info(position : Vector2i):
 	##var coords = tile_map.get_cell_atlas_coords(0, position)
 	if position == Vector2i(current_tile_info.x, current_tile_info.y)  :
 		return
-	combat.game_ui.play_cursor()
+	#combat.game_ui.play_cursor()
 	current_tile_info.x = position.x
 	current_tile_info.y = position.y
-	var tile_data = tile_map.get_cell_tile_data(0, position)
-	if(tile_data != null):
-		if tile_data.get_custom_data("Terrain"):
-			var terrain :Terrain =  tile_data.get_custom_data("Terrain")
-			current_tile_info.terrain = terrain
-		#if(tile_data.get_custom_data("Tile_Name") != null):
-			#current_tile_info.name = tile_data.get_custom_data("Tile_Name")
-		#if(tile_data.get_custom_data("Avoid") != null):
-			#current_tile_info.avoid = tile_data.get_custom_data("Avoid")
-		#if(tile_data.get_custom_data("Defense") != null):
-			#current_tile_info.defense = tile_data.get_custom_data("Defense")	
+	if get_terrain_at_map_position(position):
+		var terrain : Terrain =  get_terrain_at_map_position(position)
+		current_tile_info.terrain = terrain
 	##get the unit info
 	if get_combatant_at_position(position):
 		current_tile_info.unit = get_combatant_at_position(position)
@@ -1035,35 +1156,33 @@ func get_tile_info(position : Vector2i):
 	tile_info_updated.emit(current_tile_info)
 
 func get_terrain_at_position(position: Vector2) ->  Terrain:
-	var terrain_at_position: Terrain = null
 	var tile = tile_map.local_to_map(position)
-	var tile_data = tile_map.get_cell_tile_data(0, tile)
-	if tile_data :
-		if tile_data.get_custom_data("Terrain") is Terrain:
-			terrain_at_position =  tile_data.get_custom_data("Terrain")
-	else :
-		print("ERROR TERRAIN IS NULL")
-	return terrain_at_position
+	return get_terrain_at_map_position(tile)
 
 func get_terrain_at_map_position(position: Vector2) ->  Terrain:
-	var terrain_at_position: Terrain = null
-	var tile_data = tile_map.get_cell_tile_data(0, position)
-	if tile_data :
-		if tile_data.get_custom_data("Terrain") is Terrain:
-			terrain_at_position =  tile_data.get_custom_data("Terrain")
-	else :
+	if _astargrid.is_in_boundsv(position):
+		#Entity terrain takes precident
+		if get_entity_at_tile(position) != null:
+			var _entity_at_posn = get_entity_at_tile(position)
+			if _entity_at_posn.active and _entity_at_posn.terrain != null:
+				return _entity_at_posn.terrain
+		#Map Terrain is then used
+		var tile_data = tile_map.get_cell_tile_data(0, position)
+		if tile_data :
+			if tile_data.get_custom_data("Terrain") is Terrain:
+				return tile_data.get_custom_data("Terrain")
 		print("ERROR TERRAIN IS NULL")
-	return terrain_at_position
+	else :
+		print("get_terrain_at_map_position called on out of bounds tile")
+	return null
 
 func draw_comb_range(combatant: CombatUnit) :
 	attack_range.clear()
 	skill_range.clear()
-	move_range = retrieveAvailableRange(combatant.unit.movement, combatant.map_tile.position, combatant.unit.movement_class, true)
+	move_range = get_range_DFS(combatant.unit.movement, combatant.map_tile.position, combatant.unit.movement_class, true)
 	var edge_array = find_edges(move_range)
-	for tile in edge_array :
-		if combatant.unit.inventory.equipped:
-			attack_range.append_array(retrieveAvailableRange(combatant.unit.inventory.get_available_attack_ranges().max(), tile, 0, false))
-		skill_range.append_array(retrieveAvailableRange(0, tile, 0, false))
+	attack_range = get_range_multi_origin_DFS(combatant.unit.inventory.get_available_attack_ranges().max(), edge_array)
+	skill_range = attack_range.duplicate()
 
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
 	var range_list :Array[int] = []
@@ -1091,7 +1210,7 @@ func get_potential_support_targets(cu : CombatUnit, range: Array[int] = []) -> A
 		range_list = range.duplicate()
 	var attackable_tiles : PackedVector2Array
 	var response : Array[CombatUnit]
-	if range_list.is_empty() : ##There is no attack range
+	if range_list.is_empty() : ##There is no range
 		return response
 	attackable_tiles = get_attackable_tiles(range_list, cu)
 	print(str(attackable_tiles))
@@ -1149,9 +1268,19 @@ func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
 	var attackable_tiles : PackedVector2Array
 	for range in range_list:
 		if cu.move_tile.position :
-			attackable_tiles.append_array(get_tiles_at_range(range, cu.move_tile.position)[1])
+			attackable_tiles.append_array(get_tiles_at_range_new(range, cu.move_tile.position))
 	return attackable_tiles
 
+func get_tiles_at_range_new(range:int, origin: Vector2i) -> PackedVector2Array:
+	var _tiles_at_range : PackedVector2Array
+	var dict = get_map_of_range_DFS(range, origin)
+	var _keys = dict.keys()
+	var _vals = dict.values()
+	for index in range(_keys.size()):
+		if _vals[index] == 0: #where the range is fully used up
+			_tiles_at_range.append(_keys[index])
+	return _tiles_at_range
+	
 func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array = [] , edge:PackedVector2Array= []) -> Array[PackedVector2Array]:
 	var return_object :Array[PackedVector2Array] = [
 		visited,
@@ -1244,7 +1373,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	# Step 2, if the unit can move do analysis on movable tiles
 	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
 		print("@ BEGAN MOVABLE TILE ANALYSIS")
-		moveable_tiles = retrieveAvailableRange(ai_unit.unit.movement,current_position, ai_unit.unit.movement_class, true)
+		moveable_tiles = get_range_DFS(ai_unit.unit.movement,current_position, ai_unit.unit.movement_class, true)
 		for moveable_tile in moveable_tiles:
 			if moveable_tile not in _occupied_spaces:
 				if not _astargrid.get_point_weight_scale(moveable_tile) > 999999:
@@ -1262,7 +1391,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 					print("@ OCCUPIED SPACES : " + str(_occupied_spaces))
 					for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
 						for range in actionable_range:
-							for tile in get_tiles_at_range(range,combat.combatants[targetable_unit_index].map_tile.position)[1]:
+							for tile in get_tiles_at_range_new(range,combat.combatants[targetable_unit_index].map_tile.position):
 								if tile not in _occupied_spaces:
 									if tile not in actionable_tiles:
 										actionable_tiles.append(tile)
@@ -1324,7 +1453,7 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 	tile_best_action.action_type = "NONE"
 	tile_best_action.rating = 0
 	for range in attack_range:
-		for tile in get_tiles_at_range(range,tile_position)[1]:
+		for tile in get_tiles_at_range_new(range,tile_position):
 			if get_combatant_at_position(tile) != null:
 				if get_combatant_at_position(tile).allegience == Constants.FACTION.PLAYERS:
 					if not ai_unit.unit.get_usable_weapons_at_range(range).is_empty():

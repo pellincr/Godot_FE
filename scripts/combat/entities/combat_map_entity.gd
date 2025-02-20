@@ -6,14 +6,13 @@ enum interaction_types {
 	ADJACENT,
 	SCRIPT
 }
-
-var blocks : Array[UnitTypeDefinition] = []
-@export var position: Vector2i 
+var db_key: String
+var position: Vector2i 
 var sprite: Texture2D
 var targetable : bool 
 var active : bool = true
 var interaction_type : interaction_types
-
+var terrain: Terrain = null
 var display : CombatMapEntityDisplay
 
 func interact(cu:CombatUnit):

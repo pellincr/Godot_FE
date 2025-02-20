@@ -70,7 +70,7 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
 	iventory_array.insert(1, ItemDatabase.items["iron_sword"])
-	iventory_array.insert(2, ItemDatabase.items["iron_sword"])
+	#iventory_array.insert(2, ItemDatabase.items["bolting"])
 	iventory_array.insert(3, ItemDatabase.items["key"])
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,9),0), Vector2i(7,14))
@@ -167,6 +167,7 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(14,21))
 	iventory_array.clear()
+	iventory_array.insert(2, ItemDatabase.items["bolting"])
 	iventory_array.insert(0, ItemDatabase.items["fiend_fire"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Gemni", 12,15, true), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false, true), Vector2i(10,24))
 	iventory_array.clear()
@@ -309,6 +310,14 @@ func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
 	for item in chest.contents:
 		await combat_unit_item_manager.give_combat_unit_item(unit, item)
 	entity_disable(chest)
+	major_action_complete()
+	
+func Door(unit: CombatUnit, key: ItemDefinition, door:CombatMapDoorEntity):
+	print("Entered Door in Combat.gd")
+	key.use()
+	for posn in door.entity_position_group:
+		entity_disable(controller.get_entity_at_position(posn))
+	controller.update_points_weight()
 	major_action_complete()
 
 #Staff Action
