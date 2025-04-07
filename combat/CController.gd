@@ -164,17 +164,21 @@ func update_blocking_space_at_tile(tile:Vector2i):
 
 #	if Input.is_action_just_pressed("ui_accept"):	
 func process_ui_confirm_inputs(delta):
+	#PLAYER PHASE CHECKS
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			#Get the current mouse position and which tile it would be assosicated to
 			var mouse_position = get_global_mouse_position()
 			var mouse_position_i = tile_map.local_to_map(mouse_position)
 			get_tile_info(mouse_position_i)
+			#WHEN USING KEYBOARD/CONTROLLER PLACE UPDATE HERE TO GET POSITION OF FIRST UNIT IN LIST RATHER THAN MOUSE
 			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
-				##Player selects a unit
+				##Player selects hovered unit
 				var selected_unit = get_combatant_at_position(mouse_position_i)
 				if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
 					combat.game_ui.play_menu_confirm()
 					if selected_unit.allegience == 0:
+						#Allied Unit Selected
 						set_controlled_combatant(selected_unit)
 						combat.game_ui.hide_end_turn_button()
 						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
@@ -182,13 +186,16 @@ func process_ui_confirm_inputs(delta):
 						pass 
 			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
 				combat.game_ui.play_menu_confirm()
-				## Players selects a move
+				## Players selects a move...
 				if _arrived == true:
+				#If the unit is currently at a position and the player is selecting a different available position
 					if mouse_position_i != combat.get_current_combatant().map_tile.position:
 						if not _occupied_spaces.has(mouse_position_i):
 							if not _blocking_spaces[combat.get_current_combatant().unit.movement_class].has(mouse_position_i):
+								#move the current selected unit if possible
 								move_player()
 					else :
+						#Update the player state to see what combatants are nearby
 						combat.get_current_combatant().move_tile.position = combat.get_current_combatant().map_tile.position
 						combat.get_current_combatant().move_tile.terrain = combat.get_current_combatant().map_tile.terrain
 						combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
