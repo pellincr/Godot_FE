@@ -9,8 +9,11 @@ signal finished()
 func _ready():
 	self.step = .001
 
-
 func _process(delta):
+	if(self.max_value == self.value):
+		self.visible = false
+	else : 
+		self.visible = true
 	##if desired_value != value and not tween:
 		##print("tween activated")
 		##activate_tween()

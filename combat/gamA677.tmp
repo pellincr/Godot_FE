@@ -1,0 +1,96 @@
+[gd_scene load_steps=18 format=3 uid="uid://b4xca7lc8vsi8"]
+
+[ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/terrain.tscn" id="1_huxbe"]
+[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
+[ext_resource type="Script" path="res://combat/cameraController.gd" id="2_vv001"]
+[ext_resource type="Script" path="res://combat/control/CController.gd" id="3_dbxfm"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat_ui.tscn" id="5_pc8ih"]
+[ext_resource type="Resource" uid="uid://dgl1qnn5tffsy" path="res://combat/reinforcements.tres" id="6_8h87d"]
+[ext_resource type="Script" path="res://combat/combat_exchange.gd" id="6_k7fva"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
+[ext_resource type="Script" path="res://scripts/combat/combat_map_entity.gd" id="7_7vdv3"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="8_on82j"]
+[ext_resource type="Resource" uid="uid://b07cyd1bkl6wb" path="res://resources/definitions/items/weapons/swords/dark_sword.tres" id="9_5dgqe"]
+[ext_resource type="Script" path="res://scripts/combat/combat_map_chest.gd" id="9_41dse"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="10_jjxig"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="12_8kwuf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxokf"]
+atlas = ExtResource("12_8kwuf")
+region = Rect2(0, 544, 32, 32)
+
+[sub_resource type="Resource" id="Resource_q715l"]
+script = ExtResource("9_41dse")
+required_item = Array[ExtResource("8_on82j")]([ExtResource("10_jjxig")])
+contents = Array[ExtResource("8_on82j")]([ExtResource("9_5dgqe")])
+blocks = Array[int]([])
+position = Vector2i(6, 14)
+sprite = SubResource("AtlasTexture_uxokf")
+targetable = false
+active = true
+interaction_type = 0
+
+[node name="Game" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+position = Vector2(356, 302)
+zoom = Vector2(3, 3)
+script = ExtResource("2_vv001")
+map = NodePath("../Terrain")
+
+[node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
+
+[node name="Select" type="Sprite2D" parent="Terrain"]
+visible = false
+position = Vector2(272, 208)
+texture = ExtResource("2_icbvx")
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+texture_filter = 1
+script = ExtResource("3_dbxfm")
+combat = NodePath("../VisualCombat")
+
+[node name="VisualCombat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller")]
+script = ExtResource("4_cujqt")
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+mapReinforcementData = ExtResource("6_8h87d")
+mapEntityData = Array[ExtResource("7_7vdv3")]([SubResource("Resource_q715l")])
+
+[node name="CombatExchange" type="Node" parent="VisualCombat"]
+script = ExtResource("6_k7fva")
+
+[node name="UnitExperienceManager" type="Node" parent="VisualCombat"]
+script = ExtResource("7_2stc1")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="VisualCombat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller") instance=ExtResource("5_pc8ih")]
+combat = NodePath("../../VisualCombat")
+controller = NodePath("../../Controller")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="target_detailed_info" from="Controller" to="CanvasLayer/UI" method="_target_detailed_info"]
+[connection signal="combatant_added" from="VisualCombat" to="Controller" method="combatant_added"]
+[connection signal="combatant_died" from="VisualCombat" to="Controller" method="combatant_died"]
+[connection signal="combatant_died" from="VisualCombat" to="CanvasLayer/UI" method="combatant_died"]
+[connection signal="major_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_major_action_completed"]
+[connection signal="minor_action_completed" from="VisualCombat" to="Controller" method="_on_visual_combat_minor_action_completed"]
+[connection signal="turn_advanced" from="VisualCombat" to="Controller" method="advance_turn"]
+[connection signal="turn_advanced" from="VisualCombat" to="Controller" method="set_controlled_combatant"]
+[connection signal="turn_advanced" from="VisualCombat" to="CanvasLayer/UI" method="show_combatant_status_main"]
+[connection signal="update_combatants" from="VisualCombat" to="CanvasLayer/UI" method="update_combatants"]
+[connection signal="update_information" from="VisualCombat" to="CanvasLayer/UI" method="update_information"]
+[connection signal="update_turn_queue" from="VisualCombat" to="CanvasLayer/UI" method="update_turn_queue"]
+[connection signal="combat_exchange_finished" from="VisualCombat/CombatExchange" to="Controller" method="_on_combat_exchange_combat_exchange_finished"]
+[connection signal="unit_defeated" from="VisualCombat/CombatExchange" to="VisualCombat" method="combatant_die"]
+[connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat" method="play_audio_complete"]
+[connection signal="finished" from="VisualCombat/CombatAudio" to="VisualCombat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

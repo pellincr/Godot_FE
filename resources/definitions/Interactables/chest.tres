@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="InteractableTile" load_steps=3 format=3 uid="uid://rmsh64yxceeh"]
+
+[ext_resource type="Resource" uid="uid://bpui1a0v1vi24" path="res://resources/definitions/items/consumables/chest_key.tres" id="1_qyq0j"]
+[ext_resource type="Script" path="res://scripts/resources/Interactable_tile.gd" id="1_qysr0"]
+
+
+[resource]
+script = ExtResource("1_qysr0")
+interaction_name = "Chest"
+requires_item = true
+required_item_reference = ExtResource("1_qyq0j")
+gives_item = true
+intertable_tile_set_update_tile_index = Vector2i(-1, -1)
+moves_unit = false
+move_target_position = Vector2i(-1, -1)
+changes_terrain = false
+terrain_tile_set_update_tile_index = Vector2i(-1, -1)

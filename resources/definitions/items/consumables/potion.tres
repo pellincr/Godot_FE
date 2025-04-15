@@ -10,7 +10,7 @@ region = Rect2(32, 608, 32, 32)
 [resource]
 script = ExtResource("1_v88bw")
 use_effect = 0
-use_effect_power = 20
+use_effect_power = 15
 name = "Potion"
 db_key = "potion"
 equippable = false

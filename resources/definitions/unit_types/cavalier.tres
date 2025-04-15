@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bawxrbd0ffc4e" path="res://resources/sprites/units/archer_icon.tres" id="1_c7bgd"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/cav.png" id="2_qdx8r"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_2fwqa"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_2fwqa"]
 
 [resource]
 script = ExtResource("3_2fwqa")

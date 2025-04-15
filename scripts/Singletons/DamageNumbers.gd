@@ -1,5 +1,4 @@
 extends Node
-##const font = preload("res://resources/fonts/CrimsonText-Bold.ttf")
 const theme = preload("res://resources/themes/Damage_Numbers.tres")
 func display_number(value:int, position:Vector2, is_critical: bool = false):
 	var number = Label.new()

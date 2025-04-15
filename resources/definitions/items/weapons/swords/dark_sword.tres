@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b07cyd1bkl6wb"]
+
+[ext_resource type="Texture2D" uid="uid://br86gxv5jwd2r" path="res://resources/sprites/items/Swordtember_2024.png" id="1_bp32f"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_hq0um"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cs32"]
+atlas = ExtResource("1_bp32f")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_hq0um")
+weapon_type = "Sword"
+physical_weapon_triangle_type = "Sword"
+magic_weapon_triangle_type = "Dark"
+item_damage_type = 1
+item_scaling_type = 1
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 12
+hit = 65
+critical_chance = 0
+weight = 11
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+is_vampyric = true
+negates_defense = false
+name = "Life Drinker"
+db_key = "dark_sword"
+equippable = true
+description = ""
+item_type = 0
+uses = 12
+max_uses = 12
+value = 2
+icon = SubResource("AtlasTexture_8cs32")

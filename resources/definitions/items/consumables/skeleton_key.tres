@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=4 format=3 uid="uid://ywngwx7ftaom"]
+
+[ext_resource type="Texture2D" uid="uid://b8dt01ypfassm" path="res://resources/sprites/sheets/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="1_wyh6n"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_2ew3t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jbco"]
+atlas = ExtResource("1_wyh6n")
+region = Rect2(88, 231, 8, 8)
+
+[resource]
+script = ExtResource("2_2ew3t")
+use_effect = 2
+use_effect_power = 0
+name = "Key"
+db_key = "key"
+equippable = false
+description = ""
+item_type = 2
+uses = 5
+max_uses = 5
+value = 250
+icon = SubResource("AtlasTexture_0jbco")

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://cwiws7bsjnbyk"]
+
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_gkfxg"]
+[ext_resource type="Texture2D" uid="uid://b46kmti1805bn" path="res://resources/sprites/items/fire.png" id="1_twfyo"]
+
+[resource]
+script = ExtResource("1_gkfxg")
+weapon_type = "Anima"
+physical_weapon_triangle_type = "none"
+magic_weapon_triangle_type = "Nature"
+item_damage_type = 1
+item_scaling_type = 1
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 5
+hit = 80
+critical_chance = 0
+weight = 1
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
+name = "Fire"
+db_key = "fire_spell"
+equippable = true
+description = ""
+item_type = 0
+uses = 50
+max_uses = 50
+value = 35
+icon = ExtResource("1_twfyo")

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://cgnrhm33281oo"]
 
-[ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/cav.png" id="1_r0j03"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_ytx67"]
+[ext_resource type="Texture2D" uid="uid://b0gknjdusylln" path="res://resources/sprites/units/cavalier_axe.png" id="1_s1c08"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_ytx67"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1xi4h"]
-atlas = ExtResource("1_r0j03")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkv7o"]
+atlas = ExtResource("1_s1c08")
 region = Rect2(0, 0, 32, 16)
 
 [resource]
@@ -16,15 +16,15 @@ movement_class = 3
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[String]([])
-hp = 20
-strength = 4
+usable_weapon_types = Array[String](["Axe"])
+hp = 23
+strength = 6
 magic = 1
 skill = 3
-speed = 6
-luck = 0
-defense = 6
-magic_defense = 0
+speed = 5
+luck = 2
+defense = 3
+magic_defense = 1
 max_hp = 60
 max_strength = 20
 max_magic = 20
@@ -35,18 +35,18 @@ max_defense = 20
 max_magic_defense = 20
 movement = 7
 max_movement = 15
-constitution = 9
+constitution = 10
 max_constitution = 20
-aid = 9
+aid = 10
 initiative = 1
-hp_growth = 75
-strength_growth = 35
-magic_growth = 35
-skill_growth = 40
-speed_growth = 35
+hp_growth = 80
+strength_growth = 40
+magic_growth = 20
+skill_growth = 35
+speed_growth = 30
 luck_growth = 30
-defense_growth = 15
-magic_defense_growth = 10
+defense_growth = 25
+magic_defense_growth = 30
 hp_promo = 3
 strength_promo = 2
 magic_promo = 2
@@ -55,7 +55,7 @@ speed_promo = 2
 luck_promo = 0
 defense_promo = 2
 magic_defense_promo = 3
-icon = SubResource("AtlasTexture_1xi4h")
-map_sprite = ExtResource("1_r0j03")
+icon = SubResource("AtlasTexture_rkv7o")
+map_sprite = ExtResource("1_s1c08")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

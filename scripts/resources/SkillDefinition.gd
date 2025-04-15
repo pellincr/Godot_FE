@@ -1,7 +1,9 @@
 extends Resource
 class_name SkillDefinition
 
+
 @export var name: String
+@export var application_phase : String 
 @export var min_range: int
 @export var max_range: int
 @export var min_damage: int

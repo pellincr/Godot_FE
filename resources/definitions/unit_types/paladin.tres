@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://dvl8rqe6qcaqk"]
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_3n8h1"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_snxdd"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_snxdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y6otv"]
 atlas = ExtResource("1_3n8h1")
@@ -21,14 +21,14 @@ xp_worth = 4
 promoted = true
 unit_promoted_from_key = "mercenary"
 usable_weapon_types = Array[String](["Staff", "Axe"])
-hp = 34
-strength = 9
-magic = 8
-skill = 7
-speed = 11
+hp = 23
+strength = 7
+magic = 6
+skill = 3
+speed = 5
 luck = 0
-defense = 5
-magic_defense = 0
+defense = 9
+magic_defense = 8
 max_hp = 60
 max_strength = 27
 max_magic = 25

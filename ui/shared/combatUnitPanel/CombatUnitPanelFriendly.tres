@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://ddtfysfh2th3t"]
+
+[sub_resource type="Gradient" id="Gradient_5vujr"]
+offsets = PackedFloat32Array(0, 0.165432, 0.718518, 0.995062)
+colors = PackedColorArray(0.133333, 0.517647, 0.72549, 1, 0.0941176, 0.427451, 0.67451, 1, 0.0941176, 0.152941, 0.247059, 1, 0.0941176, 0.152941, 0.247059, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jdqu0"]
+gradient = SubResource("Gradient_5vujr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssicp"]
+texture = SubResource("GradientTexture1D_jdqu0")
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ssicp")

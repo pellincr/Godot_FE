@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://buok3w7e38h17"]
+
+[ext_resource type="Script" path="res://ui/combat/option_container/inventory_options_container.gd" id="1_2koql"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="1_48pqp"]
+[ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="2_xyuu1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3pshd"]
+bg_color = Color(0, 0.380392, 0.313726, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.392157, 1, 0.737255, 1)
+border_blend = true
+shadow_color = Color(0.392157, 1, 0.737255, 1)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk3ir"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_auf1v"]
+Button/fonts/font = ExtResource("2_xyuu1")
+Button/styles/hover = SubResource("StyleBoxFlat_3pshd")
+Button/styles/normal = SubResource("StyleBoxFlat_dk3ir")
+
+[node name="InventoryOptionsContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2koql")
+
+[node name="Container" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 148.0
+offset_bottom = 102.0
+theme = ExtResource("1_48pqp")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="Container"]
+layout_mode = 2
+theme = ExtResource("1_48pqp")
+
+[node name="Panel" type="Panel" parent="Container/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_48pqp")
+
+[node name="CenterContainer" type="CenterContainer" parent="Container/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="Container/PanelContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme = SubResource("Theme_auf1v")
+text = "Action"
+
+[node name="Button2" type="Button" parent="Container/PanelContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme = SubResource("Theme_auf1v")
+text = "Discard"

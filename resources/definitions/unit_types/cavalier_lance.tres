@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bawxrbd0ffc4e" path="res://resources/sprites/units/archer_icon.tres" id="1_5ekj8"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/cav.png" id="2_ggx6t"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_5kmpg"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_5kmpg"]
 
 [resource]
 script = ExtResource("3_5kmpg")
@@ -13,15 +13,15 @@ movement_class = 3
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([2])
+usable_weapon_types = Array[String](["Lance"])
 hp = 20
 strength = 5
 magic = 1
-skill = 2
+skill = 4
 speed = 5
 luck = 0
-defense = 6
-magic_defense = 0
+defense = 4
+magic_defense = 2
 max_hp = 60
 max_strength = 20
 max_magic = 20
@@ -37,10 +37,10 @@ max_constitution = 20
 aid = 9
 initiative = 1
 hp_growth = 75
-strength_growth = 35
+strength_growth = 40
 magic_growth = 20
 skill_growth = 40
-speed_growth = 30
+speed_growth = 35
 luck_growth = 30
 defense_growth = 15
 magic_defense_growth = 10

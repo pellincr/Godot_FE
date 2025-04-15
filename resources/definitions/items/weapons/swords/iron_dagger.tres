@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bq66blietc0ie"]
+
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_671sx"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_pm2vl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu0c5"]
+atlas = ExtResource("1_671sx")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_pm2vl")
+weapon_type = "Sword"
+physical_weapon_triangle_type = "Sword"
+magic_weapon_triangle_type = "none"
+item_damage_type = 0
+item_scaling_type = 0
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 3
+hit = 85
+critical_chance = 25
+weight = 5
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+applies_status_effect = false
+negates_defense = true
+name = "Iron Dagger"
+db_key = "iron_dagger"
+equippable = true
+description = ""
+item_type = 0
+uses = 30
+max_uses = 30
+value = 2
+icon = SubResource("AtlasTexture_bu0c5")

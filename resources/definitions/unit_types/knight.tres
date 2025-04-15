@@ -2,18 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://cw0kpurie5xc0" path="res://resources/sprites/units/knight_map.tres" id="1_1opyh"]
 [ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="2_b0luc"]
-[ext_resource type="Script" path="res://scripts/resources/UnitTypeDefinition.gd" id="3_b62f6"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_b62f6"]
 
 [resource]
 script = ExtResource("3_b62f6")
 unit_type_name = "Lance Armor"
 db_key = "armor_lance"
 class_type = Array[String](["Armored"])
-movement_class = 0
+movement_class = 2
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[String]([])
+usable_weapon_types = Array[String](["Lance"])
 hp = 17
 strength = 5
 magic = 0

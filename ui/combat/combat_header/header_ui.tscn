@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://yyhqghprxfs0"]
+
+[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_ia6d3"]
+[ext_resource type="Texture2D" uid="uid://debjqn53c6k7n" path="res://resources/sprites/icons/Group 133.svg" id="2_526yx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykce7"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.607843, 0.607843, 0.607843, 1)
+
+[sub_resource type="Theme" id="Theme_7pnet"]
+default_font = ExtResource("1_ia6d3")
+Panel/styles/panel = SubResource("StyleBoxFlat_ykce7")
+
+[sub_resource type="Theme" id="Theme_wbsxf"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(1152, 45)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme = SubResource("Theme_7pnet")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 40.0
+
+[node name="InfoMarginBox" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/InfoMarginBox"]
+layout_mode = 2
+theme = SubResource("Theme_wbsxf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/InfoMarginBox/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoMarginBox/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_526yx")
+expand_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/InfoMarginBox/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Attack with equpped weapon or use skills. Useable once per turn."
+
+[node name="ControlsMarginBox" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ControlsContainer" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox"]
+layout_mode = 2
+
+[node name="Control3" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control3"]
+layout_mode = 2
+texture = ExtResource("2_526yx")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control3"]
+layout_mode = 2
+text = "Select"
+
+[node name="Control2" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control2"]
+layout_mode = 2
+texture = ExtResource("2_526yx")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control2"]
+layout_mode = 2
+text = "Cycle Units
+"
+
+[node name="Control1" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
+layout_mode = 2
+texture = ExtResource("2_526yx")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
+layout_mode = 2
+text = "Detail"

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://cfthr218hd6sv"]
+
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_jgy1u"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_himsa"]
+load_path = "res://.godot/imported/tiles.png-4d8c0dcb59daedc083889c16e6595f84.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhu4e"]
+atlas = SubResource("CompressedTexture2D_himsa")
+region = Rect2(256, 192, 32, 32)
+
+[resource]
+script = ExtResource("1_jgy1u")
+name = "Chest"
+db_key = "chest"
+type = Array[int]([0])
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+magic_defense = 0
+avoid = 5
+active_effect_phases = ""
+effect = 0
+effect_weight = 4
+tile_texture = SubResource("AtlasTexture_jhu4e")

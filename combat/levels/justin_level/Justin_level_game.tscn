@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://biqktpeoexx8"]
+
+[ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_0ohgj"]
+[ext_resource type="PackedScene" uid="uid://bnehnessek60a" path="res://combat/levels/justin_level/terrain.tscn" id="2_0r1md"]
+[ext_resource type="Script" path="res://combat/CController.gd" id="4_pshjb"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="5_bkcf8"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_ynwqw"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_fbusl"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="8_mhdl8"]
+
+[node name="Game" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+position = Vector2(356, 302)
+zoom = Vector2(2, 2)
+script = ExtResource("1_0ohgj")
+map = NodePath("../Terrain")
+
+[node name="Terrain" parent="." instance=ExtResource("2_0r1md")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+texture_filter = 1
+script = ExtResource("4_pshjb")
+combat = NodePath("../Combat")
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller")]
+script = ExtResource("5_bkcf8")
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("6_ynwqw")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("7_fbusl")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller") instance=ExtResource("8_mhdl8")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="target_detailed_info" from="Controller" to="CanvasLayer/UI" method="_target_detailed_info"]
+[connection signal="combatant_added" from="Combat" to="Controller" method="combatant_added"]
+[connection signal="combatant_added" from="Combat" to="CanvasLayer/UI" method="add_combatant_status"]
+[connection signal="combatant_died" from="Combat" to="Controller" method="combatant_died"]
+[connection signal="combatant_died" from="Combat" to="CanvasLayer/UI" method="combatant_died"]
+[connection signal="major_action_completed" from="Combat" to="Controller" method="_on_visual_combat_major_action_completed"]
+[connection signal="minor_action_completed" from="Combat" to="Controller" method="_on_visual_combat_minor_action_completed"]
+[connection signal="turn_advanced" from="Combat" to="Controller" method="advance_turn"]
+[connection signal="turn_advanced" from="Combat" to="Controller" method="set_controlled_combatant"]
+[connection signal="turn_advanced" from="Combat" to="CanvasLayer/UI" method="show_combatant_status_main"]
+[connection signal="update_combatants" from="Combat" to="CanvasLayer/UI" method="update_combatants"]
+[connection signal="update_information" from="Combat" to="CanvasLayer/UI" method="update_information"]
+[connection signal="update_turn_queue" from="Combat" to="CanvasLayer/UI" method="update_turn_queue"]
+[connection signal="combat_exchange_finished" from="Combat/CombatExchange" to="Controller" method="_on_combat_exchange_combat_exchange_finished"]
+[connection signal="unit_defeated" from="Combat/CombatExchange" to="Combat" method="combatant_die"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

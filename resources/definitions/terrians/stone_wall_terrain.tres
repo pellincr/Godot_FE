@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://335btf4puav"]
 
-[ext_resource type="Script" path="res://scripts/resources/Terrain.gd" id="1_n0ra4"]
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_n0ra4"]
 
 [resource]
 script = ExtResource("1_n0ra4")
@@ -8,7 +8,7 @@ name = "Stone Wall"
 db_key = "stone_wall"
 type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 1, 0])
-blocks = Array[int]([0, 1, 2, 3])
+blocks = Array[int]([0, 1, 2, 3, 4])
 strength = 0
 magic = 0
 skill = 0

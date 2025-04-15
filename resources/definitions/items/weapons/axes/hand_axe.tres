@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://xw5blar04bqb"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://xw5blar04bqb"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_s0bh1"]
+[ext_resource type="Texture2D" uid="uid://dnckbxrnna2l1" path="res://resources/sprites/items/hand_axe.png" id="1_eb7qe"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_2ad6o"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_er04g"]
-atlas = ExtResource("1_s0bh1")
-region = Rect2(96, 132, 32, 32)
 
 [resource]
 script = ExtResource("2_2ad6o")
@@ -18,12 +14,13 @@ item_target_faction = 0
 required_mastery = 1
 attack_range = Array[int]([1, 2])
 damage = 7
-hit = 60
+hit = 65
 critical_chance = 0
 weight = 12
 weapon_effectiveness = Array[String]([])
 weapon_hit_effect = 0
 is_wpn_triangle_effective = false
+crit_disabled = false
 is_brave = false
 applies_status_effect = false
 negates_defense = false
@@ -35,4 +32,4 @@ item_type = 0
 uses = 20
 max_uses = 20
 value = 4
-icon = SubResource("AtlasTexture_er04g")
+icon = ExtResource("1_eb7qe")

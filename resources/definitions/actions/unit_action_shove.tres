@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="UnitAction" load_steps=2 format=3 uid="uid://ogyrt7f2pryr"]
 
-[ext_resource type="Script" path="res://scripts/resources/UnitAction.gd" id="1_lviu6"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/UnitAction.gd" id="1_lviu6"]
+
 
 [resource]
 script = ExtResource("1_lviu6")

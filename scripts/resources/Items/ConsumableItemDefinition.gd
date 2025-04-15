@@ -5,7 +5,8 @@ class_name ConsumableItemDefinition
 enum USE_EFFECTS
 {
 	HEAL,
-	STAT_BONUS
+	STAT_BONUS,
+	KEY
 }
 
 

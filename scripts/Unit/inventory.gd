@@ -25,7 +25,6 @@ func get_available_attack_ranges()-> Array[int]:
 								ranges.append(attack_range)
 	return ranges
 
-
 func get_available_support_ranges()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:
@@ -53,10 +52,8 @@ func get_available_weapons_at_attack_range(attack_range: int) -> Array[ItemDefin
 func is_full() -> bool:
 	if (items.size() < capacity) :
 		return false 
-	for item in items:
-		if item == null :
-			return true
-	return false
+	else :
+		return true
 
 func is_empty() -> bool:
 	if items.is_empty() :
@@ -86,6 +83,12 @@ func get_weapons() -> Array[WeaponDefinition]:
 func get_stalves():
 	pass
 
+func has(item: ItemDefinition) -> bool:
+	for i in items:
+		if i.db_key == item.db_key:
+			return true
+	return false
+	
 func get_item_index(item: ItemDefinition)-> int:
 	for index in items.size():
 		if items[index] == item:
@@ -104,8 +107,12 @@ static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inven
 			inv.give_item(item)
 	return inv
 
-func discard_at_index(index : int):
-	items.remove_at(index)
+func discard_at_index(index : int) -> bool:
+	if(index < items.size() - 1):
+		items.remove_at(index)
+		return true
+	else: 
+		return false
 
 func discard_item(target_item: ItemDefinition):
 	items.erase(target_item)
@@ -131,3 +138,8 @@ func swap_at_indexes(index_a:int , index_b : int):
 func replace_item_at_index(index:int, item: ItemDefinition):
 	items.insert(index,item)
 	items.remove_at(index + 1)
+
+func get_item(index:int) -> ItemDefinition:
+	if index < items.size():
+		return items[index]
+	return null

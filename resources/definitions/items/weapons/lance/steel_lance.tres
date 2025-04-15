@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b75qqxpr2a6kk"]
+
+[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_sqncu"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ak3br"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53iny"]
+atlas = ExtResource("1_sqncu")
+region = Rect2(64, 160, 32, 32)
+
+[resource]
+script = ExtResource("2_ak3br")
+weapon_type = "Lance"
+physical_weapon_triangle_type = "Lance"
+magic_weapon_triangle_type = "none"
+item_damage_type = 0
+item_scaling_type = 0
+item_target_faction = 0
+required_mastery = 0
+attack_range = Array[int]([1])
+damage = 10
+hit = 65
+critical_chance = 0
+weight = 11
+weapon_effectiveness = Array[String]([])
+weapon_hit_effect = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+applies_status_effect = false
+negates_defense = false
+name = "Steel Lance"
+db_key = "steel_lance"
+equippable = true
+description = ""
+item_type = 0
+uses = 30
+max_uses = 30
+value = 2
+icon = SubResource("AtlasTexture_53iny")

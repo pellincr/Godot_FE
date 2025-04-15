@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://dhktt6miqvgpr"]
+
+[ext_resource type="Texture2D" uid="uid://h8hi7ao84nfh" path="res://resources/sprites/units/warrior_icon.tres" id="1_641kw"]
+[ext_resource type="Texture2D" uid="uid://dobcmnxgnliam" path="res://resources/sprites/units/warrior_map.tres" id="2_euel7"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_ho515"]
+
+
+[resource]
+script = ExtResource("3_ho515")
+unit_type_name = "Wall"
+db_key = "wall"
+class_type = Array[String](["Infantry"])
+movement_class = 0
+xp_worth = 1
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[String]([])
+hp = 30
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+magic_defense = 0
+max_hp = 100
+max_strength = 30
+max_magic = 30
+max_skill = 26
+max_speed = 24
+max_luck = 30
+max_defense = 28
+max_magic_defense = 20
+movement = 1
+max_movement = 1
+constitution = 1
+max_constitution = 1
+aid = 1
+initiative = 1
+hp_growth = 0
+strength_growth = 0
+magic_growth = 0
+skill_growth = 0
+speed_growth = 0
+luck_growth = 0
+defense_growth = 0
+magic_defense_growth = 0
+hp_promo = 10
+strength_promo = 5
+magic_promo = 0
+skill_promo = 0
+speed_promo = 0
+luck_promo = 0
+defense_promo = 0
+magic_defense_promo = 0
+icon = ExtResource("1_641kw")
+map_sprite = ExtResource("2_euel7")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
