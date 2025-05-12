@@ -1,7 +1,9 @@
 extends Resource
-
 class_name CombatUnit
-
+##
+# The combat unit class intakes a unit and stores the data necessary to
+# perform in the combat scene
+##
 enum Group
 {
 	PLAYERS,
@@ -10,6 +12,7 @@ enum Group
 	NOMAD
 }
 
+var uid: String
 var alive : bool
 var turn_taken : bool = false
 var major_action_taken : bool = false
@@ -29,6 +32,7 @@ var map_display : CombatUnitDisplay
 var allegience : Constants.FACTION
 var ai_type: Constants.UNIT_AI_TYPE
 var is_boss: bool = false
+var drops_item : bool = false
 
 static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> CombatUnit:
 	var instance = CombatUnit.new()

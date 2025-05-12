@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd8lsd4iv3lkm"]
+
+[ext_resource type="Texture2D" uid="uid://b25foibqfbl1p" path="res://resources/sprites/icons/controls/pc/dark/key/alphanum/_/q.svg" id="1_j1waf"]
+[ext_resource type="Script" path="res://ui/combat/combat_header/button_action_info.gd" id="1_wfdo3"]
+
+[node name="button_action_info" type="HBoxContainer"]
+script = ExtResource("1_wfdo3")
+
+[node name="ButtonPromptIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_j1waf")
+expand_mode = 2
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 2
+text = "Unit Details"

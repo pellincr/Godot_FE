@@ -1,7 +1,7 @@
 extends Control
 class_name DiscardItemInventory
 
-var inventory: Array[ItemDefinition]
+@export var inventory: Array[ItemDefinition]
 var index : int
 
 func get_inventory_container_children() -> Array[Node]:

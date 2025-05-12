@@ -2,7 +2,7 @@ extends CombatMapEntity
 class_name CombatMapDoorEntity
 
 @export var required_item : Array[ItemDefinition] = [preload("res://resources/definitions/items/consumables/skeleton_key.tres")]
-#Create an entity group?
+#Create an entity group? --> use a dictionary of items
 @export var entity_position_group : Array[Vector2i]
 #@export var mov_blocks : Array[UnitTypeDefinition.unit_movement_classes] = [UnitTypeDefinition.unit_movement_classes.Generic,UnitTypeDefinition.unit_movement_classes.Mobile,
 #UnitTypeDefinition.unit_movement_classes.Heavy, UnitTypeDefinition.unit_movement_classes.Mounted,UnitTypeDefinition.unit_movement_classes.Flying]

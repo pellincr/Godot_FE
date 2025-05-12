@@ -13,6 +13,11 @@
 
 [node name="Game" type="Node"]
 
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+texture_filter = 1
+script = ExtResource("4_38u5s")
+combat = NodePath("../Combat")
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
 position = Vector2(356, 302)
 zoom = Vector2(3, 3)
@@ -24,11 +29,6 @@ map = NodePath("../Terrain")
 [node name="Select" type="Sprite2D" parent="Terrain"]
 position = Vector2(272, 208)
 texture = ExtResource("2_icbvx")
-
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
-texture_filter = 1
-script = ExtResource("4_38u5s")
-combat = NodePath("../Combat")
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_cujqt")

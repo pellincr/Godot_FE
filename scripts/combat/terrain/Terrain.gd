@@ -16,10 +16,11 @@ enum TERRAIN_EFFECTS {
 @export_enum("Basic", "Nature") var type : Array[int] = [0]
 
 
-@export_group("Cost")
+@export_group("Unit Movement")
 @export  var cost : Array[int] = [1,1,1,1,1]
 @export_enum("Generic", "Mobile", "Heavy", "Mounted", "Flying") var blocks : Array[int] = []
 @export_category("Stats Bonuses")
+@export  var stat_bonuses : Array[UnitStatBonus] = []
 @export var strength = 0
 @export var magic = 0
 @export var skill = 0

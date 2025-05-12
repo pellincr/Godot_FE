@@ -33,7 +33,7 @@ var groups = [
 	[], #players
 	[], #enemies
 	[], #FRIENDLY
-	[],  #NOMAD
+	[], #NOMAD
 	[] #Terrain
 ]
 var unit_groups = [
@@ -69,9 +69,6 @@ func _ready():
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
-	iventory_array.insert(1, ItemDatabase.items["iron_sword"])
-	#iventory_array.insert(2, ItemDatabase.items["bolting"])
-	iventory_array.insert(3, ItemDatabase.items["key"])
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,9),0), Vector2i(7,14))
 	iventory_array.clear()
@@ -94,7 +91,7 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
 	iventory_array.insert(1, ItemDatabase.items["silver_axe"])
 	iventory_array.insert(1, ItemDatabase.items["hand_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Devin", 4,11, false), 0), Vector2i(8,14))
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Devin", 4,40, false), 0), Vector2i(8,14))
 	iventory_array.clear()
 	iventory_array.append(ItemDatabase.items["iron_lance"])
 	iventory_array.append(ItemDatabase.items["javelin"])
@@ -167,8 +164,8 @@ func _ready():
 	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(14,21))
 	iventory_array.clear()
-	iventory_array.insert(2, ItemDatabase.items["bolting"])
-	iventory_array.insert(0, ItemDatabase.items["fiend_fire"])
+	iventory_array.insert(0, ItemDatabase.items["bolting"])
+	iventory_array.insert(1, ItemDatabase.items["fiend_fire"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Gemni", 12,15, true), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false, true), Vector2i(10,24))
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
@@ -190,7 +187,6 @@ func load_entities():
 	if mapEntityData != null:
 		for entity in mapEntityData.entities:
 			add_entity(entity)
-		
 
 func spawn_reinforcements(turn_number : int):
 	if mapReinforcementData:
@@ -295,7 +291,6 @@ func Attack(attacker: CombatUnit, target: CombatUnit):
 	print("Entered Attack in Combat.gd")
 	await perform_attack(attacker, target)
 
-#trade
 func Trade(unit: CombatUnit, target: CombatUnit):
 	print("Entered Trade in Combat.gd")
 	combat_unit_item_manager.trade(unit, target)
@@ -355,8 +350,6 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 	complete_unit_turn()
 	major_action_complete()
 
-	
-	
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
 
@@ -367,6 +360,7 @@ func advance_turn(faction: int):
 			if combatants[entry]:
 				combatants[entry].refresh_unit()
 				combatants[entry].map_display.update_values()
+
 func major_action_complete():
 	
 	emit_signal("major_action_completed")
@@ -433,6 +427,7 @@ func ai_process(comb : CombatUnit):
 	return	 
 	
 	#Process does the legwork for targetting for AI
+
 func ai_process_new(comb : CombatUnit):
 	print("In ai_process_new combat.gd")
 	var action : aiAction = await controller.ai_process_new(comb)
@@ -515,7 +510,7 @@ func ai_get_best_attack_action(ai_unit: CombatUnit, distance: int, target:Combat
 				best_action = action
 		print("@ BEST ATTACK RATING CALC : " + str(best_action.rating))
 	return best_action
-	
+
 func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit):
 	## get weapon options
 	var usable_weapons : Array[WeaponDefinition] =  comb.unit.get_usable_weapons_at_range(get_distance(comb, target))

@@ -1,6 +1,31 @@
-[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://psk2h1mn514a"]
+[gd_resource type="Resource" script_class="Terrain" load_steps=6 format=3 uid="uid://psk2h1mn514a"]
 
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_scw58"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat_bonus.gd" id="2_kbvrw"]
+
+[sub_resource type="Resource" id="Resource_us7yg"]
+script = ExtResource("2_kbvrw")
+stat = "Avoid"
+weight = 30
+scaling_type = "Flat"
+source = "Throne"
+source_type = "Terrain"
+
+[sub_resource type="Resource" id="Resource_qj448"]
+script = ExtResource("2_kbvrw")
+stat = "Defense"
+weight = 3
+scaling_type = "Flat"
+source = "Throne"
+source_type = "Terrain"
+
+[sub_resource type="Resource" id="Resource_ioxpd"]
+script = ExtResource("2_kbvrw")
+stat = "Magic Defense"
+weight = 3
+scaling_type = "Flat"
+source = "Throne"
+source_type = "Terrain"
 
 [resource]
 script = ExtResource("1_scw58")
@@ -9,6 +34,7 @@ db_key = "throne"
 type = Array[int]([0])
 cost = Array[int]([2, 2, 3, 3, 1])
 blocks = Array[int]([])
+stat_bonuses = Array[ExtResource("2_kbvrw")]([SubResource("Resource_us7yg"), SubResource("Resource_qj448"), SubResource("Resource_ioxpd")])
 strength = 0
 magic = 0
 skill = 0

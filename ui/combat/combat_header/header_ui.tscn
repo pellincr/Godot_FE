@@ -1,7 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://yyhqghprxfs0"]
+[gd_scene load_steps=10 format=3 uid="uid://yyhqghprxfs0"]
 
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_ia6d3"]
-[ext_resource type="Texture2D" uid="uid://debjqn53c6k7n" path="res://resources/sprites/icons/Group 133.svg" id="2_526yx"]
+[ext_resource type="PackedScene" uid="uid://bd8lsd4iv3lkm" path="res://ui/combat/combat_header/button_action_info.tscn" id="2_5r7ep"]
+[ext_resource type="Texture2D" uid="uid://xrkb676r4sne" path="res://resources/sprites/icons/controls/pc/dark/key/legacy/_/escape.svg" id="3_86fx6"]
+[ext_resource type="Texture2D" uid="uid://bu0qve7p68fd6" path="res://resources/sprites/icons/controls/pc/dark/mouse/lb.svg" id="3_hcc1s"]
+[ext_resource type="Texture2D" uid="uid://cs7y22tj8bdnb" path="res://resources/sprites/icons/controls/pc/dark/mouse/rb.svg" id="4_ibljo"]
+[ext_resource type="Texture2D" uid="uid://bg4ygranurfp3" path="res://resources/sprites/icons/controls/pc/dark/mouse/vscroll.svg" id="4_scyx5"]
+[ext_resource type="Texture2D" uid="uid://byb3kcfa56dsl" path="res://resources/sprites/icons/controls/pc/dark/key/alphanum/_/r.svg" id="5_wkpm6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykce7"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -14,64 +19,77 @@ border_color = Color(0.607843, 0.607843, 0.607843, 1)
 default_font = ExtResource("1_ia6d3")
 Panel/styles/panel = SubResource("StyleBoxFlat_ykce7")
 
-[sub_resource type="Theme" id="Theme_wbsxf"]
-
-[node name="Control" type="Control"]
+[node name="CombatHeader" type="Control"]
 custom_minimum_size = Vector2(1152, 45)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 37.0
+offset_bottom = 45.0
 grow_horizontal = 2
 theme = SubResource("Theme_7pnet")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 1150.0
-offset_bottom = 40.0
-
-[node name="InfoMarginBox" type="MarginContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/InfoMarginBox"]
-layout_mode = 2
-theme = SubResource("Theme_wbsxf")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/InfoMarginBox/PanelContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoMarginBox/PanelContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_526yx")
-expand_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/InfoMarginBox/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Attack with equpped weapon or use skills. Useable once per turn."
+offset_bottom = 41.0
+alignment = 2
 
 [node name="ControlsMarginBox" type="MarginContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 2
 
 [node name="ControlsContainer" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox"]
 layout_mode = 2
+
+[node name="Control5" parent="HBoxContainer/ControlsMarginBox/ControlsContainer" instance=ExtResource("2_5r7ep")]
+layout_mode = 2
+
+[node name="Control6" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control6"]
+layout_mode = 2
+texture = ExtResource("3_86fx6")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control6"]
+layout_mode = 2
+text = "Menu"
+
+[node name="Control4" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control4"]
+layout_mode = 2
+texture = ExtResource("4_scyx5")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control4"]
+layout_mode = 2
+text = "Zoom"
+
+[node name="Control1" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
+layout_mode = 2
+
+[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
+layout_mode = 2
+texture = ExtResource("5_wkpm6")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
+layout_mode = 2
+text = "Details"
 
 [node name="Control3" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
 layout_mode = 2
 
 [node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control3"]
 layout_mode = 2
-texture = ExtResource("2_526yx")
+texture = ExtResource("3_hcc1s")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control3"]
@@ -83,22 +101,9 @@ layout_mode = 2
 
 [node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control2"]
 layout_mode = 2
-texture = ExtResource("2_526yx")
+texture = ExtResource("4_ibljo")
 expand_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control2"]
 layout_mode = 2
-text = "Cycle Units
-"
-
-[node name="Control1" type="HBoxContainer" parent="HBoxContainer/ControlsMarginBox/ControlsContainer"]
-layout_mode = 2
-
-[node name="ButtonIcon" type="TextureRect" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
-layout_mode = 2
-texture = ExtResource("2_526yx")
-expand_mode = 2
-
-[node name="Label" type="Label" parent="HBoxContainer/ControlsMarginBox/ControlsContainer/Control1"]
-layout_mode = 2
-text = "Detail"
+text = "Cancel"

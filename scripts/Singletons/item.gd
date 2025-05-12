@@ -30,6 +30,8 @@ var attack_range : Array[int]
 var class_locked: bool
 var locked_class_name : String
 
+var effects : Array[UnitStatBonus]
+
 var damage : int
 var hit : int
 var critical_chance : int

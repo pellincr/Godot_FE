@@ -115,6 +115,9 @@ var move_range : PackedVector2Array
 var attack_range : PackedVector2Array
 var skill_range : PackedVector2Array 
 
+#Player Variables
+var current_tile_position: Vector2i
+
 #SM variables 
 var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
 var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
@@ -126,14 +129,8 @@ var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
 var turn_count : int = 1
 
 func _ready():
-	#configure _astargrid
 	tile_map = get_node("../Terrain/TileMap")
-	_astargrid.region = Rect2i(0, 0, 18, 26)
-	_astargrid.cell_size = Vector2i(32, 32)
-	_astargrid.offset = Vector2(16, 16)
-	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-	_astargrid.update()
+	initialize_grid()
 	#Auto Wire combat signals for modularity
 	combat.connect("perform_shove", perform_shove)
 	combat.connect("combatant_added", combatant_added)
@@ -142,11 +139,21 @@ func _ready():
 	combat.connect("minor_action_completed", _on_visual_combat_minor_action_completed)
 	combat.connect("turn_advanced", advance_turn)
 	#combat.combatExchange.connect("combat_exchange_finished", _on_combat)
-	#build blocking spaces arrays
+	#build blocking spaces arrays 
 	for tile in tile_map.get_used_cells(0):
 		update_blocking_space_at_tile(tile)
 	#Once Game initialization is complete begin player turn
 	game_state = Constants.GAME_STATE.PLAYER_TURN
+	print("VECTOR TO STRING : " + str(Vector2i(0,0)))
+
+func initialize_grid():
+	#configure _astargrid
+	_astargrid.region = tile_map.get_used_rect()
+	_astargrid.cell_size = Vector2i(32, 32)
+	_astargrid.offset = Vector2(16, 16)
+	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	_astargrid.update()
 
 func update_blocking_space_at_tile(tile:Vector2i):
 	if get_terrain_at_map_position(tile):
@@ -173,13 +180,11 @@ func process_ui_confirm_inputs(delta):
 				##Player selects a unit
 				var selected_unit = get_combatant_at_position(mouse_position_i)
 				if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
+					combat.game_ui.hide_end_turn_button()
 					combat.game_ui.play_menu_confirm()
+					set_controlled_combatant(selected_unit)
 					if selected_unit.allegience == 0:
-						set_controlled_combatant(selected_unit)
-						combat.game_ui.hide_end_turn_button()
 						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
-					else : 
-						pass 
 			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
 				combat.game_ui.play_menu_confirm()
 				## Players selects a move
@@ -231,8 +236,6 @@ func process_ui_confirm_inputs(delta):
 							print("Invalid Target")
 							comb = null
 							pass
-		else :
-			return
 
 func process_ui_cancel_inputs(delta):
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
@@ -245,6 +248,7 @@ func process_ui_cancel_inputs(delta):
 					target_detailed_info.emit(null)
 					unit_detail_open = false
 			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
+				clear_combatant_ranges()
 				_action_tiles.clear()
 				update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
@@ -298,51 +302,7 @@ func _unhandled_input(event):
 			var mouse_position = get_global_mouse_position()
 			var mouse_position_i = tile_map.local_to_map(mouse_position)
 			get_tile_info(mouse_position_i)
-			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
-				if event is InputEventMouseButton:
-					## Select Unit
-					if event.button_index == MOUSE_BUTTON_LEFT:
-						if event.is_released():
-							##Player selects a unit
-							var selected_unit = get_combatant_at_position(mouse_position_i)
-							if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
-								combat.game_ui.play_menu_confirm()
-								if selected_unit.allegience == 0:
-									set_controlled_combatant(selected_unit)
-									combat.game_ui.hide_end_turn_button()
-									update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
-								else : 
-									pass 
-					## Display info Panel
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-						var comb = get_combatant_at_position(mouse_position_i)
-						if comb != null and comb.alive:
-							target_detailed_info.emit(comb)
-							unit_detail_open = true
-						elif unit_detail_open:
-							target_detailed_info.emit(null)
-							unit_detail_open = false
-			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
-				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_LEFT:
-						if event.is_released():
-							combat.game_ui.play_menu_confirm()
-							## Players selects a move
-							if _arrived == true:
-								if mouse_position_i != combat.get_current_combatant().map_tile.position:
-									if not _occupied_spaces.has(mouse_position_i):
-										if not _blocking_spaces[combat.get_current_combatant().unit.movement_class].has(mouse_position_i):
-											move_player()
-								else :
-									combat.get_current_combatant().move_tile.position = combat.get_current_combatant().map_tile.position
-									combat.get_current_combatant().move_tile.terrain = combat.get_current_combatant().map_tile.terrain
-									#finished_move.emit()
-									combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
-									update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-						if event.is_released():
-							_action_tiles.clear()
-							update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
+			if player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
 				if event is InputEventMouseMotion:
 					if _arrived == true:
 						find_path(mouse_position_i)
@@ -360,74 +320,15 @@ func _unhandled_input(event):
 						else:
 							_attack_target_position = null
 							_blocked_target_position = null
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-							if event.is_released():
-								combat.game_ui.play_menu_back()
-								if (_arrived):
-									combat.game_ui.hide_action_list()
-									##MOVE THE UNIT BACK 
-									if combat.get_current_combatant().map_tile.position != combat.get_current_combatant().move_tile.position:
-										find_path(combat.get_current_combatant().map_tile.position)
-										return_player()
-									else : 
-										#finished_move.emit()
-										_arrived = true
-										movement = combat.get_current_combatant().unit.movement
-										update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
-				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-						combat.complete_trade()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
-				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-						if event.is_released():
-							if(_action == ITEM_ACTION):
-								combat.game_ui.remove_inventory_options_container()
-								combat.game_ui.enable_inventory_list_butttons()
-							revert_action_flow()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
-				if event is InputEventMouseButton:
-					if event.button_index == MOUSE_BUTTON_RIGHT:
-						if event.is_released():
-							combat.game_ui.hide_attack_action_inventory()
-							combat.game_ui.hide_action_inventory()
-							revert_action_flow()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
-					if event is InputEventMouseButton:
-						if event.button_index == MOUSE_BUTTON_LEFT:
-							if event.is_released():
-								if _action_selected == true and _action.requires_target == true:
-									##Targeting
-									var comb = get_combatant_at_position(mouse_position_i)
-									if comb != null and comb.alive:
-										if _action_valid_targets.has(comb):
-											combat.game_ui.hide_unit_combat_exchange_preview()
-											combat.get_current_combatant().map_tile.position = combat.get_current_combatant().move_tile.position
-											combat.get_current_combatant().map_tile.terrain = get_terrain_at_map_position(combat.get_current_combatant().map_tile.position)
-											action_target_selected(comb)
-										else:
-											print("Invalid Target")
-											comb = null
-											pass
-						if event.button_index == MOUSE_BUTTON_RIGHT:
-							if event.is_released():
-								combat.game_ui.play_menu_back()
-								combat.game_ui.hide_unit_combat_exchange_preview()
-								revert_action_flow()
-		else :
-			return
 
 #process called on frame
 func _process(delta):
 	if Input:
-		if Input.is_action_pressed("ui_confirm"):
+		if Input.is_action_just_pressed("map_confirm"):
 			process_ui_confirm_inputs(delta)
-		elif Input.is_action_pressed("ui_cancel"):
+		elif Input.is_action_just_pressed("map_cancel"):
 			process_ui_cancel_inputs(delta)
-		elif Input.is_action_just_pressed("ui_info"):
+		elif Input.is_action_just_pressed("ui_select"):
 			process_ui_info_inputs(delta)
 	queue_redraw()
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
@@ -563,9 +464,11 @@ func _draw():
 	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
 		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
 			if(combat.get_current_combatant()):
-				draw_comb_range(combat.get_current_combatant())
 				draw_ranges(move_range, true, attack_range,true, skill_range, true)
 				drawSelectedpath()
+		elif(player_state == Constants.PLAYER_STATE.UNIT_SELECT):
+			if(combat.get_current_combatant()):
+				draw_ranges(move_range, true, attack_range,true, skill_range, true)
 		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
 			draw_action_tiles(_action_tiles, _action)
 
@@ -825,7 +728,6 @@ func drawSelectedpath():
 				break
 			draw_texture(PATH_TEXTURE, point - Vector2(16, 16), draw_color)
 
-
 ##Use DFS to retrieve the available cells from an origin point
 func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 	var _return_array : PackedVector2Array
@@ -859,7 +761,7 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 					if _astargrid.is_in_boundsv(target_tile):
 						if(effected_by_terrain) :
 							#should we even be considering this tile?
-							if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+							if not ( _occupied_spaces.has(target_tile) and get_combatant_at_position(target_tile).allegience != combat.get_current_combatant().allegience):
 								var target_tile_cost = get_tile_cost(target_tile)
 								remaining_range = range - target_tile_cost 
 								if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
@@ -899,7 +801,7 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+						if not ( _occupied_spaces.has(target_tile) and get_combatant_at_position(target_tile).allegience != combat.get_current_combatant().allegience):
 							var target_tile_cost = get_tile_cost(target_tile)
 							remaining_range = range - target_tile_cost 
 							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
@@ -939,7 +841,7 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+						if not ( _occupied_spaces.has(target_tile) and get_combatant_at_position(target_tile).allegience != combat.get_current_combatant().allegience):
 							var target_tile_cost = get_tile_cost(target_tile)
 							remaining_range = range - target_tile_cost 
 							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
@@ -974,7 +876,7 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not _occupied_spaces.has(target_tile) or (get_combatant_at_position(target_tile) and get_combatant_at_position(target_tile).allegience == combat.get_current_combatant().allegience):
+						if not ( _occupied_spaces.has(target_tile) and get_combatant_at_position(target_tile).allegience != combat.get_current_combatant().allegience):
 							var target_tile_cost = get_tile_cost(target_tile)
 							remaining_range = range - target_tile_cost 
 							if (remaining_range >= 0  and not _blocking_spaces[movement_type].has(target_tile)):
@@ -1031,10 +933,6 @@ func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
 			tile_color = Color.ORANGE
 	for tile in tiles : 
 		draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), tile_color)
-
-func process_inputs():
-	if Input.is_action_pressed("debug_button"):
-		print("pressed_debug_button")
 
 func get_next_action_state()-> Constants.PLAYER_STATE:
 	if _action and _action_selected:
@@ -1176,9 +1074,13 @@ func get_terrain_at_map_position(position: Vector2) ->  Terrain:
 		print("get_terrain_at_map_position called on out of bounds tile")
 	return null
 
-func draw_comb_range(combatant: CombatUnit) :
+func clear_combatant_ranges():
 	attack_range.clear()
 	skill_range.clear()
+	move_range.clear()
+	
+func calculate_combatant_ranges(combatant: CombatUnit) :
+	clear_combatant_ranges()
 	move_range = get_range_DFS(combatant.unit.movement, combatant.map_tile.position, combatant.unit.movement_class, true)
 	var edge_array = find_edges(move_range)
 	attack_range = get_range_multi_origin_DFS(combatant.unit.inventory.get_available_attack_ranges().max(), edge_array)
@@ -1253,6 +1155,7 @@ func get_viable_chest_items(cu: CombatUnit) -> Array[ItemDefinition]:
 					_items.append(item)
 					#TO BE IMPLEMENTED if unit can use item
 	return _items
+
 func chest_action_available(cu:CombatUnit)-> bool:
 	if get_entity_at_position(cu.move_tile.position) :
 		var _entity = get_entity_at_position(cu.move_tile.position)
@@ -1316,6 +1219,7 @@ func process_terrain_effects():
 									print("HEALED UNIT : " + combat_unit.unit.unit_name)
 									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 
+#TO DO OPTIMIZE THIS FUNCTION
 func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 	var action_array : Array[UnitAction] = []
 	if cu.minor_action_taken == false:
@@ -1354,7 +1258,6 @@ func _on_visual_combat_minor_action_completed() -> void:
 	update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
 	
 # AI Methods
-
 func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
@@ -1466,9 +1369,6 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 	#print("@ EXITED ai_get_best_move_at_tile")
 	return tile_best_action
 
-func get_closet_tile(target: Vector2, array:PackedVector2Array):
-	pass
-
 func ai_move(target_position: Vector2i):
 	print("@ AI MOVE CALLED @ : "+ str(target_position))
 	var current_position = tile_map.local_to_map(controlled_node.position)
@@ -1503,10 +1403,12 @@ func set_movement(value):
 
 func set_controlled_combatant(combatant: CombatUnit):
 	#combat.get_current_combatant() = combatant
+	calculate_combatant_ranges(combatant)
 	combat.set_current_combatant(combatant)
 	controlled_node = combatant.map_display
 	movement = combatant.effective_move
 	update_points_weight()
+
 
 func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 	var target_tile = pushed_unit.map_tile.position + push_vector;

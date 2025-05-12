@@ -1,0 +1,3 @@
+extends HBoxContainer
+
+class_name Button_action_info

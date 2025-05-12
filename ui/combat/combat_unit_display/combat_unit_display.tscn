@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfk8uscbu36eu"]
+[gd_scene load_steps=14 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_unit_display/combat_unit_display.gd" id="1_sxmuu"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_a14u6"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="3_mgjym"]
+[ext_resource type="Texture2D" uid="uid://bepwnxgc36xss" path="res://resources/sprites/icons/equipment/sword_icon.png" id="4_awedk"]
 [ext_resource type="Texture2D" uid="uid://cx1516od8owqh" path="res://resources/sprites/icons/boss_unit.png" id="4_pyuub"]
 [ext_resource type="Script" path="res://ui/healthbar.gd" id="6_13a20"]
 
@@ -14,6 +15,12 @@ shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_thickness = 0.5
 shader_parameter/color_factor = 1.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr545"]
+bg_color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[sub_resource type="Theme" id="Theme_far3v"]
+Panel/styles/panel = SubResource("StyleBoxFlat_cr545")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o7by"]
 bg_color = Color(0.201527, 0.201527, 0.201527, 1)
@@ -48,6 +55,30 @@ script = ExtResource("1_sxmuu")
 material = SubResource("ShaderMaterial_p1h6c")
 texture = ExtResource("2_a14u6")
 
+[node name="EquipmentIndicatorContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = -1
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -7.0
+offset_bottom = 4.0
+
+[node name="Background" type="Panel" parent="EquipmentIndicatorContainer"]
+custom_minimum_size = Vector2(11, 10)
+layout_mode = 2
+theme = SubResource("Theme_far3v")
+
+[node name="CenterContainer" type="CenterContainer" parent="EquipmentIndicatorContainer/Background"]
+layout_mode = 0
+offset_right = 11.0
+offset_bottom = 10.0
+
+[node name="ItemIcon2" type="TextureRect" parent="EquipmentIndicatorContainer/Background/CenterContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("4_awedk")
+
 [node name="WarningIndicator" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(12, -12)
@@ -57,9 +88,6 @@ texture = ExtResource("3_mgjym")
 visible = false
 position = Vector2(11, 7)
 texture = ExtResource("4_pyuub")
-
-[node name="weapon_icon" type="Sprite2D" parent="."]
-visible = false
 
 [node name="Healthbar" type="ProgressBar" parent="."]
 layout_mode = 0
