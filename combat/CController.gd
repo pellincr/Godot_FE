@@ -26,6 +26,7 @@ signal target_detailed_info(combat_unit : CombatUnit)
 ##EXPORTS
 @export var controlled_node : Control
 @export var combat: Combat 
+@export var grid: CombatMapGrid
 
 var unit_detail_open = false
 var tile_map : TileMap
