@@ -6,6 +6,7 @@ enum interaction_types {
 	ADJACENT,
 	SCRIPT
 }
+var _id: String
 var db_key: String
 @export var position: Vector2i 
 var sprite: Texture2D

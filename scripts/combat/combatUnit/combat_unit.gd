@@ -12,7 +12,7 @@ enum Group
 	NOMAD
 }
 
-var uid: String
+var _id: String
 var alive : bool
 var turn_taken : bool = false
 var major_action_taken : bool = false

@@ -33,8 +33,6 @@ var _path : PackedVector2Array
 
 ## dictionary that stores the tile data
 var game_map = {} # <Vector2i, mapTile>
-var unit_map = {} # <combat_unit.uid, Vector2i>
-var entity_map = {} # <MapEntity.uid, Vector2i>
 
 var current_tile_position: Vector2i
 
@@ -45,11 +43,10 @@ func _ready():
 	populate_game_map_units(unit_data)
 	populate_game_map_entities(entity_data)
 
-
 func populate_game_map_terrain(tile_map: TileMap):
 	for tile in tile_map.get_used_cells(0):
 		populate_tile_information_at_tile(tile)
-		
+
 func populate_game_map_units(unit_data: Array[CombatUnit]):
 	for unit in unit_data:
 		if game_map.has(str(unit.map_position)):
@@ -77,7 +74,6 @@ func initialize_grid(tile_map:TileMap):
 	_astargrid.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
 	_astargrid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	_astargrid.update()
-
 
 func get_combat_unit_at_position(position: Vector2i) -> CombatUnit:
 	if game_map.has(str(position)):
