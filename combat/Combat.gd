@@ -49,6 +49,7 @@ var _player_unit_alive : bool = true
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
+@export var grid : CombatMapGrid
 @export var unit_experience_manager : UnitExperienceManager 
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
@@ -208,7 +209,7 @@ func sort_turn_queue(a, b):
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	combat_unit.map_tile.position = position
-	combat_unit.map_tile.terrain = controller.get_terrain_at_position(position)
+	combat_unit.map_tile.terrain = grid.get_terrain_at_position(position)
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 

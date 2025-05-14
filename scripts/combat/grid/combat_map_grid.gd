@@ -10,9 +10,9 @@ signal tile_info_updated(tile : Dictionary)
 ##EXPORTS
 @export var combat: Combat 
 
-var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
-var entity_data: MapEntityGroupData
-var unit_data: Array[CombatUnit]
+@export var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
+@export var entity_data: MapEntityGroupData
+@export var unit_data: Array[CombatUnit]
 
 const tiles_to_check = [
 	Vector2i.RIGHT,
@@ -37,11 +37,11 @@ var game_map = {} # <Vector2i, mapTile>
 var current_tile_position: Vector2i
 
 func _ready():
-	terrain_tile_map = get_node("../Terrain/TileMap")
+	terrain_tile_map = get_node("../../Terrain/TileMap")
 	initialize_grid(terrain_tile_map) 
 	populate_game_map_terrain(terrain_tile_map)
-	populate_game_map_units(unit_data)
-	populate_game_map_entities(entity_data)
+	#populate_game_map_units(unit_data)
+	#populate_game_map_entities(entity_data)
 
 func populate_game_map_terrain(tile_map: TileMap):
 	for tile in tile_map.get_used_cells(0):
@@ -63,7 +63,7 @@ func populate_tile_information_at_tile(tile: Vector2i):
 	if get_terrain_from_tile_map(tile):
 		_mapTile.terrain = get_terrain_from_tile_map(tile)
 		_mapTile.terrain_bonuses = get_terrain_from_tile_map(tile).stat_bonuses
-		_mapTile.blocks_unit_movement = get_terrain_from_tile_map(tile).stat_bonuses
+		_mapTile.blocks_unit_movement = get_terrain_from_tile_map(tile).blocks
 	game_map[str(tile)] = _mapTile
 
 func initialize_grid(tile_map:TileMap):
@@ -375,7 +375,7 @@ func get_terrain_at_position(position: Vector2) ->  Terrain:
 
 func get_terrain_at_map_position(position: Vector2i) ->  Terrain:
 	if game_map.has(str(position)):
-		return game_map[str(position)].terrain
+		return get_effective_terrain(game_map[str(position)])
 	else : 
 		if get_terrain_from_tile_map(position):
 			populate_tile_information_at_tile(position)
@@ -441,7 +441,7 @@ func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array 
 					edge.append(target_tile)
 	return return_object
 
-func grid_get_target_tile_neighbors(tile_position: Vector2i):
+func get_target_tile_neighbors(tile_position: Vector2i):
 	var tile_array: PackedVector2Array
 	for tile in tiles_to_check:
 		tile_array.append(tile_position + tile)
@@ -469,3 +469,27 @@ func is_unit_blocked(position: Vector2i, unit_movement_class:int):
 			if unit_movement_class not in _terrain.blocks:
 				return false
 	return true
+
+func combat_unit_died(position: Vector2i):
+	if game_map.has(str(position)):
+		game_map[str(position)].unit = null
+
+func get_point_weight_scale(position: Vector2i):
+	return _astargrid.get_point_weight_scale(position)
+
+func is_valid_tile(position: Vector2i) -> bool:
+	return game_map.has(position)
+
+func get_id_path(from_id: Vector2i, to_id: Vector2i, allow_partial_path: bool = false) -> Array[Vector2i]:
+	return _astargrid.get_id_path(from_id, to_id,allow_partial_path)
+
+func is_map_position_available_for_unit_move(position: Vector2i, unit_movement_class:int) -> bool:
+	if not is_unit_blocked(position, unit_movement_class) and not is_position_occupied(position) == null :
+		return true
+	return false
+
+func position_to_map(position: Vector2) -> Vector2i:
+	return terrain_tile_map.local_to_map(position)
+
+func map_to_position(position: Vector2i) -> Vector2:
+	return terrain_tile_map.map_to_local(position)

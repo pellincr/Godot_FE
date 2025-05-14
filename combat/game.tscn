@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=12 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_aallb"]
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/example_level/terrain.tscn" id="1_huxbe"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
+[ext_resource type="Script" path="res://scripts/combat/grid/combat_map_grid.gd" id="2_jg5pu"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_38u5s"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="5_pc8ih"]
@@ -18,6 +19,9 @@ texture_filter = 1
 script = ExtResource("4_38u5s")
 combat = NodePath("../Combat")
 
+[node name="CombatGrid" type="Node" parent="Controller"]
+script = ExtResource("2_jg5pu")
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
 position = Vector2(356, 302)
 zoom = Vector2(3, 3)
@@ -30,11 +34,12 @@ map = NodePath("../Terrain")
 position = Vector2(272, 208)
 texture = ExtResource("2_icbvx")
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "grid", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_cujqt")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
+grid = NodePath("../Controller/CombatGrid")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapEntityData = ExtResource("6_cchwj")
