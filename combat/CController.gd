@@ -1188,7 +1188,7 @@ func draw_comb_range(combatant: CombatUnit) :
 	skill_range.clear()
 	move_range = get_range_DFS(combatant.unit.movement, combatant.map_tile.position, combatant.unit.movement_class, true)
 	var edge_array = find_edges(move_range)
-	attack_range = get_range_multi_origin_DFS(combatant.unit.inventory.get_available_attack_ranges().max(), edge_array)
+	attack_range = get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
 	skill_range = attack_range.duplicate()
 
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:

@@ -25,6 +25,13 @@ func get_available_attack_ranges()-> Array[int]:
 								ranges.append(attack_range)
 	return ranges
 
+func get_max_attack_range() -> int:
+	if get_available_attack_ranges().max():
+		return get_available_attack_ranges().max()
+	else:
+		return 0
+
+
 func get_available_support_ranges()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:

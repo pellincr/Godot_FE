@@ -97,6 +97,7 @@ func set_action_list(available_actions: Array[UnitAction]):
 			action_btn.text = ""
 			action_btn.tooltip_text = ""
 			clear_action_button_connections(action_btn)
+	actions_grid_children[0].grab_focus()
 	$Actions/EndTurnButton.disabled = !player_turn
 
 

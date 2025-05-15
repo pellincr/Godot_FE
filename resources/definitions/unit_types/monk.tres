@@ -7,9 +7,9 @@
 atlas = ExtResource("1_pwv8g")
 region = Rect2(0, 64, 32, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_20b57"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofkb4"]
 atlas = ExtResource("1_pwv8g")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(0, 66, 32, 32)
 
 [resource]
 script = ExtResource("3_lv7rd")
@@ -60,6 +60,6 @@ luck_promo = 0
 defense_promo = 0
 magic_defense_promo = 0
 icon = SubResource("AtlasTexture_q7iel")
-map_sprite = SubResource("AtlasTexture_20b57")
+map_sprite = SubResource("AtlasTexture_ofkb4")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

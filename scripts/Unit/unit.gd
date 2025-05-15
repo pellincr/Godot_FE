@@ -2,16 +2,16 @@ extends Resource
 
 class_name Unit
 
-var unit_name : String
+@export var unit_name : String
 ##var uid: String
-var unit_class_key : String
-var unit_type : Array[String]
-var movement_class : int
-var xp_worth : int ## The multiplier given when unit is defeated
-var uses_custom_growths : bool
+@export var unit_class_key : String
+@export var unit_type : Array[String]
+@export var movement_class : int
+@export var xp_worth : int ## The multiplier given when unit is defeated
+@export var uses_custom_growths : bool
 
-var level : int
-var experience : int
+@export var level : int
+@export var experience : int
 
 @export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" ) var usable_weapon_types : Array[String] = []
 
@@ -110,15 +110,15 @@ var experience : int
 @export_group("Status Effects")
 ##@export var status_effects: Array[StatusEffect]
 
-var icon: Texture2D
-var map_sprite: Texture2D
+@export var icon: Texture2D
+@export var map_sprite: Texture2D
 
-var attack : int
-var hit : int
-var avoid : int
-var attack_speed : int
-var critical_hit : int
-var critical_avoid : int
+@export var attack : int
+@export var hit : int
+@export var avoid : int
+@export var attack_speed : int
+@export var critical_hit : int
+@export var critical_avoid : int
 
 static func create(unitDefinition: UnitTypeDefinition, characterDefinition: CharacterDefinition, reference_inventory: Array[ItemDefinition]) -> Unit:
 	var new_unit = Unit.new()

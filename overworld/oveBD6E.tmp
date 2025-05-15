@@ -1,0 +1,199 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7po17088nvmy"]
+
+[ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_se82l"]
+[ext_resource type="Script" path="res://overworld/gold_counter.gd" id="3_s7up8"]
+
+[node name="Overworld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r8x5d")
+
+[node name="MainVcontainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -103.0
+offset_right = 70.5
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ManageParty_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Manage Party"
+
+[node name="Recruit_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Recruit Members"
+
+[node name="Shop_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Shop"
+
+[node name="TrainParty_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Train Members"
+
+[node name="BeginAdventure_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Begin Adventure!"
+
+[node name="MainMenu_Button" type="Button" parent="MainVcontainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="PartyVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -436.0
+offset_top = -249.0
+offset_right = 474.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TotalCapacityUpgrade_Button" type="Button" parent="PartyVContainer"]
+layout_mode = 2
+text = "UPGRADE- 
+Total Party Capacity"
+
+[node name="AvailablePartyCapacityUpgrade_Button" type="Button" parent="PartyVContainer"]
+layout_mode = 2
+text = "UPGRADE- 
+Available Party Capacity"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PartyVContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyVContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PartyVContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Return_Button" type="Button" parent="PartyVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="RecruitVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -33.0
+offset_right = 120.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RecruitHContainer" type="HBoxContainer" parent="RecruitVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UpgradeSelectionAmount_Button" type="Button" parent="RecruitVContainer"]
+layout_mode = 2
+text = "Upgrade Selection Amount"
+
+[node name="UpgradeSelectionLevels_Button" type="Button" parent="RecruitVContainer"]
+layout_mode = 2
+text = "Upgrade Selection Levels"
+
+[node name="Return_Button" type="Button" parent="RecruitVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="ShopVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -155.5
+offset_right = 70.5
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopVContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopVContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UpgradeShop_Button" type="Button" parent="ShopVContainer"]
+layout_mode = 2
+text = "UPGRADE-
+Shop Items"
+
+[node name="Return_Button" type="Button" parent="ShopVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="TrainingVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -20.0
+offset_right = 30.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Return_Button" type="Button" parent="TrainingVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="GoldCounter" parent="." instance=ExtResource("2_se82l")]
+layout_mode = 0
+script = ExtResource("3_s7up8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="MainVcontainer/ManageParty_Button" to="." method="_on_manage_party_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/Recruit_Button" to="." method="_on_recruit_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/Shop_Button" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/TrainParty_Button" to="." method="_on_train_party_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
+[connection signal="pressed" from="MainVcontainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="PartyVContainer/TotalCapacityUpgrade_Button" to="." method="_on_total_capacity_upgrade_button_pressed"]
+[connection signal="pressed" from="PartyVContainer/AvailablePartyCapacityUpgrade_Button" to="." method="_on_available_party_capacity_upgrade_button_pressed"]
+[connection signal="pressed" from="PartyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="RecruitVContainer/UpgradeSelectionAmount_Button" to="." method="_on_upgrade_selection_amount_button_pressed"]
+[connection signal="pressed" from="RecruitVContainer/UpgradeSelectionLevels_Button" to="." method="_on_upgrade_selection_levels_button_pressed"]
+[connection signal="pressed" from="RecruitVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="ShopVContainer/UpgradeShop_Button" to="." method="_on_upgrade_shop_button_pressed"]
+[connection signal="pressed" from="ShopVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="TrainingVContainer/Return_Button" to="." method="_on_return_button_pressed"]

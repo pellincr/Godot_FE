@@ -104,6 +104,14 @@ func _ready():
 	iventory_array.append(ItemDatabase.items["wind_blade"])
 	iventory_array.append(ItemDatabase.items["fire_spell"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Lynn", 4,11),0), Vector2i(9,15))
+	iventory_array.clear()
+	iventory_array.append(ItemDatabase.items["brass_knuckles"])
+	iventory_array.append(ItemDatabase.items["devil_knuckles"])
+	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["martial_artist"], iventory_array, "Avon", 4,11),0), Vector2i(9,16))
+	var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+	add_combatant(create_combatant_unit(playerOverworldData.total_party[0],0),Vector2i(10,16))
+	
+
 	#ENEMY
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["javelin"])

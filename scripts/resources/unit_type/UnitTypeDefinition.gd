@@ -19,7 +19,7 @@ enum unit_movement_classes {
 @export var unit_promoted_from_key: String
 
 @export_group("Usable Weapon Types")
-@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Monster", "Other" )var usable_weapon_types : Array[String] = []
+@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other" )var usable_weapon_types : Array[String] = []
 
 @export_group("Base Combat Stats")
 @export_range(1, 60, 1, "or_greater") var hp = 20

@@ -29,7 +29,8 @@ enum FACTION
 enum DAMAGE_TYPE 
 {
 	PHYSICAL,
-	MAGIC
+	MAGIC,
+	NONE
 }
 
 enum GAME_STATE{
