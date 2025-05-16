@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://cv6q1g0m73cm"]
+[gd_resource type="Resource" script_class="Terrain" load_steps=3 format=3 uid="uid://cv6q1g0m73cm"]
 
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_7004c"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat_bonus.gd" id="2_ucsdg"]
 
 [resource]
 script = ExtResource("1_7004c")
@@ -9,6 +10,7 @@ db_key = "thicket"
 type = Array[int]([0])
 cost = Array[int]([2, 3, 2, 3, 1])
 blocks = Array[int]([])
+stat_bonuses = Array[ExtResource("2_ucsdg")]([])
 strength = 0
 magic = 0
 skill = 0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=11 format=3 uid="uid://b4xca7lc8vsi8"]
 
+[ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_aallb"]
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/example_level/terrain.tscn" id="1_huxbe"]
-[ext_resource type="Texture2D" uid="uid://23h7fggwt430" path="res://resources/sprites/grid/BoxSelector.png" id="2_1o5i1"]
+[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_38u5s"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="5_pc8ih"]
@@ -10,52 +11,31 @@
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_oplkq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mi2fj"]
-atlas = ExtResource("2_1o5i1")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3vif"]
-atlas = ExtResource("2_1o5i1")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qnj11"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mi2fj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f3vif")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Game" type="Node"]
 
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
 texture_filter = 1
 script = ExtResource("4_38u5s")
 combat = NodePath("../Combat")
-selector = NodePath("Select")
 
-[node name="Select" type="AnimatedSprite2D" parent="Controller"]
-z_index = 1000
-z_as_relative = false
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_qnj11")
-autoplay = "default"
-frame_progress = 0.790211
-speed_scale = 0.5
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+position = Vector2(356, 302)
+zoom = Vector2(3, 3)
+script = ExtResource("1_aallb")
+map = NodePath("../Terrain")
 
 [node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Select" type="Sprite2D" parent="Terrain"]
+position = Vector2(272, 208)
+texture = ExtResource("2_icbvx")
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "grid", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_cujqt")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
+grid = NodePath("")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapEntityData = ExtResource("6_cchwj")

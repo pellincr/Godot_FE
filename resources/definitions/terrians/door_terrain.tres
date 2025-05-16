@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://can7ubbmqhujh"]
+[gd_resource type="Resource" script_class="Terrain" load_steps=3 format=3 uid="uid://can7ubbmqhujh"]
 
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_dkey1"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat_bonus.gd" id="2_5kvok"]
 
 [resource]
 script = ExtResource("1_dkey1")
@@ -9,6 +10,7 @@ db_key = "door"
 type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 1, 0])
 blocks = Array[int]([0, 1, 2, 3, 4])
+stat_bonuses = Array[ExtResource("2_5kvok")]([])
 strength = 0
 magic = 0
 skill = 0

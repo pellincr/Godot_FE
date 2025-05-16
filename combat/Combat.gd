@@ -67,6 +67,8 @@ func _ready():
 	randomize()
 	##Create units and dummy inventories
 	#Dummy Inventory for temp unit gen
+
+func create_combatants():
 	var iventory_array :Array[ItemDefinition] 
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
@@ -182,8 +184,6 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Gemni's Guard", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,26))
-	load_entities()
-
 func load_entities():
 	if mapEntityData != null:
 		for entity in mapEntityData.entities:
@@ -208,11 +208,9 @@ func sort_turn_queue(a, b):
 		return false
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
-	combat_unit.map_tile.position = position
-	combat_unit.map_tile.terrain = grid.get_terrain_at_position(position)
+	combat_unit.map_position = position
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
-
 	var new_combatant_sprite = COMBAT_UNIT_DISPLAY.instantiate()
 	new_combatant_sprite.set_reference_unit(combat_unit)
 	$"../Terrain/TileMap".add_child(new_combatant_sprite)
@@ -233,15 +231,15 @@ func add_entity(cme:CombatMapEntity):
 	cme.display = new_entity_sprite
 	emit_signal("entity_added", cme)
 
-func get_current_combatant():
+func get_current_combatant() -> CombatUnit:
 	return combatants[current_combatant]
 
 func set_current_combatant(cu:CombatUnit):
 	current_combatant = combatants.find(cu)
 
 func get_distance(attacker: CombatUnit, target: CombatUnit):
-	var point1 = attacker.map_tile.position
-	var point2 = target.map_tile.position
+	var point1 = attacker.map_position
+	var point2 = target.map_position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 func perform_attack(attacker: CombatUnit, target: CombatUnit):
@@ -342,7 +340,7 @@ func Use(unit: CombatUnit, item: ConsumableItemDefinition):
 func Shove(unit:CombatUnit, target:CombatUnit):
 	#check if action is available
 	if get_distance(unit, target) == 1:
-		var push_vector : Vector2i = target.map_tile.position - unit.map_tile.position
+		var push_vector : Vector2i = target.map_position - unit.map_position
 		perform_shove.emit(target, push_vector)
 		await shove_completed
 		set_current_combatant(unit)
@@ -415,7 +413,7 @@ func ai_process(comb : CombatUnit):
 			return
 	#if the current unit AI types lets them move on map
 	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
-		await controller.ai_process(comb, nearest_target.map_tile.position)
+		await controller.ai_process(comb, nearest_target.map_position)
 		#await controller.finished_move
 		print("finished waiting for controller")
 		if comb_attack_range.has(get_distance(comb, nearest_target)):
