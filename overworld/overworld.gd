@@ -61,7 +61,8 @@ func initialize():
 	#instantiate_manage_party_screen()
 	_instantiate_recruit_selection_buttons()
 	_instantiate_shop_selection_buttons()
-	instantiate_convoy_buttons()
+	#instantiate_convoy_buttons()
+	convoy_container.set_po_data(playerOverworldData)
 
 #num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container
@@ -305,27 +306,9 @@ func filter_items_by_damage_type(items, filter):
 
 
 #-----------------CONVOY------------------
-var convoy_buttons = []
-
-func instantiate_convoy_buttons():
-	convoy_buttons = create_buttons_list(playerOverworldData.convoy_size,"-EMPTY-",_on_return_button_pressed,
-								$ConvoyVContainer/ScrollContainer/VBoxContainer)
-
-
-func update_convoy_buttons():
-	for i in convoy_buttons.size():
-		if i < playerOverworldData.convoy.size():
-			update_convoy_button(convoy_buttons[i],playerOverworldData.convoy[i])
-		else:
-			convoy_buttons[i].set_button_text("-EMPTY-")
-
-func update_convoy_button(button: OverworldButton, item):
-	button.contained_variable = item
-	button.set_button_text(str(item.name))
-
 
 func _on_convoy_button_pressed():
-	update_convoy_buttons()
+	convoy_container.update_convoy_buttons()
 	main_container.visible = false
 	convoy_container.visible = true
 

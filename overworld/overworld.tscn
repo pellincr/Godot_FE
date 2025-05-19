@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7po17088nvmy"]
+[gd_scene load_steps=5 format=3 uid="uid://b7po17088nvmy"]
 
 [ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
+[ext_resource type="PackedScene" uid="uid://b1to0thf4ssv2" path="res://overworld/convoy_v_container.tscn" id="2_7s5gx"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_se82l"]
 [ext_resource type="Script" path="res://overworld/gold_counter.gd" id="3_s7up8"]
 
@@ -182,27 +183,19 @@ Shop Items"
 layout_mode = 2
 text = "Return"
 
-[node name="ConvoyVContainer" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -183.0
-offset_top = -77.0
-offset_right = 196.0
-offset_bottom = 177.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="ConvoyVContainer"]
-custom_minimum_size = Vector2(100, 300)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ConvoyVContainer/ScrollContainer"]
-layout_mode = 2
+[node name="ConvoyVContainer" parent="." instance=ExtResource("2_7s5gx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 333.0
+offset_top = 188.0
+offset_right = 962.0
+offset_bottom = 644.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Return_Button" type="Button" parent="ConvoyVContainer"]
 layout_mode = 2
