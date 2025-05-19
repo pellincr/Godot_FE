@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7po17088nvmy"]
+[gd_scene load_steps=7 format=3 uid="uid://b7po17088nvmy"]
 
 [ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
 [ext_resource type="PackedScene" uid="uid://b1to0thf4ssv2" path="res://overworld/convoy_v_container.tscn" id="2_7s5gx"]
+[ext_resource type="PackedScene" uid="uid://dpdughlwrxfy6" path="res://overworld/party_v_container.tscn" id="2_46q1g"]
 [ext_resource type="PackedScene" uid="uid://b02vue5pmow6o" path="res://overworld/shop_v_container.tscn" id="2_qquhw"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_se82l"]
 [ext_resource type="Script" path="res://overworld/gold_counter.gd" id="3_s7up8"]
@@ -57,37 +58,19 @@ text = "Begin Adventure!"
 layout_mode = 2
 text = "Main Menu"
 
-[node name="PartyVContainer" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -436.0
-offset_top = -249.0
-offset_right = 474.0
-offset_bottom = 291.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="PartyVContainer"]
-custom_minimum_size = Vector2(200, 400)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PartyVContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="TotalCapacityUpgrade_Button" type="Button" parent="PartyVContainer"]
-layout_mode = 2
-text = "UPGRADE- 
-Total Party Capacity"
-
-[node name="AvailablePartyCapacityUpgrade_Button" type="Button" parent="PartyVContainer"]
-layout_mode = 2
-text = "UPGRADE- 
-Available Party Capacity"
+[node name="PartyVContainer" parent="." instance=ExtResource("2_46q1g")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 193.0
+offset_top = 89.0
+offset_right = 1103.0
+offset_bottom = 640.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Return_Button" type="Button" parent="PartyVContainer"]
 layout_mode = 2
@@ -190,8 +173,6 @@ script = ExtResource("3_s7up8")
 [connection signal="pressed" from="MainVcontainer/TrainParty_Button" to="." method="_on_train_party_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="PartyVContainer/TotalCapacityUpgrade_Button" to="." method="_on_total_capacity_upgrade_button_pressed"]
-[connection signal="pressed" from="PartyVContainer/AvailablePartyCapacityUpgrade_Button" to="." method="_on_available_party_capacity_upgrade_button_pressed"]
 [connection signal="pressed" from="PartyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="RecruitVContainer/UpgradeSelectionAmount_Button" to="." method="_on_upgrade_selection_amount_button_pressed"]
 [connection signal="pressed" from="RecruitVContainer/UpgradeSelectionLevels_Button" to="." method="_on_upgrade_selection_levels_button_pressed"]

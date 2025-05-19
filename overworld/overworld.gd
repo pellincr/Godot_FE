@@ -21,7 +21,7 @@ func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)
 	#update the gui
 	set_recruit_buttons(recruit_buttons, playerOverworldData.new_recruits)
-	update_manage_party_buttons()
+	#update_manage_party_buttons()
 	print("Loaded")
 
 func save():
@@ -31,7 +31,7 @@ func save():
 func _process(delta):
 	if Input.is_action_just_pressed("load"):
 		set_recruit_buttons(recruit_buttons, playerOverworldData.new_recruits)
-		update_manage_party_buttons()
+		#update_manage_party_buttons()
 
 #Begins the adventure and transitions to the game scene
 #NOTE This will be updated in the future to transition to the dungeon map
@@ -57,12 +57,14 @@ func initialize():
 	SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path)
 	$MainVcontainer/ManageParty_Button.grab_focus()
 	gold_counter.update_gold_count(playerOverworldData.gold)
-	_instantiate_manage_party_buttons()
+	#_instantiate_manage_party_buttons()
 	#instantiate_manage_party_screen()
 	_instantiate_recruit_selection_buttons()
 	#_instantiate_shop_selection_buttons()
 	#instantiate_convoy_buttons()
 	convoy_container.set_po_data(playerOverworldData)
+	shop_container.set_po_data(playerOverworldData)
+	party_container.set_po_data(playerOverworldData)
 
 #num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container
@@ -85,84 +87,12 @@ func create_buttons_list(button_count, button_text, button_function, button_cont
 var party_buttons = []
 
 #Creates the initial amount of buttons needed in the Manage Party menu
-func _instantiate_manage_party_buttons():
-	party_buttons = create_buttons_list(playerOverworldData.total_party_capacity,
-	"-EMPTY-",_on_party_member_button_pressed,$PartyVContainer/ScrollContainer/VBoxContainer)
-
-func update_manage_party_buttons():
-	for i in party_buttons.size():
-		if i < playerOverworldData.total_party.size():
-			update_manage_party_button(party_buttons[i],playerOverworldData.total_party[i])
-		else:
-			party_buttons[i].set_button_text("-EMPTY-")
-
-func update_manage_party_button(button: OverworldButton, unit: Unit):
-	button.contained_variable = unit
-	button.set_button_text("NAME:" + unit.unit_name + 
-							"\n" + "CLASS:" + unit.unit_class_key)
-
-
 #Shows the Mange Party Screen and minimizes the main container
 func _on_manage_party_button_pressed():
-	update_manage_party_buttons()
+	party_container.update_manage_party_buttons()
 	main_container.visible = false
 	party_container.visible = true
 
-
-#Updgrades the total number of units the player is allowed to own
-func _on_total_capacity_upgrade_button_pressed():
-	#if the player has enough gold and isn't at the maximum possible capacity
-	if(playerOverworldData.gold >= 100 and playerOverworldData.total_party_capacity <= 30):
-		#increase capacity by 5 and create the new buttons
-		playerOverworldData.total_party_capacity += 5
-		create_buttons_list(5,"-EMPTY-",_on_return_button_pressed,$PartyVContainer/ScrollContainer/VBoxContainer)
-		#Subtract 100 gold and update the counter
-		playerOverworldData.gold -= 100
-		gold_counter.update_gold_count(playerOverworldData.gold)
-
-#Upgrades the total number of units the player is allowed to bring into the dungeon
-func _on_available_party_capacity_upgrade_button_pressed():
-	if(playerOverworldData.gold >= 100 and playerOverworldData.available_party_capacity <= 5):
-		playerOverworldData.available_party_capacity += 1
-		playerOverworldData.gold -= 100
-		gold_counter.update_gold_count(playerOverworldData.gold)
-
-
-func _on_party_member_button_pressed(button_index):
-	if(party_buttons.size() > button_index):
-		var pressed_button = party_buttons[button_index]
-		var unit = pressed_button.get_contained_var()
-		var button_container = pressed_button.get_hbox_container()
-		if unit != null:
-			var u_stats = unit_stats.instantiate()
-			u_stats.connect("unit_selected", unit_selected)
-			u_stats.connect("unit_dismissed",unit_dismissed)
-			u_stats.unit = unit
-			u_stats.set_level(unit.level)
-			u_stats.set_hp(unit.hp)
-			u_stats.set_strength(unit.strength)
-			u_stats.set_magic(unit.magic)
-			u_stats.set_skill(unit.skill)
-			u_stats.set_speed(unit.speed)
-			u_stats.set_luck(unit.luck)
-			u_stats.set_defense(unit.defense)
-			u_stats.set_magic_defense(unit.magic_defense)
-			button_container.add_child(u_stats)
-
-#adds or removes the given unit to the selected party
-func unit_selected(unit, selected):
-	if selected:
-		playerOverworldData.append_to_array(playerOverworldData.selected_party,unit)
-	elif playerOverworldData.selected_party.size() < playerOverworldData.available_party_capacity:
-		playerOverworldData.selected_party.remove_at(playerOverworldData.selected_party.find(unit))
-
-#removes the given unit from the total party and selected party if necessary
-func unit_dismissed(unit):
-	playerOverworldData.total_party.remove_at(playerOverworldData.total_party.find(unit))
-	if playerOverworldData.selected_party.find(unit) != -1:
-		playerOverworldData.selected_party.remove_at(playerOverworldData.selected_party.find(unit))
-	unit = null
-	update_manage_party_buttons()
 
 #-----------RECRUIT UNITS------------
 #This section will have all the methods for recruiting new units to the party
@@ -230,7 +160,7 @@ func _on_new_recruit_button_pressed(button_index):
 		var unit = pressed_button.get_contained_var()
 		#add the unit to the total party
 		playerOverworldData.append_to_array(playerOverworldData.total_party, unit)
-		update_manage_party_buttons()
+		party_container.update_manage_party_buttons()
 		#update_manage_party_screen()
 		#reroll the selected unit on the recruit page
 		set_recruit_buttons([pressed_button], generate_recruits(1))
