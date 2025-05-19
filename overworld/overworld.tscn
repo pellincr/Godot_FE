@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7po17088nvmy"]
+[gd_scene load_steps=6 format=3 uid="uid://b7po17088nvmy"]
 
 [ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
 [ext_resource type="PackedScene" uid="uid://b1to0thf4ssv2" path="res://overworld/convoy_v_container.tscn" id="2_7s5gx"]
+[ext_resource type="PackedScene" uid="uid://b02vue5pmow6o" path="res://overworld/shop_v_container.tscn" id="2_qquhw"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_se82l"]
 [ext_resource type="Script" path="res://overworld/gold_counter.gd" id="3_s7up8"]
 
@@ -123,61 +124,19 @@ text = "Upgrade Selection Levels"
 layout_mode = 2
 text = "Return"
 
-[node name="ShopVContainer" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -432.0
-offset_top = -187.0
-offset_right = 479.0
-offset_bottom = 187.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="ShopVContainer"]
-layout_mode = 2
-current_tab = 0
-
-[node name="All Items" type="ScrollContainer" parent="ShopVContainer/TabContainer"]
-custom_minimum_size = Vector2(0, 250)
-layout_mode = 2
-horizontal_scroll_mode = 0
-metadata/_tab_index = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ShopVContainer/TabContainer/All Items"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Axes" type="ScrollContainer" parent="ShopVContainer/TabContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 250)
-layout_mode = 2
-horizontal_scroll_mode = 0
-metadata/_tab_index = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ShopVContainer/TabContainer/Axes"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Magic" type="ScrollContainer" parent="ShopVContainer/TabContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 250)
-layout_mode = 2
-horizontal_scroll_mode = 0
-metadata/_tab_index = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ShopVContainer/TabContainer/Magic"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="UpgradeShop_Button" type="Button" parent="ShopVContainer"]
-layout_mode = 2
-text = "UPGRADE-
-Shop Items"
+[node name="ShopVContainer" parent="." instance=ExtResource("2_qquhw")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 222.0
+offset_top = 192.0
+offset_right = 1133.0
+offset_bottom = 566.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Return_Button" type="Button" parent="ShopVContainer"]
 layout_mode = 2
@@ -237,7 +196,7 @@ script = ExtResource("3_s7up8")
 [connection signal="pressed" from="RecruitVContainer/UpgradeSelectionAmount_Button" to="." method="_on_upgrade_selection_amount_button_pressed"]
 [connection signal="pressed" from="RecruitVContainer/UpgradeSelectionLevels_Button" to="." method="_on_upgrade_selection_levels_button_pressed"]
 [connection signal="pressed" from="RecruitVContainer/Return_Button" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="ShopVContainer/UpgradeShop_Button" to="." method="_on_upgrade_shop_button_pressed"]
+[connection signal="item_bought" from="ShopVContainer" to="." method="item_bought"]
 [connection signal="pressed" from="ShopVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="ConvoyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="TrainingVContainer/Return_Button" to="." method="_on_return_button_pressed"]

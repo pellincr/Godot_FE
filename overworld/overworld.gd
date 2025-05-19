@@ -60,7 +60,7 @@ func initialize():
 	_instantiate_manage_party_buttons()
 	#instantiate_manage_party_screen()
 	_instantiate_recruit_selection_buttons()
-	_instantiate_shop_selection_buttons()
+	#_instantiate_shop_selection_buttons()
 	#instantiate_convoy_buttons()
 	convoy_container.set_po_data(playerOverworldData)
 
@@ -243,66 +243,17 @@ func _on_new_recruit_button_pressed(button_index):
 
 #-----------SHOP------------
 #This section will have all the methods for interacting with the shop menu
-var all_items = ItemDatabase.items.keys()
-var magic_items = filter_items_by_damage_type(all_items, Constants.DAMAGE_TYPE.MAGIC)
-var axe_items = filter_items_by_weapon_type(all_items, "Axe")
-
-#Creates the initial amount of buttons needed in the Shop menu
-func _instantiate_shop_selection_buttons():
-	#set all items tab
-	for i in all_items.size():
-		create_buttons_list(1,all_items[i],_on_shop_item_button_pressed,
-						$"ShopVContainer/TabContainer/All Items/VBoxContainer", true)
-	#set axes tab
-	for i in axe_items.size():
-		create_buttons_list(1,axe_items[i],_on_shop_item_button_pressed,
-						$ShopVContainer/TabContainer/Axes/VBoxContainer, true)
-	#set magic tab
-	for i in magic_items.size():
-		create_buttons_list(1,magic_items[i],_on_shop_item_button_pressed,
-						$ShopVContainer/TabContainer/Magic/VBoxContainer, true)
 
 #Shows the Shop Screen and minimizes the main container
 func _on_shop_button_pressed():
 	shop_container.visible = true
 	main_container.visible = false
 
-func _on_shop_item_button_pressed(button_text):
-	if playerOverworldData.convoy.size() < playerOverworldData.convoy_size and playerOverworldData.gold >= 100:
-		playerOverworldData.append_to_array(playerOverworldData.convoy, ItemDatabase.items.get(button_text))
-		playerOverworldData.gold -= 100
-		gold_counter.update_gold_count(playerOverworldData.gold)
-		print("Item Bought!")
-
-func _on_upgrade_shop_button_pressed():
-	if(playerOverworldData.gold >= 100 and playerOverworldData.shop_level <= 5):
-		#increase the amount of selections and create the new button
-		playerOverworldData.shop_level += 1
-		#subtract the gold and update the counter
-		playerOverworldData.gold -= 100
-		gold_counter.update_gold_count(playerOverworldData.gold)
-
-
-func filter_items_by_weapon_type(items, filter):
-	var accum = []
-	for i in items:
-		var temp = ItemDatabase.items.get(i)
-		if temp is WeaponDefinition:
-			temp = temp.weapon_type
-			if temp == filter:
-				accum.append(i)
-	return accum
-
-func filter_items_by_damage_type(items, filter):
-	var accum = []
-	for i in items:
-		var temp = ItemDatabase.items.get(i)
-		if temp is WeaponDefinition:
-			temp = temp.item_damage_type
-			if temp == filter:
-				accum.append(i)
-	return accum
-	
+func item_bought(item:ItemDefinition):
+	playerOverworldData.append_to_array(playerOverworldData.convoy, item)
+	playerOverworldData.gold -= 100
+	gold_counter.update_gold_count(playerOverworldData.gold)
+		
 
 
 #-----------------CONVOY------------------
