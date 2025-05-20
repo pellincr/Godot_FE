@@ -2,6 +2,7 @@ extends VBoxContainer
 
 const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 var playerOverworldData : PlayerOverworldData
+var control_node : Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if playerOverworldData != null:
@@ -13,6 +14,8 @@ func _ready():
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
+func set_control_node(c_node):
+	control_node = c_node
 
 #num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container

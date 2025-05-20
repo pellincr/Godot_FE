@@ -2,7 +2,7 @@ extends Control
 
 var save_file_name = "PlayerOverworldSave.tres"
 var playerOverworldData = PlayerOverworldData.new()
-
+var control_node : Node
 
 @onready var main_container = get_node("MainVcontainer")
 @onready var party_container = get_node("PartyVContainer")
@@ -65,6 +65,9 @@ func initialize():
 	convoy_container.set_po_data(playerOverworldData)
 	shop_container.set_po_data(playerOverworldData)
 	party_container.set_po_data(playerOverworldData)
+	convoy_container.set_control_node(self)
+	shop_container.set_control_node(self)
+	party_container.set_control_node(self)
 
 #num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container
@@ -183,7 +186,7 @@ func item_bought(item:ItemDefinition):
 	playerOverworldData.append_to_array(playerOverworldData.convoy, item)
 	playerOverworldData.gold -= 100
 	gold_counter.update_gold_count(playerOverworldData.gold)
-		
+	convoy_container.update_convoy_buttons()
 
 
 #-----------------CONVOY------------------

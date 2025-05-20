@@ -4,6 +4,7 @@ signal item_bought(item : ItemDatabase)
 
 const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 var playerOverworldData : PlayerOverworldData
+var control_node : Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if playerOverworldData != null:
@@ -14,6 +15,11 @@ func _ready():
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
+
+func set_control_node(c_node):
+	control_node = c_node
+	connect("item_bought",control_node.item_bought)
+
 
 
 #num string container -> list of buttons
@@ -54,6 +60,9 @@ func instantiate_shop_buttons():
 func _on_shop_item_button_pressed(button_text):
 	if playerOverworldData.convoy.size() < playerOverworldData.convoy_size and playerOverworldData.gold >= 100:
 		item_bought.emit(ItemDatabase.items.get(button_text))
+		#control_node.item_bought.emit(ItemDatabase.items.get(button_text))
+		#playerOverworldData.append_to_array(playerOverworldData.convoy, ItemDatabase.items.get(button_text))
+		#playerOverworldData.gold -= 100
 		print("Item Bought!")
 
 

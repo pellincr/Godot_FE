@@ -4,6 +4,7 @@ const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 const unit_stats = preload("res://overworld/unit_stats.tscn")
 
 var playerOverworldData : PlayerOverworldData
+var control_node : Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if playerOverworldData != null:
@@ -16,6 +17,8 @@ func _ready():
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
+func set_control_node(c_node):
+	control_node = c_node
 
 #num string container -> list of buttons
 #Creates a given amount of buttons with the specified text in the entered container
@@ -61,6 +64,8 @@ func _on_party_member_button_pressed(button_index):
 		var button_container = pressed_button.get_hbox_container()
 		if unit != null:
 			var u_stats = unit_stats.instantiate()
+			u_stats.set_po_data(playerOverworldData)
+			u_stats.set_control_node(control_node)
 			u_stats.connect("unit_selected", unit_selected)
 			u_stats.connect("unit_dismissed",unit_dismissed)
 			u_stats.unit = unit
