@@ -32,4 +32,5 @@ item_type = 1
 uses = 40
 max_uses = 40
 value = 0
+use_range = Array[int]([0])
 icon = ExtResource("1_no0c5")

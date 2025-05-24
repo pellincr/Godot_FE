@@ -143,3 +143,16 @@ func get_item(index:int) -> ItemDefinition:
 	if index < items.size():
 		return items[index]
 	return null
+
+func get_range_dictionary() -> Dictionary: 
+	var range_dict = {}
+	for item in items:
+		var ranges : Array[int]
+		if (item != null) :
+			if item.equippable:
+				if item is WeaponDefinition:
+					if not item.attack_range.is_empty():
+						for attack_range in item.attack_range:
+								ranges.append(attack_range)
+						range_dict[item.name] = ranges
+	return range_dict

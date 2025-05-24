@@ -36,4 +36,5 @@ item_type = 0
 uses = 12
 max_uses = 12
 value = 2
+use_range = Array[int]([0])
 icon = SubResource("AtlasTexture_8cs32")

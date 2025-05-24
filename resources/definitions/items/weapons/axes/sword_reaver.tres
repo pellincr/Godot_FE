@@ -32,4 +32,5 @@ item_type = 0
 uses = 45
 max_uses = 45
 value = 2
+use_range = Array[int]([0])
 icon = ExtResource("1_x3tid")

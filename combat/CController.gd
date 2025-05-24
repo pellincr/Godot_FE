@@ -25,54 +25,61 @@ signal target_selection_finished()
 signal tile_info_updated(tile : Dictionary)
 signal target_detailed_info(combat_unit : CombatUnit)
 
-##EXPORTS
+#SM variables 
+var turn_count : int = 1
+var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
+var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
+var previous_turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
+var previous_player_state : Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
+var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
+
+##Controller Mains
 @export var controlled_node : Control
 @export var combat: Combat 
 var grid: CombatMapGrid
 var camera: CombatCamera
 
+## Selector/Cursor
 @export var selector : AnimatedSprite2D
 
 var unit_detail_open = false
-#var tile_map : TileMap
+
+#Player Interaction Variables 
+var current_tile_position: Vector2i
 var current_tile_info : MapTile = MapTile.new()
 
-var _path : PackedVector2Array
+var selected_tile_position: Vector2i
+var selected_tile_info : MapTile = MapTile.new()
 
-var player_turn = true ##This may be redundant
-
-var _attack_target_position
-var _blocked_target_position
-
-var _next_position
-
-var _position_id = 0
+var targeted_tile_position: Vector2i
+var targeted_tile_info : MapTile = MapTile.new()
 
 #Movement Variables
 var _arrived = true
+var _path : Array[Vector2i] #PackedVector2Array
+var _next_position
+var _position_id = 0
 var movement = 0:
 	set = set_movement,
 	get = get_movement
-
 var default_move_speed = MOVEMENT_SPEED*5
 var return_move_speed = MOVEMENT_SPEED*5
 var move_speed = default_move_speed
 var _previous_position : Vector2i
 
-var _selected_skill: String
-
 #Action Select
 var _available_actions : Array[UnitAction]
 var _action: UnitAction
-var _action_selected: bool # Is this redundant?
+var _action_selected: bool
 
 #Action Variables
 var _action_target_unit : CombatUnit
 var _action_target_unit_selected : bool = false # is this redundant? 
 var _unit_action_completed : bool = false
 var _unit_action_initiated : bool = false
-var _action_tiles : PackedVector2Array
+var _action_tiles : Array[Vector2i]#PackedVector2Array
 var _action_valid_targets : Array[CombatUnit]
+var _action_queue: Array 
 
 #Item Selection Variables
 var _selected_item: ItemDefinition
@@ -84,22 +91,10 @@ var _in_ai_process: bool = false
 var _enemy_units_turn_taken: bool = false
 
 #Drawing Variables
-var move_range : PackedVector2Array
-var attack_range : PackedVector2Array
-var skill_range : PackedVector2Array 
+var move_range : Array[Vector2i] #PackedVector2Array
+var attack_range : Array[Vector2i] #PackedVector2Array
+var skill_range : Array[Vector2i] #PackedVector2Array 
 
-#Player Variables
-var current_tile_position: Vector2i
-
-#SM variables 
-var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
-var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
-var previous_turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
-var previous_player_state : Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
-var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
-
-#Turn Info
-var turn_count : int = 1
 
 func _ready():
 	#tile_map = get_node("../../Terrain/TileMap")
@@ -130,11 +125,9 @@ func _ready():
 func process_ui_confirm_inputs(delta):
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
-			var mouse_position = get_global_mouse_position()
-			var map_position = grid.position_to_map(mouse_position)
 			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
 				##Player selects a unit
-				var selected_unit = grid.get_combat_unit(map_position)
+				var selected_unit = grid.get_combat_unit(current_tile_position)
 				if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
 					combat.game_ui.hide_end_turn_button()
 					combat.game_ui.play_menu_confirm()
@@ -145,8 +138,8 @@ func process_ui_confirm_inputs(delta):
 				combat.game_ui.play_menu_confirm()
 				## Players selects a move
 				if _arrived == true:
-					if map_position != combat.get_current_combatant().map_position:
-						if grid.is_map_position_available_for_unit_move(map_position, combat.get_current_combatant().unit.movement_class):
+					if current_tile_position != combat.get_current_combatant().map_position:
+						if grid.is_map_position_available_for_unit_move(current_tile_position, combat.get_current_combatant().unit.movement_class):
 							move_player()
 					else :
 						combat.get_current_combatant().move_position = combat.get_current_combatant().map_position
@@ -154,17 +147,17 @@ func process_ui_confirm_inputs(delta):
 						combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
 						update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
 					if _arrived == true:
-						find_path(map_position)
-						var comb = grid.get_combat_unit(map_position)
-						var local_map = grid.map_to_position(map_position)
-						get_tile_info(map_position)
+						find_path(current_tile_position)
+						var comb = grid.get_combat_unit(current_tile_position)
+						var local_map = grid.map_to_position(current_tile_position)
+						get_tile_info(current_tile_position)
 						if comb != null:	
 							if comb.allegience == 1 and comb.alive:
 								_attack_target_position = local_map
 							else:
 								_attack_target_position = null
 								_blocked_target_position = local_map
-						elif grid.is_unit_blocked(map_position, combat.get_current_combatant().unit.movement_class):
+						elif grid.is_unit_blocked(current_tile_position, combat.get_current_combatant().unit.movement_class):
 							_blocked_target_position = local_map
 						else:
 							_attack_target_position = null
@@ -180,7 +173,7 @@ func process_ui_confirm_inputs(delta):
 			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
 				if _action_selected == true and _action.requires_target == true:
 					##Targeting
-					var comb = grid.get_combat_unit(map_position)
+					var comb = grid.get_combat_unit(current_tile_position)
 					if comb != null and comb.alive:
 						if _action_valid_targets.has(comb):
 							combat.game_ui.hide_unit_combat_exchange_preview()
@@ -195,9 +188,6 @@ func process_ui_confirm_inputs(delta):
 func process_ui_cancel_inputs(delta):
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
-			var mouse_position = get_global_mouse_position()
-			var mouse_position_i = grid.position_to_map(mouse_position)
-			get_tile_info(mouse_position_i)
 			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
 				if unit_detail_open:
 					target_detailed_info.emit(null)
@@ -423,19 +413,6 @@ func _process(delta):
 						##update_player_state(previous_player_state)
 						pass
 
-#draw the area
-func _draw():
-	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
-		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
-			if(combat.get_current_combatant()):
-				draw_ranges(move_range, true, attack_range,true, skill_range, true)
-				drawSelectedpath()
-		elif(player_state == Constants.PLAYER_STATE.UNIT_SELECT):
-			if(combat.get_current_combatant()):
-				draw_ranges(move_range, true, attack_range,true, skill_range, true)
-		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
-			draw_action_tiles(_action_tiles, _action)
-
 #advance_the game turn
 #connect to UI end turn
 func advance_turn():
@@ -461,7 +438,7 @@ func get_movement():
 func find_path(tile_position: Vector2i):
 	_path.clear()
 	_path = grid.find_path(tile_position)
-	queue_redraw()
+	#queue_redraw()
 
 func move_player():
 	move_speed = default_move_speed
@@ -488,7 +465,7 @@ func move_on_path(current_position):
 		_next_position = _path[_position_id]
 	_arrived = false
 	update_turn_phase(Constants.TURN_PHASE.PROCESSING)
-	queue_redraw()
+	#queue_redraw()
 	print("Exited move_on_path in Ccontroller")
 
 func begin_target_selection():
@@ -580,57 +557,19 @@ func action_item_selected():
 func use_action_selected():
 	update_player_state(get_next_action_state())
 
-##Draw the path between the selected Combatant and the mouse cursor
-func drawSelectedpath():
-	if _arrived == true and player_turn == true:
-		var path_length = movement
-		#Get the length of the path
-		for i in range(_path.size()):
-			var point = _path[i]
-			var draw_color = Color.TRANSPARENT
-			if grid.is_unit_blocked(point, combat.get_current_combatant().unit.movement_class):
-				draw_color = Color.DIM_GRAY
-				if path_length - grid.get_tile_cost(grid.position_to_map(point), combat.get_current_combatant().unit.movement_class) >= 0:
-					draw_color = Color.WHITE
-				if i > 0:
-					path_length -= grid.get_tile_cost_(grid.position_to_map(point), combat.get_current_combatant().unit.movement_class)
-			else : 
-				break
-			draw_texture(PATH_TEXTURE, point - Vector2(16, 16), draw_color)
-
-#Draws a units move and attack ranges
-func draw_ranges(move_range:PackedVector2Array, draw_move_range:bool, attack_range:PackedVector2Array, draw_attack_range:bool, skill_range:PackedVector2Array, draw_skill_range:bool):
-	var move_range_color = Color.BLUE
-	var attack_range_color = Color.CRIMSON
-	var skill_range_color = Color.GOLD
-	if (draw_move_range) :
-		for tile in move_range :
-			draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), move_range_color)
-	if (draw_attack_range) :
-		for tile in attack_range :
-			if(!move_range.has(tile)) : 
-				draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), attack_range_color)
-	if (draw_skill_range) :
-		for tile in skill_range :
-			if(!attack_range.has(tile) and !move_range.has(tile)) : 
-				draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), skill_range_color)
-
-func draw_attack_range(attack_range:PackedVector2Array):
-	for tile in attack_range : 
-			draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), Color.CRIMSON)
-
-func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
-	##Set the tile color based on the type of action
-	var tile_color : Color = Color.CRIMSON
-	if _action:
-		if _action == SUPPORT_ACTION: 
-			tile_color = Color.SEA_GREEN
-		if _action == TRADE_ACTION:
-			tile_color = Color.BLUE_VIOLET
-		if _action == SHOVE_ACTION:
-			tile_color = Color.ORANGE
-	for tile in tiles : 
-		draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), tile_color)
+#draw the area
+func _draw():
+	if(game_state == Constants.GAME_STATE.PLAYER_TURN):
+		if(player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT):
+			if(combat.get_current_combatant()):
+				draw_ranges(move_range, true, attack_range,true, skill_range, true)
+				drawSelectedpath()
+		elif(player_state == Constants.PLAYER_STATE.UNIT_SELECT):
+			if(combat.get_current_combatant()):
+				pass
+				draw_ranges(move_range, true, attack_range,true, skill_range, true)
+		if(player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
+			draw_action_tiles(_action_tiles, _action)
 
 func get_next_action_state()-> Constants.PLAYER_STATE:
 	if _action and _action_selected:
@@ -1058,3 +997,54 @@ func update_current_tile(position : Vector2i):
 		selector.position = grid.map_to_position(current_tile_position)
 		combat.game_ui._set_tile_info(current_tile_info)
 	
+##Draw the path between the selected Combatant and the mouse cursor
+func drawSelectedpath():
+	if _arrived == true and game_state == Constants.GAME_STATE.PLAYER_TURN:
+		var path_length = movement
+		#Get the length of the path
+		for i in range(_path.size()):
+			var point = _path[i]
+			var draw_color = Color.TRANSPARENT
+			if grid.is_unit_blocked(point, combat.get_current_combatant().unit.movement_class):
+				draw_color = Color.DIM_GRAY
+				if path_length - grid.get_tile_cost(grid.position_to_map(point), combat.get_current_combatant().unit.movement_class) >= 0:
+					draw_color = Color.WHITE
+				if i > 0:
+					path_length -= grid.get_tile_cost_(grid.position_to_map(point), combat.get_current_combatant().unit.movement_class)
+			else : 
+				break
+			draw_texture(PATH_TEXTURE, point - Vector2(16, 16), draw_color)
+
+#Draws a units move and attack ranges
+func draw_ranges(move_range:PackedVector2Array, draw_move_range:bool, attack_range:PackedVector2Array, draw_attack_range:bool, skill_range:PackedVector2Array, draw_skill_range:bool):
+	var move_range_color = Color.BLUE
+	var attack_range_color = Color.CRIMSON
+	var skill_range_color = Color.GOLD
+	if (draw_move_range) :
+		for tile in move_range :
+			draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), move_range_color)
+	if (draw_attack_range) :
+		for tile in attack_range :
+			if(!move_range.has(tile)) : 
+				draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), attack_range_color)
+	if (draw_skill_range) :
+		for tile in skill_range :
+			if(!attack_range.has(tile) and !move_range.has(tile)) : 
+				draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), skill_range_color)
+
+func draw_attack_range(attack_range:PackedVector2Array):
+	for tile in attack_range : 
+			draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), Color.CRIMSON)
+
+func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
+	##Set the tile color based on the type of action
+	var tile_color : Color = Color.CRIMSON
+	if _action:
+		if _action == SUPPORT_ACTION: 
+			tile_color = Color.SEA_GREEN
+		if _action == TRADE_ACTION:
+			tile_color = Color.BLUE_VIOLET
+		if _action == SHOVE_ACTION:
+			tile_color = Color.ORANGE
+	for tile in tiles : 
+		draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), tile_color)

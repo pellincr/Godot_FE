@@ -32,4 +32,5 @@ item_type = 0
 uses = 14
 max_uses = 14
 value = 2
+use_range = Array[int]([0])
 icon = ExtResource("1_ps4gp")

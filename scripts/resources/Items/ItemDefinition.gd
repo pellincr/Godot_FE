@@ -5,8 +5,8 @@ enum ITEM_TYPE {
 	WEAPON,
 	STAFF,
 	USEABLE_ITEM,
-	EQUIPMENT_LOOT,
-	EM
+	LOOT,
+	EQUIPMENT
 }
 
 @export_group("Item Info")
@@ -20,7 +20,7 @@ enum ITEM_TYPE {
 @export_range(-1, 100, 1, "or_greater") var uses = 50
 @export_range(1, 2, 1, "or_greater") var max_uses = 50
 @export_range(0, 30, 1, "or_greater") var value = 35
-
+@export_range(0, 30, 1) var use_range : Array[int] = [0]
 @export_group("Visuals")
 @export var icon: Texture2D
 

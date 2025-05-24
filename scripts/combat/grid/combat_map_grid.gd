@@ -185,7 +185,6 @@ func get_tile_cost(tile:Vector2i, movement_class:int):
 		print("get_tile_cost called with out of bounds tile")
 	return INF
 
-
 ##Use DFS to retrieve the available cells from an origin point
 func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 	var _return_array : PackedVector2Array
