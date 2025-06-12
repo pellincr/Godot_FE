@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6on5oloy43oe"]
+
+[ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
+[ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
+
+[node name="ArmyArchetypeDatabase" type="Node"]
+script = ExtResource("1_2cpwe")
+army_archetypes = {
+"classic": ExtResource("2_5nohr")
+}

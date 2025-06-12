@@ -8,6 +8,10 @@ class_name PlayerOverworldData
 @export var available_party_capacity = 4 #number of units the player is allowed to use in dungeon
 @export var total_recruits_available = 3 #number of units the player is able to purchase
 @export var shop_level = 1 #level of shop associated with what upgrades are availalble for purchase
+@export var max_archetype = 4
+@export var current_archetype_count = 0
+
+@export var archetype_allotments = []
 
 @export var total_party = []
 @export var selected_party = []

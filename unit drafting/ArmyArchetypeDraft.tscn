@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://mj46ut7xwvvu"]
+
+[ext_resource type="Script" path="res://unit drafting/army_archetype_draft.gd" id="1_m2t3o"]
+
+[node name="ArchetypeHContainer" type="HBoxContainer"]
+offset_left = 572.0
+offset_top = 303.0
+offset_right = 612.0
+offset_bottom = 343.0
+script = ExtResource("1_m2t3o")
