@@ -6,6 +6,7 @@ const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 var playerOverworldData : PlayerOverworldData
 var control_node : Node
 
+
 var army_archetype_names = ArmyArchetypeDatabase.army_archetypes.keys()
 
 func _ready():
@@ -45,13 +46,21 @@ func instantiate_archetype_buttons():
 	archetype_buttons = create_buttons_list(3,
 											army_archetype_names.pick_random(),_on_archetype_selected,
 											$".")
+	update_archetype_buttons()
+
+func update_archetype_buttons():
+	for i in archetype_buttons.size():
+		var button = archetype_buttons[i]
+		button.set_button_text(army_archetype_names.pick_random())
+		button.set_contained_var(ArmyArchetypeDatabase.army_archetypes.get(button.get_button_text()))
 
 func _on_archetype_selected(button_index):
 	playerOverworldData.current_archetype_count += 1
 	#Get the archetype associated with the pressed button
 	var selected_archetype = archetype_buttons[button_index].get_contained_var()
 	#add the classes expected to appear from the selected archetype to the archetype allotments
-	playerOverworldData.archetype_allotments.append_array(selected_archetype.given_classes)
+	playerOverworldData.archetype_allotments.append_array(selected_archetype.given_archetypes)
 	print("Archetype Selected!")
+	update_archetype_buttons()
 	if (playerOverworldData.current_archetype_count == playerOverworldData.max_archetype):
 		archetype_selection_complete.emit()

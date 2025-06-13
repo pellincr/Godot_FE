@@ -16,8 +16,12 @@ func _process(delta):
 func get_button() -> Button:
 	return $HBoxContainer/Button
 
+func get_button_text() -> String:
+	return $HBoxContainer/Button.text
+
 func set_button_text(text) -> void:
 	$HBoxContainer/Button.text = text
+
 
 func get_hbox_container():
 	return $HBoxContainer

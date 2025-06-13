@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=4 format=3 uid="uid://ciwap3bbtyq5l"]
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=2 format=3 uid="uid://ciwap3bbtyq5l"]
 
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_se1bm"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_53rl2"]
-[ext_resource type="Resource" uid="uid://bb0md7oy0f7w6" path="res://resources/definitions/unit_types/cavalier.tres" id="2_83kmb"]
 
 [resource]
 script = ExtResource("2_53rl2")
 archetype_name = "Classic"
-given_classes = Array[ExtResource("1_se1bm")]([ExtResource("2_83kmb"), ExtResource("2_83kmb")])
+given_archetypes = Array[String](["Calvary", "Calvary"])

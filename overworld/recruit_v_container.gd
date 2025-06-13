@@ -1,10 +1,13 @@
 extends VBoxContainer
 
 signal unit_recruited(unit: Unit)
+signal recruiting_complete()
 
 const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 var playerOverworldData : PlayerOverworldData
 var control_node : Node
+
+var all_unit_classes = UnitTypeDatabase.unit_types.keys()
 
 func _ready():
 	if playerOverworldData != null:
@@ -48,13 +51,19 @@ func instantiate_recruit_buttons():
 #creates an array of random units of the given size
 func generate_recruits(num):
 	var accum = []
-	var unit_classes = UnitTypeDatabase.unit_types.keys()
 	for i in range(num):
-		var new_recruit_class = unit_classes.pick_random()
+		#get what the batch of recruits is supposed to be filtered by
+		var unit_filter = playerOverworldData.archetype_allotments[playerOverworldData.total_party.size()]
+		#get the list of all classes that meets the filter criteria
+		var filtered_unit_classes = get_units_by_class(unit_filter)
+		if filtered_unit_classes.size() == 0:
+			filtered_unit_classes = get_units_by_weapon(unit_filter)
+		#pick a random class of the filtered classes
+		var new_recruit_class = filtered_unit_classes.pick_random()
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var iventory_array : Array[ItemDefinition]
 		iventory_array.append(ItemDatabase.items["brass_knuckles"])
-		var new_recruit = Unit.create_generic(UnitTypeDatabase.unit_types.get(new_recruit_class),iventory_array, new_unit_name, 2)
+		var new_recruit = Unit.create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		accum.append(new_recruit)
 	return accum
 
@@ -77,7 +86,29 @@ func set_recruit_buttons(buttons:Array, recruits:Array):
 
 #When a new recruit is pressed, they are added to the memebers total party and then rerolled
 func _on_recruit_button_pressed(button_index):
-	if(recruit_buttons.size() > button_index and playerOverworldData.gold >= 100):
-		unit_recruited.emit(recruit_buttons[button_index].get_contained_var())
-		#reroll all the units on the recruit page
-		set_recruit_buttons(recruit_buttons, generate_recruits(3))
+	if(recruit_buttons.size() > button_index):
+		var unit = recruit_buttons[button_index].get_contained_var()
+		playerOverworldData.append_to_array(playerOverworldData.total_party, unit)
+		if playerOverworldData.total_party.size() < playerOverworldData.archetype_allotments.size():
+			#reroll all the units on the recruit page
+			set_recruit_buttons(recruit_buttons, generate_recruits(3))
+		else:
+			recruiting_complete.emit()
+
+
+#purpose: to return a list of units that can use the available weapon type
+func get_units_by_weapon(weapon_type):
+	var viable_units = []
+	for i in all_unit_classes.size():
+		var unit_class = UnitTypeDatabase.unit_types.get(all_unit_classes[i])
+		if unit_class.usable_weapon_types.has(weapon_type):
+			viable_units.append(unit_class)
+	return viable_units
+
+func get_units_by_class(class_type):
+	var viable_units = []
+	for i in all_unit_classes.size():
+		var unit_class = UnitTypeDatabase.unit_types.get(all_unit_classes[i])
+		if unit_class.class_type.has(class_type):
+			viable_units.append(unit_class)
+	return viable_units

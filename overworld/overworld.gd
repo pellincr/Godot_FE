@@ -8,7 +8,7 @@ var control_node : Node
 @onready var party_container = get_node("PartyVContainer")
 @onready var shop_container = get_node("ShopVContainer")
 @onready var convoy_container = get_node("ConvoyVContainer")
-@onready var recruit_container = get_node("RecruitVContainer")
+#@onready var recruit_container = get_node("RecruitVContainer")
 @onready var training_container = get_node("TrainingVContainer")
 
 @onready var gold_counter = get_node("GoldCounter")
@@ -49,7 +49,7 @@ func _on_return_button_pressed():
 	party_container.visible = false
 	shop_container.visible = false
 	convoy_container.visible = false
-	recruit_container.visible = false
+	#recruit_container.visible = false
 	training_container.visible = false
 	$MainVcontainer/ManageParty_Button.grab_focus()
 
@@ -65,11 +65,11 @@ func initialize():
 	convoy_container.set_po_data(playerOverworldData)
 	shop_container.set_po_data(playerOverworldData)
 	party_container.set_po_data(playerOverworldData)
-	recruit_container.set_po_data(playerOverworldData)
+	#recruit_container.set_po_data(playerOverworldData)
 	convoy_container.set_control_node(self)
 	shop_container.set_control_node(self)
 	party_container.set_control_node(self)
-	recruit_container.set_control_node(self)
+	#recruit_container.set_control_node(self)
 
 
 #-----------MANAGE PARTY------------
@@ -83,9 +83,9 @@ func _on_manage_party_button_pressed():
 
 #-----------RECRUIT UNITS------------
 #Shows the Recruit Unit Screen and minimizes the main container
-func _on_recruit_button_pressed():
-	recruit_container.visible = true
-	main_container.visible = false
+#func _on_recruit_button_pressed():
+#	recruit_container.visible = true
+#	main_container.visible = false
 
 func unit_recruited(unit: Unit):
 	#add the unit to the total party

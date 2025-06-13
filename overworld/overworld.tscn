@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7po17088nvmy"]
+[gd_scene load_steps=7 format=3 uid="uid://b7po17088nvmy"]
 
 [ext_resource type="Script" path="res://overworld/overworld.gd" id="1_r8x5d"]
 [ext_resource type="PackedScene" uid="uid://b1to0thf4ssv2" path="res://overworld/convoy_v_container.tscn" id="2_7s5gx"]
 [ext_resource type="PackedScene" uid="uid://dpdughlwrxfy6" path="res://overworld/party_v_container.tscn" id="2_46q1g"]
 [ext_resource type="PackedScene" uid="uid://b02vue5pmow6o" path="res://overworld/shop_v_container.tscn" id="2_qquhw"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_se82l"]
-[ext_resource type="PackedScene" uid="uid://dvevglqjnw54f" path="res://overworld/recruit_v_container.tscn" id="3_6xans"]
 [ext_resource type="Script" path="res://overworld/gold_counter.gd" id="3_s7up8"]
 
 [node name="Overworld" type="Control"]
@@ -32,7 +31,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ManageParty_Button" type="Button" parent="MainVcontainer"]
-visible = false
 layout_mode = 2
 text = "Manage Party"
 
@@ -42,12 +40,10 @@ layout_mode = 2
 text = "Recruit Members"
 
 [node name="Shop_Button" type="Button" parent="MainVcontainer"]
-visible = false
 layout_mode = 2
 text = "Shop"
 
 [node name="Convoy_Button" type="Button" parent="MainVcontainer"]
-visible = false
 layout_mode = 2
 text = "Convoy"
 
@@ -80,25 +76,6 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Return_Button" type="Button" parent="PartyVContainer"]
-layout_mode = 2
-text = "Return"
-
-[node name="RecruitVContainer" parent="." instance=ExtResource("3_6xans")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 247.0
-offset_top = 235.0
-offset_right = 1050.0
-offset_bottom = 512.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Return_Button" type="Button" parent="RecruitVContainer"]
 layout_mode = 2
 text = "Return"
 
@@ -172,8 +149,6 @@ script = ExtResource("3_s7up8")
 [connection signal="pressed" from="MainVcontainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="PartyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
-[connection signal="unit_recruited" from="RecruitVContainer" to="." method="unit_recruited"]
-[connection signal="pressed" from="RecruitVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="item_bought" from="ShopVContainer" to="." method="item_bought"]
 [connection signal="pressed" from="ShopVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="ConvoyVContainer/Return_Button" to="." method="_on_return_button_pressed"]

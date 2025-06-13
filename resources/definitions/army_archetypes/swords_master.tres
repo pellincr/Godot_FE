@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=2 format=3 uid="uid://dnb5ni1q1ykkv"]
+
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="1_qogol"]
+
+[resource]
+script = ExtResource("1_qogol")
+archetype_name = "Classic"
+given_archetypes = Array[String](["Sword", "Sword"])
