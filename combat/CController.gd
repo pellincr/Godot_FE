@@ -27,11 +27,11 @@ signal target_detailed_info(combat_unit : CombatUnit)
 
 #SM variables 
 var turn_count : int = 1
-var game_state: Constants.GAME_STATE = Constants.GAME_STATE.INITIALIZING
-var turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
-var previous_turn_phase: Constants.TURN_PHASE = Constants.TURN_PHASE.INIT
-var previous_player_state : Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
-var player_state: Constants.PLAYER_STATE = Constants.PLAYER_STATE.INIT
+var game_state: CombatMapConstants.COMBAT_MAP_STATE = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
+var turn_phase: CombatMapConstants.TURN_PHASE = CombatMapConstants.TURN_PHASE.INITIALIZING
+var previous_turn_phase: CombatMapConstants.TURN_PHASE = CombatMapConstants.TURN_PHASE.INITIALIZING
+var previous_player_state : CombatMapConstants.PLAYER_STATE = CombatMapConstants.PLAYER_STATE.INITIALIZING
+var player_state: CombatMapConstants.PLAYER_STATE = CombatMapConstants.PLAYER_STATE.INITIALIZING
 
 ##Controller Mains
 @export var controlled_node : Control
@@ -97,147 +97,146 @@ var skill_range : Array[Vector2i] #PackedVector2Array
 
 
 func _ready():
-	#tile_map = get_node("../../Terrain/TileMap")
-	#Auto Wire combat signals for modularity
+	##create variables needed for Combat Map
 	grid = CombatMapGrid.new()
 	camera = CombatCamera.new()
+	##Assign created variables to create place in the scene tree
 	self.add_child(grid)
 	self.add_child(camera)
+	##Auto Wire combat signals for modularity
 	combat.connect("perform_shove", perform_shove)
 	combat.connect("combatant_added", combatant_added)
 	combat.connect("combatant_died", combatant_died)
 	combat.connect("major_action_completed", _on_visual_combat_major_action_completed)
 	combat.connect("minor_action_completed", _on_visual_combat_minor_action_completed)
 	combat.connect("turn_advanced", advance_turn)
-	#combat.combatExchange.connect("combat_exchange_finished", _on_combat)
-	##SET GRID ENTITIES AND INFO HERE
-	#Once Game initialization is complete begin player turn
-	game_state = Constants.GAME_STATE.PLAYER_TURN
-	print("VECTOR TO STRING : " + str(Vector2i(0,0)))
+	##Init & Populate dynamically created nodes
 	await camera.init()
 	await combat.create_combatants()
 	await combat.load_entities()
+	##Prepare to transition to player turn and handle player input
 	current_tile_position = combat.combatants[combat.groups[0].front()].map_position
 	camera.centerCameraCenter(grid.map_to_position(current_tile_position))
 	selector.position = grid.map_to_position(current_tile_position)
+	game_state = CombatMapConstants.GAME_STATE.PLAYER_TURN
 
 #	if Input.is_action_just_pressed("ui_accept"):	
-func process_ui_confirm_inputs(delta):
-	if game_state == Constants.GAME_STATE.PLAYER_TURN:
-		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
-			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
-				##Player selects a unit
-				var selected_unit = grid.get_combat_unit(current_tile_position)
-				if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
-					combat.game_ui.hide_end_turn_button()
-					combat.game_ui.play_menu_confirm()
-					set_controlled_combatant(selected_unit)
-					if selected_unit.allegience == 0:
-						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
-			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
-				combat.game_ui.play_menu_confirm()
-				## Players selects a move
-				if _arrived == true:
-					if current_tile_position != combat.get_current_combatant().map_position:
-						if grid.is_map_position_available_for_unit_move(current_tile_position, combat.get_current_combatant().unit.movement_class):
-							move_player()
-					else :
-						combat.get_current_combatant().move_position = combat.get_current_combatant().map_position
-						combat.get_current_combatant().move_terrain = grid.get_terrain(combat.get_current_combatant().map_position)
-						combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
-						update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
-					if _arrived == true:
-						find_path(current_tile_position)
-						var comb = grid.get_combat_unit(current_tile_position)
-						var local_map = grid.map_to_position(current_tile_position)
-						get_tile_info(current_tile_position)
-						if comb != null:	
-							if comb.allegience == 1 and comb.alive:
-								_attack_target_position = local_map
-							else:
-								_attack_target_position = null
-								_blocked_target_position = local_map
-						elif grid.is_unit_blocked(current_tile_position, combat.get_current_combatant().unit.movement_class):
-							_blocked_target_position = local_map
-						else:
-							_attack_target_position = null
-							_blocked_target_position = null
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				pass
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
-				pass
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
-				pass
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
-				pass
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
-				if _action_selected == true and _action.requires_target == true:
-					##Targeting
-					var comb = grid.get_combat_unit(current_tile_position)
-					if comb != null and comb.alive:
-						if _action_valid_targets.has(comb):
-							combat.game_ui.hide_unit_combat_exchange_preview()
-							combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
-							combat.get_current_combatant().map_terrain = grid.get_terrain(combat.get_current_combatant().map_position)
-							action_target_selected(comb)
-						else:
-							print("Invalid Target")
-							comb = null
-							pass
+#func process_ui_confirm_inputs(delta):
+	#if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		#if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			#if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				###Player selects a unit
+				#var selected_unit = grid.get_combat_unit(current_tile_position)
+				#if selected_unit and selected_unit.alive and !selected_unit.turn_taken: 
+					#combat.game_ui.hide_end_turn_button()
+					#combat.game_ui.play_menu_confirm()
+					#set_controlled_combatant(selected_unit)
+					#if selected_unit.allegience == 0:
+						#update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
+			#elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
+				#combat.game_ui.play_menu_confirm()
+				### Players selects a move
+				#if _arrived == true:
+					#if current_tile_position != combat.get_current_combatant().map_position:
+						#if grid.is_map_position_available_for_unit_move(current_tile_position, combat.get_current_combatant().unit.movement_class):
+							#move_player()
+					#else :
+						#combat.get_current_combatant().move_position = combat.get_current_combatant().map_position
+						#combat.get_current_combatant().move_terrain = grid.get_terrain(combat.get_current_combatant().map_position)
+						#combat.game_ui.set_action_list(get_available_unit_actions(combat.get_current_combatant()))
+						#update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_SELECT)
+					#if _arrived == true:
+						#find_path(current_tile_position)
+						#var comb = grid.get_combat_unit(current_tile_position)
+						#var local_map = grid.map_to_position(current_tile_position)
+						#get_tile_info(current_tile_position)
+						#if comb != null:	
+							#if comb.allegience == 1 and comb.alive:
+								#_attack_target_position = local_map
+							#else:
+								#_attack_target_position = null
+								#_blocked_target_position = local_map
+						#elif grid.is_unit_blocked(current_tile_position, combat.get_current_combatant().unit.movement_class):
+							#_blocked_target_position = local_map
+						#else:
+							#_attack_target_position = null
+							#_blocked_target_position = null
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				#pass
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
+				#pass
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+				#pass
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				#pass
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				#if _action_selected == true and _action.requires_target == true:
+					###Targeting
+					#var comb = grid.get_combat_unit(current_tile_position)
+					#if comb != null and comb.alive:
+						#if _action_valid_targets.has(comb):
+							#combat.game_ui.hide_unit_combat_exchange_preview()
+							#combat.get_current_combatant().map_position = combat.get_current_combatant().move_position
+							#combat.get_current_combatant().map_terrain = grid.get_terrain(combat.get_current_combatant().map_position)
+							#action_target_selected(comb)
+						#else:
+							#print("Invalid Target")
+							#comb = null
+							#pass
 
-func process_ui_cancel_inputs(delta):
-	if game_state == Constants.GAME_STATE.PLAYER_TURN:
-		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
-			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
-				if unit_detail_open:
-					target_detailed_info.emit(null)
-					unit_detail_open = false
-			elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
-				clear_combatant_ranges()
-				_action_tiles.clear()
-				update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				combat.game_ui.play_menu_back()
-				if (_arrived):
-					combat.game_ui.hide_action_list()
-					##MOVE THE UNIT BACK 
-					if combat.get_current_combatant().map_position != combat.get_current_combatant().move_position:
-						find_path(combat.get_current_combatant().map_position)
-						return_player()
-					else : 
-						#finished_move.emit()
-						_arrived = true
-						movement = combat.get_current_combatant().unit.movement
-						update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
-				combat.complete_trade()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
-				if(_action == ITEM_ACTION):
-					combat.game_ui.remove_inventory_options_container()
-					combat.game_ui.enable_inventory_list_butttons()
-				revert_action_flow()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
-				combat.game_ui.hide_attack_action_inventory()
-				revert_action_flow()
-			elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
-				combat.game_ui.play_menu_back()
-				combat.game_ui.hide_unit_combat_exchange_preview()
-				revert_action_flow()
-		else :
-			return
-
-func process_ui_info_inputs(delta):
-	if game_state == Constants.GAME_STATE.PLAYER_TURN:
-		if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
-			var mouse_position = get_global_mouse_position()
-			var map_position = grid.position_to_map(mouse_position)
-			get_tile_info(map_position)
-			if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
-				var comb = grid.get_combat_unit(map_position)
-				if comb != null and comb.alive:
-					if unit_detail_open == false:
-						target_detailed_info.emit(comb)
-						unit_detail_open = true
+#func process_ui_cancel_inputs(delta):
+	#if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		#if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			#if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				#if unit_detail_open:
+					#target_detailed_info.emit(null)
+					#unit_detail_open = false
+			#elif player_state == Constants.PLAYER_STATE.UNIT_MOVEMENT:
+				#clear_combatant_ranges()
+				#_action_tiles.clear()
+				#update_player_state(Constants.PLAYER_STATE.UNIT_SELECT)
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				#combat.game_ui.play_menu_back()
+				#if (_arrived):
+					#combat.game_ui.hide_action_list()
+					###MOVE THE UNIT BACK 
+					#if combat.get_current_combatant().map_position != combat.get_current_combatant().move_position:
+						#find_path(combat.get_current_combatant().map_position)
+						#return_player()
+					#else : 
+						##finished_move.emit()
+						#_arrived = true
+						#movement = combat.get_current_combatant().unit.movement
+						#update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION: 
+				#combat.complete_trade()
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_OPTION_SELECT:
+				#if(_action == ITEM_ACTION):
+					#combat.game_ui.remove_inventory_options_container()
+					#combat.game_ui.enable_inventory_list_butttons()
+				#revert_action_flow()
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT:
+				#combat.game_ui.hide_attack_action_inventory()
+				#revert_action_flow()
+			#elif player_state == Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT:
+				#combat.game_ui.play_menu_back()
+				#combat.game_ui.hide_unit_combat_exchange_preview()
+				#revert_action_flow()
+		#else :
+			#return
+#
+#func process_ui_info_inputs(delta):
+	#if game_state == Constants.GAME_STATE.PLAYER_TURN:
+		#if turn_phase == Constants.TURN_PHASE.MAIN_PHASE:
+			#var mouse_position = get_global_mouse_position()
+			#var map_position = grid.position_to_map(mouse_position)
+			#get_tile_info(map_position)
+			#if player_state == Constants.PLAYER_STATE.UNIT_SELECT:
+				#var comb = grid.get_combat_unit(map_position)
+				#if comb != null and comb.alive:
+					#if unit_detail_open == false:
+						#target_detailed_info.emit(comb)
+						#unit_detail_open = true
 	
 ##Processes user input if not on a menu
 func _unhandled_input(event):
@@ -271,11 +270,14 @@ func _unhandled_input(event):
 func _process(delta):
 	if Input:
 		if Input.is_action_just_pressed("map_confirm"):
-			process_ui_confirm_inputs(delta)
+			pass
+			##process_ui_confirm_inputs(delta)
 		elif Input.is_action_just_pressed("map_cancel"):
-			process_ui_cancel_inputs(delta)
+			pass
+			##process_ui_cancel_inputs(delta)
 		elif Input.is_action_just_pressed("ui_select"):
-			process_ui_info_inputs(delta)
+			pass
+			##process_ui_info_inputs(delta)
 		elif Input.is_action_just_pressed("combat_map_up"):
 			update_current_tile(current_tile_position + Vector2i.UP)
 		elif Input.is_action_just_pressed("combat_map_left"):
@@ -288,7 +290,7 @@ func _process(delta):
 	queue_redraw()
 	if game_state == Constants.GAME_STATE.PLAYER_TURN:
 		if(turn_phase == Constants.TURN_PHASE.INIT):
-			combat.game_ui.hide_end_turn_button()
+			_turn_phase_init_enter()
 			update_turn_phase(Constants.TURN_PHASE.BEGINNING_PHASE)
 		elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			await process_terrain_effects()
@@ -413,8 +415,7 @@ func _process(delta):
 						##update_player_state(previous_player_state)
 						pass
 
-#advance_the game turn
-#connect to UI end turn
+##Method intakes end_turn signal from UI and updates controller & child nodes
 func advance_turn():
 	update_turn_phase(Constants.TURN_PHASE.ENDING_PHASE)
 	combat.advance_turn(Constants.FACTION.PLAYERS)
@@ -437,7 +438,7 @@ func get_movement():
 
 func find_path(tile_position: Vector2i):
 	_path.clear()
-	_path = grid.find_path(tile_position)
+	_path.append_array(grid.find_path(tile_position))
 	#queue_redraw()
 
 func move_player():
@@ -725,15 +726,6 @@ func get_potential_shove_targets(cu: CombatUnit) -> Array[CombatUnit]:
 					pushable_targets.append(pushable_unit)
 	return pushable_targets
 
-#func get_potential_door_targets(position: Vector2i)-> Array[CombatMapEntity]:
-	#var door_targets : Array[CombatMapEntity]
-	#for tile in grid_get_target_tile_neighbors(position):
-		#if get_entity(tile) :
-			#var _entity = get_entity(tile)
-			#if _entity is CombatMapChestEntity:
-				#door_targets.append(_entity)
-	#return door_targets
-
 func get_viable_chest_items(cu: CombatUnit) -> Array[ItemDefinition]:
 	var _items : Array[ItemDefinition]
 	if grid.get_entity(cu.move_position) :
@@ -814,7 +806,7 @@ func _on_visual_combat_minor_action_completed() -> void:
 	combat.game_ui.hide_end_turn_button()
 	update_player_state(Constants.PLAYER_STATE.UNIT_MOVEMENT)
 	
-# AI Methods
+## AI METHODS##
 func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
@@ -860,7 +852,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 					var closet_tile_in_range_to_action_tile
 					for tile in actionable_tiles:
 						if grid.is_valid_tile(tile):
-							var _astar_path = grid.get_point_path(current_position,tile)
+							var _astar_path = grid.find_path(current_position,tile)
 							if _astar_path:
 								var _astar_distance = grid.astar_path_distance(_astar_path)
 								if _astar_distance < _astar_closet_distance and _astar_distance != null:
@@ -887,7 +879,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 														_astar_closet_move_tile_distance_to_action = _astar_distance
 														print("@UPDATED CLOSET MOVE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
 									print("@ FOUND CLOSET MOVEABLE TILE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
-									if closet_tile_in_range_to_action_tile !=  Vector2(current_position):
+									if closet_tile_in_range_to_action_tile && closet_tile_in_range_to_action_tile !=  Vector2(current_position):
 										ai_move(closet_tile_in_range_to_action_tile)
 										called_move = true
 			else:
@@ -943,61 +935,7 @@ func ai_turn ():
 	print("finished AI Turn")
 	_in_ai_process = false
 
-#Getter & Setters
-func set_selected_skill(skill: String):
-	_selected_skill = skill
-
-func set_selected_item(item: ItemDefinition):
-	_selected_item = item
-
-func set_unit_action(action: UnitAction):
-	_action = action
-
-func set_movement(value):
-	movement = value
-	movement_changed.emit(value)
-
-func set_controlled_combatant(combatant: CombatUnit):
-	calculate_combatant_ranges(combatant)
-	combat.set_current_combatant(combatant)
-	controlled_node = combatant.map_display
-	movement = combatant.effective_move
-	grid.update_astar_points(combatant)
-
-func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
-	var target_tile = pushed_unit.map_position + push_vector;
-	if grid.is_map_position_available_for_unit_move(target_tile,pushed_unit.unit.movement_class):
-		if grid.get_tile_cost(target_tile, pushed_unit.unit.movement_class) < 99999:
-			set_controlled_combatant(pushed_unit)
-			find_path(target_tile)
-			move_player()
-			await finished_move
-			pushed_unit.map_position = target_tile
-			pushed_unit.map_terrain = grid.get_terrain(target_tile)
-			combat.complete_shove()
-
-func trigger_reinforcements():
-	combat.spawn_reinforcements(turn_count)
-
-func update_player_state(new_state : Constants.PLAYER_STATE):
-	previous_player_state = player_state
-	player_state = new_state
-
-func update_turn_phase(new_state : Constants.TURN_PHASE):
-	print("$$ CALLED UPDATE TURN PHASE : With target turn phase : " + str(new_state))
-	if new_state != turn_phase:
-		previous_turn_phase = turn_phase
-		turn_phase = new_state
-	else: 
-		print("$$ CALLED UPDATE TURN PHASE : With current turn phase")
-
-func update_current_tile(position : Vector2i):
-	if grid.is_valid_tile(position):
-		get_tile_info(position)
-		selector.position = grid.map_to_position(current_tile_position)
-		combat.game_ui._set_tile_info(current_tile_info)
-	
-##Draw the path between the selected Combatant and the mouse cursor
+##DRAWING METHODS##
 func drawSelectedpath():
 	if _arrived == true and game_state == Constants.GAME_STATE.PLAYER_TURN:
 		var path_length = movement
@@ -1048,3 +986,61 @@ func draw_action_tiles(tiles:PackedVector2Array, ua:UnitAction):
 			tile_color = Color.ORANGE
 	for tile in tiles : 
 		draw_texture(GRID_TEXTURE, tile  * Vector2(32, 32), tile_color)
+
+##GETTERS & SETTERS ##
+
+func set_selected_item(item: ItemDefinition):
+	_selected_item = item
+
+func set_unit_action(action: UnitAction):
+	_action = action
+
+func set_movement(value):
+	movement = value
+	movement_changed.emit(value)
+
+func set_controlled_combatant(combatant: CombatUnit):
+	calculate_combatant_ranges(combatant)
+	combat.set_current_combatant(combatant)
+	controlled_node = combatant.map_display
+	movement = combatant.effective_move
+	grid.update_astar_points(combatant)
+
+func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
+	var target_tile = pushed_unit.map_position + push_vector;
+	if grid.is_map_position_available_for_unit_move(target_tile,pushed_unit.unit.movement_class):
+		if grid.get_tile_cost(target_tile, pushed_unit.unit.movement_class) < 99999:
+			set_controlled_combatant(pushed_unit)
+			find_path(target_tile)
+			move_player()
+			await finished_move
+			pushed_unit.map_position = target_tile
+			pushed_unit.map_terrain = grid.get_terrain(target_tile)
+			combat.complete_shove()
+
+func trigger_reinforcements():
+	combat.spawn_reinforcements(turn_count)
+
+func update_player_state(new_state : Constants.PLAYER_STATE):
+	previous_player_state = player_state
+	player_state = new_state
+
+func update_turn_phase(new_state : Constants.TURN_PHASE):
+	print("$$ CALLED UPDATE TURN PHASE : With target turn phase : " + str(new_state))
+	if new_state != turn_phase:
+		previous_turn_phase = turn_phase
+		turn_phase = new_state
+	else: 
+		print("$$ CALLED UPDATE TURN PHASE : With current turn phase")
+
+func update_current_tile(position : Vector2i):
+	if grid.is_valid_tile(position):
+		get_tile_info(position)
+		selector.position = grid.map_to_position(current_tile_position)
+		combat.game_ui._set_tile_info(current_tile_info)
+
+
+#Called in the state machine on the enter of the INIT state of the turn phase
+func _turn_phase_init_enter():
+	combat.game_ui.hide_end_turn_button()
+	

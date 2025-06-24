@@ -32,24 +32,36 @@ var game_map = {} # <str(Vector2i), mapTile>
 
 var current_tile_position: Vector2i
 
+## Called on Node Ready, used to initialize terrain
 func _ready():
 	terrain_tile_map = get_node("../../Terrain/TileMap")
 	initialize_grid(terrain_tile_map) 
 	populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
-	#populate_game_map_units(unit_data)
-	#populate_game_map_entities(entity_data)
 
-##Populate values methods
+##
+# populates the combatMapGrid with appriopriate terrain values
+# @param tile_map : the target tile_map layer with terrian that will be used in the combat grid
+##
 func populate_map_tiles_from_terrain_tile_map(tile_map: TileMap):
 	for tile in tile_map.get_used_cells(0):
 		create_map_tile(tile)
 		populate_map_tile_terrain(tile)
 
+##
+# populates the combatMapGrid with Combat Units
+#
+# @param unit_data : a list of CombatUnits to be added to the combatMapGrid
+##
 func populate_game_map_units(unit_data: Array[CombatUnit]):
 	for unit in unit_data:
 		if game_map.has(str(unit.map_position)):
 			set_combat_unit(unit, unit.map_position)
 
+##
+# populates the combatMapGrid with Map Entities
+#
+# @param entity_data : a list of CombatUnits to be added to the combatMapGrid
+##
 func populate_game_map_entities(entity_data : MapEntityGroupData):
 	for entity : CombatMapEntity in entity_data.entities:
 		if game_map.has(str(entity.position)):
@@ -237,10 +249,12 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 						if (remaining_range >= 0) :
 							visited.get_or_add(target_tile, remaining_range)
 							DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
-	return visited.keys()
+	var _arr :Array[Vector2i] = []
+	_arr.append_array(visited.keys())
+	return _arr
 
 ##Use DFS to retrieve the available cells from an origin point
-func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false, allegience : int = 99) -> PackedVector2Array:
+func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false, allegience : int = 99) -> Array[Vector2i]:
 	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
 	const DEFAULT_TILE_COST = 1
 	var remaining_range
@@ -276,7 +290,9 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 					if (remaining_range >= 0) :
 						visited.get_or_add(target_tile, remaining_range)
 						DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
-	return visited.keys()
+	var _arr :Array[Vector2i] = []
+	_arr.append_array(visited.keys())
+	return _arr
 
 ##Use DFS to retrieve the available cells from an origin point
 func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false, allegience: int = 99 ) -> Dictionary:

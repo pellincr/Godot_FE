@@ -32,7 +32,7 @@ enum DAMAGE_TYPE
 	MAGIC
 }
 
-enum GAME_STATE{
+enum COMBAT_MAP_STATE{
 	INITIALIZING,
 	PLAYER_TURN,
 	ENEMY_TURN,
@@ -46,7 +46,7 @@ enum GAME_STATE{
 
 enum TURN_PHASE
 {
-	INIT, #0
+	INITIALIZING, #0
 	IDLE, #1
 	BEGINNING_PHASE, #2 
 	MAIN_PHASE, #3 
@@ -56,9 +56,9 @@ enum TURN_PHASE
 
 enum PLAYER_STATE
 {
-	INIT,
-	IDLE,
-	UNIT_SELECT,
+	INITIALIZING, # Initializing the game
+	IDLE, # Awaiting further input
+	UNIT_SELECT, #
 	UNIT_HOVER,
 	UNIT_INFO,
 	GAME_MENU,
