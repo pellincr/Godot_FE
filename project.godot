@@ -11,20 +11,20 @@ config_version=5
 [application]
 
 config/name="Godot_FE"
-run/main_scene="res://combat/game.tscn"
+run/main_scene="res://combat_maps/combat_map.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.png"
 
 [autoload]
 
-SkillDatabase="*res://combat/databases/skill_database.tscn"
-UnitTypeDatabase="*res://combat/databases/unit_type_database.tscn"
-ItemDatabase="*res://combat/databases/item_database.tscn"
+SkillDatabase="*res://combat_map/databases/skill_database.tscn"
+UnitTypeDatabase="*res://resources/databases/unit_type_database.tscn"
+ItemDatabase="*res://resources/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
 CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
-Constants="*res://scripts/Constants/Constants.gd"
-CombatMapConstants="*res://scripts/Constants/combat_map_constants.gd"
+Constants="*res://scripts/Constants.gd"
+CombatMapConstants="*res://scripts/combat_map/combat_map_constants.gd"
 
 [display]
 

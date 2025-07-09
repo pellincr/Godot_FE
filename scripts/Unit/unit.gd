@@ -320,7 +320,6 @@ func level_up_player()-> Array[int]:
 	update_stats()
 	return stat_increase_array
 
-
 func level_up_generic() -> Array[int]:
 	self.level += 1
 	self.experience = 0

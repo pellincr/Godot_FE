@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Terrain" load_steps=3 format=3 uid="uid://cv6q1g0m73cm"]
 
-[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_7004c"]
+[ext_resource type="Script" path="res://scripts/combat_map/grid/Terrain.gd" id="1_7004c"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_stat_bonus.gd" id="2_ucsdg"]
 
 [resource]
