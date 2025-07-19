@@ -6,19 +6,12 @@ var  state = OVERWORLD_STATES.INIT
 var save_file_name = "PlayerOverworldSave.tres"
 var playerOverworldData = PlayerOverworldData.new()
 
+const MAIN_MENU = preload("res://main menu/main_menu.tscn")
 const START_ADVENTURE_SCREEN = preload("res://start adventure/start_adventure.tscn")
 const OVERWORLD_SCREEN = preload("res://overworld/overworld.tscn")
-const DRAFT_SCREEN = preload("res://unit drafting/unit_drafting.tscn")
+const DRAFT_SCREEN = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 
 var ui_loaded = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var overworld_screen = OVERWORLD_SCREEN.instantiate()
-	if FileAccess.file_exists(SelectedSaveFile.selected_save_path + save_file_name):
-		load_data()
-	else:
-		save()
 
 
 func _process(delta):
@@ -31,11 +24,16 @@ func _process(delta):
 		state = OVERWORLD_STATES.START
 	elif(state == OVERWORLD_STATES.START):
 		if not ui_loaded:
-			var start_adventure_screen = START_ADVENTURE_SCREEN.instantiate()
-			await start_adventure_screen
-			$UI.add_child(start_adventure_screen)
-			ui_loaded = true
-			start_adventure_screen.connect("adventure_begun",adventure_begun)
+			if playerOverworldData.total_party.size() == 0:
+				var start_adventure_screen = START_ADVENTURE_SCREEN.instantiate()
+				await start_adventure_screen
+				$UI.add_child(start_adventure_screen)
+				ui_loaded = true
+				start_adventure_screen.connect("adventure_begun",adventure_begun)
+			else:
+				var overworld_screen = OVERWORLD_SCREEN.instantiate()
+				$UI.add_child(overworld_screen)
+				ui_loaded = true
 	elif(state == OVERWORLD_STATES.DRAFT):
 		if not ui_loaded:
 			var draft_scene = DRAFT_SCREEN.instantiate()

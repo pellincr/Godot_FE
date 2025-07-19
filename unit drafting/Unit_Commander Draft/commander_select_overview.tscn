@@ -1,0 +1,118 @@
+[gd_scene load_steps=11 format=3 uid="uid://dj7eoovshwxfb"]
+
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_655jn"]
+[ext_resource type="Texture2D" uid="uid://ddxdxi688dan" path="res://resources/sprites/items/great_bow.png" id="1_bjlfw"]
+[ext_resource type="Texture2D" uid="uid://cqm5bfwkx8b3p" path="res://resources/sprites/icons/amor_icon.png" id="1_gke8c"]
+
+[sub_resource type="Theme" id="Theme_3g5xo"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_648h5"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_usswv"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_a7mto"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_bxdc4"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_a1qqt"]
+default_font_size = 25
+
+[sub_resource type="Theme" id="Theme_pcktg"]
+default_font_size = 18
+
+[node name="CommanderSelectOverview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_655jn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 201)
+layout_mode = 0
+offset_right = 194.0
+offset_bottom = 123.0
+theme_override_constants/separation = 22
+
+[node name="ClassTypeContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(36, 16)
+layout_mode = 2
+size_flags_stretch_ratio = 2.33
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ClassTypeContainer"]
+layout_mode = 2
+texture = ExtResource("1_gke8c")
+expand_mode = 3
+
+[node name="BoonBaneContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_3g5xo")
+
+[node name="BoonContainer" type="HBoxContainer" parent="VBoxContainer/BoonBaneContainer"]
+layout_mode = 2
+theme = SubResource("Theme_648h5")
+
+[node name="Boon" type="Label" parent="VBoxContainer/BoonBaneContainer/BoonContainer"]
+layout_mode = 2
+text = "Boon :"
+
+[node name="Label" type="Label" parent="VBoxContainer/BoonBaneContainer/BoonContainer"]
+self_modulate = Color(0, 1, 0.0666667, 1)
+layout_mode = 2
+text = "Boon Description"
+
+[node name="BaneContainer" type="HBoxContainer" parent="VBoxContainer/BoonBaneContainer"]
+layout_mode = 2
+theme = SubResource("Theme_usswv")
+
+[node name="Bane" type="Label" parent="VBoxContainer/BoonBaneContainer/BaneContainer"]
+layout_mode = 2
+text = "Bane :"
+
+[node name="Label" type="Label" parent="VBoxContainer/BoonBaneContainer/BaneContainer"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "Bane Description"
+
+[node name="SkillsContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_a7mto")
+
+[node name="Skills" type="Label" parent="VBoxContainer/SkillsContainer"]
+layout_mode = 2
+text = "Skills"
+uppercase = true
+
+[node name="WeaponContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_bxdc4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/WeaponContainer"]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="VBoxContainer/WeaponContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_a1qqt")
+text = "Weapon Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WeaponContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 56
+
+[node name="WeaponAbility" type="Label" parent="VBoxContainer/WeaponContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 0.568627, 0.568627, 1)
+layout_mode = 2
+theme = SubResource("Theme_pcktg")
+text = "Weapon Ability"
+
+[node name="WeaponImage" type="TextureRect" parent="VBoxContainer/WeaponContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("1_bjlfw")

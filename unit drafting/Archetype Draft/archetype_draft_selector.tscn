@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvcaei1ygosly"]
+
+[ext_resource type="Script" path="res://unit drafting/Archetype Draft/archetype_draft_selector.gd" id="1_knpel"]
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_pmami"]
+
+[sub_resource type="Theme" id="Theme_q4euw"]
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_mte0y"]
+default_font_size = 24
+
+[node name="ArchetypeDraftSelector" type="Control"]
+custom_minimum_size = Vector2(250, 355)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1030.0
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pmami")
+script = ExtResource("1_knpel")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(250, 355)
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 355.0
+
+[node name="MainVContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 244.0
+offset_bottom = 349.0
+theme_override_constants/separation = 75
+
+[node name="HeaderLabel" type="Label" parent="Panel/MainVContainer"]
+layout_mode = 2
+theme = SubResource("Theme_q4euw")
+text = "Header"
+horizontal_alignment = 1
+
+[node name="UnitListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = SubResource("Theme_mte0y")
+
+[node name="ArchetypeIconContainer" type="HBoxContainer" parent="Panel/MainVContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
+[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

@@ -39,12 +39,18 @@ func create_buttons_list(button_count, button_text, button_function, button_cont
 
 var party_buttons = []
 
+func clear_party_buttons():
+	for i in party_buttons.size():
+		party_buttons[i].queue_free()
+
 #Creates the initial amount of buttons needed in the Manage Party menu
 func instantiate_party_buttons():
-	party_buttons = create_buttons_list(playerOverworldData.total_party_capacity,
+	party_buttons = create_buttons_list(playerOverworldData.total_party.size(),
 	"-EMPTY-",_on_party_member_button_pressed,$ScrollContainer/VBoxContainer)
 
 func update_manage_party_buttons():
+	clear_party_buttons()
+	instantiate_party_buttons() #for some reason this is needed because the scene isn't reading the po_data correctly the first time
 	for i in party_buttons.size():
 		if i < playerOverworldData.total_party.size():
 			update_manage_party_button(party_buttons[i],playerOverworldData.total_party[i])

@@ -5,4 +5,21 @@
 [resource]
 script = ExtResource("2_53rl2")
 archetype_name = "Classic"
-given_archetypes = Array[String](["Calvary", "Calvary"])
+given_archetypes = {
+"Anima": 0,
+"Animal": 0,
+"Armored": 0,
+"Axe": 0,
+"Bow": 0,
+"Calvary": 2,
+"Dark": 0,
+"Fist": 0,
+"Flying": 0,
+"Infantry": 0,
+"Lance": 0,
+"Light": 0,
+"Monster": 0,
+"Other": 0,
+"Staff": 0,
+"Sword": 1
+}

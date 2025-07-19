@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6on5oloy43oe"]
+[gd_scene load_steps=5 format=3 uid="uid://b6on5oloy43oe"]
 
 [ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
 [ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
 [ext_resource type="Resource" uid="uid://dnb5ni1q1ykkv" path="res://resources/definitions/army_archetypes/swords_master.tres" id="3_nk6u8"]
+[ext_resource type="Resource" uid="uid://b26g1glwkc24u" path="res://resources/definitions/army_archetypes/taverns_troop.tres" id="4_2ir55"]
 
 [node name="ArmyArchetypeDatabase" type="Node"]
 script = ExtResource("1_2cpwe")
 army_archetypes = {
 "classic": ExtResource("2_5nohr"),
-"sword_master": ExtResource("3_nk6u8")
+"sword_master": ExtResource("3_nk6u8"),
+"taverns_troop": ExtResource("4_2ir55")
 }

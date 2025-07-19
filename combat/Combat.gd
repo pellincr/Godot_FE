@@ -108,8 +108,8 @@ func _ready():
 	iventory_array.append(ItemDatabase.items["brass_knuckles"])
 	iventory_array.append(ItemDatabase.items["devil_knuckles"])
 	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["martial_artist"], iventory_array, "Avon", 4,11),0), Vector2i(9,16))
-	var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
-	add_combatant(create_combatant_unit(playerOverworldData.total_party[0],0),Vector2i(10,16))
+	#var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+	#add_combatant(create_combatant_unit(playerOverworldData.total_party[0],0),Vector2i(10,16))
 	
 
 	#ENEMY

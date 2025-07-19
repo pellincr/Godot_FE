@@ -34,11 +34,6 @@ grow_vertical = 2
 layout_mode = 2
 text = "Manage Party"
 
-[node name="Recruit_Button" type="Button" parent="MainVcontainer"]
-visible = false
-layout_mode = 2
-text = "Recruit Members"
-
 [node name="Shop_Button" type="Button" parent="MainVcontainer"]
 layout_mode = 2
 text = "Shop"
@@ -46,11 +41,6 @@ text = "Shop"
 [node name="Convoy_Button" type="Button" parent="MainVcontainer"]
 layout_mode = 2
 text = "Convoy"
-
-[node name="TrainParty_Button" type="Button" parent="MainVcontainer"]
-visible = false
-layout_mode = 2
-text = "Train Members"
 
 [node name="BeginAdventure_Button" type="Button" parent="MainVcontainer"]
 layout_mode = 2
@@ -117,39 +107,23 @@ grow_vertical = 1
 layout_mode = 2
 text = "Return"
 
-[node name="TrainingVContainer" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.5
-offset_top = -20.0
-offset_right = 30.5
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Return_Button" type="Button" parent="TrainingVContainer"]
-layout_mode = 2
-text = "Return"
-
 [node name="GoldCounter" parent="." instance=ExtResource("2_se82l")]
-visible = false
 layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 93.0
+offset_bottom = 23.0
+grow_horizontal = 1
+grow_vertical = 1
 script = ExtResource("3_s7up8")
 
 [connection signal="pressed" from="MainVcontainer/ManageParty_Button" to="." method="_on_manage_party_button_pressed"]
-[connection signal="pressed" from="MainVcontainer/Recruit_Button" to="." method="_on_recruit_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/Shop_Button" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/Convoy_Button" to="." method="_on_convoy_button_pressed"]
-[connection signal="pressed" from="MainVcontainer/TrainParty_Button" to="." method="_on_train_party_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
 [connection signal="pressed" from="MainVcontainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="PartyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="item_bought" from="ShopVContainer" to="." method="item_bought"]
 [connection signal="pressed" from="ShopVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="ConvoyVContainer/Return_Button" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="TrainingVContainer/Return_Button" to="." method="_on_return_button_pressed"]

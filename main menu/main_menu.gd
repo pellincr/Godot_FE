@@ -21,11 +21,15 @@ var save_path_3 = "user://save3/"
 @onready var save_3_button = $SaveVContainer/Save3HContainer/Save_Button3 as Button
 @onready var save_3_delete_button = $SaveVContainer/Save3HContainer/Delete_Button as Button
 
+const home_screen_scene = "res://home/home.tscn"
 
 #Load the Data from the existing save file and transition to the overworld
 func enter_game(save_path):
 	SelectedSaveFile.selected_save_path = save_path
-	get_tree().change_scene_to_file("res://home/home.tscn")
+	#queue_free()
+	#var home_screen = home_screen_scene.instantiate()
+	#add_child(home_screen)
+	get_tree().change_scene_to_file(home_screen_scene)
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,7 +69,7 @@ func _on_start_button_pressed():
 	save_container.visible = true
 	$SaveVContainer/Save1HContainer/Save_Button1.grab_focus()
 
-#
+
 func on_save_button_delete(save_path, button):
 	var dir = DirAccess.open(save_path)
 	for file in dir.get_files():

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://gi0s78ineqrm"]
+
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/animal_icon.png" id="1_nknta"]
+
+[node name="ClassTypeContainer" type="HBoxContainer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_nknta")

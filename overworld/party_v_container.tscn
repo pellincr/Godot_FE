@@ -23,11 +23,6 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 
-[node name="TotalCapacityUpgrade_Button" type="Button" parent="."]
-layout_mode = 2
-text = "UPGRADE- 
-Total Party Capacity"
-
 [node name="AvailablePartyCapacityUpgrade_Button" type="Button" parent="."]
 layout_mode = 2
 text = "UPGRADE- 
