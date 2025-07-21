@@ -25,6 +25,7 @@ SelectedSaveFile="*res://selected_save_file.gd"
 CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
 Constants="*res://scripts/Constants/Constants.gd"
 ArmyArchetypeDatabase="*res://combat/databases/army_archetype_database.tscn"
+RarityDatabase="*res://resources/definitions/unit_rarity/rarity_database.tscn"
 
 [display]
 

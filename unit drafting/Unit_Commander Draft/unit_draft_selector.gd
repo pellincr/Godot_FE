@@ -22,6 +22,11 @@ var current_draft_state = Constants.DRAFT_STATE.COMMANDER
 
 var unit: Unit = null
 
+var possible_rarities = {
+	"Common" : 60,
+	"Uncommon" : 25,
+	"Rare" : 10
+}
 
 const commander_overview_scene = preload("res://unit drafting/Unit_Commander Draft/commander_select_overview.tscn")
 const unit_overview_scene = preload("res://unit drafting/Unit_Commander Draft/unit_select_overview.tscn")
@@ -48,6 +53,8 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
+	var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_class_key).unit_rarity
+	name_label.self_modulate = rarity.ui_color
 
 func set_class_label(class_text):
 	class_label.text = class_text
@@ -114,14 +121,15 @@ func instantiate_unit_draft_selector():
 
 func randomize_unit():
 	var all_unit_classes = UnitTypeDatabase.unit_types.keys()
+	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_recruit_class = UnitTypeDatabase.unit_types.get(all_unit_classes.pick_random())
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the batch of recruits is supposed to be filtered by
 		var unit_filter = playerOverworldData.archetype_allotments[0]
 		#get the list of all classes that meets the filter criteria
-		var filtered_unit_classes = get_units_by_class(all_unit_classes,unit_filter)
+		var filtered_unit_classes = get_units_by_class(all_unit_classes,unit_filter, class_rarity)
 		if filtered_unit_classes.size() == 0:
-			filtered_unit_classes = get_units_by_weapon(all_unit_classes,unit_filter)
+			filtered_unit_classes = get_units_by_weapon(all_unit_classes,unit_filter, class_rarity)
 		new_recruit_class = filtered_unit_classes.pick_random()
 	while(new_recruit_class == null):
 		new_recruit_class = UnitTypeDatabase.unit_types.get(all_unit_classes.pick_random())
@@ -131,6 +139,20 @@ func randomize_unit():
 	var new_recruit = Unit.create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 	unit = new_recruit
 
+func get_random_rarity():
+	var total_weight = 0
+	for weight in possible_rarities.values():
+		total_weight += weight
+		
+	var random_value = randi() % total_weight
+	var current_weight = 0
+	
+	for rarity in possible_rarities.keys():
+		current_weight += possible_rarities[rarity]
+		if random_value < current_weight:
+			return rarity
+	return "Common"
+
 func update_information():
 	set_name_label(unit.unit_name)
 	set_class_label(unit.unit_class_key)
@@ -139,19 +161,19 @@ func update_information():
 
 
 #purpose: to return a list of units that can use the available weapon type
-func get_units_by_weapon(given_unit_classes, weapon_type):
+func get_units_by_weapon(given_unit_classes, weapon_type, rarity):
 	var viable_units = []
 	for i in given_unit_classes.size():
 		var unit_class = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
-		if unit_class.usable_weapon_types.has(weapon_type):
+		if unit_class.usable_weapon_types.has(weapon_type) and unit_class.unit_rarity == rarity:
 			viable_units.append(unit_class)
 	return viable_units
 
 #purpose: to return a list of units that can use the available class type
-func get_units_by_class(given_unit_classes, class_type):
+func get_units_by_class(given_unit_classes, class_type, rarity):
 	var viable_units = []
 	for i in given_unit_classes.size():
 		var unit_class = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
-		if unit_class.class_type.has(class_type):
+		if unit_class.class_type.has(class_type) and unit_class.unit_rarity == rarity:
 			viable_units.append(unit_class)
 	return viable_units

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://dvl8rqe6qcaqk"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=6 format=3 uid="uid://dvl8rqe6qcaqk"]
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_3n8h1"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="3_agc2g"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_snxdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y6otv"]
@@ -20,6 +21,7 @@ movement_class = 0
 xp_worth = 4
 promoted = true
 unit_promoted_from_key = "mercenary"
+unit_rarity = ExtResource("3_agc2g")
 usable_weapon_types = Array[String](["Staff", "Axe"])
 hp = 23
 strength = 7

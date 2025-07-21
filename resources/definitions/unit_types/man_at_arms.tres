@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://be4ubqt71pmce"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=6 format=3 uid="uid://be4ubqt71pmce"]
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_8w1lm"]
 [ext_resource type="Texture2D" uid="uid://cw7sf8fk5ppec" path="res://resources/sprites/units/man_at_arms_map.tres" id="2_ssmfu"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_wgtl8"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/unit_rarity/Rare.tres" id="4_24syw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c68d3"]
 atlas = ExtResource("1_8w1lm")
@@ -17,6 +18,7 @@ movement_class = 0
 xp_worth = 8
 promoted = true
 unit_promoted_from_key = "mercenary"
+unit_rarity = ExtResource("4_24syw")
 usable_weapon_types = Array[String](["Sword", "Axe"])
 hp = 18
 strength = 4

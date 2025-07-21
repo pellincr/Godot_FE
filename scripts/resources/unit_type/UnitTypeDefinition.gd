@@ -17,6 +17,7 @@ enum unit_movement_classes {
 @export_range(1, 5, 1, "or_greater") var xp_worth = 2
 @export var promoted: bool
 @export var unit_promoted_from_key: String
+@export var unit_rarity : UnitRarity
 
 @export_group("Usable Weapon Types")
 @export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other" )var usable_weapon_types : Array[String] = []
