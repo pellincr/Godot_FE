@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://b8ack2q1osxdy"]
 
-[node name="GoldCounter" type="Panel"]
-offset_right = 97.0
-offset_bottom = 30.0
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 98.0
-offset_bottom = 32.0
-text = "Gold: 10000"
+[node name="GoldCounter" type="Label"]
+modulate = Color(1, 0.658824, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10000 Gold"
 autowrap_mode = 3

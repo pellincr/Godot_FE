@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://mj46ut7xwvvu"]
+
+[ext_resource type="Script" path="res://unit drafting/Archetype Draft/army_archetype_draft.gd" id="1_m2t3o"]
+
+[node name="ArmyArchetypeDraft" type="CenterContainer"]
+offset_bottom = 355.0
+script = ExtResource("1_m2t3o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1150, 355)
+layout_mode = 2
+theme_override_constants/separation = 50

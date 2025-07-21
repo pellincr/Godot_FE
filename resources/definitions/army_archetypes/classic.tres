@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=2 format=3 uid="uid://ciwap3bbtyq5l"]
+
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_53rl2"]
+
+[resource]
+script = ExtResource("2_53rl2")
+archetype_name = "Classic"
+given_archetypes = {
+"Anima": 0,
+"Animal": 0,
+"Armored": 0,
+"Axe": 0,
+"Bow": 0,
+"Calvary": 2,
+"Dark": 0,
+"Fist": 0,
+"Flying": 0,
+"Infantry": 0,
+"Lance": 0,
+"Light": 0,
+"Monster": 0,
+"Other": 0,
+"Staff": 0,
+"Sword": 1
+}

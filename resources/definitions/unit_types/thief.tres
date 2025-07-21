@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://bjvgjy3h1lfro"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://bjvgjy3h1lfro"]
 
 [ext_resource type="Texture2D" uid="uid://c8xg1fjlw8trq" path="res://resources/sprites/units/thief.png" id="1_ilc6s"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_d5kxa"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="3_3j3rj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u1hc"]
 atlas = ExtResource("1_ilc6s")
@@ -16,6 +17,7 @@ movement_class = 1
 xp_worth = 4
 promoted = false
 unit_promoted_from_key = ""
+unit_rarity = ExtResource("3_3j3rj")
 usable_weapon_types = Array[String](["Sword"])
 hp = 15
 strength = 3

@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://uf7ktfjmg4lr"]
+[gd_scene load_steps=3 format=3 uid="uid://bdi1wouilnn22"]
 
-[ext_resource type="Theme" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_5qm61"]
+[ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_5qm61"]
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/stat_view.gd" id="1_ia04v"]
 
 [node name="StatView" type="Control"]

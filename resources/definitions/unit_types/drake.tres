@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://mak8xe0djou8"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=6 format=3 uid="uid://mak8xe0djou8"]
 
 [ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_ewlvp"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_f8n7l"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/unit_rarity/Uncommon.tres" id="3_ehuad"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1chre"]
 atlas = ExtResource("1_ewlvp")
@@ -20,6 +21,7 @@ movement_class = 0
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
+unit_rarity = ExtResource("3_ehuad")
 usable_weapon_types = Array[String](["Monster", "Anima", "Dark"])
 hp = 40
 strength = 9

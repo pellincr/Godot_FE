@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=2 format=3 uid="uid://dnb5ni1q1ykkv"]
+
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="1_qogol"]
+
+[resource]
+script = ExtResource("1_qogol")
+archetype_name = "Swords Master"
+given_archetypes = {
+"Anima": 0,
+"Animal": 0,
+"Armored": 0,
+"Axe": 0,
+"Bow": 0,
+"Calvary": 0,
+"Dark": 0,
+"Fist": 0,
+"Flying": 0,
+"Infantry": 0,
+"Lance": 0,
+"Light": 0,
+"Monster": 0,
+"Other": 1,
+"Staff": 0,
+"Sword": 2
+}

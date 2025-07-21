@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuwmdyloxlkuw"]
+[gd_scene load_steps=3 format=3 uid="uid://dt8he0y4j56h2"]
 
-[ext_resource type="Theme" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_78p2v"]
+[ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_78p2v"]
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/growths_view.gd" id="2_jof43"]
 
 [node name="GrowthsView" type="Control"]

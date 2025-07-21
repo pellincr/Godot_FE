@@ -1,8 +1,8 @@
-class_name GoldCounter extends Panel
+class_name GoldCounter extends Label
 
 
-@onready var _gold_label := $Label as Label
+@onready var gold_counter = $"."
 
 #updates the text of the label to be what was given as input
 func update_gold_count(gold_count) -> void:
-	_gold_label.set_text("Gold:" + str(gold_count))
+	gold_counter.set_text(str(gold_count) + "Gold")

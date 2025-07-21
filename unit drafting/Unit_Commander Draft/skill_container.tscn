@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bu7oxuk1bgwih"]
+
+[node name="SkillContainer" type="HBoxContainer"]
+
+[node name="SkillIcon" type="TextureRect" parent="."]
+layout_mode = 2

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://bjjqs4rafnlef"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://bjjqs4rafnlef"]
 
 [ext_resource type="Texture2D" uid="uid://1rn34xxcqpsw" path="res://resources/sprites/units/fighter_icon.tres" id="1_gemrr"]
 [ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/fighter_map.tres" id="2_nbupp"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_1sk86"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="4_0tlaj"]
 
 [resource]
 script = ExtResource("3_1sk86")
@@ -13,7 +14,8 @@ movement_class = 0
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([1])
+unit_rarity = ExtResource("4_0tlaj")
+usable_weapon_types = Array[String]([])
 hp = 18
 strength = 3
 magic = 2

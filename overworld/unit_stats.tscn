@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfy6j31k76uta"]
+[gd_scene load_steps=2 format=3 uid="uid://cfy6j31k76uta"]
 
 [ext_resource type="Script" path="res://overworld/unit_stats.gd" id="1_mfksc"]
-[ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat/attack_action_inventory/attack_action_inventory.tscn" id="2_3i0l8"]
 
 [node name="UnitStats" type="Control"]
 layout_mode = 3
@@ -13,100 +12,81 @@ grow_vertical = 2
 script = ExtResource("1_mfksc")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 170.0
-offset_bottom = 241.0
+layout_mode = 2
+offset_left = 1.0
+offset_right = 227.0
+offset_bottom = 252.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = -1.0
-offset_right = 167.0
-offset_bottom = 240.0
+offset_right = 334.0
+offset_bottom = 239.0
 
-[node name="Level" type="Label" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Level" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Level:"
 
-[node name="HP" type="Label" parent="Panel/VBoxContainer"]
+[node name="HP" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "HP:"
 
-[node name="Strength" type="Label" parent="Panel/VBoxContainer"]
+[node name="Strength" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Strength:"
 
-[node name="Magic" type="Label" parent="Panel/VBoxContainer"]
+[node name="Magic" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Magic:"
 
-[node name="Skill" type="Label" parent="Panel/VBoxContainer"]
+[node name="Skill" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Skill:"
 
-[node name="Speed" type="Label" parent="Panel/VBoxContainer"]
+[node name="Speed" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Speed:"
 
-[node name="Luck" type="Label" parent="Panel/VBoxContainer"]
+[node name="Luck" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Luck:"
 
-[node name="Defense" type="Label" parent="Panel/VBoxContainer"]
+[node name="Defense" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Defense:"
 
-[node name="Magic_Defense" type="Label" parent="Panel/VBoxContainer"]
+[node name="Magic_Defense" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Magic Defense:"
 
-[node name="Panel2" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 169.0
-offset_top = 1.0
-offset_right = 322.0
-offset_bottom = 176.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel2"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 3.0
-offset_right = 151.0
-offset_bottom = 107.0
-
-[node name="Select_Button" type="Button" parent="Panel2/VBoxContainer"]
+[node name="Select_Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Select"
 
-[node name="Inventory_Button" type="Button" parent="Panel2/VBoxContainer"]
+[node name="Inventory_Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Inventory"
 
-[node name="Market_Button" type="Button" parent="Panel2/VBoxContainer"]
+[node name="Market_Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Market"
 
-[node name="Dismiss_Button" type="Button" parent="Panel2/VBoxContainer"]
+[node name="Dismiss_Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Dismiss"
 
-[node name="Close_Button" type="Button" parent="Panel2/VBoxContainer"]
+[node name="Close_Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Close
 "
 
-[node name="AttackActionInventory" parent="." instance=ExtResource("2_3i0l8")]
-visible = false
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 322.0
-offset_top = 61.0
-offset_right = 472.0
-offset_bottom = 61.0
-
-[connection signal="pressed" from="Panel2/VBoxContainer/Select_Button" to="." method="_on_select_button_pressed"]
-[connection signal="pressed" from="Panel2/VBoxContainer/Inventory_Button" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="Panel2/VBoxContainer/Dismiss_Button" to="." method="_on_dismiss_button_pressed"]
-[connection signal="pressed" from="Panel2/VBoxContainer/Close_Button" to="." method="queue_free"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Select_Button" to="." method="_on_select_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Inventory_Button" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Market_Button" to="." method="_on_market_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Dismiss_Button" to="." method="_on_dismiss_button_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Close_Button" to="." method="queue_free"]

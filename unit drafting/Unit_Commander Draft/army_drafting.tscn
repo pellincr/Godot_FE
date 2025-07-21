@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://be6b1r5dfhg2q"]
+[gd_scene load_steps=8 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
-[ext_resource type="Theme" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_lrntn"]
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_lrntn"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_xuf8l"]
-[ext_resource type="Theme" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="4_rj5ra"]
+[ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="4_rj5ra"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
 default_font_size = 36

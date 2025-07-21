@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://bb0md7oy0f7w6"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://bb0md7oy0f7w6"]
 
 [ext_resource type="Texture2D" uid="uid://bawxrbd0ffc4e" path="res://resources/sprites/units/archer_icon.tres" id="1_c7bgd"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/cav.png" id="2_qdx8r"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_2fwqa"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="4_vg6o0"]
 
 [resource]
 script = ExtResource("3_2fwqa")
@@ -13,6 +14,7 @@ movement_class = 3
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
+unit_rarity = ExtResource("4_vg6o0")
 usable_weapon_types = Array[String](["Sword", "Lance"])
 hp = 20
 strength = 4

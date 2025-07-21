@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=4 format=3 uid="uid://7ym7txeqsqel"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://7ym7txeqsqel"]
 
 [ext_resource type="Texture2D" uid="uid://n2h2dsbws1wr" path="res://resources/sprites/units/martial_artist.png" id="1_iye7c"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_2ncl7"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="3_5yljv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r6jf2"]
 atlas = ExtResource("1_iye7c")
@@ -16,6 +17,7 @@ movement_class = 1
 xp_worth = 2
 promoted = false
 unit_promoted_from_key = ""
+unit_rarity = ExtResource("3_5yljv")
 usable_weapon_types = Array[String](["Fist"])
 hp = 18
 strength = 5

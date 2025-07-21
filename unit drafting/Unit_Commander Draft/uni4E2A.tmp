@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxnwtk5ejhud1"]
+
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_draft_selector.gd" id="1_4hxnc"]
+[ext_resource type="PackedScene" uid="uid://ca4gvrhyei6ye" path="res://unit drafting/Unit_Commander Draft/unit_draft_selector.tscn" id="2_qol7m"]
+
+[node name="UnitDraft" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4hxnc")
+
+[node name="UnitDraftSelector" parent="HBoxContainer" instance=ExtResource("2_qol7m")]
+layout_mode = 2
+
+[node name="UnitDraftSelector2" parent="HBoxContainer" instance=ExtResource("2_qol7m")]
+layout_mode = 2
+
+[node name="UnitDraftSelector3" parent="HBoxContainer" instance=ExtResource("2_qol7m")]
+layout_mode = 2
+
+[node name="UnitDraftSelector4" parent="HBoxContainer" instance=ExtResource("2_qol7m")]
+layout_mode = 2
