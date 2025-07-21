@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="PlayerOverworldData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="PlayerOverworldData" load_steps=17 format=3 uid="uid://3yg5sdb306hr"]
 
-[ext_resource type="Texture2D" path="res://resources/sprites/sheets/units.png" id="1_nb2ky"]
+[ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_nb2ky"]
 [ext_resource type="Script" path="res://scripts/Unit/inventory.gd" id="2_yqnki"]
 [ext_resource type="Script" path="res://scripts/Unit/unit.gd" id="3_55evm"]
-[ext_resource type="Texture2D" path="res://resources/sprites/units/Cleric.png" id="4_iqf2w"]
-[ext_resource type="Texture2D" path="res://resources/sprites/units/cavalier_axe.png" id="4_ybe7i"]
+[ext_resource type="Texture2D" uid="uid://dayrt2j5o11db" path="res://resources/sprites/units/Cleric.png" id="4_iqf2w"]
+[ext_resource type="Texture2D" uid="uid://b0gknjdusylln" path="res://resources/sprites/units/cavalier_axe.png" id="4_ybe7i"]
 [ext_resource type="Script" path="res://overworld/player_overworld_data.gd" id="6_gmq33"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7iel"]
@@ -285,7 +285,12 @@ total_party_capacity = 15
 available_party_capacity = 4
 total_recruits_available = 3
 shop_level = 1
+max_archetype = 4
+current_archetype_count = 0
+archetype_allotments = []
 total_party = [SubResource("Resource_g026t"), SubResource("Resource_qa12e"), SubResource("Resource_ena2s")]
 selected_party = []
 new_recruits = [SubResource("Resource_g026t"), SubResource("Resource_qa12e"), SubResource("Resource_ena2s")]
 temp_name_list = ["Craig", "Devin", "Jacob", "Porter", "Jarry"]
+convoy_size = 100
+convoy = []

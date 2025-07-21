@@ -1,0 +1,185 @@
+[gd_scene load_steps=3 format=3 uid="uid://uf7ktfjmg4lr"]
+
+[ext_resource type="Theme" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_5qm61"]
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/stat_view.gd" id="1_ia04v"]
+
+[node name="StatView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5qm61")
+script = ExtResource("1_ia04v")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 276.0
+theme_override_constants/separation = 50
+
+[node name="StatHeaderContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HeaderContainer" type="VBoxContainer" parent="MainContainer/StatHeaderContainer"]
+layout_mode = 2
+
+[node name="Move" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer"]
+layout_mode = 2
+text = "Move"
+
+[node name="Consitution" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer"]
+layout_mode = 2
+text = "Constitution"
+
+[node name="HeaderContainer2" type="VBoxContainer" parent="MainContainer/StatHeaderContainer"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Health"
+
+[node name="Strength" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Strength"
+
+[node name="Magic" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Magic"
+
+[node name="Skill" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Skill"
+
+[node name="Speed" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Speed"
+
+[node name="Luck" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Luck"
+
+[node name="Defense" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Defense"
+
+[node name="Resistance" type="Label" parent="MainContainer/StatHeaderContainer/HeaderContainer2"]
+layout_mode = 2
+text = "Resistance"
+
+[node name="OverallStatHeader" type="Label" parent="MainContainer/StatHeaderContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Stats"
+
+[node name="StatValueContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ValueContainer" type="VBoxContainer" parent="MainContainer/StatValueContainer"]
+layout_mode = 2
+
+[node name="MoveValue" type="Label" parent="MainContainer/StatValueContainer/ValueContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="ConsitutionValue" type="Label" parent="MainContainer/StatValueContainer/ValueContainer"]
+layout_mode = 2
+text = "7"
+
+[node name="ValueContainer2" type="VBoxContainer" parent="MainContainer/StatValueContainer"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Strength" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Magic" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Skill" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Speed" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Luck" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Defense" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="Resistance" type="Label" parent="MainContainer/StatValueContainer/ValueContainer2"]
+layout_mode = 2
+text = "8"
+
+[node name="OverallStatGradeLabel" type="Label" parent="MainContainer/StatValueContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "C+"
+
+[node name="DifferenceValueContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/DifferenceValueContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/DifferenceValueContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MainContainer/DifferenceValueContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DifferentialContainer" type="VBoxContainer" parent="MainContainer/DifferenceValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+
+[node name="Health" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Strength" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Magic" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Skill" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Speed" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Luck" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Defense" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Resistance" type="Label" parent="MainContainer/DifferenceValueContainer/DifferentialContainer"]
+layout_mode = 2
+text = "+2"
+
+[node name="Overall" type="Label" parent="MainContainer/DifferenceValueContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "+16"

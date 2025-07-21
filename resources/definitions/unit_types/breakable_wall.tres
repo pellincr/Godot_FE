@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dobcmnxgnliam" path="res://resources/sprites/units/warrior_map.tres" id="2_euel7"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_ho515"]
 
-
 [resource]
 script = ExtResource("3_ho515")
 unit_type_name = "Wall"
