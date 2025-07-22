@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1ji0ny03ko81"]
+
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_jts2v"]
+[ext_resource type="Texture2D" uid="uid://buroac8ofs7rl" path="res://resources/sprites/controls/L Stick.png" id="2_h24ow"]
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.gd" id="2_lbkrq"]
+[ext_resource type="Texture2D" uid="uid://dh6w3wgtfiy87" path="res://resources/sprites/controls/R Stick.png" id="3_tu70f"]
+[ext_resource type="Texture2D" uid="uid://bgn5r7xgh4tty" path="res://resources/sprites/controls/R Stick Press.png" id="4_m5pqj"]
+[ext_resource type="Texture2D" uid="uid://bgu4xorefl2a4" path="res://resources/sprites/controls/X Button.png" id="5_v76rf"]
+
+[node name="UnitDraftControls" type="HBoxContainer"]
+custom_minimum_size = Vector2(353, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_jts2v")
+script = ExtResource("2_lbkrq")
+
+[node name="CycleContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CycleContainer"]
+layout_mode = 2
+texture = ExtResource("2_h24ow")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CycleContainer"]
+layout_mode = 2
+text = "Cycle"
+
+[node name="ViewsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ViewsContainer"]
+layout_mode = 2
+texture = ExtResource("3_tu70f")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="ViewsContainer"]
+layout_mode = 2
+text = "Views"
+
+[node name="DetailsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="DetailsContainer"]
+layout_mode = 2
+texture = ExtResource("4_m5pqj")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="DetailsContainer"]
+layout_mode = 2
+text = "Details"
+
+[node name="SelectContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SelectContainer"]
+layout_mode = 2
+texture = ExtResource("5_v76rf")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="SelectContainer"]
+layout_mode = 2
+text = "Select"

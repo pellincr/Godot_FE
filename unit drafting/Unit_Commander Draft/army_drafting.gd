@@ -10,15 +10,18 @@ signal drafting_complete(po_data)
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
 const recruit_container_scene = preload("res://overworld/recruit_v_container.tscn")
+const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
 
 @onready var army_draft_stage_label = $MarginContainer/VBoxContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
 
-@onready var army_list_label = $MarginContainer/VBoxContainer/ArmyListContainer/ArmyListLabel
-@onready var army_list_container = $MarginContainer/VBoxContainer/ArmyListContainer
-@onready var army_icon_container = $MarginContainer/VBoxContainer/ArmyListContainer/ArmyIconContainer
-@onready var archetype_icon_container = $MarginContainer/VBoxContainer/ArmyListContainer/ArchetypeIconContainer
+@onready var army_list_label = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyListLabel
+@onready var army_list_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer
+@onready var army_icon_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyIconContainer
+@onready var archetype_icon_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
+
+@onready var unit_draft_controls = $"MarginContainer/UnitDraftControls"
 
 var max_unit_draft = 0
 
@@ -57,6 +60,8 @@ func recruiting_complete():
 func update_to_archetype_screen():
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
+	unit_draft_controls.set_view_visibility(false)
+	unit_draft_controls.set_details_visibility(false)
 	update_army_icon_container()
 	var archetype_draft = archetype_draft_scene.instantiate()
 	main_container.add_child(archetype_draft)
@@ -66,6 +71,8 @@ func update_to_archetype_screen():
 
 func update_to_unit_draft_screen():
 	current_draft_state = Constants.DRAFT_STATE.UNIT
+	unit_draft_controls.set_view_visibility(true)
+	unit_draft_controls.set_details_visibility(true)
 	var unit_draft = unit_draft_scene.instantiate()
 	unit_draft.set_po_data(playerOverworldData)
 	unit_draft.current_state = current_draft_state

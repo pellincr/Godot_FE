@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ukgs2dvdeed"
-path="res://.godot/imported/UnitArchetype.png-6da47af84a3f08bb915a19bd2bdb3f87.ctex"
+uid="uid://dh6w3wgtfiy87"
+path="res://.godot/imported/R Stick.png-fcac9ddc455df0810679888294aabbeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/UnitArchetype.png"
-dest_files=["res://.godot/imported/UnitArchetype.png-6da47af84a3f08bb915a19bd2bdb3f87.ctex"]
+source_file="res://resources/sprites/controls/R Stick.png"
+dest_files=["res://.godot/imported/R Stick.png-fcac9ddc455df0810679888294aabbeb.ctex"]
 
 [params]
 

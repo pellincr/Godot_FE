@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_lrntn"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="2_xuf8l"]
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="4_rj5ra"]
+[ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="5_0gh02"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
 default_font_size = 36
@@ -34,6 +35,7 @@ offset_bottom = 720.0
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 36
 theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -78,21 +80,29 @@ text = "Choose a Commander"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ArmyListContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ArmyListContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(0, 85)
+custom_minimum_size = Vector2(870, 34)
 layout_mode = 2
 size_flags_stretch_ratio = 2.83
 theme = SubResource("Theme_i2tp0")
 
-[node name="ArmyListLabel" type="Label" parent="MarginContainer/VBoxContainer/ArmyListContainer"]
-visible = false
+[node name="ArmyListLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "Army: "
 
-[node name="ArmyIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ArmyListContainer"]
+[node name="ArmyIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
 layout_mode = 2
 
-[node name="ArchetypeIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ArmyListContainer"]
+[node name="ArchetypeIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
 layout_mode = 2
+
+[node name="UnitDraftControls" parent="MarginContainer" instance=ExtResource("5_0gh02")]
+layout_mode = 2
+size_flags_vertical = 8
