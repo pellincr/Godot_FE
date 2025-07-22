@@ -54,11 +54,15 @@ func unit_selected(unit):
 		Constants.DRAFT_STATE.UNIT:
 			unit_drafted.emit(unit)
 			if (playerOverworldData.archetype_allotments.size() > 0):
+				#if there are still unit types left to draft
 				update_unit_selectors()
 			print("Unit Drafted!")
 
 func update_unit_selectors():
 	for i in unit_selectors.size():
-		var selector = unit_selectors[i]
+		var selector: unitDraftSelector = unit_selectors[i]
 		selector.randomize_unit()
 		selector.update_information()
+		var last_child = selector.main_container.get_children()[-1]
+		last_child.queue_free()
+		selector.instantiate_unit_draft_selector()

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var unit: Unit = null
+var unit: Unit = null
 
 @onready var main_container = $MainContainer
 @onready var difference_value_container = $MainContainer/DifferenceValueContainer
@@ -63,55 +63,113 @@ func set_constitution(con):
 	constitution_value_label.text = str(con)
 
 func set_health_val(hp_val):
-	health_value_label.text = str(hp_val)
+	var sign = ""
+	if hp_val > 0:
+		sign = "+"
+	health_value_label.text = sign + str(hp_val)
 
 func set_strength_val(str_val):
-	strength_value_label.text = str(str_val)
+	var sign = ""
+	if str_val > 0:
+		sign = "+"
+	strength_value_label.text = sign + str(str_val)
 
 func set_magic_val(mgc_val):
-	magic_value_label.text = str(mgc_val)
+	var sign = ""
+	if mgc_val > 0:
+		sign = "+"
+	magic_value_label.text = sign + str(mgc_val)
 
 func set_skill_val(skl_val):
-	skill_value_label.text = str(skl_val)
+	var sign = ""
+	if skl_val > 0:
+		sign = "+"
+	skill_value_label.text = sign + str(skl_val)
 
 func set_speed_val(spd_val):
-	speed_value_label.text = str(spd_val)
+	var sign = ""
+	if spd_val > 0:
+		sign = "+"
+	speed_value_label.text = sign +  str(spd_val)
 
 func set_luck_val(lck_val):
-	luck_value_label.text = str(lck_val)
+	var sign = ""
+	if lck_val > 0:
+		sign = "+"
+	luck_value_label.text = sign + str(lck_val)
 
 func set_defense_val(def_val):
-	defense_value_label.text = str(def_val)
+	var sign = ""
+	if def_val > 0:
+		sign = "+"
+	defense_value_label.text = sign + str(def_val)
 
 func set_resistance_val(res_val):
-	resistance_value_label.text = str(res_val)
+	var sign = ""
+	if res_val > 0:
+		sign = "+"
+	resistance_value_label.text = sign+ str(res_val)
 
 
 
 
 func set_health_difference(hp_difference):
-	health_difference_label.text = str(hp_difference)
+	var sign = ""
+	if hp_difference > 0:
+		sign = "+"
+	health_difference_label.text = sign + str(hp_difference)
 
 func set_strength_difference(str_difference):
-	strength_difference_label.text = str(str_difference)
+	var sign = ""
+	if str_difference > 0:
+		sign = "+"
+	strength_difference_label.text = sign + str(str_difference)
 
 func set_magic_difference(mgc_difference):
-	magic_difference_label.text = str(mgc_difference)
+	var sign = ""
+	if mgc_difference > 0:
+		sign = "+"
+	magic_difference_label.text = sign + str(mgc_difference)
 
 func set_skill_difference(skl_difference):
-	skill_difference_label.text = str(skl_difference)
+	var sign = ""
+	if skl_difference > 0:
+		sign = "+"
+	skill_difference_label.text = sign + str(skl_difference)
 
 func set_speed_difference(spd_difference):
-	speed_difference_label.text = str(spd_difference)
+	var sign = ""
+	if spd_difference > 0:
+		sign = "+"
+	speed_difference_label.text = sign + str(spd_difference)
 
 func set_luck_difference(lck_difference):
-	luck_difference_label.text = str(lck_difference)
+	var sign = ""
+	if lck_difference > 0:
+		sign = "+"
+	luck_difference_label.text = sign + str(lck_difference)
 
 func set_defense_difference(def_difference):
-	defense_difference_label.text = str(def_difference)
+	var sign = ""
+	if def_difference > 0:
+		sign = "+"
+	defense_difference_label.text = sign + str(def_difference)
 
 func set_resistance_difference(res_difference):
-	resistance_difference_label.text = str(res_difference)
+	var sign = ""
+	if res_difference > 0:
+		sign = "+"
+	resistance_difference_label.text = sign + str(res_difference)
+
+func set_overall_difference(overall_diff):
+	var sign = ""
+	if overall_diff > 0:
+		sign = "+"
+	overall_difference_label.text = sign + str(overall_diff)
+
+func set_overall_stat_grade_level(grade):
+	overall_stat_grade_label.text = grade
+
 
 func update_all():
 	set_move(unit.movement)
@@ -127,11 +185,59 @@ func update_all():
 	set_resistance_val(unit.magic_defense)
 	
 	#THIS NEEDS TO BE UPDATED WHEN THE RANDOMIZATION OF STATS IS IMPLEMENTED
-	set_health_difference(unit.hp_growth)
-	set_strength_difference(unit.strength_growth)
-	set_magic_difference(unit.magic_growth)
-	set_skill_difference(unit.skill_growth)
-	set_speed_difference(unit.speed_growth)
-	set_luck_difference(unit.luck_growth)
-	set_defense_difference(unit.defense_growth)
-	set_resistance_difference(unit.magic_defense_growth)
+	var hp_difference = unit.hp - UnitTypeDatabase.unit_types.get(unit.unit_class_key).hp
+	var strength_difference = unit.strength - UnitTypeDatabase.unit_types.get(unit.unit_class_key).strength
+	var magic_difference = unit.magic - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic
+	var skill_difference = unit.skill - UnitTypeDatabase.unit_types.get(unit.unit_class_key).skill
+	var speed_difference = unit.speed - UnitTypeDatabase.unit_types.get(unit.unit_class_key).speed
+	var luck_difference = unit.luck - UnitTypeDatabase.unit_types.get(unit.unit_class_key).luck
+	var defense_difference = unit.defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).defense
+	var resistance_difference = unit.magic_defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_defense
+	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
+	set_health_difference(hp_difference)
+	set_strength_difference(strength_difference)
+	set_magic_difference(magic_difference)
+	set_skill_difference(skill_difference)
+	set_speed_difference(speed_difference)
+	set_luck_difference(luck_difference)
+	set_defense_difference(defense_difference)
+	set_resistance_difference(resistance_difference)
+	set_overall_difference(difference_total)
+	var stat_grade = get_stat_grade(difference_total)
+	set_overall_stat_grade_level(stat_grade)
+
+
+
+func get_stat_grade(total): 
+	if total <= -18:
+		return "F-"
+	elif total <= -16:
+		return "F"
+	elif total <= -14:
+		return "F+"
+	elif total <= -11:
+		return "D+"
+	elif total <= -8:
+		return "D"
+	elif total <= -5:
+		return "D+"
+	elif total <= -3:
+		return "C-"
+	elif total <= 0:
+		return "C"
+	elif total <= 2:
+		return "C+"
+	elif total <= 5:
+		return "B-"
+	elif total <= 8:
+		return "B"
+	elif total <= 11:
+		return "B+"
+	elif total <= 14:
+		return "A-"
+	elif total <= 17:
+		return "A"
+	elif total <= 20:
+		return "A+"
+	else:
+		return "ERROR"

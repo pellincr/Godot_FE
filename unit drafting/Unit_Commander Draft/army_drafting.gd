@@ -1,7 +1,7 @@
 extends Control
 
 @onready var current_draft_state = Constants.DRAFT_STATE.COMMANDER
-@onready var main_container = $VBoxContainer
+@onready var main_container = $MarginContainer/VBoxContainer
 var playerOverworldData : PlayerOverworldData
 var control_node : Node = self
 
@@ -11,14 +11,14 @@ const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
 const recruit_container_scene = preload("res://overworld/recruit_v_container.tscn")
 
-@onready var army_draft_stage_label = $VBoxContainer/HBoxContainer/ArmyDraftStageLabel
-@onready var pick_amount_label = $VBoxContainer/HBoxContainer/PickAmountLabel
-@onready var header_label = $VBoxContainer/HeaderPanel/HeaderLabel
+@onready var army_draft_stage_label = $MarginContainer/VBoxContainer/HBoxContainer/ArmyDraftStageLabel
+@onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
+@onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
 
-@onready var army_list_label = $VBoxContainer/ArmyListContainer/ArmyListLabel
-@onready var army_list_container = $VBoxContainer/ArmyListContainer
-@onready var army_icon_container = $VBoxContainer/ArmyListContainer/ArmyIconContainer
-@onready var archetype_icon_container = $VBoxContainer/ArmyListContainer/ArchetypeIconContainer
+@onready var army_list_label = $MarginContainer/VBoxContainer/ArmyListContainer/ArmyListLabel
+@onready var army_list_container = $MarginContainer/VBoxContainer/ArmyListContainer
+@onready var army_icon_container = $MarginContainer/VBoxContainer/ArmyListContainer/ArmyIconContainer
+@onready var archetype_icon_container = $MarginContainer/VBoxContainer/ArmyListContainer/ArchetypeIconContainer
 
 var max_unit_draft = 0
 
