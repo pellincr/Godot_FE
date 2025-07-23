@@ -59,8 +59,8 @@ func update_manage_party_buttons():
 
 func update_manage_party_button(button: OverworldButton, unit: Unit):
 	button.contained_variable = unit
-	button.set_button_text("NAME:" + unit.unit_name + 
-							"\n" + "CLASS:" + unit.unit_class_key)
+	button.set_button_text("NAME:" + unit.name + 
+							"\n" + "CLASS:" + unit.unit_type_key)
 
 
 func _on_party_member_button_pressed(button_index):

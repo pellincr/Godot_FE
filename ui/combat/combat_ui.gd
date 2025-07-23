@@ -56,10 +56,10 @@ func clear_action_button_connections(action: Button):
 func update_combatants(combatants: Array):
 	for comb in combatants:
 		if comb.allegience == 0:
-			var status = $Status.find_child(comb.unit.unit_name, false, false)
+			var status = $Status.find_child(comb.unit.name, false, false)
 			if status != null:
-				status.set_health(comb.hp, comb.max_hp)
-		var turn_queue_icon = $TurnQueue/Queue.get_node(comb.unit.unit_name)
+				status.set_health(comb.hp, comb.stats.hp)
+		var turn_queue_icon = $TurnQueue/Queue.get_node(comb.unit.name)
 		if turn_queue_icon != null:
 			turn_queue_icon.set_hp(comb.unit.hp)
 			turn_queue_icon.set_side(comb.allegience)

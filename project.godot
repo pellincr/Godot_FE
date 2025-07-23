@@ -17,15 +17,17 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Constants="*res://scripts/Constants/Constants.gd"
 SkillDatabase="*res://combat/databases/skill_database.tscn"
 UnitTypeDatabase="*res://combat/databases/unit_type_database.tscn"
 ItemDatabase="*res://combat/databases/item_database.tscn"
 DamageNumbers="*res://scripts/Singletons/DamageNumbers.gd"
-SelectedSaveFile="*res://selected_save_file.gd"
-CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
-Constants="*res://scripts/Constants/Constants.gd"
 ArmyArchetypeDatabase="*res://combat/databases/army_archetype_database.tscn"
 RarityDatabase="*res://resources/definitions/unit_rarity/rarity_database.tscn"
+CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
+SelectedSaveFile="*res://selected_save_file.gd"
+unitConstants="*res://scripts/Unit/unit_constants.gd"
+ItemConstants="*res://scripts/resources/Items/item_constants.gd"
 
 [display]
 

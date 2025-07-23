@@ -1,6 +1,6 @@
 extends Control
 
-class_name unitStats
+class_name unitStatsDisplay
 
 signal  unit_selected(unit : Unit, selected: bool)
 signal  unit_dismissed(unit : Unit)

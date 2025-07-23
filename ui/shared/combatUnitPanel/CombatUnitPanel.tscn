@@ -64,31 +64,31 @@ text = "Example Unit Name"
 layout_mode = 2
 
 [node name="calvaryIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("5_41m1w")
 
 [node name="monsterIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("6_tk220")
 
 [node name="flyerIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("7_krum3")
 
 [node name="armorIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("8_dtaf8")
 
 [node name="animalIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("9_ckca1")

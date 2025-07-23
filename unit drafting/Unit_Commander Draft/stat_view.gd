@@ -172,7 +172,7 @@ func set_overall_stat_grade_level(grade):
 
 
 func update_all():
-	set_move(unit.movement)
+	set_move(unit.stats.movement)
 	set_constitution(unit.constitution)
 	
 	set_health_val(unit.hp)

@@ -37,7 +37,7 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.unit = unit
 	instance.ai_type = ai
 	instance.allegience = team
-	instance.effective_move = unit.movement
+	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
 	instance.map_tile = MapTile.new()
 	instance.move_tile = MapTile.new()
@@ -69,5 +69,5 @@ func refresh_unit():
 
 func refresh_move():
 	if unit:
-		if unit.movement:
-			self.effective_move =  unit.movement
+		if unit.stats.movement:
+			self.effective_move =  unit.stats.movement

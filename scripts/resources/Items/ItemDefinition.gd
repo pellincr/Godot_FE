@@ -5,8 +5,7 @@ enum ITEM_TYPE {
 	WEAPON,
 	STAFF,
 	USEABLE_ITEM,
-	EQUIPMENT_LOOT,
-	EM
+	EQUIPMENT_LOOT
 }
 
 @export_group("Item Info")
