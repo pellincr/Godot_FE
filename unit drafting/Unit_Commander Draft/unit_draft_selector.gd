@@ -57,7 +57,7 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
-	var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_class_key).unit_rarity
+	var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_type_key).unit_rarity
 	name_label.self_modulate = rarity.ui_color
 
 func set_class_label(class_text):
@@ -132,7 +132,7 @@ func instantiate_unit_draft_selector():
 func randomize_unit():
 	var all_unit_classes = UnitTypeDatabase.unit_types.keys()
 	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
-	var new_recruit_class = UnitTypeDatabase.unit_types.get(all_unit_classes.pick_random())
+	var new_recruit_class = all_unit_classes.pick_random()
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the batch of recruits is supposed to be filtered by
 		var unit_filter = playerOverworldData.archetype_allotments[0]
@@ -142,13 +142,15 @@ func randomize_unit():
 			filtered_unit_classes = get_units_by_weapon(all_unit_classes,unit_filter, class_rarity)
 		new_recruit_class = filtered_unit_classes.pick_random()
 	while(new_recruit_class == null):
-		new_recruit_class = UnitTypeDatabase.unit_types.get(all_unit_classes.pick_random())
+		new_recruit_class = all_unit_classes.pick_random()
 	var new_unit_name = playerOverworldData.temp_name_list.pick_random()
-	var iventory_array : Array[ItemDefinition]
-	iventory_array.append(ItemDatabase.items["brass_knuckles"])
-	var new_recruit = Unit.create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
-	randomize_unit_stats(new_recruit)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-	randomize_unit_growths(new_recruit)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+	var inventory_array : Array[ItemDefinition]
+	inventory_array.append(ItemDatabase.items["brass_knuckles"])
+	var unit_character = UnitCharacter.new()
+	unit_character.name = new_unit_name
+	randomize_unit_stats(unit_character)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+	randomize_unit_growths(unit_character)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+	var new_recruit = Unit.create_unit_unit_character("axe_armor",unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 	unit = new_recruit
 
 func get_random_rarity():
@@ -166,46 +168,50 @@ func get_random_rarity():
 	return "Common"
 
 
-func randomize_unit_stats(unit):
-	var health_rand = randi_range(unit.hp - 6, unit.hp + 6)
-	var strength_rand = randi_range(unit.strength - 2, unit.strength + 2)
-	var magic_rand = randi_range(unit.magic - 2, unit.magic + 2)
-	var skill_rand = randi_range(unit.skill - 2, unit.skill + 2)
-	var speed_rand = randi_range(unit.speed - 2, unit.speed + 2)
-	var luck_rand = randi_range(unit.luck - 2, unit.luck + 2)
-	var defense_rand = randi_range(unit.defense - 2, unit.defense + 2)
-	var resistance_rand = randi_range(unit.magic_defense - 2, unit.magic_defense + 2)
-	unit.hp = health_rand
-	unit.strength = strength_rand
-	unit.magic = magic_rand
-	unit.skill = skill_rand
-	unit.speed = speed_rand
-	unit.luck = luck_rand
-	unit.defense = defense_rand
-	unit.magic_defense = resistance_rand
+func randomize_unit_stats(unit_character):
+	var stats = UnitStat.new()
+	var health_rand = randi_range( -6, 6)
+	var strength_rand = randi_range(-2,2)
+	var magic_rand = randi_range(-2,2)
+	var skill_rand = randi_range(2,2)
+	var speed_rand = randi_range(-2,2)
+	var luck_rand = randi_range(-2,+2)
+	var defense_rand = randi_range(-2,2)
+	var resistance_rand = randi_range(-2,2)
+	stats.hp = health_rand
+	stats.strength = strength_rand
+	stats.magic = magic_rand
+	stats.skill = skill_rand
+	stats.speed = speed_rand
+	stats.luck = luck_rand
+	stats.defense = defense_rand
+	stats.resistance = resistance_rand
+	unit_character.stats = stats
 
-func randomize_unit_growths(unit):
-	var health_rand = randi_range(unit.hp_growth - 0, unit.hp_growth + 0)
-	var strength_rand = randi_range(unit.strength_growth - 0, unit.strength_growth + 0)
-	var magic_rand = randi_range(unit.magic_growth - 0, unit.magic_growth + 0)
-	var skill_rand = randi_range(unit.skill_growth - 0, unit.skill_growth + 0)
-	var speed_rand = randi_range(unit.speed_growth - 0, unit.speed_growth + 0)
-	var luck_rand = randi_range(unit.luck_growth - 0, unit.luck_growth + 0)
-	var defense_rand = randi_range(unit.defense_growth - 0, unit.defense_growth + 0)
-	var resistance_rand = randi_range(unit.magic_defense_growth - 0, unit.magic_defense_growth + 0)
-	unit.hp_growth = health_rand
-	unit.strength_growth = strength_rand
-	unit.magic_growth = magic_rand
-	unit.skill_growth = skill_rand
-	unit.speed_growth = speed_rand
-	unit.luck_growth = luck_rand
-	unit.defense_growth = defense_rand
-	unit.magic_defense_growth = resistance_rand
+func randomize_unit_growths(unit_character):
+	var growths = UnitStat.new()
+	var health_rand = randi_range(-40, 40)
+	var strength_rand = randi_range(-20, 20)
+	var magic_rand = randi_range(-20, 20)
+	var skill_rand = randi_range(-20, 20)
+	var speed_rand = randi_range(-20, 20)
+	var luck_rand = randi_range(-20, 20)
+	var defense_rand = randi_range(-20, 20)
+	var resistance_rand = randi_range(-20,20)
+	growths.hp = health_rand
+	growths.strength = strength_rand
+	growths.magic = magic_rand
+	growths.skill = skill_rand
+	growths.speed = speed_rand
+	growths.luck = luck_rand
+	growths.defense = defense_rand
+	growths.resistance = resistance_rand
+	unit_character.growths = growths
 
 
 func update_information():
-	set_name_label(unit.unit_name)
-	set_class_label(UnitTypeDatabase.unit_types.get(unit.unit_class_key).unit_type_name)
+	set_name_label(unit.name)
+	set_class_label(UnitTypeDatabase.unit_types.get(unit.unit_type_key).unit_type_name)
 	set_icon(unit.map_sprite)
 	unit_growth_grade = get_growth_grade(get_unit_growth_difference_total())
 	unit_stat_grade = get_stat_grade(get_unit_stat_difference_total())
@@ -220,43 +226,49 @@ func update_information():
 func get_units_by_weapon(given_unit_classes, weapon_type, rarity):
 	var viable_units = []
 	for i in given_unit_classes.size():
-		var unit_class = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
+		var unit_class: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
 		if unit_class.usable_weapon_types.has(weapon_type) and unit_class.unit_rarity == rarity:
-			viable_units.append(unit_class)
+			viable_units.append(unit_class.unit_type_name)
 	return viable_units
 
 #purpose: to return a list of units that can use the available class type
-func get_units_by_class(given_unit_classes, class_type, rarity):
+func get_units_by_class(given_unit_classes, unit_trait, rarity):
 	var viable_units = []
 	for i in given_unit_classes.size():
-		var unit_class = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
-		if unit_class.class_type.has(class_type) and unit_class.unit_rarity == rarity:
-			viable_units.append(unit_class)
+		var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_unit_classes[i])
+		if unit_type.traits.has(unit_trait) and unit_type.unit_rarity == rarity:
+			viable_units.append(unit_type.unit_type_name)
 	return viable_units
 
 
 func get_unit_stat_difference_total():
-	var hp_difference = unit.hp - UnitTypeDatabase.unit_types.get(unit.unit_class_key).hp
-	var strength_difference = unit.strength - UnitTypeDatabase.unit_types.get(unit.unit_class_key).strength
-	var magic_difference = unit.magic - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic
-	var skill_difference = unit.skill - UnitTypeDatabase.unit_types.get(unit.unit_class_key).skill
-	var speed_difference = unit.speed - UnitTypeDatabase.unit_types.get(unit.unit_class_key).speed
-	var luck_difference = unit.luck - UnitTypeDatabase.unit_types.get(unit.unit_class_key).luck
-	var defense_difference = unit.defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).defense
-	var resistance_difference = unit.magic_defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_defense
-	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
+	"""
+	#var hp_difference = unit.hp - UnitTypeDatabase.unit_types.get(unit.unit_type_key).hp
+	#var strength_difference = unit.strength - UnitTypeDatabase.unit_types.get(unit.unit_type_key).strength
+	#var magic_difference = unit.magic - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic
+	#var skill_difference = unit.skill - UnitTypeDatabase.unit_types.get(unit.unit_type_key).skill
+	var speed_difference = unit.speed - UnitTypeDatabase.unit_types.get(unit.unit_type_key).speed
+	var luck_difference = unit.luck - UnitTypeDatabase.unit_types.get(unit.unit_type_key).luck
+	var defense_difference = unit.defense - UnitTypeDatabase.unit_types.get(unit.unit_type_key).defense
+	var resistance_difference = unit.magic_defense - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_defense
+	"""
+	#var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
+	var difference_total = unit.unit_character.stats.hp + unit.unit_character.stats.strength + unit.unit_character.stats.magic + unit.unit_character.stats.skill + unit.unit_character.stats.speed + unit.unit_character.stats.luck + unit.unit_character.stats.defense + unit.unit_character.stats.resistance
 	return difference_total
 
 func get_unit_growth_difference_total():
-	var hp_difference = unit.hp_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).hp_growth
-	var strength_difference = unit.strength_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).strength_growth
-	var magic_difference = unit.magic_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_growth
-	var skill_difference = unit.skill_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).skill_growth
-	var speed_difference = unit.speed_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).speed_growth
-	var luck_difference = unit.luck_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).luck_growth
-	var defense_difference = unit.defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).defense_growth
-	var resistance_difference = unit.magic_defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_defense_growth
+	"""
+	var hp_difference = unit.hp_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).hp_growth
+	var strength_difference = unit.strength_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).strength_growth
+	var magic_difference = unit.magic_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_growth
+	var skill_difference = unit.skill_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).skill_growth
+	var speed_difference = unit.speed_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).speed_growth
+	var luck_difference = unit.luck_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).luck_growth
+	var defense_difference = unit.defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).defense_growth
+	var resistance_difference = unit.magic_defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_defense_growth
 	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
+	"""
+	var difference_total = unit.unit_character.growths.hp + unit.unit_character.growths.strength + unit.unit_character.growths.magic + unit.unit_character.growths.skill + unit.unit_character.growths.speed + unit.unit_character.growths.luck + unit.unit_character.growths.defense + unit.unit_character.growths.resistance
 	return difference_total
 
 func get_stat_grade(total): 

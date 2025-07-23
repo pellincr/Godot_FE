@@ -171,27 +171,27 @@ func set_overall_growth_grade_level(grade):
 
 
 func update_all():
-	set_move(unit.movement)
-	set_constitution(unit.constitution)
+	set_move(unit.stats.movement)
+	set_constitution(unit.stats.constitution)
 	
-	set_health_growth(unit.hp_growth)
-	set_strength_growth(unit.strength_growth)
-	set_magic_growth(unit.magic_growth)
-	set_skill_growth(unit.skill_growth)
-	set_speed_growth(unit.speed_growth)
-	set_luck_growth(unit.luck_growth)
-	set_defense_growth(unit.defense_growth)
-	set_resistance_growth(unit.magic_defense_growth)
+	set_health_growth(unit.growths.hp)
+	set_strength_growth(unit.growths.strength)
+	set_magic_growth(unit.growths.magic)
+	set_skill_growth(unit.growths.skill)
+	set_speed_growth(unit.growths.speed)
+	set_luck_growth(unit.growths.luck)
+	set_defense_growth(unit.growths.defense)
+	set_resistance_growth(unit.growths.resistance)
 	
 	#THIS NEEDS TO BE UPDATED WHEN THE RANDOMIZATION OF STATS IS IMPLEMENTED
-	var hp_difference = unit.hp_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).hp_growth
-	var strength_difference = unit.strength_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).strength_growth
-	var magic_difference = unit.magic_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_growth
-	var skill_difference = unit.skill_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).skill_growth
-	var speed_difference = unit.speed_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).speed_growth
-	var luck_difference = unit.luck_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).luck_growth
-	var defense_difference = unit.defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).defense_growth
-	var resistance_difference = unit.magic_defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_defense_growth
+	var hp_difference = unit.unit_character.growths.hp
+	var strength_difference = unit.unit_character.growths.strength
+	var magic_difference = unit.unit_character.growths.magic
+	var skill_difference = unit.unit_character.growths.skill
+	var speed_difference = unit.unit_character.growths.speed
+	var luck_difference = unit.unit_character.growths.luck
+	var defense_difference = unit.unit_character.growths.defense
+	var resistance_difference = unit.unit_character.growths.resistance
 	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
 	set_health_difference(hp_difference)
 	set_strength_difference(strength_difference)

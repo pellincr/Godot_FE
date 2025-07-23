@@ -173,26 +173,26 @@ func set_overall_stat_grade_level(grade):
 
 func update_all():
 	set_move(unit.stats.movement)
-	set_constitution(unit.constitution)
+	set_constitution(unit.stats.constitution)
 	
-	set_health_val(unit.hp)
-	set_strength_val(unit.strength)
-	set_magic_val(unit.magic)
-	set_skill_val(unit.skill)
-	set_speed_val(unit.speed)
-	set_luck_val(unit.luck)
-	set_defense_val(unit.defense)
-	set_resistance_val(unit.magic_defense)
+	set_health_val(unit.stats.hp)
+	set_strength_val(unit.stats.strength)
+	set_magic_val(unit.stats.magic)
+	set_skill_val(unit.stats.skill)
+	set_speed_val(unit.stats.speed)
+	set_luck_val(unit.stats.luck)
+	set_defense_val(unit.stats.defense)
+	set_resistance_val(unit.stats.resistance)
 	
 	#THIS NEEDS TO BE UPDATED WHEN THE RANDOMIZATION OF STATS IS IMPLEMENTED
-	var hp_difference = unit.hp - UnitTypeDatabase.unit_types.get(unit.unit_class_key).hp
-	var strength_difference = unit.strength - UnitTypeDatabase.unit_types.get(unit.unit_class_key).strength
-	var magic_difference = unit.magic - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic
-	var skill_difference = unit.skill - UnitTypeDatabase.unit_types.get(unit.unit_class_key).skill
-	var speed_difference = unit.speed - UnitTypeDatabase.unit_types.get(unit.unit_class_key).speed
-	var luck_difference = unit.luck - UnitTypeDatabase.unit_types.get(unit.unit_class_key).luck
-	var defense_difference = unit.defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).defense
-	var resistance_difference = unit.magic_defense - UnitTypeDatabase.unit_types.get(unit.unit_class_key).magic_defense
+	var hp_difference = unit.unit_character.stats.hp
+	var strength_difference = unit.unit_character.stats.strength
+	var magic_difference = unit.unit_character.stats.magic
+	var skill_difference = unit.unit_character.stats.skill
+	var speed_difference = unit.unit_character.stats.speed
+	var luck_difference = unit.unit_character.stats.luck
+	var defense_difference = unit.unit_character.stats.defense 
+	var resistance_difference = unit.unit_character.stats.resistance
 	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
 	set_health_difference(hp_difference)
 	set_strength_difference(strength_difference)

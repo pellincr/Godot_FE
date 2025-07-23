@@ -25,19 +25,19 @@ func set_unit(u: CombatUnit):
 	update()
 
 func update():
-	var _unit_type_info : UnitTypeDefinition= UnitTypeDatabase.unit_types[unit.unit.unit_class_key]
+	var _unit_type_info : UnitTypeDefinition= UnitTypeDatabase.unit_types[unit.unit.unit_type_key]
 	#Left Panel
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/UnitTypeLabel.text = _unit_type_info.unit_type_name
 	level_container.set_level_label(unit.unit.level)
 	level_container.set_xp_label(unit.unit.experience)
 	level_container.set_level_progress_value(unit.unit.experience)
 	current_move_value.text = str(unit.unit.movement)
-	total_move_value.text = str(unit.unit.movement_base)
+	total_move_value.text = str(unit.unit.movement)
 	#HP Panel
-	current_hp.text = str(unit.unit.hp)
-	max_hp.text = str(unit.unit.max_hp)
-	health_bar.value = unit.unit.hp
-	health_bar.max_value = unit.unit.max_hp
+	current_hp.text = str(unit.hp)
+	max_hp.text = str(unit.stats.hp)
+	health_bar.value = unit.stats.hp
+	health_bar.max_value = unit.stats.hp
 	
 	#Stat Grid
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
