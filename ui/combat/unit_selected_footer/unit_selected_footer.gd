@@ -34,18 +34,18 @@ func update():
 	current_move_value.text = str(unit.unit.movement)
 	total_move_value.text = str(unit.unit.movement)
 	#HP Panel
-	current_hp.text = str(unit.hp)
-	max_hp.text = str(unit.stats.hp)
-	health_bar.value = unit.stats.hp
-	health_bar.max_value = unit.stats.hp
+	current_hp.text = str(unit.unit.hp)
+	max_hp.text = str(unit.unit.stats.hp)
+	health_bar.value = unit.unit.hp
+	health_bar.max_value = unit.unit.stats.hp
 	
 	#Stat Grid
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.unit.hit)
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.unit.avoid)
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.unit.attack_speed)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.magic_defense)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.defense)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.stats.resistance)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.stats.defense)
 	update_background()
 
 func update_background():
