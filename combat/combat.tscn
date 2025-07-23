@@ -9,9 +9,6 @@ game_ui = NodePath("GameUI")
 
 [node name="GameUI" parent="." instance=ExtResource("1_127mc")]
 
-[node name="ActionInventory" parent="GameUI" index="0"]
-visible = false
-
 [node name="Actions" parent="GameUI" index="3"]
 visible = false
 

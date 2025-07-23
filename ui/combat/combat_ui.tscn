@@ -46,6 +46,7 @@ mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
 [node name="ActionInventory" parent="." instance=ExtResource("2_0imbg")]
+visible = false
 layout_mode = 1
 offset_left = 826.0
 offset_top = 34.0

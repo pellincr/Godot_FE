@@ -1,6 +1,17 @@
 extends Control
 class_name UnitSelectedFooterUI
 
+@onready var level_container = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/LevelContainer
+
+@onready var move_container = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer
+@onready var current_move_value = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer/CurrentMoveValue
+@onready var total_move_value = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer/TotalMoveValue
+
+@onready var health_container = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer
+@onready var current_hp = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer/CurrentHP
+@onready var max_hp = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer/MaxHP
+@onready var health_bar = $VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/HealthBar
+
 @export var unit : CombatUnit
 
 const ally_theme = preload("res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres")
@@ -9,32 +20,38 @@ const generic_theme = preload("res://resources/themes/combat/default_ui_theme.tr
 
 func set_unit(u: CombatUnit):
 	self.unit = u
-	$CombatUnitPanel.set_unit(u)
-	$BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/UnitFooterInventoryContainer.set_inventory(u.unit.inventory)
+	$VBoxContainer/CombatUnitPanel.set_unit(u)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer2/UnitFooterInventoryContainer.set_inventory(u.unit.inventory)
 	update()
 
 func update():
 	var _unit_type_info : UnitTypeDefinition= UnitTypeDatabase.unit_types[unit.unit.unit_class_key]
 	#Left Panel
-	$BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/UnitTypeLabel.text = _unit_type_info.unit_type_name
-	$BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/LevelContainer/LevelLabel.text = "LV " + str(unit.unit.level)
-	$BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer/MoveValue.text = str(unit.unit.movement)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/UnitTypeLabel.text = _unit_type_info.unit_type_name
+	level_container.set_level_label(unit.unit.level)
+	level_container.set_xp_label(unit.unit.experience)
+	level_container.set_level_progress_value(unit.unit.experience)
+	current_move_value.text = str(unit.unit.movement)
+	total_move_value.text = str(unit.unit.movement_base)
 	#HP Panel
-	$BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health/HPValueContainer/CurrentHP.text = str(unit.unit.hp)
-	$BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health/HPValueContainer/MaxHP.text = str(unit.unit.max_hp)
+	current_hp.text = str(unit.unit.hp)
+	max_hp.text = str(unit.unit.max_hp)
+	health_bar.value = unit.unit.hp
+	health_bar.max_value = unit.unit.max_hp
+	
 	#Stat Grid
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.unit.hit)
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.unit.avoid)
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.unit.attack_speed)
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.magic_defense)
-	$BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.defense)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.unit.hit)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.unit.avoid)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.unit.attack_speed)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.magic_defense)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.defense)
 	update_background()
 
 func update_background():
 	if unit.allegience == Constants.FACTION.PLAYERS:
-		$BackPanel.theme = ally_theme
+		$VBoxContainer/BackPanel.theme = ally_theme
 	elif unit.allegience == Constants.FACTION.ENEMIES:
-		$BackPanel.theme = enemy_theme
+		$VBoxContainer/BackPanel.theme = enemy_theme
 	else:
-		$BackPanel.theme = generic_theme
+		$VBoxContainer/BackPanel.theme = generic_theme

@@ -2,10 +2,16 @@
 
 [ext_resource type="Script" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/inventory_item_icon.gd" id="1_e1388"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_maem8"]
-[ext_resource type="StyleBox" uid="uid://bgfknw7p6efaw" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tres" id="2_gv8d5"]
 
-[sub_resource type="Theme" id="Theme_s5d3b"]
-Panel/styles/panel = ExtResource("2_gv8d5")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckuao"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_soyos"]
+Panel/styles/panel = SubResource("StyleBoxFlat_ckuao")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nman0"]
 shader = ExtResource("1_maem8")
@@ -24,6 +30,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_soyos")
 script = ExtResource("1_e1388")
 
 [node name="Background" type="Panel" parent="."]
@@ -39,7 +46,6 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_s5d3b")
 
 [node name="ItemIcon" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_nman0")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://7v6c3rjvvx7v"]
 
+[ext_resource type="Theme" uid="uid://beqlgf0u7r378" path="res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres" id="1_4wl0s"]
 [ext_resource type="Script" path="res://ui/shared/combatUnitPanel/combat_unit_panel.gd" id="1_wkq0j"]
-[ext_resource type="Theme" uid="uid://ddtfysfh2th3t" path="res://ui/shared/combatUnitPanel/CombatUnitPanelFriendly.tres" id="2_6g2cx"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="3_n1d0n"]
 [ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="4_unxlk"]
 [ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/Mounted_icon.png" id="5_41m1w"]
@@ -27,6 +27,7 @@ offset_top = -22.0
 offset_right = 334.0
 offset_bottom = 23.0
 grow_vertical = 2
+theme = ExtResource("1_4wl0s")
 script = ExtResource("1_wkq0j")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -39,7 +40,6 @@ offset_top = -22.5
 offset_right = 220.0
 offset_bottom = 22.5
 grow_vertical = 2
-theme = ExtResource("2_6g2cx")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

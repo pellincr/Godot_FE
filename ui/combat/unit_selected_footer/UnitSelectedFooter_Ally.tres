@@ -1,14 +1,16 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://beqlgf0u7r378"]
 
-[sub_resource type="Gradient" id="Gradient_5vujr"]
-offsets = PackedFloat32Array(0, 0.172043, 0.72043, 0.723118, 0.997312)
-colors = PackedColorArray(0.117647, 0.482353, 0.705882, 1, 0.0294901, 0.217278, 0.321642, 1, 0.0866426, 0.160399, 0.258809, 1, 0.0901961, 0.156863, 0.254902, 1, 0.12549, 0.498039, 0.713726, 1)
+[sub_resource type="Gradient" id="Gradient_wxicb"]
+offsets = PackedFloat32Array(0, 0.630682, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.00227273, 0.0227273, 0.109091, 1, 0.00392157, 0.0392157, 0.188235, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jdqu0"]
-gradient = SubResource("Gradient_5vujr")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yqona"]
+gradient = SubResource("Gradient_wxicb")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ssicp"]
-texture = SubResource("GradientTexture1D_jdqu0")
+texture = SubResource("GradientTexture2D_yqona")
 
 [resource]
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_ssicp")

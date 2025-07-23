@@ -1,11 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckrpuok3owxp1"]
+[gd_scene load_steps=16 format=3 uid="uid://ckrpuok3owxp1"]
 
 [ext_resource type="Script" path="res://ui/combat/unit_selected_footer/unit_selected_footer.gd" id="1_4e511"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_a2sxk"]
 [ext_resource type="PackedScene" uid="uid://7v6c3rjvvx7v" path="res://ui/shared/combatUnitPanel/CombatUnitPanel.tscn" id="1_mwkog"]
 [ext_resource type="Theme" uid="uid://beqlgf0u7r378" path="res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres" id="2_2nctm"]
 [ext_resource type="PackedScene" uid="uid://h72bu6iftir2" path="res://ui/combat/unit_selected_footer/UnitFooterInventoryContainer/UnitFooterInventoryContainer.tscn" id="3_gx5ht"]
+[ext_resource type="PackedScene" uid="uid://dpu617pjpuyok" path="res://ui/combat/unit_level_container/level_container.tscn" id="4_81g0a"]
+[ext_resource type="Theme" uid="uid://d0vxuepyv7a5d" path="res://resources/themes/progress_bar.tres" id="7_1giwn"]
+
+[sub_resource type="Theme" id="Theme_gar81"]
+default_font = ExtResource("1_a2sxk")
+
+[sub_resource type="Theme" id="Theme_8tqep"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_pomve"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_31awd"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_r026u"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_gdwqw"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_xf52d"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_dd688"]
+default_font_size = 32
 
 [node name="unit_selected_footer" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,218 +42,271 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.000692834
 mouse_filter = 1
+theme = SubResource("Theme_gar81")
 script = ExtResource("1_4e511")
 
-[node name="CombatUnitPanel" parent="." instance=ExtResource("1_mwkog")]
-custom_minimum_size = Vector2(300, 45)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.769
-anchor_bottom = 0.769
-offset_top = 11.688
-offset_bottom = 56.688
-
-[node name="BackPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -75.0
-offset_right = 1152.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="CombatUnitPanel" parent="VBoxContainer" instance=ExtResource("1_mwkog")]
+custom_minimum_size = Vector2(300, 45)
+layout_mode = 2
+
+[node name="StatusContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BackPanel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("2_2nctm")
 
-[node name="MarginContainer" type="MarginContainer" parent="BackPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BackPanel"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BackPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer"]
+custom_minimum_size = Vector2(1280, 100)
 layout_mode = 2
 
-[node name="InventoryMarginContainer" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer"]
+[node name="InventoryMarginContainer" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="UnitInfoInventoryContainer" type="VBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer"]
+[node name="UnitInfoInventoryContainer" type="VBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
 
-[node name="UnitInfoContainer" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer"]
+[node name="UnitInfoContainer" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="UnitTypeLabel" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+[node name="UnitTypeLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lance Armor
 "
 
-[node name="UnitTypeIconLabels" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+[node name="UnitTypeIconLabels" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
 layout_mode = 2
 
-[node name="LevelContainer" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
+[node name="LevelContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer" instance=ExtResource("4_81g0a")]
+layout_mode = 2
+
+[node name="MoveContainer" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="LevelLabel" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/LevelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Lvl 15"
-horizontal_alignment = 2
-
-[node name="MoveContainer" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="MoveLabel" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+[node name="MoveLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Move
 "
 
-[node name="MoveValue" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+[node name="CurrentMoveValue" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
 layout_mode = 2
 text = "5
 "
 
-[node name="UnitFooterInventoryContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer" instance=ExtResource("3_gx5ht")]
+[node name="TotalMoveValue" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "5
+"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 15
+
+[node name="UnitFooterInventoryContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer2" instance=ExtResource("3_gx5ht")]
 layout_mode = 2
 
-[node name="HealthMarginContainer" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer"]
+[node name="HealthMarginContainer" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 65)
 layout_mode = 2
-theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 25
 
-[node name="Health" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer"]
+[node name="HealthContainer" type="VBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer"]
 layout_mode = 2
 
-[node name="HealthLabel" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health"]
+[node name="Health" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer"]
+custom_minimum_size = Vector2(175, 55)
 layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_vertical = 1
 text = "HP"
 
-[node name="HPValueContainer" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health"]
+[node name="HPValueContainer" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health"]
 layout_mode = 2
+size_flags_vertical = 8
 
-[node name="CurrentHP" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health/HPValueContainer"]
+[node name="CurrentHP" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "56
 "
 
-[node name="divider" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health/HPValueContainer"]
+[node name="divider" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "/
 "
 
-[node name="MaxHP" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/Health/HPValueContainer"]
+[node name="MaxHP" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "60"
 
-[node name="StatsGridMargin" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer"]
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme = ExtResource("7_1giwn")
+show_percentage = false
+
+[node name="StatsGridMargin" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin"]
+custom_minimum_size = Vector2(373, 70)
 layout_mode = 2
 
-[node name="StatsGrid" type="GridContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer"]
+[node name="StatsGrid" type="GridContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 20
 columns = 3
 
-[node name="Attack" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Attack" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+theme = SubResource("Theme_8tqep")
 text = "Dmg"
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
+theme = SubResource("Theme_pomve")
 text = "Value"
+horizontal_alignment = 2
 
-[node name="Avoid" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="DamageTypeIcon" type="TextureRect" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Avoid" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
 text = "Avoid"
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
+theme = SubResource("Theme_31awd")
 text = "Value"
+horizontal_alignment = 2
 
-[node name="Def" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Def" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
 text = "Def"
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
-text = "Value"
+theme = SubResource("Theme_r026u")
+text = "1"
+horizontal_alignment = 2
 
-[node name="Hit" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Hit" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
 text = "Hit
 "
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
+theme = SubResource("Theme_gdwqw")
 text = "Value"
+horizontal_alignment = 2
 
-[node name="Speed" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Speed" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
 text = "Spd"
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
+theme = SubResource("Theme_xf52d")
 text = "Value"
+horizontal_alignment = 2
 
-[node name="Res" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Res" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid"]
+custom_minimum_size = Vector2(122, 33)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 text = "Res"
 
-[node name="Value" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res"]
+[node name="Value" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res"]
+custom_minimum_size = Vector2(72, 33)
 layout_mode = 2
-text = "Value"
+theme = SubResource("Theme_dd688")
+text = "123"
+horizontal_alignment = 2
 
-[node name="SkillsMarginContainer" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin"]
+[node name="SkillsMarginContainer" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_right = 25
 
-[node name="Health" type="HBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/SkillsMarginContainer"]
+[node name="Health" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/SkillsMarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/SkillsMarginContainer/Health"]
+[node name="Label" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/SkillsMarginContainer/Health"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "PLACEHOLDER
