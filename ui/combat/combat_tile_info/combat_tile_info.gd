@@ -8,16 +8,16 @@ var terrain : Terrain = BLANK_TERRAIN
 var terrain_icon: Texture2D
 
 func update_name() : 
-	$Name.text = terrain.name
+	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/Name.text = terrain.name
 	
 func update_avoid_bonus() : 
-	$BonusContainer/Avoid.text = "AVO " +str(terrain.avoid)
+	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Avoid.text = "AVO " +str(terrain.avoid)
 	
 func update_defense_bonus() : 
-	$BonusContainer/Defense.text = "DEF " + str(terrain.defense)
+	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Defense.text = "DEF " + str(terrain.defense)
 
 func update_magic_defense_bonus() : 
-	$BonusContainer/Special.text = "RES " + str(terrain.magic_defense)
+	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Special.text = "RES " + str(terrain.magic_defense)
 
 func set_x_coordinates(value: int) :
 	self.x_coordinate = value
@@ -33,10 +33,10 @@ func set_xy_coordinate(x: int, y:int) :
 	set_coord_string()
 
 func update_terrain_icon() :
-	$terrain_icon_border/terrian_icon.texture = terrain.tile_texture
+	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon.texture = terrain.tile_texture
 
 func set_coord_string() : 
-	$Coordinates.text =  ("(" + str(x_coordinate) + "," + str(y_coordinate)+ ")")
+	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon/Coordinates.text =  ("(" + str(x_coordinate) + "," + str(y_coordinate)+ ")")
 	
 func set_terrain(t: Terrain):
 	self.terrain = t
