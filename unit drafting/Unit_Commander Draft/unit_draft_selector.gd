@@ -148,9 +148,10 @@ func randomize_unit():
 	inventory_array.append(ItemDatabase.items["brass_knuckles"])
 	var unit_character = UnitCharacter.new()
 	unit_character.name = new_unit_name
-	randomize_unit_stats(unit_character)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-	randomize_unit_growths(unit_character)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-	var new_recruit = Unit.create_unit_unit_character("axe_armor",unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+	new_recruit_class = "axe_armor"#TO BE REMOVED 
+	randomize_unit_stats(unit_character, new_recruit_class)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+	randomize_unit_growths(unit_character, new_recruit_class)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+	var new_recruit = Unit.create_unit_unit_character(new_recruit_class,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 	unit = new_recruit
 
 func get_random_rarity():
@@ -168,16 +169,16 @@ func get_random_rarity():
 	return "Common"
 
 
-func randomize_unit_stats(unit_character):
+func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
-	var health_rand = randi_range( -6, 6)
-	var strength_rand = randi_range(-2,2)
-	var magic_rand = randi_range(-2,2)
-	var skill_rand = randi_range(2,2)
-	var speed_rand = randi_range(-2,2)
-	var luck_rand = randi_range(-2,+2)
-	var defense_rand = randi_range(-2,2)
-	var resistance_rand = randi_range(-2,2)
+	var health_rand = clampi(randfn( 0, 3), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp, 10) 
+	var strength_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
+	var magic_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
+	var skill_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
+	var speed_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
+	var luck_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
+	var defense_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
+	var resistance_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
 	stats.hp = health_rand
 	stats.strength = strength_rand
 	stats.magic = magic_rand
@@ -188,16 +189,16 @@ func randomize_unit_stats(unit_character):
 	stats.resistance = resistance_rand
 	unit_character.stats = stats
 
-func randomize_unit_growths(unit_character):
+func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
-	var health_rand = randi_range(-40, 40)
-	var strength_rand = randi_range(-20, 20)
-	var magic_rand = randi_range(-20, 20)
-	var skill_rand = randi_range(-20, 20)
-	var speed_rand = randi_range(-20, 20)
-	var luck_rand = randi_range(-20, 20)
-	var defense_rand = randi_range(-20, 20)
-	var resistance_rand = randi_range(-20,20)
+	var health_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.hp, 40) 
+	var strength_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.strength, 20) 
+	var magic_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.magic, 20) 
+	var skill_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.skill, 20) 
+	var speed_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.speed, 20) 
+	var luck_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.luck, 20) 
+	var defense_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.defense, 20) 
+	var resistance_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.resistance, 20) 
 	growths.hp = health_rand
 	growths.strength = strength_rand
 	growths.magic = magic_rand
