@@ -98,13 +98,13 @@ func update_weapon_triangle():
 		$wpn_triangle_def.visible = false
 	
 func update_attacker_display():
-	$CenterContainer/HBoxContainer/AttackerInfo/Name.text = attacker.unit.unit_name
+	$CenterContainer/HBoxContainer/AttackerInfo/Name.text = attacker.unit.name
 	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Icon.texture = attacker.unit.inventory.equipped.icon
 	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Name.text = attacker.unit.inventory.equipped.name
 	$CenterContainer/HBoxContainer/AttackerInfo/ItemInfo/Uses.text = str(attacker.unit.inventory.equipped.uses)
 	
 func update_defender_display():
-	$CenterContainer/HBoxContainer/DefenderInfo/Name.text = defender.unit.unit_name
+	$CenterContainer/HBoxContainer/DefenderInfo/Name.text = defender.unit.name
 	if defender.unit.inventory.equipped:
 		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Icon.texture = defender.unit.inventory.equipped.icon
 		$CenterContainer/HBoxContainer/DefenderInfo/ItemInfo/Name.text = defender.unit.inventory.equipped.name

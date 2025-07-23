@@ -114,7 +114,7 @@ func set_resistance_difference(res_difference):
 	resistance_difference_label.text = str(res_difference)
 
 func update_all():
-	set_move(unit.movement)
+	set_move(unit.stats.movement)
 	set_constitution(unit.constitution)
 	
 	set_health_val(unit.hp)

@@ -53,7 +53,7 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
-	var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_class_key).unit_rarity
+	var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_type_key).unit_rarity
 	name_label.self_modulate = rarity.ui_color
 
 func set_class_label(class_text):
@@ -136,7 +136,7 @@ func randomize_unit():
 	var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 	var iventory_array : Array[ItemDefinition]
 	iventory_array.append(ItemDatabase.items["brass_knuckles"])
-	var new_recruit = Unit.create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+	var new_recruit = Unit.create_generic_unit(new_recruit_class,iventory_array, new_unit_name, 2)
 	unit = new_recruit
 
 func get_random_rarity():
@@ -154,8 +154,8 @@ func get_random_rarity():
 	return "Common"
 
 func update_information():
-	set_name_label(unit.unit_name)
-	set_class_label(unit.unit_class_key)
+	set_name_label(unit.name)
+	set_class_label(unit.unit_type_key)
 	set_icon(unit.map_sprite)
 
 

@@ -63,15 +63,15 @@ func generate_recruits(num):
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var iventory_array : Array[ItemDefinition]
 		iventory_array.append(ItemDatabase.items["brass_knuckles"])
-		var new_recruit = Unit.create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+		var new_recruit = Unit.create_generic_unit(new_recruit_class,iventory_array, new_unit_name, 2)
 		accum.append(new_recruit)
 	return accum
 
 #Sets the text on the given Recruit button to be what is on the given unit
 func set_recruit_button(button:OverworldButton, unit:Unit):
 	button.set_contained_var(unit) #Associates the button to the recruit
-	button.set_button_text("Name: " + unit.unit_name + 
-							"\n" + "Class: " + UnitTypeDatabase.unit_types[unit.unit_class_key].unit_type_name + 
+	button.set_button_text("Name: " + unit.name + 
+							"\n" + "Class: " + UnitTypeDatabase.unit_types[unit.unit_type_key].unit_type_name + 
 							"\n" + "Level: " + str(unit.level) +
 							"\n" + "HP: " + str(unit.hp))
 

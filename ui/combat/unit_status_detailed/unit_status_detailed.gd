@@ -57,13 +57,13 @@ func update_unit_name(value: String):
 	$LeftPanel/UnitName.text = value
 	
 func update_unit_stats():
-	update_strength_stat(Cunit.unit.strength, Cunit.unit.strength_cap)
-	update_magic_stat(Cunit.unit.magic, Cunit.unit.magic_cap)
-	update_skill_stat(Cunit.unit.skill, Cunit.unit.skill_cap)
-	update_speed_stat(Cunit.unit.speed, Cunit.unit.speed_cap)
-	update_luck_stat(Cunit.unit.luck, Cunit.unit.luck_cap)
-	update_defense_stat(Cunit.unit.defense, Cunit.unit.defense_cap)
-	update_m_defense_stat(Cunit.unit.magic_defense, Cunit.unit.magic_defense_cap)
+	update_strength_stat(Cunit.unit.stats.strength, Cunit.unit.get_unit_type_definition().maxuimum_stats.strength)
+	update_magic_stat(Cunit.unit.stats.magic, Cunit.unit.get_unit_type_definition().maxuimum_stats.magic)
+	update_skill_stat(Cunit.unit.stats.skill, Cunit.unit.get_unit_type_definition().maxuimum_stats.skill)
+	update_speed_stat(Cunit.unit.stats.speed, Cunit.unit.get_unit_type_definition().maxuimum_stats.speed)
+	update_luck_stat(Cunit.unit.stats.luck, Cunit.unit.get_unit_type_definition().maxuimum_stats.luck)
+	update_defense_stat(Cunit.unit.stats.defense, Cunit.unit.get_unit_type_definition().maxuimum_stats.defense)
+	update_m_defense_stat(Cunit.unit.stats.resistance, Cunit.unit.get_unit_type_definition().maxuimum_stats.resistance)
 
 func update_strength_stat(current: int, maximum:int):
 	update_target_stat(current, maximum, $RightPanel/StatsGrid/StrengthContainer)
@@ -172,11 +172,11 @@ func set_inventory() :
 			slot_box.get_child(2).text = ''
 
 func update_fields():
-	update_unit_name(Cunit.unit.unit_name)
+	update_unit_name(Cunit.unit.name)
 	set_unit_icon(Cunit.unit.map_sprite)
-	set_unit_health_bar_values(Cunit.unit.max_hp, Cunit.unit.hp)
+	set_unit_health_bar_values(Cunit.unit.stats.hp, Cunit.unit.hp)
 	set_unit_xp_bar_values(100, Cunit.unit.experience)
-	set_unit_sub_header(Cunit.unit.level, UnitTypeDatabase.unit_types[Cunit.unit.unit_class_key].unit_type_name)
+	set_unit_sub_header(Cunit.unit.level, UnitTypeDatabase.unit_types[Cunit.unit.unit_type_key].unit_type_name)
 	update_stats_grid(Cunit.unit.attack, Cunit.unit.hit,Cunit.unit.attack_speed, Cunit.calc_map_avoid())
 	update_unit_stats()
 	set_inventory()

@@ -17,7 +17,7 @@ static func create(target_unit: Unit) -> TradeUnitInventory:
 func set_unit(target_unit: Unit):
 	self.unit = target_unit
 	self.unit_icon = target_unit.icon
-	self.unit_name = target_unit.unit_name
+	self.unit_name = target_unit.name
 
 func update_fields():
 	update_icon()

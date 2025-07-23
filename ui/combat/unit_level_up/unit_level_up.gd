@@ -19,9 +19,9 @@ func set_unit(unit:Unit):
 	self.reference_unit = unit
 	set_unit_icon(self.reference_unit.map_sprite)
 	set_base_stat_array(self.reference_unit.get_basic_stat_array())
-	set_unit_type(UnitTypeDatabase.unit_types[self.reference_unit.unit_class_key].unit_type_name)
+	set_unit_type(UnitTypeDatabase.unit_types[self.reference_unit.unit_type_key].unit_type_name)
 	set_unit_level(self.reference_unit.level)
-	set_unit_name(self.reference_unit.unit_name)
+	set_unit_name(self.reference_unit.name)
 
 func set_unit_level(level: int):
 	self.unit_level = level

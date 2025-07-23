@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=6 format=3 uid="uid://dvl8rqe6qcaqk"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=5 format=3 uid="uid://dvl8rqe6qcaqk"]
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_3n8h1"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="3_agc2g"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="3_snxdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y6otv"]
@@ -16,51 +15,15 @@ region = Rect2(64, 64, 32, 32)
 script = ExtResource("3_snxdd")
 unit_type_name = "Paladin"
 db_key = "paladin"
-class_type = Array[String](["Infantry"])
-movement_class = 0
-xp_worth = 4
+description = ""
+initiative = 1
+faction = Array[int]([])
+traits = Array[int]([])
+movement_type = 0
+tier = 2
 promoted = true
 unit_promoted_from_key = "mercenary"
-unit_rarity = ExtResource("3_agc2g")
-usable_weapon_types = Array[String](["Staff", "Axe"])
-hp = 23
-strength = 7
-magic = 6
-skill = 3
-speed = 5
-luck = 0
-defense = 9
-magic_defense = 8
-max_hp = 60
-max_strength = 27
-max_magic = 25
-max_skill = 24
-max_speed = 22
-max_luck = 30
-max_defense = 28
-max_magic_defense = 25
-movement = 5
-max_movement = 20
-constitution = 15
-max_constitution = 20
-aid = 7
-initiative = 1
-hp_growth = 70
-strength_growth = 65
-magic_growth = 55
-skill_growth = 25
-speed_growth = 10
-luck_growth = 70
-defense_growth = 35
-magic_defense_growth = 20
-hp_promo = 0
-strength_promo = 0
-magic_promo = 0
-skill_promo = 0
-speed_promo = 0
-luck_promo = 0
-defense_promo = 0
-magic_defense_promo = 0
+usable_weapon_types = Array[int]([])
 icon = SubResource("AtlasTexture_y6otv")
 map_sprite = SubResource("AtlasTexture_2vraa")
 skills = Array[String]([])

@@ -146,14 +146,14 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	var heal_amount = calc_damage(attacker.unit, target.unit)
 	attacker.unit.inventory.equipped.use()
 	await use_audio_player(heal_sound)
-	target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.max_hp )
+	target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
 	DamageNumbers.heal((32* target.map_tile.position + Vector2i(16,16)), heal_amount)
 	target.map_display.update_values()
 	await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
-	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.max_hp )
+	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.stats.hp )
 	DamageNumbers.heal((32* unit.map_tile.position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	await ce_display.update_unit_hp(unit.unit, unit.unit.hp)
@@ -271,7 +271,7 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
 	if attacker.unit.inventory.equipped: 
 		if attacker.unit.inventory.equipped is WeaponDefinition:
-			if not attacker.unit.inventory.equipped.weapon_type == WeaponDefinition.WEAPON_TYPE.keys()[WeaponDefinition.WEAPON_TYPE.STAFF]:
+			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.keys()[ItemConstants.WEAPON_TYPE.STAFF]:
 				if attacker.unit.inventory.equipped.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ENEMY:
 					if attacker.unit.inventory.equipped.attack_range.has(distance):
 						return true
@@ -364,7 +364,7 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 	var _is_effective = false
 	if not attacker.inventory.equipped.weapon_effectiveness.is_empty() :
 		for effective_type in attacker.inventory.equipped.weapon_effectiveness: 
-			if effective_type in UnitTypeDatabase.unit_types[target.unit_class_key].class_type :
+			if effective_type in UnitTypeDatabase.unit_types[target.unit_type_key].traits :
 				_is_effective = true
 	if (check_weapon_triangle(attacker, target) == attacker): 
 		if(attacker.inventory.equipped.is_wpn_triangle_effective):

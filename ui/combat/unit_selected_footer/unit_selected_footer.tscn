@@ -27,11 +27,12 @@ offset_bottom = 56.688
 
 [node name="BackPanel" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -75.0
-offset_right = 1152.0
+offset_top = -67.0
+grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("2_2nctm")
 
@@ -42,7 +43,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="InventoryMarginContainer" type="MarginContainer" parent="BackPanel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="UnitInfoInventoryContainer" type="VBoxContainer" parent="BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer"]

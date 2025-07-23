@@ -1,21 +1,6 @@
 extends ItemDefinition
 class_name WeaponDefinition
 
-enum WEAPON_TYPE
-{
-	AXE,
-	SWORD,
-	LANCE,
-	BOW,
-	ANIMA,
-	LIGHT,
-	DARK,
-	STAFF,
-	FIST,
-	MONSTER,
-	OTHER
-}
-
 enum DAMAGE_TYPE
 {
 	PHYSICAL,
@@ -45,7 +30,7 @@ enum AVAILABLE_TARGETS #this will expanded when more factions are added
 }
 
 @export_subgroup("Weapon Type")
-@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other" ) var weapon_type : String
+@export var weapon_type : itemConstants.WEAPON_TYPE
 @export_enum("none", "Axe", "Sword", "Lance") var physical_weapon_triangle_type : String
 @export_enum("none","Dark", "Light", "Nature") var magic_weapon_triangle_type : String
 @export_enum("Physical", "Magic", "NONE" ) var item_damage_type : int = 0

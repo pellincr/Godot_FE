@@ -1,9 +1,22 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=6 format=3 uid="uid://c11niej1sbuyr"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://c11niej1sbuyr"]
 
 [ext_resource type="Texture2D" uid="uid://bjhqne5f2n811" path="res://resources/sprites/sheets/units.png" id="1_t1q70"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_vb1ea"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_ytixc"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer_map.tres" id="2_e600p"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="4_8b5xh"]
+
+[sub_resource type="Resource" id="Resource_2y6ed"]
+script = ExtResource("1_ytixc")
+hp = 11
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7jroy"]
 atlas = ExtResource("1_t1q70")
@@ -13,51 +26,16 @@ region = Rect2(64, 0, 32, 16)
 script = ExtResource("1_vb1ea")
 unit_type_name = "Archer"
 db_key = "archer"
-class_type = Array[String](["Infantry"])
-movement_class = 0
-xp_worth = 2
+description = ""
+initiative = 1
+faction = Array[int]([])
+traits = Array[int]([])
+movement_type = 0
+tier = 2
 promoted = false
 unit_promoted_from_key = ""
-unit_rarity = ExtResource("4_8b5xh")
-usable_weapon_types = Array[String](["Bow"])
-hp = 18
-strength = 4
-magic = 3
-skill = 3
-speed = 4
-luck = 0
-defense = 3
-magic_defense = 0
-max_hp = 60
-max_strength = 20
-max_magic = 20
-max_skill = 20
-max_speed = 20
-max_luck = 30
-max_defense = 20
-max_magic_defense = 20
-movement = 5
-max_movement = 20
-constitution = 7
-max_constitution = 20
-aid = 7
-initiative = 1
-hp_growth = 70
-strength_growth = 35
-magic_growth = 30
-skill_growth = 40
-speed_growth = 35
-luck_growth = 35
-defense_growth = 15
-magic_defense_growth = 10
-hp_promo = 0
-strength_promo = 0
-magic_promo = 0
-skill_promo = 0
-speed_promo = 0
-luck_promo = 0
-defense_promo = 0
-magic_defense_promo = 0
+usable_weapon_types = Array[int]([3])
+base_stats = SubResource("Resource_2y6ed")
 icon = SubResource("AtlasTexture_7jroy")
 map_sprite = ExtResource("2_e600p")
 skills = Array[String]([])

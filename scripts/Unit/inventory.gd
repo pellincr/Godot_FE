@@ -109,8 +109,8 @@ static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inven
 	for input_item in input_items:
 		if input_item:
 			var item = input_item.duplicate()
-			#if input_item.equippable and inv.equipped == null:
-				#inv.equipped = item
+			if input_item.equippable and inv.equipped == null:
+				inv.equipped = item
 			inv.give_item(item)
 	return inv
 

@@ -1,0 +1,27 @@
+extends Node
+
+class_name itemConstants
+
+enum ITEM_TYPE {
+	WEAPON,
+	STAFF,
+	USEABLE_ITEM,
+	EQUIPMENT_LOOT
+}
+
+enum WEAPON_TYPE {
+	SWORD,
+	AXE,
+	LANCE,
+	BOW,
+	FIST,
+	STAFF,
+	DARK,
+	LIGHT,
+	NATURE,
+	ANIMAL,
+	MONSTER,
+	SHIELD,
+	DAGGER,
+	BANNER
+}
