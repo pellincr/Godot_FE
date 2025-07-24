@@ -5,21 +5,36 @@
 [resource]
 script = ExtResource("2_53rl2")
 archetype_name = "Classic"
-given_archetypes = {
-"Anima": 0,
-"Animal": 0,
-"Armored": 0,
-"Axe": 0,
-"Bow": 0,
-"Calvary": 2,
-"Dark": 0,
-"Fist": 0,
-"Flying": 0,
-"Infantry": 0,
-"Lance": 0,
-"Light": 0,
-"Monster": 0,
-"Other": 0,
-"Staff": 0,
-"Sword": 1
+given_trait_archetypes = {
+0: 0,
+1: 2,
+2: 0,
+3: 0,
+4: 0,
+5: 0
+}
+given_faction_archetypes = {
+0: 0,
+1: 0,
+2: 0,
+3: 0,
+4: 0,
+5: 0,
+6: 0
+}
+given_weapon_archetypes = {
+0: 1,
+1: 0,
+2: 0,
+3: 0,
+4: 0,
+5: 0,
+6: 0,
+7: 0,
+8: 0,
+9: 0,
+10: 0,
+11: 0,
+12: 0,
+13: 0
 }

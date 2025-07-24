@@ -62,52 +62,31 @@ func set_constitution(con):
 
 
 func set_health_growth(hp_growth):
-	var sign = ""
-	if hp_growth > 0:
-		sign = "+"
-	health_growth_label.text = sign + str(hp_growth) + "%"
+	health_growth_label.text = str(hp_growth) + "%"
 
 func set_strength_growth(str_growth):
-	var sign = ""
-	if str_growth > 0:
-		sign = "+"
-	strength_growth_label.text = sign + str(str_growth) + "%"
+	strength_growth_label.text = str(str_growth) + "%"
 
 func set_magic_growth(mgc_growth):
-	var sign = ""
-	if mgc_growth > 0:
-		sign = "+"
-	magic_growth_label.text = sign + str(mgc_growth) + "%"
+	magic_growth_label.text = str(mgc_growth) + "%"
 
 func set_skill_growth(skill_growth):
-	var sign = ""
-	if skill_growth > 0:
-		sign = "+"
-	skill_growth_label.text = sign + str(skill_growth) + "%"
+	skill_growth_label.text = str(skill_growth) + "%"
 
 func set_speed_growth(spd_growth):
-	var sign = ""
-	if spd_growth > 0:
-		sign = "+"
-	speed_growth_label.text = sign + str(spd_growth) + "%"
+	speed_growth_label.text = str(spd_growth) + "%"
 
 func set_luck_growth(lck_growth):
-	var sign = ""
-	if lck_growth > 0:
-		sign = "+"
-	luck_growth_label.text = sign + str(lck_growth) + "%"
+	luck_growth_label.text = str(lck_growth) + "%"
 
 func set_defense_growth(def_growth):
-	var sign = ""
-	if def_growth > 0:
-		sign = "+"
-	defense_growth_label.text = sign + str(def_growth) + "%"
+	defense_growth_label.text =  str(def_growth) + "%"
 
 func set_resistance_growth(res_growth):
-	var sign = ""
-	if res_growth > 0:
-		sign = "+"
-	resistance_growth_label.text = sign + str(res_growth) + "%"
+	resistance_growth_label.text = str(res_growth) + "%"
+
+
+
 
 func set_health_difference(hp_difference):
 	var sign = ""

@@ -7,29 +7,66 @@ class_name ArmyArchetypeDefinition
 #@export_enum{"Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other",
 #"Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var given_archetypes: Dictionary
 
-@export var given_archetypes : Dictionary = {
-	"Axe": 0,
-	"Sword": 0,
-	"Lance" : 0,
-	"Bow": 0,
-	"Anima": 0,
-	"Light": 0,
-	"Dark":0,
-	"Staff":0,
-	"Fist":0,
-	"Other": 0,
-	"Infantry":0,
-	"Calvary":0,
-	"Armored":0,
-	"Monster":0,
-	"Animal":0,
-	"Flying":0
+@export var given_unit_trait_archetypes : Dictionary = {
+	unitConstants.TRAITS.ARMORED : 0,
+	unitConstants.TRAITS.MOUNTED : 0,
+	unitConstants.TRAITS.FLIER : 0,
+	unitConstants.TRAITS.UNDEAD : 0,
+	unitConstants.TRAITS.MASSIVE : 0,
+	unitConstants.TRAITS.LOCKPICK : 0,
 }
 
-var units_given = add_all(given_archetypes.values())
+@export var given_unit_faction_archetypes : Dictionary = {
+	unitConstants.FACTION.MERCENARY : 0,
+	unitConstants.FACTION.KINGDOM : 0,
+	unitConstants.FACTION.THEOCRACY : 0,
+	unitConstants.FACTION.LAWBREAKERS : 0,
+	unitConstants.FACTION.CULTIST : 0,
+	unitConstants.FACTION.SKELETAL : 0,
+	unitConstants.FACTION.MONSTER : 0,
+}
 
-func add_all(arr):
-	var temp = 0
-	for number in arr:
-		temp += number
-	return temp
+@export var given_unit_weapon_archetypes : Dictionary = {
+	#USEABLE WEAPONS:
+	ItemConstants.WEAPON_TYPE.SWORD: 0,
+	ItemConstants.WEAPON_TYPE.AXE: 0,
+	ItemConstants.WEAPON_TYPE.LANCE : 0,
+	ItemConstants.WEAPON_TYPE.BOW: 0,
+	ItemConstants.WEAPON_TYPE.FIST:0,
+	ItemConstants.WEAPON_TYPE.STAFF:0,
+	ItemConstants.WEAPON_TYPE.DARK:0,
+	ItemConstants.WEAPON_TYPE.LIGHT: 0,
+	ItemConstants.WEAPON_TYPE.NATURE: 0,
+	ItemConstants.WEAPON_TYPE.ANIMAL: 0,
+	ItemConstants.WEAPON_TYPE.MONSTER: 0,
+	ItemConstants.WEAPON_TYPE.SHIELD: 0,
+	ItemConstants.WEAPON_TYPE.DAGGER:0,
+	ItemConstants.WEAPON_TYPE.BANNER: 0,
+}
+
+@export var given_item_weapon_archetypes : Dictionary = {
+	#USEABLE WEAPONS:
+	ItemConstants.WEAPON_TYPE.SWORD: 0,
+	ItemConstants.WEAPON_TYPE.AXE: 0,
+	ItemConstants.WEAPON_TYPE.LANCE : 0,
+	ItemConstants.WEAPON_TYPE.BOW: 0,
+	ItemConstants.WEAPON_TYPE.FIST:0,
+	ItemConstants.WEAPON_TYPE.STAFF:0,
+	ItemConstants.WEAPON_TYPE.DARK:0,
+	ItemConstants.WEAPON_TYPE.LIGHT: 0,
+	ItemConstants.WEAPON_TYPE.NATURE: 0,
+	ItemConstants.WEAPON_TYPE.ANIMAL: 0,
+	ItemConstants.WEAPON_TYPE.MONSTER: 0,
+	ItemConstants.WEAPON_TYPE.SHIELD: 0,
+	ItemConstants.WEAPON_TYPE.DAGGER:0,
+	ItemConstants.WEAPON_TYPE.BANNER: 0,
+}
+
+
+#var units_given = add_all(given_archetypes.values())
+
+#func add_all(arr):
+#	var temp = 0
+#	for number in arr:
+#		temp += number
+#	return temp

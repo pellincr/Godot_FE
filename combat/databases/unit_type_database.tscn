@@ -1,68 +1,32 @@
-[gd_scene load_steps=32 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=14 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
-[ext_resource type="Resource" uid="uid://q71h87n0faia" path="res://resources/definitions/unit_types/fighter.tres" id="2_gcl2o"]
-[ext_resource type="Resource" uid="uid://dxlhosk46m34j" path="res://resources/definitions/unit_types/warrior.tres" id="3_gtnsj"]
-[ext_resource type="Resource" uid="uid://c11niej1sbuyr" path="res://resources/definitions/unit_types/archer.tres" id="4_oe4uj"]
-[ext_resource type="Resource" uid="uid://be4ubqt71pmce" path="res://resources/definitions/unit_types/man_at_arms.tres" id="5_xm2j0"]
-[ext_resource type="Resource" uid="uid://cpp2spdxmfh1n" path="res://resources/definitions/unit_types/mercenary.tres" id="6_qa60v"]
-[ext_resource type="Resource" uid="uid://dw3imhfi6j8rr" path="res://resources/definitions/unit_types/knight.tres" id="7_v5raa"]
-[ext_resource type="Resource" uid="uid://bmpd6pgk3fn10" path="res://resources/definitions/unit_types/general.tres" id="8_6kb4w"]
-[ext_resource type="Resource" uid="uid://dvl8rqe6qcaqk" path="res://resources/definitions/unit_types/paladin.tres" id="10_w4hgp"]
-[ext_resource type="Resource" uid="uid://bxnbet6qk4nc6" path="res://resources/definitions/unit_types/fencer.tres" id="11_8ecgk"]
-[ext_resource type="Resource" uid="uid://cx62x7tpnmudj" path="res://resources/definitions/unit_types/cleric.tres" id="12_t2hts"]
-[ext_resource type="Resource" uid="uid://cgnrhm33281oo" path="res://resources/definitions/unit_types/cavalier_axe.tres" id="13_io31r"]
-[ext_resource type="Resource" uid="uid://bsg8pliy8fn23" path="res://resources/definitions/unit_types/legionary_sword.tres" id="14_i82vg"]
-[ext_resource type="Resource" uid="uid://biviwx5fbrry5" path="res://resources/definitions/unit_types/legionary_lance.tres" id="15_g7kw2"]
-[ext_resource type="Resource" uid="uid://cp1q4i5gc6uwq" path="res://resources/definitions/unit_types/gargoyle.tres" id="16_aptxd"]
-[ext_resource type="Resource" uid="uid://dtjqh7dk3gabr" path="res://resources/definitions/unit_types/bonewalker_archer.tres" id="17_xihqt"]
-[ext_resource type="Resource" uid="uid://gjc8gggxo6lo" path="res://resources/definitions/unit_types/bonewalker_lance.tres" id="18_o8sx1"]
-[ext_resource type="Resource" uid="uid://ks53ch08qfcf" path="res://resources/definitions/unit_types/bonewalker_sword.tres" id="19_xls8p"]
-[ext_resource type="Resource" uid="uid://dcdw3nsdqmsw2" path="res://resources/definitions/unit_types/zombie.tres" id="20_m17yl"]
-[ext_resource type="Resource" uid="uid://cfhjoq7auurfy" path="res://resources/definitions/unit_types/imp.tres" id="21_u8atu"]
-[ext_resource type="Resource" uid="uid://mak8xe0djou8" path="res://resources/definitions/unit_types/drake.tres" id="22_m4kmw"]
-[ext_resource type="Resource" uid="uid://oxyxjq53wm2s" path="res://resources/definitions/unit_types/kobold_axe.tres" id="23_6cudr"]
-[ext_resource type="Resource" uid="uid://ctw5fi156h2ht" path="res://resources/definitions/unit_types/cavalier_sword.tres" id="24_8kc6o"]
-[ext_resource type="Resource" uid="uid://lihw3hh8cu6i" path="res://resources/definitions/unit_types/cavalier_lance.tres" id="24_dmar4"]
-[ext_resource type="Resource" uid="uid://curh4ljxlwnsy" path="res://resources/definitions/unit_types/cavalier_magic.tres" id="25_mmut0"]
-[ext_resource type="Resource" uid="uid://bjvgjy3h1lfro" path="res://resources/definitions/unit_types/thief.tres" id="26_3ntos"]
-[ext_resource type="Resource" uid="uid://cjwiv2iv3k02a" path="res://resources/definitions/unit_types/monk.tres" id="27_rpty3"]
-[ext_resource type="Resource" uid="uid://c2ltfhxc7knfr" path="res://resources/definitions/unit_types/pegasus_lance.tres" id="28_dadkl"]
-[ext_resource type="Resource" uid="uid://2a3cmbjoxmi2" path="res://resources/definitions/unit_types/pegasus_sword.tres" id="29_2gg6f"]
-[ext_resource type="Resource" uid="uid://7ym7txeqsqel" path="res://resources/definitions/unit_types/martial_artist.tres" id="30_gci7c"]
+[ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/archer/archer.tres" id="2_pke6c"]
+[ext_resource type="Resource" uid="uid://cq57ltputqp77" path="res://resources/definitions/unit_types/axe_cavalier/axe_cavalier.tres" id="4_bf4by"]
+[ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/bladehand/bladehand.tres" id="5_k6vk5"]
+[ext_resource type="Resource" uid="uid://d0ewglo4bmena" path="res://resources/definitions/unit_types/fighter/fighter.tres" id="6_dtgcv"]
+[ext_resource type="Resource" uid="uid://dcg1per38s866" path="res://resources/definitions/unit_types/lance_armor/lance_armor.tres" id="7_m2b6g"]
+[ext_resource type="Resource" uid="uid://dfbyyd1kx6cd8" path="res://resources/definitions/unit_types/lance_cavalier/lance_cavalier.tres" id="8_b047a"]
+[ext_resource type="Resource" uid="uid://dt8njm5wo7pxc" path="res://resources/definitions/unit_types/pikeman/pikeman.tres" id="9_5nlrr"]
+[ext_resource type="Resource" uid="uid://bg5poewlr3i7e" path="res://resources/definitions/unit_types/sellsword/sellsword.tres" id="10_ntklw"]
+[ext_resource type="Resource" uid="uid://w3fe6ovr8565" path="res://resources/definitions/unit_types/sword_armor/sword_armor.tres" id="11_s3c8i"]
+[ext_resource type="Resource" uid="uid://p0yw74owchbh" path="res://resources/definitions/unit_types/sword_cavalier/sword_cavalier.tres" id="12_tvv6x"]
+[ext_resource type="Resource" uid="uid://bxeaa4qb7n0ni" path="res://resources/definitions/unit_types/thief/thief.tres" id="13_yos3a"]
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/axe_armor/axe_armor.tres" id="31_id5fj"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
 unit_types = {
-"archer": ExtResource("4_oe4uj"),
-"armor_lance": ExtResource("7_v5raa"),
+"archer": ExtResource("2_pke6c"),
 "axe_armor": ExtResource("31_id5fj"),
-"bonewalker_archer": ExtResource("17_xihqt"),
-"bonewalker_lance": ExtResource("18_o8sx1"),
-"bonewalker_sword": ExtResource("19_xls8p"),
-"cavalier_axe": ExtResource("13_io31r"),
-"cavalier_lance": ExtResource("24_dmar4"),
-"cavalier_magic": ExtResource("25_mmut0"),
-"cavalier_sword": ExtResource("24_8kc6o"),
-"cleric": ExtResource("12_t2hts"),
-"drake": ExtResource("22_m4kmw"),
-"fencer": ExtResource("11_8ecgk"),
-"fighter": ExtResource("2_gcl2o"),
-"gargoyle": ExtResource("16_aptxd"),
-"general": ExtResource("8_6kb4w"),
-"imp": ExtResource("21_u8atu"),
-"kobold_axe": ExtResource("23_6cudr"),
-"legionary_lance": ExtResource("15_g7kw2"),
-"legionary_sword": ExtResource("14_i82vg"),
-"man_at_arms": ExtResource("5_xm2j0"),
-"martial_artist": ExtResource("30_gci7c"),
-"mercenary": ExtResource("6_qa60v"),
-"monk": ExtResource("27_rpty3"),
-"paladin": ExtResource("10_w4hgp"),
-"peg_lance": ExtResource("28_dadkl"),
-"peg_sword": ExtResource("29_2gg6f"),
-"thief": ExtResource("26_3ntos"),
-"warrior": ExtResource("3_gtnsj"),
-"zombie": ExtResource("20_m17yl")
+"axe_cavalier": ExtResource("4_bf4by"),
+"bladehand": ExtResource("5_k6vk5"),
+"fighter": ExtResource("6_dtgcv"),
+"lance_armor": ExtResource("7_m2b6g"),
+"lance_cavalier": ExtResource("8_b047a"),
+"pikeman": ExtResource("9_5nlrr"),
+"sellsword": ExtResource("10_ntklw"),
+"sword_armor": ExtResource("11_s3c8i"),
+"sword_cavalier": ExtResource("12_tvv6x"),
+"theif": ExtResource("13_yos3a")
 }

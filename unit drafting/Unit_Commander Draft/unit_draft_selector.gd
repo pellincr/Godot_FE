@@ -148,7 +148,7 @@ func randomize_unit():
 	inventory_array.append(ItemDatabase.items["brass_knuckles"])
 	var unit_character = UnitCharacter.new()
 	unit_character.name = new_unit_name
-	new_recruit_class = "axe_armor"#TO BE REMOVED 
+	#new_recruit_class = "axe_armor"#TO BE REMOVED 
 	randomize_unit_stats(unit_character, new_recruit_class)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 	randomize_unit_growths(unit_character, new_recruit_class)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 	var new_recruit = Unit.create_unit_unit_character(new_recruit_class,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
