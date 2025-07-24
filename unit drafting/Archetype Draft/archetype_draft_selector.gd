@@ -38,21 +38,16 @@ func clear_unit_list_container():
 
 # list-of-dictionaries -> null
 #purpose: to use the given list of archetypes to fill in the selector card container
-func fill_archetype_list_container(given_archetypes):
-	for archetype_type in given_archetypes:
-		for key in archetype_type.keys():
-			var given_selection_amount = archetype_type.get(key)
-			if given_selection_amount == 0:
-				#If that selection in the current archetype dictionary has nothing, don't add it
-				pass
-			else:
-				var archetype_label: Label = Label.new()
-				archetype_label.text = str(given_selection_amount) + " X " + str(key)
-				archetype_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-				archetype_list_container.add_child(archetype_label)
-				while given_selection_amount > 0:
-					add_to_archetype_icon_container()
-					given_selection_amount -= 1
+func fill_archetype_list_container(archetype_picks):
+	for pick:armyArchetypePickDefinition in archetype_picks:
+		var archetype_label: Label = Label.new()
+		var volume = pick.volume
+		archetype_label.text =  str(volume) + " X " + pick.name
+		archetype_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		archetype_list_container.add_child(archetype_label)
+		while(volume > 0):
+			add_to_archetype_icon_container() #THIS WILL BE CHANGED WHEN PICKS GET THEIR ICONS
+			volume-= 1
 
 
 func add_to_archetype_icon_container():
@@ -80,11 +75,11 @@ func _on_panel_mouse_exited():
 	print("Selection Exited")
 
 func update_all():
-	set_header_label(archetype.archetype_name)
-	var given_unit_archetypes = [archetype.given_unit_faction_archetypes, archetype.given_unit_trait_archetypes, archetype.given_unit_weapon_archetypes]
+	set_header_label(archetype.name)
+	#var given_unit_archetypes = [archetype.given_unit_faction_archetypes, archetype.given_unit_trait_archetypes, archetype.given_unit_weapon_archetypes]
 	clear_unit_list_container()
 	clear_archetype_icon_container()
-	fill_archetype_list_container(given_unit_archetypes)
+	fill_archetype_list_container(archetype.archetype_picks)
 
 
 func randomize_archetype():

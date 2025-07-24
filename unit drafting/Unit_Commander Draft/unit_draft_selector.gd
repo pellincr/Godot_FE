@@ -135,14 +135,11 @@ func randomize_unit():
 	var new_recruit_class = all_unit_classes.pick_random()
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the batch of recruits is supposed to be filtered by
-		var unit_filter = playerOverworldData.archetype_allotments[0]
-		#get the list of all classes that meets the filter criteria
-		var filtered_unit_classes = get_units_by_class(all_unit_classes,unit_filter, class_rarity)
-		if filtered_unit_classes.size() == 0:
-			filtered_unit_classes = get_units_by_weapon(all_unit_classes,unit_filter, class_rarity)
+		var current_archetype_pick = playerOverworldData.archetype_allotments[0]
+		var filtered_unit_classes = filter_classes_by_archetype_pick(all_unit_classes, current_archetype_pick, class_rarity)
 		new_recruit_class = filtered_unit_classes.pick_random()
-	while(new_recruit_class == null):
-		new_recruit_class = all_unit_classes.pick_random()
+	#while(new_recruit_class == null):
+	#	new_recruit_class = all_unit_classes.pick_random()
 	var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 	var inventory_array : Array[ItemDefinition]
 	inventory_array.append(ItemDatabase.items["brass_knuckles"])
@@ -243,33 +240,108 @@ func get_units_by_class(given_unit_classes, unit_trait, rarity):
 	return viable_units
 
 
+func filter_classes_by_archetype_pick(class_list, unit_archetype_pick, class_rarity):
+	var archetype_pick_factions = unit_archetype_pick.factions
+	var archetype_pick_traits = unit_archetype_pick.traits
+	var archetype_pick_rarity = unit_archetype_pick.rarity
+	var archetype_pick_weapon_types = unit_archetype_pick.weapon_types
+	var archetype_pick_unit_type = unit_archetype_pick.unit_type
+	#fill in factions list
+	var faction_filtered_list = filter_by_faction(class_list, archetype_pick_factions, class_rarity)
+	#fill in traits list
+	var traits_filtered_list = filter_by_trait(class_list, archetype_pick_traits, class_rarity)
+	#fill in rarity list
+	var rarity_filtered_list = filter_by_rarity(class_list, archetype_pick_rarity, class_rarity)
+	#fill in weapon type list
+	var weapon_type_filtered_list = filter_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity)
+	#fill in unit type list
+	var unit_type_filtered_list = filter_by_unit_type(class_list, archetype_pick_unit_type, class_rarity)
+	var combo1 = get_classes_in_common(faction_filtered_list,traits_filtered_list)
+	var combo2 = get_classes_in_common(rarity_filtered_list,combo1)
+	var combo3 = get_classes_in_common(weapon_type_filtered_list,combo2)
+	var combo4 = get_classes_in_common(unit_type_filtered_list,combo3)
+	return combo4
+
+func get_classes_in_common(class_list_1, class_list_2):
+	var accum = []
+	for given_class in class_list_1:
+		if class_list_2.has(given_class):
+			accum.append(given_class)
+	return accum
+
+func filter_by_faction(class_list, archetype_pick_factions, class_rarity):
+	var accum = []
+	if archetype_pick_factions.size() > 0:
+		#If there is a reason to filter by faction
+			for faction in archetype_pick_factions:
+				for given_class in class_list:
+					var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_class)
+					if unit_type.faction.has(faction):
+						accum.append(given_class)
+	else:
+		return class_list
+	return accum
+
+func filter_by_trait(class_list, archetype_pick_traits, class_rarity):
+	var accum = []
+	if archetype_pick_traits.size() > 0:
+		#If there is a reason to filter by faction
+			for faction in archetype_pick_traits:
+				for given_class in class_list:
+					var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_class)
+					if unit_type.traits.has(faction):
+						accum.append(given_class)
+	else:
+		return class_list
+	return accum
+
+func filter_by_rarity(class_list, archetype_pick_rarity, class_rarity):
+	var accum = []
+	if archetype_pick_rarity != null:
+		#If there is a reason to filter by faction
+		for given_class in class_list:
+					var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_class)
+					if archetype_pick_rarity == unit_type.unit_rarity:
+						accum.append(given_class)
+	else:
+		return class_list
+	return accum
+
+func filter_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity):
+	var accum = []
+	if archetype_pick_weapon_types.size() > 0:
+		#If there is a reason to filter by faction
+			for weapon_type in archetype_pick_weapon_types:
+				for given_class in class_list:
+					var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(given_class)
+					if unit_type.usable_weapon_types.has(weapon_type):
+						accum.append(given_class)
+	else:
+		return class_list
+	return accum
+
+func filter_by_unit_type(class_list, archetype_pick_unit_type, class_rarity):
+	var accum = []
+	if archetype_pick_unit_type != "":
+		#If there is a reason to filter by faction
+		for given_class in class_list:
+					if archetype_pick_unit_type == given_class:
+						accum.append(given_class)
+	else:
+		return class_list
+	return accum
+
+
+
+
+
+
+
 func get_unit_stat_difference_total():
-	"""
-	#var hp_difference = unit.hp - UnitTypeDatabase.unit_types.get(unit.unit_type_key).hp
-	#var strength_difference = unit.strength - UnitTypeDatabase.unit_types.get(unit.unit_type_key).strength
-	#var magic_difference = unit.magic - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic
-	#var skill_difference = unit.skill - UnitTypeDatabase.unit_types.get(unit.unit_type_key).skill
-	var speed_difference = unit.speed - UnitTypeDatabase.unit_types.get(unit.unit_type_key).speed
-	var luck_difference = unit.luck - UnitTypeDatabase.unit_types.get(unit.unit_type_key).luck
-	var defense_difference = unit.defense - UnitTypeDatabase.unit_types.get(unit.unit_type_key).defense
-	var resistance_difference = unit.magic_defense - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_defense
-	"""
-	#var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
 	var difference_total = unit.unit_character.stats.hp + unit.unit_character.stats.strength + unit.unit_character.stats.magic + unit.unit_character.stats.skill + unit.unit_character.stats.speed + unit.unit_character.stats.luck + unit.unit_character.stats.defense + unit.unit_character.stats.resistance
 	return difference_total
 
 func get_unit_growth_difference_total():
-	"""
-	var hp_difference = unit.hp_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).hp_growth
-	var strength_difference = unit.strength_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).strength_growth
-	var magic_difference = unit.magic_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_growth
-	var skill_difference = unit.skill_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).skill_growth
-	var speed_difference = unit.speed_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).speed_growth
-	var luck_difference = unit.luck_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).luck_growth
-	var defense_difference = unit.defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).defense_growth
-	var resistance_difference = unit.magic_defense_growth - UnitTypeDatabase.unit_types.get(unit.unit_type_key).magic_defense_growth
-	var difference_total = hp_difference + strength_difference + magic_difference + skill_difference + speed_difference + luck_difference + defense_difference + resistance_difference
-	"""
 	var difference_total = unit.unit_character.growths.hp + unit.unit_character.growths.strength + unit.unit_character.growths.magic + unit.unit_character.growths.skill + unit.unit_character.growths.speed + unit.unit_character.growths.luck + unit.unit_character.growths.defense + unit.unit_character.growths.resistance
 	return difference_total
 

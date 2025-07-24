@@ -9,14 +9,14 @@
 
 [resource]
 script = ExtResource("5_n1ru5")
-unit_type_name = "Axe Armor"
-db_key = "axe_armor"
+unit_type_name = "Thief"
+db_key = "thief"
 description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
 initiative = 1
 faction = Array[int]([0])
-traits = Array[int]([0])
+traits = Array[int]([4])
 unit_rarity = ExtResource("6_l1na1")
-movement_type = 1
+movement_type = 2
 tier = 2
 promoted = false
 unit_promoted_from_key = ""

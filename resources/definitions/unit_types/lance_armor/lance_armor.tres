@@ -9,8 +9,8 @@
 
 [resource]
 script = ExtResource("5_ym57y")
-unit_type_name = "Sword Amor"
-db_key = "sword_armor"
+unit_type_name = "Lance Amor"
+db_key = "lance_armor"
 description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
 initiative = 1
 faction = Array[int]([1])

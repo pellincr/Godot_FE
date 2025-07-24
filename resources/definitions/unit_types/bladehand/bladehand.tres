@@ -9,8 +9,8 @@
 
 [resource]
 script = ExtResource("5_2ncmc")
-unit_type_name = "Sellsword"
-db_key = "sellsword"
+unit_type_name = "Bladehand"
+db_key = "bladehand"
 description = ""
 initiative = 1
 faction = Array[int]([0])

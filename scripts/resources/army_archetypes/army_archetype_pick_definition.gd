@@ -19,6 +19,8 @@ enum SELECTION_RESPONSE
 	COMBINED #Faction : Kingdom & Trait : Armored = returns all armored units and all kingdom units 
 }
 
+@export var name : String
 @export var type : PICK_TYPE 
 @export var response_filter : SELECTION_RESPONSE
+@export var volume : int
 var icon : Texture2D #This can be generated later, and needs to be created in figma

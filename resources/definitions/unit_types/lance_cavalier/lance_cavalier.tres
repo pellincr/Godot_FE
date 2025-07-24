@@ -9,14 +9,14 @@
 
 [resource]
 script = ExtResource("5_jbmb6")
-unit_type_name = "Sword Amor"
-db_key = "sword_armor"
+unit_type_name = "Lance Cavalier"
+db_key = "lance_cavalier"
 description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
 initiative = 1
 faction = Array[int]([1])
-traits = Array[int]([0])
+traits = Array[int]([1])
 unit_rarity = ExtResource("6_ae2qq")
-movement_type = 1
+movement_type = 0
 tier = 2
 promoted = false
 unit_promoted_from_key = ""

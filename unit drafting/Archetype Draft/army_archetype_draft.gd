@@ -57,8 +57,9 @@ func on_archetype_selected(archetype:ArmyArchetypeDefinition):
 	#Increase the number of archetypes the player has selected by 1
 	playerOverworldData.current_archetype_count += 1
 	#add the archtype allotments to the players archetype allotment list
-	var given_unit_allotments = get_allotments_from_archetype([archetype.given_unit_faction_archetypes,archetype.given_unit_trait_archetypes,archetype.given_unit_weapon_archetypes])
-	playerOverworldData.archetype_allotments.append_array(given_unit_allotments)
+	var selected_archetype_picks = archetype.archetype_picks
+	var archetype_list = create_archetype_list(selected_archetype_picks)
+	playerOverworldData.archetype_allotments.append_array(archetype_list)
 	#Re-Randomize the selectors
 	update_archetype_selectors()
 	archetype_selected.emit()
@@ -68,16 +69,11 @@ func on_archetype_selected(archetype:ArmyArchetypeDefinition):
 		print("All Archetypes Selected")
 
 
-# dictionary -> array of classes
-func get_allotments_from_archetype(archetype_list):
+func create_archetype_list(archetype_picks):
 	var accum = []
-	for archetype_type in archetype_list:
-		for key in archetype_type:
-			var given_allotment_amount = archetype_type.get(key)
-			if given_allotment_amount == 0:
-				pass
-			else:
-				while given_allotment_amount > 0:
-					accum.append(key)
-					given_allotment_amount -= 1
+	for pick in archetype_picks:
+		var volume = pick.volume
+		while volume >= 1:
+			accum.append(pick)
+			volume -= 1
 	return accum
