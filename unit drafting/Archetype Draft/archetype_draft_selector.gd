@@ -8,7 +8,7 @@ signal archetype_selected(archetype)
 
 @onready var main_container = $Panel/MainVContainer
 @onready var header_label = $Panel/MainVContainer/HeaderLabel
-@onready var units_list_container = $Panel/MainVContainer/UnitListContainer
+@onready var archetype_list_container = $Panel/MainVContainer/ArchetypeListContainer
 @onready var archetype_icon_container = $Panel/MainVContainer/ArchetypeIconContainer
 
 @onready var archetype:ArmyArchetypeDefinition = null
@@ -32,23 +32,28 @@ func set_header_label(text):
 	header_label.text = text
 
 func clear_unit_list_container():
-	var children = units_list_container.get_children()
+	var children = archetype_list_container.get_children()
 	for child in children:
 		child.queue_free()
 
-func fill_unit_list_container(dictionary:Dictionary):
-	for key in dictionary.keys():
-		var dict_value = dictionary.get(key)
-		if dict_value == 0:
-			pass
-		else:
-			var unit_label: Label = Label.new()
-			unit_label.text = str(dict_value) + " X "  + key
-			unit_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			units_list_container.add_child(unit_label)
-			while dict_value > 0:
-				add_to_archetype_icon_container()
-				dict_value -= 1
+# list-of-dictionaries -> null
+#purpose: to use the given list of archetypes to fill in the selector card container
+func fill_archetype_list_container(given_archetypes):
+	for archetype_type in given_archetypes:
+		for key in archetype_type.keys():
+			var given_selection_amount = archetype_type.get(key)
+			if given_selection_amount == 0:
+				#If that selection in the current archetype dictionary has nothing, don't add it
+				pass
+			else:
+				var archetype_label: Label = Label.new()
+				archetype_label.text = str(given_selection_amount) + " X " + str(key)
+				archetype_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				archetype_list_container.add_child(archetype_label)
+				while given_selection_amount > 0:
+					add_to_archetype_icon_container()
+					given_selection_amount -= 1
+
 
 func add_to_archetype_icon_container():
 	var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
@@ -76,10 +81,10 @@ func _on_panel_mouse_exited():
 
 func update_all():
 	set_header_label(archetype.archetype_name)
-	var allotted_units = archetype.given_archetypes
+	var given_unit_archetypes = [archetype.given_unit_faction_archetypes, archetype.given_unit_trait_archetypes, archetype.given_unit_weapon_archetypes]
 	clear_unit_list_container()
 	clear_archetype_icon_container()
-	fill_unit_list_container(allotted_units)
+	fill_archetype_list_container(given_unit_archetypes)
 
 
 func randomize_archetype():

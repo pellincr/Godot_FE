@@ -42,7 +42,7 @@ theme = SubResource("Theme_q4euw")
 text = "Header"
 horizontal_alignment = 1
 
-[node name="UnitListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
+[node name="ArchetypeListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 theme = SubResource("Theme_mte0y")

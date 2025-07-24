@@ -63,52 +63,28 @@ func set_constitution(con):
 	constitution_value_label.text = str(con)
 
 func set_health_val(hp_val):
-	var sign = ""
-	if hp_val > 0:
-		sign = "+"
-	health_value_label.text = sign + str(hp_val)
+	health_value_label.text = str(hp_val)
 
 func set_strength_val(str_val):
-	var sign = ""
-	if str_val > 0:
-		sign = "+"
-	strength_value_label.text = sign + str(str_val)
+	strength_value_label.text = str(str_val)
 
 func set_magic_val(mgc_val):
-	var sign = ""
-	if mgc_val > 0:
-		sign = "+"
-	magic_value_label.text = sign + str(mgc_val)
+	magic_value_label.text = str(mgc_val)
 
 func set_skill_val(skl_val):
-	var sign = ""
-	if skl_val > 0:
-		sign = "+"
-	skill_value_label.text = sign + str(skl_val)
+	skill_value_label.text = str(skl_val)
 
 func set_speed_val(spd_val):
-	var sign = ""
-	if spd_val > 0:
-		sign = "+"
-	speed_value_label.text = sign +  str(spd_val)
+	speed_value_label.text = str(spd_val)
 
 func set_luck_val(lck_val):
-	var sign = ""
-	if lck_val > 0:
-		sign = "+"
-	luck_value_label.text = sign + str(lck_val)
+	luck_value_label.text = str(lck_val)
 
 func set_defense_val(def_val):
-	var sign = ""
-	if def_val > 0:
-		sign = "+"
-	defense_value_label.text = sign + str(def_val)
+	defense_value_label.text = str(def_val)
 
 func set_resistance_val(res_val):
-	var sign = ""
-	if res_val > 0:
-		sign = "+"
-	resistance_value_label.text = sign+ str(res_val)
+	resistance_value_label.text = str(res_val)
 
 
 

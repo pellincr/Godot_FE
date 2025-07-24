@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://dfbyyd1kx6cd8"]
+
+[ext_resource type="Resource" uid="uid://2dc45rgksrhd" path="res://resources/definitions/unit_types/lance_cavalier/lance_cavalier_base_combat_stats.tres" id="1_ywhg8"]
+[ext_resource type="Resource" uid="uid://2u1jc0nbm8me" path="res://resources/definitions/unit_types/lance_cavalier/lance_cavalier_growth_stats.tres" id="2_3dcuv"]
+[ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="3_n8yma"]
+[ext_resource type="Resource" uid="uid://bs8jf6v8bv8oj" path="res://resources/definitions/unit_types/lance_cavalier/lance_cavalier_max_stats.tres" id="4_6k3aq"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_jbmb6"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_ae2qq"]
+
+[resource]
+script = ExtResource("5_jbmb6")
+unit_type_name = "Sword Amor"
+db_key = "sword_armor"
+description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
+initiative = 1
+faction = Array[int]([1])
+traits = Array[int]([0])
+unit_rarity = ExtResource("6_ae2qq")
+movement_type = 1
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([1])
+base_stats = ExtResource("1_ywhg8")
+maxuimum_stats = ExtResource("4_6k3aq")
+growth_stats = ExtResource("2_3dcuv")
+icon = ExtResource("3_n8yma")
+map_sprite = ExtResource("3_n8yma")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
