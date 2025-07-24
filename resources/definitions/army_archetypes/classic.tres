@@ -1,25 +1,35 @@
-[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=2 format=3 uid="uid://ciwap3bbtyq5l"]
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=8 format=3 uid="uid://ciwap3bbtyq5l"]
 
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_oypxe"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_5kr5i"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_53rl2"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_voqdi"]
+
+[sub_resource type="Resource" id="Resource_eie8e"]
+script = ExtResource("2_5kr5i")
+factions = Array[int]([1])
+traits = Array[int]([1])
+weapon_types = Array[int]([])
+unit_Type = Array[String]([])
+type = 0
+
+[sub_resource type="Resource" id="Resource_l8st4"]
+script = ExtResource("2_5kr5i")
+factions = Array[int]([1])
+traits = Array[int]([1])
+weapon_types = Array[int]([])
+unit_Type = Array[String]([])
+type = 0
+
+[sub_resource type="Resource" id="Resource_nvllv"]
+script = ExtResource("3_voqdi")
+weapon_type = Array[int]([0])
+item_damage_type = Array[int]([])
+item_scaling_type = Array[int]([])
+type = 1
 
 [resource]
 script = ExtResource("2_53rl2")
-archetype_name = "Classic"
-given_archetypes = {
-"Anima": 0,
-"Animal": 0,
-"Armored": 0,
-"Axe": 0,
-"Bow": 0,
-"Calvary": 2,
-"Dark": 0,
-"Fist": 0,
-"Flying": 0,
-"Infantry": 0,
-"Lance": 0,
-"Light": 0,
-"Monster": 0,
-"Other": 0,
-"Staff": 0,
-"Sword": 1
-}
+name = "Classic"
+rarity = "Common"
+archetype_picks = Array[ExtResource("1_oypxe")]([SubResource("Resource_eie8e"), SubResource("Resource_l8st4"), SubResource("Resource_nvllv")])

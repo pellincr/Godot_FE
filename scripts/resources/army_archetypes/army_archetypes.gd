@@ -1,35 +1,15 @@
 extends Resource
 class_name ArmyArchetypeDefinition
 
+##
+# ArmyArchetypeDefinition is used to populate the army archetype database, this contains all the information when drafting archetypes
+#
+##
 
-@export_group("Archetype")
-@export var archetype_name= ""
-#@export_enum{"Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other",
-#"Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var given_archetypes: Dictionary
+@export var name : String 
+@export var rarity :String ##THIS SHOULD BE CHANGED to a master rarity type in the future
+@export_group("Picks")
+@export var archetype_picks : Array[armyArchetypePickDefinition]
 
-@export var given_archetypes : Dictionary = {
-	"Axe": 0,
-	"Sword": 0,
-	"Lance" : 0,
-	"Bow": 0,
-	"Anima": 0,
-	"Light": 0,
-	"Dark":0,
-	"Staff":0,
-	"Fist":0,
-	"Other": 0,
-	"Infantry":0,
-	"Calvary":0,
-	"Armored":0,
-	"Monster":0,
-	"Animal":0,
-	"Flying":0
-}
-
-var units_given = add_all(given_archetypes.values())
-
-func add_all(arr):
-	var temp = 0
-	for number in arr:
-		temp += number
-	return temp
+func get_number_of_picks() -> int:
+	return archetype_picks.size()
