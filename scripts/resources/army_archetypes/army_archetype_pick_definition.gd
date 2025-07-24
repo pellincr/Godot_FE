@@ -20,4 +20,5 @@ enum SELECTION_RESPONSE
 }
 
 @export var type : PICK_TYPE 
+@export var response_filter : SELECTION_RESPONSE
 var icon : Texture2D #This can be generated later, and needs to be created in figma
