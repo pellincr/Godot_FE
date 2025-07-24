@@ -171,14 +171,15 @@ func get_random_rarity():
 
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
+	var deviation = 1.75
 	var health_rand = clampi(randfn( 0, 3), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp, 10) 
-	var strength_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
-	var magic_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
-	var skill_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
-	var speed_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
-	var luck_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
-	var defense_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
-	var resistance_rand = clampi(randfn( 0, 1.75), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
+	var strength_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
+	var magic_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
+	var skill_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
+	var speed_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
+	var luck_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
+	var defense_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
+	var resistance_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
 	stats.hp = health_rand
 	stats.strength = strength_rand
 	stats.magic = magic_rand
