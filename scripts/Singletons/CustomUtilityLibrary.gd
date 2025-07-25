@@ -22,3 +22,17 @@ func erase_packedVector2Array(target_array: PackedVector2Array, target:Vector2) 
 		target_array.remove_at(target_array.find(target))
 		return true
 	return false
+
+func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
+	var result : UnitStat = UnitStat.new()
+	result.hp = a.hp + b.hp
+	result.strength = a.strength + b.strength
+	result.magic = a.magic + b.magic
+	result.skill = a.skill + b.skill
+	result.speed = a.speed + b.speed
+	result.luck = a.luck + b.luck
+	result.defense = a.defense + b.defense
+	result.resistance = a.resistance + b.resistance
+	result.movement = a.movement + b.movement
+	result.constitution = a.constitution + b.constitution
+	return result

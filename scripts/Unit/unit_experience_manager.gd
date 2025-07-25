@@ -25,13 +25,12 @@ func process_experience_gain(unit:Unit, experience_amount: int):
 		$"../../CanvasLayer/UI".add_child(level_up_component)
 		level_up_component.visible = false
 		level_up_component.set_unit(unit)
-		if(unit.uses_custom_growths):
-			level_up_component.set_level_up_stat_array(unit.level_up_player())
-		else :
-			level_up_component.set_level_up_stat_array(unit.level_up_generic())
+		var level_up_stats : UnitStat = unit.get_level_up_value()
+		level_up_component.set_level_up_stat_array(level_up_stats.to_array())
 		level_up_component.update_fields()
 		level_up_component.visible = true
 		await get_tree().create_timer(3).timeout
+		unit.apply_level_up_value(level_up_stats)
 		level_up_component.queue_free()
 		experience_bar.set_initial_value(0)
 		experience_bar.set_desired_value(experience_excess)

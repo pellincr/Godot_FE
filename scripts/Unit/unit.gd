@@ -176,6 +176,32 @@ func level_up_stat_roll(growth_rate : int) -> int:
 	if (CustomUtilityLibrary.random_rolls_bool(fmod(growth_rate, 100),1)):
 		amount += 1
 	return amount
+	
+##
+# level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
+# @param growth_rate : target stat's growth rate (%)
+##
+func get_level_up_value(unit: Unit = self) -> UnitStat:
+	var level : UnitStat = UnitStat.new()
+	
+	level.hp += level_up_stat_roll(unit.growths.hp)
+	level.strength += level_up_stat_roll(unit.growths.strength)
+	level.magic += level_up_stat_roll(unit.growths.magic)
+	level.skill += level_up_stat_roll(unit.growths.skill)
+	level.speed += level_up_stat_roll(unit.growths.speed)
+	level.luck += level_up_stat_roll(unit.growths.luck)
+	level.defense += level_up_stat_roll(unit.growths.defense)
+	level.resistance += level_up_stat_roll(unit.growths.resistance)
+	#unit.update_stats()
+	return level
+
+##
+# level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
+# @param growth_rate : target stat's growth rate (%)
+##
+func apply_level_up_value(level : UnitStat, unit: Unit = self):
+	level_stats = CustomUtilityLibrary.add_unit_stat(unit.level_stats, level)
+	unit.update_stats()
 
 ##
 # update_stats : calculates the effective stats for a unit

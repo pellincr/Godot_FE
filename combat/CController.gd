@@ -609,7 +609,8 @@ func entity_added(cme: CombatMapEntity):
 func combatant_died(combatant):
 	_astargrid.set_point_weight_scale(combatant.map_tile.position, 1)
 	CustomUtilityLibrary.erase_packedVector2Array(_occupied_spaces,combatant.map_tile.position)
-	combatant.map_display.queue_free()
+	if combatant.map_display:
+		combatant.map_display.queue_free()
 
 func entity_disabled(e :CombatMapEntity):
 	update_blocking_space_at_tile(e.position)

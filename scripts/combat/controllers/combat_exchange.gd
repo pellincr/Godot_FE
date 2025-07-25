@@ -244,14 +244,14 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	#get the item damage_type
 	if attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		if(effective): 
-			damage = (attacker.strength + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.defense * defense_mult)
+			damage = (attacker.stats.strength + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.stats.defense * defense_mult)
 		else :
-			damage = (attacker.strength + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.defense * defense_mult)
+			damage = (attacker.stats.strength + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.stats.defense * defense_mult)
 	elif attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
 		if(effective): 
-			damage = (attacker.magic + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.magic_defense * defense_mult)
+			damage = (attacker.stats.magic + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.stats.resistance * defense_mult)
 		else :
-			damage = (attacker.magic + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.magic_defense * defense_mult)
+			damage = (attacker.stats.magic + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.stats.resistance * defense_mult)
 	return clamp(damage, 0, INF)
 
 func check_hit(hit_chance: int) -> bool:
@@ -271,7 +271,7 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
 	if attacker.unit.inventory.equipped: 
 		if attacker.unit.inventory.equipped is WeaponDefinition:
-			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.keys()[ItemConstants.WEAPON_TYPE.STAFF]:
+			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
 				if attacker.unit.inventory.equipped.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ENEMY:
 					if attacker.unit.inventory.equipped.attack_range.has(distance):
 						return true
