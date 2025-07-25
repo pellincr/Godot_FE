@@ -2,29 +2,31 @@
 
 [ext_resource type="Resource" uid="uid://bcmyym0pdqbxc" path="res://resources/definitions/unit_types/thief/thief_base_combat_stats.tres" id="1_dwge8"]
 [ext_resource type="Resource" uid="uid://b2h4ugtbv02if" path="res://resources/definitions/unit_types/thief/thief_growth_stats.tres" id="2_2k1oa"]
-[ext_resource type="Texture2D" uid="uid://c8xg1fjlw8trq" path="res://resources/sprites/units/thief.png" id="3_uhkdb"]
 [ext_resource type="Resource" uid="uid://def64rsg21pim" path="res://resources/definitions/unit_types/thief/thief_max_stats.tres" id="4_jqy71"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n1ru5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_l1na1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qw5hq"]
+load_path = "res://.godot/imported/thief.png-8471d835ced83768cdbdd80dfec3068b.ctex"
 
 [resource]
 script = ExtResource("5_n1ru5")
 unit_type_name = "Thief"
 db_key = "thief"
-description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
+description = "Elusive infiltrators who excel at sabotage, theft, and disabling foes."
 initiative = 1
-faction = Array[int]([0])
+faction = Array[int]([3])
 traits = Array[int]([4])
 unit_rarity = ExtResource("6_l1na1")
 movement_type = 2
 tier = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([1])
+usable_weapon_types = Array[int]([12])
 base_stats = ExtResource("1_dwge8")
 maxuimum_stats = ExtResource("4_jqy71")
 growth_stats = ExtResource("2_2k1oa")
-icon = ExtResource("3_uhkdb")
-map_sprite = ExtResource("3_uhkdb")
+icon = SubResource("CompressedTexture2D_qw5hq")
+map_sprite = SubResource("CompressedTexture2D_qw5hq")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

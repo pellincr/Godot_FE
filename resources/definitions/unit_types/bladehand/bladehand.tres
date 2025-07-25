@@ -11,7 +11,7 @@
 script = ExtResource("5_2ncmc")
 unit_type_name = "Bladehand"
 db_key = "bladehand"
-description = ""
+description = "Swift dual-blade fighters who cut through foes while avoiding return blows."
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
@@ -20,7 +20,7 @@ movement_type = 0
 tier = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([0])
+usable_weapon_types = Array[int]([0, 4])
 base_stats = ExtResource("1_get1s")
 maxuimum_stats = ExtResource("4_qku7p")
 growth_stats = ExtResource("2_lx3oj")

@@ -11,7 +11,7 @@
 script = ExtResource("5_n8ukj")
 unit_type_name = "Axe Cavalier"
 db_key = "axe_cavalier"
-description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
+description = "Aggressive mounted troops who harry flanks and disrupt formations with powerful swings."
 initiative = 1
 faction = Array[int]([1])
 traits = Array[int]([1])

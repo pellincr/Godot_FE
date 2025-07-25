@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_ji2yf")
-hp = 80
-strength = 55
-magic = 5
-skill = 35
-speed = 12
-luck = 20
-defense = 45
-resistance = 15
+hp = 85
+strength = 35
+magic = 12
+skill = 33
+speed = 28
+luck = 30
+defense = 13
+resistance = 12
 movement = 0
 constitution = 0

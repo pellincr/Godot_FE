@@ -11,7 +11,7 @@
 script = ExtResource("1_yn2ql")
 unit_type_name = "Sellsword"
 db_key = "sellsword"
-description = ""
+description = "Hardened mercenaries with a nose for danger and the brute strength to wade into it."
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])

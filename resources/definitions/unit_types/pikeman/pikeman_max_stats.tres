@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_ailxo")
-hp = 68
-strength = 26
-magic = 4
-skill = 19
-speed = 18
+hp = 70
+strength = 24
+magic = 13
+skill = 25
+speed = 25
 luck = 30
-defense = 22
-resistance = 10
+defense = 21
+resistance = 20
 movement = 10
 constitution = 20

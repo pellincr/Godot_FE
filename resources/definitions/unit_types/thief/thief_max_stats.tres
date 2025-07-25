@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_7vdwt")
-hp = 70
-strength = 25
-magic = 5
-skill = 18
-speed = 14
+hp = 55
+strength = 22
+magic = 19
+skill = 27
+speed = 28
 luck = 30
-defense = 24
-resistance = 10
+defense = 18
+resistance = 18
 movement = 10
 constitution = 20

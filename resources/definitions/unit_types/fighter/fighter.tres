@@ -11,7 +11,7 @@
 script = ExtResource("5_g18ft")
 unit_type_name = "Fighter"
 db_key = "fighter"
-description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
+description = "Wild, relentless brawlers who strike first and absorb punishment with stubborn grit."
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])

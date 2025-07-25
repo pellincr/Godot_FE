@@ -11,7 +11,7 @@
 script = ExtResource("5_g11l6")
 unit_type_name = "Sword Cavalier"
 db_key = "sword_cavalier"
-description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
+description = "Swift royal riders skilled in tactical disruption and precise melee skirmishing."
 initiative = 1
 faction = Array[int]([1])
 traits = Array[int]([1])
@@ -20,7 +20,7 @@ movement_type = 0
 tier = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([1])
+usable_weapon_types = Array[int]([0])
 base_stats = ExtResource("1_ptb2d")
 maxuimum_stats = ExtResource("4_ooxyp")
 growth_stats = ExtResource("2_hiu7h")

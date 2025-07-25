@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://di7v11sroksay"]
+
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.gd" id="1_adn3t"]
+[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/sword_icon.png" id="1_xmg1x"]
+[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/axe_icon.png" id="2_lae1c"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/lance_icon.png" id="3_b0rrh"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/fist_icon.png" id="4_prlsy"]
+[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/bow_icon.png" id="5_n57en"]
+[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/staff_icon.png" id="6_rgtij"]
+[ext_resource type="Texture2D" uid="uid://bf1hgf03nqik2" path="res://resources/sprites/icons/light_icon.png" id="7_t8b2o"]
+[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/dark_icon.png" id="8_swc1i"]
+[ext_resource type="Texture2D" uid="uid://b8s60g8wcfwck" path="res://resources/sprites/icons/infantry_icon.png" id="9_xsv8k"]
+[ext_resource type="Texture2D" uid="uid://cqm5bfwkx8b3p" path="res://resources/sprites/icons/amor_icon.png" id="10_dyaex"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/Mounted_icon.png" id="11_8r44h"]
+[ext_resource type="Texture2D" uid="uid://b5a2jao5ef4rq" path="res://resources/sprites/icons/monster_icon.png" id="12_b7rcw"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/flyer_icon.png" id="13_sqant"]
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/animal_icon.png" id="14_wh66d"]
+
+[node name="WeaponTraitIconContainer" type="VBoxContainer"]
+script = ExtResource("1_adn3t")
+
+[node name="WeaponTypeContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(225, 16)
+layout_mode = 2
+
+[node name="SwordIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_xmg1x")
+expand_mode = 2
+
+[node name="AxeIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_lae1c")
+expand_mode = 2
+
+[node name="LanceIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_b0rrh")
+expand_mode = 2
+
+[node name="FistIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_prlsy")
+expand_mode = 2
+
+[node name="BowIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_n57en")
+expand_mode = 2
+
+[node name="StaffIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_rgtij")
+expand_mode = 2
+
+[node name="LightIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("7_t8b2o")
+expand_mode = 2
+
+[node name="DarkIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_swc1i")
+expand_mode = 2
+
+[node name="TraitsContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(225, 16)
+layout_mode = 2
+
+[node name="InfantryIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_xsv8k")
+expand_mode = 3
+
+[node name="ArmoredIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("10_dyaex")
+expand_mode = 2
+
+[node name="MountedIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_8r44h")
+expand_mode = 2
+
+[node name="MonsterIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_b7rcw")
+expand_mode = 2
+
+[node name="FlierIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("13_sqant")
+expand_mode = 2
+
+[node name="AnimalIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("14_wh66d")
+expand_mode = 2

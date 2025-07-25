@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_op2rx")
-hp = 80
-strength = 60
+hp = 72
+strength = 45
 magic = 5
-skill = 40
-speed = 12
-luck = 15
-defense = 40
-resistance = 15
+skill = 35
+speed = 16
+luck = 20
+defense = 55
+resistance = 12
 movement = 0
 constitution = 0

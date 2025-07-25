@@ -71,6 +71,8 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.xp_worth = new_unit.get_unit_type_definition().tier
 	new_unit.unit_character = unitCharacter
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
+	new_unit.traits = UnitTypeDatabase.unit_types.get(unit_type_key).traits
+	new_unit.faction = UnitTypeDatabase.unit_types.get(unit_type_key).faction
 	
 	update_usable_weapon_types(new_unit)
 	update_growths(new_unit)

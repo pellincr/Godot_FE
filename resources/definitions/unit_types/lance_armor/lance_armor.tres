@@ -11,7 +11,7 @@
 script = ExtResource("5_ym57y")
 unit_type_name = "Lance Amor"
 db_key = "lance_armor"
-description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
+description = "Stalwart royal defenders who anchor the line with reach and resolve."
 initiative = 1
 faction = Array[int]([1])
 traits = Array[int]([0])

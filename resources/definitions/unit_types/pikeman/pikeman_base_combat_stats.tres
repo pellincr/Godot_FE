@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_de3nl")
-hp = 17
-strength = 8
+hp = 15
+strength = 6
 magic = 0
-skill = 1
-speed = 2
+skill = 5
+speed = 4
 luck = 0
-defense = 7
-resistance = 0
-movement = 4
-constitution = 15
+defense = 5
+resistance = 1
+movement = 5
+constitution = 11

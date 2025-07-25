@@ -79,6 +79,8 @@ func show_next_screen():
 				stats_view.hide_stat_grade()
 				var growths_value_container = growths_view_scene.instantiate()
 				stats_view.add_child_to_main_container(growths_value_container)
+				growths_value_container.unit = unit
+				growths_value_container.update_all()
 				growths_value_container.commander_visiblity_setting()
 			current_state = SELECTOR_STATE.STATS
 			stats_view.unit = unit
@@ -87,6 +89,7 @@ func show_next_screen():
 			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 				var overview_view = commander_overview_scene.instantiate()
 				main_container.add_child(overview_view)
+				overview_view.set_icon_visibility(unit)
 				current_state = SELECTOR_STATE.OVERVIEW
 			elif current_draft_state == Constants.DRAFT_STATE.UNIT:
 				var growths_view = growths_view_scene.instantiate()
@@ -99,6 +102,7 @@ func show_next_screen():
 			main_container.add_child(overview_view)
 			overview_view.set_stats_overview_label(unit_stat_grade)
 			overview_view.set_growths_overview_label(unit_growth_grade)
+			overview_view.set_icon_visibility(unit)
 			current_state = SELECTOR_STATE.OVERVIEW
 			
 
@@ -121,11 +125,13 @@ func instantiate_unit_draft_selector():
 	if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 		overview_scene = commander_overview_scene.instantiate()
 		main_container.add_child(overview_scene)
+		overview_scene.set_icon_visibility(unit)
 	elif current_draft_state == Constants.DRAFT_STATE.UNIT:
 		overview_scene = unit_overview_scene.instantiate()
 		main_container.add_child(overview_scene)
 		overview_scene.set_stats_overview_label(unit_stat_grade)
 		overview_scene.set_growths_overview_label(unit_growth_grade)
+		overview_scene.set_icon_visibility(unit)
 	#create the unit to be drafted (will be different between commanders and units)
 	
 
@@ -236,7 +242,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
 		inventory.append(ItemDatabase.items[""])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
-		inventory.append(ItemDatabase.items[""])
+		inventory.append(ItemDatabase.items["iron_dagger"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):
 		inventory.append(ItemDatabase.items[""])
 	if inventory.size() > 4:

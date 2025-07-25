@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_fkrwn")
-hp = 68
-strength = 26
-magic = 4
-skill = 19
-speed = 18
+hp = 62
+strength = 24
+magic = 11
+skill = 20
+speed = 21
 luck = 30
-defense = 22
-resistance = 10
+defense = 18
+resistance = 15
 movement = 10
 constitution = 20
