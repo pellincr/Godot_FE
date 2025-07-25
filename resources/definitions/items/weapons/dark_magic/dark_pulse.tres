@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_3b2fq")
-weapon_type = 0
+weapon_type = 6
 physical_weapon_triangle_type = "none"
 magic_weapon_triangle_type = "Dark"
 item_damage_type = 1

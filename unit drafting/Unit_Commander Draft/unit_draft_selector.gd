@@ -141,8 +141,7 @@ func randomize_unit():
 	#while(new_recruit_class == null):
 	#	new_recruit_class = all_unit_classes.pick_random()
 	var new_unit_name = playerOverworldData.temp_name_list.pick_random()
-	var inventory_array : Array[ItemDefinition]
-	inventory_array.append(ItemDatabase.items["brass_knuckles"])
+	var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_recruit_class)
 	var unit_character = UnitCharacter.new()
 	unit_character.name = new_unit_name
 	#new_recruit_class = "axe_armor"#TO BE REMOVED 
@@ -206,6 +205,44 @@ func randomize_unit_growths(unit_character, unit_type_key):
 	growths.defense = defense_rand
 	growths.resistance = resistance_rand
 	unit_character.growths = growths
+
+
+func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
+	var inventory: Array[ItemDefinition]
+	var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(unit_class)
+	var weapon_types = unit_type.usable_weapon_types
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
+		inventory.append(ItemDatabase.items["iron_sword"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
+		inventory.append(ItemDatabase.items["iron_axe"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.LANCE):
+		inventory.append(ItemDatabase.items["iron_lance"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.BOW):
+		inventory.append(ItemDatabase.items["iron_bow"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
+		inventory.append(ItemDatabase.items["brass_knuckles"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
+		inventory.append(ItemDatabase.items["heal_staff"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
+		inventory.append(ItemDatabase.items["dark_pulse"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):
+		inventory.append(ItemDatabase.items["bolting"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
+		inventory.append(ItemDatabase.items["fire_spell"])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.ANIMAL):
+		inventory.append(ItemDatabase.items[""])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.MONSTER):
+		inventory.append(ItemDatabase.items[""])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
+		inventory.append(ItemDatabase.items[""])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
+		inventory.append(ItemDatabase.items[""])
+	if weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):
+		inventory.append(ItemDatabase.items[""])
+	if inventory.size() > 4:
+		return inventory.slice(0,3)
+	return inventory
+
 
 
 func update_information():
