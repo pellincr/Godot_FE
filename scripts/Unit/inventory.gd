@@ -2,8 +2,8 @@ extends Resource
 class_name Inventory
 var capacity : int = 4
 #first item in the array is always equipped
-var items: Array[ItemDefinition]
-var equipped: ItemDefinition
+@export var items: Array[ItemDefinition]
+@export var equipped: ItemDefinition
 var inventory_owner = Unit
 
 func set_equipped(item : ItemDefinition):
