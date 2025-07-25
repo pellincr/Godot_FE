@@ -34,7 +34,7 @@ func save():
 #Begins the adventure and transitions to the game scene
 #NOTE This will be updated in the future to transition to the dungeon map
 func _on_begin_adventure_button_pressed():
-	get_tree().change_scene_to_file("res://unit drafting/unit_drafting.tscn")
+	get_tree().change_scene_to_file("res://combat/game.tscn")
 
 #Returns to the main menu scene from the selected save
 func _on_main_menu_button_pressed():

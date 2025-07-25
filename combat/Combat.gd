@@ -54,6 +54,10 @@ var _player_unit_alive : bool = true
 @export var mapReinforcementData : MapReinforcementData
 @export var mapEntityData: MapEntityGroupData
 
+@onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+
+
+
 func _ready():
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
@@ -74,6 +78,8 @@ func _ready():
 	#iventory_array.insert(3, ItemDatabase.items["key"])
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	add_combatant(create_combatant_unit(Unit.create_generic_unit("axe_armor", iventory_array, "Flavius", 1,10),0), Vector2i(7,14))
+	for unit_index in playerOverworldData.total_party.size():
+		add_combatant(create_combatant_unit(playerOverworldData.total_party[unit_index],0),Vector2i(8+unit_index,14))
 	#iventory_array.clear()
 	#iventory_array.insert(0, ItemDatabase.items["smite"])
 	#add_combatant(create_combatant_unit(Unit.create_generic_unit(UnitTypeDatabase.unit_types["monk"], iventory_array, "Jacob", 6,12),0), Vector2i(9,14))

@@ -1,5 +1,5 @@
 extends Control
-
+var save_file_name = "PlayerOverworldSave.tres"
 @onready var current_draft_state = Constants.DRAFT_STATE.COMMANDER
 @onready var main_container = $MarginContainer/VBoxContainer
 var playerOverworldData : PlayerOverworldData
@@ -24,6 +24,21 @@ const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Dr
 @onready var unit_draft_controls = $"MarginContainer/UnitDraftControls"
 
 var max_unit_draft = 0
+
+
+func load_data():
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)
+	#update the gui
+	#set_recruit_buttons(recruit_buttons, playerOverworldData.new_recruits)
+	#update_manage_party_buttons()
+	print("Loaded")
+
+func save():
+	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + save_file_name)
+	print("Saved")
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,8 +67,10 @@ func archetype_selection_complete(po_data):
 	set_header_label("Draft a Unit")
 
 func recruiting_complete():
-	queue_free()
+	#queue_free()
+	save()
 	drafting_complete.emit(playerOverworldData)
+	get_tree().change_scene_to_file("res://combat/game.tscn")
 
 
 
