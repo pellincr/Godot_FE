@@ -12,5 +12,5 @@ speed = 25
 luck = 30
 defense = 20
 resistance = 18
-movement = 0
-constitution = 0
+movement = 10
+constitution = 20

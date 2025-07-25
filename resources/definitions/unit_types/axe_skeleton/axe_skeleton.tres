@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://chn2yuhatgy6u"]
+
+[ext_resource type="Resource" uid="uid://dxycm4x3h7jnu" path="res://resources/definitions/unit_types/axe_skeleton/axe_skeleton_base_combat_stats.tres" id="1_huvm0"]
+[ext_resource type="Resource" uid="uid://b8hcp2jiib4v0" path="res://resources/definitions/unit_types/axe_skeleton/axe_skeleton_growth_stats.tres" id="2_jrimx"]
+[ext_resource type="Texture2D" uid="uid://dtv3rkdbibbfa" path="res://resources/sprites/units/axe_armor.png" id="3_6k7nn"]
+[ext_resource type="Resource" uid="uid://cntp6ykveookh" path="res://resources/definitions/unit_types/axe_skeleton/axe_skeleton_max_stats.tres" id="4_tus5g"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_o41it"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_vn0ob"]
+
+[resource]
+script = ExtResource("5_o41it")
+unit_type_name = "Axe Skeleton"
+db_key = "axe_skeleton"
+description = "Living Labyrinth - Unit TypeLiving Labyrinth - Unit Type100%10B43Heavier undead infantry that crush defenses with brute strength and relentless swings.Unit Types   Heavier undead infantry that crush defenses with brute strength and relentless swings.Turn on screen reader supportTo enable screen reader support, press Ctrl+Alt+Z To learn about keyboard shortcuts, press Ctrl+slashDevin Murphy has joined the document."
+initiative = 1
+faction = Array[int]([5])
+traits = Array[int]([3])
+unit_rarity = ExtResource("6_vn0ob")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([1])
+base_stats = ExtResource("1_huvm0")
+maxuimum_stats = ExtResource("4_tus5g")
+growth_stats = ExtResource("2_jrimx")
+icon = ExtResource("3_6k7nn")
+map_sprite = ExtResource("3_6k7nn")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
