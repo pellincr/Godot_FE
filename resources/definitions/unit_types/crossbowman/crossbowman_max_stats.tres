@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://bnoje1tst5pv2"]
+
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_djtek"]
+
+[resource]
+script = ExtResource("1_djtek")
+hp = 55
+strength = 28
+magic = 20
+skill = 25
+speed = 25
+luck = 30
+defense = 18
+resistance = 15
+movement = 10
+constitution = 20
