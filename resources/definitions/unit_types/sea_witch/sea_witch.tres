@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://710nx6xrxuvw"]
 
-[ext_resource type="Resource" uid="uid://cmm88qxp1ec6f" path="res://resources/definitions/unit_types/marauder/marauder_base_combat_stats.tres" id="1_qg4iy"]
-[ext_resource type="Resource" uid="uid://dxe6oht7h5k8w" path="res://resources/definitions/unit_types/marauder/marauder_growth_stats.tres" id="2_fwbif"]
+[ext_resource type="Resource" uid="uid://sq51uyt067ku" path="res://resources/definitions/unit_types/sea_witch/sea_witch_base_combat_stats.tres" id="1_cfex4"]
+[ext_resource type="Resource" uid="uid://ervqtxlb47sw" path="res://resources/definitions/unit_types/sea_witch/sea_witch_growth_stats.tres" id="2_vttgw"]
 [ext_resource type="Texture2D" uid="uid://cwoandphwc8c" path="res://resources/sprites/units/sea_witch.png" id="3_k15jk"]
-[ext_resource type="Resource" uid="uid://ua12j817f0uw" path="res://resources/definitions/unit_types/marauder/marauder_max_stats.tres" id="4_agw2d"]
+[ext_resource type="Resource" uid="uid://dh2fc1lbi05hn" path="res://resources/definitions/unit_types/sea_witch/sea_witch_max_stats.tres" id="4_m000x"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_jttq0"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_b2kdb"]
 
@@ -21,9 +21,9 @@ tier = 2
 promoted = false
 unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([8, 7])
-base_stats = ExtResource("1_qg4iy")
-maxuimum_stats = ExtResource("4_agw2d")
-growth_stats = ExtResource("2_fwbif")
+base_stats = ExtResource("1_cfex4")
+maxuimum_stats = ExtResource("4_m000x")
+growth_stats = ExtResource("2_vttgw")
 icon = ExtResource("3_k15jk")
 map_sprite = ExtResource("3_k15jk")
 skills = Array[String]([])
