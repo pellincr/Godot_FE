@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blijlre1sii7l"
-path="res://.godot/imported/flyer_icon.png-9d96004082238080eaa3d877ae615758.ctex"
+uid="uid://cixqa2gkoy1ut"
+path="res://.godot/imported/dagger_icon.png-2aca7f97b075ca6747efb45abe244edb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/flyer_icon.png"
-dest_files=["res://.godot/imported/flyer_icon.png-9d96004082238080eaa3d877ae615758.ctex"]
+source_file="res://resources/sprites/icons/dagger_icon.png"
+dest_files=["res://.godot/imported/dagger_icon.png-2aca7f97b075ca6747efb45abe244edb.ctex"]
 
 [params]
 

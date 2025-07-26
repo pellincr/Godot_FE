@@ -2,11 +2,10 @@
 
 [ext_resource type="Resource" uid="uid://bcmyym0pdqbxc" path="res://resources/definitions/unit_types/thief/thief_base_combat_stats.tres" id="1_dwge8"]
 [ext_resource type="Resource" uid="uid://b2h4ugtbv02if" path="res://resources/definitions/unit_types/thief/thief_growth_stats.tres" id="2_2k1oa"]
+[ext_resource type="Texture2D" uid="uid://bs2bmjx5ra0y0" path="res://resources/sprites/units/thief.png" id="3_ydkf7"]
 [ext_resource type="Resource" uid="uid://def64rsg21pim" path="res://resources/definitions/unit_types/thief/thief_max_stats.tres" id="4_jqy71"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n1ru5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_l1na1"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qw5hq"]
 
 [resource]
 script = ExtResource("5_n1ru5")
@@ -25,7 +24,7 @@ usable_weapon_types = Array[int]([12])
 base_stats = ExtResource("1_dwge8")
 maxuimum_stats = ExtResource("4_jqy71")
 growth_stats = ExtResource("2_2k1oa")
-icon = SubResource("CompressedTexture2D_qw5hq")
-map_sprite = SubResource("CompressedTexture2D_qw5hq")
+icon = ExtResource("3_ydkf7")
+map_sprite = ExtResource("3_ydkf7")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])

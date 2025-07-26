@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4x5dwqc4ap1w"
-path="res://.godot/imported/Mounted_icon.png-a5b90eb2adef695c03a64efba31604f5.ctex"
+uid="uid://blijlre1sii7l"
+path="res://.godot/imported/flyer_icon.png-7684f65a280df4c3d953e38f675d414e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/Mounted_icon.png"
-dest_files=["res://.godot/imported/Mounted_icon.png-a5b90eb2adef695c03a64efba31604f5.ctex"]
+source_file="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png"
+dest_files=["res://.godot/imported/flyer_icon.png-7684f65a280df4c3d953e38f675d414e.ctex"]
 
 [params]
 

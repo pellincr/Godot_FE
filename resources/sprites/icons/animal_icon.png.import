@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf1hgf03nqik2"
-path="res://.godot/imported/light_icon.png-00332910cec3ab78e6fed09b9929ed70.ctex"
+uid="uid://c80jd5eu78glh"
+path="res://.godot/imported/animal_icon.png-87ec91d78377c420b1d4ba37402859e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/light_icon.png"
-dest_files=["res://.godot/imported/light_icon.png-00332910cec3ab78e6fed09b9929ed70.ctex"]
+source_file="res://resources/sprites/icons/animal_icon.png"
+dest_files=["res://.godot/imported/animal_icon.png-87ec91d78377c420b1d4ba37402859e2.ctex"]
 
 [params]
 
