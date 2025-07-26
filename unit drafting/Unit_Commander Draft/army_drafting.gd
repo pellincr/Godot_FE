@@ -63,7 +63,7 @@ func archetype_selection_complete(po_data):
 	max_unit_draft = playerOverworldData.archetype_allotments.size()
 	update_to_unit_draft_screen()
 	set_army_draft_stage_label("Army Draft - Stage 3 of 3")
-	set_pick_amount_label("Pick 1 of 4")
+	set_pick_amount_label("Pick 1 of " + str(playerOverworldData.archetype_allotments.size()))
 	set_header_label("Draft a Unit")
 
 func recruiting_complete():

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=5 format=3 uid="uid://de1rpqrulvauy"]
+
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_1g17q"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_80qle"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_hlapm"]
+
+[sub_resource type="Resource" id="Resource_1yvhc"]
+script = ExtResource("2_80qle")
+factions = Array[int]([0])
+traits = Array[int]([])
+weapon_types = Array[int]([])
+unit_type = ""
+name = "Mercenary"
+type = 0
+response_filter = 0
+volume = 2
+
+[resource]
+script = ExtResource("2_hlapm")
+name = "Mighty Mercs"
+rarity = ""
+archetype_picks = Array[ExtResource("1_1g17q")]([SubResource("Resource_1yvhc")])
