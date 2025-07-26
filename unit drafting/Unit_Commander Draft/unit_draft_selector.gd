@@ -240,7 +240,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.MONSTER):
 		inventory.append(ItemDatabase.items[""])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
-		inventory.append(ItemDatabase.items[""])
+		inventory.append(ItemDatabase.items["iron_shield"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
 		inventory.append(ItemDatabase.items["iron_dagger"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):

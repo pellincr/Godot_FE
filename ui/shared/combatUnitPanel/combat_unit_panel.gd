@@ -20,11 +20,8 @@ func show_icons():
 	##UnitTypeDatabase.unit_types[target.unit_type_key].class_type
 	#("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying""res://resources/definitions/unit_types/fighter.tres"
 	var unit_types = UnitTypeDatabase.unit_types[unit.unit.unit_type_key].traits
-	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/calvaryIcon.visible = unit_types.has("Calvary")
-	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/monsterIcon.visible = unit_types.has("Monster")
-	$PanelContainer/MarginContainer	/HBoxContainer/IconContainer/flyerIcon.visible = unit_types.has("Flying")
-	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/armorIcon.visible = unit_types.has("Armored")
-	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/animalIcon.visible = unit_types.has("Animal")
+	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/calvaryIcon.visible = unit_types.has(unitConstants.TRAITS.MOUNTED)
+	$PanelContainer/MarginContainer/HBoxContainer/IconContainer/armorIcon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)
 
 func update_background():
 	if unit.allegience == Constants.FACTION.PLAYERS:

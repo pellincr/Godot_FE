@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_l1na1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qw5hq"]
-load_path = "res://.godot/imported/thief.png-8471d835ced83768cdbdd80dfec3068b.ctex"
 
 [resource]
 script = ExtResource("5_n1ru5")
