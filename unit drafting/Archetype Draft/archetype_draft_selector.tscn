@@ -32,15 +32,17 @@ offset_bottom = 355.0
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 244.0
+offset_right = 246.0
 offset_bottom = 349.0
 theme_override_constants/separation = 75
 
 [node name="HeaderLabel" type="Label" parent="Panel/MainVContainer"]
+custom_minimum_size = Vector2(240, 34)
 layout_mode = 2
 theme = SubResource("Theme_q4euw")
 text = "Header"
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="ArchetypeListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
 layout_mode = 2

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://710nx6xrxuvw"]
+
+[ext_resource type="Resource" uid="uid://cmm88qxp1ec6f" path="res://resources/definitions/unit_types/marauder/marauder_base_combat_stats.tres" id="1_qg4iy"]
+[ext_resource type="Resource" uid="uid://dxe6oht7h5k8w" path="res://resources/definitions/unit_types/marauder/marauder_growth_stats.tres" id="2_fwbif"]
+[ext_resource type="Texture2D" uid="uid://cwoandphwc8c" path="res://resources/sprites/units/sea_witch.png" id="3_k15jk"]
+[ext_resource type="Resource" uid="uid://ua12j817f0uw" path="res://resources/definitions/unit_types/marauder/marauder_max_stats.tres" id="4_agw2d"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_jttq0"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_b2kdb"]
+
+[resource]
+script = ExtResource("5_jttq0")
+unit_type_name = "Sea Witch"
+db_key = "sea_witch"
+description = "Coastal spellcasters who wield the storm's fury and tidal magic to bless crews and hex their foes."
+initiative = 1
+faction = Array[int]([3])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_b2kdb")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([8, 7])
+base_stats = ExtResource("1_qg4iy")
+maxuimum_stats = ExtResource("4_agw2d")
+growth_stats = ExtResource("2_fwbif")
+icon = ExtResource("3_k15jk")
+map_sprite = ExtResource("3_k15jk")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

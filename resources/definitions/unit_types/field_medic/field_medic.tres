@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://wdv3uyvn50no"]
+
+[ext_resource type="Resource" uid="uid://dh2u5pyc7lc0c" path="res://resources/definitions/unit_types/field_medic/field_medic_base_combat_stats.tres" id="1_karj0"]
+[ext_resource type="Resource" uid="uid://ddqec8vvnoa3k" path="res://resources/definitions/unit_types/field_medic/field_medic_growth_stats.tres" id="2_mak3x"]
+[ext_resource type="Texture2D" uid="uid://cffpilf27wmxm" path="res://resources/sprites/units/field_medic.png" id="3_gtumu"]
+[ext_resource type="Resource" uid="uid://brbny1ibl7iw2" path="res://resources/definitions/unit_types/field_medic/field_medic_max_stats.tres" id="4_vlc8e"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_hahuh"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_lfn5x"]
+
+[resource]
+script = ExtResource("5_hahuh")
+unit_type_name = "Field Medic"
+db_key = "field_medic"
+description = "Rugged medics who patch wounds in the heat of battle while offering tactical aid."
+initiative = 1
+faction = Array[int]([0])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_lfn5x")
+movement_type = 2
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([5, 12])
+base_stats = ExtResource("1_karj0")
+maxuimum_stats = ExtResource("4_vlc8e")
+growth_stats = ExtResource("2_mak3x")
+icon = ExtResource("3_gtumu")
+map_sprite = ExtResource("3_gtumu")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
