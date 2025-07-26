@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=19 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/archer/archer.tres" id="2_pke6c"]
@@ -14,6 +14,9 @@
 [ext_resource type="Resource" uid="uid://bxeaa4qb7n0ni" path="res://resources/definitions/unit_types/thief/thief.tres" id="13_yos3a"]
 [ext_resource type="Resource" uid="uid://b811vvt2heb2i" path="res://resources/definitions/unit_types/brawler/brawler.tres" id="14_p6lhs"]
 [ext_resource type="Resource" uid="uid://kua6tdnfbxl1" path="res://resources/definitions/unit_types/healer/healer.tres" id="15_nrv8r"]
+[ext_resource type="Resource" uid="uid://cc74dagkdtjhy" path="res://resources/definitions/unit_types/bishop/bishop.tres" id="16_pd34h"]
+[ext_resource type="Resource" uid="uid://c0omtbe2vb6ki" path="res://resources/definitions/unit_types/freewing/freewing.tres" id="17_6h8uy"]
+[ext_resource type="Resource" uid="uid://1gdl6k2lcyp4" path="res://resources/definitions/unit_types/monk/monk.tres" id="18_bpik5"]
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/axe_armor/axe_armor.tres" id="31_id5fj"]
 
 [node name="UnitTypeDatabase" type="Node"]
@@ -22,15 +25,18 @@ unit_types = {
 "archer": ExtResource("2_pke6c"),
 "axe_armor": ExtResource("31_id5fj"),
 "axe_cavalier": ExtResource("4_bf4by"),
+"bishop": ExtResource("16_pd34h"),
 "bladehand": ExtResource("5_k6vk5"),
 "brawler": ExtResource("14_p6lhs"),
 "fighter": ExtResource("6_dtgcv"),
+"freewing": ExtResource("17_6h8uy"),
 "healer": ExtResource("15_nrv8r"),
 "lance_armor": ExtResource("7_m2b6g"),
 "lance_cavalier": ExtResource("8_b047a"),
+"monk": ExtResource("18_bpik5"),
 "pikeman": ExtResource("9_5nlrr"),
 "sellsword": ExtResource("10_ntklw"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
-"theif": ExtResource("13_yos3a")
+"thief": ExtResource("13_yos3a")
 }

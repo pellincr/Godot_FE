@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://1gdl6k2lcyp4"]
+
+[ext_resource type="Resource" uid="uid://d6hljto8bn6e" path="res://resources/definitions/unit_types/monk/monk_base_combat_stats.tres" id="1_scmnq"]
+[ext_resource type="Resource" uid="uid://duod0tkn76ies" path="res://resources/definitions/unit_types/monk/monk_growth_stats.tres" id="2_m6l3l"]
+[ext_resource type="Texture2D" uid="uid://bh1i5tc3jcof8" path="res://resources/sprites/units/monk.png" id="3_qtf2j"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_ofpty"]
+[ext_resource type="Resource" uid="uid://rbxboc1b0j3f" path="res://resources/definitions/unit_types/monk/monk_max_stats.tres" id="4_wv7mk"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="5_sgvsn"]
+
+[resource]
+script = ExtResource("4_ofpty")
+unit_type_name = "Monk"
+db_key = "monk"
+description = "Devout warriors who blend divine energy with disciplined martial strikes."
+initiative = 1
+faction = Array[int]([2])
+traits = Array[int]([])
+unit_rarity = ExtResource("5_sgvsn")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([4])
+base_stats = ExtResource("1_scmnq")
+maxuimum_stats = ExtResource("4_wv7mk")
+growth_stats = ExtResource("2_m6l3l")
+icon = ExtResource("3_qtf2j")
+map_sprite = ExtResource("3_qtf2j")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
