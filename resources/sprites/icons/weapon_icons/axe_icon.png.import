@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://co4ncbyfwrgna"
-path="res://.godot/imported/staff_icon.png-1dd4fcc608c19e0d610809ad8f0c193b.ctex"
+uid="uid://dm2414hr3ik0c"
+path="res://.godot/imported/axe_icon.png-77ac193cb74c8781472913e71a901510.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/staff_icon.png"
-dest_files=["res://.godot/imported/staff_icon.png-1dd4fcc608c19e0d610809ad8f0c193b.ctex"]
+source_file="res://resources/sprites/icons/weapon_icons/axe_icon.png"
+dest_files=["res://.godot/imported/axe_icon.png-77ac193cb74c8781472913e71a901510.ctex"]
 
 [params]
 

@@ -232,7 +232,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
 		inventory.append(ItemDatabase.items["dark_pulse"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):
-		inventory.append(ItemDatabase.items["bolting"])
+		inventory.append(ItemDatabase.items["smite"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
 		inventory.append(ItemDatabase.items["fire_spell"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.ANIMAL):

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1yooy3j0ehbl"
-path="res://.godot/imported/dark_icon.png-eea9be47ef61ab71df79fc92d2a1fb4f.ctex"
+uid="uid://d1ag5hugvxvj5"
+path="res://.godot/imported/banner_icon.png-1532adefb306ca73b404774134131582.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/dark_icon.png"
-dest_files=["res://.godot/imported/dark_icon.png-eea9be47ef61ab71df79fc92d2a1fb4f.ctex"]
+source_file="res://resources/sprites/icons/weapon_icons/banner_icon.png"
+dest_files=["res://.godot/imported/banner_icon.png-1532adefb306ca73b404774134131582.ctex"]
 
 [params]
 

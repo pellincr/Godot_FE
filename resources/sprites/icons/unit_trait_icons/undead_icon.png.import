@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dllbrtren8dwq"
-path="res://.godot/imported/fist_icon.png-6b05f05e0a42d9a16ca0a5faf47781a0.ctex"
+uid="uid://ksatkqi6i61s"
+path="res://.godot/imported/undead_icon.png-d33ecabcf4f1e6a80cb1a074e6a62c79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/fist_icon.png"
-dest_files=["res://.godot/imported/fist_icon.png-6b05f05e0a42d9a16ca0a5faf47781a0.ctex"]
+source_file="res://resources/sprites/icons/unit_trait_icons/undead_icon.png"
+dest_files=["res://.godot/imported/undead_icon.png-d33ecabcf4f1e6a80cb1a074e6a62c79.ctex"]
 
 [params]
 

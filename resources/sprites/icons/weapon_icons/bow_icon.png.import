@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ots6mr21urrf"
-path="res://.godot/imported/animal_icon.png-87ec91d78377c420b1d4ba37402859e2.ctex"
+uid="uid://b70wq7k04a7e6"
+path="res://.godot/imported/bow_icon.png-dd4e76dcdc5de1d64a6f44e426d18763.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/animal_icon.png"
-dest_files=["res://.godot/imported/animal_icon.png-87ec91d78377c420b1d4ba37402859e2.ctex"]
+source_file="res://resources/sprites/icons/weapon_icons/bow_icon.png"
+dest_files=["res://.godot/imported/bow_icon.png-dd4e76dcdc5de1d64a6f44e426d18763.ctex"]
 
 [params]
 

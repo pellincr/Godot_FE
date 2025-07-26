@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvq4waceawoy5"
-path="res://.godot/imported/lance_icon.png-07c0dcf086c31405e37c372888a8de5e.ctex"
+uid="uid://7lw5xtqqjdr0"
+path="res://.godot/imported/shield_icon.png-45709dcb9931021ede6cc35d9ca7a115.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/lance_icon.png"
-dest_files=["res://.godot/imported/lance_icon.png-07c0dcf086c31405e37c372888a8de5e.ctex"]
+source_file="res://resources/sprites/icons/weapon_icons/shield_icon.png"
+dest_files=["res://.godot/imported/shield_icon.png-45709dcb9931021ede6cc35d9ca7a115.ctex"]
 
 [params]
 
