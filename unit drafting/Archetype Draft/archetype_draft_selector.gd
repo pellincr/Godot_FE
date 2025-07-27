@@ -4,6 +4,9 @@ class_name archetypeDraftSelector
 
 signal archetype_selected(archetype)
 
+var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
+var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+
 @onready var selection_hovered = false
 
 @onready var main_container = $Panel/MainVContainer
@@ -22,6 +25,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_confirm") and selection_hovered:
+		$AudioStreamPlayer.stream = menu_enter_effect
+		$AudioStreamPlayer.play()
 		archetype_selected.emit(archetype)
 		#randomize_archetype()
 		#update_all()
@@ -65,6 +70,8 @@ func clear_archetype_icon_container():
 
 func _on_panel_mouse_entered():
 	selection_hovered = true
+	$AudioStreamPlayer.stream = menu_hover_effect
+	$AudioStreamPlayer.play()
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
 	print("Selection Hovered")
 

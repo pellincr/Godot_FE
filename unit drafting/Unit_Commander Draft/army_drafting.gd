@@ -55,7 +55,7 @@ func commander_selection_complete(commander):
 	playerOverworldData.append_to_array(playerOverworldData.total_party,commander)
 	update_to_archetype_screen()
 	set_army_draft_stage_label("Army Draft - Stage 2 of 3")
-	set_pick_amount_label("Pick 1 of 4")
+	set_pick_amount_label("Pick 1 of " + str(playerOverworldData.max_archetype))
 	set_header_label("Draft an Army Archetype")
 
 func archetype_selection_complete(po_data):
@@ -64,7 +64,7 @@ func archetype_selection_complete(po_data):
 	update_to_unit_draft_screen()
 	set_army_draft_stage_label("Army Draft - Stage 3 of 3")
 	set_pick_amount_label("Pick 1 of " + str(playerOverworldData.archetype_allotments.size()))
-	set_header_label("Draft a Unit")
+	set_header_label("Draft a " + playerOverworldData.archetype_allotments[0].name)
 
 func recruiting_complete():
 	#queue_free()
@@ -100,16 +100,25 @@ func update_to_unit_draft_screen():
 
 
 func unit_drafted(unit):
-	playerOverworldData.append_to_array(playerOverworldData.total_party,unit)
+	if unit is Unit:
+		playerOverworldData.append_to_array(playerOverworldData.total_party,unit)
+	elif unit is WeaponDefinition:
+		playerOverworldData.append_to_array(playerOverworldData.convoy, unit)
 	playerOverworldData.archetype_allotments.remove_at(0)
 	update_army_icon_container()
 	update_archetype_icon_container()
-	if playerOverworldData.total_party.size() >= max_unit_draft + 1:
+	if (playerOverworldData.archetype_allotments.size() > 0):
+		set_pick_amount_label("Pick " + str(playerOverworldData.total_party.size()) + " of " + 
+		str(playerOverworldData.archetype_allotments.size() + playerOverworldData.total_party.size()-1))
+		set_header_label("Draft a " + playerOverworldData.archetype_allotments[0].name)
+	if (playerOverworldData.total_party.size() + playerOverworldData.convoy.size()) >= max_unit_draft + 1:
 		recruiting_complete()
 
 
 func archetype_selected():
 	update_archetype_icon_container()
+	if playerOverworldData.current_archetype_count <= playerOverworldData.max_archetype:
+		set_pick_amount_label("Pick " + str(playerOverworldData.current_archetype_count+1) + " of " + str(playerOverworldData.max_archetype))
 
 
 func update_archetype_icon_container():
@@ -123,9 +132,9 @@ func update_archetype_icon_container():
 
 func update_army_icon_container():
 	clear_army_icons()
-	for unit:Unit in playerOverworldData.total_party:
+	for unit in playerOverworldData.total_party:
 		var texture = TextureRect.new()
-		texture.texture = unit.map_sprite
+		texture.texture = unit.icon
 		texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		army_icon_container.add_child(texture)
 

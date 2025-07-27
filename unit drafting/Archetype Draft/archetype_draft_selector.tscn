@@ -53,5 +53,7 @@ theme = SubResource("Theme_mte0y")
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

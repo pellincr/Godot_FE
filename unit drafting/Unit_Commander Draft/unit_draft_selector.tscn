@@ -64,5 +64,7 @@ offset_right = 239.0
 offset_bottom = 72.0
 texture = ExtResource("2_70vdx")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
 [connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

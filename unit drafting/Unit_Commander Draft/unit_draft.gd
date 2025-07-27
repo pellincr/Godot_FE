@@ -61,7 +61,7 @@ func unit_selected(unit):
 func update_unit_selectors():
 	for i in unit_selectors.size():
 		var selector: unitDraftSelector = unit_selectors[i]
-		selector.randomize_unit()
+		selector.randomize_selection()
 		selector.update_information()
 		var last_child = selector.main_container.get_children()[-1]
 		last_child.queue_free()
