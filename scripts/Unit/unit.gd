@@ -201,6 +201,7 @@ func get_level_up_value(unit: Unit = self) -> UnitStat:
 ##
 func apply_level_up_value(level : UnitStat, unit: Unit = self):
 	level_stats = CustomUtilityLibrary.add_unit_stat(unit.level_stats, level)
+	unit.level = unit.level + 1
 	unit.update_stats()
 
 ##
