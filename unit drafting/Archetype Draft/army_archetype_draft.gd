@@ -3,7 +3,7 @@ extends Control
 class_name armyArchetypeDraft
 
 signal archetype_selection_complete(po_data)
-signal archetype_selected()
+signal archetype_selected(archetype)
 
 const archetype_selector_scene = preload("res://unit drafting/Archetype Draft/archetype_draft_selector.tscn")
 var playerOverworldData : PlayerOverworldData
@@ -62,7 +62,7 @@ func on_archetype_selected(archetype:ArmyArchetypeDefinition):
 	playerOverworldData.archetype_allotments.append_array(archetype_list)
 	#Re-Randomize the selectors
 	update_archetype_selectors()
-	archetype_selected.emit()
+	archetype_selected.emit(archetype)
 	if (playerOverworldData.current_archetype_count == playerOverworldData.max_archetype):
 		archetype_selection_complete.emit(playerOverworldData)
 		queue_free()

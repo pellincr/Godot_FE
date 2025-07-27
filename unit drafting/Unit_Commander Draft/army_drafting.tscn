@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=10 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_lrntn"]
@@ -12,8 +12,16 @@ default_font_size = 36
 [sub_resource type="Theme" id="Theme_y16wd"]
 default_font_size = 36
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3b7fu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
 [sub_resource type="Theme" id="Theme_i2tp0"]
 default_font_size = 24
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_3b7fu")
 
 [node name="ArmyDrafting" type="Control"]
 layout_mode = 3
@@ -93,12 +101,10 @@ size_flags_stretch_ratio = 2.83
 theme = SubResource("Theme_i2tp0")
 
 [node name="ArmyListLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
+visible = false
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "Army: "
-
-[node name="ArmyIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
-layout_mode = 2
 
 [node name="ArchetypeIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer"]
 layout_mode = 2

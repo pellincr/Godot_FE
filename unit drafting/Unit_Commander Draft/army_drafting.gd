@@ -16,9 +16,9 @@ const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Dr
 @onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
 
-@onready var army_list_label = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyListLabel
+
 @onready var army_list_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer
-@onready var army_icon_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyIconContainer
+@onready var army_list_label = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyListLabel
 @onready var archetype_icon_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
 
 @onready var unit_draft_controls = $"MarginContainer/UnitDraftControls"
@@ -54,6 +54,7 @@ func _ready():
 func commander_selection_complete(commander):
 	playerOverworldData.append_to_array(playerOverworldData.total_party,commander)
 	update_to_archetype_screen()
+	update_archetype_icon_container(commander)
 	set_army_draft_stage_label("Army Draft - Stage 2 of 3")
 	set_pick_amount_label("Pick 1 of " + str(playerOverworldData.max_archetype))
 	set_header_label("Draft an Army Archetype")
@@ -79,7 +80,7 @@ func update_to_archetype_screen():
 	army_list_label.visible = true
 	unit_draft_controls.set_view_visibility(false)
 	unit_draft_controls.set_details_visibility(false)
-	update_army_icon_container()
+	#update_army_icon_container()
 	var archetype_draft = archetype_draft_scene.instantiate()
 	main_container.add_child(archetype_draft)
 	archetype_draft.set_po_data(playerOverworldData)
@@ -105,8 +106,8 @@ func unit_drafted(unit):
 	elif unit is WeaponDefinition:
 		playerOverworldData.append_to_array(playerOverworldData.convoy, unit)
 	playerOverworldData.archetype_allotments.remove_at(0)
-	update_army_icon_container()
-	update_archetype_icon_container()
+	#update_army_icon_container()
+	update_archetype_icon_container(unit)
 	if (playerOverworldData.archetype_allotments.size() > 0):
 		set_pick_amount_label("Pick " + str(playerOverworldData.total_party.size()) + " of " + 
 		str(playerOverworldData.archetype_allotments.size() + playerOverworldData.total_party.size()-1))
@@ -115,33 +116,47 @@ func unit_drafted(unit):
 		recruiting_complete()
 
 
-func archetype_selected():
-	update_archetype_icon_container()
+func archetype_selected(archetype):
+	#update_archetype_icon_container()
+	add_archetype_to_archetype_icon_container(archetype)
 	if playerOverworldData.current_archetype_count <= playerOverworldData.max_archetype:
 		set_pick_amount_label("Pick " + str(playerOverworldData.current_archetype_count+1) + " of " + str(playerOverworldData.max_archetype))
 
 
-func update_archetype_icon_container():
-	clear_archetype_icons()
-	for unit in playerOverworldData.archetype_allotments:
-		var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+func add_archetype_to_archetype_icon_container(archetype : ArmyArchetypeDefinition):
+	var picks = archetype.archetype_picks
+	#var panel = Panel.new()
+	var hbox = HBoxContainer.new()
+	var panel = PanelContainer.new()
+	for pick in picks:
+		for i in pick.volume:
+			var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+			var texture = TextureRect.new()
+			texture.texture = icon
+			hbox.add_child(texture)
+	panel.add_child(hbox)
+	archetype_icon_container.add_child(panel)
+
+func update_archetype_icon_container(unit):
+	#clear_archetype_icons()
+	var archetype_icon_children = archetype_icon_container.get_children()
+	if archetype_icon_children.is_empty():
+		var icon = unit.icon
 		var texture = TextureRect.new()
 		texture.texture = icon
 		texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		archetype_icon_container.add_child(texture)
+	else:
+		var accum = []
+		for item in archetype_icon_children:
+			if item is PanelContainer:
+				for hbox_container in item.get_children():
+					accum.append_array(hbox_container.get_children())
+		var current_icon = accum[playerOverworldData.total_party.size()-2]
+		update_icon(current_icon,unit.icon)
 
-func update_army_icon_container():
-	clear_army_icons()
-	for unit in playerOverworldData.total_party:
-		var texture = TextureRect.new()
-		texture.texture = unit.icon
-		texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		army_icon_container.add_child(texture)
-
-func clear_army_icons():
-	var children = army_icon_container.get_children()
-	for child in children:
-		child.queue_free()
+func update_icon(icon1,texture):
+	icon1.texture = texture
 
 func clear_archetype_icons():
 	var children = archetype_icon_container.get_children()
