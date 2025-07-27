@@ -11,6 +11,7 @@ const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
 const recruit_container_scene = preload("res://overworld/recruit_v_container.tscn")
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
+const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 @onready var army_draft_stage_label = $MarginContainer/VBoxContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
@@ -76,6 +77,8 @@ func recruiting_complete():
 
 
 func update_to_archetype_screen():
+	$AudioStreamPlayer.stream = menu_enter_effect
+	$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
 	unit_draft_controls.set_view_visibility(false)
@@ -88,6 +91,8 @@ func update_to_archetype_screen():
 	archetype_draft.connect("archetype_selected",archetype_selected)
 
 func update_to_unit_draft_screen():
+	$AudioStreamPlayer.stream = menu_enter_effect
+	$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.UNIT
 	unit_draft_controls.set_view_visibility(true)
 	unit_draft_controls.set_details_visibility(true)

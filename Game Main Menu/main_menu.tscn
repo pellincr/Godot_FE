@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1hyqburlsxxg"]
 
-[ext_resource type="Script" path="res://start adventure/start_adventure.gd" id="1_pncnw"]
+[ext_resource type="Script" path="res://Game Main Menu/main_menu.gd" id="1_64ruv"]
 
 [node name="StartAdventure" type="Control"]
 layout_mode = 3
@@ -11,7 +11,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_pncnw")
+script = ExtResource("1_64ruv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -31,9 +31,17 @@ grow_vertical = 2
 layout_mode = 2
 text = "Begin Adventure!"
 
-[node name="MainMenu_Button" type="Button" parent="VBoxContainer"]
+[node name="HallOfHeroesButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Main Menu"
+text = "Hall of Heroes"
+
+[node name="DictionaryButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Hall of Heroes"
+
+[node name="ReturnToStartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return To Start"
 
 [connection signal="pressed" from="VBoxContainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MainMenu_Button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ReturnToStartButton" to="." method="_on_return_to_start_button_pressed"]

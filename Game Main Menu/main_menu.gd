@@ -8,6 +8,6 @@ func _on_begin_adventure_button_pressed():
 	queue_free()
 
 #Returns to the main menu scene from the selected save
-func _on_main_menu_button_pressed():
-	get_tree().change_scene_to_file("res://main menu/main_menu.tscn")
+func _on_return_to_start_button_pressed():
+	get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
 	SelectedSaveFile.selected_save_path = ""
