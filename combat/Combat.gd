@@ -56,6 +56,7 @@ var _player_unit_alive : bool = true
 
 @onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
+var win_condition : Constants.WIN_CONDITION
 
 
 func _ready():
@@ -408,6 +409,10 @@ func combatant_die(combatant: CombatUnit):
 		]
 	))
 	combatant_died.emit(combatant)
+	if(check_win()):
+		get_tree().quit()
+	if(check_lose()):
+		get_tree().quit()
 
 func entity_disable(e: CombatMapEntity):
 	e.active = false
@@ -573,3 +578,19 @@ func play_audio(sound : AudioStream):
 	combat_audio.play()
 	await combat_audio.finished
 	combatExchange.audio_player_ready()
+
+
+func check_win():
+	match win_condition:
+		Constants.WIN_CONDITION.CLEAR_ENEMIES:
+			return check_group_clear(groups[1])
+
+func check_group_clear(group):
+	if group.is_empty():
+		print("WIN!")
+		return true
+
+
+
+func check_lose():
+	return check_group_clear(groups[0])

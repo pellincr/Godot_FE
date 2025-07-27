@@ -1,21 +1,22 @@
 [gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=5 format=3 uid="uid://ci4moqvduab6q"]
 
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_jycsm"]
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="2_gpa6w"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_i6xoj"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="3_mraty"]
 
-[sub_resource type="Resource" id="Resource_ws105"]
-script = ExtResource("2_gpa6w")
-weapon_type = Array[int]([0])
-item_damage_type = Array[int]([])
-item_scaling_type = Array[int]([])
-name = "Swords"
-type = 1
+[sub_resource type="Resource" id="Resource_nlecq"]
+script = ExtResource("2_i6xoj")
+factions = Array[int]([])
+traits = Array[int]([])
+weapon_types = Array[int]([0])
+unit_type = ""
+name = "Swordman"
+type = 0
 response_filter = 0
-volume = 2
+volume = 1
 
 [resource]
 script = ExtResource("3_mraty")
 name = "Classic"
 rarity = "Common"
-archetype_picks = Array[ExtResource("1_jycsm")]([SubResource("Resource_ws105")])
+archetype_picks = Array[ExtResource("1_jycsm")]([SubResource("Resource_nlecq"), null])
