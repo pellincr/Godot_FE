@@ -166,8 +166,8 @@ func randomize_selection():
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 			var unit_character = UnitCharacter.new()
 			unit_character.name = new_unit_name
-			randomize_unit_stats(unit_character, new_randomized_pick, false)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-			randomize_unit_growths(unit_character, new_randomized_pick, false)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 			unit = new_recruit
 	else:
@@ -176,8 +176,8 @@ func randomize_selection():
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
-		randomize_unit_stats(unit_character, new_randomized_pick,true)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-		randomize_unit_growths(unit_character, new_randomized_pick, true)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
 		
@@ -207,86 +207,47 @@ func get_random_rarity():
 	return "Common"
 
 
-func randomize_unit_stats(unit_character, unit_type_key, commander=false):
-	if !commander:
-		var stats = UnitStat.new()
-		var deviation = 1.75
-		var health_rand = clampi(randfn( 0, 3), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp, 10) 
-		var strength_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
-		var magic_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
-		var skill_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
-		var speed_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
-		var luck_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
-		var defense_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
-		var resistance_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
-		stats.hp = health_rand
-		stats.strength = strength_rand
-		stats.magic = magic_rand
-		stats.skill = skill_rand
-		stats.speed = speed_rand
-		stats.luck = luck_rand
-		stats.defense = defense_rand
-		stats.resistance = resistance_rand
-		unit_character.stats = stats
-	else:
-		var stats = UnitStat.new()
-		var health = UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp
-		var strength =UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength
-		var magic = UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic
-		var skill = UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill
-		var speed = UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed
-		var luck = UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck
-		var defense = UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense 
-		var resistance = UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance
-		stats.hp = health
-		stats.strength = strength
-		stats.magic = magic
-		stats.skill = skill
-		stats.speed = speed
-		stats.luck = luck
-		stats.defense = defense
-		stats.resistance = resistance
-		unit_character.stats = stats
+func randomize_unit_stats(unit_character, unit_type_key):
+	var stats = UnitStat.new()
+	var deviation = 1.75
+	var health_rand = clampi(randfn( 0, 3), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp, 10) 
+	var strength_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
+	var magic_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
+	var skill_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
+	var speed_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
+	var luck_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
+	var defense_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
+	var resistance_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
+	stats.hp = health_rand
+	stats.strength = strength_rand
+	stats.magic = magic_rand
+	stats.skill = skill_rand
+	stats.speed = speed_rand
+	stats.luck = luck_rand
+	stats.defense = defense_rand
+	stats.resistance = resistance_rand
+	unit_character.stats = stats
 
-func randomize_unit_growths(unit_character, unit_type_key, commander):
-	if !commander:
-		var growths = UnitStat.new()
-		var health_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.hp, 40) 
-		var strength_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.strength, 20) 
-		var magic_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.magic, 20) 
-		var skill_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.skill, 20) 
-		var speed_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.speed, 20) 
-		var luck_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.luck, 20) 
-		var defense_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.defense, 20) 
-		var resistance_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.resistance, 20) 
-		growths.hp = health_rand
-		growths.strength = strength_rand
-		growths.magic = magic_rand
-		growths.skill = skill_rand
-		growths.speed = speed_rand
-		growths.luck = luck_rand
-		growths.defense = defense_rand
-		growths.resistance = resistance_rand
-		unit_character.growths = growths
-	else:
-		var growths = UnitStat.new()
-		var health = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.hp
-		var strength = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.strength
-		var magic = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.magic
-		var skill = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.skill
-		var speed = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.speed
-		var luck = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.luck
-		var defense = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.defense
-		var resistance = UnitTypeDatabase.unit_types[unit_type_key].growth_stats.resistance
-		growths.hp = health
-		growths.strength = strength
-		growths.magic = magic
-		growths.skill = skill
-		growths.speed = speed
-		growths.luck = luck
-		growths.defense = defense
-		growths.resistance = resistance
-		unit_character.growths = growths
+func randomize_unit_growths(unit_character, unit_type_key):
+	var growths = UnitStat.new()
+	var health_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.hp, 40) 
+	var strength_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.strength, 20) 
+	var magic_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.magic, 20) 
+	var skill_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.skill, 20) 
+	var speed_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.speed, 20) 
+	var luck_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.luck, 20) 
+	var defense_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.defense, 20) 
+	var resistance_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.resistance, 20) 
+	growths.hp = health_rand
+	growths.strength = strength_rand
+	growths.magic = magic_rand
+	growths.skill = skill_rand
+	growths.speed = speed_rand
+	growths.luck = luck_rand
+	growths.defense = defense_rand
+	growths.resistance = resistance_rand
+	unit_character.growths = growths
+
 
 
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 

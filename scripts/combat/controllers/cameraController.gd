@@ -4,6 +4,9 @@ extends Camera2D
 @export var map: Node 
 var zoomTarget :Vector2
 
+
+@onready var combat = $"../Combat"
+
 var dragStartMousePos = Vector2.ZERO
 var dragStartCameraPos = Vector2.ZERO
 var isDragging : bool = false
@@ -71,3 +74,7 @@ func set_camera_limits(): ## needs to be updated
 	self.limit_right = map_limits.end.x * map_cellsize.x
 	self.limit_top = map_limits.position.y * map_cellsize.y
 	self.limit_bottom = map_limits.end.y * map_cellsize.y
+
+
+func set_win_condition():
+	combat.win_condition = Constants.WIN_CONDITION.CLEAR_ENEMIES
