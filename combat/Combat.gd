@@ -61,8 +61,6 @@ var _player_unit_alive : bool = true
 
 @onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
-var win_condition : Constants.WIN_CONDITION
-
 func save():
 	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")
 	print("Saved")
@@ -87,7 +85,7 @@ func _ready():
 	#iventory_array.insert(3, ItemDatabase.items["key"])
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	#add_combatant(create_combatant_unit(Unit.create_generic_unit("axe_armor", iventory_array, "Flavius", 1,10),0), Vector2i(7,14))
-	var current_party_index = 0
+	var current_party_index = 0 #(0,9) (2,15)
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
 			if !(current_party_index >= playerOverworldData.total_party.size()):
@@ -415,15 +413,15 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 	_player_unit_alive = friendly_unit_alive
 	major_action_complete()
 	if(check_win()):
-		#var scene_path = "res://combat/levels/craig_level_2/craig_game_2.tscn"
-		#print("Attempting to load scene: " + scene_path)
-		#level_complete.emit(win_go_to_scene)
+		heal_ally_units()##will be removed later
 		save()
 		get_tree().change_scene_to_packed(win_go_to_scene)
-		#var next_level = win_go_to_scene.instantiate()
-		#get_tree().root.add_child(next_level)
 	if(check_lose()):
-		get_tree().quit()
+		get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
+
+func heal_ally_units():
+	for unit:Unit in playerOverworldData.total_party:
+		unit.hp = unit.stats.hp
 
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)
@@ -606,8 +604,8 @@ func play_audio(sound : AudioStream):
 
 
 func check_win():
-	match win_condition:
-		Constants.WIN_CONDITION.CLEAR_ENEMIES:
+	match victory_condition:
+		Constants.VICTORY_CONDITION.DEFEAT_ALL:
 			return check_group_clear(groups[1])
 
 func check_group_clear(group):

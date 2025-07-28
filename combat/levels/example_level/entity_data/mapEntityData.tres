@@ -17,24 +17,28 @@ script = ExtResource("5_lbqpt")
 chest_texture = ExtResource("2_hiiai")
 required_item = Array[ExtResource("3_vykqr")]([ExtResource("4_nnqe2")])
 contents = Array[ExtResource("3_vykqr")]([ExtResource("4_tgbkk")])
+position = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_vh2dn"]
 script = ExtResource("5_lbqpt")
 chest_texture = ExtResource("2_hiiai")
 required_item = Array[ExtResource("3_vykqr")]([ExtResource("4_nnqe2")])
 contents = Array[ExtResource("3_vykqr")]([ExtResource("7_278pl")])
+position = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_2tlju"]
 script = ExtResource("9_ckeve")
 required_item = Array[ExtResource("3_vykqr")]([ExtResource("4_nnqe2")])
 entity_position_group = Array[Vector2i]([Vector2i(6, 8), Vector2i(7, 8)])
 door_texture = ExtResource("8_6hiyy")
+position = Vector2i(0, 0)
 
 [sub_resource type="Resource" id="Resource_b2fkg"]
 script = ExtResource("9_ckeve")
 required_item = Array[ExtResource("3_vykqr")]([ExtResource("4_nnqe2")])
 entity_position_group = Array[Vector2i]([Vector2i(6, 8), Vector2i(7, 8)])
 door_texture = ExtResource("11_47p4t")
+position = Vector2i(0, 0)
 
 [resource]
 script = ExtResource("2_ny6cy")

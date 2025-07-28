@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_yjned"]
 script = ExtResource("1_1chky")
 name = "Test"
-map_position = Vector2i(0, 0)
+map_position = Vector2i(1, 5)
 level = 1
 level_bonus = 0
 hard_mode_leveling = false

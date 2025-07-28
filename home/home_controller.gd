@@ -6,9 +6,9 @@ var  state = OVERWORLD_STATES.INIT
 var save_file_name = "PlayerOverworldSave.tres"
 var playerOverworldData = PlayerOverworldData.new()
 
-const MAIN_MENU = preload("res://main menu/main_menu.tscn")
-const START_ADVENTURE_SCREEN = preload("res://start adventure/start_adventure.tscn")
-const OVERWORLD_SCREEN = preload("res://overworld/overworld.tscn")
+const MAIN_MENU = preload("res://Game Main Menu/main_menu.tscn")
+#const START_ADVENTURE_SCREEN = preload("res://start adventure/start_adventure.tscn")
+#const OVERWORLD_SCREEN = preload("res://overworld/overworld.tscn")
 const DRAFT_SCREEN = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 
 var ui_loaded = false

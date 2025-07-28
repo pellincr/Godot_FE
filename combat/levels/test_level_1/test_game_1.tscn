@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_edmt2"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_qcsmn"]
 [ext_resource type="Resource" uid="uid://ur555wgxi0ru" path="res://combat/levels/test_level_1/test_level_1_entities.tres" id="6_8606v"]
-[ext_resource type="Resource" uid="uid://dlwmndpeh6iks" path="res://resources/definitions/enemy_groups/test_level_1_group.tres" id="7_ouq1l"]
 [ext_resource type="PackedScene" uid="uid://cw28pbyq5shkg" path="res://combat/levels/test_level_2/test_game_2.tscn" id="7_x0n1k"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="8_snsde"]
+[ext_resource type="Resource" uid="uid://dklhd7ncdtuuj" path="res://resources/definitions/enemy_groups/example_level.tres" id="8_wa3hl"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="9_rpkgy"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_fmovl"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_vi415"]
@@ -44,7 +44,7 @@ mapEntityData = ExtResource("6_8606v")
 win_go_to_scene = ExtResource("7_x0n1k")
 ally_spawn_top_left = Vector2(0, 9)
 ally_spawn_bottom_right = Vector2(3, 15)
-enemy_start_group = ExtResource("7_ouq1l")
+enemy_start_group = ExtResource("8_wa3hl")
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("8_snsde")
