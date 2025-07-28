@@ -729,19 +729,22 @@ func begin_action_item_selection():
 	if _action.requires_item :
 		if _action == ATTACK_ACTION:
 			combat.game_ui._set_attack_action_inventory(combat.get_current_combatant())
+			update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 		elif _action == SUPPORT_ACTION:
 			combat.game_ui._set_support_action_inventory(combat.get_current_combatant())
+			update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 		elif _action == ITEM_ACTION:
 			combat.game_ui._set_inventory_list(combat.get_current_combatant())
+			update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 		elif _action == CHEST_ACTION:
 			_selected_entity = get_entity_at_tile(combat.get_current_combatant().move_tile.position)
-			
+			## Does the chest require a key?
 			if _selected_entity.required_item.is_empty():
-				_item_selected = true
-				#update_player_state(get_next_action_state())
+				update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 				action_item_selected()
 			else:
 				combat.game_ui._set_item_action_inventory(combat.get_current_combatant(), get_viable_chest_items(combat.get_current_combatant()))
+				update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 	else: 
 		pass ## do nothing??
 
@@ -1086,7 +1089,6 @@ func begin_action_flow():
 		if not _action.flow.is_empty():
 			if _action.flow.front() == Constants.UNIT_ACTION_STATE.ITEM_SELECT: 
 				begin_action_item_selection()
-				update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_ITEM_SELECT)
 			elif _action.flow.front() == Constants.UNIT_ACTION_STATE.TARGET_SELECT: 
 				begin_target_selection()
 				update_player_state(Constants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT)
