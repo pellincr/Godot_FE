@@ -19,4 +19,4 @@ volume = 1
 script = ExtResource("3_mraty")
 name = "Classic"
 rarity = "Common"
-archetype_picks = Array[ExtResource("1_jycsm")]([SubResource("Resource_nlecq"), null])
+archetype_picks = Array[ExtResource("1_jycsm")]([SubResource("Resource_nlecq")])

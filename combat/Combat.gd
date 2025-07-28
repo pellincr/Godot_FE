@@ -23,6 +23,7 @@ signal major_action_completed()
 signal minor_action_completed()
 signal trading_completed()
 signal shove_completed()
+
 	
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
@@ -53,6 +54,10 @@ var _player_unit_alive : bool = true
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
 @export var mapEntityData: MapEntityGroupData
+@export var win_go_to_scene : PackedScene
+@export var ally_spawn_top_left : Vector2
+@export var ally_spawn_bottom_right: Vector2
+@export var enemy_start_group : EnemyGroup
 
 @onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
@@ -80,8 +85,8 @@ func _ready():
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	#add_combatant(create_combatant_unit(Unit.create_generic_unit("axe_armor", iventory_array, "Flavius", 1,10),0), Vector2i(7,14))
 	var current_party_index = 0
-	for i in range(6,12):
-		for j in range(14,17):
+	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
+		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
 			if !(current_party_index >= playerOverworldData.total_party.size()):
 				add_combatant(create_combatant_unit(playerOverworldData.total_party[current_party_index],0),Vector2i(i,j))
 				current_party_index+= 1
@@ -126,6 +131,8 @@ func _ready():
 	#
 #
 	##ENEMY
+	spawn_initial_units()
+	"""
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["javelin"])
 	add_combatant(create_combatant_unit(Unit.create_generic_unit("lance_cavalier", iventory_array, "Bandit", 3,3, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(9,2))
@@ -205,7 +212,7 @@ func _ready():
 	iventory_array.clear()
 	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
 	add_combatant(create_combatant_unit(Unit.create_generic_unit("fighter", iventory_array, "Bandit", 3,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,26))
-
+	"""
 	#add_combatant(create_combatant_unit(Unit.create_generic_unit(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Gemni's Guard", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,26))
 	load_entities()
 
@@ -222,6 +229,11 @@ func spawn_reinforcements(turn_number : int):
 				for unit in group.units:
 					var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
 					add_combatant(reinforcement_unit, unit.map_position)
+
+func spawn_initial_units():
+	for unit in enemy_start_group.group:
+		var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
+		add_combatant(reinforcement_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss)
@@ -382,6 +394,7 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 	
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
+	
 
 func advance_turn(faction: int):
 	## Reset Players to active
@@ -397,6 +410,15 @@ func major_action_complete():
 func combatExchangeComplete(friendly_unit_alive:bool):
 	_player_unit_alive = friendly_unit_alive
 	major_action_complete()
+	if(check_win()):
+		#var scene_path = "res://combat/levels/craig_level_2/craig_game_2.tscn"
+		#print("Attempting to load scene: " + scene_path)
+		#level_complete.emit(win_go_to_scene)
+		get_tree().change_scene_to_packed(win_go_to_scene)
+		#var next_level = win_go_to_scene.instantiate()
+		#get_tree().root.add_child(next_level)
+	if(check_lose()):
+		get_tree().quit()
 
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)
@@ -409,10 +431,7 @@ func combatant_die(combatant: CombatUnit):
 		]
 	))
 	combatant_died.emit(combatant)
-	if(check_win()):
-		get_tree().quit()
-	if(check_lose()):
-		get_tree().quit()
+	
 
 func entity_disable(e: CombatMapEntity):
 	e.active = false

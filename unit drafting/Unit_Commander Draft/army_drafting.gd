@@ -72,7 +72,8 @@ func recruiting_complete():
 	#queue_free()
 	save()
 	drafting_complete.emit(playerOverworldData)
-	get_tree().change_scene_to_file("res://combat/game.tscn")
+	#get_tree().change_scene_to_file("res://combat/game.tscn")
+	get_tree().change_scene_to_file("res://combat/levels/craig_level/craig_game.tscn")
 
 
 

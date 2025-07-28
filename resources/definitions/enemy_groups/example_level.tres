@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=11 format=3 uid="uid://dklhd7ncdtuuj"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_wylkh"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_4m6cw"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="3_aagoq"]
+[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="3_vqq6r"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="4_mmqbc"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="5_yeadg"]
+
+[sub_resource type="Resource" id="Resource_yjned"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(9, 2)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("3_aagoq")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_mylap"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(17, 11)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("3_aagoq")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_684ou"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(6, 2)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "archer"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("4_mmqbc")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_ig6bo"]
+script = ExtResource("1_wylkh")
+name = "Braumulus"
+map_position = Vector2i(12, 2)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("5_yeadg")])
+ai_type = 2
+
+[resource]
+script = ExtResource("3_vqq6r")
+group = Array[ExtResource("1_wylkh")]([SubResource("Resource_yjned"), SubResource("Resource_mylap"), SubResource("Resource_684ou"), SubResource("Resource_ig6bo")])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4xca7lc8vsi8"]
+[gd_scene load_steps=12 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_aallb"]
 [ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/example_level/terrain.tscn" id="1_huxbe"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_035kt"]
 [ext_resource type="Resource" uid="uid://dgsmhy2vn8ahd" path="res://combat/levels/example_level/entity_data/mapEntityData.tres" id="6_cchwj"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
+[ext_resource type="Resource" uid="uid://dklhd7ncdtuuj" path="res://resources/definitions/enemy_groups/example_level.tres" id="7_widb0"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_oplkq"]
 
 [node name="Game" type="Node"]
@@ -38,6 +39,9 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapEntityData = ExtResource("6_cchwj")
+ally_spawn_top_left = Vector2(6, 14)
+ally_spawn_bottom_right = Vector2(12, 17)
+enemy_start_group = ExtResource("7_widb0")
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_035kt")
