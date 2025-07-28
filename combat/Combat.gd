@@ -86,8 +86,8 @@ func _ready():
 	#iventory_array.insert(0, ItemDatabase.items["harm"])
 	#add_combatant(create_combatant_unit(Unit.create_generic_unit("axe_armor", iventory_array, "Flavius", 1,10),0), Vector2i(7,14))
 	var current_party_index = 0 #(0,9) (2,15)
-	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
-		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
+	for i in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
+		for j in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 			if !(current_party_index >= playerOverworldData.total_party.size()):
 				add_combatant(create_combatant_unit(playerOverworldData.total_party[current_party_index],0),Vector2i(i,j))
 				current_party_index+= 1

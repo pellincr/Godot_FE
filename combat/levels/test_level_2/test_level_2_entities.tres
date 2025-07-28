@@ -1,19 +1,35 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=8 format=3 uid="uid://bnar8ricmvo5q"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=12 format=3 uid="uid://bnar8ricmvo5q"]
 
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity.gd" id="1_sdyuq"]
 [ext_resource type="Texture2D" uid="uid://cn1om38csmyfa" path="res://resources/sprites/entities/chest_sprite.tres" id="2_hg2xn"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_d83ki"]
-[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="4_xvwh7"]
+[ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="4_06vdb"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_chest.gd" id="5_nlny0"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_b1b0u"]
 [ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_esogb"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="7_m03w7"]
 
 [sub_resource type="Resource" id="Resource_6xplq"]
 script = ExtResource("5_nlny0")
 chest_texture = ExtResource("2_hg2xn")
 required_item = Array[ExtResource("3_d83ki")]([])
-contents = Array[ExtResource("3_d83ki")]([ExtResource("4_xvwh7")])
-position = Vector2i(0, 0)
+contents = Array[ExtResource("3_d83ki")]([ExtResource("4_06vdb")])
+position = Vector2i(19, 19)
+
+[sub_resource type="Resource" id="Resource_l8ynt"]
+script = ExtResource("5_nlny0")
+chest_texture = ExtResource("2_hg2xn")
+required_item = Array[ExtResource("3_d83ki")]([])
+contents = Array[ExtResource("3_d83ki")]([ExtResource("6_b1b0u")])
+position = Vector2i(0, 13)
+
+[sub_resource type="Resource" id="Resource_1hwj2"]
+script = ExtResource("5_nlny0")
+chest_texture = ExtResource("2_hg2xn")
+required_item = Array[ExtResource("3_d83ki")]([])
+contents = Array[ExtResource("3_d83ki")]([ExtResource("7_m03w7")])
+position = Vector2i(0, 12)
 
 [resource]
 script = ExtResource("6_esogb")
-entities = Array[ExtResource("1_sdyuq")]([SubResource("Resource_6xplq")])
+entities = Array[ExtResource("1_sdyuq")]([SubResource("Resource_6xplq"), SubResource("Resource_l8ynt"), SubResource("Resource_1hwj2")])

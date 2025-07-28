@@ -35,6 +35,7 @@ func enter_game(save_path):
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
+	SelectedSaveFile.selected_save_path = ""
 	$MainVContainer/Start_Button.grab_focus()
 	var dir = DirAccess.open(save_path_1)
 	if dir:
