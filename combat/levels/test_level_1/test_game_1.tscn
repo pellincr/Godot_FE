@@ -42,8 +42,8 @@ unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapEntityData = ExtResource("6_8606v")
 win_go_to_scene = ExtResource("7_x0n1k")
-ally_spawn_top_left = Vector2(1, 9)
-ally_spawn_bottom_right = Vector2(2, 14)
+ally_spawn_top_left = Vector2(0, 9)
+ally_spawn_bottom_right = Vector2(3, 14)
 enemy_start_group = ExtResource("7_ouq1l")
 
 [node name="CombatExchange" type="Node" parent="Combat"]
