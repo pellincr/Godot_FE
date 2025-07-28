@@ -36,7 +36,7 @@ func Zoom(delta):
 	zoom = zoom.slerp(zoomTarget, zoomSpeed * delta)
 	
 	
-	
+
 func SimplePan(delta):
 	var moveAmount = Vector2.ZERO
 	if Input.is_action_pressed("camera_move_right"):

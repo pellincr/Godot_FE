@@ -32,6 +32,7 @@ offset_right = -1030.0
 offset_bottom = -640.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = SubResource("Theme_qjwpb")
 script = ExtResource("2_qy013")
 
@@ -75,6 +76,7 @@ texture = SubResource("AtlasTexture_3521q")
 stretch_mode = 5
 
 [node name="Coordinates" type="Label" parent="VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon"]
+layout_mode = 0
 offset_left = -3.0
 offset_top = 23.0
 offset_right = 35.0

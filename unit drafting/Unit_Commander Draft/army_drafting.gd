@@ -73,7 +73,7 @@ func recruiting_complete():
 	save()
 	drafting_complete.emit(playerOverworldData)
 	#get_tree().change_scene_to_file("res://combat/game.tscn")
-	get_tree().change_scene_to_file("res://combat/levels/craig_level/craig_game.tscn")
+	get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
 
 
 

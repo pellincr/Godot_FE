@@ -23,6 +23,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 37.0
 grow_horizontal = 2
+mouse_filter = 2
 theme = SubResource("Theme_7pnet")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

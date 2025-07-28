@@ -589,7 +589,7 @@ func get_combatant_at_position(target_position: Vector2i) -> CombatUnit:
 	return null
 
 func get_entity_at_position(target_position:Vector2i)-> CombatMapEntity:
-	var tile = tile_map.local_to_map(position)
+	var tile = tile_map.local_to_map(target_position)
 	if _astargrid.is_in_boundsv(tile):
 		return get_entity_at_tile(tile)
 	return null
@@ -734,8 +734,14 @@ func begin_action_item_selection():
 		elif _action == ITEM_ACTION:
 			combat.game_ui._set_inventory_list(combat.get_current_combatant())
 		elif _action == CHEST_ACTION:
-			_selected_entity = get_entity_at_position(combat.get_current_combatant().move_tile.position)
-			combat.game_ui._set_item_action_inventory(combat.get_current_combatant(), get_viable_chest_items(combat.get_current_combatant()))
+			_selected_entity = get_entity_at_tile(combat.get_current_combatant().move_tile.position)
+			
+			if _selected_entity.required_item.is_empty():
+				_item_selected = true
+				#update_player_state(get_next_action_state())
+				action_item_selected()
+			else:
+				combat.game_ui._set_item_action_inventory(combat.get_current_combatant(), get_viable_chest_items(combat.get_current_combatant()))
 	else: 
 		pass ## do nothing??
 
@@ -1262,14 +1268,17 @@ func get_viable_chest_items(cu: CombatUnit) -> Array[ItemDefinition]:
 					#TO BE IMPLEMENTED if unit can use item
 	return _items
 func chest_action_available(cu:CombatUnit)-> bool:
-	if get_entity_at_position(cu.move_tile.position) :
-		var _entity = get_entity_at_position(cu.move_tile.position)
+	if get_entity_at_tile(cu.move_tile.position) :
+		var _entity = get_entity_at_tile(cu.move_tile.position)
 		if _entity is CombatMapChestEntity:
-			for item : ItemDefinition in _entity.required_item:
-				print(item.name)
-				if cu.unit.inventory.has(item):
-					#TO BE IMPLEMENTED if unit can use item
-					return true
+			if _entity.required_item.is_empty():
+				return true
+			else:
+				for item : ItemDefinition in _entity.required_item:
+					print(item.name)
+					if cu.unit.inventory.has(item):
+						#TO BE IMPLEMENTED if unit can use item
+						return true
 	return false
 
 func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
@@ -1454,6 +1463,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	ai_unit.map_tile.position = tile_map.local_to_map(controlled_node.position)
 	return selected_action
 
+
 func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, attack_range: Array[int]) -> aiAction:
 	#print("@ ENTERED ai_get_best_move_at_tile")
 	#are there targets?
@@ -1535,6 +1545,7 @@ func trigger_reinforcements():
 func update_player_state(new_state : Constants.PLAYER_STATE):
 	previous_player_state = player_state
 	player_state = new_state
+	
 
 func update_turn_phase(new_state : Constants.TURN_PHASE):
 	print("$$ CALLED UPDATE TURN PHASE : With target turn phase : " + str(new_state))

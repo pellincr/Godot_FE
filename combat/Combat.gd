@@ -63,6 +63,9 @@ var _player_unit_alive : bool = true
 
 var win_condition : Constants.WIN_CONDITION
 
+func save():
+	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")
+	print("Saved")
 
 func _ready():
 	emit_signal("register_combat", self)
@@ -341,7 +344,8 @@ func Trade(unit: CombatUnit, target: CombatUnit):
 
 func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
 	print("Entered Chest in Combat.gd")
-	key.use()
+	if key:
+		key.use()
 	for item in chest.contents:
 		await combat_unit_item_manager.give_combat_unit_item(unit, item)
 	entity_disable(chest)
@@ -414,6 +418,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		#var scene_path = "res://combat/levels/craig_level_2/craig_game_2.tscn"
 		#print("Attempting to load scene: " + scene_path)
 		#level_complete.emit(win_go_to_scene)
+		save()
 		get_tree().change_scene_to_packed(win_go_to_scene)
 		#var next_level = win_go_to_scene.instantiate()
 		#get_tree().root.add_child(next_level)
@@ -425,6 +430,7 @@ func combatant_die(combatant: CombatUnit):
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
+		playerOverworldData.total_party.erase(combatant.unit)
 		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.name
