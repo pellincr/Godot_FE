@@ -35,6 +35,8 @@ func load_data():
 	print("Loaded")
 
 func save():
+	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
+		DirAccess.make_dir_absolute(SelectedSaveFile.selected_save_path)
 	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + save_file_name)
 	print("Saved")
 
@@ -50,6 +52,9 @@ func _ready():
 	unit_draft.current_state = current_draft_state
 	unit_draft.connect("commander_drafted",commander_selection_complete)
 
+
+func set_player_overworld_data(po_data):
+	playerOverworldData = po_data
 
 
 func commander_selection_complete(commander):

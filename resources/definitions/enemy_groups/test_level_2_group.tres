@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=17 format=3 uid="uid://boia6cnom5816"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=20 format=3 uid="uid://boia6cnom5816"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_farqu"]
 [ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_2hc22"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="6_dpxjx"]
 [ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="7_eokgr"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="8_53w4k"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="9_lcux4"]
 
 [sub_resource type="Resource" id="Resource_brgeu"]
 script = ExtResource("1_farqu")
@@ -87,6 +88,28 @@ unit_type_key = "axe_cavalier"
 inventory = Array[ExtResource("2_q7uv3")]([ExtResource("8_53w4k")])
 ai_type = 0
 
+[sub_resource type="Resource" id="Resource_bhp38"]
+script = ExtResource("1_farqu")
+name = "Bandit"
+map_position = Vector2i(1, 12)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "ward"
+inventory = Array[ExtResource("2_q7uv3")]([ExtResource("7_eokgr")])
+ai_type = 1
+
+[sub_resource type="Resource" id="Resource_6d280"]
+script = ExtResource("1_farqu")
+name = "Bandit"
+map_position = Vector2i(3, 6)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sword_cavalier"
+inventory = Array[ExtResource("2_q7uv3")]([ExtResource("9_lcux4")])
+ai_type = 0
+
 [resource]
 script = ExtResource("2_2hc22")
-group = Array[ExtResource("1_farqu")]([SubResource("Resource_brgeu"), SubResource("Resource_6e33j"), SubResource("Resource_004ex"), SubResource("Resource_0f8yr"), SubResource("Resource_k04d8"), SubResource("Resource_px03g"), SubResource("Resource_h4yiu")])
+group = Array[ExtResource("1_farqu")]([SubResource("Resource_brgeu"), SubResource("Resource_6e33j"), SubResource("Resource_004ex"), SubResource("Resource_0f8yr"), SubResource("Resource_k04d8"), SubResource("Resource_px03g"), SubResource("Resource_h4yiu"), SubResource("Resource_bhp38"), SubResource("Resource_6d280")])

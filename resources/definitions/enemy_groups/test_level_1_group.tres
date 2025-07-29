@@ -62,7 +62,7 @@ level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("5_0rvi8")])
-ai_type = 1
+ai_type = 0
 
 [sub_resource type="Resource" id="Resource_vklb2"]
 script = ExtResource("1_g887n")

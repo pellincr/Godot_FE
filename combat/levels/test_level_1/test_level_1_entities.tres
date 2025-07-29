@@ -12,7 +12,7 @@ script = ExtResource("5_o47jd")
 chest_texture = ExtResource("2_v2h4b")
 required_item = Array[ExtResource("3_wv14o")]([])
 contents = Array[ExtResource("3_wv14o")]([ExtResource("4_lxl4r")])
-position = Vector2i(2, 9)
+position = Vector2i(11, 5)
 
 [resource]
 script = ExtResource("6_ofrf8")
