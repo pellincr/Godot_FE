@@ -272,7 +272,7 @@ func add_entity(cme:CombatMapEntity):
 	cme.display = new_entity_sprite
 	emit_signal("entity_added", cme)
 
-func get_current_combatant():
+func get_current_combatant() -> CombatUnit:
 	return combatants[current_combatant]
 
 func set_current_combatant(cu:CombatUnit):

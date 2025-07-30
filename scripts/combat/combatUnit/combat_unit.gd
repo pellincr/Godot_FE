@@ -17,8 +17,8 @@ var minor_action_taken: bool = false
 var effective_move : int = 0
 var unit : Unit
 var action_list :  Array[String]
-var map_tile :  MapTile
-var move_tile : MapTile
+var map_tile :  CombatMapTile
+var move_tile : CombatMapTile
 
 var map_position : Vector2i
 var map_terrain : Terrain
@@ -39,8 +39,8 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.allegience = team
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
-	instance.map_tile = MapTile.new()
-	instance.move_tile = MapTile.new()
+	instance.map_tile = CombatMapTile.new()
+	instance.move_tile = CombatMapTile.new()
 	return instance
 
 func set_map_terrain(ter : Terrain) :
