@@ -14,6 +14,7 @@ default_font_size = 16
 custom_minimum_size = Vector2(250, 355)
 offset_right = 254.0
 offset_bottom = 355.0
+focus_mode = 2
 mouse_filter = 0
 theme = ExtResource("1_gwjt6")
 script = ExtResource("1_i638l")
@@ -66,5 +67,6 @@ texture = ExtResource("2_70vdx")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

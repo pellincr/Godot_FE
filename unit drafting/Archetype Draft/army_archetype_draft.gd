@@ -38,6 +38,7 @@ func create_archetype_selector_list(selector_count: int, selector_container):
 		selector_container.add_child(archetype_selector)
 		archetype_selector.connect("archetype_selected",on_archetype_selected)
 		accum.append(archetype_selector)
+	accum[0].grab_focus()
 	return accum
 
 

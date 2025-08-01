@@ -43,6 +43,7 @@ func create_unit_selector_list(selector_count: int, selector_container):
 		unit_selector.current_draft_state = current_state
 		selector_container.add_child(unit_selector)
 		accum.append(unit_selector)
+	accum[0].grab_focus()
 	return accum
 
 func unit_selected(unit):

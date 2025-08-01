@@ -7,7 +7,6 @@ signal archetype_selected(archetype)
 var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
 var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
-@onready var selection_hovered = false
 
 @onready var main_container = $Panel/MainVContainer
 @onready var header_label = $Panel/MainVContainer/HeaderLabel
@@ -24,7 +23,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_confirm") and selection_hovered:
+	if Input.is_action_just_pressed("ui_confirm") and has_focus():
 		$AudioStreamPlayer.stream = menu_enter_effect
 		$AudioStreamPlayer.play()
 		archetype_selected.emit(archetype)
@@ -67,19 +66,19 @@ func clear_archetype_icon_container():
 		child.queue_free()
 
 
-
-func _on_panel_mouse_entered():
-	selection_hovered = true
+func _on_focus_entered():
 	$AudioStreamPlayer.stream = menu_hover_effect
 	$AudioStreamPlayer.play()
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
-	print("Selection Hovered")
+	print("Selection Focused")
 
 
-func _on_panel_mouse_exited():
-	selection_hovered = false
+func _on_focus_exited():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres")
-	print("Selection Exited")
+
+func _on_panel_mouse_entered():
+	grab_focus()
+
 
 func update_all():
 	set_header_label(archetype.name)

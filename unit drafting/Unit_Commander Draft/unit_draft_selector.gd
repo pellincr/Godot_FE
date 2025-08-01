@@ -50,9 +50,9 @@ func _ready():
 	
 
 func _process(delta):
-	if Input.is_action_just_pressed("details") and selection_hovered:
+	if Input.is_action_just_pressed("details") and has_focus():
 		show_next_screen()
-	if Input.is_action_just_pressed("ui_confirm") and selection_hovered:
+	if Input.is_action_just_pressed("ui_confirm") and has_focus():
 		$AudioStreamPlayer.stream = menu_enter_effect
 		$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
@@ -114,19 +114,20 @@ func show_next_screen():
 
 
 func _on_panel_mouse_entered():
-	selection_hovered = true
-	#var style_box: StyleBoxFlat = $Panel.get_theme_stylebox("panel")
+	grab_focus()
+
+
+func _on_focus_entered():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
 	$AudioStreamPlayer.stream = menu_hover_effect
 	$AudioStreamPlayer.play()
-	print("Selection Hovered")
+	print("Selection Focused")
 
 
-func _on_panel_mouse_exited():
-	selection_hovered = false
-	#var stylebox: StyleBoxFlat = $Panel.get_theme_stylebox("panel")
+
+func _on_focus_exited():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres")
-	print("Selection Exited")
+
 
 func instantiate_unit_draft_selector():
 	if unit is Unit:
