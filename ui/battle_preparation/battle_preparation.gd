@@ -9,7 +9,15 @@ var save_file_name = "PlayerOverworldSave.tres"
 @onready var main_container = $MarginContainer/VBoxContainer/MainContainer
 
 const unit_detailed_info_scene = preload("res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tscn")
+const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
+enum PREPARATION_STATE{
+	NEUTRAL, TRADE, MARKET
+}
+
+@onready var current_prep_state = PREPARATION_STATE.NEUTRAL
+
+@onready var focused_unit : Unit
 
 func _ready():
 	load_data()
@@ -20,6 +28,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
 		save()
 		get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
+	if Input.is_action_just_pressed("trade_menu"):
+		current_prep_state = PREPARATION_STATE.TRADE
+		update_convoy_container_state(focused_unit)
 
 func save():
 	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
@@ -43,8 +54,19 @@ func clear_screen():
 		else:
 			children[child_index].queue_free()
 
-func _on_army_convoy_container_unit_focused(unit):
+func update_convoy_container_state(unit):
 	clear_screen()
-	var unit_detailed_info = unit_detailed_info_scene.instantiate()
-	unit_detailed_info.unit = unit
-	main_container.add_child(unit_detailed_info)
+	match current_prep_state:
+		PREPARATION_STATE.NEUTRAL:
+			var unit_detailed_info = unit_detailed_info_scene.instantiate()
+			unit_detailed_info.unit = unit
+			main_container.add_child(unit_detailed_info)
+		PREPARATION_STATE.TRADE:
+			var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
+			unit_detailed_simple_info.unit = unit
+			main_container.add_child(unit_detailed_simple_info)
+
+func _on_army_convoy_container_unit_focused(unit):
+	focused_unit = unit
+	current_prep_state = PREPARATION_STATE.NEUTRAL
+	update_convoy_container_state(unit)

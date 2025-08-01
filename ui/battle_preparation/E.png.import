@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j204awg3vg1a"
-path="res://.godot/imported/Faction Banner.png-950efe5373da5adf57cc6f1ed5531390.ctex"
+uid="uid://bi66ix4d3aeh0"
+path="res://.godot/imported/E.png-01ed134daab91c255e1487e4a5d94984.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/battle_preparation/unit_detailed_info/Faction Banner.png"
-dest_files=["res://.godot/imported/Faction Banner.png-950efe5373da5adf57cc6f1ed5531390.ctex"]
+source_file="res://ui/battle_preparation/E.png"
+dest_files=["res://.godot/imported/E.png-01ed134daab91c255e1487e4a5d94984.ctex"]
 
 [params]
 

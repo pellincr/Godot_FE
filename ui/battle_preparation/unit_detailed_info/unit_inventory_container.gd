@@ -7,6 +7,7 @@ extends VBoxContainer
 @onready var inventory_slot_5 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5
 
 @onready var inventory_slot_array = [inventory_slot_1,inventory_slot_2,inventory_slot_3,inventory_slot_4,inventory_slot_5]
+const equipped_icon = preload("res://ui/battle_preparation/E.png")
 
 var unit :Unit
 
@@ -30,5 +31,14 @@ func update_by_unit():
 	for slot_index in inventory_slot_array.size():
 		if slot_index < unit.inventory.items.size():
 			set_inventory_slot(unit.inventory.items[slot_index], inventory_slot_array[slot_index])
+			if unit.inventory.items[slot_index] == unit.inventory.equipped:
+				var texture = TextureRect.new()
+				texture.texture = equipped_icon
+				inventory_slot_array[slot_index].inventory_item_icon.add_child(texture)
 		else:
 			clear_slot(inventory_slot_array[slot_index])
+
+
+func _on_item_equipped(item):
+	unit.set_equipped(item)
+	update_by_unit()

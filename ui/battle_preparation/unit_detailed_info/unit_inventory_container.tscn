@@ -49,3 +49,9 @@ layout_mode = 2
 
 [node name="InventoryContainerSlot5" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
+
+[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_equipped"]
+[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_equipped"]
+[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_equipped"]
+[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_equipped"]
+[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_item_equipped"]

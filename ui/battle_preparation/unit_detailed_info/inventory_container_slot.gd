@@ -1,9 +1,11 @@
-extends HBoxContainer
+extends Panel
 
-@onready var inventory_item_icon = $LeftContainer/InventoryItemIcon
-@onready var item_name_label = $LeftContainer/ItemNameLabel
-@onready var item_uses_label = $UsesLabel
-@onready var left_container = $LeftContainer
+signal set_equippped(item)
+
+@onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
+@onready var item_name_label = $HBoxContainer/LeftContainer/ItemNameLabel
+@onready var item_uses_label = $HBoxContainer/UsesLabel
+@onready var left_container = $HBoxContainer/LeftContainer
 
 var item : ItemDefinition
 
@@ -11,6 +13,9 @@ func _ready():
 	if item != null:
 		update_by_item()
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_confirm") and self.has_focus():
+		set_equippped.emit(item)
 
 func set_invetory_item_icon(icon:Texture2D):
 	if icon:
@@ -35,8 +40,14 @@ func set_item_uses(uses):
 	else:
 		item_uses_label.text = ""
 
+func clear_icons():
+	var children = left_container.get_children()
+	for child in children:
+		if child is TextureRect:
+			child.queue_free()
 
 func update_item_type_icon_by_item():
+	clear_icons()
 	var icon = TextureRect.new()
 	if item is WeaponDefinition:
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:
@@ -123,3 +134,17 @@ func update_item_type_icon_by_item():
 			icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 			left_container.add_child(icon)
+
+
+func _on_focus_entered():
+	var focus_theme = preload("res://ui/battle_preparation/inventory_focused.tres")
+	self.theme = focus_theme
+
+
+func _on_focus_exited():
+	var un_focus_theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")
+	self.theme = un_focus_theme
+
+
+func _on_mouse_entered():
+	grab_focus()

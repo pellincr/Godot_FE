@@ -52,8 +52,10 @@ func update_by_unit():
 	unit_stat_progression.unit = unit
 	unit_stat_progression.update_by_unit()
 	set_unit_name_label(unit.name)
-	set_hp_value(unit.stats.hp)
-	set_hp_bar(unit.stats.hp)
+	set_hp_value(unit.hp)
+	set_hp_bar(unit.hp)
 	unit_inventory_container.unit = unit
 	unit_inventory_container.update_by_unit()
 	update_unit_icon(unit.icon)
+	combat_stats_container.unit = unit
+	combat_stats_container.update_by_unit()
