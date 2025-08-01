@@ -16,6 +16,9 @@ func _ready():
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.fill_army_scroll_container()
 
+func _process(delta):
+	if Input.is_action_just_pressed("start_game"):
+		get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
 
 
 func load_data():
