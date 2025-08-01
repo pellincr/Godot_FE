@@ -88,8 +88,8 @@ func _ready():
 	var current_party_index = 0 #(0,9) (2,15)
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
-			if !(current_party_index >= playerOverworldData.total_party.size()):
-				add_combatant(create_combatant_unit(playerOverworldData.total_party[current_party_index],0),Vector2i(i,j))
+			if !(current_party_index >= playerOverworldData.selected_party.size()):
+				add_combatant(create_combatant_unit(playerOverworldData.selected_party[current_party_index],0),Vector2i(i,j))
 				current_party_index+= 1
 	#for unit_index in playerOverworldData.total_party.size():
 	#	add_combatant(create_combatant_unit(playerOverworldData.total_party[unit_index],0),Vector2i(8+unit_index,14))

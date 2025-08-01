@@ -1,7 +1,7 @@
 extends VBoxContainer
 
 signal unit_focused(unit)
-signal unit_selected(unit)
+#signal unit_selected(unit)
 
 
 var playerOverworldData : PlayerOverworldData
@@ -25,6 +25,10 @@ var current_container_state = CONTAINER_STATE.ARMY
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
+		
+	var current_selected_count = playerOverworldData.selected_party.size()
+	var max_selected_count = playerOverworldData.available_party_capacity
+	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
 	fill_army_scroll_container()
 
 func set_po_data(po_data):
@@ -35,8 +39,11 @@ func fill_army_scroll_container():
 	for unit in playerOverworldData.total_party:
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
 		unit_army_panel_container.unit = unit
+		unit_army_panel_container.set_po_data(playerOverworldData)
 		main_scroll_container.add_child(unit_army_panel_container)
 		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
+		unit_army_panel_container.unit_selected.connect(_on_unit_selected)
+		unit_army_panel_container.unit_deselected.connect(_on_unit_deselected)
 	var test = main_scroll_container.get_child(0)
 	if(test):
 		test.grab_focus()
@@ -68,3 +75,13 @@ func _on_army_convoy_header_header_swapped():
 
 func unit_focus_entered(unit):
 	unit_focused.emit(unit)
+
+func _on_unit_selected(unit):
+	var current_selected_count = playerOverworldData.selected_party.size()
+	var max_selected_count = playerOverworldData.available_party_capacity
+	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
+
+func _on_unit_deselected(unit):
+	var current_selected_count = playerOverworldData.selected_party.size()
+	var max_selected_count = playerOverworldData.available_party_capacity
+	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)

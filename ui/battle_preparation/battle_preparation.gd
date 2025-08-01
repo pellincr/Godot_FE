@@ -17,9 +17,15 @@ func _ready():
 	army_convoy_container.fill_army_scroll_container()
 
 func _process(delta):
-	if Input.is_action_just_pressed("start_game"):
+	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
+		save()
 		get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
 
+func save():
+	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
+		DirAccess.make_dir_absolute(SelectedSaveFile.selected_save_path)
+	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + save_file_name)
+	print("Saved")
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)

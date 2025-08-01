@@ -20,7 +20,7 @@ func _process(delta):
 
 
 func set_units_left_value(left, total):
-	units_left_value_label.text = str(left) + "/" + total
+	units_left_value_label.text = str(left) + "/" + str(total)
 
 
 func set_left_header_label(text):

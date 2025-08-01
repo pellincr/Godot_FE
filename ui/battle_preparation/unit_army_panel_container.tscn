@@ -55,4 +55,3 @@ theme_override_icons/checked = ExtResource("4_qykro")
 theme_override_icons/unchecked = ExtResource("5_wec2y")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/Panel/HBoxContainer/CheckBox" to="." method="_on_check_box_pressed"]

@@ -10,18 +10,30 @@ signal unit_deselected(unit)
 @onready var unit_name_label = $MarginContainer/Panel/HBoxContainer/HBoxContainer/UnitNameLabel
 @onready var unit_icon = $MarginContainer/Panel/HBoxContainer/HBoxContainer/UnitIcon
 
+var playerOverworldData : PlayerOverworldData
+
 var unit : Unit
 
 var focus_fired = false
 
 
 func _ready():
+	if playerOverworldData == null:
+		playerOverworldData = PlayerOverworldData.new()
 	if unit!= null:
 		update_by_unit()
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_confirm") and self.has_focus():
-		check_box.button_pressed = !check_box.button_pressed
+		if !check_box.button_pressed:
+			if check_available_space():
+				check_box.button_pressed = true
+				playerOverworldData.append_to_array(playerOverworldData.selected_party,unit)
+				unit_selected.emit(unit)
+		else:
+			check_box.button_pressed = false
+			playerOverworldData.selected_party.erase(unit)
+			unit_deselected.emit(unit)
 		
 	if self.has_focus():
 		#If the panel is the one that is currently focused
@@ -39,13 +51,8 @@ func _process(delta):
 		else:
 			self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected.tres")
 
-
-
-func _on_check_box_pressed():
-	if check_box.button_pressed:
-		unit_selected.emit()
-	else:
-		unit_deselected.emit()
+func set_po_data(po_data):
+	playerOverworldData = po_data
 
 
 
@@ -65,3 +72,8 @@ func set_unit_icon(icon):
 func update_by_unit():
 	set_unit_name_label(unit.name)
 	set_unit_icon(unit.icon)
+
+func check_available_space():
+	var current_party_size = playerOverworldData.selected_party.size()
+	var max_party_size = playerOverworldData.available_party_capacity
+	return current_party_size < max_party_size
