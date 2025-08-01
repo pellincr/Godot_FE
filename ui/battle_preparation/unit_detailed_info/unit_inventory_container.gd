@@ -1,0 +1,34 @@
+extends VBoxContainer
+
+@onready var inventory_slot_1 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
+@onready var inventory_slot_2 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
+@onready var inventory_slot_3 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3
+@onready var inventory_slot_4 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4
+@onready var inventory_slot_5 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5
+
+@onready var inventory_slot_array = [inventory_slot_1,inventory_slot_2,inventory_slot_3,inventory_slot_4,inventory_slot_5]
+
+var unit :Unit
+
+
+func _ready():
+	if unit != null:
+		update_by_unit()
+
+
+func clear_slot(inventory_slot):
+	inventory_slot.set_item_name_label("")
+	inventory_slot.set_item_uses(-1)
+	inventory_slot.set_invetory_item_icon(null)
+
+func set_inventory_slot(item:ItemDefinition, slot):
+	if item != null:
+		slot.item = item
+		slot.update_by_item()
+
+func update_by_unit():
+	for slot_index in inventory_slot_array.size():
+		if slot_index < unit.inventory.items.size():
+			set_inventory_slot(unit.inventory.items[slot_index], inventory_slot_array[slot_index])
+		else:
+			clear_slot(inventory_slot_array[slot_index])

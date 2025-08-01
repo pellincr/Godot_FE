@@ -19,8 +19,14 @@ extends VBoxContainer
 @onready var undead_icon = $TraitsContainer/UndeadIcon
 @onready var flier_icon = $TraitsContainer/FlierIcon
 
+var unit : Unit
 
-func set_icon_visibility(unit:Unit):
+func _ready():
+	if unit!= null:
+		set_icon_visibility()
+
+
+func set_icon_visibility():
 	var usable_weapons = unit.usable_weapon_types
 	var traits = unit.traits
 	#Weapons

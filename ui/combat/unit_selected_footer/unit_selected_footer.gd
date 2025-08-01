@@ -25,7 +25,12 @@ func set_unit(u: CombatUnit):
 	update()
 
 func update():
-	var _unit_type_info : UnitTypeDefinition= UnitTypeDatabase.unit_types[unit.unit.unit_type_key]
+	var unit_type
+	if UnitTypeDatabase.unit_types.keys().has(unit.unit.unit_type_key):
+		unit_type = UnitTypeDatabase.unit_types[unit.unit.unit_type_key]
+	else:
+		unit_type = CommanderDatabase.commander_types[unit.unit.unit_type_key]
+	var _unit_type_info : UnitTypeDefinition= unit_type
 	#Left Panel
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/UnitTypeLabel.text = _unit_type_info.unit_type_name
 	level_container.set_level_label(unit.unit.level)

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://dm8fw53ceseeg"]
+
+[ext_resource type="Resource" uid="uid://dmexg4wukafg" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden_base_combat_stats.tres" id="1_4dc41"]
+[ext_resource type="Resource" uid="uid://bfdb8emvke7p5" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden_growth_stats.tres" id="2_10w6k"]
+[ext_resource type="Texture2D" uid="uid://coy6oot65wabn" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden.png" id="3_puh25"]
+[ext_resource type="Resource" uid="uid://42m8darfyekk" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden_max_stats.tres" id="4_wwfbf"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_fkjew"]
+
+[resource]
+script = ExtResource("5_fkjew")
+boon = ""
+bane = ""
+unit_type_name = "War Maiden"
+db_key = "war_maiden"
+description = ""
+initiative = 1
+faction = Array[int]([0])
+traits = Array[int]([])
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([1, 0])
+base_stats = ExtResource("1_4dc41")
+maxuimum_stats = ExtResource("4_wwfbf")
+growth_stats = ExtResource("2_10w6k")
+icon = ExtResource("3_puh25")
+map_sprite = ExtResource("3_puh25")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://om16g0kfxkyu"]
+
+[ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_2j6a7"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.gd" id="2_jq5k8"]
+[ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_kdenh"]
+
+[sub_resource type="Theme" id="Theme_if1ym"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_61c5o"]
+default_font_size = 24
+
+[node name="InventoryContainerSlot" type="HBoxContainer"]
+custom_minimum_size = Vector2(270, 32)
+theme = ExtResource("1_2j6a7")
+script = ExtResource("2_jq5k8")
+
+[node name="LeftContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="InventoryItemIcon" parent="LeftContainer" instance=ExtResource("3_kdenh")]
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="LeftContainer"]
+layout_mode = 2
+theme = SubResource("Theme_if1ym")
+text = "Item Name"
+
+[node name="UsesLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 10
+theme = SubResource("Theme_61c5o")
+text = "30"

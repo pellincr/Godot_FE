@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://cr636d16kh3r2"]
+
+[ext_resource type="Resource" uid="uid://dphsqikk7vylk" path="res://resources/definitions/unit_types/commanders/destroyer/destroyer_base_combat_stats.tres" id="1_q6tg0"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_xd7b1"]
+[ext_resource type="Resource" uid="uid://c2j30ce2pn633" path="res://resources/definitions/unit_types/commanders/destroyer/destroyer_growth_stats.tres" id="2_671sg"]
+[ext_resource type="Texture2D" uid="uid://chhc11jvnl7og" path="res://resources/sprites/units/Destroyer.png" id="3_wi1q1"]
+[ext_resource type="Resource" uid="uid://b826hu6gpeql3" path="res://resources/definitions/unit_types/commanders/destroyer/destroyer_max_stats.tres" id="4_xqus2"]
+
+[resource]
+script = ExtResource("1_xd7b1")
+boon = ""
+bane = ""
+unit_type_name = "Destroyer"
+db_key = "destroyer"
+description = ""
+initiative = 1
+faction = Array[int]([0])
+traits = Array[int]([])
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([0, 3])
+base_stats = ExtResource("1_q6tg0")
+maxuimum_stats = ExtResource("4_xqus2")
+growth_stats = ExtResource("2_671sg")
+icon = ExtResource("3_wi1q1")
+map_sprite = ExtResource("3_wi1q1")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

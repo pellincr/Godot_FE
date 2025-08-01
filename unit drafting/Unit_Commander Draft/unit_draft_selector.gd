@@ -151,8 +151,9 @@ func instantiate_unit_draft_selector():
 
 func randomize_selection():
 	var all_unit_classes = UnitTypeDatabase.unit_types.keys()
+	var all_commander_classes = CommanderDatabase.commander_types.keys()
 	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
-	var new_randomized_pick = all_unit_classes.pick_random()
+	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the batch of recruits is supposed to be filtered by
 		var current_archetype_pick = playerOverworldData.archetype_allotments[0]
@@ -172,6 +173,7 @@ func randomize_selection():
 			unit = new_recruit
 	else:
 		#For Commander Drafting
+		new_randomized_pick = all_commander_classes.pick_random()
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
@@ -210,14 +212,19 @@ func get_random_rarity():
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
 	var deviation = 1.75
-	var health_rand = clampi(randfn( 0, 3), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.hp, 10) 
-	var strength_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.strength, 4) 
-	var magic_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.magic, 4) 
-	var skill_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.skill, 4) 
-	var speed_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.speed, 4) 
-	var luck_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.luck, 4) 
-	var defense_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.defense, 4) 
-	var resistance_rand = clampi(randfn( 0, deviation), - UnitTypeDatabase.unit_types[unit_type_key].base_stats.resistance, 4) 
+	var unit_type : UnitTypeDefinition
+	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
+		unit_type = UnitTypeDatabase.unit_types[unit_type_key]
+	else:
+		unit_type = CommanderDatabase.commander_types[unit_type_key]
+	var health_rand = clampi(randfn( 0, 3), - unit_type.base_stats.hp, 10) 
+	var strength_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.strength, 4) 
+	var magic_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.magic, 4) 
+	var skill_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.skill, 4) 
+	var speed_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.speed, 4) 
+	var luck_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.luck, 4) 
+	var defense_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.defense, 4) 
+	var resistance_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.resistance, 4) 
 	stats.hp = health_rand
 	stats.strength = strength_rand
 	stats.magic = magic_rand
@@ -230,14 +237,19 @@ func randomize_unit_stats(unit_character, unit_type_key):
 
 func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
-	var health_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.hp, 40) 
-	var strength_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.strength, 20) 
-	var magic_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.magic, 20) 
-	var skill_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.skill, 20) 
-	var speed_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.speed, 20) 
-	var luck_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.luck, 20) 
-	var defense_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.defense, 20) 
-	var resistance_rand = clampi(randfn( 0, 10), - UnitTypeDatabase.unit_types[unit_type_key].growth_stats.resistance, 20) 
+	var unit_type : UnitTypeDefinition
+	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
+		unit_type = UnitTypeDatabase.unit_types[unit_type_key]
+	else:
+		unit_type = CommanderDatabase.commander_types[unit_type_key]
+	var health_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.hp, 40) 
+	var strength_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.strength, 20) 
+	var magic_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.magic, 20) 
+	var skill_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.skill, 20) 
+	var speed_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.speed, 20) 
+	var luck_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.luck, 20) 
+	var defense_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.defense, 20) 
+	var resistance_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.resistance, 20) 
 	growths.hp = health_rand
 	growths.strength = strength_rand
 	growths.magic = magic_rand
@@ -253,6 +265,8 @@ func randomize_unit_growths(unit_character, unit_type_key):
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
 	var inventory: Array[ItemDefinition]
 	var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(unit_class)
+	if unit_type == null:
+		unit_type = CommanderDatabase.commander_types.get(unit_class)
 	var weapon_types = unit_type.usable_weapon_types
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
@@ -291,7 +305,12 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 func update_information():
 	if unit is Unit:
 		set_name_label(unit.name)
-		set_class_label(UnitTypeDatabase.unit_types.get(unit.unit_type_key).unit_type_name)
+		var unit_type
+		if UnitTypeDatabase.unit_types.keys().has(unit.unit_type_key):
+			unit_type = UnitTypeDatabase.unit_types.get(unit.unit_type_key)
+		else:
+			unit_type = CommanderDatabase.commander_types.get(unit.unit_type_key)
+		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)
 		unit_growth_grade = get_growth_grade(get_unit_growth_difference_total())
 		unit_stat_grade = get_stat_grade(get_unit_stat_difference_total())

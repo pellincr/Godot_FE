@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://b8y5bf7xcsh5m"]
+
+[ext_resource type="Resource" uid="uid://686gqeg8ub5a" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master_base_combat_stats.tres" id="1_0jhw2"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_88pgv"]
+[ext_resource type="Resource" uid="uid://cvknqxd1t1etv" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master_growth_stats.tres" id="2_sknta"]
+[ext_resource type="Texture2D" uid="uid://d17yuiiieqj6x" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master.png" id="3_j6iv0"]
+[ext_resource type="Resource" uid="uid://fixnki8cxr17" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master_max_stats.tres" id="4_gnl4o"]
+
+[resource]
+script = ExtResource("1_88pgv")
+boon = ""
+bane = ""
+unit_type_name = "Weapon Master"
+db_key = "weapon_master"
+description = ""
+initiative = 1
+faction = Array[int]([1])
+traits = Array[int]([])
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([0, 3, 1, 12, 4])
+base_stats = ExtResource("1_0jhw2")
+maxuimum_stats = ExtResource("4_gnl4o")
+growth_stats = ExtResource("2_sknta")
+icon = ExtResource("3_j6iv0")
+map_sprite = ExtResource("3_j6iv0")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

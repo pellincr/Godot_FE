@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://b811vvt2heb2i"]
+
+[ext_resource type="Resource" uid="uid://k7x7lwpr4le5" path="res://resources/definitions/unit_types/units/brawler/brawler_base_combat_stats.tres" id="1_j0clh"]
+[ext_resource type="Resource" uid="uid://cpao0lhvbmgy2" path="res://resources/definitions/unit_types/units/brawler/brawler_growth_stats.tres" id="2_jewuc"]
+[ext_resource type="Texture2D" uid="uid://coxs2ya4a8sua" path="res://resources/sprites/units/brawler.png" id="3_g1ir4"]
+[ext_resource type="Resource" uid="uid://csefbxtabk70d" path="res://resources/definitions/unit_types/units/brawler/brawler_max_stats.tres" id="4_uab6d"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_yb7oa"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="5_nud0f"]
+
+[resource]
+script = ExtResource("4_yb7oa")
+unit_type_name = "Brawler"
+db_key = "brawler"
+description = "Fearless frontline pugilists who anchor combat with pure grit and fists of iron."
+initiative = 1
+faction = Array[int]([0])
+traits = Array[int]([])
+unit_rarity = ExtResource("5_nud0f")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([4])
+base_stats = ExtResource("1_j0clh")
+maxuimum_stats = ExtResource("4_uab6d")
+growth_stats = ExtResource("2_jewuc")
+icon = ExtResource("3_g1ir4")
+map_sprite = ExtResource("3_g1ir4")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

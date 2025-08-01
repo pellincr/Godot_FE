@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6s873w31dy32"]
+
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="1_cg485"]
+[ext_resource type="Script" path="res://ui/battle_preparation/battle_preparation.gd" id="1_gqlkl"]
+[ext_resource type="PackedScene" uid="uid://c6xka1fqiwxly" path="res://ui/battle_preparation/army_convoy_container.tscn" id="2_ubgvf"]
+
+[sub_resource type="Theme" id="Theme_qdpfk"]
+default_font_size = 36
+
+[node name="BattlePreparation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gqlkl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 364.0
+offset_bottom = 525.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PrepareForBattleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_qdpfk")
+text = "Prepare For Battle!"
+uppercase = true
+
+[node name="GoldCounter" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_cg485")]
+layout_mode = 2
+
+[node name="MainContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ArmyConvoyContainer" parent="MarginContainer/VBoxContainer/MainContainer" instance=ExtResource("2_ubgvf")]
+layout_mode = 2
+
+[connection signal="unit_hovered" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_unit_hovered"]
