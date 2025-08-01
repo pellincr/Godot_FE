@@ -14,10 +14,10 @@ texture = SubResource("GradientTexture1D_n7cmy")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbyrm"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 
 [resource]
 default_font = ExtResource("1_ey1g7")

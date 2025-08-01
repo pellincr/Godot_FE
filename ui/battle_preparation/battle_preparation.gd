@@ -26,14 +26,16 @@ func load_data():
 	print("Loaded")
 
 
+func clear_screen():
+	var children = main_container.get_children()
+	for child_index in children.size():
+		if child_index == 0:
+			pass
+		else:
+			children[child_index].queue_free()
 
-func _on_army_convoy_container_unit_hovered(unit):
+func _on_army_convoy_container_unit_focused(unit):
+	clear_screen()
 	var unit_detailed_info = unit_detailed_info_scene.instantiate()
 	unit_detailed_info.unit = unit
 	main_container.add_child(unit_detailed_info)
-	
-
-func _on_army_convoy_container_unit_exited():
-	if main_container:
-		var last_child = main_container.get_children()[-1]
-		last_child.queue_free()

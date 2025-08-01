@@ -1,7 +1,8 @@
 extends VBoxContainer
 
-signal unit_hovered
-signal unit_exited
+signal unit_focused(unit)
+signal unit_selected(unit)
+
 
 var playerOverworldData : PlayerOverworldData
 
@@ -35,8 +36,10 @@ func fill_army_scroll_container():
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
 		unit_army_panel_container.unit = unit
 		main_scroll_container.add_child(unit_army_panel_container)
-		unit_army_panel_container.connect("unit_hovered",_on_unit_hovered)
-		unit_army_panel_container.connect("unit_exited",_on_unit_exited)
+		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
+	var test = main_scroll_container.get_child(0)
+	if(test):
+		test.grab_focus()
 
 func fill_convoy_scroll_container():
 	var i = 0
@@ -62,8 +65,6 @@ func _on_army_convoy_header_header_swapped():
 			clear_scroll_scontainer()
 			fill_army_scroll_container()
 
-func _on_unit_hovered(unit):
-	unit_hovered.emit(unit)
 
-func _on_unit_exited():
-	unit_exited.emit()
+func unit_focus_entered(unit):
+	unit_focused.emit(unit)
