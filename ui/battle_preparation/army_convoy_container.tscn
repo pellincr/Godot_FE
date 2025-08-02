@@ -1,23 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6xka1fqiwxly"]
+[gd_scene load_steps=4 format=3 uid="uid://c6xka1fqiwxly"]
 
 [ext_resource type="PackedScene" uid="uid://bhy33tuj3lkfn" path="res://ui/battle_preparation/army_convoy_header.tscn" id="1_3wg2b"]
 [ext_resource type="Script" path="res://ui/battle_preparation/army_convoy_container.gd" id="1_xsht2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5xb1"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te6ls"]
-content_margin_left = 3.0
-content_margin_right = 3.0
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="Theme" id="Theme_g2sue"]
-VScrollBar/styles/grabber = SubResource("StyleBoxFlat_w5xb1")
-VScrollBar/styles/scroll = SubResource("StyleBoxFlat_te6ls")
+[ext_resource type="PackedScene" uid="uid://hglqfyvm0o11" path="res://ui/battle_preparation/army_convoy_sub_container.tscn" id="3_qa5ip"]
 
 [node name="ArmyConvoyContainer" type="VBoxContainer"]
 offset_right = 217.0
@@ -28,23 +13,12 @@ script = ExtResource("1_xsht2")
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="ArmyConvoySubContainer" parent="." instance=ExtResource("3_qa5ip")]
 layout_mode = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(315, 407)
-layout_direction = 3
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme = SubResource("Theme_g2sue")
-follow_focus = true
-scroll_deadzone = -1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer"]
-layout_direction = 2
-layout_mode = 2
-theme_override_constants/separation = 0
 alignment = 1
 
 [connection signal="header_swapped" from="ArmyConvoyHeader" to="." method="_on_army_convoy_header_header_swapped"]
+[connection signal="item_focused" from="ArmyConvoySubContainer" to="." method="item_focus_entered"]
+[connection signal="unit_deselected" from="ArmyConvoySubContainer" to="." method="_on_unit_deselected"]
+[connection signal="unit_focused" from="ArmyConvoySubContainer" to="." method="unit_focus_entered"]
+[connection signal="unit_selected" from="ArmyConvoySubContainer" to="." method="_on_unit_selected"]
