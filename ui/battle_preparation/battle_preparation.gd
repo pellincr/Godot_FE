@@ -11,16 +11,18 @@ var save_file_name = "PlayerOverworldSave.tres"
 const unit_detailed_info_scene = preload("res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tscn")
 const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
-const item_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/item_detailed_info.tscn")
+const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+
+const shop_container_scene = preload("res://ui/battle_preparation/shop/shop_container.tscn")
 
 enum PREPARATION_STATE{
-	NEUTRAL, TRADE, MARKET
+	NEUTRAL, TRADE, SHOP
 }
 
 @onready var current_prep_state = PREPARATION_STATE.NEUTRAL
 
-@onready var focused_unit : Unit
-@onready var focused_item : ItemDefinition
+@onready var focused_selection
+
 
 func _ready():
 	load_data()
@@ -33,7 +35,10 @@ func _process(delta):
 		get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
 	if Input.is_action_just_pressed("trade_menu"):
 		current_prep_state = PREPARATION_STATE.TRADE
-		update_convoy_container_state(focused_unit)
+		update_army_convoy_container_state()
+	if Input.is_action_just_pressed("shop"):
+		current_prep_state = PREPARATION_STATE.SHOP
+		update_army_convoy_container_state()
 
 func save():
 	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
@@ -57,29 +62,28 @@ func clear_screen():
 		else:
 			children[child_index].queue_free()
 
-func update_convoy_container_state(focused_selection):
+func update_army_convoy_container_state():
 	clear_screen()
 	match current_prep_state:
 		PREPARATION_STATE.NEUTRAL:
-			if focused_selection is Unit:
-				var unit_detailed_info = unit_detailed_info_scene.instantiate()
-				unit_detailed_info.unit = focused_selection
-				main_container.add_child(unit_detailed_info)
-			elif focused_selection is ItemDefinition:
-				var item_detailed_info = item_detailed_info_scene.instantiate()
-				item_detailed_info.item = focused_item
-				main_container.add_child(item_detailed_info)
-				item_detailed_info.update_by_item()
+			open_detailed_selection_view()
 		PREPARATION_STATE.TRADE:
 			if focused_selection is Unit:
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
 				main_container.add_child(unit_detailed_simple_info)
+		PREPARATION_STATE.SHOP:
+			if focused_selection is Unit:
+				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
+				unit_detailed_simple_info.unit = focused_selection
+				main_container.add_child(unit_detailed_simple_info)
+			var shop = shop_container_scene.instantiate()
+			main_container.add_child(shop)
 
 func _on_army_convoy_container_unit_focused(unit):
-	focused_unit = unit
+	focused_selection = unit
 	current_prep_state = PREPARATION_STATE.NEUTRAL
-	update_convoy_container_state(unit)
+	update_army_convoy_container_state()
 
 
 func _on_army_convoy_container_header_swapped():
@@ -87,6 +91,17 @@ func _on_army_convoy_container_header_swapped():
 
 
 func _on_army_convoy_container_item_focused(item):
-	focused_item = item
+	focused_selection = item
 	current_prep_state = PREPARATION_STATE.NEUTRAL
-	update_convoy_container_state(item)
+	update_army_convoy_container_state()
+
+func open_detailed_selection_view():
+	if focused_selection is Unit:
+		var unit_detailed_info = unit_detailed_info_scene.instantiate()
+		unit_detailed_info.unit = focused_selection
+		main_container.add_child(unit_detailed_info)
+	elif focused_selection is ItemDefinition:
+		var item_detailed_info = weapon_detailed_info_scene.instantiate()
+		item_detailed_info.item = focused_selection
+		main_container.add_child(item_detailed_info)
+		item_detailed_info.update_by_item()

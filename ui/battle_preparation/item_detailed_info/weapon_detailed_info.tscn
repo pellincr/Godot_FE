@@ -1,0 +1,121 @@
+[gd_scene load_steps=13 format=3 uid="uid://uij42thge1m2"]
+
+[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
+[ext_resource type="Script" path="res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
+[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
+[ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
+[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/iron_lance.tres" id="5_4kelt"]
+
+[sub_resource type="Theme" id="Theme_trk22"]
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_wgwh4"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_6j0ny"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_lk4wk"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_cxk82"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_kpjqg"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_4pt76"]
+default_font_size = 12
+
+[node name="WeaponDetailedInfo" type="Panel"]
+custom_minimum_size = Vector2(250, 460)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_ccack")
+script = ExtResource("2_0w8q6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 249.0
+offset_bottom = 459.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_trk22")
+text = "Item Name"
+
+[node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_wgwh4")
+
+[node name="ItemTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "Item Type"
+
+[node name="-" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "Item subtype"
+
+[node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xvemf")]
+layout_mode = 2
+
+[node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(158, 72)
+layout_mode = 2
+theme = SubResource("Theme_6j0ny")
+text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
+autowrap_mode = 3
+
+[node name="WeaponStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_6v2xw")]
+layout_mode = 2
+
+[node name="StatAugmentContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatAugmentHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/StatAugmentContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_lk4wk")
+text = "Stat Augment"
+
+[node name="StatAugmentLabel" type="Label" parent="MarginContainer/VBoxContainer/StatAugmentContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cxk82")
+text = "+1 Resistance, +1 Health, +3 Strength -3 Magic, -2 Stat"
+
+[node name="SpecialTraitContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpecialHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialTraitContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_kpjqg")
+text = "Special"
+
+[node name="SpecialValueLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialTraitContainer"]
+layout_mode = 2
+theme = SubResource("Theme_4pt76")
+text = "Life Steal, Brave, Massive"
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_left = 184.0
+offset_top = 23.0
+offset_right = 248.0
+offset_bottom = 87.0
+texture = ExtResource("5_4kelt")
