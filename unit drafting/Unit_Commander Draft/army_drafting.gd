@@ -175,8 +175,6 @@ func clear_archetype_icons():
 		child.queue_free()
 
 
-
-
 func set_army_draft_stage_label(text):
 	army_draft_stage_label.text = text
 

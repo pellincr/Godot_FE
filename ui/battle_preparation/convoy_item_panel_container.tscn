@@ -14,6 +14,7 @@ default_font_size = 24
 custom_minimum_size = Vector2(300, 50)
 offset_right = 300.0
 offset_bottom = 50.0
+focus_mode = 2
 theme = ExtResource("1_ouvs0")
 script = ExtResource("2_2qk5x")
 
@@ -55,4 +56,3 @@ theme = SubResource("Theme_w0oe3")
 text = "35"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

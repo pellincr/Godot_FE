@@ -12,14 +12,18 @@ func _ready():
 	item = ItemDatabase.items["iron_axe"]
 	update_by_item()
 
+func _process(delta):
+	if self.has_focus():
+		item_name_label.self_modulate = "FFFFFF"
+		self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected_hovered.tres")
+	else:
+		self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected.tres")
+		item_name_label.self_modulate = "828282"
 
 func _on_mouse_entered():
-	self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected_hovered.tres")
+	grab_focus()
 
 
-
-func _on_mouse_exited():
-	self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected.tres")
 
 func set_item_icon(texture):
 	item_icon.texture = texture

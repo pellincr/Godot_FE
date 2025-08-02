@@ -441,7 +441,7 @@ func can_equip(item:ItemDefinition) -> bool:
 func set_equipped(item : ItemDefinition):
 	if can_equip(item):
 		inventory.set_equipped(item)
-		#update_stats()
+		update_stats()
 		print(self.name + " equipped : " + item.name)
 
 func get_equippable_weapons() ->  Array[WeaponDefinition]:

@@ -46,7 +46,7 @@ func set_unit_name_label(name):
 
 func update_by_unit():
 	weapon_icon_container.unit = unit
-	weapon_icon_container.set_icon_visibility()
+	weapon_icon_container.set_icon_visibility_unit()
 	unit_experience_container.unit = unit
 	unit_experience_container.update_by_unit()
 	unit_stat_progression.unit = unit
@@ -57,5 +57,10 @@ func update_by_unit():
 	unit_inventory_container.unit = unit
 	unit_inventory_container.update_by_unit()
 	update_unit_icon(unit.icon)
+	combat_stats_container.unit = unit
+	combat_stats_container.update_by_unit()
+
+
+func _on_unit_inventory_container_item_equipped(item):
 	combat_stats_container.unit = unit
 	combat_stats_container.update_by_unit()

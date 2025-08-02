@@ -44,4 +44,6 @@ layout_mode = 2
 [node name="ArmyConvoyContainer" parent="MarginContainer/VBoxContainer/MainContainer" instance=ExtResource("2_ubgvf")]
 layout_mode = 2
 
+[connection signal="header_swapped" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_header_swapped"]
+[connection signal="item_focused" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_item_focused"]
 [connection signal="unit_focused" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_unit_focused"]

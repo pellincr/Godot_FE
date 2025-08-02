@@ -40,7 +40,7 @@ func update_by_unit():
 	unit_experience_info.unit = unit
 	unit_experience_info.update_by_unit()
 	weapon_icon_container.unit = unit
-	weapon_icon_container.set_icon_visibility()
+	weapon_icon_container.set_icon_visibility_unit()
 	combat_stat_container.unit = unit
 	combat_stat_container.update_by_unit()
 	unit_inventory_container.unit = unit

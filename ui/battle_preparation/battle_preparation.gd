@@ -11,6 +11,8 @@ var save_file_name = "PlayerOverworldSave.tres"
 const unit_detailed_info_scene = preload("res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tscn")
 const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
+const item_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/item_detailed_info.tscn")
+
 enum PREPARATION_STATE{
 	NEUTRAL, TRADE, MARKET
 }
@@ -18,6 +20,7 @@ enum PREPARATION_STATE{
 @onready var current_prep_state = PREPARATION_STATE.NEUTRAL
 
 @onready var focused_unit : Unit
+@onready var focused_item : ItemDefinition
 
 func _ready():
 	load_data()
@@ -54,19 +57,36 @@ func clear_screen():
 		else:
 			children[child_index].queue_free()
 
-func update_convoy_container_state(unit):
+func update_convoy_container_state(focused_selection):
 	clear_screen()
 	match current_prep_state:
 		PREPARATION_STATE.NEUTRAL:
-			var unit_detailed_info = unit_detailed_info_scene.instantiate()
-			unit_detailed_info.unit = unit
-			main_container.add_child(unit_detailed_info)
+			if focused_selection is Unit:
+				var unit_detailed_info = unit_detailed_info_scene.instantiate()
+				unit_detailed_info.unit = focused_selection
+				main_container.add_child(unit_detailed_info)
+			elif focused_selection is ItemDefinition:
+				var item_detailed_info = item_detailed_info_scene.instantiate()
+				item_detailed_info.item = focused_item
+				main_container.add_child(item_detailed_info)
+				item_detailed_info.update_by_item()
 		PREPARATION_STATE.TRADE:
-			var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
-			unit_detailed_simple_info.unit = unit
-			main_container.add_child(unit_detailed_simple_info)
+			if focused_selection is Unit:
+				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
+				unit_detailed_simple_info.unit = focused_selection
+				main_container.add_child(unit_detailed_simple_info)
 
 func _on_army_convoy_container_unit_focused(unit):
 	focused_unit = unit
 	current_prep_state = PREPARATION_STATE.NEUTRAL
 	update_convoy_container_state(unit)
+
+
+func _on_army_convoy_container_header_swapped():
+	clear_screen()
+
+
+func _on_army_convoy_container_item_focused(item):
+	focused_item = item
+	current_prep_state = PREPARATION_STATE.NEUTRAL
+	update_convoy_container_state(item)

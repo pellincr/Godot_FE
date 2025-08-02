@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+signal item_equipped(item)
+
 @onready var inventory_slot_1 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
 @onready var inventory_slot_2 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
 @onready var inventory_slot_3 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3
@@ -38,7 +40,15 @@ func update_by_unit():
 		else:
 			clear_slot(inventory_slot_array[slot_index])
 
+func clear_equipped_symbol():
+	for slot in inventory_slot_array:
+		var children = slot.get_children()
+		for child in children:
+			if child is TextureRect and child.texture == equipped_icon:
+				child.queue_free()
 
 func _on_item_equipped(item):
 	unit.set_equipped(item)
+	clear_equipped_symbol()
 	update_by_unit()
+	item_equipped.emit(item)

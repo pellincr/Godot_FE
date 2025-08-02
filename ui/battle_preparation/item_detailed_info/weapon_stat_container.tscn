@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcteldqbxn7l0"]
+
+[ext_resource type="Script" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
+
+[node name="WeaponStatContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(197, 201)
+script = ExtResource("1_qgpcr")
+
+[node name="DamageContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DamageHeaderLabel" type="Label" parent="DamageContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Damage"
+
+[node name="DamageValueLabel" type="Label" parent="DamageContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="ScalingContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ScalingHeaderLabel" type="Label" parent="ScalingContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Scaling"
+
+[node name="ScalingValueLabel" type="Label" parent="ScalingContainer"]
+layout_mode = 2
+text = "Scaler"
+
+[node name="HitContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HitHeaderLabel" type="Label" parent="HitContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Hit"
+
+[node name="HitValueLabel" type="Label" parent="HitContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="CriticalContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CriticalHeaderLabel" type="Label" parent="CriticalContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Critical"
+
+[node name="CriticalValueLabel" type="Label" parent="CriticalContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="WeightContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="WeightHeaderLabel" type="Label" parent="WeightContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Weight"
+
+[node name="WeightValueLabel" type="Label" parent="WeightContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="DurabilityContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DurabilityHeaderLabel" type="Label" parent="DurabilityContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Durability"
+
+[node name="DurablityValueLabel" type="Label" parent="DurabilityContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="RangeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RangeHeaderLabel" type="Label" parent="RangeContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Range"
+
+[node name="RangeValueLabel" type="Label" parent="RangeContainer"]
+layout_mode = 2
+text = "1-2"
+
+[node name="SpecialContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SpecialHeaderLabel" type="Label" parent="SpecialContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Special"
+
+[node name="SpecialValueLabel" type="Label" parent="SpecialContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="EffectiveContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="EffectiveHeaderLabel" type="Label" parent="EffectiveContainer"]
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+text = "Effective"
+
+[node name="TraitIconContainer" type="HBoxContainer" parent="EffectiveContainer"]
+layout_mode = 2

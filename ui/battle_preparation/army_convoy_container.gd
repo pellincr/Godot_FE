@@ -2,7 +2,8 @@ extends VBoxContainer
 
 signal unit_focused(unit)
 #signal unit_selected(unit)
-
+signal header_swapped()
+signal item_focused(item)
 
 var playerOverworldData : PlayerOverworldData
 
@@ -53,6 +54,9 @@ func fill_convoy_scroll_container():
 	while i < temp:
 		var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
 		main_scroll_container.add_child(convoy_item_panel_container)
+		convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
+		if i == 0:
+			convoy_item_panel_container.grab_focus()
 		i += 1
 
 func clear_scroll_scontainer():
@@ -60,6 +64,8 @@ func clear_scroll_scontainer():
 	for child in children:
 		child.queue_free()
 
+func get_first_scroll_panel():
+	return main_scroll_container.get_child(0)
 
 func _on_army_convoy_header_header_swapped():
 	match current_container_state:
@@ -71,10 +77,14 @@ func _on_army_convoy_header_header_swapped():
 			current_container_state = CONTAINER_STATE.ARMY
 			clear_scroll_scontainer()
 			fill_army_scroll_container()
+	get_first_scroll_panel().grab_focus()
 
 
 func unit_focus_entered(unit):
 	unit_focused.emit(unit)
+
+func item_focus_entered(item):
+	item_focused.emit(item)
 
 func _on_unit_selected(unit):
 	var current_selected_count = playerOverworldData.selected_party.size()
