@@ -9,7 +9,8 @@ extends PanelContainer
 var item : ItemDefinition
 
 func _ready():
-	item = ItemDatabase.items["iron_axe"]
+	if !item:
+		item = ItemDatabase.items["iron_axe"]
 	update_by_item()
 
 func _process(delta):
@@ -40,7 +41,14 @@ func update_by_item():
 	set_item_name_label(item.name)
 	set_uses_label(item.uses)
 
+func clear_item_type_icon_comtainer():
+	var children = left_container.get_children()
+	for child_index in children.size():
+		if child_index > 2:
+			children[child_index].queue_free()
+
 func update_item_type_icon_by_item():
+	clear_item_type_icon_comtainer()
 	var icon = TextureRect.new()
 	if item is WeaponDefinition:
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:

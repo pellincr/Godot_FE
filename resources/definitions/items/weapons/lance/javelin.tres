@@ -9,7 +9,7 @@ region = Rect2(0, 0, 32, 32)
 
 [resource]
 script = ExtResource("2_irhin")
-weapon_type = 0
+weapon_type = 2
 physical_weapon_triangle_type = "Lance"
 magic_weapon_triangle_type = "none"
 item_damage_type = 0
