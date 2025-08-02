@@ -9,8 +9,9 @@ var playerOverworldData : PlayerOverworldData
 
 @onready var army_convoy_header = $ArmyConvoyHeader
 
-@onready var main_scroll_container = $ScrollContainer/VBoxContainer
+@onready var main_scroll_container = $HBoxContainer/ScrollContainer/VBoxContainer
 
+@onready var sub_container = $HBoxContainer
 
 const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
 const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
@@ -95,3 +96,6 @@ func _on_unit_deselected(unit):
 	var current_selected_count = playerOverworldData.selected_party.size()
 	var max_selected_count = playerOverworldData.available_party_capacity
 	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
+
+func get_sub_container():
+	return sub_container

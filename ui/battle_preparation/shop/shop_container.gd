@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+signal item_bought(item)
 
 @onready var item_tab_icon = $HBoxContainer/VBoxContainer/ScrollContainer2/HBoxContainer/ItemTabIcon
 #WEAPONS
@@ -85,6 +86,7 @@ func fill_current_tab_view():
 		item_panel_container.item = item
 		main_shop_inventory_container.add_child(item_panel_container)
 		item_panel_container.focus_entered.connect(on_item_panel_focused.bind(item))
+		item_panel_container.item_bought.connect(_on_item_bought)
 
 func clear_shop_list():
 	var children = main_shop_inventory_container.get_children()
@@ -135,3 +137,6 @@ func on_item_panel_focused(item):
 	main_container.add_child(weapon_detailed_info)
 	weapon_detailed_info.update_by_item()
 	weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+
+func _on_item_bought(item):
+	item_bought.emit(item)

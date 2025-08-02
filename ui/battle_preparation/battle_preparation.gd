@@ -22,6 +22,7 @@ enum PREPARATION_STATE{
 @onready var current_prep_state = PREPARATION_STATE.NEUTRAL
 
 @onready var focused_selection
+@onready var focused_detailed_view
 
 
 func _ready():
@@ -36,6 +37,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("trade_menu"):
 		current_prep_state = PREPARATION_STATE.TRADE
 		update_army_convoy_container_state()
+	
 	if Input.is_action_just_pressed("shop"):
 		current_prep_state = PREPARATION_STATE.SHOP
 		update_army_convoy_container_state()
@@ -54,7 +56,15 @@ func load_data():
 	print("Loaded")
 
 
-func clear_screen():
+func clear_sub_container():
+	var children = army_convoy_container.get_sub_container().get_children()
+	for child_index in children.size():
+		if child_index == 0:
+			pass
+		else:
+			children[child_index].queue_free()
+
+func clear_main_contianer():
 	var children = main_container.get_children()
 	for child_index in children.size():
 		if child_index == 0:
@@ -63,7 +73,8 @@ func clear_screen():
 			children[child_index].queue_free()
 
 func update_army_convoy_container_state():
-	clear_screen()
+	clear_main_contianer()
+	clear_sub_container()
 	match current_prep_state:
 		PREPARATION_STATE.NEUTRAL:
 			open_detailed_selection_view()
@@ -71,13 +82,16 @@ func update_army_convoy_container_state():
 			if focused_selection is Unit:
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
-				main_container.add_child(unit_detailed_simple_info)
+				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				focused_detailed_view = unit_detailed_simple_info
 		PREPARATION_STATE.SHOP:
 			if focused_selection is Unit:
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
-				main_container.add_child(unit_detailed_simple_info)
+				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				focused_detailed_view = unit_detailed_simple_info
 			var shop = shop_container_scene.instantiate()
+			shop.item_bought.connect(_on_item_bought)
 			main_container.add_child(shop)
 
 func _on_army_convoy_container_unit_focused(unit):
@@ -87,7 +101,7 @@ func _on_army_convoy_container_unit_focused(unit):
 
 
 func _on_army_convoy_container_header_swapped():
-	clear_screen()
+	clear_sub_container()
 
 
 func _on_army_convoy_container_item_focused(item):
@@ -99,9 +113,16 @@ func open_detailed_selection_view():
 	if focused_selection is Unit:
 		var unit_detailed_info = unit_detailed_info_scene.instantiate()
 		unit_detailed_info.unit = focused_selection
-		main_container.add_child(unit_detailed_info)
+		army_convoy_container.get_sub_container().add_child(unit_detailed_info)
 	elif focused_selection is ItemDefinition:
 		var item_detailed_info = weapon_detailed_info_scene.instantiate()
 		item_detailed_info.item = focused_selection
-		main_container.add_child(item_detailed_info)
+		army_convoy_container.get_sub_container().add_child(item_detailed_info)
 		item_detailed_info.update_by_item()
+
+func _on_item_bought(item):
+	if focused_selection is Unit:
+		focused_selection.inventory.give_item(item)
+		focused_detailed_view.update_by_unit()
+	elif focused_selection is ItemDefinition:
+		pass

@@ -1,5 +1,7 @@
 extends PanelContainer
 
+signal item_bought(item)
+
 @onready var left_container = $MarginContainer/Panel/HBoxContainer/HBoxContainer
 @onready var item_icon = $MarginContainer/Panel/HBoxContainer/HBoxContainer/ItemIcon
 @onready var item_name_label = $MarginContainer/Panel/HBoxContainer/HBoxContainer/ItemNameLabel
@@ -20,6 +22,9 @@ func _process(delta):
 	else:
 		self.theme = preload("res://ui/battle_preparation/unit_panel_not_selected.tres")
 		item_name_label.self_modulate = "828282"
+	
+	if Input.is_action_just_pressed("ui_accept") and has_focus():
+		item_bought.emit(item)
 
 func _on_mouse_entered():
 	grab_focus()
