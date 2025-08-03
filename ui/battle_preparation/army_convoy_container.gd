@@ -78,13 +78,14 @@ func _on_army_convoy_header_header_swapped():
 	match current_container_state:
 		CONTAINER_STATE.ARMY:
 			current_container_state = CONTAINER_STATE.CONVOY
-			army_convoy_sub_container.clear_scroll_scontainer()
+			army_convoy_sub_container.clear_scroll_container()
 			army_convoy_sub_container.fill_convoy_scroll_container()
 		CONTAINER_STATE.CONVOY:
 			current_container_state = CONTAINER_STATE.ARMY
-			army_convoy_sub_container.clear_scroll_scontainer()
+			army_convoy_sub_container.clear_scroll_container()
 			army_convoy_sub_container.fill_army_scroll_container()
 	army_convoy_sub_container.get_first_scroll_panel().grab_focus()
+	header_swapped.emit()
 
 
 func unit_focus_entered(unit):

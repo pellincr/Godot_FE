@@ -119,6 +119,9 @@ func _on_army_convoy_container_unit_focused(unit):
 
 func _on_army_convoy_container_header_swapped():
 	clear_sub_container()
+	focused_detailed_view = null
+	focused_selection = null
+	#update_army_convoy_container_state()
 
 
 func _on_army_convoy_container_item_focused(item):
@@ -141,8 +144,11 @@ func _on_item_bought(item):
 	if focused_selection is Unit:
 		focused_selection.inventory.give_item(item)
 		focused_detailed_view.update_by_unit()
-	elif focused_selection is ItemDefinition:
-		pass
+	#elif focused_selection is ItemDefinition:
+	else:
+		playerOverworldData.append_to_array(playerOverworldData.convoy, item)
+		army_convoy_container.clear_scroll_scontainer()
+		army_convoy_container.fill_convoy_scroll_container()
 
 func set_trade_detailed(detailed_view):
 	current_trade_detailed_view = detailed_view

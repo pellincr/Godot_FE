@@ -31,24 +31,26 @@ func fill_army_scroll_container():
 		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
 		unit_army_panel_container.unit_selected.connect(_on_unit_selected)
 		unit_army_panel_container.unit_deselected.connect(_on_unit_deselected)
-	var test = main_scroll_container.get_child(0)
-	if(test):
-		test.grab_focus()
+	#var test = main_scroll_container.get_child(0)
+	#if(test):
+	#	test.grab_focus()
 
-func clear_scroll_scontainer():
+
+func fill_convoy_scroll_container():
+	for item in playerOverworldData.convoy:
+		var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
+		convoy_item_panel_container.item = item
+		main_scroll_container.add_child(convoy_item_panel_container)
+		convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
+	#var test = main_scroll_container.get_child(0)
+	#if(test):
+	#	test.grab_focus()
+
+
+func clear_scroll_container():
 	var children = main_scroll_container.get_children()
 	for child in children:
 		child.queue_free()
-
-func fill_convoy_scroll_container():
-	var i = 0
-	while i < temp:
-		var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
-		main_scroll_container.add_child(convoy_item_panel_container)
-		convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
-		if i == 0:
-			convoy_item_panel_container.grab_focus()
-		i += 1
 
 func unit_focus_entered(unit):
 	unit_focused.emit(unit)
