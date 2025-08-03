@@ -46,6 +46,7 @@ const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_det
 func _ready():
 	sword_tab_icon.set_icon(sword_icon_texture)
 	sword_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.SWORD)
+	sword_tab_icon.on_tab_view = true
 	axe_tab_icon.set_icon(axe_icon_texture)
 	axe_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.AXE)
 	lance_tab_icon.set_icon(lance_icon_texture)

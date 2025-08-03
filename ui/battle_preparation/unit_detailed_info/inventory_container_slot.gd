@@ -25,10 +25,7 @@ func _process(delta):
 		
 
 func set_invetory_item_icon(icon:Texture2D):
-	if icon:
-		inventory_item_icon.set_image(icon)
-	else:
-		inventory_item_icon.set_image(null)
+	inventory_item_icon.set_image(icon)
 
 
 
@@ -36,10 +33,16 @@ func set_item_name_label(text):
 	item_name_label.text = text
 
 func update_by_item():
-	set_invetory_item_icon(item.icon)
-	set_item_name_label(item.name)
-	update_item_type_icon_by_item()
-	set_item_uses(item.uses)
+	if item:
+		set_invetory_item_icon(item.icon)
+		set_item_name_label(item.name)
+		update_item_type_icon_by_item()
+		set_item_uses(item.uses)
+	else:
+		set_invetory_item_icon(null)
+		set_item_name_label("")
+		update_item_type_icon_by_item()
+		set_item_uses(0)
 
 func set_item_uses(uses):
 	if uses > 0:

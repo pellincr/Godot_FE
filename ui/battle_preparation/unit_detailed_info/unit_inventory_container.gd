@@ -34,9 +34,8 @@ func clear_slot(inventory_slot):
 	inventory_slot.set_invetory_item_icon(null)
 
 func set_inventory_slot(item:ItemDefinition, slot):
-	if item != null:
-		slot.item = item
-		slot.update_by_item()
+	slot.item = item
+	slot.update_by_item()
 
 func update_by_unit():
 	for slot_index in inventory_slot_array.size():
