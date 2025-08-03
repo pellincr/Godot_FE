@@ -1,5 +1,7 @@
 extends Panel
 
+signal set_trade_item(item,unit)
+
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel
 @onready var unit_experience_container = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitExperienceInfo
 
@@ -64,3 +66,7 @@ func update_by_unit():
 func _on_unit_inventory_container_item_equipped(item):
 	combat_stats_container.unit = unit
 	combat_stats_container.update_by_unit()
+
+func _on_set_trade_item(item):
+	set_trade_item.emit(item, unit)
+	update_by_unit()

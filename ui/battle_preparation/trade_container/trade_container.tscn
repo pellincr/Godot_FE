@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbnmkmyptsh5r"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_1j6xe"]
+[ext_resource type="Script" path="res://ui/battle_preparation/trade_container/trade_container.gd" id="2_5uvyu"]
+[ext_resource type="PackedScene" uid="uid://hglqfyvm0o11" path="res://ui/battle_preparation/army_convoy_sub_container.tscn" id="3_uu3w6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onivx"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_h68tv"]
+default_font = ExtResource("1_1j6xe")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_onivx")
+
+[sub_resource type="Theme" id="Theme_2cbmq"]
+default_font_size = 24
+
+[node name="TradeContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(550, 560)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_h68tv")
+theme_override_constants/separation = 21
+script = ExtResource("2_5uvyu")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="TradeHeader" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme = SubResource("Theme_2cbmq")
+text = "Trade"
+horizontal_alignment = 1
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_direction = 3
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ArmyConvoySubContainer" parent="MainContainer" instance=ExtResource("3_uu3w6")]
+layout_direction = 2
+layout_mode = 2
+
+[connection signal="unit_focused" from="MainContainer/ArmyConvoySubContainer" to="." method="_on_unit_focused"]

@@ -1,5 +1,7 @@
 extends Panel
 
+signal set_trade_item(item,unit)
+
 @onready var unit_name_label = $MarginContainer/VBoxContainer/UnitNameLabel
 @onready var unit_icon = $UnitIcon
 
@@ -12,9 +14,11 @@ extends Panel
 @onready var combat_stat_container = $MarginContainer/VBoxContainer/CombatStatContainer
 @onready var unit_inventory_container = $MarginContainer/VBoxContainer/UnitInventoryContainer
 
+
 var unit : Unit
 
 func _ready():
+	ready_for_trade()
 	if unit:
 		update_by_unit()
 
@@ -45,3 +49,14 @@ func update_by_unit():
 	combat_stat_container.update_by_unit()
 	unit_inventory_container.unit = unit
 	unit_inventory_container.update_by_unit()
+	#unit_inventory_container.set_trade_item.connect(_on_set_trade_item)
+
+func _on_set_trade_item(item):
+	set_trade_item.emit(item, unit)
+	update_by_unit()
+
+func ready_for_trade():
+	unit_inventory_container.set_inventory_for_trade_true()
+
+func no_trading():
+	unit_inventory_container.set_inventory_for_trade_false()

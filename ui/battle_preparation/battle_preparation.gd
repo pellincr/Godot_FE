@@ -15,6 +15,8 @@ const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_det
 
 const shop_container_scene = preload("res://ui/battle_preparation/shop/shop_container.tscn")
 
+const trade_container_scene = preload("res://ui/battle_preparation/trade_container/trade_container.tscn")
+
 enum PREPARATION_STATE{
 	NEUTRAL, TRADE, SHOP
 }
@@ -24,6 +26,13 @@ enum PREPARATION_STATE{
 @onready var focused_selection
 @onready var focused_detailed_view
 
+@onready var current_trade_detailed_view
+
+@onready var current_trade_item = 1
+@onready var trade_item_1 : ItemDefinition
+@onready var trade_unit_1 : Unit
+@onready var trade_item_2 : ItemDefinition
+@onready var trade_unit_2 : Unit
 
 func _ready():
 	load_data()
@@ -34,7 +43,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
 		save()
 		get_tree().change_scene_to_file("res://combat/levels/test_level_1/test_game_1.tscn")
-	if Input.is_action_just_pressed("trade_menu"):
+	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
 		update_army_convoy_container_state()
 	
@@ -83,12 +92,20 @@ func update_army_convoy_container_state():
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
 				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				unit_detailed_simple_info.set_trade_item.connect(set_trade_item)
 				focused_detailed_view = unit_detailed_simple_info
+				var trade_container = trade_container_scene.instantiate()
+				trade_container.set_po_data(playerOverworldData)
+				trade_container.set_trade_item.connect(set_trade_item)
+				trade_container.unit_focused.connect(set_trade_detailed)
+				main_container.add_child(trade_container)
 		PREPARATION_STATE.SHOP:
 			if focused_selection is Unit:
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
 				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				unit_detailed_simple_info.no_trading()
+				#unit_detailed_simple_info.set_trade_item.connect(set_trade_item_1) THIS ISN'T NEEDED IN SHOP TECHNICALLY
 				focused_detailed_view = unit_detailed_simple_info
 			var shop = shop_container_scene.instantiate()
 			shop.item_bought.connect(_on_item_bought)
@@ -126,3 +143,32 @@ func _on_item_bought(item):
 		focused_detailed_view.update_by_unit()
 	elif focused_selection is ItemDefinition:
 		pass
+
+func set_trade_detailed(detailed_view):
+	current_trade_detailed_view = detailed_view
+
+func set_trade_item(item,unit):
+	match current_trade_item:
+		1:
+			trade_item_1 = item
+			trade_unit_1 = unit
+			current_trade_item = 2
+		2:
+			trade_item_2 = item
+			trade_unit_2 = unit
+			swap_trade_items()
+			current_trade_item = 1
+
+func swap_trade_items():
+	var inventory_1 = trade_unit_1.inventory
+	var inventory_2 = trade_unit_2.inventory
+	var item_1_index = inventory_1.items.find(trade_item_1)
+	var item_2_index = inventory_2.items.find(trade_item_2)
+	inventory_1.discard_item(trade_item_1)
+	inventory_1.give_item(trade_item_2)
+	inventory_2.discard_item(trade_item_2)
+	inventory_2.give_item(trade_item_1)
+	trade_item_1 = null
+	trade_item_2 = null
+	focused_detailed_view.update_by_unit()
+	current_trade_detailed_view.update_by_unit()

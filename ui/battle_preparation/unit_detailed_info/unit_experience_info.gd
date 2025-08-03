@@ -23,7 +23,14 @@ func _ready():
 func set_unit_type_label(type):
 	unit_type_label.text = type
 
+func clear_unit_type_icon():
+	var children = top_left_container.get_children()
+	for child in children:
+		if child is TextureRect:
+			child.queue_free()
+
 func set_unit_type_icon(unit_type: UnitTypeDefinition):
+	clear_unit_type_icon()
 	var icon = TextureRect.new()
 	if unit_type.traits.has(unitConstants.TRAITS.ARMORED):
 		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/armor_icon.png")
@@ -45,8 +52,11 @@ func set_unit_type_icon(unit_type: UnitTypeDefinition):
 		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		top_left_container.add_child(icon)
-		
-		
+	if unit_type.traits.has(unitConstants.TRAITS.FLIER):
+		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
+		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		top_left_container.add_child(icon)
+
 func set_level_number_label(level):
 	level_number_label.text = "lv " +  str(level)
 

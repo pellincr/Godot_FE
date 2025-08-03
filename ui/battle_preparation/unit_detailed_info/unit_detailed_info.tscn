@@ -115,3 +115,4 @@ offset_bottom = 65.0
 texture = ExtResource("9_jfwn1")
 
 [connection signal="item_equipped" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_equipped"]
+[connection signal="set_trade_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

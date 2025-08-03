@@ -1,12 +1,14 @@
 extends Panel
 
 signal set_equippped(item)
+signal item_selected_for_trade(item)
 
 @onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
 @onready var item_name_label = $HBoxContainer/LeftContainer/ItemNameLabel
 @onready var item_uses_label = $HBoxContainer/UsesLabel
 @onready var left_container = $HBoxContainer/LeftContainer
 
+var set_for_trade = false
 var item : ItemDefinition
 
 func _ready():
@@ -14,8 +16,11 @@ func _ready():
 		update_by_item()
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_confirm") and self.has_focus():
+	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and !set_for_trade:
 		set_equippped.emit(item)
+	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and set_for_trade:
+		
+		item_selected_for_trade.emit(item)
 
 func set_invetory_item_icon(icon:Texture2D):
 	if icon:
