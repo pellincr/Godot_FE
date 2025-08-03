@@ -49,14 +49,20 @@ func update_by_unit():
 	combat_stat_container.update_by_unit()
 	unit_inventory_container.unit = unit
 	unit_inventory_container.update_by_unit()
+	reset_inventory_selection_theme()
 	#unit_inventory_container.set_trade_item.connect(_on_set_trade_item)
 
 func _on_set_trade_item(item):
 	set_trade_item.emit(item, unit)
-	update_by_unit()
+	#update_by_unit()
 
 func ready_for_trade():
 	unit_inventory_container.set_inventory_for_trade_true()
 
 func no_trading():
 	unit_inventory_container.set_inventory_for_trade_false()
+
+func reset_inventory_selection_theme():
+	var inventory_slots = unit_inventory_container.get_inventory_slots()
+	for slot in inventory_slots:
+		slot.theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")

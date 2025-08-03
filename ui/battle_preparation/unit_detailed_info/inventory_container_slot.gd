@@ -19,8 +19,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and !set_for_trade:
 		set_equippped.emit(item)
 	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and set_for_trade:
-		
+		self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
 		item_selected_for_trade.emit(item)
+		
+		
 
 func set_invetory_item_icon(icon:Texture2D):
 	if icon:
@@ -147,8 +149,9 @@ func _on_focus_entered():
 
 
 func _on_focus_exited():
-	var un_focus_theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")
-	self.theme = un_focus_theme
+	if theme != preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres"):
+		var un_focus_theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")
+		self.theme = un_focus_theme
 
 
 func _on_mouse_entered():

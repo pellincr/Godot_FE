@@ -22,6 +22,11 @@ func _ready():
 	if unit != null:
 		update_by_unit()
 
+func get_inventory_slots():
+	return inventory_slot_array
+
+func set_slot_theme(slot,theme):
+	slot.theme = theme
 
 func clear_slot(inventory_slot):
 	inventory_slot.set_item_name_label("")
