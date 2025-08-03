@@ -64,7 +64,7 @@ func set_experience_bar_value(exp):
 	experience_bar.value = exp
 
 func set_experience_value_label(exp):
-	experience_value_label.text = "EXP: " + str(exp) + "/100"
+	experience_value_label.text = str(exp) + "/100"
 
 func update_by_unit():
 	var unit_type :UnitTypeDefinition

@@ -5,6 +5,8 @@ signal unit_focused(unit)
 signal header_swapped()
 signal item_focused(item)
 
+signal convoy_item_to_unit(item)
+
 var playerOverworldData : PlayerOverworldData
 
 @onready var army_convoy_header = $ArmyConvoyHeader
@@ -84,6 +86,7 @@ func _on_army_convoy_header_header_swapped():
 			current_container_state = CONTAINER_STATE.ARMY
 			army_convoy_sub_container.clear_scroll_container()
 			army_convoy_sub_container.fill_army_scroll_container()
+			army_convoy_sub_container.convoy_item_to_unit.connect(_on_convoy_item_to_unit)
 	army_convoy_sub_container.get_first_scroll_panel().grab_focus()
 	header_swapped.emit()
 
@@ -106,3 +109,6 @@ func _on_unit_deselected(unit):
 
 func get_sub_container():
 	return army_convoy_sub_container
+
+func _on_convoy_item_to_unit(item):
+	convoy_item_to_unit.emit(item)

@@ -47,7 +47,7 @@ func _process(delta):
 		current_prep_state = PREPARATION_STATE.TRADE
 		update_army_convoy_container_state()
 	
-	if Input.is_action_just_pressed("shop"):
+	if Input.is_action_just_pressed("shop") and current_prep_state != PREPARATION_STATE.SHOP:
 		current_prep_state = PREPARATION_STATE.SHOP
 		update_army_convoy_container_state()
 
@@ -94,11 +94,20 @@ func update_army_convoy_container_state():
 				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
 				unit_detailed_simple_info.set_trade_item.connect(set_trade_item)
 				focused_detailed_view = unit_detailed_simple_info
-				var trade_container = trade_container_scene.instantiate()
-				trade_container.set_po_data(playerOverworldData)
-				trade_container.set_trade_item.connect(set_trade_item)
-				trade_container.unit_focused.connect(set_trade_detailed)
-				main_container.add_child(trade_container)
+			elif focused_selection is ItemDefinition:
+				var weapon_deatailed_info = weapon_detailed_info_scene.instantiate()
+				weapon_deatailed_info.item = focused_selection
+				army_convoy_container.get_sub_container().add_child(weapon_deatailed_info)
+				weapon_deatailed_info.update_by_item()
+				focused_detailed_view = weapon_deatailed_info
+				trade_item_1 = focused_selection
+				trade_unit_1 = null
+				current_trade_item = 2
+			var trade_container = trade_container_scene.instantiate()
+			trade_container.set_po_data(playerOverworldData)
+			trade_container.set_trade_item.connect(set_trade_item)
+			trade_container.unit_focused.connect(set_trade_detailed)
+			main_container.add_child(trade_container)
 		PREPARATION_STATE.SHOP:
 			if focused_selection is Unit:
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
@@ -115,6 +124,8 @@ func _on_army_convoy_container_unit_focused(unit):
 	focused_selection = unit
 	current_prep_state = PREPARATION_STATE.NEUTRAL
 	update_army_convoy_container_state()
+	trade_item_1 = null
+	trade_unit_1 = null
 
 
 func _on_army_convoy_container_header_swapped():
@@ -162,7 +173,10 @@ func set_trade_item(item,unit):
 		2:
 			trade_item_2 = item
 			trade_unit_2 = unit
-			swap_trade_items()
+			if trade_unit_1:
+				swap_trade_items()
+			else:
+				swap_convoy_to_unit_items()
 			current_trade_item = 1
 
 func swap_trade_items():
@@ -177,4 +191,15 @@ func swap_trade_items():
 	trade_item_1 = null
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()
+	current_trade_detailed_view.update_by_unit()
+	clear_sub_container()
+
+func swap_convoy_to_unit_items():
+	var unit_inventory = trade_unit_2.inventory
+	unit_inventory.give_item(trade_item_1)
+	playerOverworldData.convoy.erase(trade_item_1)
+	playerOverworldData.convoy.append(trade_item_2)
+	unit_inventory.discard_item(trade_item_2)
+	army_convoy_container.clear_scroll_scontainer()
+	army_convoy_container.fill_convoy_scroll_container()
 	current_trade_detailed_view.update_by_unit()

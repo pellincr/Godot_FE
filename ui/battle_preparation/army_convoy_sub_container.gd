@@ -5,6 +5,8 @@ signal item_focused()
 signal unit_selected()
 signal unit_deselected()
 
+signal convoy_item_to_unit(item)
+
 @onready var main_scroll_container = $ScrollContainer/MainScrollContainer
 
 const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
@@ -38,10 +40,12 @@ func fill_army_scroll_container():
 
 func fill_convoy_scroll_container():
 	for item in playerOverworldData.convoy:
-		var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
-		convoy_item_panel_container.item = item
-		main_scroll_container.add_child(convoy_item_panel_container)
-		convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
+		if item:
+			var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
+			convoy_item_panel_container.item = item
+			main_scroll_container.add_child(convoy_item_panel_container)
+			convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
+			convoy_item_panel_container.item_sent_to_unit.connect(_on_item_sent_to_unit)
 	#var test = main_scroll_container.get_child(0)
 	#if(test):
 	#	test.grab_focus()
@@ -72,3 +76,6 @@ func _on_unit_deselected(unit):
 
 func get_first_scroll_panel():
 	return main_scroll_container.get_child(0)
+
+func _on_item_sent_to_unit(item):
+	convoy_item_to_unit.emit(item)
