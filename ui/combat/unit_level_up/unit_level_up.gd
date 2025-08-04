@@ -19,7 +19,12 @@ func set_unit(unit:Unit):
 	self.reference_unit = unit
 	set_unit_icon(self.reference_unit.map_sprite)
 	set_base_stat_array(self.reference_unit.stats.to_array())
-	set_unit_type(UnitTypeDatabase.unit_types[self.reference_unit.unit_type_key].unit_type_name)
+	var unit_type
+	if UnitTypeDatabase.unit_types.keys().has(self.reference_unit.unit_type_key):
+		unit_type = UnitTypeDatabase.unit_types[self.reference_unit.unit_type_key]
+	else:
+		unit_type = CommanderDatabase.commander_types[self.reference_unit.unit_type_key]
+	set_unit_type(unit_type.unit_type_name)
 	set_unit_level(self.reference_unit.level)
 	set_unit_name(self.reference_unit.name)
 

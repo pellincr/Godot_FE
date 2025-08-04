@@ -16,6 +16,9 @@ class_name PlayerOverworldData
 @export var total_party = []
 @export var selected_party = []
 
+
+
+
 @export var new_recruits = []
 @export var temp_name_list = ["Craig",
  "Devin",
@@ -912,6 +915,9 @@ class_name PlayerOverworldData
 
 @export var convoy_size = 100
 @export var convoy = []
+
+@export var next_level = preload("res://combat/levels/test_level_1/test_game_1.tscn")
+
 #Array value -> array
 #Appends the given value onto the given array
 func append_to_array(arr, val):

@@ -414,9 +414,11 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 	major_action_complete()
 	if(check_win()):
 		heal_ally_units()##will be removed later
+		playerOverworldData.next_level = win_go_to_scene
 		save()
-		get_tree().change_scene_to_packed(win_go_to_scene)
+		get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
 	if(check_lose()):
+		playerOverworldData.next_level = preload("res://combat/levels/test_level_1/test_game_1.tscn")
 		get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
 
 func heal_ally_units():

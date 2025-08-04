@@ -364,7 +364,12 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 	var _is_effective = false
 	if not attacker.inventory.equipped.weapon_effectiveness.is_empty() :
 		for effective_type in attacker.inventory.equipped.weapon_effectiveness: 
-			if effective_type in UnitTypeDatabase.unit_types[target.unit_type_key].traits :
+			var unit_type
+			if UnitTypeDatabase.unit_types.keys().has(target.unit_type_key):
+				unit_type = UnitTypeDatabase.unit_types[target.unit_type_key]
+			else:
+				unit_type = CommanderDatabase.commander_types[target.unit_type_key]
+			if effective_type in unit_type.traits :
 				_is_effective = true
 	if (check_weapon_triangle(attacker, target) == attacker): 
 		if(attacker.inventory.equipped.is_wpn_triangle_effective):

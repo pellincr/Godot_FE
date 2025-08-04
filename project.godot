@@ -29,6 +29,7 @@ SelectedSaveFile="*res://selected_save_file.gd"
 unitConstants="*res://scripts/Unit/unit_constants.gd"
 ItemConstants="*res://scripts/resources/Items/item_constants.gd"
 CommanderDatabase="*res://combat/databases/commander_database.tscn"
+LevelDestination="*res://level_destination.gd"
 
 [display]
 
