@@ -156,7 +156,8 @@ func heal_unit(unit: CombatUnit, amount: int):
 	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.stats.hp )
 	DamageNumbers.heal((32* unit.map_tile.position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
-	await ce_display.update_unit_hp(unit.unit, unit.unit.hp)
+	if ce_display != null:
+		await ce_display.update_unit_hp(unit.unit, unit.unit.hp)
 	#await unit.map_display.update_complete
 	
 func hit_missed(dodging_unt: CombatUnit):
