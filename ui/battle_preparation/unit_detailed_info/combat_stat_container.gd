@@ -58,6 +58,6 @@ func update_by_unit():
 	set_value_label(avoid_10_place_label, (unit.avoid/10)%10)
 	set_value_label(avoid_1_place_label, (unit.avoid/1)%10)
 	
-	set_value_label(attack_speed_100_place_label, (unit.stats.constitution/100)%10)
-	set_value_label(attack_speed_10_place_label, (unit.stats.constitution/10)%10)
-	set_value_label(attack_speed_1_place_label, (unit.stats.constitution/1)%10)
+	set_value_label(attack_speed_100_place_label, (unit.attack_speed/100)%10)
+	set_value_label(attack_speed_10_place_label, (unit.attack_speed/10)%10)
+	set_value_label(attack_speed_1_place_label, (unit.attack_speed/1)%10)
