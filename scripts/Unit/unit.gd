@@ -252,10 +252,10 @@ func calculate_stat(base_stat: int, char_stat: int, level_stat: int, stat_cap : 
 func calculate_attack_speed(weapon: WeaponDefinition = null) -> int:
 	var as_val : int = 0
 	if weapon:
-		as_val =  stats.speed - (weapon.weight - stats.constitution)
+		as_val =  clampi(stats.speed - clampi(weapon.weight - stats.constitution, 0, weapon.weight),0, stats.speed)
 	else : 
 		if inventory.equipped:
-			as_val = stats.speed - (inventory.equipped.weight - stats.constitution)
+			as_val = clampi(stats.speed - clampi(inventory.equipped.weight - stats.constitution,0, inventory.equipped.weight),0, stats.speed)
 		else : 
 			as_val = stats.speed
 	return as_val
