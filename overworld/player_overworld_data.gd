@@ -917,6 +917,8 @@ class_name PlayerOverworldData
 @export var convoy = []
 
 @export var next_level = preload("res://combat/levels/test_level_1/test_game_1.tscn")
+@export var current_campaign : Campaign
+@export var current_level : int = -1
 
 #Array value -> array
 #Appends the given value onto the given array

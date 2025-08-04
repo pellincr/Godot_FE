@@ -22,7 +22,7 @@ var save_path_3 = "user://save3/"
 @onready var save_3_delete_button = $SaveVContainer/Save3HContainer/Delete_Button as Button
 
 const home_screen_scene = "res://home/home.tscn"
-const main_menu_scene = "res://Game Main Menu/main_menu.tscn"
+const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
 
 #Load the Data from the existing save file and transition to the overworld
 func enter_game(save_path):
@@ -31,7 +31,7 @@ func enter_game(save_path):
 	#var home_screen = home_screen_scene.instantiate()
 	#add_child(home_screen)
 	#var main_menu = preload(main_menu_scene)
-	get_tree().change_scene_to_file(main_menu_scene)
+	get_tree().change_scene_to_packed(main_menu_scene)
 
 #Called when the node enters the scene tree for the first time.
 func _ready():

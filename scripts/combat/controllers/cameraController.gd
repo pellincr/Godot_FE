@@ -1,4 +1,5 @@
 extends Camera2D
+class_name level
 
 @export var zoomSpeed : float = 10;
 @export var map: Node 

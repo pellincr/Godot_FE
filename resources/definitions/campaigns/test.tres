@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Campaign" load_steps=5 format=3 uid="uid://bufy43rodyy5x"]
+
+[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_a80uw"]
+[ext_resource type="PackedScene" uid="uid://cyblv576aoct4" path="res://combat/levels/test_level_1/test_game_1.tscn" id="2_kv7xg"]
+[ext_resource type="PackedScene" uid="uid://cw28pbyq5shkg" path="res://combat/levels/test_level_2/test_game_2.tscn" id="3_jdh3t"]
+[ext_resource type="PackedScene" uid="uid://b4xca7lc8vsi8" path="res://combat/game.tscn" id="4_id7fs"]
+
+[resource]
+script = ExtResource("1_a80uw")
+levels = Array[PackedScene]([ExtResource("2_kv7xg"), ExtResource("3_jdh3t"), ExtResource("4_id7fs")])

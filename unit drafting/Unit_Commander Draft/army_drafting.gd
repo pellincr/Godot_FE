@@ -47,6 +47,7 @@ func save():
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
+	load_data()
 	var unit_draft = unit_draft_scene.instantiate()
 	main_container.add_child(unit_draft)
 	unit_draft.current_state = current_draft_state
@@ -76,8 +77,10 @@ func archetype_selection_complete(po_data):
 func recruiting_complete():
 	#queue_free()
 	save()
-	drafting_complete.emit(playerOverworldData)
+	#drafting_complete.emit(playerOverworldData)
 	#get_tree().change_scene_to_file("res://combat/game.tscn")
+	var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+	battle_prep_scene.instantiate().set_po_data(playerOverworldData)
 	get_tree().change_scene_to_file("res://ui/battle_preparation/battle_preparation.tscn") #"res://combat/levels/test_level_1/test_game_1.tscn"
 
 

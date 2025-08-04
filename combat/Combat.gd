@@ -54,7 +54,7 @@ var _player_unit_alive : bool = true
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
 @export var mapEntityData: MapEntityGroupData
-@export var win_go_to_scene : PackedScene
+#@export var win_go_to_scene : PackedScene
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
 @export var enemy_start_group : EnemyGroup
@@ -414,9 +414,13 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 	major_action_complete()
 	if(check_win()):
 		heal_ally_units()##will be removed later
-		playerOverworldData.next_level = win_go_to_scene
+		#playerOverworldData.next_level = win_go_to_scene
 		save()
-		get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+		if playerOverworldData.current_level <= playerOverworldData.current_campaign.levels.size():
+			#if not at the final level
+			get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+		else:
+			get_tree().change_scene_to_packed(preload("res://Game Start Screen/start_screen.tscn"))
 	if(check_lose()):
 		playerOverworldData.next_level = preload("res://combat/levels/test_level_1/test_game_1.tscn")
 		get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")

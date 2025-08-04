@@ -1,7 +1,7 @@
 extends Control
 
 signal adventure_begun()
-const draft_scene = "res://unit drafting/Unit_Commander Draft/army_drafting.tscn"
+const overworld_scene = "res://overworld_new/overworld.tscn"
 var playerOverworldData : PlayerOverworldData
 var save_file_name = "PlayerOverworldSave.tres"
 
@@ -21,10 +21,9 @@ func set_player_overworld_data(po_data):
 	playerOverworldData = po_data
 
 func _on_begin_adventure_button_pressed():
-	var army_draft = preload(draft_scene)
-	var test = army_draft.instantiate()
-	test.set_player_overworld_data(playerOverworldData)
-	get_tree().change_scene_to_packed(army_draft)
+	var overworld = preload(overworld_scene)
+	overworld.instantiate().set_po_data(playerOverworldData)
+	get_tree().change_scene_to_packed(overworld)
 	#adventure_begun.emit()
 	#queue_free()
 

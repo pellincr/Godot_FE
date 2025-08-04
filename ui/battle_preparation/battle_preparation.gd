@@ -36,6 +36,7 @@ enum PREPARATION_STATE{
 
 func _ready():
 	load_data()
+	playerOverworldData.current_level += 1
 	playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.fill_army_scroll_container()
@@ -43,7 +44,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
 		save()
-		get_tree().change_scene_to_packed(playerOverworldData.next_level)
+		get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
 		update_army_convoy_container_state()
@@ -51,6 +52,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("shop") and current_prep_state != PREPARATION_STATE.SHOP:
 		current_prep_state = PREPARATION_STATE.SHOP
 		update_army_convoy_container_state()
+
+func set_po_data(po_data):
+	playerOverworldData = po_data
 
 func save():
 	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
