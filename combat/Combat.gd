@@ -49,8 +49,6 @@ var combatExchange: CombatExchange
 
 var _player_unit_alive : bool = true
 
-@export var level_name : String
-
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
@@ -93,7 +91,7 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	randomize()
-	var current_party_index = 0 #(0,9) (2,15)
+	var current_party_index = 0 
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
 			if !(current_party_index >= playerOverworldData.selected_party.size()):
@@ -305,15 +303,21 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		playerOverworldData.began_level = false
 		playerOverworldData.completed_drafting = false
 		SelectedSaveFile.save(playerOverworldData)
-		if playerOverworldData.current_level <= playerOverworldData.current_campaign.levels.size():
+		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
 			#if not at the final level
 			get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
 		else:
-			get_tree().change_scene_to_packed(preload("res://Game Start Screen/start_screen.tscn"))
+			reset_game_state()
+			get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
 	if(check_lose()):
-		playerOverworldData.began_level = false
-		playerOverworldData.next_level = preload("res://combat/levels/test_level_1/test_game_1.tscn")
+		reset_game_state()
 		get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
+
+func reset_game_state():
+	playerOverworldData.began_level = false
+	playerOverworldData.completed_drafting = false
+	playerOverworldData.current_level = 0
+	playerOverworldData.current_campaign = null
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:

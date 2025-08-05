@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://b4xca7lc8vsi8"]
 
 [ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_aallb"]
-[ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/example_level/terrain.tscn" id="1_huxbe"]
+[ext_resource type="PackedScene" uid="uid://ww05yde5nb2t" path="res://combat/levels/test_levels/example_level/terrain.tscn" id="1_huxbe"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="2_icbvx"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_38u5s"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_cujqt"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="5_pc8ih"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_035kt"]
-[ext_resource type="Resource" uid="uid://dgsmhy2vn8ahd" path="res://combat/levels/example_level/entity_data/mapEntityData.tres" id="6_cchwj"]
+[ext_resource type="Resource" uid="uid://dgsmhy2vn8ahd" path="res://combat/levels/test_levels/example_level/entity_data/mapEntityData.tres" id="6_cchwj"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_2stc1"]
-[ext_resource type="Resource" uid="uid://dklhd7ncdtuuj" path="res://resources/definitions/enemy_groups/example_level.tres" id="7_widb0"]
+[ext_resource type="Resource" uid="uid://dklhd7ncdtuuj" path="res://resources/definitions/enemy_groups/test_level/example_level.tres" id="7_widb0"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_oplkq"]
 
 [node name="Game" type="Node"]

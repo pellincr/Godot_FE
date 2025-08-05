@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://biqktpeoexx8"]
 
 [ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_0ohgj"]
-[ext_resource type="PackedScene" uid="uid://bnehnessek60a" path="res://combat/levels/justin_level/terrain.tscn" id="2_0r1md"]
+[ext_resource type="PackedScene" uid="uid://bnehnessek60a" path="res://combat/levels/test_levels/justin_level/terrain.tscn" id="2_0r1md"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_pshjb"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_bkcf8"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_ynwqw"]

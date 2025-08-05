@@ -11,6 +11,11 @@ focus_mode = 2
 theme = ExtResource("1_or1o7")
 script = ExtResource("1_cdc2o")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
