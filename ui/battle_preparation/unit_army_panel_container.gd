@@ -22,6 +22,8 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	if unit!= null:
 		update_by_unit()
+	if check_if_selected():
+		check_box.button_pressed = true
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_confirm") and self.has_focus():
@@ -77,3 +79,6 @@ func check_available_space():
 	var current_party_size = playerOverworldData.selected_party.size()
 	var max_party_size = playerOverworldData.available_party_capacity
 	return current_party_size < max_party_size
+
+func check_if_selected():
+	return playerOverworldData.selected_party.has(unit)

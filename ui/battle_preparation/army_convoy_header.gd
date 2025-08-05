@@ -10,8 +10,6 @@ signal header_swapped()
 @onready var right_header_label = $LowerContainer/PanelContainer2/HBoxContainer/RightHeaderLabel
 
 
-
-
 func _process(delta):
 	if Input.is_action_just_pressed("left_bumber") or Input.is_action_just_pressed("right_bumper"):
 		swap_header_labels()

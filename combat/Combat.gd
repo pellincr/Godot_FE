@@ -58,6 +58,7 @@ var _player_unit_alive : bool = true
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
 @export var enemy_start_group : EnemyGroup
+@export var max_allowed_ally_units : int
 
 @onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 

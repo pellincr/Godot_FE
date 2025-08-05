@@ -31,7 +31,6 @@ func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
 	army_convoy_sub_container.set_po_data(playerOverworldData)
-	
 	var current_selected_count = playerOverworldData.selected_party.size()
 	var max_selected_count = playerOverworldData.available_party_capacity
 	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
