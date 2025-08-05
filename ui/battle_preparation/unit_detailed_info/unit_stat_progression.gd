@@ -56,11 +56,8 @@ func set_progress_bar(progress_bar : ProgressBar, current_value, maximum_value):
 
 func update_by_unit():
 	var unit_type : UnitTypeDefinition
-	if UnitTypeDatabase.unit_types.keys().has(unit.unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types.get(unit.unit_type_key)
-	else:
-		unit_type = CommanderDatabase.commander_types.get(unit.unit_type_key)
-	
+	unit_type = UnitTypeDatabase.get_definition(unit.unit_type_key)
+
 	set_label_with_number(strength_value_label,unit.stats.strength)
 	set_label_with_number(strength_growth_label,unit.growths.strength, true)
 	set_progress_bar(strength_progress,unit.stats.strength, unit_type.maxuimum_stats.strength)

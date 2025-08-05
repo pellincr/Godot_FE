@@ -68,10 +68,7 @@ func set_experience_value_label(exp):
 
 func update_by_unit():
 	var unit_type :UnitTypeDefinition
-	if UnitTypeDatabase.unit_types.keys().has(unit.unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types.get(unit.unit_type_key)
-	else:
-		unit_type = CommanderDatabase.commander_types.get(unit.unit_type_key)
+	unit_type = UnitTypeDatabase.get_definition(unit.unit_type_key)
 	set_unit_type_label(unit_type.unit_type_name)
 	set_unit_type_icon(unit_type)
 	set_level_number_label(unit.level)

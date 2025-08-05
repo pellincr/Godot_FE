@@ -24,11 +24,7 @@ func update():
 func show_icons():
 	##UnitTypeDatabase.unit_types[target.unit_type_key].class_type
 	#("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying""res://resources/definitions/unit_types/fighter.tres"
-	var unit_type
-	if UnitTypeDatabase.unit_types.keys().has(unit.unit.unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types[unit.unit.unit_type_key]
-	else:
-		unit_type = CommanderDatabase.commander_types[unit.unit.unit_type_key]
+	var unit_type = UnitTypeDatabase.get_definition(unit.unit.unit_type_key)
 	var unit_types = unit_type.traits
 	mounted_icon.visible = unit_types.has(unitConstants.TRAITS.MOUNTED)
 	armor_icon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)

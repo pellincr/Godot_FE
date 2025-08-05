@@ -71,11 +71,7 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.xp_worth = new_unit.get_unit_type_definition().tier
 	new_unit.unit_character = unitCharacter
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
-	var unit_type
-	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types.get(unit_type_key)
-	else:
-		unit_type = CommanderDatabase.commander_types.get(unit_type_key)
+	var unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	new_unit.traits = unit_type.traits
 	new_unit.faction = unit_type.faction
 	
@@ -312,19 +308,10 @@ func calculate_experience_gain_hit(hit_unit:Unit) -> int:
 	var experience_gain = 0
 	var target_unit_value = 0
 	var my_unit_value = 0
-	var hit_unit_type
-	if UnitTypeDatabase.unit_types.keys().has(hit_unit.unit_type_key):
-		hit_unit_type = UnitTypeDatabase.unit_types[hit_unit.unit_type_key]
-	else:
-		hit_unit_type = CommanderDatabase.commander_types[hit_unit.unit_type_key]
+	var hit_unit_type = UnitTypeDatabase.get_definition(hit_unit.unit_type_key)
 	if(hit_unit_type.promoted) :
 		target_unit_value = 20
-	
-	var self_unit_type
-	if UnitTypeDatabase.unit_types.keys().has(self.unit_type_key):
-		self_unit_type = UnitTypeDatabase.unit_types[self.unit_type_key]
-	else:
-		self_unit_type = CommanderDatabase.commander_types[self.unit_type_key]
+	var self_unit_type = UnitTypeDatabase.get_definition(self.unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 20
 	experience_gain = clamp(((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / get_unit_type_definition().tier, 0, 100)
@@ -338,20 +325,11 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	var my_unit_value = 0
 	experience_gain = calculate_experience_gain_hit(killed_unit)
 	
-	var killed_unit_type
-	if UnitTypeDatabase.unit_types.keys().has(killed_unit.unit_type_key):
-		killed_unit_type = UnitTypeDatabase.unit_types[killed_unit.unit_type_key]
-	else:
-		killed_unit_type = CommanderDatabase.commander_types[killed_unit.unit_type_key]
+	var killed_unit_type = UnitTypeDatabase.get_definition(killed_unit.unit_type_key)
 	if(killed_unit_type.promoted) :
 		target_unit_value = 60
 	
-	var self_unit_type
-	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
-		self_unit_type = UnitTypeDatabase.unit_types[unit_type_key]
-	else:
-		self_unit_type = CommanderDatabase.commander_types[unit_type_key]
-		
+	var self_unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 60
 	experience_gain = clamp(experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
@@ -362,10 +340,7 @@ func heal(value: int) :
 	self.hp  =  clamp(self.hp + value, 0, self.max_hp)
 
 func get_unit_type_definition() -> UnitTypeDefinition:
-	if UnitTypeDatabase.unit_types.keys().has(self.unit_type_key):
-		return UnitTypeDatabase.unit_types[self.unit_type_key]
-	else:
-		return CommanderDatabase.commander_types[self.unit_type_key]
+	return UnitTypeDatabase.get_definition(self.unit_type_key)
 	
 static func update_usable_weapon_types(u: Unit):
 	u.usable_weapon_types.clear()

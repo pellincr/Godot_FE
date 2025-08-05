@@ -214,10 +214,7 @@ func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
 	var deviation = 1.75
 	var unit_type : UnitTypeDefinition
-	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types[unit_type_key]
-	else:
-		unit_type = CommanderDatabase.commander_types[unit_type_key]
+	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	var health_rand = clampi(randfn( 0, 3), - unit_type.base_stats.hp, 10) 
 	var strength_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.strength, 4) 
 	var magic_rand = clampi(randfn( 0, deviation), - unit_type.base_stats.magic, 4) 
@@ -239,10 +236,7 @@ func randomize_unit_stats(unit_character, unit_type_key):
 func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
 	var unit_type : UnitTypeDefinition
-	if UnitTypeDatabase.unit_types.keys().has(unit_type_key):
-		unit_type = UnitTypeDatabase.unit_types[unit_type_key]
-	else:
-		unit_type = CommanderDatabase.commander_types[unit_type_key]
+	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	var health_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.hp, 40) 
 	var strength_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.strength, 20) 
 	var magic_rand = clampi(randfn( 0, 10), - unit_type.growth_stats.magic, 20) 
@@ -265,9 +259,7 @@ func randomize_unit_growths(unit_character, unit_type_key):
 
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
 	var inventory: Array[ItemDefinition]
-	var unit_type: UnitTypeDefinition = UnitTypeDatabase.unit_types.get(unit_class)
-	if unit_type == null:
-		unit_type = CommanderDatabase.commander_types.get(unit_class)
+	var unit_type: UnitTypeDefinition = UnitTypeDatabase.get_definition(unit_class)
 	var weapon_types = unit_type.usable_weapon_types
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
@@ -306,11 +298,8 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 func update_information():
 	if unit is Unit:
 		set_name_label(unit.name)
-		var unit_type
-		if UnitTypeDatabase.unit_types.keys().has(unit.unit_type_key):
-			unit_type = UnitTypeDatabase.unit_types.get(unit.unit_type_key)
-		else:
-			unit_type = CommanderDatabase.commander_types.get(unit.unit_type_key)
+		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
+		var weapon_types = unit_type.usable_weapon_types
 		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)
 		unit_growth_grade = get_growth_grade(get_unit_growth_difference_total())
