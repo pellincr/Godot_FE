@@ -61,6 +61,8 @@ var _player_unit_alive : bool = true
 @export var ally_spawn_bottom_right: Vector2
 @export var enemy_start_group : EnemyGroup
 @export var max_allowed_ally_units : int
+@export var battle_prep_on_win : bool = true
+@export var heal_on_win : bool = true
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
@@ -297,7 +299,8 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 	major_action_complete()
 	#WIN/LOSE CONDITION LOGIC
 	if(check_win()):
-		heal_ally_units()##will be removed later
+		if heal_on_win:
+			heal_ally_units()
 		#playerOverworldData.next_level = win_go_to_scene
 		playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
@@ -305,7 +308,10 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		SelectedSaveFile.save(playerOverworldData)
 		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
 			#if not at the final level
-			get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+			if battle_prep_on_win:
+				get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+			else:
+				get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 		else:
 			reset_game_state()
 			get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
