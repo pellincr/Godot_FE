@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c6s873w31dy32"]
 
-[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://overworld/gold_counter.tscn" id="1_cg485"]
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="1_cg485"]
 [ext_resource type="Script" path="res://ui/battle_preparation/battle_preparation.gd" id="1_gqlkl"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="2_dg3px"]
 [ext_resource type="PackedScene" uid="uid://c6xka1fqiwxly" path="res://ui/battle_preparation/army_convoy_container.tscn" id="2_ubgvf"]

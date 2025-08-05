@@ -8,7 +8,6 @@ signal drafting_complete(po_data)
 
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
-const recruit_container_scene = preload("res://overworld/recruit_v_container.tscn")
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
 const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
