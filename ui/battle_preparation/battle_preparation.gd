@@ -16,6 +16,8 @@ const shop_container_scene = preload("res://ui/battle_preparation/shop/shop_cont
 
 const trade_container_scene = preload("res://ui/battle_preparation/trade_container/trade_container.tscn")
 
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 enum PREPARATION_STATE{
 	NEUTRAL, TRADE, SHOP
 }
@@ -35,6 +37,7 @@ enum PREPARATION_STATE{
 
 
 func _ready():
+	transition_in_animation()
 	load_data()
 	var campaign_level = playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
 	var combat= campaign_level.get_child(3)
@@ -48,6 +51,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
 		playerOverworldData.began_level = true
 		SelectedSaveFile.save(playerOverworldData)
+		transition_out_animation()
 		get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
@@ -63,6 +67,21 @@ func set_po_data(po_data):
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 	print("Loaded")
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_out")
+	await get_tree().create_timer(.5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
+
+
 
 func clear_sub_container():
 	var children = army_convoy_container.get_sub_container().get_children()

@@ -21,9 +21,11 @@ var save_path_3 = "user://save3/"
 @onready var save_3_button = $SaveVContainer/Save3HContainer/Save_Button3 as Button
 @onready var save_3_delete_button = $SaveVContainer/Save3HContainer/Delete_Button as Button
 
+
 var playerOverworldData : PlayerOverworldData
 
 const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
 #Load the Data from the existing save file and transition to the overworld
 func enter_game(save_path):
@@ -44,10 +46,12 @@ func enter_game(save_path):
 		else:
 			get_tree().change_scene_to_packed(main_menu_scene)
 	else:
+		transition_out_animation()
 		get_tree().change_scene_to_packed(main_menu_scene)
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
+	transition_in_animation()
 	SelectedSaveFile.selected_save_path = ""
 	$MainVContainer/Start_Button.grab_focus()
 	if verify_save_path(save_path_1):
@@ -63,6 +67,24 @@ func _ready():
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 	print("Loaded")
+
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_out")
+	await get_tree().create_timer(.5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
+
+
+
+
 
 func set_save_button_text(button, text):
 	button.text = text

@@ -215,33 +215,6 @@ func get_random_rarity():
 			return rarity
 	return "Common"
 
-func set_base_unit_stats(unit_character, unit_type_key):
-	var stats = UnitStat.new()
-	var unit_type : UnitTypeDefinition
-	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	stats.hp = unit_type.base_stats.hp
-	stats.strength = unit_type.base_stats.strength
-	stats.magic = unit_type.base_stats.magic
-	stats.skill = unit_type.base_stats.skill
-	stats.speed = unit_type.base_stats.speed
-	stats.luck = unit_type.base_stats.luck
-	stats.defense = unit_type.base_stats.defense
-	stats.resistance = unit_type.base_stats.resistance
-	unit_character.stats = stats
-
-func set_base_unit_growths(unit_character, unit_type_key):
-	var stats = UnitStat.new()
-	var unit_type : UnitTypeDefinition
-	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	stats.hp = unit_type.growth_stats.hp
-	stats.strength = unit_type.growth_stats.strength
-	stats.magic = unit_type.growth_stats.magic
-	stats.skill = unit_type.growth_stats.skill
-	stats.speed = unit_type.growth_stats.speed
-	stats.luck = unit_type.growth_stats.luck
-	stats.defense = unit_type.growth_stats.defense
-	stats.resistance = unit_type.growth_stats.resistance
-	unit_character.growths = stats
 
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()

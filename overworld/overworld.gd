@@ -11,9 +11,17 @@ var control_node : Node
 
 @onready var gold_counter = get_node("GoldCounter")
 
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 const overworldButtonScene = preload("res://overworld/overworld_button.tscn")
 const unit_stats = preload("res://overworld/unit_stats.tscn")
 
+func _ready():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_out")
+	await get_tree().create_timer(0.5)
+	scene_transition.queue_free()
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)
@@ -34,10 +42,18 @@ func save():
 #Begins the adventure and transitions to the game scene
 #NOTE This will be updated in the future to transition to the dungeon map
 func _on_begin_adventure_button_pressed():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5)
 	get_tree().change_scene_to_file("res://combat/game.tscn")
 
 #Returns to the main menu scene from the selected save
 func _on_main_menu_button_pressed():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5)
 	get_tree().change_scene_to_file("res://main menu/main_menu.tscn")
 	SelectedSaveFile.selected_save_path = ""
 

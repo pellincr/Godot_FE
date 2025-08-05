@@ -12,6 +12,8 @@ const recruit_container_scene = preload("res://overworld/recruit_v_container.tsc
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
 const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 @onready var army_draft_stage_label = $MarginContainer/VBoxContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
@@ -28,6 +30,7 @@ var max_unit_draft = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
 	
@@ -44,6 +47,22 @@ func set_player_overworld_data(po_data):
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 	print("Loaded")
+
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_out")
+	await get_tree().create_timer(.5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
+
+
 
 func commander_selection_complete(commander):
 	playerOverworldData.append_to_array(playerOverworldData.total_party,commander)
@@ -69,6 +88,7 @@ func recruiting_complete():
 	#get_tree().change_scene_to_file("res://combat/game.tscn")
 	var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
 	battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+	transition_out_animation()
 	get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
 
 
