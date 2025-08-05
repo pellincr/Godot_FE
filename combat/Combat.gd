@@ -283,6 +283,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		#playerOverworldData.next_level = win_go_to_scene
 		playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
+		playerOverworldData.completed_drafting = false
 		SelectedSaveFile.save(playerOverworldData)
 		if playerOverworldData.current_level <= playerOverworldData.current_campaign.levels.size():
 			#if not at the final level

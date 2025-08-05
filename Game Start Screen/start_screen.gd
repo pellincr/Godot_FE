@@ -30,12 +30,19 @@ func enter_game(save_path):
 	SelectedSaveFile.selected_save_path = save_path
 	if DirAccess.dir_exists_absolute(SelectedSaveFile.selected_save_path):
 		load_data()
-		if playerOverworldData.began_level:
-			get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+		if playerOverworldData.current_campaign:
+			if playerOverworldData.completed_drafting:
+				if playerOverworldData.began_level:
+					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+				else:
+					var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+					battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+					get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
+			else:
+				var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+				get_tree().change_scene_to_packed(draft_scene)
 		else:
-			var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-			battle_prep_scene.instantiate().set_po_data(playerOverworldData)
-			get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
+			get_tree().change_scene_to_packed(main_menu_scene)
 	else:
 		get_tree().change_scene_to_packed(main_menu_scene)
 

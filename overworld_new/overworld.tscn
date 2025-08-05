@@ -16,4 +16,13 @@ offset_right = 342.0
 offset_bottom = 641.0
 campaign = ExtResource("3_cxrwx")
 
+[node name="ReturnButton" type="Button" parent="." index="2"]
+layout_mode = 0
+offset_left = 1221.0
+offset_top = 691.0
+offset_right = 1282.0
+offset_bottom = 722.0
+text = "Return"
+
 [connection signal="campaign_selected" from="CampaignSelectorNode" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

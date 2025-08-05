@@ -919,6 +919,7 @@ class_name PlayerOverworldData
 
 @export var current_campaign : Campaign
 @export var current_level : int = 0
+@export var completed_drafting : bool = false
 @export var began_level : bool = false
 
 #Array value -> array

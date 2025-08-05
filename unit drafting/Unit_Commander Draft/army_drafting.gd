@@ -63,6 +63,7 @@ func archetype_selection_complete(po_data):
 
 func recruiting_complete():
 	#queue_free()
+	playerOverworldData.completed_drafting = true
 	SelectedSaveFile.save(playerOverworldData)
 	#drafting_complete.emit(playerOverworldData)
 	#get_tree().change_scene_to_file("res://combat/game.tscn")

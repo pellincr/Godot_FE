@@ -43,6 +43,7 @@ mapEntityData = ExtResource("6_lix0v")
 ally_spawn_top_left = Vector2(0, 17)
 ally_spawn_bottom_right = Vector2(4, 20)
 enemy_start_group = ExtResource("7_3hhgl")
+max_allowed_ally_units = 4
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("9_8ldgc")
