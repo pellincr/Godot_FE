@@ -1,7 +1,6 @@
 extends Control
 
 var playerOverworldData : PlayerOverworldData
-var save_file_name = "PlayerOverworldSave.tres"
 
 @onready var gold_counter = $MarginContainer/VBoxContainer/GoldCounter
 @onready var army_convoy_container = $MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer
@@ -36,14 +35,14 @@ enum PREPARATION_STATE{
 
 func _ready():
 	load_data()
-	playerOverworldData.current_level += 1
 	playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.fill_army_scroll_container()
 
 func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
-		save()
+		playerOverworldData.began_level = true
+		SelectedSaveFile.save(playerOverworldData)
 		get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
@@ -56,19 +55,9 @@ func _process(delta):
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
-func save():
-	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
-		DirAccess.make_dir_absolute(SelectedSaveFile.selected_save_path)
-	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + save_file_name)
-	print("Saved")
-
 func load_data():
-	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)
-	#update the gui
-	#set_recruit_buttons(recruit_buttons, playerOverworldData.new_recruits)
-	#update_manage_party_buttons()
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 	print("Loaded")
-
 
 func clear_sub_container():
 	var children = army_convoy_container.get_sub_container().get_children()

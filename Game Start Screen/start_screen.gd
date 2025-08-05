@@ -21,22 +21,29 @@ var save_path_3 = "user://save3/"
 @onready var save_3_button = $SaveVContainer/Save3HContainer/Save_Button3 as Button
 @onready var save_3_delete_button = $SaveVContainer/Save3HContainer/Delete_Button as Button
 
-const home_screen_scene = "res://home/home.tscn"
+var playerOverworldData : PlayerOverworldData
+
 const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
 
 #Load the Data from the existing save file and transition to the overworld
 func enter_game(save_path):
 	SelectedSaveFile.selected_save_path = save_path
-	#queue_free()
-	#var home_screen = home_screen_scene.instantiate()
-	#add_child(home_screen)
-	#var main_menu = preload(main_menu_scene)
-	get_tree().change_scene_to_packed(main_menu_scene)
+	if DirAccess.dir_exists_absolute(SelectedSaveFile.selected_save_path):
+		load_data()
+		if playerOverworldData.began_level:
+			get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+		else:
+			var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+			battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+			get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
+	else:
+		get_tree().change_scene_to_packed(main_menu_scene)
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
 	SelectedSaveFile.selected_save_path = ""
 	$MainVContainer/Start_Button.grab_focus()
+	"""
 	var dir = DirAccess.open(save_path_1)
 	if dir:
 		save_1_button.text = save_1_button.text.replace("NEW","LOAD")
@@ -49,8 +56,29 @@ func _ready():
 	if dir:
 		save_3_button.text = save_3_button.text.replace("NEW","LOAD")
 		save_3_delete_button.visible = true
+		"""
+	if verify_save_path(save_path_1):
+		set_save_button_text(save_1_button,"Slot 1 - LOAD")
+		set_delete_visibility(save_1_delete_button,true)
+	if verify_save_path(save_path_2):
+		set_save_button_text(save_2_button,"Slot 2 - LOAD")
+		set_delete_visibility(save_2_delete_button,true)
+	if verify_save_path(save_path_3):
+		set_save_button_text(save_3_button,"Slot 3 - LOAD")
+		set_delete_visibility(save_3_delete_button,true)
 
+func load_data():
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
+	print("Loaded")
 
+func set_save_button_text(button, text):
+	button.text = text
+
+func set_delete_visibility(button, vis):
+	button.visible = vis
+
+func verify_save_path(save_path):
+	return DirAccess.dir_exists_absolute(save_path)
 
 #Quits the Game back to Desktop
 func _on_quit_button_pressed():

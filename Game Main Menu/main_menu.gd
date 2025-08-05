@@ -3,19 +3,16 @@ extends Control
 signal adventure_begun()
 const overworld_scene = "res://overworld_new/overworld.tscn"
 var playerOverworldData : PlayerOverworldData
-var save_file_name = "PlayerOverworldSave.tres"
+
 
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	save()
+	SelectedSaveFile.save(playerOverworldData)
 
-func save():
-	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
-		DirAccess.make_dir_absolute(SelectedSaveFile.selected_save_path)
-	var save_location = SelectedSaveFile.selected_save_path + save_file_name
-	ResourceSaver.save(playerOverworldData,save_location)
-	print("Saved")
+func load_data():
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
+	print("Loaded")
 
 func set_player_overworld_data(po_data):
 	playerOverworldData = po_data

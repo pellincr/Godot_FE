@@ -1,5 +1,4 @@
 extends Control
-var save_file_name = "PlayerOverworldSave.tres"
 @onready var current_draft_state = Constants.DRAFT_STATE.COMMANDER
 @onready var main_container = $MarginContainer/VBoxContainer
 var playerOverworldData : PlayerOverworldData
@@ -27,26 +26,11 @@ const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 var max_unit_draft = 0
 
 
-func load_data():
-	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + save_file_name).duplicate(true)
-	#update the gui
-	#set_recruit_buttons(recruit_buttons, playerOverworldData.new_recruits)
-	#update_manage_party_buttons()
-	print("Loaded")
-
-func save():
-	if SelectedSaveFile.verify_save_directory(SelectedSaveFile.selected_save_path):
-		DirAccess.make_dir_absolute(SelectedSaveFile.selected_save_path)
-	ResourceSaver.save(playerOverworldData,SelectedSaveFile.selected_save_path + save_file_name)
-	print("Saved")
-
-
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
+	
 	load_data()
 	var unit_draft = unit_draft_scene.instantiate()
 	main_container.add_child(unit_draft)
@@ -57,6 +41,9 @@ func _ready():
 func set_player_overworld_data(po_data):
 	playerOverworldData = po_data
 
+func load_data():
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
+	print("Loaded")
 
 func commander_selection_complete(commander):
 	playerOverworldData.append_to_array(playerOverworldData.total_party,commander)
@@ -76,12 +63,12 @@ func archetype_selection_complete(po_data):
 
 func recruiting_complete():
 	#queue_free()
-	save()
+	SelectedSaveFile.save(playerOverworldData)
 	#drafting_complete.emit(playerOverworldData)
 	#get_tree().change_scene_to_file("res://combat/game.tscn")
 	var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
 	battle_prep_scene.instantiate().set_po_data(playerOverworldData)
-	get_tree().change_scene_to_file("res://ui/battle_preparation/battle_preparation.tscn") #"res://combat/levels/test_level_1/test_game_1.tscn"
+	get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
 
 
 
