@@ -13,7 +13,7 @@ extends Panel
 @onready var special_value_container = $MarginContainer/VBoxContainer/SpecialTraitContainer/SpecialValueLabel
 
 @onready var item_icon = $ItemIcon
-
+@onready var price_label = $PriceLabel
 
 var item : ItemDefinition
 
@@ -29,6 +29,9 @@ func set_item_description(desc):
 func set_item_icon(texture):
 	item_icon.texture = texture
 
+func set_price_label(price):
+	price_label.text = str(price) + "G"
+
 func set_stat_augmentation(augmentation):
 	pass
 
@@ -39,6 +42,7 @@ func set_special(special_list):
 func update_by_item():
 	set_item_name(item.name)
 	set_item_icon(item.icon)
+	set_price_label(item.price)
 	weapon_icon_container.set_header_visibility(false)
 	weapon_icon_container.item = item
 	weapon_icon_container.set_icon_visibility_item()

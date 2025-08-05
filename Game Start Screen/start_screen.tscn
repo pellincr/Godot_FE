@@ -53,6 +53,10 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
+[node name="Return_Button" type="Button" parent="OptionVContainer"]
+layout_mode = 2
+text = "Return"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="OptionVContainer"]
 visible = false
 layout_mode = 2
@@ -131,6 +135,7 @@ text = "Return"
 [connection signal="pressed" from="MainVContainer/Start_Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainVContainer/Options_Button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MainVContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="OptionVContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="OptionVContainer/HBoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="SaveVContainer/Save1HContainer/Save_Button1" to="." method="_on_save_button_1_pressed"]
 [connection signal="pressed" from="SaveVContainer/Save1HContainer/Delete_Button" to="." method="_on_save_slot_1_delete_button_pressed"]

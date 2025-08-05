@@ -39,6 +39,7 @@ enum PREPARATION_STATE{
 func _ready():
 	transition_in_animation()
 	load_data()
+	gold_counter.set_gold_count(playerOverworldData.gold)
 	var campaign_level = playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
 	var combat = campaign_level.get_child(3)
 	playerOverworldData.available_party_capacity =  combat. max_allowed_ally_units   #.combat.max_allowed_ally_units
@@ -80,7 +81,6 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
-
 
 
 func clear_sub_container():
@@ -169,15 +169,24 @@ func open_detailed_selection_view():
 		army_convoy_container.get_sub_container().add_child(item_detailed_info)
 		item_detailed_info.update_by_item()
 
-func _on_item_bought(item):
-	if focused_selection is Unit:
-		focused_selection.inventory.give_item(item)
-		focused_detailed_view.update_by_unit()
-	#elif focused_selection is ItemDefinition:
-	else:
-		playerOverworldData.append_to_array(playerOverworldData.convoy, item)
-		army_convoy_container.clear_scroll_scontainer()
-		army_convoy_container.fill_convoy_scroll_container()
+func _on_item_bought(item:ItemDefinition):
+	if playerOverworldData.gold >= item.price:
+		if focused_selection is Unit:
+			if !focused_selection.inventory.is_full():
+				#if the unit has inventory room
+				focused_selection.inventory.give_item(item)
+				focused_detailed_view.update_by_unit()
+				playerOverworldData.gold -= item.price
+				
+			#elif focused_selection is ItemDefinition:
+		else:
+			if playerOverworldData.convoy.size() < playerOverworldData.convoy_size:
+				#if there's room in the convoy
+				playerOverworldData.append_to_array(playerOverworldData.convoy, item)
+				army_convoy_container.clear_scroll_scontainer()
+				army_convoy_container.fill_convoy_scroll_container()
+				playerOverworldData.gold -= item.price
+	gold_counter.set_gold_count(playerOverworldData.gold)
 
 func set_trade_detailed(detailed_view):
 	current_trade_detailed_view = detailed_view
