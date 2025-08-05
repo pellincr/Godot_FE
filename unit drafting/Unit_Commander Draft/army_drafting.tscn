@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=11 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_lrntn"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_xuf8l"]
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="4_rj5ra"]
 [ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="5_0gh02"]
+[ext_resource type="PackedScene" uid="uid://gjumeha6w7kp" path="res://scene_transitions/SceneTransitionAnimation.tscn" id="6_ffiud"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
 default_font_size = 36
@@ -25,13 +26,7 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_3b7fu")
 
 [node name="ArmyDrafting" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1280.0
-offset_bottom = -720.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 theme = ExtResource("1_lrntn")
 script = ExtResource("1_54qw1")
 
@@ -114,3 +109,5 @@ layout_mode = 2
 size_flags_vertical = 8
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SceneTransitionAnimation" parent="." instance=ExtResource("6_ffiud")]

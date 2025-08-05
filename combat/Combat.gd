@@ -46,7 +46,11 @@ var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITIO
 
 var combatExchange: CombatExchange
 
+
 var _player_unit_alive : bool = true
+
+@export var level_name : String
+
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
@@ -60,10 +64,26 @@ var _player_unit_alive : bool = true
 @export var enemy_start_group : EnemyGroup
 @export var max_allowed_ally_units : int
 
-@onready var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Level " + str(playerOverworldData.current_level + 1))
+	scene_transition.play_animation("level_fade_out")
+	await get_tree().create_timer(5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
 
 func _ready():
+	#transition_in_animation()
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio

@@ -4,26 +4,15 @@
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_2x6th")
 
 [node name="MainVContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 397.0
+offset_top = 294.0
+offset_right = 885.0
+offset_bottom = 400.0
 
 [node name="Start_Button" type="Button" parent="MainVContainer"]
 layout_mode = 2
@@ -39,10 +28,13 @@ text = "Quit"
 
 [node name="OptionVContainer" type="VBoxContainer" parent="."]
 visible = false
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -62,6 +54,7 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="OptionVContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 
@@ -76,15 +69,13 @@ text = "Return"
 [node name="SaveVContainer" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -196.0
-offset_top = -92.0
-offset_right = 194.0
-offset_bottom = 175.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 389.0
+offset_top = 183.0
+offset_right = 891.0
+offset_bottom = 475.0
 grow_horizontal = 2
 grow_vertical = 2
 

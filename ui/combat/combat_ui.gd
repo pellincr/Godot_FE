@@ -16,15 +16,39 @@ const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
 const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
 func _ready():
+	transition_in_animation()
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
 	combat.connect("update_combatants", update_combatants)
 	combat.connect("update_information", update_information)
 	controller.connect("target_detailed_info", _target_detailed_info)
-	
+
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Level " + str(playerOverworldData.current_level + 1))
+	scene_transition.play_animation("level_fade_out")
+	await get_tree().create_timer(5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
+
+
+
+
+
+
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)
 	

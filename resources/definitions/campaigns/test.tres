@@ -7,4 +7,5 @@
 
 [resource]
 script = ExtResource("1_a80uw")
+name = "Test Campaign"
 levels = Array[PackedScene]([ExtResource("2_kv7xg"), ExtResource("3_jdh3t"), ExtResource("4_id7fs")])
