@@ -50,20 +50,6 @@ func enter_game(save_path):
 func _ready():
 	SelectedSaveFile.selected_save_path = ""
 	$MainVContainer/Start_Button.grab_focus()
-	"""
-	var dir = DirAccess.open(save_path_1)
-	if dir:
-		save_1_button.text = save_1_button.text.replace("NEW","LOAD")
-		save_1_delete_button.visible = true
-	dir = DirAccess.open(save_path_2)
-	if dir:
-		save_2_button.text = save_2_button.text.replace("NEW","LOAD")
-		save_2_delete_button.visible = true
-	dir = DirAccess.open(save_path_3)
-	if dir:
-		save_3_button.text = save_3_button.text.replace("NEW","LOAD")
-		save_3_delete_button.visible = true
-		"""
 	if verify_save_path(save_path_1):
 		set_save_button_text(save_1_button,"Slot 1 - LOAD")
 		set_delete_visibility(save_1_delete_button,true)

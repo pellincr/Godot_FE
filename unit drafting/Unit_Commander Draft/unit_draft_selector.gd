@@ -152,7 +152,7 @@ func instantiate_unit_draft_selector():
 
 func randomize_selection():
 	var all_unit_classes = UnitTypeDatabase.unit_types.keys()
-	var all_commander_classes = CommanderDatabase.commander_types.keys()
+	var all_commander_classes = UnitTypeDatabase.commander_types.keys()
 	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
@@ -179,8 +179,14 @@ func randomize_selection():
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
-		randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-		randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		 
+		#set_base_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		#set_base_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		var stats = UnitStat.new()
+		var growths = UnitStat.new()
+		unit_character.stats = stats
+		unit_character.growths = growths
+		
 		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
 		
@@ -209,6 +215,33 @@ func get_random_rarity():
 			return rarity
 	return "Common"
 
+func set_base_unit_stats(unit_character, unit_type_key):
+	var stats = UnitStat.new()
+	var unit_type : UnitTypeDefinition
+	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
+	stats.hp = unit_type.base_stats.hp
+	stats.strength = unit_type.base_stats.strength
+	stats.magic = unit_type.base_stats.magic
+	stats.skill = unit_type.base_stats.skill
+	stats.speed = unit_type.base_stats.speed
+	stats.luck = unit_type.base_stats.luck
+	stats.defense = unit_type.base_stats.defense
+	stats.resistance = unit_type.base_stats.resistance
+	unit_character.stats = stats
+
+func set_base_unit_growths(unit_character, unit_type_key):
+	var stats = UnitStat.new()
+	var unit_type : UnitTypeDefinition
+	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
+	stats.hp = unit_type.growth_stats.hp
+	stats.strength = unit_type.growth_stats.strength
+	stats.magic = unit_type.growth_stats.magic
+	stats.skill = unit_type.growth_stats.skill
+	stats.speed = unit_type.growth_stats.speed
+	stats.luck = unit_type.growth_stats.luck
+	stats.defense = unit_type.growth_stats.defense
+	stats.resistance = unit_type.growth_stats.resistance
+	unit_character.growths = stats
 
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
