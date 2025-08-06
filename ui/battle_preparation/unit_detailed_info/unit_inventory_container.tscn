@@ -7,61 +7,65 @@
 [sub_resource type="Theme" id="Theme_x4s2w"]
 default_font_size = 12
 
-[node name="UnitInventoryContainer" type="VBoxContainer"]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 275.0
-offset_bottom = 181.0
-theme = ExtResource("1_6faxh")
+[node name="UnitInventoryContainer" type="HBoxContainer"]
+offset_top = 228.0
+offset_right = 282.0
+offset_bottom = 228.0
 script = ExtResource("2_gwuai")
 
-[node name="InventoryHeaderLabel" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_6faxh")
+
+[node name="InventoryHeaderLabel" type="Label" parent="VBoxContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_x4s2w")
 text = "Inventory"
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(275, 175)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="InventoryContainerSlot" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
+[node name="InventoryContainerSlot" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
 
-[node name="InventoryContainerSlot2" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
+[node name="InventoryContainerSlot2" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
 
-[node name="InventoryContainerSlot3" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
+[node name="InventoryContainerSlot3" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
 
-[node name="InventoryContainerSlot4" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
+[node name="InventoryContainerSlot4" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
 
-[node name="InventoryContainerSlot5" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
+[node name="InventoryContainerSlot5" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_odfbt")]
 layout_mode = 2
 
-[connection signal="item_selected_for_trade" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_set_for_trade"]
-[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_equipped"]
-[connection signal="use_item" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_inventory_container_slot_use_item"]
-[connection signal="item_selected_for_trade" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_set_for_trade"]
-[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_equipped"]
-[connection signal="use_item" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_inventory_container_slot_use_item"]
-[connection signal="item_selected_for_trade" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_set_for_trade"]
-[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_equipped"]
-[connection signal="use_item" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_inventory_container_slot_use_item"]
-[connection signal="item_selected_for_trade" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_set_for_trade"]
-[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_equipped"]
-[connection signal="use_item" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_inventory_container_slot_use_item"]
-[connection signal="item_selected_for_trade" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_item_set_for_trade"]
-[connection signal="set_equippped" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_item_equipped"]
-[connection signal="use_item" from="PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_equipped" from="." to="." method="_on_item_equipped"]
+[connection signal="set_trade_item" from="." to="." method="_on_item_set_for_trade"]
+[connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="VBoxContainer" method="_on_item_set_for_trade"]
+[connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="VBoxContainer" method="_on_item_equipped"]
+[connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="VBoxContainer" method="_on_item_set_for_trade"]
+[connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="VBoxContainer" method="_on_item_equipped"]
+[connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="VBoxContainer" method="_on_item_set_for_trade"]
+[connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="VBoxContainer" method="_on_item_equipped"]
+[connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="VBoxContainer" method="_on_item_set_for_trade"]
+[connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="VBoxContainer" method="_on_item_equipped"]
+[connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="VBoxContainer" method="_on_item_set_for_trade"]
+[connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="VBoxContainer" method="_on_item_equipped"]
+[connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_inventory_container_slot_use_item"]
