@@ -131,7 +131,9 @@ func update_army_convoy_container_state():
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
 				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				unit_detailed_simple_info.sell_item.connect(sell_item)
 				unit_detailed_simple_info.no_trading()
+				unit_detailed_simple_info.ready_for_sale()
 				#unit_detailed_simple_info.set_trade_item.connect(set_trade_item_1) THIS ISN'T NEEDED IN SHOP TECHNICALLY
 				focused_detailed_view = unit_detailed_simple_info
 			var shop = shop_container_scene.instantiate()
@@ -219,7 +221,7 @@ func swap_trade_items():
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()
 	current_trade_detailed_view.update_by_unit()
-	clear_sub_container()
+	#clear_sub_container()
 
 func swap_convoy_to_unit_items():
 	var unit_inventory = trade_unit_2.inventory
@@ -230,3 +232,9 @@ func swap_convoy_to_unit_items():
 	army_convoy_container.clear_scroll_scontainer()
 	army_convoy_container.fill_convoy_scroll_container()
 	current_trade_detailed_view.update_by_unit()
+
+func sell_item(item:ItemDefinition,unit:Unit):
+	playerOverworldData.gold += item.price
+	unit.discard_item(item)
+	gold_counter.set_gold_count(playerOverworldData.gold)
+	focused_detailed_view.update_by_unit()

@@ -3,6 +3,7 @@ extends HBoxContainer
 signal item_equipped(item)
 signal item_used(item)
 signal set_trade_item(item)
+signal sell_item(item)
 
 @onready var inventory_slot_1 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
 @onready var inventory_slot_2 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
@@ -17,6 +18,7 @@ signal set_trade_item(item)
 const equipped_icon = preload("res://ui/battle_preparation/E.png")
 
 var unit :Unit
+
 
 
 func _ready():
@@ -64,6 +66,9 @@ func set_inventory_for_trade_false():
 	for slot in inventory_slot_array:
 		slot.set_for_trade = false
 
+func set_inventory_for_sale_true():
+	for slot in inventory_slot_array:
+		slot.set_for_sale = true
 
 func _on_item_equipped(item):
 	unit.set_equipped(item)
@@ -81,10 +86,13 @@ func _on_inventory_container_slot_use_item(item):
 	item_use_option.item_confirmed.connect(_on_item_confirmed)
 	item_use_option.item = item
 	item_use_option.unit = unit
-	#unit.use_consumable_item(item)
-	#update_by_unit()
-	#item_used.emit(item)
+
 
 func _on_item_confirmed(item):
 	update_by_unit()
 	item_used.emit(item)
+
+
+
+func _on_inventory_container_slot_sell_item(item):
+	sell_item.emit(item)

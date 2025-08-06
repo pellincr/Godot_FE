@@ -3,6 +3,7 @@ extends Panel
 signal set_equippped(item)
 signal use_item(item)
 signal item_selected_for_trade(item)
+signal sell_item(item)
 
 @onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
 @onready var item_name_label = $HBoxContainer/LeftContainer/ItemNameLabel
@@ -10,6 +11,7 @@ signal item_selected_for_trade(item)
 @onready var left_container = $HBoxContainer/LeftContainer
 
 var set_for_trade = false
+var set_for_sale = false
 var item : ItemDefinition
 
 func _ready():
@@ -19,10 +21,13 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") and self.has_focus():
 		if !set_for_trade:
-			if item is WeaponDefinition:
-				set_equippped.emit(item)
+			if !set_for_sale:
+				if item is WeaponDefinition:
+					set_equippped.emit(item)
+				else:
+					use_item.emit(item)
 			else:
-				use_item.emit(item)
+				sell_item.emit(item)
 		else:
 			self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
 			item_selected_for_trade.emit(item)
