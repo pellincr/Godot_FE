@@ -1,16 +1,17 @@
 extends PanelContainer
 
-signal tab_switch(item_theme)
+signal tab_switch(item_theme, item_subtheme)
 
 @onready var icon = $TextureRect
 var on_tab_view = false
 
-var item_theme 
+var item_theme
+var item_subtheme
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") and has_focus():
 		on_tab_view = true
-		tab_switch.emit(item_theme)
+		tab_switch.emit(item_theme, item_subtheme)
 		
 	if on_tab_view:
 		set_icon_color("FFFFFF")
@@ -40,6 +41,9 @@ func set_icon_color(color):
 
 func set_item_theme(theme):
 	item_theme = theme
+
+func set_item_subtheme(subtheme):
+	item_subtheme = subtheme
 
 func _on_mouse_entered():
 	grab_focus()

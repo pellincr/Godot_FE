@@ -41,38 +41,53 @@ const item_icon_texture = preload("res://resources/sprites/icons/infantry_icon.p
 const item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
 const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
 
-@onready var current_tab = ItemConstants.WEAPON_TYPE.SWORD
+@onready var current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
+@onready var current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
 
 func _ready():
 	sword_tab_icon.set_icon(sword_icon_texture)
-	sword_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.SWORD)
+	sword_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	sword_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.SWORD)
 	sword_tab_icon.on_tab_view = true
 	axe_tab_icon.set_icon(axe_icon_texture)
-	axe_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.AXE)
+	axe_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	axe_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.AXE)
 	lance_tab_icon.set_icon(lance_icon_texture)
-	lance_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.LANCE)
+	lance_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	lance_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.LANCE)
 	bow_tab_icon.set_icon(bow_icon_texture)
-	bow_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.BOW)
+	bow_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	bow_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.BOW)
 	fist_tab_icon.set_icon(fist_icon_texture)
-	fist_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.FIST)
+	fist_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	fist_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.FIST)
 	staff_tab_icon.set_icon(staff_icon_texture)
-	staff_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.STAFF)
+	staff_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	staff_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.STAFF)
 	dark_tab_icon.set_icon(dark_icon_texture)
-	dark_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.DARK)
+	dark_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	dark_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.DARK)
 	light_tab_icon.set_icon(light_icon_texture)
-	light_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.LIGHT)
+	light_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	light_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.LIGHT)
 	nature_tab_icon.set_icon(nature_icon_texture)
-	nature_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.NATURE)
+	nature_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	nature_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.NATURE)
 	animal_tab_icon.set_icon(animal_icon_texture)
-	animal_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.ANIMAL)
+	animal_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	animal_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.ANIMAL)
 	monster_tab_icon.set_icon(monster_icon_texture)
-	monster_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.MONSTER)
+	monster_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	monster_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.MONSTER)
 	shield_tab_icon.set_icon(shield_icon_texture)
-	shield_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.SHIELD)
+	shield_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	shield_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.SHIELD)
 	dagger_tab_icon.set_icon(dagger_icon_texture)
-	dagger_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.DAGGER)
+	dagger_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	dagger_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.DAGGER)
 	banner_tab_icon.set_icon(banner_icon_texture)
-	banner_tab_icon.set_item_theme(ItemConstants.WEAPON_TYPE.BANNER)
+	banner_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
+	banner_tab_icon.set_item_subtheme(ItemConstants.WEAPON_TYPE.BANNER)
 	item_tab_icon.set_icon(item_icon_texture)
 	item_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 	fill_current_tab_view()
@@ -81,7 +96,10 @@ func _ready():
 
 func fill_current_tab_view():
 	var items_list
-	items_list = filter_by_weapon_type(current_tab)
+	if current_tab_theme == ItemConstants.ITEM_TYPE.WEAPON:
+		items_list = filter_by_weapon_type(current_tab_subtheme)
+	elif current_tab_theme == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+		items_list = filter_by_useable_item()
 	for item in items_list:
 		var item_panel_container = item_panel_container_scene.instantiate()
 		item_panel_container.item = item
@@ -98,8 +116,11 @@ func turn_off_all_tabs():
 	var tab_container = $HBoxContainer/VBoxContainer/ScrollContainer2/HBoxContainer
 	var children = tab_container.get_children()
 	for child in children:
-		if child.item_theme == current_tab:
-			pass
+		if child.item_theme == current_tab_theme:
+			if child.item_subtheme == current_tab_subtheme:
+				pass
+			else:
+				child.on_tab_view = false
 		else:
 			child.on_tab_view = false
 
@@ -112,18 +133,28 @@ func filter_by_weapon_type(weapon_type : ItemConstants.WEAPON_TYPE):
 			accum.append(item)
 	return accum
 
+func filter_by_useable_item():
+	var all_items = ItemDatabase.items.keys()
+	var accum = []
+	for item_key in all_items:
+		var item = ItemDatabase.items[item_key]
+		if item is ConsumableItemDefinition:
+			accum.append(item)
+	return accum
 
-func _on_tab_icon_switch(item_theme):
-	current_tab = item_theme
+
+func _on_tab_icon_switch(item_theme, item_subtheme):
+	current_tab_theme = item_theme
+	current_tab_subtheme = item_subtheme
 	update_shop_items()
 
 func update_shop_items():
-	if current_tab == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
-		pass
-	else:
-		clear_shop_list()
-		turn_off_all_tabs()
-		fill_current_tab_view()
+	#if current_tab == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+	#	pass
+	#else:
+	clear_shop_list()
+	turn_off_all_tabs()
+	fill_current_tab_view()
 
 func clear_main_container():
 	var children = main_container.get_children()
