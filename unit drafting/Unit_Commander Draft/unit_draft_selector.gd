@@ -195,7 +195,7 @@ func randomize_selection():
 
 
 func get_random_rarity():
-	var total_weight = 0
+	var total_weight : int
 	for weight in possible_rarities.values():
 		total_weight += weight
 		

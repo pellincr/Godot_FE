@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemRarity" load_steps=2 format=3 uid="uid://i7t4hjstt6nh"]
+
+[ext_resource type="Script" path="res://scripts/resources/item_rarity/ItemRarityDefinition.gd" id="1_gobso"]
+
+[resource]
+script = ExtResource("1_gobso")
+rarity_name = "Common"
+ui_color = Color(1, 1, 1, 1)
