@@ -2,6 +2,7 @@ extends Resource
 
 class_name PlayerOverworldData
 
+@export var unlock_manager = UnlockManager.new()
 
 @export var gold = 1000
 @export var total_party_capacity = 15 #number of units the player is allowed to own

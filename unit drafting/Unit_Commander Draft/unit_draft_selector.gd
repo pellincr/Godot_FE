@@ -151,7 +151,7 @@ func instantiate_unit_draft_selector():
 	
 
 func randomize_selection():
-	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
+	var class_rarity: UnitRarity = RarityDatabase.unit_rarities.get(get_random_rarity())
 	var weapon_rarity = null
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
@@ -174,6 +174,7 @@ func randomize_selection():
 	else:
 		#For Commander Drafting
 		var all_commander_classes = UnitTypeDatabase.commander_types.keys()
+		var unlocked_commander_classes = filter_all_commander_by_unlocked(all_commander_classes)
 		new_randomized_pick = all_commander_classes.pick_random()
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
@@ -332,9 +333,33 @@ func get_units_by_class(given_unit_classes, unit_trait, rarity):
 			viable_units.append(unit_type.unit_type_name)
 	return viable_units
 
+func filter_all_commander_by_unlocked(commander_type_keys: Array) -> Array:
+	var accum = []
+	for commander_type_key in commander_type_keys:
+		if playerOverworldData.unlock_manager.commander_types_unlocked.keys().has(commander_type_key):
+			if playerOverworldData.unlock_manager.commander_types_unlocked[commander_type_key]:
+				accum.append(commander_type_key)
+	return accum
+
+func filter_all_classes_by_unlocked(unit_type_keys: Array) -> Array:
+	var accum = []
+	for unit_type_key in unit_type_keys:
+		if playerOverworldData.unlock_manager.unit_types_unlocked.keys().has(unit_type_key):
+			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type_key]:
+				accum.append(unit_type_key)
+	return accum
+
+func filter_all_items_by_unlocked(item_keys: Array) -> Array:
+	var accum = []
+	for item_key in item_keys:
+		if playerOverworldData.unlock_manager.items_unlocked.keys().has(item_key):
+			if playerOverworldData.unlock_manager.items_unlocked[item_key]:
+				accum.append(item_key)
+	return accum
 
 func filter_classes_by_archetype_pick(unit_archetype_pick, class_rarity):
-	var class_list = UnitTypeDatabase.unit_types.keys()
+	#var class_list = UnitTypeDatabase.unit_types.keys()
+	var class_list = filter_all_classes_by_unlocked(UnitTypeDatabase.unit_types.keys())
 	var archetype_pick_factions = unit_archetype_pick.factions
 	var archetype_pick_traits = unit_archetype_pick.traits
 	var archetype_pick_rarity = unit_archetype_pick.rarity
@@ -428,16 +453,16 @@ func filter_classes_by_unit_type(class_list, archetype_pick_unit_type, class_rar
 
 func randomize_weapon(archetype_pick, weapon_rarity):
 	var all_item_types = ItemDatabase.items.keys()
-	var all_weapon_types = []
+	var all_unlocked_item_types = filter_all_items_by_unlocked(all_item_types)
 	var archetype_pick_weapon_types = archetype_pick.weapon_type
 	var archetype_pick_damage_types = archetype_pick.item_damage_type
 	var archetype_pick_scaling_type = archetype_pick.item_scaling_type
 	#fill in weapon_type_list
-	var weapon_type_filtered_list = filter_items_by_weapon_type(all_item_types,archetype_pick_weapon_types,weapon_rarity)
+	var weapon_type_filtered_list = filter_items_by_weapon_type(all_unlocked_item_types,archetype_pick_weapon_types,weapon_rarity)
 	#fill in damage type list
-	var damage_type_filtered_list = filter_items_by_damage_type(all_item_types,archetype_pick_damage_types,weapon_rarity)
+	var damage_type_filtered_list = filter_items_by_damage_type(all_unlocked_item_types,archetype_pick_damage_types,weapon_rarity)
 	#fill in scaling type list
-	var scaling_type_filtered_list = filter_items_by_scaling_type(all_item_types,archetype_pick_scaling_type,weapon_rarity)
+	var scaling_type_filtered_list = filter_items_by_scaling_type(all_unlocked_item_types,archetype_pick_scaling_type,weapon_rarity)
 	var combo1 = get_list_in_common(weapon_type_filtered_list,damage_type_filtered_list)
 	var combo2 = get_list_in_common(combo1,scaling_type_filtered_list)
 	return combo2

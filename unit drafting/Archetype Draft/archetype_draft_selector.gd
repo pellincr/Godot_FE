@@ -4,6 +4,8 @@ class_name archetypeDraftSelector
 
 signal archetype_selected(archetype)
 
+var playerOverworldData : PlayerOverworldData
+
 var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
 var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
@@ -17,6 +19,8 @@ var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if !playerOverworldData:
+		playerOverworldData = PlayerOverworldData.new()
 	randomize_archetype()
 	update_all()
 
@@ -31,6 +35,8 @@ func _process(delta):
 		#update_all()
 		print("Archetype Selected")
 
+func set_po_data(po_data):
+	playerOverworldData = po_data
 
 func set_header_label(text):
 	header_label.text = text
@@ -90,5 +96,15 @@ func update_all():
 
 func randomize_archetype():
 	var army_archetypes = ArmyArchetypeDatabase.army_archetypes.keys()
-	var chosen_archetype_key = army_archetypes.pick_random()
+	var unlocked_army_archetypes = filter_archetypes_by_unlocked(army_archetypes)
+	var chosen_archetype_key = unlocked_army_archetypes.pick_random()
 	archetype =  ArmyArchetypeDatabase.army_archetypes.get(chosen_archetype_key)
+
+
+func filter_archetypes_by_unlocked(archetype_keys: Array) -> Array:
+	var accum = []
+	for archetype_key in archetype_keys:
+		if playerOverworldData.unlock_manager.archetypes_unlocked.keys().has(archetype_key):
+			if playerOverworldData.unlock_manager.archetypes_unlocked[archetype_key]:
+				accum.append(archetype_key)
+	return accum
