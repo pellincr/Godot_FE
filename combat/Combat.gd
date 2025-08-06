@@ -61,6 +61,7 @@ var _player_unit_alive : bool = true
 @export var ally_spawn_bottom_right: Vector2
 @export var enemy_start_group : EnemyGroup
 @export var max_allowed_ally_units : int
+@export var draft_amount_on_win : int
 @export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
 
@@ -308,10 +309,16 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		SelectedSaveFile.save(playerOverworldData)
 		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
 			#if not at the final level
-			if battle_prep_on_win:
-				get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+			if draft_amount_on_win > 0:
+				playerOverworldData.current_archetype_count = 0
+				playerOverworldData.max_archetype = draft_amount_on_win
+				SelectedSaveFile.save(playerOverworldData)
+				get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
 			else:
-				get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+				if battle_prep_on_win:
+					get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+				else:
+					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 		else:
 			reset_game_state()
 			get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")

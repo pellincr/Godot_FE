@@ -25,7 +25,7 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var unit_draft_controls = $"MarginContainer/UnitDraftControls"
 
 var max_unit_draft = 0
-
+var current_drafted = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,10 +34,20 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	
 	load_data()
-	var unit_draft = unit_draft_scene.instantiate()
-	main_container.add_child(unit_draft)
-	unit_draft.current_state = current_draft_state
-	unit_draft.connect("commander_drafted",commander_selection_complete)
+	if playerOverworldData.current_level > 0:
+		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
+		#var archetype_draft = archetype_draft_scene.instantiate()
+		#main_container.add_child(archetype_draft)
+		update_to_archetype_screen()
+		#update_archetype_icon_container(commander)
+		set_army_draft_stage_label("Army Draft - Stage 2 of 3")
+		set_pick_amount_label("Pick 1 of " + str(playerOverworldData.max_archetype))
+		set_header_label("Draft an Army Archetype")
+	else:
+		var unit_draft = unit_draft_scene.instantiate()
+		unit_draft.current_state = current_draft_state
+		main_container.add_child(unit_draft)
+		unit_draft.connect("commander_drafted",commander_selection_complete)
 
 
 func set_player_overworld_data(po_data):
@@ -126,14 +136,17 @@ func unit_drafted(unit):
 		playerOverworldData.append_to_array(playerOverworldData.total_party,unit)
 	elif unit is WeaponDefinition:
 		playerOverworldData.append_to_array(playerOverworldData.convoy, unit)
+	current_drafted.append(unit)
 	playerOverworldData.archetype_allotments.remove_at(0)
 	#update_army_icon_container()
 	update_archetype_icon_container(unit)
+	
 	if (playerOverworldData.archetype_allotments.size() > 0):
 		set_pick_amount_label("Pick " + str(playerOverworldData.total_party.size()) + " of " + 
 		str(playerOverworldData.archetype_allotments.size() + playerOverworldData.total_party.size()-1))
 		set_header_label("Draft a " + playerOverworldData.archetype_allotments[0].name)
-	if (playerOverworldData.total_party.size() + playerOverworldData.convoy.size()) >= max_unit_draft + 1:
+	#if (playerOverworldData.total_party.size() + playerOverworldData.convoy.size()) >= max_unit_draft + 1:
+	if current_drafted.size() >= max_unit_draft:
 		recruiting_complete()
 
 
@@ -173,7 +186,12 @@ func update_archetype_icon_container(unit):
 			if item is PanelContainer:
 				for hbox_container in item.get_children():
 					accum.append_array(hbox_container.get_children())
-		var current_icon = accum[playerOverworldData.total_party.size()-2]
+		var current_icon
+		#if !playerOverworldData.current_level > 0:
+			#current_icon = accum[playerOverworldData.total_party.size()-2]
+		current_icon = accum[current_drafted.size()-1]
+		#else:
+		#	current_icon = accum[playerOverworldData.archetype_allotments]
 		update_icon(current_icon,unit.icon)
 
 func update_icon(icon1,texture):
