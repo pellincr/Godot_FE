@@ -32,4 +32,5 @@ item_type = 0
 uses = 25
 max_uses = 25
 value = 35
+worth = 100
 icon = ExtResource("1_rbokd")

@@ -131,6 +131,7 @@ func update_army_convoy_container_state():
 				var unit_detailed_simple_info = unit_detailed_info_simple_scene.instantiate()
 				unit_detailed_simple_info.unit = focused_selection
 				army_convoy_container.get_sub_container().add_child(unit_detailed_simple_info)
+				army_convoy_container.in_shop_state()
 				unit_detailed_simple_info.sell_item.connect(sell_item)
 				unit_detailed_simple_info.no_trading()
 				unit_detailed_simple_info.ready_for_sale()
@@ -238,3 +239,11 @@ func sell_item(item:ItemDefinition,unit:Unit):
 	unit.discard_item(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	focused_detailed_view.update_by_unit()
+
+func sell_item_from_convoy(item:ItemDefinition):
+	playerOverworldData.gold += item.price
+	playerOverworldData.convoy.erase(item)
+	gold_counter.set_gold_count(playerOverworldData.gold)
+	army_convoy_container.clear_scroll_scontainer()
+	army_convoy_container.fill_convoy_scroll_container()
+	clear_sub_container()

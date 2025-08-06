@@ -7,6 +7,8 @@ signal item_focused(item)
 
 signal convoy_item_to_unit(item)
 
+signal item_sold(item)
+
 var playerOverworldData : PlayerOverworldData
 
 @onready var army_convoy_header = $ArmyConvoyHeader
@@ -18,7 +20,8 @@ var playerOverworldData : PlayerOverworldData
 const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
 const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
 
-@onready var temp = 4
+var in_shop = false
+
 
 enum CONTAINER_STATE{
 	ARMY, CONVOY
@@ -81,11 +84,12 @@ func _on_army_convoy_header_header_swapped():
 			current_container_state = CONTAINER_STATE.CONVOY
 			army_convoy_sub_container.clear_scroll_container()
 			army_convoy_sub_container.fill_convoy_scroll_container()
+			army_convoy_sub_container.convoy_item_to_unit.connect(_on_convoy_item_to_unit)
+			army_convoy_sub_container.item_sold.connect(_on_item_sold)
 		CONTAINER_STATE.CONVOY:
 			current_container_state = CONTAINER_STATE.ARMY
 			army_convoy_sub_container.clear_scroll_container()
 			army_convoy_sub_container.fill_army_scroll_container()
-			army_convoy_sub_container.convoy_item_to_unit.connect(_on_convoy_item_to_unit)
 	army_convoy_sub_container.get_first_scroll_panel().grab_focus()
 	header_swapped.emit()
 
@@ -111,3 +115,10 @@ func get_sub_container():
 
 func _on_convoy_item_to_unit(item):
 	convoy_item_to_unit.emit(item)
+
+func _on_item_sold(item):
+	item_sold.emit(item)
+
+func in_shop_state():
+	in_shop = true
+	army_convoy_sub_container.in_shop = in_shop

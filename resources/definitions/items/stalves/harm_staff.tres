@@ -32,4 +32,5 @@ item_type = 1
 uses = 3
 max_uses = 3
 value = 0
+worth = 100
 icon = ExtResource("1_3nvq5")

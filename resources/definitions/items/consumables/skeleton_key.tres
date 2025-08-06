@@ -19,4 +19,5 @@ item_type = 2
 uses = 5
 max_uses = 5
 value = 250
+worth = 100
 icon = SubResource("AtlasTexture_0jbco")

@@ -32,4 +32,5 @@ item_type = 0
 uses = 50
 max_uses = 50
 value = 35
+worth = 100
 icon = ExtResource("1_betd0")
