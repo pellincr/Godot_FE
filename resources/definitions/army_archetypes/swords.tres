@@ -22,7 +22,7 @@ weapon_type = Array[int]([0])
 item_damage_type = Array[int]([])
 item_scaling_type = Array[int]([])
 name = "Sword Pick"
-type = 0
+type = 1
 response_filter = 0
 volume = 1
 

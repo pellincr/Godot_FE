@@ -151,18 +151,17 @@ func instantiate_unit_draft_selector():
 	
 
 func randomize_selection():
-	var all_unit_classes = UnitTypeDatabase.unit_types.keys()
-	var all_commander_classes = UnitTypeDatabase.commander_types.keys()
 	var class_rarity: UnitRarity = RarityDatabase.rarities.get(get_random_rarity())
+	var weapon_rarity = null
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the batch of recruits is supposed to be filtered by
 		var current_archetype_pick = playerOverworldData.archetype_allotments[0]
 		if current_archetype_pick is armyArchetypePickWeaponDefinition:
-			new_randomized_pick = randomize_weapon()
-			unit = new_randomized_pick
+			new_randomized_pick = randomize_weapon(current_archetype_pick, weapon_rarity)
+			unit = ItemDatabase.items.get(new_randomized_pick.pick_random())
 		else:
-			var filtered_unit_classes = filter_classes_by_archetype_pick(all_unit_classes, current_archetype_pick, class_rarity)
+			var filtered_unit_classes = filter_classes_by_archetype_pick(current_archetype_pick, class_rarity)
 			new_randomized_pick = filtered_unit_classes.pick_random()
 			var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
@@ -174,6 +173,7 @@ func randomize_selection():
 			unit = new_recruit
 	else:
 		#For Commander Drafting
+		var all_commander_classes = UnitTypeDatabase.commander_types.keys()
 		new_randomized_pick = all_commander_classes.pick_random()
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
@@ -191,13 +191,6 @@ func randomize_selection():
 		unit = new_recruit
 		
 
-func randomize_weapon() -> WeaponDefinition:
-	var all_item_types = ItemDatabase.items.keys()
-	var all_weapon_types = []
-	for item in all_item_types:
-		if ItemDatabase.items.get(item) is WeaponDefinition:
-			all_weapon_types.append(ItemDatabase.items.get(item))
-	return all_weapon_types.pick_random()
 
 
 
@@ -340,36 +333,37 @@ func get_units_by_class(given_unit_classes, unit_trait, rarity):
 	return viable_units
 
 
-func filter_classes_by_archetype_pick(class_list, unit_archetype_pick, class_rarity):
+func filter_classes_by_archetype_pick(unit_archetype_pick, class_rarity):
+	var class_list = UnitTypeDatabase.unit_types.keys()
 	var archetype_pick_factions = unit_archetype_pick.factions
 	var archetype_pick_traits = unit_archetype_pick.traits
 	var archetype_pick_rarity = unit_archetype_pick.rarity
 	var archetype_pick_weapon_types = unit_archetype_pick.weapon_types
 	var archetype_pick_unit_type = unit_archetype_pick.unit_type
 	#fill in factions list
-	var faction_filtered_list = filter_by_faction(class_list, archetype_pick_factions, class_rarity)
+	var faction_filtered_list = filter_classes_by_faction(class_list, archetype_pick_factions, class_rarity)
 	#fill in traits list
-	var traits_filtered_list = filter_by_trait(class_list, archetype_pick_traits, class_rarity)
+	var traits_filtered_list = filter_classes_by_trait(class_list, archetype_pick_traits, class_rarity)
 	#fill in rarity list
-	var rarity_filtered_list = filter_by_rarity(class_list, archetype_pick_rarity, class_rarity)
+	var rarity_filtered_list = filter_classes_by_rarity(class_list, archetype_pick_rarity, class_rarity)
 	#fill in weapon type list
-	var weapon_type_filtered_list = filter_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity)
+	var weapon_type_filtered_list = filter_classes_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity)
 	#fill in unit type list
-	var unit_type_filtered_list = filter_by_unit_type(class_list, archetype_pick_unit_type, class_rarity)
-	var combo1 = get_classes_in_common(faction_filtered_list,traits_filtered_list)
-	var combo2 = get_classes_in_common(rarity_filtered_list,combo1)
-	var combo3 = get_classes_in_common(weapon_type_filtered_list,combo2)
-	var combo4 = get_classes_in_common(unit_type_filtered_list,combo3)
+	var unit_type_filtered_list = filter_classes_by_unit_type(class_list, archetype_pick_unit_type, class_rarity)
+	var combo1 = get_list_in_common(faction_filtered_list,traits_filtered_list)
+	var combo2 = get_list_in_common(rarity_filtered_list,combo1)
+	var combo3 = get_list_in_common(weapon_type_filtered_list,combo2)
+	var combo4 = get_list_in_common(unit_type_filtered_list,combo3)
 	return combo4
 
-func get_classes_in_common(class_list_1, class_list_2):
+func get_list_in_common(list_1, list_2):
 	var accum = []
-	for given_class in class_list_1:
-		if class_list_2.has(given_class):
-			accum.append(given_class)
+	for given_element in list_1:
+		if list_2.has(given_element):
+			accum.append(given_element)
 	return accum
 
-func filter_by_faction(class_list, archetype_pick_factions, class_rarity):
+func filter_classes_by_faction(class_list, archetype_pick_factions, class_rarity):
 	var accum = []
 	if archetype_pick_factions.size() > 0:
 		#If there is a reason to filter by faction
@@ -382,7 +376,7 @@ func filter_by_faction(class_list, archetype_pick_factions, class_rarity):
 		return class_list
 	return accum
 
-func filter_by_trait(class_list, archetype_pick_traits, class_rarity):
+func filter_classes_by_trait(class_list, archetype_pick_traits, class_rarity):
 	var accum = []
 	if archetype_pick_traits.size() > 0:
 		#If there is a reason to filter by faction
@@ -395,7 +389,7 @@ func filter_by_trait(class_list, archetype_pick_traits, class_rarity):
 		return class_list
 	return accum
 
-func filter_by_rarity(class_list, archetype_pick_rarity, class_rarity):
+func filter_classes_by_rarity(class_list, archetype_pick_rarity, class_rarity):
 	var accum = []
 	if archetype_pick_rarity != null:
 		#If there is a reason to filter by faction
@@ -407,7 +401,7 @@ func filter_by_rarity(class_list, archetype_pick_rarity, class_rarity):
 		return class_list
 	return accum
 
-func filter_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity):
+func filter_classes_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity):
 	var accum = []
 	if archetype_pick_weapon_types.size() > 0:
 		#If there is a reason to filter by faction
@@ -420,7 +414,7 @@ func filter_by_weapon_type(class_list, archetype_pick_weapon_types, class_rarity
 		return class_list
 	return accum
 
-func filter_by_unit_type(class_list, archetype_pick_unit_type, class_rarity):
+func filter_classes_by_unit_type(class_list, archetype_pick_unit_type, class_rarity):
 	var accum = []
 	if archetype_pick_unit_type != "":
 		#If there is a reason to filter by faction
@@ -432,9 +426,60 @@ func filter_by_unit_type(class_list, archetype_pick_unit_type, class_rarity):
 	return accum
 
 
+func randomize_weapon(archetype_pick, weapon_rarity):
+	var all_item_types = ItemDatabase.items.keys()
+	var all_weapon_types = []
+	var archetype_pick_weapon_types = archetype_pick.weapon_type
+	var archetype_pick_damage_types = archetype_pick.item_damage_type
+	var archetype_pick_scaling_type = archetype_pick.item_scaling_type
+	#fill in weapon_type_list
+	var weapon_type_filtered_list = filter_items_by_weapon_type(all_item_types,archetype_pick_weapon_types,weapon_rarity)
+	#fill in damage type list
+	var damage_type_filtered_list = filter_items_by_damage_type(all_item_types,archetype_pick_damage_types,weapon_rarity)
+	#fill in scaling type list
+	var scaling_type_filtered_list = filter_items_by_scaling_type(all_item_types,archetype_pick_scaling_type,weapon_rarity)
+	var combo1 = get_list_in_common(weapon_type_filtered_list,damage_type_filtered_list)
+	var combo2 = get_list_in_common(combo1,scaling_type_filtered_list)
+	return combo2
 
+func filter_items_by_weapon_type(items_list:Array, weapon_type_list : Array, weapon_rarity):
+	var accum = []
+	if !weapon_type_list.is_empty():
+		#If there is a reason to filter by weapon type
+		for item in items_list:
+			var item_type : ItemDefinition = ItemDatabase.items.get(item)
+			if item_type is WeaponDefinition:
+				if weapon_type_list.has(item_type.weapon_type):
+					accum.append(item)
+	else:
+		return items_list
+	return accum
 
+func filter_items_by_damage_type(items_list:Array, damage_type_list : Array, weapon_rarity):
+	var accum = []
+	if !damage_type_list.is_empty():
+		#If there is a reason to filter by weapon type
+		for item in items_list:
+			var item_type : ItemDefinition = ItemDatabase.items.get(item)
+			if item_type is WeaponDefinition:
+				if damage_type_list.has(item_type.DAMAGE_TYPE):
+					accum.append(item)
+	else:
+		return items_list
+	return accum
 
+func filter_items_by_scaling_type(items_list:Array, scaling_type_list : Array, weapon_rarity):
+	var accum = []
+	if !scaling_type_list.is_empty():
+		#If there is a reason to filter by weapon type
+		for item in items_list:
+			var item_type : ItemDefinition = ItemDatabase.items.get(item)
+			if item_type is WeaponDefinition:
+				if scaling_type_list.has(item_type.item_scaling_type):
+					accum.append(item)
+	else:
+		return items_list
+	return accum
 
 
 func get_unit_stat_difference_total():
