@@ -1,6 +1,7 @@
 extends Panel
 
 signal set_equippped(item)
+signal use_item(item)
 signal item_selected_for_trade(item)
 
 @onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
@@ -16,13 +17,15 @@ func _ready():
 		update_by_item()
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and !set_for_trade:
-		set_equippped.emit(item)
-	if Input.is_action_just_pressed("ui_accept") and self.has_focus() and set_for_trade:
-		self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
-		item_selected_for_trade.emit(item)
-		
-		
+	if Input.is_action_just_pressed("ui_accept") and self.has_focus():
+		if !set_for_trade:
+			if item is WeaponDefinition:
+				set_equippped.emit(item)
+			else:
+				use_item.emit(item)
+		else:
+			self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
+			item_selected_for_trade.emit(item)
 
 func set_invetory_item_icon(icon:Texture2D):
 	inventory_item_icon.set_image(icon)

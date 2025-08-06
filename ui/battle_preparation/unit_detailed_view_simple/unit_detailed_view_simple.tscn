@@ -83,4 +83,5 @@ offset_right = 296.0
 offset_bottom = 136.0
 texture = ExtResource("3_g2rpd")
 
+[connection signal="item_used" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
 [connection signal="set_trade_item" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

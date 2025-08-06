@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 signal item_equipped(item)
+signal item_used(item)
 signal set_trade_item(item)
 
 @onready var inventory_slot_1 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
@@ -72,3 +73,9 @@ func _on_item_equipped(item):
 
 func _on_item_set_for_trade(item):
 	set_trade_item.emit(item)
+
+
+func _on_inventory_container_slot_use_item(item):
+	unit.use_consumable_item(item)
+	update_by_unit()
+	item_used.emit(item)

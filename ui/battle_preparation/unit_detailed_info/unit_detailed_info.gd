@@ -70,3 +70,9 @@ func _on_unit_inventory_container_item_equipped(item):
 func _on_set_trade_item(item):
 	set_trade_item.emit(item, unit)
 	update_by_unit()
+
+
+func _on_unit_inventory_container_item_used(item):
+	print("TEST")
+	update_by_unit()
+	

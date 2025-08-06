@@ -66,3 +66,7 @@ func reset_inventory_selection_theme():
 	var inventory_slots = unit_inventory_container.get_inventory_slots()
 	for slot in inventory_slots:
 		slot.theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")
+
+
+func _on_unit_inventory_container_item_used(item):
+	update_by_unit()

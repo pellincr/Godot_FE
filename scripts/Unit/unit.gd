@@ -337,7 +337,7 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	return experience_gain
 
 func heal(value: int) :
-	self.hp  =  clamp(self.hp + value, 0, self.max_hp)
+	self.hp  =  clamp(self.hp + value, 0, self.stats.hp)
 
 func get_unit_type_definition() -> UnitTypeDefinition:
 	return UnitTypeDatabase.get_definition(self.unit_type_key)

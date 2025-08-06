@@ -19,7 +19,9 @@ enum ITEM_TYPE {
 @export_range(-1, 100, 1, "or_greater") var uses = 50
 @export_range(1, 2, 1, "or_greater") var max_uses = 50
 @export_range(0, 30, 1, "or_greater") var value = 35
-var price : int = calculate_value()
+
+@export_range(0,1000,1, "or_greater") var worth = 100
+var price : int = calculate_price()
 
 @export_group("Visuals")
 @export var icon: Texture2D
@@ -33,5 +35,5 @@ func use():
 	if uses == 0:
 		print(name + " broke!")
 
-func calculate_value():
-	return value * (uses / max_uses)
+func calculate_price():
+	return worth * (uses / max_uses)

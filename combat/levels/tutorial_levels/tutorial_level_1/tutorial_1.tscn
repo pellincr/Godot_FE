@@ -42,6 +42,7 @@ ally_spawn_top_left = Vector2(11, 6)
 ally_spawn_bottom_right = Vector2(12, 7)
 enemy_start_group = ExtResource("6_17qwn")
 max_allowed_ally_units = 1
+heal_on_win = false
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("8_6vv1a")
