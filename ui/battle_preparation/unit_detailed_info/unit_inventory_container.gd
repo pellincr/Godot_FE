@@ -81,11 +81,12 @@ func _on_item_set_for_trade(item):
 
 
 func _on_inventory_container_slot_use_item(item):
-	var item_use_option = preload("res://ui/battle_preparation/item_use_option.tscn").instantiate()
-	add_child(item_use_option)
-	item_use_option.item_confirmed.connect(_on_item_confirmed)
-	item_use_option.item = item
-	item_use_option.unit = unit
+	if item:
+		var item_use_option = preload("res://ui/battle_preparation/item_use_option.tscn").instantiate()
+		add_child(item_use_option)
+		item_use_option.item_confirmed.connect(_on_item_confirmed)
+		item_use_option.item = item
+		item_use_option.unit = unit
 
 
 func _on_item_confirmed(item):

@@ -21,12 +21,12 @@ func _process(delta):
 	else:
 		cancel_panel.theme = preload("res://ui/battle_preparation/panel_option_not_focused.tres")
 	
-	
-	if Input.is_action_just_pressed("ui_accept") and use_panel.has_focus():
-		use_item(item, unit)
-		item_confirmed.emit(item)
+	if Input.is_action_just_pressed("ui_accept"):
+		if use_panel.has_focus():
+			use_item(item, unit)
+			item_confirmed.emit(item)
 		queue_free()
-	if Input.is_action_just_pressed("ui_accept") and cancel_panel.has_focus():
+	if Input.is_action_just_pressed("ui_accept"):
 		cancel()
 		queue_free()
 
@@ -34,6 +34,8 @@ func _process(delta):
 
 func use_item(item:ItemDefinition, unit:Unit):
 	unit.use_consumable_item(item)
+	if item.uses == 0:
+		unit.discard_item(item)
 
 func cancel():
 	pass
