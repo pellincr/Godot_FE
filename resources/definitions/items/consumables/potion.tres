@@ -18,6 +18,5 @@ description = ""
 item_type = 2
 uses = 3
 max_uses = 3
-value = 250
 worth = 100
 icon = SubResource("AtlasTexture_7ke84")

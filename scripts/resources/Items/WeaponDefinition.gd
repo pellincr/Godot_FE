@@ -3,7 +3,7 @@ class_name WeaponDefinition
 
 @export_subgroup("Weapon Type")
 @export var weapon_type : itemConstants.WEAPON_TYPE
-@export var aligment : itemConstants.ALIGNMENT
+@export var alignment : itemConstants.ALIGNMENT
 @export var physical_weapon_triangle_type : itemConstants.MUNDANE_WEAPON_TRIANGLE
 @export var magic_weapon_triangle_type : itemConstants.MAGICAL_WEAPON_TRIANGLE
 @export var item_damage_type : Constants.DAMAGE_TYPE = 0

@@ -9,8 +9,8 @@
 
 [resource]
 script = ExtResource("5_mpnbg")
-unit_type_name = "Bishop"
-db_key = "bishop"
+unit_type_name = "Crossbowman"
+db_key = "crossbowman"
 description = "Professional marksmen with armor-piercing bolts and disciplined formation tactics."
 initiative = 1
 faction = Array[int]([1])
@@ -20,7 +20,7 @@ movement_type = 0
 tier = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([3])
+usable_weapon_types = Array[int]([4])
 base_stats = ExtResource("1_16p6e")
 maxuimum_stats = ExtResource("4_rbi7o")
 growth_stats = ExtResource("2_ft5l6")

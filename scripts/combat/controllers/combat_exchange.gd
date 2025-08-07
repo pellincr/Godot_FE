@@ -282,7 +282,7 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker.unit.inventory.equipped: 
 		if attacker.unit.inventory.equipped is WeaponDefinition:
 			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
-				if attacker.unit.inventory.equipped.item_target_faction == Constants.AVAILABLE_TARGETS.ENEMY:
+				if itemConstants.AVAILABLE_TARGETS.ENEMY in attacker.unit.inventory.equipped.item_target_faction:
 					if attacker.unit.inventory.equipped.attack_range.has(distance):
 						return true
 	return false
@@ -329,7 +329,7 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 					return unit_a
 				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
 					return unit_b
-				match unit_a_weapon.mundane_weapon_triangle:
+				match unit_a_weapon.physical_weapon_triangle_type:
 					itemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return unit_b
@@ -355,7 +355,7 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 					return unit_b
 				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
 					return unit_a
-				match unit_a_weapon.mundane_weapon_triangle:
+				match unit_a_weapon.magic_weapon_triangle_type:
 					itemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
 						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 							return unit_b

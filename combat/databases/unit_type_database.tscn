@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=33 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -26,6 +26,7 @@
 [ext_resource type="Resource" uid="uid://710nx6xrxuvw" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch.tres" id="25_fxnlp"]
 [ext_resource type="Resource" uid="uid://bggom385t6lmm" path="res://resources/definitions/unit_types/units/gunner/gunner.tres" id="26_kidx7"]
 [ext_resource type="Resource" uid="uid://b6wt7bx06b8pq" path="res://resources/definitions/unit_types/commanders/centurion/centurion.tres" id="27_nwy4v"]
+[ext_resource type="Resource" uid="uid://x6q68u18j7o7" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman.tres" id="27_rymva"]
 [ext_resource type="Resource" uid="uid://cr636d16kh3r2" path="res://resources/definitions/unit_types/commanders/destroyer/destroyer.tres" id="28_ov4kq"]
 [ext_resource type="Resource" uid="uid://bnx6qng2moqwn" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight.tres" id="29_ycdqo"]
 [ext_resource type="Resource" uid="uid://dm8fw53ceseeg" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden.tres" id="30_uy0ry"]
@@ -42,6 +43,7 @@ unit_types = {
 "bladehand": ExtResource("5_k6vk5"),
 "brawler": ExtResource("14_p6lhs"),
 "corsair": ExtResource("23_027cf"),
+"crossbowman": ExtResource("27_rymva"),
 "duelist": ExtResource("22_sqm7u"),
 "field_medic": ExtResource("20_gr6kv"),
 "fighter": ExtResource("6_dtgcv"),

@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_602l1")
 weapon_type = 8
-aligment = 2
+alignment = 2
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 2
 item_damage_type = 1
@@ -33,6 +33,5 @@ description = ""
 item_type = 0
 uses = 25
 max_uses = 25
-value = 35
 worth = 100
 icon = ExtResource("1_lq5r8")

@@ -9,18 +9,18 @@
 
 [resource]
 script = ExtResource("5_2xl1h")
-unit_type_name = "Ward"
-db_key = "ward"
-description = "Hired protectors who ward allies with shield and spell, holding fast under pressure."
+unit_type_name = "Duelist"
+db_key = "duelist"
+description = "Lethal swordsmen trained for single combat, striking with unmatched precision."
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
 unit_rarity = ExtResource("6_lv4oq")
-movement_type = 1
+movement_type = 0
 tier = 2
 promoted = false
 unit_promoted_from_key = ""
-usable_weapon_types = Array[int]([11])
+usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_vkxv0")
 maxuimum_stats = ExtResource("4_ski5l")
 growth_stats = ExtResource("2_h174e")

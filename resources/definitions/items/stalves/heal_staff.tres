@@ -5,20 +5,22 @@
 
 [resource]
 script = ExtResource("1_wwyp7")
-weapon_type = 5
-physical_weapon_triangle_type = "none"
-magic_weapon_triangle_type = "none"
-item_damage_type = 1
-item_scaling_type = 1
-item_target_faction = 1
+weapon_type = 6
+aligment = 2
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 3
+item_scaling_type = 2
+item_target_faction = Array[int]([1])
 required_mastery = 0
 attack_range = Array[int]([1])
 damage = 10
 hit = 100
 critical_chance = 0
 weight = 5
-weapon_effectiveness = Array[String]([])
-weapon_hit_effect = 2
+critical_multiplier = 3.0
+weapon_effectiveness = Array[int]([])
+status_ailments = Array[String]([])
 is_wpn_triangle_effective = false
 crit_disabled = false
 is_brave = false
@@ -31,5 +33,5 @@ description = ""
 item_type = 1
 uses = 40
 max_uses = 40
-value = 0
+worth = 100
 icon = ExtResource("1_no0c5")
