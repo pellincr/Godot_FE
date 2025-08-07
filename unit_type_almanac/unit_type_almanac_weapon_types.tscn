@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://bwojcenhgb8vy"]
+
+[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="1_770qm"]
+[ext_resource type="Script" path="res://unit_type_almanac/unit_type_almanac_weapon_types.gd" id="1_s0igl"]
+[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="2_xxsbp"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="3_fcjhj"]
+[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="4_bbsss"]
+[ext_resource type="Texture2D" uid="uid://cixqa2gkoy1ut" path="res://resources/sprites/icons/dagger_icon.png" id="5_hneg5"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="6_ujhmp"]
+[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="7_hry4g"]
+[ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="8_vauxv"]
+[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="9_pv0yv"]
+[ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="10_o0byw"]
+[ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="11_el5qa"]
+[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="12_ws2rh"]
+[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="13_cu5se"]
+
+[node name="UnitTypeAlmanacWeaponTypes" type="VBoxContainer"]
+offset_right = 16.0
+offset_bottom = 570.0
+rotation = 0.000233432
+script = ExtResource("1_s0igl")
+
+[node name="SwordIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_770qm")
+expand_mode = 4
+
+[node name="AxeIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_xxsbp")
+expand_mode = 4
+
+[node name="LanceIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_fcjhj")
+expand_mode = 4
+
+[node name="ShieldIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_bbsss")
+expand_mode = 4
+
+[node name="DaggerIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_hneg5")
+expand_mode = 4
+
+[node name="FistIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_ujhmp")
+expand_mode = 4
+
+[node name="BowIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("7_hry4g")
+expand_mode = 4
+
+[node name="BannerIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_vauxv")
+expand_mode = 4
+
+[node name="StaffIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_pv0yv")
+expand_mode = 4
+
+[node name="NatureIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("10_o0byw")
+expand_mode = 4
+
+[node name="LightIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_el5qa")
+expand_mode = 4
+
+[node name="DarkIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_ws2rh")
+expand_mode = 4
+
+[node name="AnimalIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("13_cu5se")
+expand_mode = 4

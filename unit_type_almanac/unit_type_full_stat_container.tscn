@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://uu25grierx8r"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_7g0ee"]
-[ext_resource type="Script" path="res://unit_type_dictionary/unit_type_full_stat_container.gd" id="2_60uux"]
+[ext_resource type="Script" path="res://unit_type_almanac/unit_type_full_stat_container.gd" id="2_60uux"]
 
 [sub_resource type="Theme" id="Theme_ds58m"]
 default_font = ExtResource("1_7g0ee")

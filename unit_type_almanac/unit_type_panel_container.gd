@@ -17,9 +17,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if has_focus():
-		theme = preload("res://unit_type_dictionary/panel_container_focused.tres")
+		theme = preload("res://unit_type_almanac/panel_container_focused.tres")
 	else:
-		theme = preload("res://unit_type_dictionary/panel_container_not_focused.tres")
+		theme = preload("res://unit_type_almanac/panel_container_not_focused.tres")
 
 
 func set_unit_type_label(text):

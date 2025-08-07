@@ -1,10 +1,14 @@
 extends HBoxContainer
 
-@onready var main_scroll_container = $VBoxContainer/ScrollContainer/MainScrollContainer
-@onready var unit_type_header = $VBoxContainer/UnitTypeHeader
+@onready var main_scroll_container = $MainContainer/DetailedViewSubContainer/ScrollContainer/MainScrollContainer
+@onready var unit_type_header = $MainContainer/UnitTypeHeader
 
-const unit_type_panel_container_scene = preload("res://unit_type_dictionary/unit_type_panel_container.tscn")
-const unit_type_dictionary_detailed_view_scene = preload("res://unit_type_dictionary/unit_type_dictionary_detailed_view.tscn")
+@onready var main_container = $MainContainer
+
+@onready var detailed_view_sub_container = $MainContainer/DetailedViewSubContainer
+
+const unit_type_panel_container_scene = preload("res://unit_type_almanac/unit_type_panel_container.tscn")
+const unit_type_almanac_detailed_view_scene = preload("res://unit_type_almanac/unit_type_almanac_detailed_view.tscn")
 
 enum UNIT_TYPE {
 	UNIT, COMMANDER
@@ -39,7 +43,7 @@ func fill_main_scroll_container_commander_type():
 		main_scroll_container.add_child(unit_type_panel_container)
 
 func clear_sub_children():
-	var children = get_children()
+	var children = detailed_view_sub_container.get_children()
 	for child_index in children.size():
 		if child_index == 0:
 			pass
@@ -58,7 +62,7 @@ func _on_unit_type_header_header_swapped():
 
 func _on_unit_type_panel_focued(unit_type):
 	clear_sub_children()
-	var unit_type_dictionary_detailed_view = unit_type_dictionary_detailed_view_scene.instantiate()
-	unit_type_dictionary_detailed_view.unit_type = unit_type
-	add_child(unit_type_dictionary_detailed_view)
+	var unit_type_almanac_detailed_view = unit_type_almanac_detailed_view_scene.instantiate()
+	unit_type_almanac_detailed_view.unit_type = unit_type
+	detailed_view_sub_container.add_child(unit_type_almanac_detailed_view)
 	
