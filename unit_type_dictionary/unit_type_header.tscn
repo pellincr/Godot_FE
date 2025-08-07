@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b36cv6rktmlvl"]
+
+[ext_resource type="Script" path="res://unit_type_dictionary/unit_type_header.gd" id="1_mbsfm"]
+[ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://unit_type_dictionary/panel_container_focused.tres" id="1_qtd5w"]
+[ext_resource type="Texture2D" uid="uid://c2keyyxy2vmbu" path="res://resources/sprites/controls/lb 1.png" id="1_uc8cv"]
+[ext_resource type="Theme" uid="uid://kdfakjl724jb" path="res://unit_type_dictionary/panel_container_not_focused.tres" id="2_rddmw"]
+[ext_resource type="Texture2D" uid="uid://bocl3wnqikemr" path="res://resources/sprites/controls/rb 1.png" id="4_iiv7x"]
+
+[node name="UnitTypeHeader" type="HBoxContainer"]
+custom_minimum_size = Vector2(350, 60)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mbsfm")
+
+[node name="LeftBumperIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_uc8cv")
+expand_mode = 3
+
+[node name="LeftHeader" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_qtd5w")
+
+[node name="LeftHeader" type="Label" parent="LeftHeader"]
+layout_mode = 2
+text = "Unit Types"
+
+[node name="RightHeader" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_rddmw")
+
+[node name="RightHeader" type="Label" parent="RightHeader"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Commander Types"
+
+[node name="RightBumperIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("4_iiv7x")
+expand_mode = 3

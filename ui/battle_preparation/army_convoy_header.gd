@@ -11,7 +11,7 @@ signal header_swapped()
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("left_bumber") or Input.is_action_just_pressed("right_bumper"):
+	if Input.is_action_just_pressed("left_bumper") or Input.is_action_just_pressed("right_bumper"):
 		swap_header_labels()
 		swap_upper_container_visibiltiy()
 		header_swapped.emit()
