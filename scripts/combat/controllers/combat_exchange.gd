@@ -130,7 +130,8 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		attacker.unit.inventory.equipped.use()
 		if check_critical(critical_chance) :
 			#emit critical
-			damage_dealt = 3 * calc_damage(attacker.unit, target.unit)
+			#damage_dealt = 3 * calc_damage(attacker.unit, target.unit)
+			damage_dealt = floori(attacker.unit.inventory.equipped.critical_multiplier * calc_damage(attacker.unit, target.unit))
 			await do_damage(target,damage_dealt, true)
 		else : 
 			#emit generic damage
@@ -143,13 +144,14 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		await hit_missed(target)
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
-	var heal_amount = calc_damage(attacker.unit, target.unit)
-	attacker.unit.inventory.equipped.use()
-	await use_audio_player(heal_sound)
-	target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
-	DamageNumbers.heal((32* target.map_tile.position + Vector2i(16,16)), heal_amount)
-	target.map_display.update_values()
-	await target.map_display.update_complete
+	if attacker.unit.inventory.equipped is WeaponDefinition:
+		var heal_amount = attacker.unit.inventory.equipped.damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
+		attacker.unit.inventory.equipped.use()
+		await use_audio_player(heal_sound)
+		target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
+		DamageNumbers.heal((32* target.map_tile.position + Vector2i(16,16)), heal_amount)
+		target.map_display.update_values()
+		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
@@ -227,33 +229,40 @@ func calc_crit(attacker: Unit, target: Unit) -> int:
 	return clamp(attacker.critical_hit - target.critical_avoid, 0, 100)
 
 func calc_damage(attacker: Unit, target: Unit) -> int:
+	var max_damage
 	var damage
 	const wpn_triangle_damage_bonus = 2
 	const effective_damage_multiplier = 3
+	var attacker_stat_bonus = get_stat_scaling_bonus(attacker, attacker.inventory.equipped.item_scaling_type)
 	var effective = false
 	var wpn_triangle_active_bonus = 0
 	var defense_mult = 1
 	#is the weapon effective?
 	effective = check_effective(attacker, target)
 	#does the attacker have weapon triangle advantage? 
-	if attacker.inventory.equipped.negates_defense:
-		defense_mult = 0
 	if (check_weapon_triangle(attacker, target) == attacker): 
 		wpn_triangle_active_bonus = wpn_triangle_damage_bonus
 	elif (check_weapon_triangle(attacker, target) == target):
 		wpn_triangle_active_bonus = - wpn_triangle_damage_bonus
-	#get the item damage_type
+	
+	#calculate the maximum damage output before factoring in defenses
+	if(effective): 
+		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage))
+	else :
+		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + attacker.inventory.equipped.damage)
+	# check the damage type of the source
+	if attacker.inventory.equipped.negates_defense:
+		defense_mult = 0
 	if attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
-		if(effective): 
-			damage = (attacker.stats.strength + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.stats.defense * defense_mult)
-		else :
-			damage = (attacker.stats.strength + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.stats.defense * defense_mult)
+		damage = clampi(max_damage - (target.stats.defense * defense_mult),0, 999)
 	elif attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
-		if(effective): 
-			damage = (attacker.stats.magic + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage)) - (target.stats.resistance * defense_mult)
-		else :
-			damage = (attacker.stats.magic + wpn_triangle_active_bonus + attacker.inventory.equipped.damage) - (target.stats.resistance * defense_mult)
-	return clamp(damage, 0, INF)
+		damage = clampi(max_damage - (target.stats.resistance * defense_mult),0, 999)
+	elif attacker.inventory.item_damage_type == Constants.DAMAGE_TYPE.TRUE:
+		damage = max_damage
+	else :
+		print("Error : Invalid Damage Type in Combat_Exchange.gd - calc_damage")
+		damage = 0
+	return damage
 
 func check_hit(hit_chance: int) -> bool:
 	return CustomUtilityLibrary.random_rolls_bool(hit_chance, 2)
@@ -273,7 +282,7 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker.unit.inventory.equipped: 
 		if attacker.unit.inventory.equipped is WeaponDefinition:
 			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
-				if attacker.unit.inventory.equipped.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ENEMY:
+				if itemConstants.AVAILABLE_TARGETS.ENEMY in attacker.unit.inventory.equipped.item_target_faction:
 					if attacker.unit.inventory.equipped.attack_range.has(distance):
 						return true
 	return false
@@ -314,42 +323,59 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 	if unit_b.inventory.equipped: 
 		unit_b_weapon = unit_b.inventory.equipped
 	if unit_b_weapon and unit_a_weapon:
-		#"none", "Axe", "Sword", "Lance" PHYSICAL
-		if not (CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.physical_weapon_triangle_type, "none") or CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "none")): 
-			if not (CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.physical_weapon_triangle_type, unit_b_weapon.physical_weapon_triangle_type)):
-				if CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.physical_weapon_triangle_type, "Axe"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Lance"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Sword"):
-						return unit_b
-				elif CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.physical_weapon_triangle_type, "Sword"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Axe"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Lance"):
-						return unit_b
-				elif CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.physical_weapon_triangle_type, "Lance"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Sword"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.physical_weapon_triangle_type, "Axe"):
-						return unit_b
-		#("none","Dark", "Light", "Nature") Magic
-		elif not (CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.magic_weapon_triangle_type, "none") or CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "none")): 
-			if not (CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.magic_weapon_triangle_type, unit_b_weapon.magic_weapon_triangle_type)):
-				if CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.magic_weapon_triangle_type, "Dark"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Nature"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Light"):
-						return unit_b
-				elif CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.magic_weapon_triangle_type, "Light"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Dark"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Nature"):
-						return unit_b
-				elif CustomUtilityLibrary.equals_ignore_case(unit_a_weapon.magic_weapon_triangle_type, "Nature"):
-					if CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Light"):
-						return unit_a
-					elif CustomUtilityLibrary.equals_ignore_case(unit_b_weapon.magic_weapon_triangle_type, "Dark"):
-						return unit_b
+		match unit_a_weapon.alignment:
+			itemConstants.ALIGNMENT.MUNDANE:
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
+					return unit_a
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
+					return unit_b
+				match unit_a_weapon.physical_weapon_triangle_type:
+					itemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return unit_b
+						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return unit_a
+					itemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return unit_b
+						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return unit_a
+					itemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return unit_b
+						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return unit_a
+			itemConstants.ALIGNMENT.NIMBLE:
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
+					return unit_a
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
+					return unit_b
+			itemConstants.ALIGNMENT.MAGIC:
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
+					return unit_b
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
+					return unit_a
+				match unit_a_weapon.magic_weapon_triangle_type:
+					itemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return unit_b
+						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return unit_a
+					itemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return unit_b
+						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return unit_a
+					itemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return unit_b
+						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return unit_a
+			itemConstants.ALIGNMENT.DEFENSIVE:
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
+					return unit_a
+				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
+					return unit_b
 	return null
 
 func use_audio_player(sound:AudioStream):
@@ -390,25 +416,33 @@ func unit_gain_experience_complete():
 	emit_signal("unit_gain_experience_finished")
 	in_experience_flow = false
 
-func enact_staff_exchange(attacker: CombatUnit, defender:CombatUnit, distance:int):
-	#Compre attacks speeds to see if anyone is double attacking
+#
+# Used for healing
+#
+func enact_support_exchange(attacker: CombatUnit, target:CombatUnit, distance:int):
 	var staff : WeaponDefinition
 	var give_xp = false
-	#get the allegience of the units
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		give_xp = true
-	attacker.turn_taken = true
-	if attacker.unit.inventory.equipped is WeaponDefinition and attacker.unit.inventory.equipped.item_type == 1:
+	if attacker.unit.inventory.equipped: 
 		staff = attacker.unit.inventory.equipped
-		if staff.item_damage_type == WeaponDefinition.DAMAGE_TYPE.MAGICAL:
-			if staff.weapon_hit_effect == WeaponDefinition.HIT_EFFECT.HEAL: 
-				await perform_heal(attacker, defender, staff.item_damage_type)
-				if attacker.allegience == Constants.FACTION.PLAYERS:
-					await complete_combat_exchange(attacker.unit, defender.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
-			elif staff.weapon_hit_effect ==  WeaponDefinition.HIT_EFFECT.PHYSICAL_DAMAGE or staff.item_hit_effect == WeaponDefinition.HIT_EFFECT.MAGICAL_DAMAGE : 
-				## NEEDS TO BE FLUSHED OUT
-				var attacker_hit_chance = calc_hit_staff(attacker.unit,defender,staff)
-				await perform_hit(attacker,defender,attacker_hit_chance, 0)
-				return
-			else :
-				pass
+		await perform_heal(attacker, target, staff.item_scaling_type)
+		if attacker.allegience == Constants.FACTION.PLAYERS:
+			await complete_combat_exchange(attacker.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+		else :
+			pass
+	attacker.turn_taken = true
+
+func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALING_TYPE) -> int:
+	match item_scaling_type:
+		ItemConstants.SCALING_TYPE.STRENGTH:
+			return owner.stats.strength
+		ItemConstants.SCALING_TYPE.SKILL:
+			return owner.stats.skill
+		ItemConstants.SCALING_TYPE.MAGIC:
+			return owner.stats.magic
+		ItemConstants.SCALING_TYPE.CONSTITUTION:
+			return 0 #THIS NEEDS TO BE IDIATED FURTHER
+		ItemConstants.SCALING_TYPE.NONE:
+			return 0
+	return 0

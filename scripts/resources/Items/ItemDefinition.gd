@@ -18,9 +18,8 @@ enum ITEM_TYPE {
 @export var rarity : ItemRarity
 
 @export_subgroup("Item Stats")
-@export_range(-1, 100, 1, "or_greater") var uses = 50
-@export_range(1, 2, 1, "or_greater") var max_uses = 50
-@export_range(0, 30, 1, "or_greater") var value = 35
+@export_range(-1, 100, 1, "or_greater") var uses = 1
+@export_range(1, 2, 1, "or_greater") var max_uses = 1
 
 @export_range(0,1000,1, "or_greater") var worth = 100
 var price : int = calculate_price()

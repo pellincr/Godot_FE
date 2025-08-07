@@ -9,7 +9,7 @@
 script = ExtResource("2_i6xoj")
 factions = Array[int]([])
 traits = Array[int]([])
-weapon_types = Array[int]([0])
+weapon_types = Array[int]([1])
 unit_type = ""
 name = "Swordman"
 type = 0
@@ -18,7 +18,7 @@ volume = 1
 
 [sub_resource type="Resource" id="Resource_8l8jn"]
 script = ExtResource("3_tti6g")
-weapon_type = Array[int]([0])
+weapon_type = Array[int]([1])
 item_damage_type = Array[int]([])
 item_scaling_type = Array[int]([])
 name = "Sword Pick"

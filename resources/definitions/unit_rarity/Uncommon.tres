@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_cucl0")
+chance = 0.0
 rarity_name = "Uncommon"
 ui_color = Color(0, 0, 1, 1)

@@ -5,20 +5,22 @@
 
 [resource]
 script = ExtResource("2_ye3hw")
-weapon_type = 0
-physical_weapon_triangle_type = "Lance"
-magic_weapon_triangle_type = "none"
+weapon_type = 2
+alignment = 0
+physical_weapon_triangle_type = 3
+magic_weapon_triangle_type = 0
 item_damage_type = 0
 item_scaling_type = 0
-item_target_faction = 0
+item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1])
 damage = 12
 hit = 65
 critical_chance = 0
 weight = 10
-weapon_effectiveness = Array[String]([])
-weapon_hit_effect = 0
+critical_multiplier = 3.0
+weapon_effectiveness = Array[int]([])
+status_ailments = Array[String]([])
 is_wpn_triangle_effective = true
 crit_disabled = false
 is_brave = false
@@ -31,5 +33,5 @@ description = ""
 item_type = 0
 uses = 45
 max_uses = 45
-value = 2
+worth = 100
 icon = ExtResource("1_x3tid")
