@@ -7,6 +7,8 @@ signal unit_deselected()
 
 signal convoy_item_to_unit(item)
 
+signal item_sold(item)
+
 @onready var main_scroll_container = $ScrollContainer/MainScrollContainer
 
 const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
@@ -14,7 +16,8 @@ const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/c
 
 var playerOverworldData : PlayerOverworldData
 
-@onready var temp = 4
+
+var in_shop = false
 
 func _ready():
 	if !playerOverworldData:
@@ -46,6 +49,7 @@ func fill_convoy_scroll_container():
 			main_scroll_container.add_child(convoy_item_panel_container)
 			convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
 			convoy_item_panel_container.item_sent_to_unit.connect(_on_item_sent_to_unit)
+			convoy_item_panel_container.item_sold.connect(_on_item_sold)
 	#var test = main_scroll_container.get_child(0)
 	#if(test):
 	#	test.grab_focus()
@@ -79,3 +83,6 @@ func get_first_scroll_panel():
 
 func _on_item_sent_to_unit(item):
 	convoy_item_to_unit.emit(item)
+
+func _on_item_sold(item):
+	item_sold.emit(item)

@@ -1,14 +1,15 @@
-extends VBoxContainer
+extends HBoxContainer
 
 signal item_equipped(item)
 signal item_used(item)
 signal set_trade_item(item)
+signal sell_item(item)
 
-@onready var inventory_slot_1 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
-@onready var inventory_slot_2 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
-@onready var inventory_slot_3 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3
-@onready var inventory_slot_4 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4
-@onready var inventory_slot_5 = $PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5
+@onready var inventory_slot_1 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
+@onready var inventory_slot_2 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
+@onready var inventory_slot_3 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3
+@onready var inventory_slot_4 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4
+@onready var inventory_slot_5 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5
 
 @onready var inventory_slot_array = [inventory_slot_1,inventory_slot_2,inventory_slot_3,inventory_slot_4,inventory_slot_5]
 
@@ -17,6 +18,7 @@ signal set_trade_item(item)
 const equipped_icon = preload("res://ui/battle_preparation/E.png")
 
 var unit :Unit
+
 
 
 func _ready():
@@ -64,6 +66,9 @@ func set_inventory_for_trade_false():
 	for slot in inventory_slot_array:
 		slot.set_for_trade = false
 
+func set_inventory_for_sale_true():
+	for slot in inventory_slot_array:
+		slot.set_for_sale = true
 
 func _on_item_equipped(item):
 	unit.set_equipped(item)
@@ -76,6 +81,19 @@ func _on_item_set_for_trade(item):
 
 
 func _on_inventory_container_slot_use_item(item):
-	unit.use_consumable_item(item)
+	if item:
+		var item_use_option = preload("res://ui/battle_preparation/item_use_option.tscn").instantiate()
+		add_child(item_use_option)
+		item_use_option.item_confirmed.connect(_on_item_confirmed)
+		item_use_option.item = item
+		item_use_option.unit = unit
+
+
+func _on_item_confirmed(item):
 	update_by_unit()
 	item_used.emit(item)
+
+
+
+func _on_inventory_container_slot_sell_item(item):
+	sell_item.emit(item)

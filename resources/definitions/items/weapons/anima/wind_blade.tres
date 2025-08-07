@@ -33,5 +33,6 @@ description = ""
 item_type = 0
 uses = 20
 max_uses = 20
+value = 35
 worth = 100
 icon = ExtResource("1_7ev12")

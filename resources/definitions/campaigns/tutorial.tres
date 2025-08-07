@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=6 format=3 uid="uid://dwy1wchlwt6dw"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=7 format=3 uid="uid://dwy1wchlwt6dw"]
 
 [ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_jr7w2"]
 [ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/levels/tutorial_levels/tutorial_level_1/tutorial_1.tscn" id="1_t54vs"]
 [ext_resource type="PackedScene" uid="uid://bk8b7vmkl0wbh" path="res://combat/levels/tutorial_levels/tutorial_level_2/tutorial_2.tscn" id="2_l4eaw"]
 [ext_resource type="PackedScene" uid="uid://bal5lnj6tj03f" path="res://combat/levels/tutorial_levels/tutorial_level_3/tutorial_3.tscn" id="3_qkded"]
 [ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/levels/tutorial_levels/tutorial_level_4/tutorial_4.tscn" id="4_xca6y"]
+[ext_resource type="PackedScene" uid="uid://bwh2mplnd8dpq" path="res://combat/levels/tutorial_levels/tutorial_level_5/tutorial_5.tscn" id="5_57mqu"]
 
 [resource]
 script = ExtResource("1_jr7w2")
 name = "Tutorial"
-levels = Array[PackedScene]([ExtResource("1_t54vs"), ExtResource("2_l4eaw"), ExtResource("3_qkded"), ExtResource("4_xca6y")])
+levels = Array[PackedScene]([ExtResource("1_t54vs"), ExtResource("2_l4eaw"), ExtResource("3_qkded"), ExtResource("4_xca6y"), ExtResource("5_57mqu")])

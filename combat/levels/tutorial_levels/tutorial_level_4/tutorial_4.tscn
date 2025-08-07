@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="3_6euwm"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_vx4dk"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_6px8n"]
-[ext_resource type="Resource" uid="uid://b0sd3s30y0yy0" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
+[ext_resource type="Resource" uid="uid://bba77rcw2g3tq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_j1pk3"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="8_wifo0"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_c4tgo"]

@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_marpr")
-chance = 0.2
 rarity_name = "Rare"
 ui_color = Color(0.0117647, 1, 0.239216, 1)

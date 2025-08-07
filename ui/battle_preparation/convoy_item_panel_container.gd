@@ -2,6 +2,7 @@ extends PanelContainer
 
 signal item_bought(item)
 signal item_sent_to_unit(item)
+signal item_sold(item)
 
 @onready var left_container = $MarginContainer/Panel/HBoxContainer/HBoxContainer
 @onready var item_icon = $MarginContainer/Panel/HBoxContainer/HBoxContainer/ItemIcon
@@ -27,6 +28,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") and has_focus():
 		item_bought.emit(item)
 		item_sent_to_unit.emit(item)
+		item_sold.emit(item)
 
 func _on_mouse_entered():
 	grab_focus()

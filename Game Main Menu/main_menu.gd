@@ -45,3 +45,9 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
+
+
+func _on_almanac_button_pressed():
+	transition_out_animation()
+	var almanac_scene = preload("res://unit_type_almanac/unit_type_almanac.tscn")
+	get_tree().change_scene_to_packed(almanac_scene)

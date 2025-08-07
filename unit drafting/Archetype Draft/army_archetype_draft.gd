@@ -35,6 +35,7 @@ func create_archetype_selector_list(selector_count: int, selector_container):
 	var accum = []
 	for i in range(selector_count):
 		var archetype_selector : archetypeDraftSelector = archetype_selector_scene.instantiate()
+		archetype_selector.set_po_data(playerOverworldData)
 		selector_container.add_child(archetype_selector)
 		archetype_selector.connect("archetype_selected",on_archetype_selected)
 		accum.append(archetype_selector)

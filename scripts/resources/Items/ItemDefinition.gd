@@ -15,6 +15,8 @@ enum ITEM_TYPE {
 @export var description : String
 @export_enum("Weapon", "Staff", "Usable Item", "Equipment or Loot" ) var item_type :int = 0
 
+@export var rarity : ItemRarity
+
 @export_subgroup("Item Stats")
 @export_range(-1, 100, 1, "or_greater") var uses = 1
 @export_range(1, 2, 1, "or_greater") var max_uses = 1

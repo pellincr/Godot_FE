@@ -1,6 +1,7 @@
 extends Panel
 
 signal set_trade_item(item,unit)
+signal sell_item(item,unit)
 
 @onready var unit_name_label = $MarginContainer/VBoxContainer/UnitNameLabel
 @onready var unit_icon = $UnitIcon
@@ -16,9 +17,13 @@ signal set_trade_item(item,unit)
 
 
 var unit : Unit
+var trade = true
 
 func _ready():
-	ready_for_trade()
+	if trade:
+		ready_for_trade()
+	else:
+		ready_for_sale()
 	if unit:
 		update_by_unit()
 
@@ -59,6 +64,9 @@ func _on_set_trade_item(item):
 func ready_for_trade():
 	unit_inventory_container.set_inventory_for_trade_true()
 
+func ready_for_sale():
+	unit_inventory_container.set_inventory_for_sale_true()
+
 func no_trading():
 	unit_inventory_container.set_inventory_for_trade_false()
 
@@ -70,3 +78,7 @@ func reset_inventory_selection_theme():
 
 func _on_unit_inventory_container_item_used(item):
 	update_by_unit()
+
+
+func _on_unit_inventory_container_sell_item(item):
+	sell_item.emit(item,unit)
