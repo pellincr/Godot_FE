@@ -30,6 +30,7 @@ enum DAMAGE_TYPE
 {
 	PHYSICAL,
 	MAGIC,
+	TRUE,
 	NONE
 }
 

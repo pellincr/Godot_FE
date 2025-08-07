@@ -279,15 +279,15 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
 		inventory.append(ItemDatabase.items["fire_spell"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.ANIMAL):
-		inventory.append(ItemDatabase.items[""])
+		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.MONSTER):
-		inventory.append(ItemDatabase.items[""])
+		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
 		inventory.append(ItemDatabase.items["iron_shield"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
 		inventory.append(ItemDatabase.items["iron_dagger"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):
-		inventory.append(ItemDatabase.items[""])
+		inventory.append(ItemDatabase.items["iron_sword"])
 	if inventory.size() > 4:
 		return inventory.slice(0,3)
 	return inventory
