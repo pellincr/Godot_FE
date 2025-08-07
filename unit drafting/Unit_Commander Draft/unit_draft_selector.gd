@@ -39,6 +39,7 @@ const weapon_draft_scene = preload("res://unit drafting/Weapon Draft/weapon_draf
 
 var playerOverworldData : PlayerOverworldData
 
+var randomized_commander_types = []
 
 func _ready():
 	if playerOverworldData == null:
@@ -175,7 +176,8 @@ func randomize_selection():
 		#For Commander Drafting
 		var all_commander_classes = UnitTypeDatabase.commander_types.keys()
 		var unlocked_commander_classes = filter_all_commander_by_unlocked(all_commander_classes)
-		new_randomized_pick = all_commander_classes.pick_random()
+		var available_commander_classes = filter_commander_by_already_generated(unlocked_commander_classes)
+		new_randomized_pick = available_commander_classes.pick_random()
 		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
@@ -450,6 +452,12 @@ func filter_classes_by_unit_type(class_list, archetype_pick_unit_type, class_rar
 		return class_list
 	return accum
 
+func filter_commander_by_already_generated(commander_class_keys):
+	var accum = []
+	for commander_class_key in commander_class_keys:
+		if !randomized_commander_types.has(commander_class_key):
+			accum.append(commander_class_key)
+	return accum
 
 func randomize_weapon(archetype_pick, weapon_rarity):
 	var all_item_types = ItemDatabase.items.keys()
@@ -505,6 +513,7 @@ func filter_items_by_scaling_type(items_list:Array, scaling_type_list : Array, w
 	else:
 		return items_list
 	return accum
+
 
 
 func get_unit_stat_difference_total():

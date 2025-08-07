@@ -17,7 +17,7 @@ class_name UnlockManager
 	"centurion" : true,
 	"destroyer" : true,
 	"mage_knight" : true,
-	"war_maider": true,
+	"war_maiden" : true,
 	"weapon_master": true
 }
 
