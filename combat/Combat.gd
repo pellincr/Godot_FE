@@ -199,7 +199,7 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 	# check if that item can hit the target
 	var valid = (item and item.attack_range.has(distance))
 	if valid:
-		await combatExchange.enact_staff_exchange(user, target, distance)
+		await combatExchange.enact_support_exchange(user, target, distance)
 		if user.allegience == Constants.FACTION.PLAYERS:
 			major_action_complete()
 		if user.allegience == Constants.FACTION.ENEMIES:

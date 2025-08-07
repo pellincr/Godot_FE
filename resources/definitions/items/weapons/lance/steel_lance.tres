@@ -10,7 +10,7 @@ region = Rect2(64, 160, 32, 32)
 [resource]
 script = ExtResource("2_ak3br")
 weapon_type = 3
-aligment = 0
+alignment = 0
 physical_weapon_triangle_type = 3
 magic_weapon_triangle_type = 0
 item_damage_type = 0

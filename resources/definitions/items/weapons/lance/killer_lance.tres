@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_ym1ip")
 weapon_type = 3
-aligment = 0
+alignment = 0
 physical_weapon_triangle_type = 3
 magic_weapon_triangle_type = 0
 item_damage_type = 0
