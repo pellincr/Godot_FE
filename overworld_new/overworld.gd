@@ -33,8 +33,8 @@ func transition_out_animation():
 func _on_campaign_selector_node_campaign_selected(campaign):
 	playerOverworldData.current_campaign = campaign
 	SelectedSaveFile.save(playerOverworldData)
-	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	transition_out_animation()
+	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	get_tree().change_scene_to_packed(army_draft)
 
 

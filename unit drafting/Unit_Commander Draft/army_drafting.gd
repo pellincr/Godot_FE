@@ -17,6 +17,7 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
 
+@onready var gold_counter = $MarginContainer/VBoxContainer/GoldCounter
 
 @onready var army_list_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer
 @onready var army_list_label = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyListLabel
@@ -32,6 +33,7 @@ func _ready():
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
+	gold_counter.set_gold_count(playerOverworldData.gold)
 	
 	load_data()
 	if playerOverworldData.current_level > 0:

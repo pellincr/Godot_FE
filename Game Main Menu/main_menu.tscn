@@ -27,7 +27,7 @@ offset_bottom = 477.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BeginAdventure_Button" type="Button" parent="VBoxContainer"]
+[node name="StartGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Begin Adventure!"
 
@@ -43,6 +43,6 @@ text = "Unit Almanac"
 layout_mode = 2
 text = "Return To Start"
 
-[connection signal="pressed" from="VBoxContainer/BeginAdventure_Button" to="." method="_on_begin_adventure_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_begin_adventure_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AlmanacButton" to="." method="_on_almanac_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ReturnToStartButton" to="." method="_on_return_to_start_button_pressed"]

@@ -32,25 +32,37 @@ func enter_game(save_path):
 	SelectedSaveFile.selected_save_path = save_path
 	if DirAccess.dir_exists_absolute(SelectedSaveFile.selected_save_path):
 		load_data()
-		if playerOverworldData.current_campaign:
-			if playerOverworldData.completed_drafting:
-				if playerOverworldData.began_level:
-					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
-				else:
-					var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-					battle_prep_scene.instantiate().set_po_data(playerOverworldData)
-					get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
-			else:
-				var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
-				get_tree().change_scene_to_packed(draft_scene)
+	SelectedSaveFile.save(playerOverworldData)
+	transition_out_animation()
+	get_tree().change_scene_to_packed(main_menu_scene)
+"""
+if DirAccess.dir_exists_absolute(SelectedSaveFile.selected_save_path):
+		#load_data()
+if playerOverworldData.current_campaign:
+	if playerOverworldData.completed_drafting:
+		if playerOverworldData.began_level:
+			get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 		else:
-			get_tree().change_scene_to_packed(main_menu_scene)
+			var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+			battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+			get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
 	else:
-		transition_out_animation()
-		get_tree().change_scene_to_packed(main_menu_scene)
+		var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+		get_tree().change_scene_to_packed(draft_scene)
+else:
+	get_tree().change_scene_to_packed(main_menu_scene)
+else:
+transition_out_animation()
+get_tree().change_scene_to_packed(main_menu_scene)
+"""
+	
+
+
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
+	if !playerOverworldData:
+		playerOverworldData = PlayerOverworldData.new()
 	transition_in_animation()
 	SelectedSaveFile.selected_save_path = ""
 	$MainVContainer/Start_Button.grab_focus()

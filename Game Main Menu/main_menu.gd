@@ -6,12 +6,16 @@ var playerOverworldData : PlayerOverworldData
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+@onready var start_game_button = $VBoxContainer/StartGameButton
 
 func _ready():
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	SelectedSaveFile.save(playerOverworldData)
+	#SelectedSaveFile.save(playerOverworldData)
+	load_data()
+	if playerOverworldData.current_campaign:
+		set_button_text(start_game_button, "Continue Game")
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
@@ -20,11 +24,31 @@ func load_data():
 func set_player_overworld_data(po_data):
 	playerOverworldData = po_data
 
+func set_button_text(button,text):
+	button.text = text
+
 func _on_begin_adventure_button_pressed():
-	var overworld = preload(overworld_scene)
-	overworld.instantiate().set_po_data(playerOverworldData)
-	transition_out_animation()
-	get_tree().change_scene_to_packed(overworld)
+	if playerOverworldData.current_campaign:
+		if playerOverworldData.completed_drafting:
+			if playerOverworldData.began_level:
+				#If you previously began the level
+				transition_out_animation()
+				get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+			else:
+				#if you finished drafting, but did not enter the level yet
+				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+				battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+				get_tree().change_scene_to_packed(battle_prep_scene)
+		else:
+			#if you have not finished drafting but have selected a campaign
+			var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+			get_tree().change_scene_to_packed(draft_scene)
+	else:
+		#if no campaign has been selected
+		var overworld = preload(overworld_scene)
+		overworld.instantiate().set_po_data(playerOverworldData)
+		transition_out_animation()
+		get_tree().change_scene_to_packed(overworld)
 
 #Returns to the main menu scene from the selected save
 func _on_return_to_start_button_pressed():
