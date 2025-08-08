@@ -83,14 +83,12 @@ theme = ExtResource("4_57c2t")
 [node name="Slot1" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-focus_mode = 0
 icon_alignment = 1
 expand_icon = true
 
 [node name="Slot2" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-focus_mode = 0
 disabled = true
 icon_alignment = 1
 expand_icon = true
@@ -98,21 +96,18 @@ expand_icon = true
 [node name="Slot3" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-focus_mode = 0
 icon_alignment = 1
 expand_icon = true
 
 [node name="Slot4" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-focus_mode = 0
 icon_alignment = 1
 expand_icon = true
 
 [node name="Slot5" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-focus_mode = 0
 icon_alignment = 1
 expand_icon = true
 

@@ -62,3 +62,10 @@ func show_options(item:ItemDefinition):
 	else :
 		$OptionsContainer/Panel/VBoxContainer/Button1.text = "Use"
 	$OptionsContainer/Panel/VBoxContainer/Button2.text = "Discard"
+
+func grab_button_focus():
+	$Button.grab_focus()
+
+
+func _on_button_focus_entered():
+	emit_signal("btn_entered", reference_item )

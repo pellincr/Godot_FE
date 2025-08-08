@@ -23,12 +23,12 @@ class_name UnlockManager
 
 @export var unit_types_unlocked : Dictionary = {
 	"archer" : true,
-	"axe_armor" : true,
-	"axe_cavalier" : true,
-	"bishop" : true,
-	"bladehand" : true,
-	"brawler" : true,
-	"corsair" : true,
+	"axe_armor" : false,
+	"axe_cavalier" : false,
+	"bishop" : false,
+	"bladehand" : false,
+	"brawler" : false,
+	"corsair" : false,
 	"duelist" : true,
 	"field_medic" : true,
 	"fighter" : true,

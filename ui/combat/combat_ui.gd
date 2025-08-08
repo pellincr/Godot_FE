@@ -95,6 +95,7 @@ func hide_action_list():
 	
 func set_action_list(available_actions: Array[UnitAction]):
 	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
+	actions_grid_children[0].grab_focus()
 	$Actions/ActionsPanel.visible = true
 	var player_turn = controller.player_turn
 	for i in range(actions_grid_children.size()):
@@ -157,6 +158,8 @@ func set_inventory_list_attack(unit: Unit):
 				else : 
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
+	var test = inventory_container_children[0]
+	test.grab_button_focus()
 
 func set_inventory_list_support(unit: Unit):
 	print("set_inventory_list_support")
@@ -171,6 +174,7 @@ func set_inventory_list_support(unit: Unit):
 			clear_action_button_connections(item_btn)
 			var weapon_list = unit.get_equippable_weapons()
 			if not weapon_list.is_empty():
+				
 				if weapon_list.size() > i:
 					var item = weapon_list[i]
 					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
@@ -179,9 +183,11 @@ func set_inventory_list_support(unit: Unit):
 							equipped = true
 						inventory_container_children[i].set_all(item, equipped)
 						inventory_container_children[i].visible = true
+						
 						item_btn.pressed.connect(func():
 							play_menu_confirm()
 							controller.set_selected_item(item)
+							
 							controller.action_item_selected()
 							)
 					else : 
@@ -190,6 +196,8 @@ func set_inventory_list_support(unit: Unit):
 				else : 
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
+
+
 
 func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
 	print("set_inventory_list_support")

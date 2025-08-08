@@ -124,7 +124,6 @@ texture = ExtResource("4_geqfg")
 
 [node name="UnitTypeAlmanacWeaponTypes" parent="VBoxContainer/HBoxContainer" instance=ExtResource("5_2uyw7")]
 layout_mode = 2
-size_flags_vertical = 0
 
 [node name="UnitTypeTraitContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_u40ig")]
 layout_mode = 2

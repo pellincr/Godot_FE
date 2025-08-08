@@ -134,6 +134,7 @@ size_flags_vertical = 3
 theme = SubResource("Theme_3w7h2")
 text = "Discard"
 
+[connection signal="focus_entered" from="Button" to="." method="_on_button_focus_entered"]
 [connection signal="mouse_entered" from="Button" to="." method="mouse_entered"]
 [connection signal="mouse_entered" from="OptionsContainer/Panel/VBoxContainer/Button1" to="." method="mouse_entered"]
 [connection signal="mouse_entered" from="OptionsContainer/Panel/VBoxContainer/Button2" to="." method="mouse_entered"]
