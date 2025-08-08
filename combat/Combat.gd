@@ -56,11 +56,13 @@ var _player_unit_alive : bool = true
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
 @export var mapEntityData: MapEntityGroupData
-#@export var win_go_to_scene : PackedScene
+
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
 @export var enemy_start_group : EnemyGroup
 @export var max_allowed_ally_units : int
+@export var base_win_gold_reward : int = 0
+@export var turn_reward_modifier : int = 0
 @export var draft_amount_on_win : int
 @export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
@@ -291,6 +293,10 @@ func advance_turn(faction: int):
 			if combatants[entry]:
 				combatants[entry].refresh_unit()
 				combatants[entry].map_display.update_values()
+	#decrement the turn reward modifier
+	turn_reward_modifier -= .5
+
+
 func major_action_complete():
 	
 	emit_signal("major_action_completed")
@@ -305,16 +311,19 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		#playerOverworldData.next_level = win_go_to_scene
 		playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
+		playerOverworldData.gold += calculate_reward_gold()
 		SelectedSaveFile.save(playerOverworldData)
 		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
 			#if not at the final level
 			if draft_amount_on_win > 0:
+				#if allowed to draft after level
 				playerOverworldData.current_archetype_count = 0
 				playerOverworldData.max_archetype = draft_amount_on_win
 				SelectedSaveFile.save(playerOverworldData)
 				get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
 			else:
 				if battle_prep_on_win:
+					#if allowed to go to battle prep on win
 					get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
 				else:
 					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
@@ -526,6 +535,8 @@ func check_group_clear(group):
 		return true
 
 
-
 func check_lose():
 	return check_group_clear(groups[0])
+
+func calculate_reward_gold():
+	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)

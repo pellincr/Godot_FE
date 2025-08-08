@@ -140,7 +140,7 @@ func set_inventory_list_attack(unit: Unit):
 			if not weapon_list.is_empty():
 				if weapon_list.size() > i:
 					var item = weapon_list[i]
-					if item.item_target_faction == itemConstants.AVAILABLE_TARGETS.ENEMY:
+					if item.item_target_faction[0] == itemConstants.AVAILABLE_TARGETS.ENEMY:
 						var equipped = false
 						if i == 0: 
 							equipped = true
