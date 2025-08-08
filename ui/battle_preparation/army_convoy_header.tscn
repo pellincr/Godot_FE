@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhy33tuj3lkfn"]
+[gd_scene load_steps=8 format=3 uid="uid://bhy33tuj3lkfn"]
 
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_1scjx"]
-[ext_resource type="Texture2D" uid="uid://c2keyyxy2vmbu" path="res://resources/sprites/controls/controller/lb 1.png" id="1_roln6"]
-[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="2_k356c"]
 [ext_resource type="Script" path="res://ui/battle_preparation/army_convoy_header.gd" id="2_ya48u"]
-[ext_resource type="Texture2D" uid="uid://bocl3wnqikemr" path="res://resources/sprites/controls/controller/rb 1.png" id="3_627th"]
+[ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="3_5ku8n"]
+[ext_resource type="Texture2D" uid="uid://dfqe5q8fp1281" path="res://resources/sprites/icons/army_icon_2.png" id="4_2x1eo"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="4_15res"]
+[ext_resource type="Texture2D" uid="uid://b5d1vyagpv4mn" path="res://resources/sprites/icons/convoy_icon.png" id="6_pjxps"]
+[ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="7_1l32d"]
 
 [node name="ArmyConvoyHeader" type="VBoxContainer"]
 custom_minimum_size = Vector2(364, 60)
@@ -41,7 +42,8 @@ theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="LowerContainer"]
 layout_mode = 2
-texture = ExtResource("1_roln6")
+texture = ExtResource("3_5ku8n")
+expand_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="LowerContainer"]
 custom_minimum_size = Vector2(150, 32)
@@ -57,12 +59,12 @@ text = "Army"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="LowerContainer/PanelContainer/HBoxContainer"]
+[node name="LeftIcon" type="TextureRect" parent="LowerContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("2_k356c")
+texture = ExtResource("4_2x1eo")
 expand_mode = 2
 stretch_mode = 2
 
@@ -80,15 +82,16 @@ size_flags_horizontal = 4
 layout_mode = 2
 text = "Convoy"
 
-[node name="TextureRect" type="TextureRect" parent="LowerContainer/PanelContainer2/HBoxContainer"]
+[node name="RightIcon" type="TextureRect" parent="LowerContainer/PanelContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("2_k356c")
+texture = ExtResource("6_pjxps")
 expand_mode = 2
 stretch_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="LowerContainer"]
 layout_mode = 2
-texture = ExtResource("3_627th")
+texture = ExtResource("7_1l32d")
+expand_mode = 2

@@ -60,6 +60,7 @@ func _process(delta):
 		get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
+		controls.set_label_text(controls.select_control_label,"Select")
 		update_army_convoy_container_state()
 	
 	if Input.is_action_just_pressed("shop") and current_prep_state != PREPARATION_STATE.SHOP:
@@ -168,7 +169,6 @@ func _on_army_convoy_container_item_focused(item):
 	open_detailed_selection_view()
 	#current_prep_state = PREPARATION_STATE.NEUTRAL
 	#update_army_convoy_container_state()
-	controls.set_label_text(controls.select_control_label,"Select")
 
 func open_detailed_selection_view():
 	if focused_selection is Unit:

@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1ji0ny03ko81"]
+[gd_scene load_steps=6 format=3 uid="uid://b1ji0ny03ko81"]
 
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_jts2v"]
-[ext_resource type="Texture2D" uid="uid://buroac8ofs7rl" path="res://resources/sprites/controls/controller/L Stick.png" id="2_h24ow"]
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.gd" id="2_lbkrq"]
-[ext_resource type="Texture2D" uid="uid://dh6w3wgtfiy87" path="res://resources/sprites/controls/controller/R Stick.png" id="3_tu70f"]
-[ext_resource type="Texture2D" uid="uid://bgn5r7xgh4tty" path="res://resources/sprites/controls/controller/R Stick Press.png" id="4_m5pqj"]
-[ext_resource type="Texture2D" uid="uid://bgu4xorefl2a4" path="res://resources/sprites/controls/controller/X Button.png" id="5_v76rf"]
+[ext_resource type="Texture2D" uid="uid://bsknkqoussxsw" path="res://resources/sprites/controls/keyboard/_.png" id="3_ibdwh"]
+[ext_resource type="Texture2D" uid="uid://02air6ea0m0i" path="res://resources/sprites/controls/keyboard/controltext.png" id="4_57rai"]
+[ext_resource type="Texture2D" uid="uid://dsyeapnvmd1po" path="res://resources/sprites/controls/keyboard/enteralt.png" id="5_2fu0f"]
 
 [node name="UnitDraftControls" type="HBoxContainer"]
 custom_minimum_size = Vector2(353, 32)
@@ -19,8 +18,8 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="CycleContainer"]
 layout_mode = 2
-texture = ExtResource("2_h24ow")
-stretch_mode = 3
+texture = ExtResource("3_ibdwh")
+expand_mode = 2
 
 [node name="Label" type="Label" parent="CycleContainer"]
 layout_mode = 2
@@ -31,8 +30,8 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="ViewsContainer"]
 layout_mode = 2
-texture = ExtResource("3_tu70f")
-stretch_mode = 3
+texture = ExtResource("4_57rai")
+expand_mode = 2
 
 [node name="Label" type="Label" parent="ViewsContainer"]
 layout_mode = 2
@@ -43,8 +42,8 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="DetailsContainer"]
 layout_mode = 2
-texture = ExtResource("4_m5pqj")
-stretch_mode = 3
+texture = ExtResource("4_57rai")
+expand_mode = 2
 
 [node name="Label" type="Label" parent="DetailsContainer"]
 layout_mode = 2
@@ -55,8 +54,8 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="SelectContainer"]
 layout_mode = 2
-texture = ExtResource("5_v76rf")
-stretch_mode = 3
+texture = ExtResource("5_2fu0f")
+expand_mode = 2
 
 [node name="Label" type="Label" parent="SelectContainer"]
 layout_mode = 2
