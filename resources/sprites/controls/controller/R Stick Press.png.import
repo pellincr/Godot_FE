@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh6w3wgtfiy87"
-path="res://.godot/imported/R Stick.png-fcac9ddc455df0810679888294aabbeb.ctex"
+uid="uid://bgn5r7xgh4tty"
+path="res://.godot/imported/R Stick Press.png-c16e5b0fda7c2e53fda63bd26cd1162f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/controls/R Stick.png"
-dest_files=["res://.godot/imported/R Stick.png-fcac9ddc455df0810679888294aabbeb.ctex"]
+source_file="res://resources/sprites/controls/controller/R Stick Press.png"
+dest_files=["res://.godot/imported/R Stick Press.png-c16e5b0fda7c2e53fda63bd26cd1162f.ctex"]
 
 [params]
 

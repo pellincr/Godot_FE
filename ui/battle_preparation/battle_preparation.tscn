@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6s873w31dy32"]
+[gd_scene load_steps=8 format=3 uid="uid://c6s873w31dy32"]
 
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="1_cg485"]
 [ext_resource type="Script" path="res://ui/battle_preparation/battle_preparation.gd" id="1_gqlkl"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="2_dg3px"]
 [ext_resource type="PackedScene" uid="uid://c6xka1fqiwxly" path="res://ui/battle_preparation/army_convoy_container.tscn" id="2_ubgvf"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/battle_preparation/controls/battle_prep_controls.tscn" id="5_ydc4c"]
 
 [sub_resource type="Theme" id="Theme_nfu6t"]
 default_font = ExtResource("2_dg3px")
@@ -12,12 +13,11 @@ default_font = ExtResource("2_dg3px")
 default_font_size = 36
 
 [node name="BattlePreparation" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1280.0
-offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gqlkl")
@@ -30,6 +30,7 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 680)
 layout_mode = 2
 theme = SubResource("Theme_nfu6t")
 
@@ -48,6 +49,11 @@ layout_mode = 2
 
 [node name="ArmyConvoyContainer" parent="MarginContainer/VBoxContainer/MainContainer" instance=ExtResource("2_ubgvf")]
 layout_mode = 2
+
+[node name="BattlePrepControls" parent="MarginContainer/VBoxContainer" instance=ExtResource("5_ydc4c")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
 
 [connection signal="header_swapped" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_header_swapped"]
 [connection signal="item_focused" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_item_focused"]

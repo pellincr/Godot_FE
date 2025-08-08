@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bocl3wnqikemr"
-path="res://.godot/imported/rb 1.png-4afb5d668a8b88f7245bfe05bc748e80.ctex"
+uid="uid://dsyeapnvmd1po"
+path="res://.godot/imported/enteralt.png-f4694d70477ac56b38f3fbb8a780c9b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/controls/rb 1.png"
-dest_files=["res://.godot/imported/rb 1.png-4afb5d668a8b88f7245bfe05bc748e80.ctex"]
+source_file="res://resources/sprites/controls/keyboard/enteralt.png"
+dest_files=["res://.godot/imported/enteralt.png-f4694d70477ac56b38f3fbb8a780c9b9.ctex"]
 
 [params]
 

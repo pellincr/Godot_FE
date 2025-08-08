@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgu4xorefl2a4"
-path="res://.godot/imported/X Button.png-7ff799187ed597075d4923fdf8f8b98b.ctex"
+uid="uid://cndlncw4udech"
+path="res://.godot/imported/q.png-0b49e5e3edc199d9e2e79fef1e861175.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/controls/X Button.png"
-dest_files=["res://.godot/imported/X Button.png-7ff799187ed597075d4923fdf8f8b98b.ctex"]
+source_file="res://resources/sprites/controls/keyboard/q.png"
+dest_files=["res://.godot/imported/q.png-0b49e5e3edc199d9e2e79fef1e861175.ctex"]
 
 [params]
 

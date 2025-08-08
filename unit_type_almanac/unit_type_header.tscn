@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://unit_type_almanac/unit_type_header.gd" id="1_mbsfm"]
 [ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://unit_type_almanac/panel_container_focused.tres" id="1_qtd5w"]
-[ext_resource type="Texture2D" uid="uid://c2keyyxy2vmbu" path="res://resources/sprites/controls/lb 1.png" id="1_uc8cv"]
+[ext_resource type="Texture2D" uid="uid://c2keyyxy2vmbu" path="res://resources/sprites/controls/controller/lb 1.png" id="1_uc8cv"]
 [ext_resource type="Theme" uid="uid://kdfakjl724jb" path="res://unit_type_almanac/panel_container_not_focused.tres" id="2_rddmw"]
-[ext_resource type="Texture2D" uid="uid://bocl3wnqikemr" path="res://resources/sprites/controls/rb 1.png" id="4_iiv7x"]
+[ext_resource type="Texture2D" uid="uid://bocl3wnqikemr" path="res://resources/sprites/controls/controller/rb 1.png" id="4_iiv7x"]
 
 [node name="UnitTypeHeader" type="HBoxContainer"]
 custom_minimum_size = Vector2(350, 60)

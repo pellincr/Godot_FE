@@ -7,6 +7,8 @@ var playerOverworldData : PlayerOverworldData
 
 @onready var main_container = $MarginContainer/VBoxContainer/MainContainer
 
+@onready var controls = $MarginContainer/VBoxContainer/BattlePrepControls
+
 const unit_detailed_info_scene = preload("res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tscn")
 const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
@@ -63,6 +65,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("shop") and current_prep_state != PREPARATION_STATE.SHOP:
 		current_prep_state = PREPARATION_STATE.SHOP
 		update_army_convoy_container_state()
+		controls.set_label_text(controls.select_control_label,"Buy/Sell")
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -149,6 +152,7 @@ func _on_army_convoy_container_unit_focused(unit):
 	update_army_convoy_container_state()
 	trade_item_1 = null
 	trade_unit_1 = null
+	controls.set_label_text(controls.select_control_label,"Select")
 
 
 func _on_army_convoy_container_header_swapped():
@@ -160,8 +164,11 @@ func _on_army_convoy_container_header_swapped():
 
 func _on_army_convoy_container_item_focused(item):
 	focused_selection = item
-	current_prep_state = PREPARATION_STATE.NEUTRAL
-	update_army_convoy_container_state()
+	clear_sub_container()
+	open_detailed_selection_view()
+	#current_prep_state = PREPARATION_STATE.NEUTRAL
+	#update_army_convoy_container_state()
+	controls.set_label_text(controls.select_control_label,"Select")
 
 func open_detailed_selection_view():
 	if focused_selection is Unit:
