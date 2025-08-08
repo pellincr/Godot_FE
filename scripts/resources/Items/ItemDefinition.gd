@@ -37,4 +37,4 @@ func use():
 		print(name + " broke!")
 
 func calculate_price():
-	return worth * (uses / max_uses)
+	return floor(worth * (uses / max_uses))

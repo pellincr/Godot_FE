@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://btr7xm3kfbfvl"]
+
+[ext_resource type="Theme" uid="uid://c8s6g11sgxtnp" path="res://unit_type_almanac/loading_screen.tres" id="1_sw4dj"]
+[ext_resource type="Script" path="res://load_screen/loading_screen.gd" id="2_v33nu"]
+
+[node name="LoadingScreen" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sw4dj")
+script = ExtResource("2_v33nu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -11.5
+offset_right = 57.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.000754178
+alignment = 1
+
+[node name="LoadingLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Now Loading..."
+horizontal_alignment = 1
+
+[node name="LoadingPercent" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "80%"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+value = 80.0
+show_percentage = false
