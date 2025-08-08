@@ -10,6 +10,8 @@ extends HBoxContainer
 const unit_type_panel_container_scene = preload("res://unit_type_almanac/unit_type_panel_container.tscn")
 const unit_type_almanac_detailed_view_scene = preload("res://unit_type_almanac/unit_type_almanac_detailed_view.tscn")
 
+var focused = false
+
 enum UNIT_TYPE {
 	UNIT, COMMANDER
 }
@@ -23,6 +25,7 @@ func clear_main_scroll_container():
 	var children = main_scroll_container.get_children()
 	for child in children:
 		child.queue_free()
+		focused = false
 
 func fill_main_scroll_container_unit_type():
 	var unit_type_keys = UnitTypeDatabase.unit_types.keys()
@@ -32,6 +35,9 @@ func fill_main_scroll_container_unit_type():
 		unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type))
 		unit_type_panel_container.unit_type = unit_type
 		main_scroll_container.add_child(unit_type_panel_container)
+		if !focused:
+			unit_type_panel_container.grab_focus.call_deferred()
+			focused = true
 
 func fill_main_scroll_container_commander_type():
 	var commander_type_keys = UnitTypeDatabase.commander_types.keys()
@@ -41,6 +47,9 @@ func fill_main_scroll_container_commander_type():
 		unit_type_panel_container.unit_type = commander_type
 		unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type))
 		main_scroll_container.add_child(unit_type_panel_container)
+		if !focused:
+			unit_type_panel_container.grab_focus.call_deferred()
+			focused = true
 
 func clear_sub_children():
 	var children = detailed_view_sub_container.get_children()
