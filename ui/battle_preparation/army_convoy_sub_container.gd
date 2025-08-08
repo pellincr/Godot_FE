@@ -16,14 +16,15 @@ const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/c
 
 var playerOverworldData : PlayerOverworldData
 
+var focused = false
 
 var in_shop = false
-
+"""
 func _ready():
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
 		
-
+"""
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
@@ -33,12 +34,13 @@ func fill_army_scroll_container():
 		unit_army_panel_container.unit = unit
 		unit_army_panel_container.set_po_data(playerOverworldData)
 		main_scroll_container.add_child(unit_army_panel_container)
+		if !focused:
+			unit_army_panel_container.grab_focus.call_deferred()
+			focused = true
 		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
 		unit_army_panel_container.unit_selected.connect(_on_unit_selected)
 		unit_army_panel_container.unit_deselected.connect(_on_unit_deselected)
-	#var test = main_scroll_container.get_child(0)
-	#if(test):
-	#	test.grab_focus()
+
 
 
 func fill_convoy_scroll_container():
@@ -47,18 +49,26 @@ func fill_convoy_scroll_container():
 			var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
 			convoy_item_panel_container.item = item
 			main_scroll_container.add_child(convoy_item_panel_container)
+			if !focused:
+				convoy_item_panel_container.grab_focus.call_deferred()
+				focused = true
 			convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
 			convoy_item_panel_container.item_sent_to_unit.connect(_on_item_sent_to_unit)
 			convoy_item_panel_container.item_sold.connect(_on_item_sold)
-	#var test = main_scroll_container.get_child(0)
-	#if(test):
-	#	test.grab_focus()
 
+
+#func get_first_child_focus():
+#	if main_scroll_container.get_child(0):
+#		var test1 = main_scroll_container.get_children()
+#		var test = main_scroll_container.get_child(0)
+#		test.grab_focus()
+	
 
 func clear_scroll_container():
 	var children = main_scroll_container.get_children()
 	for child in children:
 		child.queue_free()
+		focused = false
 
 func unit_focus_entered(unit):
 	unit_focused.emit(unit)

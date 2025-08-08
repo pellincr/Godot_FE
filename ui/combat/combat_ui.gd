@@ -196,6 +196,8 @@ func set_inventory_list_support(unit: Unit):
 				else : 
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
+	var test = inventory_container_children[0]
+	test.grab_button_focus()
 
 
 
@@ -222,6 +224,8 @@ func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
 				else : 
 					inventory_container_children[i].visible = false
 					clear_action_button_connections(item_btn)
+	var test = inventory_container_children[0]
+	test.grab_button_focus()
 
 func set_inventory_list(unit: Unit):
 	print("@# set_inventory_list called")

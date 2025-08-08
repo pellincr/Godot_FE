@@ -14,6 +14,7 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	#SelectedSaveFile.save(playerOverworldData)
 	load_data()
+	start_game_button.grab_focus()
 	if playerOverworldData.current_campaign:
 		set_button_text(start_game_button, "Continue Game")
 

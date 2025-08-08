@@ -6,11 +6,12 @@ var save_file_name = "PlayerOverworldSave.tres"
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
 @onready var return_button = $ReturnButton
-
+@onready var tutorial_campaign_selecter = $Tutorial
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	transition_in_animation()
+	tutorial_campaign_selecter.grab_focus()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
 

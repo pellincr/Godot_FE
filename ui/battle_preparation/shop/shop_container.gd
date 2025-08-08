@@ -44,6 +44,8 @@ const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_det
 @onready var current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
 @onready var current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
 
+var focused = false
+
 func _ready():
 	sword_tab_icon.set_icon(sword_icon_texture)
 	sword_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.WEAPON)
@@ -104,6 +106,9 @@ func fill_current_tab_view():
 		var item_panel_container = item_panel_container_scene.instantiate()
 		item_panel_container.item = item
 		main_shop_inventory_container.add_child(item_panel_container)
+		if !focused:
+			item_panel_container.grab_focus.call_deferred()
+			focused = true
 		item_panel_container.focus_entered.connect(on_item_panel_focused.bind(item))
 		item_panel_container.item_bought.connect(_on_item_bought)
 
@@ -111,6 +116,7 @@ func clear_shop_list():
 	var children = main_shop_inventory_container.get_children()
 	for child in children:
 		child.queue_free()
+		focused = false
 
 func turn_off_all_tabs():
 	var tab_container = $HBoxContainer/VBoxContainer/ScrollContainer2/HBoxContainer

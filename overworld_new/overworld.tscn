@@ -9,7 +9,7 @@
 [node name="OverworldMap" instance=ExtResource("1_538l4")]
 script = ExtResource("2_okeuv")
 
-[node name="CampaignSelectorNode" parent="." index="1" instance=ExtResource("2_xtlnu")]
+[node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
 offset_left = 302.0
 offset_top = 601.0
@@ -17,7 +17,7 @@ offset_right = 342.0
 offset_bottom = 641.0
 campaign = ExtResource("3_cxrwx")
 
-[node name="CampaignSelectorNode2" parent="." index="2" instance=ExtResource("2_xtlnu")]
+[node name="Tutorial" parent="." index="2" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
 offset_left = 616.0
 offset_top = 392.0
@@ -33,6 +33,6 @@ offset_right = 1282.0
 offset_bottom = 722.0
 text = "Return"
 
-[connection signal="campaign_selected" from="CampaignSelectorNode" to="." method="_on_campaign_selector_node_campaign_selected"]
-[connection signal="campaign_selected" from="CampaignSelectorNode2" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

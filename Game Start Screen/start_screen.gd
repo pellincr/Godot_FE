@@ -6,6 +6,7 @@ extends Control
 @onready var option_container = get_node("OptionVContainer")
 @onready var save_container = get_node("SaveVContainer")
 
+@onready var start_button = $MainVContainer/Start_Button
 #Save Files
 #var save_file = ConfigFile.new()
 
@@ -116,7 +117,7 @@ func _on_return_button_pressed():
 	main_container.visible = true
 	option_container.visible = false
 	save_container.visible = false
-	$MainVContainer/Start_Button.grab_focus()
+	start_button.grab_focus()
 
 #Opens the Options Menu and Minimizes the Main Menu
 func _on_options_button_pressed():
@@ -127,7 +128,7 @@ func _on_options_button_pressed():
 func _on_start_button_pressed():
 	main_container.visible = false
 	save_container.visible = true
-	$SaveVContainer/Save1HContainer/Save_Button1.grab_focus()
+	save_1_button.grab_focus()
 
 
 func on_save_button_delete(save_path, button):
