@@ -46,14 +46,11 @@ text = "Unit Almanac"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1140, 0)
 layout_mode = 2
 
 [node name="UnitTypeScrollContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_vu1tx")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-alignment = 2
+size_flags_horizontal = 3
 
 [node name="ReturnButton" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2

@@ -29,6 +29,7 @@ script = ExtResource("1_061de")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="UnitTypeHeader" parent="MainContainer" instance=ExtResource("2_33mpr")]
 layout_mode = 2
@@ -42,7 +43,7 @@ size_flags_horizontal = 4
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/DetailedViewSubContainer"]
 custom_minimum_size = Vector2(350, 450)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
 theme = SubResource("Theme_phsh8")
 follow_focus = true
 

@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="13_cu5se"]
 
 [node name="UnitTypeAlmanacWeaponTypes" type="VBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
 offset_right = 16.0
 offset_bottom = 570.0
 rotation = 0.000233432
