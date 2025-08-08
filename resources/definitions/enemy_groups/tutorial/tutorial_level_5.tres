@@ -100,10 +100,10 @@ ai_type = 0
 script = ExtResource("1_myack")
 name = "Grupory"
 map_position = Vector2i(9, 13)
-level = 0
+level = 4
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "corsiar"
+unit_type_key = "corsair"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5"), ExtResource("3_pejxp")])
 ai_type = 2
 

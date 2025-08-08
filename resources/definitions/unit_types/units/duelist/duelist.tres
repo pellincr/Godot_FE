@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c4fxrgsyyn8uh" path="res://resources/definitions/unit_types/units/ward/ward_base_combat_stats.tres" id="1_vkxv0"]
 [ext_resource type="Resource" uid="uid://cma8wx0vjcj0a" path="res://resources/definitions/unit_types/units/ward/ward_growth_stats.tres" id="2_h174e"]
-[ext_resource type="Texture2D" uid="uid://6o8nc44qjukb" path="res://resources/sprites/units/ward.png" id="3_47hsn"]
+[ext_resource type="Texture2D" uid="uid://dnbwkhhgujrgm" path="res://resources/sprites/units/duelist.png" id="3_7luyy"]
 [ext_resource type="Resource" uid="uid://wt0by2jkrpj6" path="res://resources/definitions/unit_types/units/ward/ward_max_stats.tres" id="4_ski5l"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_2xl1h"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_lv4oq"]
@@ -24,7 +24,7 @@ usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_vkxv0")
 maxuimum_stats = ExtResource("4_ski5l")
 growth_stats = ExtResource("2_h174e")
-icon = ExtResource("3_47hsn")
-map_sprite = ExtResource("3_47hsn")
+icon = ExtResource("3_7luyy")
+map_sprite = ExtResource("3_7luyy")
 skills = Array[String]([])
 skilL_unlock_level = Array[int]([])
