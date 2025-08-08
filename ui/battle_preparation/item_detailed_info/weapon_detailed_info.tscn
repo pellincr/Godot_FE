@@ -93,9 +93,10 @@ theme = SubResource("Theme_lk4wk")
 text = "Stat Augment"
 
 [node name="StatAugmentLabel" type="Label" parent="MarginContainer/VBoxContainer/StatAugmentContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme = SubResource("Theme_cxk82")
-text = "+1 Resistance, +1 Health, +3 Strength -3 Magic, -2 Stat"
+text = "Stat Augmentation Here"
 
 [node name="SpecialTraitContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
