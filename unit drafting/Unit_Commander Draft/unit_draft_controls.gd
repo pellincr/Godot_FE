@@ -2,8 +2,8 @@ extends HBoxContainer
 
 
 @onready var cycle_container = $CycleContainer
-@onready var view_container = $ViewsContainer
-@onready var details_container = $DetailsContainer
+@onready var cycle_views_left_container = $CycleViewLeftContainer
+@onready var cycle_view_right_container = $CycleViewRight
 @onready var select_container = $SelectContainer
 
 
@@ -13,17 +13,17 @@ func set_cycle_visibility(visibility):
 	else:
 		cycle_container.visible = false
 
-func set_view_visibility(visibility):
+func set_cycle_view_left_visibility(visibility):
 	if visibility:
-		view_container.visible = true
+		cycle_views_left_container.visible = true
 	else:
-		view_container.visible = false
+		cycle_views_left_container.visible = false
 
-func set_details_visibility(visibility):
+func set_cycle_view_right_visibility(visibility):
 	if visibility:
-		details_container.visible = true
+		cycle_view_right_container.visible = true
 	else:
-		details_container.visible = false
+		cycle_view_right_container.visible = false
 
 func set_select_visibility(visibility):
 	if visibility:

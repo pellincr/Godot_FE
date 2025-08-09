@@ -19,6 +19,7 @@ var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 @onready var main_container = $Panel/MarginContainer/MainVContainer
 @onready var current_state = SELECTOR_STATE.OVERVIEW
 
+
 var current_draft_state = Constants.DRAFT_STATE.COMMANDER
 
 var unit = null
@@ -51,8 +52,10 @@ func _ready():
 	
 
 func _process(delta):
-	if Input.is_action_just_pressed("details") and has_focus():
+	if Input.is_action_just_pressed("right_bumper") and has_focus():
 		show_next_screen()
+	if Input.is_action_just_pressed("left_bumper") and has_focus():
+		show_previous_screen()
 	if Input.is_action_just_pressed("ui_confirm") and has_focus():
 		$AudioStreamPlayer.stream = menu_enter_effect
 		$AudioStreamPlayer.play()
@@ -111,7 +114,54 @@ func show_next_screen():
 			overview_view.set_growths_overview_label(unit_growth_grade)
 			overview_view.set_icon_visibility(unit)
 			current_state = SELECTOR_STATE.OVERVIEW
-			
+
+func show_previous_screen():
+	var last_child = main_container.get_children()[-1]
+	last_child.queue_free()
+	match current_state:
+		SELECTOR_STATE.OVERVIEW:
+			#If Commander, goes from overview, to stats
+			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
+				var stats_view = stat_view_scene.instantiate()
+				main_container.add_child(stats_view)
+				stats_view.hide_difference_value_container()
+				stats_view.hide_stat_grade()
+				var growths_value_container = growths_view_scene.instantiate()
+				stats_view.add_child_to_main_container(growths_value_container)
+				growths_value_container.unit = unit
+				growths_value_container.update_all()
+				growths_value_container.commander_visiblity_setting()
+				current_state = SELECTOR_STATE.STATS
+				stats_view.unit = unit
+				stats_view.update_all()
+			#if unit, go from overview to growths
+			elif current_draft_state == Constants.DRAFT_STATE.UNIT:
+				var growths_view = growths_view_scene.instantiate()
+				main_container.add_child(growths_view)
+				growths_view.unit = unit
+				growths_view.update_all()
+				current_state = SELECTOR_STATE.GROWTHS
+		SELECTOR_STATE.STATS:
+			#When in stats, go back to the unit or commander overview scene
+			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
+				var overview_view = commander_overview_scene.instantiate()
+				main_container.add_child(overview_view)
+				overview_view.set_icon_visibility(unit)
+				current_state = SELECTOR_STATE.OVERVIEW
+			else:
+				var overview_view = unit_overview_scene.instantiate()
+				main_container.add_child(overview_view)
+				overview_view.set_stats_overview_label(unit_stat_grade)
+				overview_view.set_growths_overview_label(unit_growth_grade)
+				overview_view.set_icon_visibility(unit)
+				current_state = SELECTOR_STATE.OVERVIEW
+		SELECTOR_STATE.GROWTHS:
+			#when in growths, go to stats
+			var stats_view = stat_view_scene.instantiate()
+			main_container.add_child(stats_view)
+			current_state = SELECTOR_STATE.STATS
+			stats_view.unit = unit
+			stats_view.update_all()
 
 
 func _on_panel_mouse_entered():
