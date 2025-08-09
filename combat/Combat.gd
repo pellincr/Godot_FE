@@ -314,7 +314,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		playerOverworldData.gold += calculate_reward_gold()
 		SelectedSaveFile.save(playerOverworldData)
 		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
-			#if not at the final level
+			#if not at the final level, began process for going to next level
 			if draft_amount_on_win > 0:
 				#if allowed to draft after level
 				playerOverworldData.current_archetype_count = 0
@@ -328,17 +328,28 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 				else:
 					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
 		else:
+			#reset the game back to the start screen after final level so that it can be played again
+			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
 			reset_game_state()
-			get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	if(check_lose()):
 		reset_game_state()
-		get_tree().change_scene_to_file("res://Game Start Screen/start_screen.tscn")
+		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 
 func reset_game_state():
 	playerOverworldData.began_level = false
 	playerOverworldData.completed_drafting = false
 	playerOverworldData.current_level = 0
 	playerOverworldData.current_campaign = null
+	playerOverworldData.total_party = []
+	playerOverworldData.dead_party_members = []
+	playerOverworldData.current_archetype_count = 0
+	playerOverworldData.archetype_allotments = []
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
@@ -349,7 +360,9 @@ func combatant_die(combatant: CombatUnit):
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
-		playerOverworldData.total_party.erase(combatant.unit)
+		if playerOverworldData.total_party.has(combatant.unit):
+			playerOverworldData.dead_party_members.append(combatant.unit)
+			playerOverworldData.total_party.erase(combatant.unit)
 		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.name

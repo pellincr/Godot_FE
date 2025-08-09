@@ -76,3 +76,9 @@ func _on_almanac_button_pressed():
 	transition_out_animation()
 	var almanac_scene = preload("res://unit_type_almanac/unit_type_almanac.tscn")
 	get_tree().change_scene_to_packed(almanac_scene)
+
+
+func _on_hall_of_heroes_button_pressed():
+	transition_out_animation()
+	var hoh_scene = preload("res://hall_of_heroes/hall_of_heroes.tscn")
+	get_tree().change_scene_to_packed(hoh_scene)

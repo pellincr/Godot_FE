@@ -14,9 +14,14 @@ func _ready():
 	tutorial_campaign_selecter.grab_focus()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
+	load_data()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
+
+func load_data():
+	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
+	print("Loaded")
 
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()

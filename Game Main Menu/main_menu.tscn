@@ -44,5 +44,6 @@ layout_mode = 2
 text = "Return To Start"
 
 [connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_begin_adventure_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HallOfHeroesButton" to="." method="_on_hall_of_heroes_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AlmanacButton" to="." method="_on_almanac_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ReturnToStartButton" to="." method="_on_return_to_start_button_pressed"]

@@ -37,15 +37,14 @@ func _ready():
 	
 	load_data()
 	if playerOverworldData.current_level > 0:
+		#if drafting in the middle of a campaign
 		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
-		#var archetype_draft = archetype_draft_scene.instantiate()
-		#main_container.add_child(archetype_draft)
 		update_to_archetype_screen()
-		#update_archetype_icon_container(commander)
 		set_army_draft_stage_label("Army Draft - Stage 2 of 3")
 		set_pick_amount_label("Pick 1 of " + str(playerOverworldData.max_archetype))
 		set_header_label("Draft an Army Archetype")
 	else:
+		#if it's the first draft of the campaign
 		var unit_draft = unit_draft_scene.instantiate()
 		unit_draft.current_state = current_draft_state
 		main_container.add_child(unit_draft)

@@ -3,6 +3,7 @@ extends Resource
 class_name PlayerOverworldData
 
 @export var unlock_manager = UnlockManager.new()
+@export var hall_of_heroes_manager = HallOfHeroesManager.new()
 
 @export var gold = 1000
 @export var total_party_capacity = 15 #number of units the player is allowed to own
@@ -15,6 +16,7 @@ class_name PlayerOverworldData
 @export var archetype_allotments = []
 
 @export var total_party = []
+var dead_party_members = []
 @export var selected_party = []
 
 
