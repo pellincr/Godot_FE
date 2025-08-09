@@ -1,11 +1,15 @@
 extends MarginContainer
 
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+
+@onready var unit_type_scroll_container = $VBoxContainer/HBoxContainer/UnitTypeScrollContainer
 @onready var return_button = $VBoxContainer/ReturnButton
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
 func _ready():
 	transition_in_animation()
+	unit_type_scroll_container.set_po_data(playerOverworldData)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

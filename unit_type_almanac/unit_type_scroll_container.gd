@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+var playerOverworldData : PlayerOverworldData
+
 @onready var main_scroll_container = $MainContainer/DetailedViewSubContainer/ScrollContainer/MainScrollContainer
 @onready var unit_type_header = $MainContainer/UnitTypeHeader
 
@@ -19,7 +21,12 @@ enum UNIT_TYPE {
 var current_type = UNIT_TYPE.UNIT
 
 func _ready():
+	if !playerOverworldData:
+		playerOverworldData = PlayerOverworldData.new()
 	fill_main_scroll_container_unit_type()
+
+func set_po_data(po_data):
+	playerOverworldData = po_data
 
 func clear_main_scroll_container():
 	var children = main_scroll_container.get_children()
@@ -32,8 +39,10 @@ func fill_main_scroll_container_unit_type():
 	for unit_type_key in unit_type_keys:
 		var unit_type = UnitTypeDatabase.unit_types[unit_type_key]
 		var unit_type_panel_container = unit_type_panel_container_scene.instantiate()
-		unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type))
+		unit_type_panel_container.set_po_data(playerOverworldData)
 		unit_type_panel_container.unit_type = unit_type
+		if unit_type_panel_container.check_if_unlocked():
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type))
 		main_scroll_container.add_child(unit_type_panel_container)
 		if !focused:
 			unit_type_panel_container.grab_focus.call_deferred()
@@ -45,7 +54,9 @@ func fill_main_scroll_container_commander_type():
 		var commander_type = UnitTypeDatabase.commander_types[commander_type_key]
 		var unit_type_panel_container = unit_type_panel_container_scene.instantiate()
 		unit_type_panel_container.unit_type = commander_type
-		unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type))
+		unit_type_panel_container.set_po_data(playerOverworldData)
+		if unit_type_panel_container.check_if_unlocked():
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type))
 		main_scroll_container.add_child(unit_type_panel_container)
 		if !focused:
 			unit_type_panel_container.grab_focus.call_deferred()

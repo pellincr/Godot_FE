@@ -18,11 +18,11 @@ class_name UnlockManager
 	"destroyer" : true,
 	"mage_knight" : true,
 	"war_maiden" : true,
-	"weapon_master": true
+	"weapon_master": false
 }
 
 @export var unit_types_unlocked : Dictionary = {
-	"archer" : true,
+	"archer" : false,
 	"axe_armor" : false,
 	"axe_cavalier" : false,
 	"bishop" : false,
