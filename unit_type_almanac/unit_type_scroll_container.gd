@@ -42,7 +42,9 @@ func fill_main_scroll_container_unit_type():
 		unit_type_panel_container.set_po_data(playerOverworldData)
 		unit_type_panel_container.unit_type = unit_type
 		if unit_type_panel_container.check_if_unlocked():
-			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type))
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type,true))
+		else:
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(unit_type, false))
 		main_scroll_container.add_child(unit_type_panel_container)
 		if !focused:
 			unit_type_panel_container.grab_focus.call_deferred()
@@ -56,7 +58,9 @@ func fill_main_scroll_container_commander_type():
 		unit_type_panel_container.unit_type = commander_type
 		unit_type_panel_container.set_po_data(playerOverworldData)
 		if unit_type_panel_container.check_if_unlocked():
-			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type))
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type, true))
+		else:
+			unit_type_panel_container.focus_entered.connect(_on_unit_type_panel_focued.bind(commander_type, false))
 		main_scroll_container.add_child(unit_type_panel_container)
 		if !focused:
 			unit_type_panel_container.grab_focus.call_deferred()
@@ -80,9 +84,9 @@ func _on_unit_type_header_header_swapped():
 			current_type = UNIT_TYPE.UNIT
 			fill_main_scroll_container_unit_type()
 
-func _on_unit_type_panel_focued(unit_type):
+func _on_unit_type_panel_focued(unit_type, unlocked):
 	clear_sub_children()
 	var unit_type_almanac_detailed_view = unit_type_almanac_detailed_view_scene.instantiate()
-	unit_type_almanac_detailed_view.unit_type = unit_type
+	if unlocked:
+		unit_type_almanac_detailed_view.unit_type = unit_type
 	detailed_view_sub_container.add_child(unit_type_almanac_detailed_view)
-	

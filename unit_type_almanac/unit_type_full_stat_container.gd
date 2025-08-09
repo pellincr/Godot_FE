@@ -80,3 +80,36 @@ func update_by_unit_type():
 	set_value_label(resistance_base_value_label,unit_type.base_stats.resistance)
 	set_value_label(resistance_max_value_label,unit_type.maxuimum_stats.resistance)
 	set_value_label_percent(resistance_growth_value_label,unit_type.growth_stats.resistance)
+
+func update_by_locked():
+	set_value_label(health_base_value_label,"???")
+	set_value_label(health_max_value_label,"???")
+	set_value_label_percent(health_growth_value_label,"???")
+	
+	set_value_label(strength_base_value_label,"???")
+	set_value_label(strength_max_value_label,"???")
+	set_value_label_percent(strength_growth_value_label,"???")
+	
+	set_value_label(magic_base_value_label,"???")
+	set_value_label(magic_max_value_label,"???")
+	set_value_label_percent(magic_growth_value_label,"???")
+	
+	set_value_label(skill_base_value_label,"???")
+	set_value_label(skill_max_value_label,"???")
+	set_value_label_percent(skill_growth_value_label,"???")
+	
+	set_value_label(speed_base_value_label,"???")
+	set_value_label(speed_max_value_label,"???")
+	set_value_label_percent(speed_growth_value_label,"???")
+	
+	set_value_label(luck_base_value_label,"???")
+	set_value_label(luck_max_value_label,"???")
+	set_value_label_percent(luck_growth_value_label,"???")
+	
+	set_value_label(defense_base_value_label,"???")
+	set_value_label(defense_max_value_label,"???")
+	set_value_label_percent(defense_growth_value_label,"???")
+	
+	set_value_label(resistance_base_value_label,"???")
+	set_value_label(resistance_max_value_label,"???")
+	set_value_label_percent(resistance_growth_value_label,"???")

@@ -43,7 +43,6 @@ size_flags_horizontal = 4
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/DetailedViewSubContainer"]
 custom_minimum_size = Vector2(350, 450)
 layout_mode = 2
-size_flags_horizontal = 3
 theme = SubResource("Theme_phsh8")
 follow_focus = true
 
