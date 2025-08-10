@@ -108,8 +108,8 @@ func update_to_archetype_screen():
 	$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
-	unit_draft_controls.set_view_visibility(false)
-	unit_draft_controls.set_details_visibility(false)
+	unit_draft_controls.set_cycle_view_left_visibility(false)
+	unit_draft_controls.set_cycle_view_right_visibility(false)
 	#update_army_icon_container()
 	var archetype_draft = archetype_draft_scene.instantiate()
 	main_container.add_child(archetype_draft)
@@ -121,8 +121,8 @@ func update_to_unit_draft_screen():
 	$AudioStreamPlayer.stream = menu_enter_effect
 	$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.UNIT
-	unit_draft_controls.set_view_visibility(true)
-	unit_draft_controls.set_details_visibility(true)
+	unit_draft_controls.set_cycle_view_left_visibility(true)
+	unit_draft_controls.set_cycle_view_right_visibility(true)
 	var unit_draft = unit_draft_scene.instantiate()
 	unit_draft.set_po_data(playerOverworldData)
 	unit_draft.current_state = current_draft_state

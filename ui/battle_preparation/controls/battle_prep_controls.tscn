@@ -43,21 +43,6 @@ layout_mode = 2
 text = "Select"
 vertical_alignment = 1
 
-[node name="TradeContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="ControlIcon" type="TextureRect" parent="TradeContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("4_qg8ft")
-expand_mode = 3
-
-[node name="ControlLabel" type="Label" parent="TradeContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-text = "Trade"
-vertical_alignment = 1
-
 [node name="ShopContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
@@ -71,6 +56,21 @@ expand_mode = 3
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Shop"
+vertical_alignment = 1
+
+[node name="TradeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ControlIcon" type="TextureRect" parent="TradeContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_qg8ft")
+expand_mode = 3
+
+[node name="ControlLabel" type="Label" parent="TradeContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Trade"
 vertical_alignment = 1
 
 [node name="StartGameContainer" type="HBoxContainer" parent="."]

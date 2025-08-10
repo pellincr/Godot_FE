@@ -31,6 +31,8 @@ var unit_type : UnitTypeDefinition
 func _ready():
 	if unit_type:
 		update_by_unit_type()
+	else:
+		update_by_locked()
 
 
 func set_value_label(label,value):
@@ -73,3 +75,12 @@ func update_by_unit_type():
 	unit_type_full_stat_container.update_by_unit_type()
 	trait_type_container.unit_type = unit_type
 	trait_type_container.set_icon_visibiltiy_by_unit_type()
+
+func update_by_locked():
+	var locked_icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+	set_label(unit_type_label,"???")
+	set_value_label(move_value_label,"???")
+	set_value_label(constitution_value_label,"???")
+	set_label(unit_type_description_label,"Complete More Campaigns to See Potential New Secrets")
+	set_unit_icon(locked_icon)
+	unit_type_full_stat_container.update_by_locked()
