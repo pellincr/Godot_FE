@@ -512,15 +512,16 @@ func filter_commander_by_already_generated(commander_class_keys):
 func randomize_weapon(archetype_pick, weapon_rarity):
 	var all_item_types = ItemDatabase.items.keys()
 	var all_unlocked_item_types = filter_all_items_by_unlocked(all_item_types)
+	var all_non_base_weapon_typess = filter_items_by_base_type(all_unlocked_item_types)
 	var archetype_pick_weapon_types = archetype_pick.weapon_type
 	var archetype_pick_damage_types = archetype_pick.item_damage_type
 	var archetype_pick_scaling_type = archetype_pick.item_scaling_type
 	#fill in weapon_type_list
-	var weapon_type_filtered_list = filter_items_by_weapon_type(all_unlocked_item_types,archetype_pick_weapon_types,weapon_rarity)
+	var weapon_type_filtered_list = filter_items_by_weapon_type(all_non_base_weapon_typess,archetype_pick_weapon_types,weapon_rarity)
 	#fill in damage type list
-	var damage_type_filtered_list = filter_items_by_damage_type(all_unlocked_item_types,archetype_pick_damage_types,weapon_rarity)
+	var damage_type_filtered_list = filter_items_by_damage_type(all_non_base_weapon_typess,archetype_pick_damage_types,weapon_rarity)
 	#fill in scaling type list
-	var scaling_type_filtered_list = filter_items_by_scaling_type(all_unlocked_item_types,archetype_pick_scaling_type,weapon_rarity)
+	var scaling_type_filtered_list = filter_items_by_scaling_type(all_non_base_weapon_typess,archetype_pick_scaling_type,weapon_rarity)
 	var combo1 = get_list_in_common(weapon_type_filtered_list,damage_type_filtered_list)
 	var combo2 = get_list_in_common(combo1,scaling_type_filtered_list)
 	return combo2
@@ -564,7 +565,12 @@ func filter_items_by_scaling_type(items_list:Array, scaling_type_list : Array, w
 		return items_list
 	return accum
 
-
+func filter_items_by_base_type(items_list:Array):
+	items_list.erase("iron_sword")
+	items_list.erase("iron_lance")
+	items_list.erase("iron_axe")
+	items_list.erase("iron_bow")
+	return items_list
 
 func get_unit_stat_difference_total():
 	var difference_total = unit.unit_character.stats.hp + unit.unit_character.stats.strength + unit.unit_character.stats.magic + unit.unit_character.stats.skill + unit.unit_character.stats.speed + unit.unit_character.stats.luck + unit.unit_character.stats.defense + unit.unit_character.stats.resistance
