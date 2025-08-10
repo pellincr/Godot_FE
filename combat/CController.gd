@@ -432,7 +432,7 @@ func _process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm"):
 			process_ui_confirm_inputs(delta)
-		elif Input.is_action_pressed("ui_cancel"):
+		elif Input.is_action_just_pressed("ui_cancel"):
 			process_ui_cancel_inputs(delta)
 		elif Input.is_action_just_pressed("ui_info"):
 			process_ui_info_inputs(delta)

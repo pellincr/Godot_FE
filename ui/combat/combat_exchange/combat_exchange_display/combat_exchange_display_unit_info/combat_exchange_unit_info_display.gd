@@ -31,7 +31,7 @@ func set_all(u : Unit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool, wts: 
 	self.damage = dmg
 	self.critical_chance = crit_chance
 	self.weapon_effective = wpn_eff
-	self.weapon = u.inventory.equipped
+	self.weapon = u.inventory.get_equipped_weapon()
 	self.wpn_triangle_state = wts
 	update()
 

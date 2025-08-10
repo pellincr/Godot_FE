@@ -127,26 +127,26 @@ func enact_combat_exchange(attacker: CombatUnit, defender:CombatUnit, distance:i
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var damage_dealt
 	if check_hit(hit_chance):
-		attacker.unit.inventory.equipped.use()
+		attacker.unit.inventory.get_equipped_weapon().use()
 		if check_critical(critical_chance) :
 			#emit critical
 			#damage_dealt = 3 * calc_damage(attacker.unit, target.unit)
-			damage_dealt = floori(attacker.unit.inventory.equipped.critical_multiplier * calc_damage(attacker.unit, target.unit))
+			damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker.unit, target.unit))
 			await do_damage(target,damage_dealt, true)
 		else : 
 			#emit generic damage
 			damage_dealt = calc_damage(attacker.unit, target.unit)
 			await do_damage(target,damage_dealt)
-		if attacker.unit.inventory.equipped is WeaponDefinition:
-			if attacker.unit.inventory.equipped.is_vampyric:
+		if attacker.unit.inventory.get_equipped_weapon():
+			if attacker.unit.inventory.get_equipped_weapon().is_vampyric:
 				await heal_unit(attacker, damage_dealt)
 	else : ## Attack has missed
 		await hit_missed(target)
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
-	if attacker.unit.inventory.equipped is WeaponDefinition:
-		var heal_amount = attacker.unit.inventory.equipped.damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
-		attacker.unit.inventory.equipped.use()
+	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
+		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
+		attacker.unit.inventory.get_equipped_weapon().use()
 		await use_audio_player(heal_sound)
 		target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
 		DamageNumbers.heal((32* target.map_tile.position + Vector2i(16,16)), heal_amount)
@@ -233,7 +233,7 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	var damage
 	const wpn_triangle_damage_bonus = 2
 	const effective_damage_multiplier = 3
-	var attacker_stat_bonus = get_stat_scaling_bonus(attacker, attacker.inventory.equipped.item_scaling_type)
+	var attacker_stat_bonus = get_stat_scaling_bonus(attacker, attacker.inventory.get_equipped_weapon().item_scaling_type)
 	var effective = false
 	var wpn_triangle_active_bonus = 0
 	var defense_mult = 1
@@ -247,15 +247,15 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 	
 	#calculate the maximum damage output before factoring in defenses
 	if(effective): 
-		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.equipped.damage))
+		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + (effective_damage_multiplier * attacker.inventory.get_equipped_weapon().damage))
 	else :
-		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + attacker.inventory.equipped.damage)
+		max_damage = (attacker_stat_bonus + wpn_triangle_active_bonus + attacker.inventory.get_equipped_weapon().damage)
 	# check the damage type of the source
-	if attacker.inventory.equipped.negates_defense:
+	if attacker.inventory.get_equipped_weapon().negates_defense:
 		defense_mult = 0
-	if attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
+	if attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		damage = clampi(max_damage - (target.stats.defense * defense_mult),0, 999)
-	elif attacker.inventory.equipped.item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
+	elif attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
 		damage = clampi(max_damage - (target.stats.resistance * defense_mult),0, 999)
 	elif attacker.inventory.item_damage_type == Constants.DAMAGE_TYPE.TRUE:
 		damage = max_damage
@@ -280,10 +280,10 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 
 func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
 	if attacker.unit.inventory.equipped: 
-		if attacker.unit.inventory.equipped is WeaponDefinition:
-			if not attacker.unit.inventory.equipped.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
-				if itemConstants.AVAILABLE_TARGETS.ENEMY in attacker.unit.inventory.equipped.item_target_faction:
-					if attacker.unit.inventory.equipped.attack_range.has(distance):
+		if attacker.unit.inventory.get_equipped_weapon():
+			if not attacker.unit.inventory.get_equipped_weapon().weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
+				if itemConstants.AVAILABLE_TARGETS.ENEMY in attacker.unit.inventory.get_equipped_weapon().item_target_faction:
+					if attacker.unit.inventory.get_equipped_weapon().attack_range.has(distance):
 						return true
 	return false
 
@@ -318,10 +318,10 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 	var unit_a_weapon: WeaponDefinition
 	var unit_b_weapon: WeaponDefinition
-	if unit_a.inventory.equipped: 
-		unit_a_weapon = unit_a.inventory.equipped
-	if unit_b.inventory.equipped: 
-		unit_b_weapon = unit_b.inventory.equipped
+	if unit_a.inventory.get_equipped_weapon(): 
+		unit_a_weapon = unit_a.inventory.get_equipped_weapon()
+	if unit_b.inventory.get_equipped_weapon(): 
+		unit_b_weapon = unit_b.inventory.get_equipped_weapon()
 	if unit_b_weapon and unit_a_weapon:
 		match unit_a_weapon.alignment:
 			itemConstants.ALIGNMENT.MUNDANE:
@@ -389,13 +389,13 @@ func use_audio_player(sound:AudioStream):
 
 func check_effective(attacker: Unit, target:Unit) -> bool:
 	var _is_effective = false
-	if not attacker.inventory.equipped.weapon_effectiveness.is_empty() :
-		for effective_type in attacker.inventory.equipped.weapon_effectiveness: 
+	if not attacker.inventory.get_equipped_weapon().weapon_effectiveness.is_empty() :
+		for effective_type in attacker.inventory.get_equipped_weapon().weapon_effectiveness: 
 			var unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
 			if effective_type in unit_type.traits :
 				_is_effective = true
 	if (check_weapon_triangle(attacker, target) == attacker): 
-		if(attacker.inventory.equipped.is_wpn_triangle_effective):
+		if(attacker.inventory.get_equipped_weapon().is_wpn_triangle_effective):
 			_is_effective = true
 	return _is_effective
 
@@ -425,7 +425,7 @@ func enact_support_exchange(attacker: CombatUnit, target:CombatUnit, distance:in
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		give_xp = true
 	if attacker.unit.inventory.equipped: 
-		staff = attacker.unit.inventory.equipped
+		staff = attacker.unit.inventory.get_equipped_weapon()
 		await perform_heal(attacker, target, staff.item_scaling_type)
 		if attacker.allegience == Constants.FACTION.PLAYERS:
 			await complete_combat_exchange(attacker.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)

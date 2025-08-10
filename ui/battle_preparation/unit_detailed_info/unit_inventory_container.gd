@@ -44,10 +44,10 @@ func update_by_unit():
 	for slot_index in inventory_slot_array.size():
 		if slot_index < unit.inventory.items.size():
 			set_inventory_slot(unit.inventory.items[slot_index], inventory_slot_array[slot_index])
-			if unit.inventory.items[slot_index] == unit.inventory.equipped:
+			if unit.inventory.equipped:
 				var texture = TextureRect.new()
 				texture.texture = equipped_icon
-				inventory_slot_array[slot_index].inventory_item_icon.add_child(texture)
+				inventory_slot_array[0].inventory_item_icon.add_child(texture)
 		else:
 			clear_slot(inventory_slot_array[slot_index])
 

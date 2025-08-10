@@ -165,7 +165,7 @@ static func create_inventory(target_unit: Unit , reference_inventory: Array[Item
 	target_unit.inventory = Inventory.create(reference_inventory, target_unit)
 	if not target_unit.inventory.items.is_empty():
 		for item in target_unit.inventory.items:
-			if target_unit.inventory.equipped == null:
+			if target_unit.inventory.equipped == false:
 				target_unit.set_equipped(item)
 
 ##
@@ -250,8 +250,8 @@ func calculate_attack_speed(weapon: WeaponDefinition = null) -> int:
 	if weapon:
 		as_val =  clampi(stats.speed - clampi(weapon.weight - stats.constitution, 0, weapon.weight),0, stats.speed)
 	else : 
-		if inventory.equipped:
-			as_val = clampi(stats.speed - clampi(inventory.equipped.weight - stats.constitution,0, inventory.equipped.weight),0, stats.speed)
+		if inventory.get_equipped_weapon():
+			as_val = clampi(stats.speed - clampi(inventory.get_equipped_weapon().weight - stats.constitution,0, inventory.get_equipped_weapon().weight),0, stats.speed)
 		else : 
 			as_val = stats.speed
 	return as_val
@@ -261,8 +261,8 @@ func calculate_hit(weapon: WeaponDefinition = null) -> int:
 	if weapon:
 		hit_value = clampi(weapon.hit + (2 * stats.skill) + (stats.luck/2), 0, 500)
 	else :
-		if inventory.equipped:
-			hit_value = clampi(inventory.equipped.hit + (2 * stats.skill) + (stats.luck/2), 0, 500)
+		if inventory.get_equipped_weapon():
+			hit_value = clampi(inventory.get_equipped_weapon().hit + (2 * stats.skill) + (stats.luck/2), 0, 500)
 	return hit_value
 	
 func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
@@ -270,8 +270,8 @@ func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 	if weapon:
 		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 100)
 	else :
-		if inventory.equipped:
-			critcal_value = clampi(inventory.equipped.critical_chance + (stats.skill/2), 0 , 100) 
+		if inventory.get_equipped_weapon():
+			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 100) 
 	return critcal_value
 
 func calculate_critical_avoid():
@@ -296,11 +296,11 @@ func calculate_attack(weapon: WeaponDefinition = null) -> int:
 		else :
 			attack_value = stats.magic  + weapon.damage
 	else :
-		if inventory.equipped:
-			if(inventory.equipped.item_damage_type == 0) :
-				attack_value = stats.strength  + inventory.equipped.damage
+		if inventory.get_equipped_weapon():
+			if(inventory.get_equipped_weapon().item_damage_type == 0) :
+				attack_value = stats.strength  + inventory.get_equipped_weapon().damage
 			else :
-				attack_value = stats.magic  + inventory.equipped.damage
+				attack_value = stats.magic  + inventory.get_equipped_weapon().damage
 	return attack_value
 
 func calculate_experience_gain_hit(hit_unit:Unit) -> int:

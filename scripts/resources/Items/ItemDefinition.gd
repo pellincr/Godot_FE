@@ -29,12 +29,12 @@ var price : int = calculate_price()
 
 
 func use():
-	#Do something
 	print(name + " was used!")
 	uses = uses - 1
 	print(str(uses) + " uses remain")
-	if uses == 0:
+	if uses <= 0:
 		print(name + " broke!")
+	free()
 
 func calculate_price():
 	return floor(worth * (uses / max_uses))

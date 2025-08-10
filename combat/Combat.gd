@@ -197,7 +197,7 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 	#check the distance between the target and attacker
 	var distance = get_distance(user, target)
 	#get the item info from the attacker
-	var item = user.unit.inventory.equipped
+	var item = user.unit.inventory.get_equipped_item()
 	# check if that item can hit the target
 	var valid = (item and item.attack_range.has(distance))
 	if valid:

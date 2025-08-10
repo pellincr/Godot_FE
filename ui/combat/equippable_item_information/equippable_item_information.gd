@@ -81,7 +81,7 @@ func set_avoid_base():
 
 func update_values(weapon:WeaponDefinition):
 	if unit:
-		if weapon and weapon != unit.inventory.equipped:
+		if weapon and weapon != unit.inventory.get_equipped_weapon():
 			do_projections(weapon)
 		else :
 			set_bases()
