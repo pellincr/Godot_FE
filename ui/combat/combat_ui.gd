@@ -126,7 +126,7 @@ func set_action_list(available_actions: Array[UnitAction]):
 	$Actions/EndTurnButton.disabled = !player_turn
 
 
-func set_inventory_list_attack(unit: Unit):
+func set_inventory_list_attack(unit: Unit, weaponList:Array[WeaponDefinition] = []):
 	print("@# set_inventory_list_attack called")
 	var attack_action_inventory = $AttackActionInventory
 	attack_action_inventory.show_equippable_item_info()
@@ -137,7 +137,11 @@ func set_inventory_list_attack(unit: Unit):
 			var item_btn = inventory_container_children[i].get_button() as Button
 			item_btn.disabled = false
 			clear_action_button_connections(item_btn)
-			var weapon_list = unit.get_equippable_weapons()
+			var weapon_list = []
+			if weaponList.is_empty():
+				weapon_list = unit.get_equippable_weapons()
+			else:
+				weapon_list = weaponList.duplicate()
 			if not weapon_list.is_empty():
 				if weapon_list.size() > i:
 					var item = weapon_list[i]
@@ -342,8 +346,8 @@ func _set_tile_info(tile : Dictionary) :
 	else:
 		$UnitStatus.visible = false
 
-func _set_attack_action_inventory(combat_unit: CombatUnit) -> void:
-	set_inventory_list_attack(combat_unit.unit)
+func _set_attack_action_inventory(combat_unit: CombatUnit, weaponList : Array[WeaponDefinition] = []) -> void:
+	set_inventory_list_attack(combat_unit.unit, weaponList)
 	if $AttackActionInventory.visible == false :
 		$AttackActionInventory.visible = true 
 

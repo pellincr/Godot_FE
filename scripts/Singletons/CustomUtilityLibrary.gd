@@ -36,3 +36,32 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 	result.movement = a.movement + b.movement
 	result.constitution = a.constitution + b.constitution
 	return result
+
+func reverse_dictionary(dict: Dictionary) -> Dictionary:
+	var reverse_dict = {}
+	for key in dict.keys():
+		if dict[key] is Array:
+			for key_element in dict[key]:
+				reverse_dict[key_element] = key
+		else :
+			reverse_dict[dict[key]] = key
+	return reverse_dict
+
+func array_next_index_with_loop(array: Array, index: int):
+	var  _next_index = index
+	if index + 1 < array.size():
+		++_next_index
+	else :
+		_next_index = 0
+	return _next_index
+
+func array_previous_index_with_loop(array: Array, index: int):
+	var  _next_index = index
+	if index - 1 > 0:
+		--_next_index
+	else :
+		_next_index = array.size()
+	return _next_index
+
+func get_distance(point1: Vector2i, point2: Vector2i):
+	return absi(point1.x - point2.x) + absi(point1.y - point2.y)

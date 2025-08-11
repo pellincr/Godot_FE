@@ -135,8 +135,8 @@ func sort_turn_queue(a, b):
 		return false
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
-	combat_unit.map_tile.position = position
-	combat_unit.map_tile.terrain = controller.get_terrain_at_position(position)
+	combat_unit.map_position = position
+	combat_unit.map_terrain = controller.grid.get_terrain(position)
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 

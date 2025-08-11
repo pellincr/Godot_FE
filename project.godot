@@ -28,8 +28,9 @@ CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
 unitConstants="*res://scripts/Unit/unit_constants.gd"
 ItemConstants="*res://scripts/resources/Items/item_constants.gd"
-CommanderDatabase="*res://combat/databases/commander_database.tscn"
+CommanderDatabase="res://combat/databases/commander_database.tscn"
 LoadScreenGlobals="*res://load_screen/load_screen_globals.gd"
+CombatMapConstants="*res://scripts/combat/combat_map_constants.gd"
 
 [display]
 

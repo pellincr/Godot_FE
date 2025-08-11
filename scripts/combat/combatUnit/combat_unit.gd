@@ -17,13 +17,15 @@ var minor_action_taken: bool = false
 var effective_move : int = 0
 var unit : Unit
 var action_list :  Array[String]
-var map_tile :  MapTile
-var move_tile : MapTile
+#var map_tile :  CombatMapTile
+#var move_tile : CombatMapTile
 
 var map_position : Vector2i
 var map_terrain : Terrain
+
 var move_position: Vector2i
 var move_terrain : Terrain
+
 var skill_list = []
 var map_display : CombatUnitDisplay
 var allegience : Constants.FACTION
@@ -39,20 +41,18 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.allegience = team
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
-	instance.map_tile = MapTile.new()
-	instance.move_tile = MapTile.new()
 	return instance
 
 func set_map_terrain(ter : Terrain) :
 	map_terrain = ter
 	 
 func calc_map_avoid()-> int:
-	if move_tile.position != map_tile.position:
-		if move_tile.terrain:
-			return unit.avoid + move_tile.terrain.avoid
+	if map_position != move_position:
+		if move_terrain:
+			return unit.avoid + move_terrain.avoid
 	else: 
-		if map_tile:
-			return unit.avoid + move_tile.terrain.avoid
+		if map_terrain:
+			return unit.avoid + map_terrain.avoid
 	return unit.avoid
 
 func calc_map_avoid_staff() -> int:
@@ -71,3 +71,11 @@ func refresh_move():
 	if unit:
 		if unit.stats.movement:
 			self.effective_move =  unit.stats.movement
+
+func update_move_tile(cmt: CombatMapTile):
+	move_position = cmt.position
+	move_terrain = cmt.terrain
+	
+func update_map_tile(cmt: CombatMapTile):
+	map_position = cmt.position
+	map_terrain = cmt.terrain

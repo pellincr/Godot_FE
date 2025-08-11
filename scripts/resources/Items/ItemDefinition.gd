@@ -34,7 +34,7 @@ func use():
 	print(str(uses) + " uses remain")
 	if uses <= 0:
 		print(name + " broke!")
-	free()
+	#free()
 
 func calculate_price():
 	return floor(worth * (uses / max_uses))
