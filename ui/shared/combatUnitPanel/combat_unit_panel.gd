@@ -26,10 +26,11 @@ func show_icons():
 	#("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying""res://resources/definitions/unit_types/fighter.tres"
 	var unit_type = UnitTypeDatabase.get_definition(unit.unit.unit_type_key)
 	var unit_types = unit_type.traits
-	mounted_icon.visible = unit_types.has(unitConstants.TRAITS.MOUNTED)
-	armor_icon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)
-	flyer_icon.visible = unit_types.has(unitConstants.TRAITS.FLIER)
-	undead_icon.visible = unit_types.has(unitConstants.TRAITS.UNDEAD)
+	if not unit_types.is_empty():
+		mounted_icon.visible = unit_types.has(unitConstants.TRAITS.MOUNTED)
+		armor_icon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)
+		flyer_icon.visible = unit_types.has(unitConstants.TRAITS.FLIER)
+		undead_icon.visible = unit_types.has(unitConstants.TRAITS.UNDEAD)
 
 func update_background():
 	if unit.allegience == Constants.FACTION.PLAYERS:

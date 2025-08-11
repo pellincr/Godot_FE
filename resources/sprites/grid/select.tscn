@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3kmpdxrr68vj"]
+
+[ext_resource type="Texture2D" uid="uid://bojof6wdbktjj" path="res://resources/sprites/grid/BoxSelector.png" id="1_7bf4q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4ixo"]
+atlas = ExtResource("1_7bf4q")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o37e"]
+atlas = ExtResource("1_7bf4q")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gbij3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4ixo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o37e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Select" type="AnimatedSprite2D"]
+position = Vector2(272, 208)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_gbij3")
+autoplay = "default"
+frame_progress = 0.482903

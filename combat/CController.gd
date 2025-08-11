@@ -29,7 +29,7 @@ signal movement_changed(movement: int)
 signal finished_move(position: Vector2i)
 signal target_selection_started()
 signal target_selection_finished()
-signal tile_info_updated(tile : CombatMapTile)
+signal tile_info_updated(tile : CombatMapTile, unit: CombatUnit)
 signal target_detailed_info(combat_unit : CombatUnit)
 
 ##State Machine
@@ -49,6 +49,7 @@ var player_state: CombatMapConstants.PLAYER_STATE #= CombatMapConstants.PLAYER_S
 ##Controller Main Variables
 @export var controlled_node : Control
 @export var combat: Combat 
+var tile_map : TileMap
 var grid: CombatMapGrid
 var camera: CombatMapCamera
 
@@ -110,6 +111,7 @@ func _ready():
 	##Load Seed to ensure consistent runs
 	#seed(seed)
 	##Configure FSM States
+	tile_map = get_node("../Terrain/TileMap")
 	turn_count = 1
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
 	turn_phase = CombatMapConstants.TURN_PHASE.INITIALIZING
@@ -117,11 +119,10 @@ func _ready():
 	previous_player_state = CombatMapConstants.PLAYER_STATE.INITIALIZING
 	player_state = CombatMapConstants.PLAYER_STATE.INITIALIZING
 	##create variables needed for Combat Map
-	grid = CombatMapGrid.new()
 	camera = CombatMapCamera.new()
+	grid = CombatMapGrid.new()
 	##Assign created variables to create place in the scene tree
-	await combat.ready
-	await camera.ready
+	grid.setup(tile_map)
 	self.add_child(grid)
 	self.add_child(camera)
 	#Auto Wire combat signals for modularity
@@ -131,10 +132,13 @@ func _ready():
 	combat.connect("major_action_completed", _on_visual_combat_major_action_completed)
 	combat.connect("minor_action_completed", _on_visual_combat_minor_action_completed)
 	combat.connect("turn_advanced", advance_turn)
+	await combat.ready
+	combat.populate()
 	# Init & Populate dynamically created nodes
 	await camera.init()
 	#await combat.load_entities()
 	# Prepare to transition to player turn and handle player input
+	await combat.game_ui.ready
 	autoCursor()
 	##Set the correct states to begin FSM flow
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN
@@ -193,9 +197,9 @@ func _process(delta):
 #draw the area
 func _draw():
 	if(game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
-		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
-			if(combat.get_current_combatant()):
-				draw_comb_range(combat.get_current_combatant())
+		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER):
+			if(grid.get_combat_unit(current_tile)):
+				draw_comb_range(grid.get_combat_unit(current_tile))
 				draw_ranges(move_range, true, attack_range,true)
 				drawSelectedpath()
 		#if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
@@ -260,8 +264,8 @@ func get_entity_at_tile(tile:Vector2i)-> CombatMapEntity:
 			return ent
 	return null
 
-func combatant_added(combatant):
-	pass
+func combatant_added(combatant : CombatUnit):
+	grid.set_combat_unit(combatant, combatant.map_position)
 	
 func entity_added(cme: CombatMapEntity):
 	pass
@@ -378,11 +382,11 @@ func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
 	return edge_tiles
 
 func get_tile_info(position : Vector2i): 
-	tile_info_updated.emit(grid.get_map_tile(position))
+	tile_info_updated.emit(grid.get_map_tile(position), grid.get_combat_unit(position))
 
 func draw_comb_range(combatant: CombatUnit) :
 	attack_range.clear()
-	move_range = grid.get_range_DFS(combatant.unit.stats.movement, combatant.map_tile.position, combatant.unit.movement_type, true)
+	move_range = grid.get_range_DFS(combatant.unit.stats.movement, combatant.map_position, combatant.unit.movement_type, true)
 	var edge_array = find_edges(move_range)
 	attack_range = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
 
@@ -480,8 +484,8 @@ func process_terrain_effects():
 	for combat_unit in combat.combatants:
 		if combat not in combat.dead_units:
 			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
-				if grid.get_terrain_at_map_position(combat_unit.map_tile.position): 
-					var target_terrain = grid.get_terrain_at_map_position(combat_unit.map_tile.position)
+				if grid.get_terrain(combat_unit.map_position): 
+					var target_terrain = grid.get_terrain(combat_unit.map_position)
 					if target_terrain.active_effect_phases == CombatMapConstants.TURN_PHASE.keys()[turn_phase]:
 						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
 							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
@@ -667,7 +671,7 @@ func set_controlled_combatant(combatant: CombatUnit):
 	#combat.get_current_combatant() = combatant
 	combat.set_current_combatant(combatant)
 	controlled_node = combatant.map_display
-	grid.update_points_weight()
+	grid.update_astar_points(combatant)
 
 func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 	var target_tile = grid.get_map_tile(pushed_unit.map_tile.position + push_vector);
@@ -698,18 +702,19 @@ func update_turn_phase(new_state : CombatMapConstants.TURN_PHASE):
 # Moves the player's cursor to their first unit
 #
 func autoCursor():
-	current_tile = combat.combatants[combat.groups[0].front()].map_position
+	update_current_tile(combat.combatants[combat.groups[0].front()].map_position)
 	camera.centerCameraCenter(grid.map_to_position(current_tile))
-	selector.position = grid.map_to_position(current_tile) 
+	selector.position = grid.map_to_position(current_tile)
 
 #
 # Updates the selected tile to a new position, but ensures it is within the grid
 #
 func update_current_tile(position : Vector2i):
 	if grid.is_valid_tile(position):
+		current_tile = position
 		get_tile_info(position)
 		selector.position = grid.map_to_position(current_tile)
-		combat.game_ui._set_tile_info(grid.get_map_tile(current_tile))
+		combat.game_ui._set_tile_info(grid.get_map_tile(current_tile), grid.get_combat_unit(current_tile))
 
 ## FSM METHODS
 #
@@ -791,8 +796,9 @@ func fsm_unit_select_process(delta):
 		#create the ui footer
 		#call the correct info to draw the movement and attack range
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
+			return
 	if Input:
-		if Input.is_action_just_pressed("combat_map_confirm") or Input.is_action_just_pressed("combat_map_menu"):
+		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
 			# To be implemented : combat map main menu
 			pass
 		elif Input.is_action_just_pressed("combat_map_up"):
@@ -806,9 +812,11 @@ func fsm_unit_select_process(delta):
 		camera.SimpleFollow(delta)
 
 func fsm_unit_select_hover_process(delta):
+	
+	# always keep the footer open
 	if Input:
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
-		if Input.is_action_just_pressed("combat_map_confirm"):
+		if Input.is_action_just_pressed("ui_confirm"):
 			combat.game_ui.play_menu_confirm()
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				if !selected_unit.turn_taken: 
@@ -823,7 +831,7 @@ func fsm_unit_select_hover_process(delta):
 			else : 
 			# To Be Implemented : Enemy Unit Range Map
 				pass 
-		elif Input.is_action_just_pressed("combat_map_unit_details"):
+		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
 				if unit_detail_open == false:
 					target_detailed_info.emit(selected_unit)
@@ -831,13 +839,13 @@ func fsm_unit_select_hover_process(delta):
 			#populate the detail info with the unit
 			#create a faction unit traversal list
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
-		elif Input.is_action_just_pressed("combat_map_cycle_right"):
+		elif Input.is_action_just_pressed("right_bumper"):
 			# To be implemented : allow the game to jump between units on the same faction
 			pass 
-		elif Input.is_action_just_pressed("combat_map_cycle_left"):
+		elif Input.is_action_just_pressed("left_bumper"):
 			# To be implemented : allow the game to jump between units on the same faction
 			pass 
-		elif Input.is_action_just_pressed("combat_map_menu"):
+		elif Input.is_action_just_pressed("start_button"):
 			# To be implemented : combat map main menu
 			pass
 		elif Input.is_action_just_pressed("combat_map_up"):
@@ -852,16 +860,16 @@ func fsm_unit_select_hover_process(delta):
 
 func fsm_unit_details_screen_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("combat_map_cancel"):
+		if Input.is_action_just_pressed("ui_cancel"):
 			target_detailed_info.emit(null)
 			unit_detail_open = false
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
-		elif Input.is_action_just_pressed("combat_map_cycle_right"):
+		elif Input.is_action_just_pressed("right_bumper"):
 			# To be implemented
 			# get next unit from faction
 			# update current tile position to match unit positon
 			pass 
-		elif Input.is_action_just_pressed("combat_map_cycle_left"):
+		elif Input.is_action_just_pressed("left_bumper"):
 			# To be implemented : allow the game to jump between units on the same faction
 			# get prev unit from faction
 			# update current tile position to match unit positon
@@ -869,9 +877,9 @@ func fsm_unit_details_screen_process(delta):
 			
 func fsm_unit_selected_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("combat_map_confirm"):
+		if Input.is_action_just_pressed("ui_confirm"):
 			fsm_unit_move_confirm(delta)
-		if Input.is_action_just_pressed("combat_map_cancel"):
+		if Input.is_action_just_pressed("ui_cancel"):
 			_action_tiles.clear()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 	#draw the units current move path and ranges

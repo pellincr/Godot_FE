@@ -8,7 +8,7 @@ class_name CombatMapGrid
 signal tile_info_updated(tile : Dictionary)
 
 ##EXPORTS
-@export var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
+var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
 
 const tiles_to_check = [
 	Vector2i.RIGHT,
@@ -34,10 +34,16 @@ var current_tile_position: Vector2i
 
 ## Called on Node Ready, used to initialize terrain
 func _ready():
-	terrain_tile_map = get_node("../../Terrain/TileMap")
-	initialize_grid(terrain_tile_map) 
-	populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
+	pass
+	#terrain_tile_map = get_node("../../Terrain/TileMap")
+	#initialize_grid(terrain_tile_map) 
+	#populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
 
+func setup(tileMap : TileMap):
+	terrain_tile_map = tileMap
+	initialize_grid(tileMap) 
+	populate_map_tiles_from_terrain_tile_map(tileMap)
+	
 ##
 # populates the combatMapGrid with appriopriate terrain values
 # @param tile_map : the target tile_map layer with terrian that will be used in the combat grid
@@ -155,7 +161,7 @@ func update_astar_points(combatUnit: CombatUnit):
 		var tile = CustomUtilityLibrary.vector2i(key)
 		if _astargrid.is_in_boundsv(tile):
 			_astargrid.set_point_solid(tile, false)
-			_astargrid.set_point_weight_scale(tile, get_tile_cost(tile, combatUnit.unit.movement_class))
+			_astargrid.set_point_weight_scale(tile, get_tile_cost(tile, combatUnit.unit.movement_type))
 		if is_position_occupied_by_friendly_faction(tile, combatUnit.allegience):
 			pass
 		else:

@@ -12,6 +12,14 @@ func random_rolls_bool(chance: int, number_of_rolls : int) -> bool:
 	else :
 		return false
 
+#
+# Converts string into Vector2i
+#
+func vector2i(string : String) -> Vector2i: #(0, 0) RE-WORK THIS TO HAVE ERROR CATCHING
+	string.replace("(", "")
+	string.replace(")", "")
+	var arr = string.split(",")
+	return Vector2i(int(arr[0]), int(arr[1]))
 
 ##Checks if strings are equal ignoring thier case
 func equals_ignore_case(string_a: String, string_b : String) -> bool:

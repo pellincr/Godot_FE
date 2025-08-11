@@ -96,6 +96,9 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	randomize()
+
+
+func populate():
 	var current_party_index = 0 
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):

@@ -14,11 +14,10 @@
 
 [node name="Game" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(356, 302)
 zoom = Vector2(3, 3)
 script = ExtResource("1_aallb")
-map = NodePath("../Terrain")
 
 [node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
 

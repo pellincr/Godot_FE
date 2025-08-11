@@ -19,12 +19,12 @@ var initialized = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	game_map = get_node("../../Terrain/TileMap")
-	controller = get_node("../../Controller")
 	zoomTarget = zoom
 	#set_camera_limits()
 
 func init():
+	controller = get_node("../../Controller")
+	game_map = controller.tile_map
 	set_camera_limits()
 	initialized = true
 
@@ -47,7 +47,7 @@ func Zoom(delta):
 
 func SimpleFollow(delta): #this needs to be perfected
 	var starting_position = position
-	var tile_position = controller.grid.map_to_position(controller.current_tile_position)
+	var tile_position = controller.grid.map_to_position(controller.current_tile)
 	var viewport : Rect2 = get_viewport().get_visible_rect()
 	if tile_position.x > (viewport.position.x + viewport.size.x * pan_threshold/2) or tile_position.x < viewport.position.x - (viewport.size.x *pan_threshold/2) or tile_position.y > (viewport.position.y + viewport.size.y *pan_threshold/2) or tile_position.y < viewport.position.y - (viewport.size.y *pan_threshold/2) :
 			var moveAmount = lerp(starting_position, tile_position, tile_position.length())

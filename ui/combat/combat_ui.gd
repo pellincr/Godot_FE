@@ -338,9 +338,9 @@ func _target_detailed_info(combat_unit: CombatUnit):
 		$AttackActionInventory.visible = false
 	
 
-func _set_tile_info(tile : Dictionary) :
-	$combat_tile_info.set_all(tile.terrain, tile.x,tile.y)
-	if(tile.unit):
+func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
+	$combat_tile_info.set_all(tile.terrain, tile.position.x,tile.position.y)
+	if(unit):
 		$UnitStatus.set_unit(tile.unit)
 		$UnitStatus.visible = true
 	else:
