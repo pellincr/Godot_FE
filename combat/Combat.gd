@@ -301,7 +301,6 @@ func advance_turn(faction: int):
 
 
 func major_action_complete():
-	
 	emit_signal("major_action_completed")
 
 func combatExchangeComplete(friendly_unit_alive:bool):

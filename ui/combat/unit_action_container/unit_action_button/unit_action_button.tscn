@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://j3822js4vsam"]
+
+[ext_resource type="Theme" uid="uid://dgwbbikmf5hnf" path="res://resources/themes/combat/action_button.tres" id="1_4lg83"]
+[ext_resource type="Texture2D" uid="uid://xb1okf8u8p5q" path="res://resources/sprites/icons/unit_action_icons/inventory_icon.png" id="2_357yy"]
+[ext_resource type="Script" path="res://ui/combat/unit_action_container/unit_action_button/unit_action_button.gd" id="3_3l5kh"]
+
+[node name="UnitActionButton" type="Button"]
+custom_minimum_size = Vector2(200, 50)
+offset_right = 93.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4lg83")
+text = "Action Text"
+icon = ExtResource("2_357yy")
+alignment = 0
+clip_text = true
+expand_icon = true
+script = ExtResource("3_3l5kh")

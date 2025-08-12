@@ -155,6 +155,13 @@ func is_position_occupied_by_friendly_faction(position:Vector2i, faction:int) ->
 			return true
 	return false
 
+func is_position_occupied_by_enemy_faction(position:Vector2i, faction:int) -> bool:
+	if get_combat_unit(position):
+		var combat_unit = get_combat_unit(position)
+		if combat_unit.allegience != faction:
+			return true
+	return false
+
 func update_astar_points(combatUnit: CombatUnit):
 	for key : String in game_map.keys():
 		var entry : CombatMapTile = game_map[key]
@@ -162,10 +169,11 @@ func update_astar_points(combatUnit: CombatUnit):
 		if _astargrid.is_in_boundsv(tile):
 			_astargrid.set_point_solid(tile, false)
 			_astargrid.set_point_weight_scale(tile, get_tile_cost(tile, combatUnit.unit.movement_type))
-		if is_position_occupied_by_friendly_faction(tile, combatUnit.allegience):
-			pass
-		else:
-			_astargrid.set_point_solid(tile)
+		if is_position_occupied(tile):
+			if is_position_occupied_by_friendly_faction(tile, combatUnit.allegience):
+				pass
+			else:
+				_astargrid.set_point_solid(tile)
 	## Update for movement classess
 		if entry.terrain.blocks:
 			if combatUnit.unit.movement_class in entry.terrain.blocks:
@@ -176,8 +184,8 @@ func update_astar_points(combatUnit: CombatUnit):
 					_astargrid.set_point_solid(tile)
 
 ##REVIEW THIS METHOD IT SEEMS OUTDATED? 
-func find_path(tile_position: Vector2i, current_position : Vector2i = Vector2i(0,0)) -> PackedVector2Array:
-	var _path : PackedVector2Array
+func find_path(tile_position: Vector2i, current_position : Vector2i = Vector2i(0,0)) -> Array[Vector2i]:
+	var _path : Array[Vector2i]
 	if(_astargrid.is_in_boundsv(tile_position)):
 		##if we run into a wall, be sure to check all directions
 		if _astargrid.get_point_weight_scale(tile_position) > 999999: 
@@ -191,7 +199,7 @@ func find_path(tile_position: Vector2i, current_position : Vector2i = Vector2i(0
 			if tile_position.y > current_position.y:
 				dir = Vector2i.UP
 			tile_position += dir
-		_path = _astargrid.get_point_path(current_position, tile_position, true)
+		_path = _astargrid.get_id_path(current_position, tile_position, true)
 	return _path
 
 func get_tile_cost(tile:Vector2i, movement_class:int):
@@ -393,7 +401,6 @@ func find_edges(tiles:PackedVector2Array) -> PackedVector2Array:
 		else : 
 			continue
 	return edge_tiles
-
 
 func get_terrain(position: Vector2i) ->  Terrain:
 	if game_map.has(str(position)):

@@ -8,9 +8,12 @@ signal unit_experience_ended()
 @export var ui_map_audio : AudioStreamPlayer
 @export var ui_menu_audio : AudioStreamPlayer
 
+@export var active_ui_node : Node
+
 #Scene Imports
 const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
+const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -29,7 +32,6 @@ func _ready():
 	combat.connect("update_information", update_information)
 	controller.connect("target_detailed_info", _target_detailed_info)
 
-
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
@@ -44,10 +46,15 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
+func create_unit_action_container(available_actions:Array[String]):
+	var unit_action_container = UnitActionContainer.instantiate()
+	unit_action_container.populate(available_actions, controller)
+	self.add_child(unit_action_container)
+	active_ui_node = unit_action_container
+	unit_action_container.grab_focus()
 
-
-
-
+func destory_active_ui_node():
+	active_ui_node.queue_free()
 
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)
@@ -67,7 +74,6 @@ func populate_combat_info(info: Dictionary):
 func _on_end_turn_button_pressed():
 	print("End Turn Button pressed")
 	turn_ended.emit()
-
 
 func update_information(info: String):
 	$Actions/Information/Text.append_text(info)
@@ -124,7 +130,6 @@ func set_action_list(available_actions: Array[UnitAction]):
 			clear_action_button_connections(action_btn)
 	actions_grid_children[0].grab_focus()
 	$Actions/EndTurnButton.disabled = !player_turn
-
 
 func set_inventory_list_attack(unit: Unit, weaponList:Array[WeaponDefinition] = []):
 	print("@# set_inventory_list_attack called")
@@ -202,8 +207,6 @@ func set_inventory_list_support(unit: Unit):
 					clear_action_button_connections(item_btn)
 	var test = inventory_container_children[0]
 	test.grab_button_focus()
-
-
 
 func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
 	print("set_inventory_list_support")
