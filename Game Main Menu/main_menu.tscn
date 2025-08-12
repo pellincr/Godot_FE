@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1hyqburlsxxg"]
+[gd_scene load_steps=3 format=3 uid="uid://c1hyqburlsxxg"]
 
 [ext_resource type="Script" path="res://Game Main Menu/main_menu.gd" id="1_64ruv"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardButtonTheme.tres" id="1_iw8r2"]
 
 [node name="StartAdventure" type="Control"]
 layout_mode = 3
@@ -11,6 +12,7 @@ offset_right = -1280.0
 offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_iw8r2")
 script = ExtResource("1_64ruv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
