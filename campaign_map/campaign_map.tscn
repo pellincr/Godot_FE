@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdcmk38330ekx"]
+
+[ext_resource type="Script" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
+[ext_resource type="Script" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
+
+[sub_resource type="Gradient" id="Gradient_j1yjd"]
+colors = PackedColorArray(0, 0, 0, 1, 0.119911, 0.0829217, 1.02278e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f5731"]
+gradient = SubResource("Gradient_j1yjd")
+width = 50
+
+[node name="CampaignMap" type="Node2D"]
+script = ExtResource("1_1bvku")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Lines" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Rooms" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(640, 360)
+zoom = Vector2(3, 3)
+
+[node name="CampaignMapGenerator" type="Node" parent="."]
+script = ExtResource("1_1uwo1")
+
+[node name="MapBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground"]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_f5731")
