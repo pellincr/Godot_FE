@@ -921,9 +921,14 @@ var dead_party_members = []
 
 
 @export var current_campaign : Campaign
-@export var current_level : int = 0
+#@export var current_level : int = 0
 @export var completed_drafting : bool = false
 @export var began_level : bool = false
+
+@export var campaign_map_data : Array[Array]
+@export var floors_climbed: int
+@export var last_room:CampaignRoom
+@export var current_level : PackedScene
 
 #Array value -> array
 #Appends the given value onto the given array

@@ -36,12 +36,14 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
-func _on_campaign_selector_node_campaign_selected(campaign):
+func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 	playerOverworldData.current_campaign = campaign
+	playerOverworldData.max_archetype = campaign.number_of_archetypes_drafted
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	get_tree().change_scene_to_packed(army_draft)
+	
 
 
 func _on_return_button_pressed():

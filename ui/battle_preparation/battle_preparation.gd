@@ -1,6 +1,6 @@
 extends Control
 
-var playerOverworldData : PlayerOverworldData
+var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 @onready var gold_counter = $MarginContainer/VBoxContainer/GoldCounter
 @onready var army_convoy_container = $MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer
@@ -24,6 +24,7 @@ enum PREPARATION_STATE{
 	NEUTRAL, TRADE, SHOP
 }
 
+
 @onready var current_prep_state = PREPARATION_STATE.NEUTRAL
 
 @onready var focused_selection
@@ -37,12 +38,13 @@ enum PREPARATION_STATE{
 @onready var trade_item_2 : ItemDefinition
 @onready var trade_unit_2 : Unit
 
+@onready var chosen_campaign_level_scene = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
 
 func _ready():
 	transition_in_animation()
-	load_data()
 	gold_counter.set_gold_count(playerOverworldData.gold)
-	var campaign_level = playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
+	playerOverworldData.current_level = chosen_campaign_level_scene
+	var campaign_level = chosen_campaign_level_scene.instantiate()
 	var combat = campaign_level.get_child(3)
 	playerOverworldData.available_party_capacity =  combat. max_allowed_ally_units   #.combat.max_allowed_ally_units
 	playerOverworldData.selected_party = []
@@ -51,13 +53,14 @@ func _ready():
 	army_convoy_container.fill_army_scroll_container()
 	army_convoy_container.set_units_left_value(playerOverworldData.selected_party.size(),playerOverworldData.available_party_capacity)
 	#army_convoy_container.get_sub_container_first_child_focus()
+	SelectedSaveFile.save(playerOverworldData)
 
 func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
 		playerOverworldData.began_level = true
 		SelectedSaveFile.save(playerOverworldData)
 		transition_out_animation()
-		get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+		get_tree().change_scene_to_packed(chosen_campaign_level_scene)
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
 		controls.set_label_text(controls.select_control_label,"Select")

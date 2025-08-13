@@ -36,7 +36,7 @@ func _ready():
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	
 	load_data()
-	if playerOverworldData.current_level > 0:
+	if playerOverworldData.floors_climbed > 0:
 		#if drafting in the middle of a campaign
 		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 		update_to_archetype_screen()
@@ -96,10 +96,11 @@ func recruiting_complete():
 	SelectedSaveFile.save(playerOverworldData)
 	#drafting_complete.emit(playerOverworldData)
 	#get_tree().change_scene_to_file("res://combat/game.tscn")
-	var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-	battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+	#var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+	#battle_prep_scene.instantiate().set_po_data(playerOverworldData)
+	var campaign_map_scene = preload("res://campaign_map/campaign_map.tscn")
 	transition_out_animation()
-	get_tree().change_scene_to_packed(battle_prep_scene) #"res://combat/levels/test_level_1/test_game_1.tscn"
+	get_tree().change_scene_to_packed(campaign_map_scene) #battle_prep_scene"res://combat/levels/test_level_1/test_game_1.tscn"
 
 
 

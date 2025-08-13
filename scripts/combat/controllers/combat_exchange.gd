@@ -257,7 +257,7 @@ func calc_damage(attacker: Unit, target: Unit) -> int:
 		damage = clampi(max_damage - (target.stats.defense * defense_mult),0, 999)
 	elif attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
 		damage = clampi(max_damage - (target.stats.resistance * defense_mult),0, 999)
-	elif attacker.inventory.item_damage_type == Constants.DAMAGE_TYPE.TRUE:
+	elif attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.TRUE:
 		damage = max_damage
 	else :
 		print("Error : Invalid Damage Type in Combat_Exchange.gd - calc_damage")

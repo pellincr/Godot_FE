@@ -34,7 +34,7 @@ func _on_begin_adventure_button_pressed():
 			if playerOverworldData.began_level:
 				#If you previously began the level
 				transition_out_animation()
-				get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 			else:
 				#if you finished drafting, but did not enter the level yet
 				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")

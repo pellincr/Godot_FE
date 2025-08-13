@@ -63,30 +63,16 @@ var _player_unit_alive : bool = true
 @export var max_allowed_ally_units : int
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
-@export var draft_amount_on_win : int
-@export var battle_prep_on_win : bool = true
+#@export var draft_amount_on_win : int
+#@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
-func transition_in_animation():
-	var scene_transition = scene_transition_scene.instantiate()
-	self.add_child(scene_transition)
-	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Level " + str(playerOverworldData.current_level + 1))
-	scene_transition.play_animation("level_fade_out")
-	await get_tree().create_timer(5).timeout
-	scene_transition.queue_free()
-
-func transition_out_animation():
-	var scene_transition = scene_transition_scene.instantiate()
-	self.add_child(scene_transition)
-	scene_transition.play_animation("fade_in")
-	await get_tree().create_timer(0.5).timeout
 
 func _ready():
-	#transition_in_animation()
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
@@ -309,24 +295,26 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		if heal_on_win:
 			heal_ally_units()
 		#playerOverworldData.next_level = win_go_to_scene
-		playerOverworldData.current_level += 1
+		#playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
 		playerOverworldData.gold += calculate_reward_gold()
 		SelectedSaveFile.save(playerOverworldData)
-		if playerOverworldData.current_level < playerOverworldData.current_campaign.levels.size():
-			#if not at the final level, began process for going to next level
-			if draft_amount_on_win > 0:
+		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+			#if not at the final level, go back to the campaign map
+			#if draft_amount_on_win > 0:
 				#if allowed to draft after level
-				playerOverworldData.current_archetype_count = 0
-				playerOverworldData.max_archetype = draft_amount_on_win
-				SelectedSaveFile.save(playerOverworldData)
-				get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
-			else:
-				if battle_prep_on_win:
+				#playerOverworldData.current_archetype_count = 0
+				#playerOverworldData.max_archetype = draft_amount_on_win
+				#SelectedSaveFile.save(playerOverworldData)
+				#get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
+			#else:
+				#if battle_prep_on_win:
 					#if allowed to go to battle prep on win
-					get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
-				else:
-					get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+				#else:
+			playerOverworldData.began_level = false
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
 		else:
 			#reset the game back to the start screen after final level so that it can be played again
 			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
@@ -344,7 +332,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 func reset_game_state():
 	playerOverworldData.began_level = false
 	playerOverworldData.completed_drafting = false
-	playerOverworldData.current_level = 0
+	playerOverworldData.current_level = null
 	playerOverworldData.current_campaign = null
 	playerOverworldData.total_party = []
 	playerOverworldData.dead_party_members = []

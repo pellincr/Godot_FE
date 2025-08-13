@@ -5,7 +5,7 @@ class_name CampaignMapGenerator
 const X_DIST := 30 #x distance between rooms
 const Y_DIST : = 25#y distance between rooms
 const PLACEMENT_RANDOMNESS := 5 #randomly move the rooms a bit to give a bt extra feel
-const FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
+var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
 const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
 const BATTLE_ROOM_WIEGHT := 10.0
@@ -19,6 +19,7 @@ var random_room_type_weights = {
 }
 
 var random_room_type_total_weight := 0
+var test := 0
 var map_data : Array[Array]
 
 

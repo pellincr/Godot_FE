@@ -4,6 +4,9 @@ class_name CampaignMap
 const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://campaign_map/campaign_map_room.tscn")
 const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
+const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
+
+@onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 @onready var campaign_map_generator: CampaignMapGenerator = $CampaignMapGenerator
 @onready var lines :Node2D = %Lines
@@ -11,16 +14,22 @@ const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 @onready var visuals :Node2D = $Visuals
 @onready var camera_2d : Camera2D = $Camera2D
 
-var map_data:Array[Array]
-var floors_climbed:int
-var last_room:CampaignRoom
+
+#var map_data:Array[Array]
+#var floors_climbed:int
+#var last_room:CampaignRoom
 var camera_edge_y : float
 
+
 func _ready() -> void:
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (CampaignMapGenerator.FLOORS - 1)
-	
-	generate_new_map()
-	unlock_floor(0)
+	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
+	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	if !playerOverworldData.campaign_map_data:
+		generate_new_map()
+		unlock_floor(0)
+	else:
+		create_map()
+		unlock_next_rooms()
 	grab_first_available_room_foucs()
 	set_map_room_focus_neighbors()
 
@@ -32,24 +41,24 @@ func _input(event:InputEvent) ->void:
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
 
 func generate_new_map() -> void:
-	floors_climbed = 0
-	map_data = campaign_map_generator.generate_map()
+	playerOverworldData.floors_climbed = 0
+	playerOverworldData.campaign_map_data = campaign_map_generator.generate_map()
 	create_map()
 
 func create_map() -> void:
-	for current_floor: Array in map_data:
+	for current_floor: Array in playerOverworldData.campaign_map_data:
 		for room:CampaignRoom in current_floor:
 			if room.next_rooms.size() > 0:
 				_spawn_room(room)
 	#Boss room has no next room but we need to spawn it
 	var middle := floori(CampaignMapGenerator.MAP_WIDTH * .5)
-	_spawn_room(map_data[CampaignMapGenerator.FLOORS-1][middle])
+	_spawn_room(playerOverworldData.campaign_map_data[campaign_map_generator.FLOORS-1][middle])
 	
 	var map_width_pixels := CampaignMapGenerator.X_DIST * (CampaignMapGenerator.MAP_WIDTH-1)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
 	visuals.position.y = get_viewport_rect().size.y/2
 
-func unlock_floor(which_floor:int = floors_climbed) -> void:
+func unlock_floor(which_floor:int = playerOverworldData.floors_climbed) -> void:
 	for map_room : CampaignMapRoom in rooms.get_children():
 		if map_room.room.row == which_floor:
 			map_room.available = true
@@ -57,7 +66,7 @@ func unlock_floor(which_floor:int = floors_climbed) -> void:
 
 func unlock_next_rooms() -> void:
 	for map_room : CampaignMapRoom in rooms.get_children():
-		if last_room.next_rooms.has(map_room.room):
+		if playerOverworldData.last_room.next_rooms.has(map_room.room):
 			map_room.available = true
 
 func show_map() -> void:
@@ -75,7 +84,7 @@ func _spawn_room(room:CampaignRoom) -> void:
 	new_map_room.selected.connect(_on_map_room_selected)
 	_connect_lines(room)
 	
-	if room.selected and room.row < floors_climbed:
+	if room.selected and room.row < playerOverworldData.floors_climbed:
 		#Show as selected because it was already visited
 		new_map_room.show_selected()
 
@@ -93,9 +102,19 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 		if map_room.room.row == room.row:
 			#Make the rooms on the same floor unavailable
 			map_room.available = false
-	last_room = room
-	floors_climbed += 1
-	grab_first_available_room_foucs()
+	playerOverworldData.last_room = room
+	playerOverworldData.floors_climbed += 1
+	match  room.type:
+		CampaignRoom.TYPE.BATTLE:
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_packed(BATTLE_PREP)
+		CampaignRoom.TYPE.EVENT:
+			pass
+		CampaignRoom.TYPE.BOSS:
+			pass
+		CampaignRoom.TYPE.TREASURE:
+			pass
+	#grab_first_available_room_foucs()
 	#Events.map_exited.emit(room)
 
 func grab_first_available_room_foucs() -> void:
