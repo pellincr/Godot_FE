@@ -170,8 +170,8 @@ func set_current_combatant(cu:CombatUnit):
 	current_combatant = combatants.find(cu)
 
 func get_distance(attacker: CombatUnit, target: CombatUnit):
-	var point1 = attacker.map_tile.position
-	var point2 = target.map_tile.position
+	var point1 = attacker.map_position
+	var point2 = target.map_position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
 func perform_attack(attacker: CombatUnit, target: CombatUnit):

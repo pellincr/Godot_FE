@@ -58,7 +58,7 @@ func reverse_dictionary(dict: Dictionary) -> Dictionary:
 func array_next_index_with_loop(array: Array, index: int):
 	var  _next_index = index
 	if index + 1 < array.size():
-		++_next_index
+		_next_index = _next_index + 1 
 	else :
 		_next_index = 0
 	return _next_index
@@ -66,7 +66,7 @@ func array_next_index_with_loop(array: Array, index: int):
 func array_previous_index_with_loop(array: Array, index: int):
 	var  _next_index = index
 	if index - 1 > 0:
-		--_next_index
+		_next_index = _next_index - 1 
 	else :
 		_next_index = array.size()
 	return _next_index

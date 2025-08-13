@@ -14,6 +14,8 @@ signal unit_experience_ended()
 const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
+const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
+const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -53,8 +55,17 @@ func create_unit_action_container(available_actions:Array[String]):
 	active_ui_node = unit_action_container
 	unit_action_container.grab_focus()
 
+func create_combat_map_game_menu():
+	var game_menu = COMBAT_MAP_CAMPAIGN_MENU.instantiate()
+	await game_menu
+	self.add_child(game_menu)
+	game_menu.end_turn_btn.pressed.connect(func():controller.fsm_game_menu_end_turn())
+	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
+	active_ui_node = game_menu
+
 func destory_active_ui_node():
-	active_ui_node.queue_free()
+	if active_ui_node != null:
+		active_ui_node.queue_free()
 
 func target_selected(info: Dictionary): 
 	populate_combat_info(info)

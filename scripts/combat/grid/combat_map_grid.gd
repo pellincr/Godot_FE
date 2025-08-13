@@ -126,10 +126,10 @@ func get_entity(position:Vector2i)-> CombatMapEntity:
 	return null
 
 func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector2i):
-	if game_map.has(str(previous_map_positon)) and game_map.has(str(new_map_position)):
-		var previous_map_tile :CombatMapTile= game_map.get(str(previous_map_positon))
-		var new_map_tile :CombatMapTile= game_map.get(str(previous_map_positon))
-		if previous_map_tile.unit and !new_map_tile.unit :
+	if is_valid_tile(previous_map_positon) and is_valid_tile(new_map_position):
+		var previous_map_tile :CombatMapTile = get_map_tile(previous_map_positon)
+		var new_map_tile :CombatMapTile = get_map_tile(new_map_position)
+		if previous_map_tile.unit and !new_map_tile.unit:
 			new_map_tile.unit = previous_map_tile.unit
 			previous_map_tile.unit = null
 
@@ -183,7 +183,6 @@ func update_astar_points(combatUnit: CombatUnit):
 				if combatUnit.unit.movement_class in entry.entity.terrain.blocks:
 					_astargrid.set_point_solid(tile)
 
-##REVIEW THIS METHOD IT SEEMS OUTDATED? 
 func find_path(tile_position: Vector2i, current_position : Vector2i = Vector2i(0,0)) -> Array[Vector2i]:
 	var _path : Array[Vector2i]
 	if(_astargrid.is_in_boundsv(tile_position)):
@@ -438,8 +437,8 @@ func get_terrain_from_tile_map(position:Vector2) -> Terrain:
 		print("get_terrain called on tile not in terrain tile map")
 	return null
 
-func get_tiles_at_range_new(range:int, origin: Vector2i) -> PackedVector2Array:
-	var _tiles_at_range : PackedVector2Array
+func get_tiles_at_range_new(range:int, origin: Vector2i) -> Array[Vector2i]:
+	var _tiles_at_range : Array[Vector2i]
 	var dict = get_map_of_range_DFS(range, origin)
 	var _keys = dict.keys()
 	var _vals = dict.values()
@@ -448,35 +447,13 @@ func get_tiles_at_range_new(range:int, origin: Vector2i) -> PackedVector2Array:
 			_tiles_at_range.append(_keys[index])
 	return _tiles_at_range
 
-func get_tiles_at_range(range:int, origin: Vector2i, visited:PackedVector2Array = [] , edge:PackedVector2Array= []) -> Array[PackedVector2Array]:
-	var return_object :Array[PackedVector2Array] = [
-		visited,
-		edge
-	]
-	var remaining_range
-	if range > 0:
-		for neighbors in tile_nieghbor_index :
-			var target_tile = terrain_tile_map.get_neighbor_cell(origin, neighbors)
-			remaining_range = range - 1 
-			if (remaining_range > 0) :
-				if(edge.has(target_tile)):
-					edge.remove_at(edge.find(target_tile))
-				if(!visited.has(target_tile)) : 
-					visited.append(target_tile)
-				get_tiles_at_range(remaining_range, target_tile, visited, edge)
-			else : #this is the "edge" the last block 
-				#has this block already been visited?
-				if(!visited.has(target_tile)):
-					edge.append(target_tile)
-	return return_object
-
 func get_target_tile_neighbors(tile_position: Vector2i):
 	var tile_array: PackedVector2Array
 	for tile in tiles_to_check:
 		tile_array.append(tile_position + tile)
 	return tile_array
 
-func astar_path_distance(path: PackedVector2Array) -> int:
+func astar_path_distance(path: Array[Vector2i]) -> int:
 	var distance : int = 0
 	for cell in path:
 		distance = distance + _astargrid.get_point_weight_scale(cell)

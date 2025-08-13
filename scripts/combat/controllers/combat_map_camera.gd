@@ -47,9 +47,14 @@ func Zoom(delta):
 
 func SimpleFollow(delta): #this needs to be perfected
 	var starting_position = position
-	var tile_position = controller.grid.map_to_position(controller.current_tile)
+	var tile_position
+	if controller._camera_follow_move:
+		tile_position = controller.controlled_node.position
+	else:
+		tile_position = controller.grid.map_to_position(controller.current_tile)		
 	var viewport : Rect2 = get_viewport().get_visible_rect()
-	if tile_position.x > (viewport.position.x + viewport.size.x * pan_threshold/2) or tile_position.x < viewport.position.x - (viewport.size.x *pan_threshold/2) or tile_position.y > (viewport.position.y + viewport.size.y *pan_threshold/2) or tile_position.y < viewport.position.y - (viewport.size.y *pan_threshold/2) :
+	#perform a simple follow when the camera is too close to its edge
+	if tile_position.x > (viewport.position.x + viewport.size.x * pan_threshold/2) or tile_position.x < viewport.position.x - (viewport.size.x *pan_threshold/2) or tile_position.y > (viewport.position.y - viewport.size.y *pan_threshold/4) or tile_position.y < viewport.position.y - (viewport.size.y *pan_threshold/4) :
 			var moveAmount = lerp(starting_position, tile_position, tile_position.length())
 			moveAmount = moveAmount.normalized()
 				#var moveAmount = (tile_offset - position).normalized()

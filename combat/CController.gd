@@ -73,12 +73,15 @@ var unit_detail_overlay : bool = false
 #Movement Variables
 var _arrived = true
 var _path : Array[Vector2i] #to be converted to Array[Vector2i]
+var _movable_tiles : Array[Vector2i]
+var _attackable_tiles : Array[Vector2i]
 var default_move_speed = MOVEMENT_SPEED * 5
 var return_move_speed = MOVEMENT_SPEED * 5
 var move_speed = default_move_speed
 var _previous_position : Vector2i
 var _next_position
 var _position_id = 0
+var _camera_follow_move : bool = false
 
 #Action Select
 var _available_actions : Array[UnitAction]
@@ -104,8 +107,8 @@ var _in_ai_process: bool = false
 var _enemy_units_turn_taken: bool = false
 
 #Drawing Variables
-var move_range : Array[Vector2i]
-var attack_range : Array[Vector2i]
+#var move_range : Array[Vector2i]
+#var attack_range : Array[Vector2i]
 #var skill_range : PackedVector2Array 
 
 func _ready():
@@ -187,24 +190,22 @@ func _process(delta):
 			# await clean_up()
 			# await terrain_effects()
 			await trigger_reinforcements()
-			progress_turn_order()
+
 			#All players have completed their turns, and order resets
 			if turn_order_index == 0:
 				turn_count += 1
+			progress_turn_order()
 			update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)
 	elif game_state == CombatMapConstants.COMBAT_MAP_STATE.PROCESSING:
-		#Move Unit Code
 		if _arrived == false:
 			process_unit_move(delta)
 
 #draw the area
 func _draw():
 	if(game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
-		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER):
-			if(grid.get_combat_unit(current_tile)):
-				draw_comb_range(grid.get_combat_unit(current_tile))
-				draw_ranges(move_range, true, attack_range,true)
-				drawSelectedpath()
+		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER or player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
+			draw_ranges(_movable_tiles, true, _attackable_tiles,true)
+			drawSelectedpath()
 		#if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
 			#draw_action_tiles(_action_tiles, _action)
 
@@ -215,7 +216,6 @@ func process_unit_move(delta):
 		controlled_node.position = _next_position
 		var new_position: Vector2i = grid.position_to_map(_next_position)
 		# set the previous position to the grid position
-		grid.combat_unit_moved(_previous_position, new_position)
 		_previous_position = new_position
 		#check if there is another tile to be moved into
 		if (_position_id < _path.size() - 1):
@@ -228,6 +228,9 @@ func process_unit_move(delta):
 			if game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
 				# Cancel Flow
 				if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT):
+					# Return cursor
+					move_cursor(combat.get_current_combatant().map_position)
+					_camera_follow_move = false
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
 				# Move Flow
 				elif(player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
@@ -288,6 +291,7 @@ func find_path(target_tile:Vector2i, origin_tile: Vector2i = Vector2i(-999,-999)
 	queue_redraw()
 
 func move_player():
+	_camera_follow_move = false
 	move_speed = default_move_speed
 	var current_position = grid.position_to_map(controlled_node.position)
 	grid.update_astar_points(combat.get_current_combatant())
@@ -298,6 +302,7 @@ func move_player():
 		
 
 func return_player():
+	_camera_follow_move = true
 	move_speed = return_move_speed
 	var original_position = combat.get_current_combatant().map_position
 	var current_position = grid.position_to_map(controlled_node.position)
@@ -376,12 +381,6 @@ func draw_action_tiles(tiles:Array[Vector2i], ua:UnitAction):
 func get_tile_info(position : Vector2i): 
 	tile_info_updated.emit(grid.get_map_tile(position), grid.get_combat_unit(position))
 
-func draw_comb_range(combatant: CombatUnit) :
-	attack_range.clear()
-	move_range = grid.get_range_DFS(combatant.unit.stats.movement, combatant.map_position, combatant.unit.movement_type, true)
-	var edge_array = grid.find_edges(move_range)
-	attack_range = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
-
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
 	var range_list :Array[int] = []
 	if range.is_empty():
@@ -395,9 +394,9 @@ func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Com
 	attackable_tiles = get_attackable_tiles(range_list, cu)
 	_action_tiles = attackable_tiles.duplicate()
 	for tile in attackable_tiles :
-		if grid.get_combatant_at_position(tile) :
-			if(grid.get_combatant_at_position(tile).allegience != cu.allegience) :
-				response.append(grid.get_combatant_at_position(tile))
+		if grid.get_combat_unit(tile):
+			if(grid.get_combat_unit(tile).allegience != cu.allegience) :
+				response.append(grid.get_combat_unit(tile))
 	return response
 
 func get_potential_support_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
@@ -542,8 +541,8 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	print("Entered ai_process in cController.gd")
 	#find nearest non-solid tile to target_position
 	#Get Attack Range to see what are "attackable tiles"	
-	grid.update_points_weight() #Is this redundant? 
-	var current_position = grid.local_to_map(controlled_node.position)
+	grid.update_astar_points(ai_unit)
+	var current_position = grid.position_to_map(controlled_node.position)
 	var moveable_tiles : Array[Vector2i]
 	var actionable_tiles :Array[Vector2i]
 	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
@@ -571,7 +570,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 					#TO BE IMPLEMENTED : SEARCH FOR HIGH POTENTIAL TILES AND MOVE
 					for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
 						for range in actionable_range:
-							for tile in grid.get_tiles_at_range_new(range,combat.combatants[targetable_unit_index].map_tile.position):
+							for tile in grid.get_tiles_at_range_new(range,combat.combatants[targetable_unit_index].map_position):
 								if not grid.is_position_occupied(tile):
 									if tile not in actionable_tiles:
 										actionable_tiles.append(tile)
@@ -581,7 +580,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 					var closet_tile_in_range_to_action_tile
 					for tile in actionable_tiles:
 						if grid.is_valid_tile(tile):
-							var _astar_path = grid.get_point_path(current_position,tile)
+							var _astar_path = grid.get_id_path(current_tile, tile)
 							if _astar_path:
 								var _astar_distance = grid.astar_path_distance(_astar_path)
 								if _astar_distance < _astar_closet_distance and _astar_distance != null:
@@ -590,7 +589,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 					print("@ FOUND CLOSET ACTIONABLE TILE : [" + str(closet_action_tile) + "]")
 					if closet_action_tile != null: 
 						if not grid.get_point_weight_scale(closet_action_tile) > 999999:
-							if closet_action_tile != Vector2(current_position):
+							if closet_action_tile != Vector2i(current_position):
 								if closet_action_tile in moveable_tiles:
 									ai_move(closet_action_tile)
 									called_move = true
@@ -608,7 +607,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 														_astar_closet_move_tile_distance_to_action = _astar_distance
 														print("@UPDATED CLOSET MOVE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
 									print("@ FOUND CLOSET MOVEABLE TILE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
-									if closet_tile_in_range_to_action_tile !=  Vector2(current_position):
+									if closet_tile_in_range_to_action_tile !=  Vector2i(current_position):
 										ai_move(closet_tile_in_range_to_action_tile)
 										called_move = true
 			else:
@@ -622,7 +621,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 		await finished_move
 		print("@ COMPLTED WAITING CALLING AI ACTION")
 		#update the combat_unit info with the new tile info
-	ai_unit.update_map_tile(grid.get_map_tile(grid.position_to_map(controlled_node.position)))
+	confirm_unit_move(ai_unit)
 	return selected_action
 
 func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, attack_range: Array[int]) -> aiAction:
@@ -633,11 +632,11 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 	tile_best_action.rating = 0
 	for range in attack_range:
 		for tile in grid.get_tiles_at_range_new(range,tile_position):
-			if grid.get_combatant_at_position(tile) != null:
-				if grid.get_combatant_at_position(tile).allegience == Constants.FACTION.PLAYERS:
+			if grid.get_combat_unit(tile) != null:
+				if grid.get_combat_unit(tile).allegience == Constants.FACTION.PLAYERS:
 					if not ai_unit.unit.get_usable_weapons_at_range(range).is_empty():
-						if grid.get_terrain_at_map_position(tile):
-							var best_action_target : aiAction = combat.ai_get_best_attack_action(ai_unit, CustomUtilityLibrary.get_distance(tile, tile_position), grid.get_combatant_at_position(tile), grid.get_terrain_at_map_position(tile))
+						if grid.get_effective_terrain(grid.get_map_tile(tile)):
+							var best_action_target : aiAction = combat.ai_get_best_attack_action(ai_unit, CustomUtilityLibrary.get_distance(tile, tile_position), grid.get_combat_unit(tile), grid.get_effective_terrain(grid.get_map_tile(tile)))
 							best_action_target.target_position = tile
 							best_action_target.action_position = tile_position
 							if tile_best_action.rating < best_action_target.rating:
@@ -647,9 +646,9 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 
 func ai_move(target_position: Vector2i):
 	print("@ AI MOVE CALLED @ : "+ str(target_position))
-	var current_position = grid.local_to_map(controlled_node.position)
-	find_path(target_position)
-	move_on_path(current_position)
+	var current_position = grid.position_to_map(controlled_node.position)
+	_path = grid.find_path(target_position,current_position)
+	move_on_path(target_position)
 
 func ai_turn ():
 	_in_ai_process = true
@@ -663,21 +662,38 @@ func ai_turn ():
 	print("finished AI Turn")
 	_in_ai_process = false
 
+func populate_combatant_tile_ranges(combatant: CombatUnit):
+	grid.update_astar_points(combatant)
+	_movable_tiles.clear()
+	_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true)
+	_attackable_tiles.clear()
+	var edge_array = grid.find_edges(_movable_tiles)
+	_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
+	
+
 func set_controlled_combatant(combatant: CombatUnit):
 	#combat.get_current_combatant() = combatant
 	combat.set_current_combatant(combatant)
 	controlled_node = combatant.map_display
-	grid.update_astar_points(combatant)
+	populate_combatant_tile_ranges(combatant)
 
 func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 	var target_tile = grid.get_map_tile(pushed_unit.map_tile.position + push_vector);
 	if grid.is_map_position_available_for_unit_move(target_tile.position, pushed_unit.unit.movement_type):
 		set_controlled_combatant(pushed_unit)
 		find_path(target_tile.position)
+		pushed_unit.update_move_tile(target_tile.position)
 		move_player()
 		await finished_move
-		pushed_unit.update_map_tile(target_tile)
+		confirm_unit_move(pushed_unit)
 		combat.complete_shove()
+
+#
+# Calls Grid function to update map, and finalizes the tile updates to the combat_unit. This replaces the map_tile
+#
+func confirm_unit_move(combat_unit: CombatUnit):
+	grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
+	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
 	combat.spawn_reinforcements(turn_count)
@@ -705,6 +721,11 @@ func autoCursor():
 	update_current_tile(combat.combatants[combat.groups[0].front()].map_position)
 	camera.centerCameraCenter(grid.map_to_position(current_tile))
 	selector.position = grid.map_to_position(current_tile)
+
+func move_cursor(position: Vector2i):
+	update_current_tile(position)
+	camera.centerCameraCenter(grid.map_to_position(position))
+	selector.position = grid.map_to_position(position)
 
 #
 # Updates the selected tile to a new position, but ensures it is within the grid
@@ -747,21 +768,17 @@ func fsm_unit_move_process(delta):
 func fsm_unit_move_confirm(delta):
 	combat.game_ui.play_menu_confirm()
 	if _arrived == true:
-	#If the unit is currently at a position and the player is selecting a different available position
-		if current_tile != combat.get_current_combatant().map_position:
-			if grid.is_map_position_available_for_unit_move(current_tile, combat.get_current_combatant().unit.movement_type):
-					target_tile = current_tile
-					move_player()
-					# Create the unit Action Select menu
-					#combat.get_current_combatant().update_move_tile(grid.get_map_tile(target_tile))
-					#var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
-					#combat.game_ui.create_unit_action_container(actions)
-					#update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
-		else : 
-			combat.get_current_combatant().update_move_tile(grid.get_map_tile(selected_tile))
-			var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
-			combat.game_ui.create_unit_action_container(actions)
-			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
+		if current_tile in _movable_tiles:
+		#If the unit is currently at a position and the player is selecting a different available position
+			if current_tile != combat.get_current_combatant().map_position:
+				if grid.is_map_position_available_for_unit_move(current_tile, combat.get_current_combatant().unit.movement_type):
+						target_tile = current_tile
+						move_player()
+			else : 
+				combat.get_current_combatant().update_move_tile(grid.get_map_tile(selected_tile))
+				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+				combat.game_ui.create_unit_action_container(actions)
+				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
 #
 # Called on cancel input during unit_move state
 #
@@ -787,6 +804,10 @@ func fsm_unit_action_cancel(delta = null):
 			find_path(current_unit.map_position)
 			return_player()
 			# State transition after completed move
+		else: 
+			# State transition
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
+			
 
 #
 # Called when the user confirms, during the action select phase.
@@ -815,12 +836,13 @@ func fsm_unit_select_process(delta):
 		if selected_unit and selected_unit.alive:
 		#create the ui footer
 		#call the correct info to draw the movement and attack range
+			populate_combatant_tile_ranges(selected_unit)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
 			return
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
-			# To be implemented : combat map main menu
-			pass
+			combat.game_ui.create_combat_map_game_menu()
+			update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU)
 		elif Input.is_action_just_pressed("combat_map_up"):
 			update_current_tile(current_tile + Vector2i.UP)
 		elif Input.is_action_just_pressed("combat_map_left"):
@@ -832,6 +854,9 @@ func fsm_unit_select_process(delta):
 		camera.SimpleFollow(delta)
 
 func fsm_unit_select_hover_process(delta):
+	if grid.get_combat_unit(current_tile) == null:
+		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+		return
 	# always keep the footer open
 	if Input:
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
@@ -913,6 +938,14 @@ func fsm_unit_action_select_process(delta):
 			combat.game_ui.destory_active_ui_node()
 			fsm_unit_action_cancel(delta)
 
+func fsm_game_menu_cancel():
+	combat.game_ui.destory_active_ui_node()
+	update_player_state(previous_player_state)
+
+func fsm_game_menu_end_turn():
+	combat.game_ui.destory_active_ui_node()
+	advance_turn()
+
 func player_fsm_process(delta):
 	match player_state:
 	## UNIT SELECTION
@@ -993,14 +1026,15 @@ func unit_action_selection_handler(action:String):
 	match action:
 		"Wait":
 			combat.game_ui.destory_active_ui_node()
-			await wait_action(combat.get_current_combatant())
+			wait_action(combat.get_current_combatant())
 	match action:
 		"Cancel":
 			combat.game_ui.destory_active_ui_node()
-			await fsm_unit_action_cancel()
+			fsm_unit_action_cancel()
 
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true
+	confirm_unit_move(cu)
 	if combat.get_current_combatant().alive:
 		combat.get_current_combatant().map_display.update_values()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)

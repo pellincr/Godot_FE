@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0cfiv3p7isp2"]
+
+[ext_resource type="Theme" uid="uid://dbr5o8fwlduvb" path="res://resources/themes/combat/combat_map_menu.tres" id="1_yw12a"]
+[ext_resource type="Script" path="res://ui/combat/combat_map_menu/combat_map_campaign_menu.gd" id="2_gcmfb"]
+
+[node name="CombatMapMenu" type="MarginContainer"]
+custom_minimum_size = Vector2(210, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -115.5
+offset_right = 105.0
+offset_bottom = 115.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yw12a")
+script = ExtResource("2_gcmfb")
+
+[node name="Vbox" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="endTurn" type="Button" parent="Vbox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "End Turn"
+
+[node name="overview" type="Button" parent="Vbox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+disabled = true
+text = "Overview"
+
+[node name="campaign" type="Button" parent="Vbox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Campaign"
+
+[node name="Panel" type="Panel" parent="Vbox"]
+custom_minimum_size = Vector2(200, 1)
+layout_mode = 2
+
+[node name="cancel" type="Button" parent="Vbox"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Cancel"
