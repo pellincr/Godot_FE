@@ -29,14 +29,18 @@ func _ready() -> void:
 		unlock_floor(0)
 	else:
 		create_map()
-		unlock_next_rooms()
+		if playerOverworldData.floors_climbed > 0:
+			unlock_next_rooms()
+		else:
+			unlock_floor(0)
 	grab_first_available_room_foucs()
 	set_map_room_focus_neighbors()
+	SelectedSaveFile.save(playerOverworldData)
 
 func _input(event:InputEvent) ->void:
-	if event.is_action_pressed("camera_zoom_in"):
+	if event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up"):
 		camera_2d.position.y -= SCROLL_SPEED
-	if event.is_action_pressed("camera_zoom_out"):
+	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
 
@@ -106,6 +110,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 	playerOverworldData.floors_climbed += 1
 	match  room.type:
 		CampaignRoom.TYPE.BATTLE:
+			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_packed(BATTLE_PREP)
 		CampaignRoom.TYPE.EVENT:

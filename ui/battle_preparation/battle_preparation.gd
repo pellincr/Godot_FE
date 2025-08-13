@@ -38,13 +38,12 @@ enum PREPARATION_STATE{
 @onready var trade_item_2 : ItemDefinition
 @onready var trade_unit_2 : Unit
 
-@onready var chosen_campaign_level_scene = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
+#@onready var chosen_campaign_level_scene = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
 
 func _ready():
 	transition_in_animation()
 	gold_counter.set_gold_count(playerOverworldData.gold)
-	playerOverworldData.current_level = chosen_campaign_level_scene
-	var campaign_level = chosen_campaign_level_scene.instantiate()
+	var campaign_level = playerOverworldData.current_level.instantiate()
 	var combat = campaign_level.get_child(3)
 	playerOverworldData.available_party_capacity =  combat. max_allowed_ally_units   #.combat.max_allowed_ally_units
 	playerOverworldData.selected_party = []
@@ -60,7 +59,7 @@ func _process(delta):
 		playerOverworldData.began_level = true
 		SelectedSaveFile.save(playerOverworldData)
 		transition_out_animation()
-		get_tree().change_scene_to_packed(chosen_campaign_level_scene)
+		get_tree().change_scene_to_packed(playerOverworldData.current_level)
 	if Input.is_action_just_pressed("trade_menu") and current_prep_state != PREPARATION_STATE.TRADE:
 		current_prep_state = PREPARATION_STATE.TRADE
 		controls.set_label_text(controls.select_control_label,"Select")

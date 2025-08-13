@@ -13,7 +13,7 @@ var playerOverworldData : PlayerOverworldData
 
 @onready var army_convoy_header = $ArmyConvoyHeader
 
-@onready var main_scroll_container = $HBoxContainer/ScrollContainer/VBoxContainer
+#@onready var main_scroll_container = $HBoxContainer/ScrollContainer/VBoxContainer
 
 @onready var army_convoy_sub_container = $ArmyConvoySubContainer
 

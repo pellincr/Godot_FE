@@ -313,6 +313,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
 				#else:
 			playerOverworldData.began_level = false
+			playerOverworldData.current_level = null
 			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
 		else:
