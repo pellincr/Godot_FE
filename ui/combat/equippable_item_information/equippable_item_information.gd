@@ -1,16 +1,11 @@
 extends Control
 
 class_name EquippableItemInformation
-var unit : Unit
-var damage
-var damage_projection
-var hit
-var hit_projection
-var crit
-var crit_projection
-var avoid
-var avoid_projection
 
+var current_equipped_stat: unitInUseStat 
+var hover_stat : unitInUseStat
+
+"""
 func set_unit(input : Unit):
 	self.unit = input
 
@@ -93,3 +88,5 @@ func set_field_color(current: int, projection: int, label: Label):
 		label.add_theme_color_override("font_color", Color.RED)
 	else:
 		label.add_theme_color_override("font_color", Color.WHITE)
+
+"""

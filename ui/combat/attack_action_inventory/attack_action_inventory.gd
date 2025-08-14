@@ -1,19 +1,24 @@
-extends Control
-
+extends Panel
 class_name AttackActionInventory
 
-#var selected_item: ItemDefinition
-var unit: Unit
-var inventory: Array[ItemDefinition]
-var equippable_item_info : EquippableItemInformation
 #Imports
 const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
 
+@export var unit: Unit
+var equippable_item_info : EquippableItemInformation
+var equipped_item_info: EquippableItemInformation
+var hover_item_info: EquippableItemInformation
+
+@onready var unit_inventory_slot: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot
+@onready var unit_inventory_slot_2: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2
+@onready var unit_inventory_slot_4: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4
+@onready var backButton: Button = $MarginContainer2/VBoxContainer/VBoxContainer2/BackButton
+
+@onready var equippable_item_information: EquippableItemInformation = $MarginContainer2/VBoxContainer/Equippable_item_information
+
+
 func _ready():
 	equippable_item_info = $Equippable_item_information
-
-func hide_equippable_item_info():
-	equippable_item_info.visible = false
 
 func show_equippable_item_info():
 	equippable_item_info.visible = true

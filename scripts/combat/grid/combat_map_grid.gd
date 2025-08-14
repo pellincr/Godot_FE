@@ -495,3 +495,14 @@ func position_to_map(position: Vector2) -> Vector2i:
 
 func map_to_position(position: Vector2i) -> Vector2:
 	return terrain_tile_map.map_to_local(position)
+
+func get_analysis_on_tiles(tile_list : Array[Vector2i]) -> CombatMapGridAnalysis:
+	var analysis : CombatMapGridAnalysis = CombatMapGridAnalysis.new()
+	for tile in tile_list:
+		if is_valid_tile(tile):
+			var tile_info: CombatMapTile = get_map_tile(tile)
+			if tile_info.unit != null:
+				analysis.insert_unit_index(tile_info.unit.allegience, tile)
+			if tile_info.entity != null:
+				analysis.targetable_entity_indexes.append(tile)
+	return analysis

@@ -1,112 +1,197 @@
-[gd_scene load_steps=3 format=3 uid="uid://6nq6c3ygsuni"]
+[gd_scene load_steps=7 format=3 uid="uid://6nq6c3ygsuni"]
 
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="1_6yady"]
+[ext_resource type="Theme" uid="uid://b2uis4wfyn0q" path="res://resources/themes/combat/unit_action_inventory/EquippableItemInformation.tres" id="1_6eimv"]
 [ext_resource type="Script" path="res://ui/combat/equippable_item_information/equippable_item_information.gd" id="1_uilya"]
+[ext_resource type="Texture2D" uid="uid://e7ek1fycjm2h" path="res://resources/sprites/icons/damage_icons/magic_damage_icon.png" id="2_gs6nr"]
+[ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="3_1jcex"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_6yhmp"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="6_dfvlc"]
 
-[node name="Equippable_item_information" type="Control"]
-layout_mode = 3
+[node name="Equippable_item_information" type="Panel"]
+custom_minimum_size = Vector2(290, 63)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -872.0
-offset_bottom = -548.0
+offset_right = -990.0
+offset_bottom = -657.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_6eimv")
 script = ExtResource("1_uilya")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(225, 100)
+[node name="HBoxContainer" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(290, 63)
 layout_mode = 2
-offset_right = 280.0
-offset_bottom = 100.0
-theme = ExtResource("1_6yady")
+offset_right = 290.0
+offset_bottom = 63.0
+theme_override_constants/h_separation = 13
+theme_override_constants/v_separation = 5
+columns = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 280.0
-offset_bottom = 100.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
-custom_minimum_size = Vector2(200, 80)
+[node name="DamageContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/CenterContainer/VBoxContainer"]
+[node name="TypeLabel" type="Label" parent="HBoxContainer/DamageContainer"]
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
-
-[node name="TypeContainer" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer"]
-layout_mode = 2
-
-[node name="TypeLabel" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer/TypeContainer"]
-layout_mode = 2
-text = "Type"
-
-[node name="TypeValue" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer/TypeContainer"]
-layout_mode = 2
-text = "Sword"
-
-[node name="CenterContainer2" type="CenterContainer" parent="Panel/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2"]
-custom_minimum_size = Vector2(240, 0)
-layout_mode = 2
-
-[node name="LeftLabelContainer" type="VBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-
-[node name="DamageLabel" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/LeftLabelContainer"]
-layout_mode = 2
-text = "Damage"
+theme = ExtResource("3_1jcex")
+text = "Dmg"
 vertical_alignment = 1
 
-[node name="HitLabel" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/LeftLabelContainer"]
+[node name="DamageValue" type="HBoxContainer" parent="HBoxContainer/DamageContainer"]
 layout_mode = 2
+
+[node name="Value" type="Label" parent="HBoxContainer/DamageContainer/DamageValue"]
+layout_mode = 2
+text = "999"
+vertical_alignment = 1
+
+[node name="DamageTypeIcon" type="TextureRect" parent="HBoxContainer/DamageContainer/DamageValue"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_gs6nr")
+stretch_mode = 2
+
+[node name="HitContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/HitContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
 text = "Hit"
 vertical_alignment = 1
 
-[node name="LeftValueContainer" type="VBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Value" type="Label" parent="HBoxContainer/HitContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+text = "999"
+vertical_alignment = 1
 
-[node name="DamageValue" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/LeftValueContainer"]
-layout_mode = 2
-text = "100"
-horizontal_alignment = 1
-
-[node name="HitValue" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/LeftValueContainer"]
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="RightLabelContainer" type="VBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="CritContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
 layout_mode = 2
 
-[node name="CritLabel" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/RightLabelContainer"]
+[node name="TypeLabel" type="Label" parent="HBoxContainer/CritContainer"]
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
+theme = ExtResource("3_1jcex")
 text = "Crit"
+vertical_alignment = 1
 
-[node name="AvoidLabel" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/RightLabelContainer"]
+[node name="Value" type="Label" parent="HBoxContainer/CritContainer"]
 layout_mode = 2
-text = "Avoid
-"
+text = "999"
+vertical_alignment = 1
 
-[node name="RightValueContainer" type="VBoxContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="AttackSpeedContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="CritValue" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/RightValueContainer"]
+[node name="TypeLabel" type="Label" parent="HBoxContainer/AttackSpeedContainer"]
+custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
-text = "100"
-horizontal_alignment = 1
+theme = ExtResource("3_1jcex")
+text = "As"
+vertical_alignment = 1
 
-[node name="AvoidValue" type="Label" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer/RightValueContainer"]
+[node name="Value" type="Label" parent="HBoxContainer/AttackSpeedContainer"]
 layout_mode = 2
-text = "100"
-horizontal_alignment = 1
+text = "999"
+vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/CenterContainer/VBoxContainer/CenterContainer2/HBoxContainer"]
+[node name="AvoidContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
 layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/AvoidContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
+text = "Avo"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="HBoxContainer/AvoidContainer"]
+layout_mode = 2
+text = "999"
+vertical_alignment = 1
+
+[node name="DodgeContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/DodgeContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
+text = "CritX"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="HBoxContainer/DodgeContainer"]
+layout_mode = 2
+text = "3"
+vertical_alignment = 1
+
+[node name="EffectivenessContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/EffectivenessContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
+text = "Eff"
+vertical_alignment = 1
+
+[node name="Value" type="HBoxContainer" parent="HBoxContainer/EffectivenessContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/EffectivenessContainer/Value"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_6yhmp")
+stretch_mode = 2
+
+[node name="RangeContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/RangeContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
+text = "Rng"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="HBoxContainer/RangeContainer"]
+layout_mode = 2
+text = "999"
+vertical_alignment = 1
+
+[node name="WeaponLevelContainer" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(85, 17)
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="HBoxContainer/WeaponLevelContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme = ExtResource("3_1jcex")
+text = "Lvl"
+vertical_alignment = 1
+
+[node name="DamageValue" type="HBoxContainer" parent="HBoxContainer/WeaponLevelContainer"]
+layout_mode = 2
+
+[node name="DamageTypeIcon" type="TextureRect" parent="HBoxContainer/WeaponLevelContainer/DamageValue"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_dfvlc")
+stretch_mode = 2
+
+[node name="Value" type="Label" parent="HBoxContainer/WeaponLevelContainer/DamageValue"]
+layout_mode = 2
+text = "C"
+vertical_alignment = 1
