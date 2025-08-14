@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://v518gv4vgx47"]
+
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow.gd" id="1_7ae06"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_def76"]
+[ext_resource type="Texture2D" uid="uid://cjmnkhptx32op" path="res://resources/sprites/icons/damage_icons/physical_damage_icon.png" id="1_m8fcx"]
+[ext_resource type="Texture2D" uid="uid://drmy8q55o86g1" path="res://resources/sprites/combat_exchange/RightArrow.png" id="2_vyhtc"]
+[ext_resource type="Texture2D" uid="uid://e7ek1fycjm2h" path="res://resources/sprites/icons/damage_icons/magic_damage_icon.png" id="3_doij2"]
+
+[sub_resource type="Theme" id="Theme_cwa27"]
+default_font = ExtResource("1_def76")
+
+[node name="UnitCombatExchangeArrow" type="VBoxContainer"]
+custom_minimum_size = Vector2(209, 30)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_cwa27")
+script = ExtResource("1_7ae06")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="DamageValue" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="PhysicalDamageType" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_m8fcx")
+expand_mode = 2
+
+[node name="MagicalDamageType" type="TextureRect" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_doij2")
+expand_mode = 2
+
+[node name="AttackDirectionArrow" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_vyhtc")

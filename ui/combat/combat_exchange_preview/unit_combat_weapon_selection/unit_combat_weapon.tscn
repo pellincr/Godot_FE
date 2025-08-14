@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d5hp8wf80ymg"]
+
+[ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="1_b1n8f"]
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.gd" id="1_eslat"]
+[ext_resource type="PackedScene" uid="uid://db8rxoshti10d" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_types.tscn" id="3_w4ssa"]
+
+[sub_resource type="Theme" id="Theme_yq15n"]
+default_font_size = 24
+
+[node name="UnitCombatWeapon" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_eslat")
+
+[node name="InventoryItemIcon" parent="." instance=ExtResource("1_b1n8f")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="ItemNameLabel" type="Label" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_yq15n")
+text = "Item Name"
+
+[node name="UnitCombatWeaponTypes" parent="." instance=ExtResource("3_w4ssa")]
+layout_mode = 2
