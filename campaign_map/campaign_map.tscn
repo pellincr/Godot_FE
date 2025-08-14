@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdcmk38330ekx"]
+[gd_scene load_steps=6 format=3 uid="uid://cdcmk38330ekx"]
 
 [ext_resource type="Script" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
 [ext_resource type="Script" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
+[ext_resource type="PackedScene" uid="uid://dujcntmufuji2" path="res://campaign_map/campaign_map_controls.tscn" id="2_m0mgj"]
 
 [sub_resource type="Gradient" id="Gradient_j1yjd"]
 colors = PackedColorArray(0, 0, 0, 1, 0.119911, 0.0829217, 1.02278e-07, 1)
@@ -25,11 +26,18 @@ unique_name_in_owner = true
 offset = Vector2(640, 360)
 zoom = Vector2(3, 3)
 
+[node name="CampaignMapControls" parent="Camera2D" instance=ExtResource("2_m0mgj")]
+offset_left = 427.0
+offset_top = 449.0
+offset_right = 611.0
+offset_bottom = 481.0
+
 [node name="CampaignMapGenerator" type="Node" parent="."]
 script = ExtResource("1_1uwo1")
 
 [node name="MapBackground" type="CanvasLayer" parent="."]
 layer = -1
+visible = false
 
 [node name="Background" type="TextureRect" parent="MapBackground"]
 custom_minimum_size = Vector2(1280, 720)

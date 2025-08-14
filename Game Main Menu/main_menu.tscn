@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1hyqburlsxxg"]
 
 [ext_resource type="Script" path="res://Game Main Menu/main_menu.gd" id="1_64ruv"]
-[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardButtonTheme.tres" id="1_iw8r2"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_iw8r2"]
 
 [node name="StartAdventure" type="Control"]
 layout_mode = 3

@@ -16,7 +16,7 @@ class_name PlayerOverworldData
 @export var archetype_allotments = []
 
 @export var total_party = []
-var dead_party_members = []
+@export var dead_party_members = []
 @export var selected_party = []
 
 

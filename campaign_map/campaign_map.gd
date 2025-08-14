@@ -5,6 +5,9 @@ const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://campaign_map/campaign_map_room.tscn")
 const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
+const PLACEHOLDER = preload("res://placeholder/place_holder_scene.tscn")
+
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
 @onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
@@ -22,6 +25,7 @@ var camera_edge_y : float
 
 
 func _ready() -> void:
+	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
 	if !playerOverworldData.campaign_map_data:
@@ -37,12 +41,29 @@ func _ready() -> void:
 	set_map_room_focus_neighbors()
 	SelectedSaveFile.save(playerOverworldData)
 
+
+func transition_in_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_out")
+	await get_tree().create_timer(.5).timeout
+	scene_transition.queue_free()
+
+func transition_out_animation():
+	var scene_transition = scene_transition_scene.instantiate()
+	self.add_child(scene_transition)
+	scene_transition.play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout
+
+
 func _input(event:InputEvent) ->void:
 	if event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up"):
 		camera_2d.position.y -= SCROLL_SPEED
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
+
+
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
@@ -112,15 +133,21 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 		CampaignRoom.TYPE.BATTLE:
 			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)
 		CampaignRoom.TYPE.EVENT:
-			pass
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(PLACEHOLDER)
 		CampaignRoom.TYPE.BOSS:
-			pass
+			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.boss_levels.pick_random()
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(BATTLE_PREP)
 		CampaignRoom.TYPE.TREASURE:
-			pass
-	#grab_first_available_room_foucs()
-	#Events.map_exited.emit(room)
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(PLACEHOLDER)
 
 func grab_first_available_room_foucs() -> void:
 	for map_room:CampaignMapRoom in rooms.get_children():
