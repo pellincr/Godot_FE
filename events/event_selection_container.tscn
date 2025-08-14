@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://6leg2pgnfdjg"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_o6dpi"]
+
+[node name="EventSelectionContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_o6dpi")
+
+[node name="EventDescriptionPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(560, 250)
+layout_mode = 2
+
+[node name="EventDescription" type="Label" parent="EventDescriptionPanel"]
+custom_minimum_size = Vector2(558, 248)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Event Description Goes Here"
+autowrap_mode = 3
+
+[node name="EventOptionButton1" type="Button" parent="."]
+custom_minimum_size = Vector2(560, 50)
+layout_mode = 2
+text = "Option Text Here"
+alignment = 0
+
+[node name="EventOptionButton2" type="Button" parent="."]
+custom_minimum_size = Vector2(560, 50)
+layout_mode = 2
+text = "Option Text Here"
+alignment = 0
+
+[node name="EventOptionButton3" type="Button" parent="."]
+custom_minimum_size = Vector2(560, 50)
+layout_mode = 2
+text = "Option Text Here"
+alignment = 0
