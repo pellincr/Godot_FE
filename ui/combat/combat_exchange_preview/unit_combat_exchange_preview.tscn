@@ -70,11 +70,11 @@ size_flags_vertical = 4
 theme = SubResource("Theme_ulbj1")
 text = "Confirm"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer"]
+[node name="ArrowContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 
-[node name="UnitCombatExchangeArrow" parent="HBoxContainer/CenterContainer/VBoxContainer" instance=ExtResource("4_door1")]
+[node name="UnitCombatExchangeArrow" parent="HBoxContainer/CenterContainer/ArrowContainer" instance=ExtResource("4_door1")]
 layout_mode = 2
 
 [node name="RightContainer" type="VBoxContainer" parent="HBoxContainer"]
