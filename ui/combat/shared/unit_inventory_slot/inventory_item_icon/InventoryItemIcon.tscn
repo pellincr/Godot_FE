@@ -72,6 +72,7 @@ grow_vertical = 2
 texture = ExtResource("3_xuaec")
 
 [node name="WeaponTriangeArrowUp" type="TextureRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_nman0")
 custom_minimum_size = Vector2(8, 8)
 layout_mode = 1
