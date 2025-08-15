@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://b26kxlm2q45nj"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_o5wcn"]
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_health_bar/unit_health_bar_container.gd" id="2_ga8dl"]
+
+[sub_resource type="Theme" id="Theme_gxnmy"]
+default_font = ExtResource("1_o5wcn")
+
+[sub_resource type="Theme" id="Theme_o3v2x"]
+default_font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjclq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qukx"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_cortm"]
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_cjclq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_3qukx")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yl4jl"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfiqt"]
+bg_color = Color(0.408329, 0.408329, 0.408329, 1)
+
+[sub_resource type="Theme" id="Theme_n0skb"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_yl4jl")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_dfiqt")
+
+[node name="UnitHealthBarContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 70)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_gxnmy")
+script = ExtResource("2_ga8dl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="HPHeader" type="Label" parent="HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_vertical = 0
+text = "HP"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_o3v2x")
+
+[node name="CurrentHP" type="Label" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "50
+"
+
+[node name="Divider" type="Label" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "/"
+
+[node name="MaxHP" type="Label" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "59"
+
+[node name="MainHealthBar" type="ProgressBar" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme = SubResource("Theme_cortm")
+max_value = 59.0
+value = 46.0
+show_percentage = false
+
+[node name="DamageBar" type="ProgressBar" parent="MainHealthBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_n0skb")
+max_value = 59.0
+value = 53.0
+show_percentage = false
+
+[node name="ExpectedHPLabel" type="Label" parent="."]
+layout_mode = 2
+text = "48"
+horizontal_alignment = 1
