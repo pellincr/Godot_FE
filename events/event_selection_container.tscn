@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://6leg2pgnfdjg"]
+[gd_scene load_steps=4 format=3 uid="uid://6leg2pgnfdjg"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_o6dpi"]
+[ext_resource type="Script" path="res://events/event_selection_container.gd" id="2_kacqx"]
+[ext_resource type="PackedScene" uid="uid://ctdkeej0r0x4a" path="res://events/event_option_button.tscn" id="3_7q0in"]
 
 [node name="EventSelectionContainer" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_o6dpi")
+script = ExtResource("2_kacqx")
+
+[node name="EventNameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Event Name"
 
 [node name="EventDescriptionPanel" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(560, 250)
@@ -18,20 +25,17 @@ size_flags_vertical = 1
 text = "Event Description Goes Here"
 autowrap_mode = 3
 
-[node name="EventOptionButton1" type="Button" parent="."]
-custom_minimum_size = Vector2(560, 50)
+[node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2
-text = "Option Text Here"
-alignment = 0
 
-[node name="EventOptionButton2" type="Button" parent="."]
-custom_minimum_size = Vector2(560, 50)
+[node name="EventOptionButton2" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2
-text = "Option Text Here"
-alignment = 0
 
-[node name="EventOptionButton3" type="Button" parent="."]
+[node name="LeaveButton" type="Button" parent="."]
 custom_minimum_size = Vector2(560, 50)
 layout_mode = 2
-text = "Option Text Here"
-alignment = 0
+text = "Leave"
+
+[connection signal="event_option_selected" from="EventOptionButton1" to="." method="_on_event_option_selected"]
+[connection signal="event_option_selected" from="EventOptionButton2" to="." method="_on_event_option_selected"]
+[connection signal="pressed" from="LeaveButton" to="." method="_leave_selected"]

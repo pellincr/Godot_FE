@@ -5,6 +5,7 @@ const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://campaign_map/campaign_map_room.tscn")
 const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
+const EVENT_SELECT = preload("res://events/event_selection.tscn")
 const PLACEHOLDER = preload("res://placeholder/place_holder_scene.tscn")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -138,7 +139,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 		CampaignRoom.TYPE.EVENT:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
-			get_tree().change_scene_to_packed(PLACEHOLDER)
+			get_tree().change_scene_to_packed(EVENT_SELECT)
 		CampaignRoom.TYPE.BOSS:
 			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.boss_levels.pick_random()
 			SelectedSaveFile.save(playerOverworldData)
