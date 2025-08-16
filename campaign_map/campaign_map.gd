@@ -149,6 +149,14 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
+		CampaignRoom.TYPE.SHOP:
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(PLACEHOLDER)
+		CampaignRoom.TYPE.ELITE:
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(PLACEHOLDER)
 
 func grab_first_available_room_foucs() -> void:
 	for map_room:CampaignMapRoom in rooms.get_children():

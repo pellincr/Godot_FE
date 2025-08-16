@@ -3,7 +3,7 @@ extends Resource
 class_name CampaignRoom
 
 enum TYPE{
-	NOT_ASSIGNED, BATTLE, EVENT, TREASURE, BOSS
+	NOT_ASSIGNED, BATTLE, EVENT, TREASURE, SHOP, ELITE, BOSS
 }
 
 @export var type : TYPE

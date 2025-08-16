@@ -8,14 +8,18 @@ const PLACEMENT_RANDOMNESS := 5 #randomly move the rooms a bit to give a bt extr
 var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
 const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
-const BATTLE_ROOM_WIEGHT := 10.0
+const BATTLE_ROOM_WEIGHT := 10.0
 const EVENT_ROOM_WEIGHT := 2.5
 const TREASURE_ROOM_WEIGHT := 1.0
+const ELITE_ROOM_WEIGHT := 1.5
+const SHOP_ROOM_WEIGHT := 2.0
 
 var random_room_type_weights = {
 	CampaignRoom.TYPE.BATTLE : 0.0,
 	CampaignRoom.TYPE.EVENT : 0.0,
-	CampaignRoom.TYPE.TREASURE : 0.0
+	CampaignRoom.TYPE.TREASURE : 0.0,
+	CampaignRoom.TYPE.ELITE : 0.0,
+	CampaignRoom.TYPE.SHOP : 0.0
 }
 
 var random_room_type_total_weight := 0
@@ -126,10 +130,12 @@ func _setup_boss_room() -> void:
 		boss_room.type = CampaignRoom.TYPE.BOSS
 
 func _setup_random_room_weights() -> void:
-	random_room_type_weights[CampaignRoom.TYPE.BATTLE] = BATTLE_ROOM_WIEGHT
-	random_room_type_weights[CampaignRoom.TYPE.EVENT] = BATTLE_ROOM_WIEGHT + EVENT_ROOM_WEIGHT
-
-	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.EVENT]
+	random_room_type_weights[CampaignRoom.TYPE.BATTLE] = BATTLE_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.EVENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.SHOP] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.ELITE] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT
+	
+	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.ELITE]
 
 func _setup_room_types() -> void:
 	#first floor is always a battle
@@ -150,10 +156,17 @@ func _setup_room_types() -> void:
 func _set_room_randomly(room_to_set : CampaignRoom) -> void:
 	#OMITTING NO CAMPFIRES BEFORE FLOOR 4 RULE
 	#OMITTING NO CONSECUTIVE CAMPFIRE RULE
-	#OMITTING NO CONSECUTIVE SHOP RULE
+	var consecutive_shop := true
 	#OMITTING NO CAMPFIRES BEORE 2ND TO LAST ENCOUNTER
+	
 	var type_candidate : CampaignRoom.TYPE
-	type_candidate = _get_random_room_type_by_weight()
+	while consecutive_shop:
+		type_candidate = _get_random_room_type_by_weight()
+		var is_shop := type_candidate == CampaignRoom.TYPE.SHOP
+		var has_shop_parent := _room_has_parent_of_type(room_to_set,CampaignRoom.TYPE.SHOP)
+		
+		consecutive_shop = is_shop and has_shop_parent
+	
 	room_to_set.type = type_candidate
 
 func _room_has_parent_of_type(room:CampaignRoom,type:CampaignRoom.TYPE) -> bool:
