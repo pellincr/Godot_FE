@@ -29,16 +29,16 @@ func clear():
 	_available_target_methods.clear()
 
 func create_target_methods_weapon(unit:Unit) -> Dictionary:
-	var attack_range_map :Dictionary = {}
-	for item_index in unit.inventory.items.size():
-			if unit.inventory.items[item_index] is WeaponDefinition:
-				if unit.can_equip(unit.inventory.items[item_index]):
-					for attack_range in unit.inventory.items[item_index].attack_range:
+	var attack_range_map : Dictionary = {}
+	for item in unit.inventory.get_items():
+			if item is WeaponDefinition:
+				if unit.can_equip(item):
+					for attack_range in item.attack_range:
 						if attack_range_map.has(attack_range):
-							attack_range_map.get(attack_range).append(unit.inventory.items[item_index])
+							attack_range_map.get(attack_range).append(item)
 						else:
-							var weapons_at_range : Array[WeaponDefinition] = [unit.inventory.items[item_index]]
-							attack_range_map[item_index] = weapons_at_range
+							var weapons_at_range : Array[WeaponDefinition] = [item]
+							attack_range_map[attack_range] = weapons_at_range
 	return attack_range_map
 
 #
@@ -129,3 +129,28 @@ func get_previous_target() -> Vector2i:
 	if current_target_range != range_target_map[_available_targets_with_method[_available_targets_at_range_index]] :
 		update_available_target_methods(current_method.use_range)
 	return _available_targets_with_method[_available_targets_at_range_index]
+
+# create an iventory data structure to send to action inventories
+func generate_unit_inventory_slot_data(attacker: Unit) -> Array[UnitInventorySlotData]:
+	var _unit_inventory_info : Array[UnitInventorySlotData] = []
+	var valid_list :Array[WeaponDefinition]
+	#Get the list of target ranges
+	for range in range_target_map.keys():
+		if range_target_methods_map.has(range):
+			for item in range_target_methods_map[range]:
+				if not valid_list.has(item):
+					valid_list.append(item)
+	for item in attacker.inventory.get_items():
+		var unit_inventory_slot_data :UnitInventorySlotData = UnitInventorySlotData.new() 
+		if item != null:
+			unit_inventory_slot_data.item = item
+			if attacker.inventory.get_equipped_item() == item:
+				unit_inventory_slot_data.equipped = true
+			if item in valid_list:
+				unit_inventory_slot_data.valid = true
+		else :
+			unit_inventory_slot_data.item = null
+			unit_inventory_slot_data.equipped = false
+			unit_inventory_slot_data.valid = false
+		_unit_inventory_info.append(unit_inventory_slot_data)
+	return _unit_inventory_info

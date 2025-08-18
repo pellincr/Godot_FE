@@ -1005,7 +1005,8 @@ func unit_action_selection_handler(action:String):
 			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
 			targetting_resource.clear()
 			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
-			combat.game_ui._set_attack_action_inventory(combat.get_current_combatant())
+			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
 	match action:
 		"Support":

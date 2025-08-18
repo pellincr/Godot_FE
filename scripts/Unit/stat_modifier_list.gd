@@ -8,7 +8,7 @@ func append(input: StatModifier):
 
 func evaluate():
 	var total : int = 0
-	for value in statModifierDictionary.values:
+	for value in statModifierDictionary.values():
 		total = total + value
 	return total
 

@@ -50,10 +50,6 @@ theme = ExtResource("3_bdaoj")
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="UnitInventorySlot1" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
-layout_mode = 2
-mouse_filter = 0
-
 [node name="UnitInventorySlot2" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
 
@@ -62,6 +58,10 @@ layout_mode = 2
 
 [node name="UnitInventorySlot4" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
+
+[node name="UnitInventorySlot" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
+layout_mode = 2
+mouse_filter = 0
 
 [node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(290, 1)
@@ -105,3 +105,8 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("5_g6oda")
 text = "Debug_text"
+
+[connection signal="btn_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2" to="." method="btn_entered"]
+[connection signal="btn_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3" to="." method="btn_entered"]
+[connection signal="btn_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4" to="." method="btn_entered"]
+[connection signal="btn_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot" to="." method="btn_entered"]

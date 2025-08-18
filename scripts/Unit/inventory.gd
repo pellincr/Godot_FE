@@ -258,3 +258,9 @@ func get_weapons_with_range(ranges: Array[int]) -> Array[WeaponDefinition]:
 				if weaponList.find(get_item(index)) == -1:
 					weaponList.append(get_item(index))
 	return weaponList
+
+func get_items() -> Array[WeaponDefinition]:
+	var _item_arr : Array[WeaponDefinition] = [null, null, null, null]
+	for i in range(items.size()):
+		_item_arr[i] = items[i]
+	return _item_arr

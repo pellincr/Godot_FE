@@ -151,6 +151,8 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	#if combat_unit.allegience != 0:
 	#	combat_unit.unit.initiative -= 1
 	combat_unit.map_display = new_combatant_sprite
+	combat_unit.stats.populate_unit_stats(combat_unit.unit)
+	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	emit_signal("combatant_added", combat_unit)
 	
 func add_entity(cme:CombatMapEntity):

@@ -4,36 +4,52 @@ class_name AttackActionInventory
 #Imports
 const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
 
-@export var unit: Unit
-var equippable_item_info : EquippableItemInformation
-var equipped_item_info: EquippableItemInformation
-var hover_item_info: EquippableItemInformation
-
-@onready var unit_inventory_slot: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot
+@onready var unit_inventory_slot_1: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1
 @onready var unit_inventory_slot_2: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2
+@onready var unit_inventory_slot_3: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3
 @onready var unit_inventory_slot_4: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4
 @onready var backButton: Button = $MarginContainer2/VBoxContainer/VBoxContainer2/BackButton
 
 @onready var equippable_item_information: EquippableItemInformation = $MarginContainer2/VBoxContainer/Equippable_item_information
 
+@export var data : Array[UnitInventorySlotData] 
+@export var combatUnit: CombatUnit
+@export var hovered_item : ItemDefinition
+var focus_grabbed : bool
 
-func _ready():
-	equippable_item_info = $Equippable_item_information
+func _ready() -> void:
+	unit_inventory_slot_1.connect("_hover_item", reset_focus)
+	unit_inventory_slot_2.connect("_hover_item", update_hover_item)
+	unit_inventory_slot_3.connect("_hover_item", update_hover_item)
+	unit_inventory_slot_4.connect("_hover_item", update_hover_item)
 
-func show_equippable_item_info():
-	equippable_item_info.visible = true
-static func create(target_unit: Unit) -> AttackActionInventory: 
-	var a_a_inv = AttackActionInventory.new()
-	a_a_inv.set_unit(target_unit)
-	return a_a_inv
+func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	await equippable_item_information
+	self.combatUnit = inputCombatUnit
+	self.data = inventory
+	update_display()
 
-func set_unit(target_unit: Unit):
-	self.unit = target_unit
-	equippable_item_info.set_unit(target_unit)
+func update_display():
+	equippable_item_information.populate_equipped_stats(combatUnit.stats,combatUnit.get_equipped())
+	if data.size() == 4:
+		set_unit_inventory_slot_info(unit_inventory_slot_1, data[0].item, data[0].equipped, data[0].valid)
+		set_unit_inventory_slot_info(unit_inventory_slot_2, data[1].item, data[1].equipped, data[1].valid)
+		set_unit_inventory_slot_info(unit_inventory_slot_3, data[2].item, data[2].equipped, data[2].valid)
+		set_unit_inventory_slot_info(unit_inventory_slot_4, data[3].item, data[3].equipped, data[3].valid)
 
-func get_inventory_container_children() -> Array[Node]:
-	return $MarginContainer/VBoxContainer.get_children()
+func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
+	target.disabled = !valid
+	target.set_fields(item, equipped)
+	if valid and focus_grabbed == false:
+		target.grab_focus()
+		focus_grabbed = true
+		
 
-func btn_entered(item: ItemDefinition):
+func update_hover_item(item: ItemDefinition):
 	if item is WeaponDefinition:
-		equippable_item_info.update_values(item)
+		equippable_item_information.update_hover_stats(combatUnit, item)
+		
+
+func reset_focus(item: ItemDefinition):
+	equippable_item_information.hovering_new_item = false
+	equippable_item_information.update_fields()

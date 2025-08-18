@@ -1,19 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://diqrf4hmvqdtg"]
+[gd_scene load_steps=6 format=3 uid="uid://diqrf4hmvqdtg"]
 
 [ext_resource type="Script" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/inventory_item_icon.gd" id="1_e1388"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_maem8"]
-[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="3_xuaec"]
-[ext_resource type="Texture2D" uid="uid://dh3wcg86jund3" path="res://resources/sprites/icons/damage_icons/arrow_icon.png" id="4_6youc"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckuao"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="Theme" id="Theme_soyos"]
-Panel/styles/panel = SubResource("StyleBoxFlat_ckuao")
+[ext_resource type="Texture2D" uid="uid://dh3wcg86jund3" path="res://resources/sprites/icons/arrow_icon.png" id="4_6youc"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="5_gnmyp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nman0"]
 shader = ExtResource("1_maem8")
@@ -36,7 +26,6 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_soyos")
 script = ExtResource("1_e1388")
 
 [node name="Background" type="Panel" parent="."]
@@ -69,7 +58,6 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_xuaec")
 
 [node name="WeaponTriangeArrowUp" type="TextureRect" parent="."]
 visible = false
@@ -105,3 +93,19 @@ offset_bottom = 11.992
 rotation = -3.14159
 texture = ExtResource("4_6youc")
 stretch_mode = 2
+
+[node name="EquippedLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 0
+offset_left = 22.0
+offset_top = 17.0
+offset_right = 32.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0.544835, 0.953351, 1.15514e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("5_gnmyp")
+theme_override_font_sizes/font_size = 16
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 2

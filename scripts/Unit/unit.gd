@@ -457,6 +457,3 @@ static func update_visuals(u :Unit):
 
 static func set_movement(u :Unit): 
 	u.movement = u.bonus_movment + u.get_unit_type_definition().base_stats.movement
-
-
-	

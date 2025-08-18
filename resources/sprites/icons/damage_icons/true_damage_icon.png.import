@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh3wcg86jund3"
-path="res://.godot/imported/arrow_icon.png-65b3446f9c4584810175fe83d891f8fc.ctex"
+uid="uid://lgevq8j582dg"
+path="res://.godot/imported/true_damage_icon.png-72a24296485bacc3caed908a0282c9e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/damage_icons/arrow_icon.png"
-dest_files=["res://.godot/imported/arrow_icon.png-65b3446f9c4584810175fe83d891f8fc.ctex"]
+source_file="res://resources/sprites/icons/damage_icons/true_damage_icon.png"
+dest_files=["res://.godot/imported/true_damage_icon.png-72a24296485bacc3caed908a0282c9e7.ctex"]
 
 [params]
 

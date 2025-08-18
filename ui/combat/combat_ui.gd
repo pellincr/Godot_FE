@@ -16,6 +16,7 @@ const inventoryOptionsContainer = preload("res://ui/combat/option_container/inve
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
+const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -142,44 +143,13 @@ func set_action_list(available_actions: Array[UnitAction]):
 	actions_grid_children[0].grab_focus()
 	$Actions/EndTurnButton.disabled = !player_turn
 
-func set_inventory_list_attack(unit: Unit, weaponList:Array[WeaponDefinition] = []):
-	print("@# set_inventory_list_attack called")
-	var attack_action_inventory = $AttackActionInventory
-	attack_action_inventory.show_equippable_item_info()
-	attack_action_inventory.set_unit(unit)
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			var weapon_list = []
-			if weaponList.is_empty():
-				weapon_list = unit.get_equippable_weapons()
-			else:
-				weapon_list = weaponList.duplicate()
-			if not weapon_list.is_empty():
-				if weapon_list.size() > i:
-					var item = weapon_list[i]
-					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
-						var equipped = false
-						if i == 0: 
-							equipped = true
-						inventory_container_children[i].set_all(item, equipped)
-						inventory_container_children[i].visible = true
-						item_btn.pressed.connect(func():
-							play_menu_confirm()
-							controller.set_selected_item(item)
-							controller.action_item_selected()
-							)
-					else: 
-						inventory_container_children[i].visible = false
-						clear_action_button_connections(item_btn)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-	var test = inventory_container_children[0]
-	test.grab_button_focus()
+func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var attack_action_inventory = ATTACK_ACTION_INVENTORY.instantiate()
+	self.add_child(attack_action_inventory)
+	await attack_action_inventory
+	attack_action_inventory.populate(inputCombatUnit, inventory)
+	active_ui_node = attack_action_inventory
+	attack_action_inventory.grab_focus()
 
 func set_inventory_list_support(unit: Unit):
 	print("set_inventory_list_support")
@@ -359,11 +329,6 @@ func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
 		$UnitStatus.visible = true
 	else:
 		$UnitStatus.visible = false
-
-func _set_attack_action_inventory(combat_unit: CombatUnit, weaponList : Array[WeaponDefinition] = []) -> void:
-	set_inventory_list_attack(combat_unit.unit, weaponList)
-	if $AttackActionInventory.visible == false :
-		$AttackActionInventory.visible = true 
 
 func _set_support_action_inventory(combat_unit: CombatUnit) -> void:
 	set_inventory_list_support(combat_unit.unit)
