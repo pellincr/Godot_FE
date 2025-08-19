@@ -176,11 +176,12 @@ func get_distance(attacker: CombatUnit, target: CombatUnit):
 	var point2 = target.map_position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
-func perform_attack(attacker: CombatUnit, target: CombatUnit):
+func perform_attack(attacker: CombatUnit, target: CombatUnit, distance:int = -9999999):
 	print("Entered Perform_attack in combat.gd")
 	_player_unit_alive = true
 	#check the distance between the target and attacker
-	var distance = get_distance(attacker, target)
+	if distance == -9999999:
+		distance = get_distance(attacker, target)
 	# check if that item can hit the target
 	var valid = combatExchange.check_can_attack(attacker, target, distance)
 	if valid:

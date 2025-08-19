@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqtdhgq4k72n0"]
+[gd_scene load_steps=11 format=3 uid="uid://cqtdhgq4k72n0"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.gd" id="1_4555u"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_p2wdy"]
+[ext_resource type="Theme" uid="uid://datpqsugt3tvl" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel_enemy_theme.tres" id="2_bv4vu"]
 [ext_resource type="Texture2D" uid="uid://chhc11jvnl7og" path="res://resources/sprites/units/Destroyer.png" id="2_sbcuj"]
 [ext_resource type="PackedScene" uid="uid://b8n36q4lwddv7" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_type_trait_container.tscn" id="3_0u4w0"]
 [ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="4_ii5um"]
@@ -19,21 +19,6 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="Theme" id="Theme_sgtdx"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_odhkg")
 
-[sub_resource type="Gradient" id="Gradient_qtidy"]
-colors = PackedColorArray(0, 0, 0, 1, 0.0313726, 0, 0.298039, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_71t2p"]
-gradient = SubResource("Gradient_qtidy")
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iccuj"]
-texture = SubResource("GradientTexture2D_71t2p")
-
-[sub_resource type="Theme" id="Theme_81m4r"]
-default_font = ExtResource("1_p2wdy")
-Panel/styles/panel = SubResource("StyleBoxTexture_iccuj")
-
 [node name="UnitCombatWeaponSelectionPanel" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -43,7 +28,7 @@ script = ExtResource("1_4555u")
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(350, 150)
 layout_mode = 2
-theme = SubResource("Theme_81m4r")
+theme = ExtResource("2_bv4vu")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 custom_minimum_size = Vector2(350, 150)
@@ -65,6 +50,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(153, 32)
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
 
 [node name="UnitIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/UnitContainer"]
 layout_mode = 2

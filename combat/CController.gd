@@ -46,6 +46,7 @@ var turn_phase: CombatMapConstants.TURN_PHASE #= CombatMapConstants.TURN_PHASE.I
 var previous_turn_phase: CombatMapConstants.TURN_PHASE #= CombatMapConstants.TURN_PHASE.INITIALIZING
 var previous_player_state : CombatMapConstants.PLAYER_STATE
 var player_state: CombatMapConstants.PLAYER_STATE #= CombatMapConstants.PLAYER_STATE.INITIALIZING
+var action_player_state_queue: Array[CombatMapConstants.PLAYER_STATE]
 
 ##Controller Main Variables
 @export var controlled_node : Control
@@ -790,28 +791,6 @@ func fsm_unit_action_cancel(delta = null):
 		else: 
 			# State transition
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
-			
-
-#
-# Called when the user confirms, during the action select phase.
-#
-"""func fsm_unit_action_target_confirm(delta):
-	if _action_selected == true and _action.requires_target == true:
-		var target_comb = grid.get_combat_unit(current_tile)
-		# is there a valid target?
-		if target_comb != null and target_comb.alive:
-			# can the action target the unit in the tile?
-			if _action_valid_targets.has(target_comb):
-				# destroy old UI for hover
-				combat.game_ui.hide_unit_combat_exchange_preview()
-				# Update the combat Unit's info as a major action has been performed
-				combat.get_current_combatant().update_move_tile(combat.get_current_combatant().move_tile)
-				# Update the action to have a selected target
-				##action_target_selected(target_comb) ## NEEDS TO BE REPLACED
-			else:
-				print("Invalid Target for combat action")
-				target_comb = null
-				pass"""
 
 func fsm_unit_select_process(delta):
 	if null != grid.get_combat_unit(current_tile):
@@ -939,11 +918,53 @@ func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 	# destroy the old menu
 	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
 	target_tile = targetting_resource.current_target_positon
+	update_current_tile(target_tile)
 	var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
-	combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info)
-	# create the new menu
-	pass
+	if targetting_resource._available_methods_at_target.size() > 1:
+		combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info, true)
+	else:
+		combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info)
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING)
 	
+func fsm_unit_combat_action_targetting(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_confirm"):
+			combat.game_ui.destory_active_ui_node()
+			confirm_unit_move(combat.get_current_combatant())
+			await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+			#Enact combat exchange
+			pass
+		if Input.is_action_just_pressed("ui_cancel"):
+			#return to previous menu, action or inventory based on last state
+			pass
+		if Input.is_action_just_pressed("right_bumper"):
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.next_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+		if Input.is_action_just_pressed("left_bumper"):
+			#new weapon if applicable
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.previous_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+		if Input.is_action_just_pressed("ui_left"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				targetting_resource.previous_target()
+				target_tile = targetting_resource.current_target_positon
+				update_current_tile(target_tile)
+				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+		if Input.is_action_just_pressed("ui_right"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				targetting_resource.next_target()
+				target_tile = targetting_resource.current_target_positon
+				update_current_tile(target_tile)
+				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 #
 # Main part of the FSM 
 #
@@ -991,7 +1012,7 @@ func player_fsm_process(delta):
 		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
 			pass
 		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING:
-			pass
+			fsm_unit_combat_action_targetting(delta)
 		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION:
 			pass
 	## Entity

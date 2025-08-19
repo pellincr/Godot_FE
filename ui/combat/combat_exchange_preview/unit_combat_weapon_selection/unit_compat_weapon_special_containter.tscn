@@ -33,8 +33,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "Special 2"
+text = "Debug Text"
 
 [node name="Label2" type="Label" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Special 1"

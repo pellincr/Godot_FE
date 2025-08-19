@@ -281,9 +281,9 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
 	var attacker_weapon = attacker.get_equipped()
 	if attacker_weapon is WeaponDefinition:
-		if attacker_weapon.item_target_faction.has(defender.allegience):
-			if attacker_weapon.attack_range.has(distance):
-				return true
+		#if attacker_weapon.item_target_faction.has(defender.allegience):
+		if attacker_weapon.attack_range.has(distance):
+			return true
 	return false
 
 func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, distance:int) -> Dictionary:

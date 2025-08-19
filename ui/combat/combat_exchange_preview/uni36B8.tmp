@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4evfg"]
-bg_color = Color(0, 0, 0, 0.588235)
+bg_color = Color(0, 0, 0, 0.0980392)
 
 [sub_resource type="Theme" id="Theme_mwhw1"]
 Panel/styles/panel = SubResource("StyleBoxFlat_4evfg")
@@ -74,7 +74,6 @@ custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 
 [node name="ConfirmButton" type="Button" parent="HBoxContainer/CenterContainer"]
-visible = false
 custom_minimum_size = Vector2(210, 60)
 layout_mode = 2
 size_flags_horizontal = 4

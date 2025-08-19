@@ -91,4 +91,4 @@ func get_equipped() -> WeaponDefinition:
 
 func equip(wpn: WeaponDefinition):
 	unit.inventory.set_equipped(wpn)
-	unit.stats.populate_weapon_stats(self, wpn)
+	stats.populate_weapon_stats(self, wpn)

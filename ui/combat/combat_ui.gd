@@ -128,13 +128,17 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 #
 #
 #
-func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData):
+func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
 	var combat_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
 	self.add_child(combat_exchange_preview)
 	await combat_exchange_preview
-	combat_exchange_preview.set_all(exchange_info)
+	combat_exchange_preview.set_all(exchange_info,weapon_swap_visable)
 	active_ui_node = combat_exchange_preview
 	combat_exchange_preview.grab_focus()
+	
+func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
+	if active_ui_node is UnitCombatExchangePreview:
+		active_ui_node.set_all(exchange_info,weapon_swap_visable)
 #
 # Populates and displayes the detailed info for a combat unit
 #
