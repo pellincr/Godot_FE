@@ -68,3 +68,4 @@ theme = SubResource("Theme_nkl5n")
 text = "30"
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

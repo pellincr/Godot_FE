@@ -12,6 +12,8 @@ const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/
 
 @onready var equippable_item_information: EquippableItemInformation = $MarginContainer2/VBoxContainer/Equippable_item_information
 
+signal item_selected(item:ItemDefinition)
+
 @export var data : Array[UnitInventorySlotData] 
 @export var combatUnit: CombatUnit
 @export var hovered_item : ItemDefinition
@@ -22,6 +24,10 @@ func _ready() -> void:
 	unit_inventory_slot_2.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_3.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_4.connect("_hover_item", update_hover_item)
+	unit_inventory_slot_1.connect("selected_item",item_selected_button_press)
+	unit_inventory_slot_2.connect("selected_item",item_selected_button_press)
+	unit_inventory_slot_3.connect("selected_item",item_selected_button_press)
+	unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
 
 func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
 	await equippable_item_information
@@ -53,3 +59,6 @@ func update_hover_item(item: ItemDefinition):
 func reset_focus(item: ItemDefinition):
 	equippable_item_information.hovering_new_item = false
 	equippable_item_information.update_fields()
+
+func item_selected_button_press(item: ItemDefinition):
+	item_selected.emit(item)

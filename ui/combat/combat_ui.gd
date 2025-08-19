@@ -11,30 +11,41 @@ signal unit_experience_ended()
 @export var active_ui_node : Node
 
 #Scene Imports
+#Menu
+const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
+const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
+
+#Combat Action
+const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
+const UNIT_COMBAT_EXCHANGE_PREVIEW = preload("res://ui/combat/combat_exchange_preview/unit_combat_exchange_preview.tscn")
+
+#Trade Action
 const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
-const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
-const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
-const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
+
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
 const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
-
+#transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 func _ready():
 	transition_in_animation()
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
-	combat.connect("update_combatants", update_combatants)
-	combat.connect("update_information", update_information)
+	#combat.connect("update_combatants", update_combatants) ## THIS IS OLD?
+	#combat.connect("update_information", update_information) ##Old, was in use with the combat log
 	controller.connect("target_detailed_info", _target_detailed_info)
 
+#
+# Plays the transition animation on combat map begin
+#
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
@@ -43,12 +54,18 @@ func transition_in_animation():
 	await get_tree().create_timer(5).timeout
 	scene_transition.queue_free()
 
+#
+# transitions out the animation played on combat map begin
+#
 func transition_out_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
+#
+# Creates the unit action container
+#
 func create_unit_action_container(available_actions:Array[String]):
 	var unit_action_container = UnitActionContainer.instantiate()
 	unit_action_container.populate(available_actions, controller)
@@ -56,6 +73,9 @@ func create_unit_action_container(available_actions:Array[String]):
 	active_ui_node = unit_action_container
 	unit_action_container.grab_focus()
 
+#
+# Creates the combat map game menu screen
+#
 func create_combat_map_game_menu():
 	var game_menu = COMBAT_MAP_CAMPAIGN_MENU.instantiate()
 	await game_menu
@@ -64,14 +84,18 @@ func create_combat_map_game_menu():
 	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
 	active_ui_node = game_menu
 
+#
+# Frees the current node stored in the "active_ui_node" used in state transitions
+#
 func destory_active_ui_node():
 	if active_ui_node != null:
 		active_ui_node.queue_free()
 
-func target_selected(info: Dictionary): 
+## OLD
+func target_selected(info: Dictionary):  ##OLD
 	populate_combat_info(info)
 	
-func populate_combat_info(info: Dictionary):
+func populate_combat_info(info: Dictionary): ##OLD
 	var attacker_info_name= $Actions/CombatInfo/Container/ActionsGrid/AttackerInfo/Name
 	attacker_info_name.text = info.attacker_name
 	##populate attack stats
@@ -83,75 +107,111 @@ func populate_combat_info(info: Dictionary):
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Damage.text = info.defender_damage
 	$Actions/CombatInfo/Container/ActionsGrid/DefenderStats/Hit.text = info.defender_hit_chance
 
-func _on_end_turn_button_pressed():
+func _on_end_turn_button_pressed(): ##OLD
 	print("End Turn Button pressed")
 	turn_ended.emit()
 
-func update_information(info: String):
-	$Actions/Information/Text.append_text(info)
-
-func clear_action_button_connections(action: Button):
-	var connections = action.pressed.get_connections()
-	for connection in connections:
-		action.pressed.disconnect(connection.callable)
-
-func update_combatants(combatants: Array):
-	for comb in combatants:
-		if comb.allegience == 0:
-			var status = $Status.find_child(comb.unit.name, false, false)
-			if status != null:
-				status.set_health(comb.hp, comb.stats.hp)
-		var turn_queue_icon = $TurnQueue/Queue.get_node(comb.unit.name)
-		if turn_queue_icon != null:
-			turn_queue_icon.set_hp(comb.unit.hp)
-			turn_queue_icon.set_side(comb.allegience)
-			turn_queue_icon.set_turn_taken(comb.turn_taken)
-
-func hide_action_list():
-	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
-	$Actions/ActionsPanel.visible = false
-	
-func set_action_list(available_actions: Array[UnitAction]):
-	var actions_grid_children = $Actions/ActionsPanel/ActionsMenu.get_children()
-	actions_grid_children[0].grab_focus()
-	$Actions/ActionsPanel.visible = true
-	var player_turn = controller.player_turn
-	for i in range(actions_grid_children.size()):
-		var action_btn = actions_grid_children[i] as Button
-		if player_turn == false:
-			##action.disabled = true
-			continue
-		else:
-			action_btn.disabled = false
-		if available_actions.size() > i:
-			action_btn.visible = true
-			var action = available_actions[i]
-			#action.icon = skill.icon
-			action_btn.text = action.name
-			action_btn.pressed.connect(func():
-				play_menu_confirm()
-				controller.set_unit_action(action)
-				#controller.begin_target_selection()
-				controller.begin_action_flow()
-				)
-		else:
-			action_btn.visible = false
-			action_btn.icon = null
-			action_btn.text = ""
-			action_btn.tooltip_text = ""
-			clear_action_button_connections(action_btn)
-	actions_grid_children[0].grab_focus()
-	$Actions/EndTurnButton.disabled = !player_turn
-
+#
+# Crreates the attack action inventory used to select the weapon to be used in the combat preview
+#
 func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
 	var attack_action_inventory = ATTACK_ACTION_INVENTORY.instantiate()
 	self.add_child(attack_action_inventory)
 	await attack_action_inventory
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	active_ui_node = attack_action_inventory
+	attack_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
+	#attack_action_inventory.item_selected.connect(func():controller.fsm_attack_action_inventory_confirm())
 	attack_action_inventory.grab_focus()
+	
 
-func set_inventory_list_support(unit: Unit):
+#
+#
+#
+func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData):
+	var combat_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(combat_exchange_preview)
+	await combat_exchange_preview
+	combat_exchange_preview.set_all(exchange_info)
+	active_ui_node = combat_exchange_preview
+	combat_exchange_preview.grab_focus()
+#
+# Populates and displayes the detailed info for a combat unit
+#
+func _target_detailed_info(combat_unit: CombatUnit):
+	if combat_unit:
+		if not $UnitStatusDetailed.visible :
+			$UnitStatusDetailed.set_unit(combat_unit)
+			$UnitStatusDetailed.visible = true
+	else :
+		$UnitStatusDetailed.visible = false	
+		$AttackActionInventory.visible = false
+	
+#
+#
+#
+func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
+	$combat_tile_info.set_all(tile.terrain, tile.position.x,tile.position.y)
+	if(unit):
+		$UnitStatus.set_unit(tile.unit)
+		$UnitStatus.visible = true
+	else:
+		$UnitStatus.visible = false
+
+
+func display_unit_experience_bar(u : Unit):
+	$unit_experience_bar.set_reference_unit(u)
+	$unit_experience_bar.visible = true
+
+func unit_experience_bar_gain(value: int):
+	$unit_experience_bar.update_xp(value)
+	await $unit_experience_bar.finished
+	hide_unit_experience_bar()
+	emit_signal("unit_experience_ended")
+
+#
+#
+#
+func hide_unit_experience_bar():
+	$unit_experience_bar.visible = false
+
+#
+# Calls play_audio with parameters to play the cursor, or move sound in menus
+#
+func play_cursor():
+	play_audio(cursor_sound, ui_map_audio)
+
+#
+# Calls play_audio with parameters to play the confirm sound
+#
+func play_menu_confirm():
+	play_audio(menu_confirm_sound, ui_menu_audio)
+
+#
+# Calls play_audio with parameters to play the back or cancel sound
+#
+#
+func play_menu_back():
+	play_audio(menu_back_sound, ui_menu_audio)
+
+#
+# Used to play audio in ui components
+#
+func play_audio(sound : AudioStream, audio_source: AudioStreamPlayer):
+	audio_source.stream = sound
+	audio_source.play()
+	await audio_source.finished
+
+#
+# @Signal 
+# emits unit_experience_ended after unit experience bar animation is complete
+#
+func _on_unit_experience_bar_finished() -> void:
+	hide_unit_experience_bar()
+	emit_signal("unit_experience_ended")
+
+"""
+func set_inventory_list_support(unit: Unit): ## OLD
 	print("set_inventory_list_support")
 	var attack_action_inventory = $AttackActionInventory
 	attack_action_inventory.set_unit(unit)
@@ -189,6 +249,7 @@ func set_inventory_list_support(unit: Unit):
 	var test = inventory_container_children[0]
 	test.grab_button_focus()
 
+##OLD
 func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
 	print("set_inventory_list_support")
 	var  action_inv = $ActionInventory
@@ -301,102 +362,7 @@ func enable_inventory_list_butttons():
 			item_btn.disabled = false
 			item_btn.mouse_filter = Control.MOUSE_FILTER_STOP
 
-func set_movement(movement):
-	$Actions/Movement.text = str(movement)
 
-
-func _target_selection_finished():
-	$Actions/SelectTargetMessage.visible = false
-
-
-func _target_selection_started():
-	$Actions/SelectTargetMessage.visible = true
-
-func _target_detailed_info(combat_unit: CombatUnit):
-	if combat_unit:
-		if not $UnitStatusDetailed.visible :
-			$UnitStatusDetailed.set_unit(combat_unit)
-			$UnitStatusDetailed.visible = true
-	else :
-		$UnitStatusDetailed.visible = false	
-		$AttackActionInventory.visible = false
-	
-
-func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
-	$combat_tile_info.set_all(tile.terrain, tile.position.x,tile.position.y)
-	if(unit):
-		$UnitStatus.set_unit(tile.unit)
-		$UnitStatus.visible = true
-	else:
-		$UnitStatus.visible = false
-
-func _set_support_action_inventory(combat_unit: CombatUnit) -> void:
-	set_inventory_list_support(combat_unit.unit)
-	if $AttackActionInventory.visible == false :
-		$AttackActionInventory.visible = true 
-
-func _set_item_action_inventory(combat_unit: CombatUnit, items:Array[ItemDefinition]) -> void:
-	set_inventory_list_item_select(combat_unit.unit, items)
-	if $ActionInventory.visible == false :
-		$ActionInventory.visible = true 
-
-
-func _set_inventory_list(combat_unit: CombatUnit) -> void:
-	set_inventory_list(combat_unit.unit)
-	if $AttackActionInventory.visible == false :
-		$AttackActionInventory.visible = true 
-
-func hide_attack_action_inventory():
-	$AttackActionInventory.visible = false 
-
-func hide_action_inventory():
-	$ActionInventory.visible = false 
-
-
-func display_unit_combat_exchange_preview(combat_unit_a: CombatUnit, combat_unit_d: CombatUnit, distance:int):
-	$unit_combat_exchange_preview.set_all(combat_unit_a,combat_unit_d,distance)
-	$unit_combat_exchange_preview.visible = true
-
-func hide_unit_combat_exchange_preview():
-	$unit_combat_exchange_preview.visible = false
-
-func display_unit_experience_bar(u : Unit):
-	$unit_experience_bar.set_reference_unit(u)
-	$unit_experience_bar.visible = true
-
-func unit_experience_bar_gain(value: int):
-	$unit_experience_bar.update_xp(value)
-	await $unit_experience_bar.finished
-	hide_unit_experience_bar()
-	emit_signal("unit_experience_ended")
-	
-func hide_unit_experience_bar():
-	$unit_experience_bar.visible = false
-
-func play_cursor():
-	play_audio(cursor_sound, ui_map_audio)
-
-func play_menu_confirm():
-	play_audio(menu_confirm_sound, ui_menu_audio)
-	
-func play_menu_back():
-	play_audio(menu_back_sound, ui_menu_audio)
-
-func play_audio(sound : AudioStream, audio_source: AudioStreamPlayer):
-	audio_source.stream = sound
-	audio_source.play()
-	await audio_source.finished
-
-
-func _on_unit_experience_bar_finished() -> void:
-	hide_unit_experience_bar()
-	emit_signal("unit_experience_ended")
-
-func hide_end_turn_button():
-		$Actions/EndTurnButton.visible = false
-
-func show_end_turn_button():
-		$Actions/EndTurnButton.visible = true
 
 func show_trade_container(ua,ub):
 	var tc : TradeContainer = tradeContainer.instantiate()
@@ -412,3 +378,4 @@ func destroy_trade_container():
 		if child is TradeContainer:
 			child.queue_free()
 			return
+"""

@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvu1wufqkwj1i"]
+[gd_scene load_steps=7 format=3 uid="uid://dvu1wufqkwj1i"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_50w2m"]
-[ext_resource type="Texture2D" uid="uid://cjmnkhptx32op" path="res://resources/sprites/icons/damage_icons/physical_damage_icon.png" id="1_r8ufh"]
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_stat_container.gd" id="2_qajnt"]
-[ext_resource type="Texture2D" uid="uid://e7ek1fycjm2h" path="res://resources/sprites/icons/damage_icons/magic_damage_icon.png" id="4_uhawm"]
+[ext_resource type="Script" path="res://ui/combat/equippable_item_information/damage_type_icon.gd" id="4_rnysn"]
 
 [sub_resource type="Theme" id="Theme_fr0w7"]
 default_font = ExtResource("1_50w2m")
@@ -34,17 +33,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "30"
 
-[node name="PhysicalIcon" type="TextureRect" parent="DamageContainer"]
-visible = false
+[node name="DamageTypeIcon" type="TextureRect" parent="DamageContainer"]
 layout_mode = 2
-texture = ExtResource("1_r8ufh")
 expand_mode = 2
-
-[node name="MagicalIcon" type="TextureRect" parent="DamageContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("4_uhawm")
-expand_mode = 2
+script = ExtResource("4_rnysn")
 
 [node name="Seperator" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 1)

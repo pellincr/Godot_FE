@@ -7,12 +7,14 @@ extends PanelContainer
 @onready var toggle_left_icon = $Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/ToggleLeftIcon
 @onready var toggle_right_icon = $Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/ToggleRightIcon
 
-
 @onready var unit_combat_weapon = $Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/UnitCombatWeapon
 @onready var unit_compat_weapon_special_containter = $Panel/MarginContainer/VBoxContainer/UnitCompatWeaponSpecialContainter
 
+@export var unit : Unit
 
-var unit : Unit
+func set_unit(u: Unit):
+	self.unit = u
+	update()
 
 func set_toggle_button_visibility(vis):
 	toggle_left_icon.visible = vis
@@ -28,6 +30,5 @@ func update():
 	set_unit_icon(unit.icon)
 	set_unit_name(unit.name)
 	unit_type_trait_container.set_icon_visibility(unit)
-	
 	unit_combat_weapon.item = unit.inventory.get_equipped_weapon()
 	unit_combat_weapon.update_by_item()

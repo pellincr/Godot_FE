@@ -5,6 +5,7 @@ const UNIT_INVENTORY_SLOT_DISABLED = preload("res://ui/combat/shared/unit_invent
 const UNIT_INVENTORY_SLOT_ENABLED = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot_enabled.tres")
 #Signals
 signal _hover_item(item: ItemDefinition)
+signal selected_item(item: ItemDefinition)
 
 #Export
 @export var item : ItemDefinition
@@ -69,3 +70,7 @@ func grab_button_focus():
 func _on_focus_entered() -> void:
 	if not disabled:
 		emit_signal("_hover_item", item)
+
+func _on_pressed() -> void:
+	if not disabled:
+		emit_signal("selected_item", item)

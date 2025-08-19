@@ -54,10 +54,10 @@ var tile_map : TileMap
 var grid: CombatMapGrid
 var camera: CombatMapCamera
 
-var current_tile : Vector2i #Where the cursor currently is
-var selected_tile : Vector2i #What we first selected
-var target_tile : Vector2i #Our First Target
-var move_tile : Vector2i
+var current_tile : Vector2i # Where the cursor currently is
+var selected_tile : Vector2i # What we first selected (Most likely the tile containing the unit we have selected)
+var target_tile : Vector2i # Our First Target
+var move_tile : Vector2i # the tile we moved to
 
 ## Selector/Cursor
 @export var selector : AnimatedSprite2D
@@ -150,7 +150,6 @@ func _process(delta):
 	if (game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN or game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
 		if(turn_phase == CombatMapConstants.TURN_PHASE.INITIALIZING):
 			# initializing UI method
-			combat.game_ui.hide_end_turn_button()
 			update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)
 		elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
 			#await ui.play_turn_banner(turn_owner)
@@ -777,12 +776,6 @@ func fsm_unit_move_cancel(delta):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 
 #
-# Called when the user confirms, during the action select phase.
-#
-func fsm_unit_action_confirm(delta):
-	pass
-
-#
 # Called in the unit_action select state, this cancels the player's previous move and returns the unit to its starting position (if it has moved)
 #
 func fsm_unit_action_cancel(delta = null):
@@ -936,6 +929,21 @@ func fsm_game_menu_end_turn():
 	combat.game_ui.destory_active_ui_node()
 	advance_turn()
 
+func fsm_attack_action_inventory_process(delta):
+	pass
+
+func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
+	# equip selected item and call menu needed to progress flow
+	combat.get_current_combatant().unit.inventory.equip_at_index(combat.get_current_combatant().unit.inventory.get_item_index(selected_item))
+	combat.game_ui.destory_active_ui_node()
+	# destroy the old menu
+	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
+	target_tile = targetting_resource.current_target_positon
+	var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+	combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info)
+	# create the new menu
+	pass
+	
 #
 # Main part of the FSM 
 #

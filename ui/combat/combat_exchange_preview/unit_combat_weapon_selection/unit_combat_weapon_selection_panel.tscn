@@ -82,6 +82,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="ToggleLeftIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 0
@@ -93,6 +94,7 @@ stretch_mode = 4
 layout_mode = 2
 
 [node name="ToggleRightIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 0

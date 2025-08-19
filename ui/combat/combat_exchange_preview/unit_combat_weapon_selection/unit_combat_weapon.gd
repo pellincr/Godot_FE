@@ -4,7 +4,7 @@ extends HBoxContainer
 @onready var item_name_label = $ItemNameLabel
 @onready var unit_combat_weapon_types = $UnitCombatWeaponTypes
 
-var item : ItemDefinition
+@export var item : ItemDefinition
 
 func _ready():
 	if item:

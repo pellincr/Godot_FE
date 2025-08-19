@@ -48,6 +48,7 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 func reverse_dictionary(dict: Dictionary) -> Dictionary:
 	var reverse_dict = {}
 	for key in dict.keys():
+		# For all the keys
 		if dict[key] is Array:
 			for key_element in dict[key]:
 				reverse_dict[key_element] = key

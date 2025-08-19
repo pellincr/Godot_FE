@@ -16,7 +16,7 @@ signal combatant_added(combatant: CombatUnit)
 signal entity_added(cme:CombatMapEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_information(text: String)
-signal update_combatants(combatants: Array)
+signal update_combatants(combatants: Array) #THIS IS OLD?
 signal target_selected(combat_exchange_info: CombatUnit)
 signal perform_shove(unit: CombatUnit, push_vector : Vector2i)
 signal major_action_completed()

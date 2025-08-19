@@ -279,12 +279,11 @@ func check_double(unit_attacker: Unit, unit_defender:Unit) -> int:
 		return DOUBLE_ATTACKER.NONE
 
 func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
-	if attacker.unit.inventory.equipped: 
-		if attacker.unit.inventory.get_equipped_weapon():
-			if not attacker.unit.inventory.get_equipped_weapon().weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
-				if itemConstants.AVAILABLE_TARGETS.ENEMY in attacker.unit.inventory.get_equipped_weapon().item_target_faction:
-					if attacker.unit.inventory.get_equipped_weapon().attack_range.has(distance):
-						return true
+	var attacker_weapon = attacker.get_equipped()
+	if attacker_weapon is WeaponDefinition:
+		if attacker_weapon.item_target_faction.has(defender.allegience):
+			if attacker_weapon.attack_range.has(distance):
+				return true
 	return false
 
 func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, distance:int) -> Dictionary:
@@ -314,6 +313,94 @@ func calc_combat_exchange_preview(attacker: CombatUnit, defender:CombatUnit, dis
 		"defender_effective" =  defender_effective,
 	}
 	return combat_exchange_preview
+
+func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, distance:int) -> UnitCombatExchangeData:
+	#How many hits are performed?
+	var return_object : UnitCombatExchangeData = UnitCombatExchangeData.new()
+	return_object.attacker = attacker
+	return_object.defender = defender
+	
+	var turn_order :Array[String] = []
+	
+	var defender_can_attack: bool = false
+	
+	var attacker_hit_chance : int = 0
+	var attacker_damage : int = 0
+	var attacker_critical_chance : int = 0
+	var attacker_effective : bool = false
+	var attacker_turns : int = 1
+		
+	var defender_hit_chance : int = 0
+	var defender_damage : int = 0
+	var defender_critical_chance : int = 0
+	var defender_effective : bool = false
+	var defender_turns : int = 1
+	
+	attacker_hit_chance = calc_hit(attacker.unit, defender)
+	attacker_damage = calc_damage(attacker.unit, defender.unit)
+	attacker_critical_chance = calc_crit(attacker.unit, defender.unit)
+	attacker_effective = check_effective(attacker.unit, defender.unit)
+	
+	calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
+	
+	defender_can_attack = check_can_attack(defender, attacker, distance)
+	if defender_can_attack:
+		defender_hit_chance = calc_hit(defender.unit, attacker)
+		defender_damage = calc_damage(defender.unit, attacker.unit)
+		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
+		defender_effective = check_effective(defender.unit, attacker.unit)
+	else :
+		defender_turns = 0
+
+	turn_order = create_turn_order(attacker, defender, attacker_turns, defender_turns)
+	
+	for turn in turn_order:
+		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
+		if CustomUtilityLibrary.equals_ignore_case(turn, "ATTACKER"):
+			turn_data.owner = attacker
+			turn_data.attack_damage = attacker_damage
+			turn_data.damage_type = attacker.get_equipped().item_damage_type
+			turn_data.effective_damage = attacker_effective
+			turn_data.attack_count = attacker.get_equipped().attacks_per_combat_turn
+			turn_data.critical = attacker_critical_chance
+			turn_data.hit = attacker_hit_chance
+		elif CustomUtilityLibrary.equals_ignore_case(turn, "DEFENDER"):
+			turn_data.owner = defender
+			turn_data.attack_damage = defender_damage
+			turn_data.damage_type = defender.get_equipped().item_damage_type
+			turn_data.effective_damage = defender_effective
+			turn_data.attack_count = defender.get_equipped().attacks_per_combat_turn
+			turn_data.critical = defender_critical_chance
+			turn_data.hit = defender_hit_chance
+		return_object.exchange_data.append(turn_data)
+		
+	return_object.attacker_critical = attacker_critical_chance
+	return_object.attacker_hit = attacker_hit_chance
+	return_object.defender_critical= defender_critical_chance
+	return_object.defender_hit = defender_hit_chance
+	return_object.populate()
+	return return_object
+
+
+
+func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: int, d_turn_count: int) -> Array[String]:
+	var _arr : Array[String]  =[]
+	var i :int = a_turn_count
+	var j :int = d_turn_count
+	while i > 0 or j>0:
+		if i > 0:
+			_arr.append("ATTACKER")
+			i = i -1
+		if j > 0:
+			_arr.append("DEFENDER")
+			j = j -1
+	return _arr
+
+func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int):
+	if(attacker.stats.attack_speed.evaluate() - defender.stats.attack_speed.evaluate()  >= 4) :
+		attacker_turns = 2
+	elif (attacker.stats.attack_speed.evaluate()  - attacker.stats.attack_speed.evaluate()  <= - 4) :
+		defender_turns = 2
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 	var unit_a_weapon: WeaponDefinition

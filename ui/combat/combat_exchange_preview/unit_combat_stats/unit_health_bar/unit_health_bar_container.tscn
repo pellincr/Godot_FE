@@ -80,7 +80,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme = SubResource("Theme_cortm")
 max_value = 59.0
-value = 46.0
+value = 48.0
 show_percentage = false
 
 [node name="DamageBar" type="ProgressBar" parent="MainHealthBar"]
