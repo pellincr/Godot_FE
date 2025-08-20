@@ -6,6 +6,7 @@
 script = ExtResource("1_a80uw")
 name = "Test Campaign"
 max_floor_number = 0
+tier_2_floor_start_number = 0
 number_of_archetypes_drafted = 0
 rewards = ""
 boss = ""
