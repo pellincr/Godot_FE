@@ -55,11 +55,11 @@ func set_map_terrain(ter : Terrain) :
 func calc_map_avoid()-> int:
 	if map_position != move_position:
 		if move_terrain:
-			return unit.avoid + move_terrain.avoid
+			return stats.avoid.evaluate() + move_terrain.avoid
 	else: 
 		if map_terrain:
-			return unit.avoid + map_terrain.avoid
-	return unit.avoid
+			return stats.avoid.evaluate() + map_terrain.avoid
+	return stats.avoid.evaluate() 
 
 func calc_map_avoid_staff() -> int:
 	#if current_map_tile:

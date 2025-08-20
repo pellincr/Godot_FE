@@ -611,7 +611,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 		await finished_move
 		print("@ COMPLTED WAITING CALLING AI ACTION")
 		#update the combat_unit info with the new tile info
-	confirm_unit_move(ai_unit)
+		confirm_unit_move(ai_unit)
 	return selected_action
 
 #

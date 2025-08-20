@@ -44,7 +44,7 @@ func _ready():
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	var campaign_level = playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
 	var combat = campaign_level.get_child(2)
-	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units   #.combat.max_allowed_ally_units
+	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units 
 	playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.army_convoy_header.set_units_left_value(0,playerOverworldData.available_party_capacity)
@@ -87,7 +87,6 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
-
 
 func clear_sub_container():
 	var children = army_convoy_container.get_sub_container().get_children()
@@ -155,13 +154,11 @@ func _on_army_convoy_container_unit_focused(unit):
 	trade_unit_1 = null
 	controls.set_label_text(controls.select_control_label,"Select")
 
-
 func _on_army_convoy_container_header_swapped():
 	clear_sub_container()
 	focused_detailed_view = null
 	focused_selection = null
 	#update_army_convoy_container_state()
-
 
 func _on_army_convoy_container_item_focused(item):
 	focused_selection = item
