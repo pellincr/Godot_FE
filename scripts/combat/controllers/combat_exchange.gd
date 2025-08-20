@@ -118,9 +118,9 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	##check and see if the unit has died
 	if target.unit.hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED
-		target.alive = false
 		target.map_display.update_values()
 		await target.map_display.update_complete
+		target.alive = false
 		emit_signal("unit_defeated", target)
 		#broadcast unit death
 	#return outcome

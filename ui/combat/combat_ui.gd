@@ -118,10 +118,10 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	var attack_action_inventory = ATTACK_ACTION_INVENTORY.instantiate()
 	self.add_child(attack_action_inventory)
 	await attack_action_inventory
-	attack_action_inventory.populate(inputCombatUnit, inventory)
-	active_ui_node = attack_action_inventory
 	attack_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
+	attack_action_inventory.populate(inputCombatUnit, inventory)
+	active_ui_node = attack_action_inventory
 	#attack_action_inventory.item_selected.connect(func():controller.fsm_attack_action_inventory_confirm())
 	attack_action_inventory.grab_focus()
 	

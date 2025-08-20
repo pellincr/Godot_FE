@@ -285,6 +285,10 @@ func advance_turn(faction: int):
 
 
 func major_action_complete():
+	get_current_combatant().minor_action_taken = true
+	get_current_combatant().turn_taken = true
+	get_current_combatant().minor_action_taken = true
+	get_current_combatant().update_display()
 	emit_signal("major_action_completed")
 
 func combatExchangeComplete(friendly_unit_alive:bool):
@@ -400,7 +404,7 @@ func ai_process(comb : CombatUnit):
 			return
 	if comb:
 		if is_instance_valid(comb.map_display) :
-			comb.map_display.update_values()
+			comb.update_display()
 	return	 
 	
 	#Process does the legwork for targetting for AI
@@ -417,7 +421,7 @@ func ai_process_new(comb : CombatUnit):
 			print("@ FINISHED WAITING FOR ATTACK")
 	if comb:
 		if is_instance_valid(comb.map_display) :
-			comb.map_display.update_values()
+			comb.update_display()
 	return	 
 
 func get_ai_units() -> Array[CombatUnit]:
@@ -502,6 +506,7 @@ func complete_shove():
 func minor_action_complete(unit: CombatUnit):
 	unit.minor_action_taken = true
 	set_current_combatant(unit)
+	unit.update_display()
 	emit_signal("minor_action_completed")
 
 func unit_gain_experience(u: Unit, value: int):

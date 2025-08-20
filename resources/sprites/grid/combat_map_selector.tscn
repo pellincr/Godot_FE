@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3kmpdxrr68vj"]
+
+[ext_resource type="Texture2D" uid="uid://c3lfk8ggnmb52" path="res://resources/sprites/grid/crosshair.png" id="1_rbqgg"]
+[ext_resource type="Texture2D" uid="uid://dqws5iqtv5dw5" path="res://resources/sprites/grid/selector.png" id="2_y1wwk"]
+[ext_resource type="Script" path="res://resources/sprites/grid/combat_map_selector.gd" id="3_082x7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1kv2"]
+atlas = ExtResource("1_rbqgg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdv06"]
+atlas = ExtResource("1_rbqgg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8kbl"]
+atlas = ExtResource("1_rbqgg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igt6i"]
+atlas = ExtResource("1_rbqgg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dxxr"]
+atlas = ExtResource("2_y1wwk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayvom"]
+atlas = ExtResource("2_y1wwk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gbij3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1kv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdv06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8kbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igt6i")
+}],
+"loop": true,
+"name": &"combat_targetting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dxxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayvom")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Selector" type="AnimatedSprite2D"]
+position = Vector2(272, 208)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_gbij3")
+animation = &"combat_targetting"
+autoplay = "default"
+frame_progress = 0.164931
+script = ExtResource("3_082x7")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://blo7n0hudl834"]
 
 [ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/levels/tutorial_levels/tutorial_level_1/terrain.tscn" id="2_mkd81"]
-[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/select.tscn" id="3_hj0us"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_r87ho"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_2sp8d"]
 [ext_resource type="Resource" uid="uid://bv0aejyu52m5r" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_1.tres" id="6_17qwn"]
@@ -14,13 +14,15 @@
 
 [node name="Terrain" parent="." instance=ExtResource("2_mkd81")]
 
-[node name="Select" parent="Terrain" instance=ExtResource("3_hj0us")]
-
 [node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
 script = ExtResource("4_r87ho")
 combat = NodePath("../Combat")
-selector = NodePath("../Terrain/Select")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_hj0us")]
+top_level = true
+scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("5_2sp8d")

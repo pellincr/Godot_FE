@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bojof6wdbktjj"
-path="res://.godot/imported/BoxSelector.png-6987e8d62e629a255d00becf76b09360.ctex"
+uid="uid://c3lfk8ggnmb52"
+path="res://.godot/imported/crosshair.png-0ee6d8c1317b3fe653f33cfb6be3915f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/grid/BoxSelector.png"
-dest_files=["res://.godot/imported/BoxSelector.png-6987e8d62e629a255d00becf76b09360.ctex"]
+source_file="res://resources/sprites/grid/crosshair.png"
+dest_files=["res://.godot/imported/crosshair.png-0ee6d8c1317b3fe653f33cfb6be3915f.ctex"]
 
 [params]
 
