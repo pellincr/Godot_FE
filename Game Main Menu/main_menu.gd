@@ -31,10 +31,37 @@ func set_button_text(button,text):
 func _on_begin_adventure_button_pressed():
 	if playerOverworldData.current_campaign:
 		if playerOverworldData.completed_drafting:
+			if playerOverworldData.current_level:
+				if playerOverworldData.began_level:
+					#if the level was previously being played
+					transition_out_animation()
+					get_tree().change_scene_to_packed(playerOverworldData.current_level)
+				else:
+					#when the level has been selected but battle prep has not been completed
+					var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+					get_tree().change_scene_to_packed(battle_prep_scene)
+			else:
+				#when the level has not been selected from the campaign map yet
+				var campaign_map = preload("res://campaign_map/campaign_map.tscn")
+				get_tree().change_scene_to_packed(campaign_map)
+		else:
+			#when drafting is not completed, but the campaign was selected
+			var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+			get_tree().change_scene_to_packed(draft_scene)
+	else:
+		#if no campaign has been selected
+		var overworld = preload(overworld_scene)
+		overworld.instantiate().set_po_data(playerOverworldData)
+		transition_out_animation()
+		get_tree().change_scene_to_packed(overworld)
+	
+	"""
+	if playerOverworldData.current_campaign:
+		if playerOverworldData.completed_drafting:
 			if playerOverworldData.began_level:
 				#If you previously began the level
 				transition_out_animation()
-				get_tree().change_scene_to_packed(playerOverworldData.current_campaign.levels[playerOverworldData.current_level])
+				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 			else:
 				#if you finished drafting, but did not enter the level yet
 				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
@@ -50,6 +77,7 @@ func _on_begin_adventure_button_pressed():
 		overworld.instantiate().set_po_data(playerOverworldData)
 		transition_out_animation()
 		get_tree().change_scene_to_packed(overworld)
+		"""
 
 #Returns to the main menu scene from the selected save
 func _on_return_to_start_button_pressed():

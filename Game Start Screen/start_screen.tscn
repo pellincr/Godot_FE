@@ -1,10 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://du3bm08i3a50w"]
+[gd_scene load_steps=6 format=3 uid="uid://du3bm08i3a50w"]
 
 [ext_resource type="Script" path="res://Game Start Screen/start_screen.gd" id="1_2x6th"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_4w0we"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7uvd"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hssry"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_yi5ef"]
+default_font = ExtResource("1_4w0we")
+Button/styles/focus = SubResource("StyleBoxFlat_s7uvd")
+Button/styles/normal = SubResource("StyleBoxFlat_hssry")
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+theme = SubResource("Theme_yi5ef")
 script = ExtResource("1_2x6th")
 
 [node name="MainVContainer" type="VBoxContainer" parent="."]
@@ -16,6 +39,7 @@ offset_bottom = 400.0
 
 [node name="Start_Button" type="Button" parent="MainVContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Start Game"
 
 [node name="Options_Button" type="Button" parent="MainVContainer"]

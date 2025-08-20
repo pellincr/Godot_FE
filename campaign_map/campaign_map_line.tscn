@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyis0jiiedmua"]
+
+[ext_resource type="Texture2D" uid="uid://jfv87x03nhcb" path="res://resources/sprites/line.png" id="1_blvbk"]
+
+[node name="CampaignMapLine" type="Line2D"]
+texture_repeat = 2
+texture = ExtResource("1_blvbk")
+texture_mode = 1

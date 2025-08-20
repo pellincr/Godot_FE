@@ -25,18 +25,9 @@ func _ready():
 	if check_if_selected():
 		check_box.button_pressed = true
 
+
+
 func _process(delta):
-	if Input.is_action_just_pressed("ui_confirm") and self.has_focus():
-		if !check_box.button_pressed:
-			if check_available_space():
-				check_box.button_pressed = true
-				playerOverworldData.append_to_array(playerOverworldData.selected_party,unit)
-				unit_selected.emit(unit)
-		else:
-			check_box.button_pressed = false
-			playerOverworldData.selected_party.erase(unit)
-			unit_deselected.emit(unit)
-		
 	if self.has_focus():
 		#If the panel is the one that is currently focused
 		if check_box.button_pressed:
@@ -82,3 +73,16 @@ func check_available_space():
 
 func check_if_selected():
 	return playerOverworldData.selected_party.has(unit)
+
+
+func _on_gui_input(event):
+	if has_focus() and event.is_action_pressed("ui_accept"):
+		if !check_box.button_pressed:
+			if check_available_space():
+				check_box.button_pressed = true
+				playerOverworldData.append_to_array(playerOverworldData.selected_party,unit)
+				unit_selected.emit(unit)
+		else:
+			check_box.button_pressed = false
+			playerOverworldData.selected_party.erase(unit)
+			unit_deselected.emit(unit)

@@ -11,7 +11,7 @@ var control_node : Node
 
 var current_state = Constants.DRAFT_STATE.COMMANDER
 
-@onready var main_container = $HBoxContainer
+@onready var main_container = $MainContainer
 
 
 func _ready():
@@ -70,3 +70,6 @@ func update_unit_selectors():
 		var last_child = selector.main_container.get_children()[-1]
 		last_child.queue_free()
 		selector.instantiate_unit_draft_selector()
+
+func get_first_selector():
+	return main_container.get_child(0)

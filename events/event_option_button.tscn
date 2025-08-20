@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctdkeej0r0x4a"]
+
+[ext_resource type="Script" path="res://events/event_option_button.gd" id="1_v2lm8"]
+
+[node name="EventOptionButton" type="Button"]
+custom_minimum_size = Vector2(560, 50)
+text = "Option Text Here"
+alignment = 0
+script = ExtResource("1_v2lm8")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

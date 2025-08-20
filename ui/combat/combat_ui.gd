@@ -52,7 +52,7 @@ func _ready():
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
-	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Level " + str(playerOverworldData.current_level + 1))
+	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
 	scene_transition.play_animation("level_fade_out")
 	await get_tree().create_timer(5).timeout
 	scene_transition.queue_free()

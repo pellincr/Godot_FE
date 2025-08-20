@@ -13,7 +13,7 @@ var playerOverworldData : PlayerOverworldData
 
 @onready var army_convoy_header = $ArmyConvoyHeader
 
-@onready var main_scroll_container = $HBoxContainer/ScrollContainer/VBoxContainer
+#@onready var main_scroll_container = $HBoxContainer/ScrollContainer/VBoxContainer
 
 @onready var army_convoy_sub_container = $ArmyConvoySubContainer
 
@@ -130,3 +130,6 @@ func in_shop_state():
 
 #func get_sub_container_first_child_focus():
 #	army_convoy_sub_container.get_first_child_focus()
+
+func get_first_sub_container_child():
+	return army_convoy_sub_container.get_child(0)

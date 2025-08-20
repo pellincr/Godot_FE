@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3 uid="uid://dm117ek0y3jdu"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dm117ek0y3jdu"]
 
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
+[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="1_s6fly"]
 
 [resource]
 script = ExtResource("1_qvcxe")
@@ -34,3 +35,4 @@ item_type = 0
 uses = 1
 max_uses = 1
 worth = 100
+icon = ExtResource("1_s6fly")
