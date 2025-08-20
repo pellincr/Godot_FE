@@ -572,7 +572,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	selected_action = ai_get_best_move_at_tile(ai_unit, current_position, actionable_range)
 	# Step 2, if the unit can move do analysis on movable tiles, this does not include defend point AI as they do not move
 	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
-		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true)
+		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, ai_unit.allegience)
 		for moveable_tile in moveable_tiles:
 			if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type):
 				var best_tile_action: aiAction = ai_get_best_move_at_tile(ai_unit, moveable_tile, actionable_range)
@@ -688,7 +688,7 @@ func ai_turn ():
 func populate_combatant_tile_ranges(combatant: CombatUnit):
 	grid.update_astar_points(combatant)
 	_movable_tiles.clear()
-	_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true)
+	_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true, combatant.allegience)
 	_attackable_tiles.clear()
 	var edge_array = grid.find_edges(_movable_tiles)
 	_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
@@ -852,11 +852,10 @@ func fsm_unit_action_cancel(delta = null):
 func fsm_unit_select_process(delta):
 	if null != grid.get_combat_unit(current_tile):
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
-		if selected_unit and selected_unit.alive:
-		#create the ui footer
-		#call the correct info to draw the movement and attack range
-			populate_combatant_tile_ranges(selected_unit)
-			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
+		if selected_unit != null:
+			if selected_unit.alive:
+				populate_combatant_tile_ranges(selected_unit)
+				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
 			return
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
@@ -864,12 +863,16 @@ func fsm_unit_select_process(delta):
 			update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU)
 		elif Input.is_action_just_pressed("combat_map_up"):
 			update_current_tile(current_tile + Vector2i.UP)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("combat_map_left"):
 			update_current_tile(current_tile + Vector2i.LEFT)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("combat_map_right"):
 			update_current_tile(current_tile + Vector2i.RIGHT)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("combat_map_down"):
 			update_current_tile(current_tile + Vector2i.DOWN)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		camera.SimpleFollow(delta)
 
 func fsm_unit_select_hover_process(delta):
@@ -1029,7 +1032,7 @@ func unit_action_selection_handler(action:String):
 			# Move the unit to the correct state
 			combat.game_ui.destory_active_ui_node()
 			_interactable_tiles.clear()
-			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, combat.get_current_combatant().allegience, false)
 			targetting_resource.clear()
 			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
 			targetting_resource.initalize(combat.get_current_combatant().move_position, grid_analysis.get_allegience_unit_indexes(Constants.FACTION.ENEMIES), targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
@@ -1043,7 +1046,7 @@ func unit_action_selection_handler(action:String):
 			# Move the unit to the correct state
 			combat.game_ui.destory_active_ui_node()
 			_interactable_tiles.clear()
-			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, combat.get_current_combatant().allegience, false)
 			targetting_resource.clear()
 			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.PLAYERS),targetting_resource.create_target_methods_support(combat.get_current_combatant().unit))
 			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
@@ -1118,7 +1121,7 @@ func fsm_support_action_targetting(delta):
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
 				_interactable_tiles.clear()
-				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, combat.get_current_combatant().allegience, false)
 				targetting_resource.clear()
 				targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
 				var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
@@ -1208,7 +1211,7 @@ func fsm_unit_combat_action_targetting(delta):
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
 				_interactable_tiles.clear()
-				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, combat.get_current_combatant().allegience, false)
 				targetting_resource.clear()
 				targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
 				var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
