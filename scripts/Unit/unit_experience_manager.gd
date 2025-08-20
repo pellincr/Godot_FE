@@ -29,7 +29,8 @@ func process_experience_gain(unit:Unit, experience_amount: int):
 		level_up_component.set_level_up_stat_array(level_up_stats.to_array())
 		level_up_component.update_fields()
 		level_up_component.visible = true
-		await get_tree().create_timer(3).timeout
+		#await get_tree().create_timer(3).timeout
+		await level_up_component.update_level_up_stats()
 		unit.apply_level_up_value(level_up_stats)
 		level_up_component.queue_free()
 		experience_bar.set_initial_value(0)

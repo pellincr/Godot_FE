@@ -1,5 +1,8 @@
 extends Control
 
+@onready var animation_player = $AnimationPlayer
+
+
 var reference_unit : Unit
 var level_up_stat_array : Array[int] = []
 var base_stat_array : Array[int] = []
@@ -7,6 +10,9 @@ var unit_icon : Texture
 var unit_name : String
 var unit_type : String
 var unit_level : int
+
+func _ready():
+	update_level_up_stats()
 
 func update_fields():
 	update_sprite()
@@ -53,6 +59,13 @@ func update_level_up_stats():
 			if children[i] is LevelUpAttributeContainer:
 				children[i].set_ints(base_stat_array[i],level_up_stat_array[i])
 				children[i].update_fields()
+	for i in range(base_stat_array.size()):
+		if i in range(children.size()):
+			if level_up_stat_array[i] > 0:
+				await children[i].update_level_up_bonus()
+					
+				#await children[i].animation_player.animation_finished
+	animation_player.play("level_up")
 
 func update_unit_type(): 
 	$Panel/VBoxContainer/Panel/HBoxContainer/MarginContainer2/HBoxContainer/UnitTypeLabel.text = unit_type
