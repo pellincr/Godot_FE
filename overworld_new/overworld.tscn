@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cei3lp41phd8n"]
+
+[ext_resource type="PackedScene" uid="uid://73uf76y6romg" path="res://overworld_new/overworld_map.tscn" id="1_538l4"]
+[ext_resource type="Script" path="res://overworld_new/overworld.gd" id="2_okeuv"]
+[ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
+[ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
+[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://resources/definitions/campaigns/tutorial.tres" id="5_uugxs"]
+
+[node name="OverworldMap" instance=ExtResource("1_538l4")]
+script = ExtResource("2_okeuv")
+
+[node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 601.0
+offset_right = 342.0
+offset_bottom = 641.0
+campaign = ExtResource("3_cxrwx")
+
+[node name="Tutorial" parent="." index="2" instance=ExtResource("2_xtlnu")]
+layout_mode = 0
+offset_left = 616.0
+offset_top = 392.0
+offset_right = 656.0
+offset_bottom = 432.0
+campaign = ExtResource("5_uugxs")
+
+[node name="ReturnButton" type="Button" parent="." index="3"]
+layout_mode = 0
+offset_left = 1221.0
+offset_top = 691.0
+offset_right = 1282.0
+offset_bottom = 722.0
+text = "Return"
+
+[connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

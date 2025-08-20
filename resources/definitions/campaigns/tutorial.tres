@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Campaign" load_steps=3 format=3 uid="uid://dwy1wchlwt6dw"]
+
+[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_jr7w2"]
+[ext_resource type="Resource" uid="uid://bk3w501ol0jho" path="res://resources/definitions/level_pools/TutorialLevelPool.tres" id="1_obxiq"]
+
+[resource]
+script = ExtResource("1_jr7w2")
+name = "Tutorial"
+level_pool = ExtResource("1_obxiq")
+max_floor_number = 6
+tier_2_floor_start_number = 2
+number_of_archetypes_drafted = 3
+rewards = ""
+boss = ""

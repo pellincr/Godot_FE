@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b2uis4wfyn0q"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_gcjho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_050th"]
+bg_color = Color(0.509804, 0.509804, 0.509804, 1)
+draw_center = false
+
+[resource]
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_gcjho")
+Panel/styles/panel = SubResource("StyleBoxFlat_050th")

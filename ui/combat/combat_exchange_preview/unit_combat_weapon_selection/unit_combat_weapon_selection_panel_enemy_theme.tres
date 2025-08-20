@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://datpqsugt3tvl"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_wnkdt"]
+
+[sub_resource type="Gradient" id="Gradient_qtidy"]
+colors = PackedColorArray(0, 0, 0, 1, 0.298039, 0, 0.00392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_71t2p"]
+gradient = SubResource("Gradient_qtidy")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iccuj"]
+texture = SubResource("GradientTexture2D_71t2p")
+
+[resource]
+default_font = ExtResource("1_wnkdt")
+Panel/styles/panel = SubResource("StyleBoxTexture_iccuj")

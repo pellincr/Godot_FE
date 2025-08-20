@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=5 format=3 uid="uid://boia6cnom5816"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_farqu"]
+[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_2hc22"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_q7uv3"]
+
+[sub_resource type="Resource" id="Resource_brgeu"]
+script = ExtResource("1_farqu")
+name = "Bandit"
+map_position = Vector2i(16, 10)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_q7uv3")]([])
+ai_type = 0
+
+[resource]
+script = ExtResource("2_2hc22")
+group = Array[ExtResource("1_farqu")]([SubResource("Resource_brgeu")])

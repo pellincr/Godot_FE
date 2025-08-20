@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx0jc1hx45ck5"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_6l6lx"]
+
+[sub_resource type="Theme" id="Theme_wkm3o"]
+default_font = ExtResource("1_6l6lx")
+default_font_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2n4jp"]
+
+[sub_resource type="Theme" id="Theme_7e01p"]
+Panel/styles/panel = SubResource("StyleBoxFlat_2n4jp")
+
+[node name="UnitCompatWeaponSpecialContainter" type="VBoxContainer"]
+custom_minimum_size = Vector2(250, 42)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_wkm3o")
+
+[node name="Header" type="Label" parent="."]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Weapon Specials & Skills"
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme = SubResource("Theme_7e01p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+modulate = Color(1, 0.568627, 0.568627, 1)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Debug Text"
+
+[node name="Label2" type="Label" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Special 1"

@@ -1,0 +1,208 @@
+[gd_scene load_steps=14 format=3 uid="uid://bcteldqbxn7l0"]
+
+[ext_resource type="Script" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_uy2uf"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_dgerc"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="4_ayaq8"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_vi1f8"]
+
+[sub_resource type="Theme" id="Theme_eqxhd"]
+default_font = ExtResource("1_uy2uf")
+
+[sub_resource type="Theme" id="Theme_s01ql"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_wh1t3"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_ls2o5"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_nks8u"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_k7uiw"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_dqod4"]
+default_font_size = 12
+
+[node name="WeaponStatContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(221, 167)
+offset_right = 221.0
+offset_bottom = 157.0
+theme = SubResource("Theme_eqxhd")
+script = ExtResource("1_qgpcr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CombatStatsHeader" type="Label" parent="VBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_s01ql")
+text = "Combat Stats"
+
+[node name="DamageContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DamageHeaderLabel" type="Label" parent="VBoxContainer/DamageContainer"]
+layout_mode = 2
+text = "Damage"
+
+[node name="DamageValueLabel" type="Label" parent="VBoxContainer/DamageContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="DamageTypeIcon" type="TextureRect" parent="VBoxContainer/DamageContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="HitContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HitHeaderLabel" type="Label" parent="VBoxContainer/HitContainer"]
+layout_mode = 2
+text = "Hit"
+
+[node name="HitValueLabel" type="Label" parent="VBoxContainer/HitContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="CriticalContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CriticalHeaderLabel" type="Label" parent="VBoxContainer/CriticalContainer"]
+layout_mode = 2
+text = "Critical"
+
+[node name="CriticalValueLabel" type="Label" parent="VBoxContainer/CriticalContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="RangeContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RangeHeaderLabel" type="Label" parent="VBoxContainer/RangeContainer"]
+layout_mode = 2
+text = "Range"
+
+[node name="RangeValueLabel" type="Label" parent="VBoxContainer/RangeContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1-2"
+
+[node name="RequirementsContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 2
+
+[node name="RequirementsHeaderLabel" type="Label" parent="VBoxContainer/RequirementsContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_wh1t3")
+text = "Requirements"
+
+[node name="RequirementsIconContainer" type="HBoxContainer" parent="VBoxContainer/RequirementsContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DurabilityContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="DurabilityHeaderLabel" type="Label" parent="VBoxContainer2/DurabilityContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_ls2o5")
+text = "Durability"
+horizontal_alignment = 2
+
+[node name="DurablityValueLabel" type="Label" parent="VBoxContainer2/DurabilityContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "15"
+horizontal_alignment = 2
+
+[node name="WeightContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="WeightHeaderLabel" type="Label" parent="VBoxContainer2/WeightContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_nks8u")
+text = "Weight"
+horizontal_alignment = 2
+
+[node name="WeightValueLabel" type="Label" parent="VBoxContainer2/WeightContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "15"
+horizontal_alignment = 2
+
+[node name="EffectiveContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="EffectiveHeaderLabel" type="Label" parent="VBoxContainer2/EffectiveContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_k7uiw")
+text = "Effective"
+horizontal_alignment = 2
+
+[node name="EffectiveTraitIconContainer" type="HBoxContainer" parent="VBoxContainer2/EffectiveContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 2
+
+[node name="ArmoredIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dgerc")
+
+[node name="MountedIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_ayaq8")
+expand_mode = 2
+
+[node name="FlierIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_ufbdx")
+expand_mode = 2
+
+[node name="UndeadIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_vi1f8")
+expand_mode = 2
+
+[node name="ScalingContainer" type="VBoxContainer" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 2
+
+[node name="ScalingHeaderLabel" type="Label" parent="VBoxContainer2/ScalingContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_dqod4")
+text = "Scaling Type"
+horizontal_alignment = 2
+
+[node name="ScalingValueLabel" type="Label" parent="VBoxContainer2/ScalingContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Scaler"
+horizontal_alignment = 2

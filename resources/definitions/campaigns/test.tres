@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Campaign" load_steps=2 format=3 uid="uid://bufy43rodyy5x"]
+
+[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_a80uw"]
+
+[resource]
+script = ExtResource("1_a80uw")
+name = "Test Campaign"
+max_floor_number = 0
+number_of_archetypes_drafted = 0
+rewards = ""
+boss = ""

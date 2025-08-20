@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvu1wufqkwj1i"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_50w2m"]
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_stat_container.gd" id="2_qajnt"]
+[ext_resource type="Script" path="res://ui/combat/equippable_item_information/damage_type_icon.gd" id="4_rnysn"]
+
+[sub_resource type="Theme" id="Theme_fr0w7"]
+default_font = ExtResource("1_50w2m")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4me7"]
+
+[sub_resource type="Theme" id="Theme_1klf6"]
+Panel/styles/panel = SubResource("StyleBoxFlat_q4me7")
+
+[node name="UnitCombatStatContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 70)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_fr0w7")
+script = ExtResource("2_qajnt")
+
+[node name="DamageContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="DamageContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dmg"
+
+[node name="Value" type="Label" parent="DamageContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "30"
+
+[node name="DamageTypeIcon" type="TextureRect" parent="DamageContainer"]
+layout_mode = 2
+expand_mode = 2
+script = ExtResource("4_rnysn")
+
+[node name="Seperator" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme = SubResource("Theme_1klf6")
+
+[node name="HitContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="HitContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hit"
+
+[node name="Value" type="Label" parent="HitContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "30"
+
+[node name="Seperator2" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme = SubResource("Theme_1klf6")
+
+[node name="CritContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="CritContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crit"
+
+[node name="Value" type="Label" parent="CritContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "30"

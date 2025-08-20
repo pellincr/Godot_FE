@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6xka1fqiwxly"]
+
+[ext_resource type="PackedScene" uid="uid://bhy33tuj3lkfn" path="res://ui/battle_preparation/army_convoy_header.tscn" id="1_3wg2b"]
+[ext_resource type="Script" path="res://ui/battle_preparation/army_convoy_container.gd" id="1_xsht2"]
+[ext_resource type="PackedScene" uid="uid://hglqfyvm0o11" path="res://ui/battle_preparation/army_convoy_sub_container.tscn" id="3_qa5ip"]
+
+[node name="ArmyConvoyContainer" type="VBoxContainer"]
+offset_right = 217.0
+offset_bottom = 181.0
+script = ExtResource("1_xsht2")
+
+[node name="ArmyConvoyHeader" parent="." instance=ExtResource("1_3wg2b")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ArmyConvoySubContainer" parent="." instance=ExtResource("3_qa5ip")]
+layout_mode = 2
+alignment = 1
+
+[connection signal="header_swapped" from="ArmyConvoyHeader" to="." method="_on_army_convoy_header_header_swapped"]
+[connection signal="item_focused" from="ArmyConvoySubContainer" to="." method="item_focus_entered"]
+[connection signal="unit_deselected" from="ArmyConvoySubContainer" to="." method="_on_unit_deselected"]
+[connection signal="unit_focused" from="ArmyConvoySubContainer" to="." method="unit_focus_entered"]
+[connection signal="unit_selected" from="ArmyConvoySubContainer" to="." method="_on_unit_selected"]

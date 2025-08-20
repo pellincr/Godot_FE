@@ -1,14 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://7v6c3rjvvx7v"]
+[gd_scene load_steps=10 format=3 uid="uid://7v6c3rjvvx7v"]
 
+[ext_resource type="Theme" uid="uid://beqlgf0u7r378" path="res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres" id="1_4wl0s"]
 [ext_resource type="Script" path="res://ui/shared/combatUnitPanel/combat_unit_panel.gd" id="1_wkq0j"]
-[ext_resource type="Theme" uid="uid://ddtfysfh2th3t" path="res://ui/shared/combatUnitPanel/CombatUnitPanelFriendly.tres" id="2_6g2cx"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="3_n1d0n"]
 [ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="4_unxlk"]
-[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/Mounted_icon.png" id="5_41m1w"]
-[ext_resource type="Texture2D" uid="uid://b5a2jao5ef4rq" path="res://resources/sprites/icons/monster_icon.png" id="6_tk220"]
-[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/flyer_icon.png" id="7_krum3"]
-[ext_resource type="Texture2D" uid="uid://cqm5bfwkx8b3p" path="res://resources/sprites/icons/amor_icon.png" id="8_dtaf8"]
-[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/animal_icon.png" id="9_ckca1"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="5_41m1w"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_jkaqu"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="7_krum3"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="8_3733e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrs2d"]
 shader = ExtResource("3_n1d0n")
@@ -27,6 +26,7 @@ offset_top = -22.0
 offset_right = 334.0
 offset_bottom = 23.0
 grow_vertical = 2
+theme = ExtResource("1_4wl0s")
 script = ExtResource("1_wkq0j")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -39,7 +39,6 @@ offset_top = -22.5
 offset_right = 220.0
 offset_bottom = 22.5
 grow_vertical = 2
-theme = ExtResource("2_6g2cx")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -63,32 +62,26 @@ text = "Example Unit Name"
 [node name="IconContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="calvaryIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+[node name="mountedIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("5_41m1w")
 
-[node name="monsterIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+[node name="undeadIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("6_tk220")
+texture = ExtResource("6_jkaqu")
 
 [node name="flyerIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("7_krum3")
 
 [node name="armorIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("8_dtaf8")
-
-[node name="animalIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/IconContainer"]
-custom_minimum_size = Vector2(16, 14)
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("9_ckca1")
+texture = ExtResource("8_3733e")

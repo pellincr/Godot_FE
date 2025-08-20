@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://cxx7uue84n4cs"]
+
+[ext_resource type="Resource" uid="uid://kepm0nq0y5b4" path="res://resources/definitions/unit_types/units/runeblade/runeblade_base_combat_stats.tres" id="1_1kfou"]
+[ext_resource type="Resource" uid="uid://cu70p0ec10s5t" path="res://resources/definitions/unit_types/units/runeblade/runeblade_growth_stats.tres" id="2_0mekc"]
+[ext_resource type="Texture2D" uid="uid://b10tjmy3uu15y" path="res://resources/sprites/units/runeblade.png" id="3_618j1"]
+[ext_resource type="Resource" uid="uid://drgg5w3s5uab5" path="res://resources/definitions/unit_types/units/runeblade/runeblade_max_stats.tres" id="4_18quh"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_qgypm"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_kggfg"]
+
+[resource]
+script = ExtResource("5_qgypm")
+unit_type_name = "Runeblade"
+db_key = "runeblade"
+description = "Arcane swordsmen who wield elemental energy with disciplined precision."
+initiative = 1
+faction = Array[int]([0])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_kggfg")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([1, 9])
+base_stats = ExtResource("1_1kfou")
+maxuimum_stats = ExtResource("4_18quh")
+growth_stats = ExtResource("2_0mekc")
+icon = ExtResource("3_618j1")
+map_sprite = ExtResource("3_618j1")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

@@ -31,7 +31,7 @@ func set_hp(value: int) :
 
 func update_hp(value: int) :
 	$Healthbar.desired_value = value
-	$Healthbar.activate_tween()
+	await $Healthbar.activate_tween()
 	self.hp = value
 
 func set_unit_sprite(texture: Texture2D) :
@@ -52,7 +52,7 @@ func set_reference_unit(unit: CombatUnit) :
 func set_values():
 	if not shader_material:
 		await self.ready
-	set_max_hp(self.reference_unit.unit.max_hp)
+	set_max_hp(self.reference_unit.unit.stats.hp)
 	set_hp(self.reference_unit.unit.hp)
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
@@ -62,8 +62,8 @@ func set_values():
 	
 func update_values():
 	healthbar_update_complete = false
-	set_max_hp(self.reference_unit.unit.max_hp)
-	update_hp(self.reference_unit.unit.hp)
+	set_max_hp(self.reference_unit.unit.stats.hp)
+	await update_hp(self.reference_unit.unit.hp)
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)

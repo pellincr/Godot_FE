@@ -1,0 +1,85 @@
+extends Node
+
+class_name itemConstants
+
+enum ITEM_TYPE {
+	WEAPON,
+	STAFF,
+	USEABLE_ITEM,
+	EQUIPMENT_LOOT
+}
+
+enum WEAPON_TYPE {
+	NONE,
+	SWORD,
+	AXE,
+	LANCE,
+	BOW,
+	FIST,
+	STAFF,
+	DARK,
+	LIGHT,
+	NATURE,
+	ANIMAL,
+	MONSTER,
+	SHIELD,
+	DAGGER,
+	BANNER
+}
+
+enum DAMAGE_TYPE
+{
+	PHYSICAL,
+	MAGIC,
+	PURE
+}
+
+enum MUNDANE_WEAPON_TRIANGLE
+{
+	NONE,
+	SWORD,
+	AXE,
+	LANCE
+}
+
+enum MAGICAL_WEAPON_TRIANGLE
+{
+	NONE,
+	NATURE,
+	LIGHT,
+	DARK
+}
+enum AVAILABLE_TARGETS
+{
+	ENEMY,
+	ALLY,
+	SELF
+}
+
+enum MASTERY_REQUIREMENT
+{
+	E,
+	D,
+	C,
+	B,
+	A,
+	S
+}
+
+enum ALIGNMENT
+{
+	MUNDANE,
+	NIMBLE,
+	MAGIC,
+	DEFENSIVE,
+	NONE
+}
+
+enum SCALING_TYPE
+{
+	STRENGTH,
+	SKILL,
+	MAGIC,
+	CONSTITUTION,
+	NONE
+}

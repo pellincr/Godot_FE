@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://qre3dw2mcmga"]
+
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_kgaco"]
+
+[resource]
+script = ExtResource("1_kgaco")
+hp = 45
+strength = 35
+magic = 15
+skill = 50
+speed = 55
+luck = 10
+defense = 8
+resistance = 8
+movement = 0
+constitution = 0

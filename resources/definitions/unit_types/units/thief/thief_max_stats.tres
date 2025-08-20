@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://def64rsg21pim"]
+
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_7vdwt"]
+
+[resource]
+script = ExtResource("1_7vdwt")
+hp = 55
+strength = 22
+magic = 19
+skill = 27
+speed = 28
+luck = 30
+defense = 18
+resistance = 18
+movement = 10
+constitution = 20

@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqtdhgq4k72n0"]
+
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.gd" id="1_4555u"]
+[ext_resource type="Theme" uid="uid://datpqsugt3tvl" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel_enemy_theme.tres" id="2_bv4vu"]
+[ext_resource type="Texture2D" uid="uid://chhc11jvnl7og" path="res://resources/sprites/units/Destroyer.png" id="2_sbcuj"]
+[ext_resource type="PackedScene" uid="uid://b8n36q4lwddv7" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_type_trait_container.tscn" id="3_0u4w0"]
+[ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="4_ii5um"]
+[ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_54ah4"]
+[ext_resource type="PackedScene" uid="uid://d5hp8wf80ymg" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.tscn" id="5_blbaf"]
+[ext_resource type="PackedScene" uid="uid://cx0jc1hx45ck5" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_compat_weapon_special_containter.tscn" id="7_u2hsc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odhkg"]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_sgtdx"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_odhkg")
+
+[node name="UnitCombatWeaponSelectionPanel" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_sgtdx")
+script = ExtResource("1_4555u")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 2
+theme = ExtResource("2_bv4vu")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+custom_minimum_size = Vector2(350, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(153, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="UnitIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/UnitContainer"]
+layout_mode = 2
+texture = ExtResource("2_sbcuj")
+
+[node name="UnitName" type="Label" parent="Panel/MarginContainer/VBoxContainer/UnitContainer"]
+layout_mode = 2
+text = "Unit Name"
+
+[node name="UnitTypeTraitContainer" parent="Panel/MarginContainer/VBoxContainer/UnitContainer" instance=ExtResource("3_0u4w0")]
+layout_mode = 2
+
+[node name="WeaponSelectionContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ToggleLeftIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("4_ii5um")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="UnitCombatWeapon" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer" instance=ExtResource("5_blbaf")]
+layout_mode = 2
+
+[node name="ToggleRightIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("5_54ah4")
+expand_mode = 4
+
+[node name="UnitCompatWeaponSpecialContainter" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("7_u2hsc")]
+layout_mode = 2
+size_flags_horizontal = 4

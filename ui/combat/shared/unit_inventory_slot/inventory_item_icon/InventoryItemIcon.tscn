@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/inventory_item_icon.gd" id="1_e1388"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="1_maem8"]
-[ext_resource type="StyleBox" uid="uid://bgfknw7p6efaw" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tres" id="2_gv8d5"]
-
-[sub_resource type="Theme" id="Theme_s5d3b"]
-Panel/styles/panel = ExtResource("2_gv8d5")
+[ext_resource type="Texture2D" uid="uid://dh3wcg86jund3" path="res://resources/sprites/icons/arrow_icon.png" id="4_6youc"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="5_gnmyp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nman0"]
 shader = ExtResource("1_maem8")
@@ -22,27 +20,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e1388")
 
 [node name="Background" type="Panel" parent="."]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_s5d3b")
 
 [node name="ItemIcon" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_nman0")
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,3 +58,55 @@ offset_right = 16.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="WeaponTriangeArrowUp" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_nman0")
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.281
+anchor_top = 0.719
+anchor_right = 0.281
+anchor_bottom = 0.719
+offset_left = -3.992
+offset_top = -4.008
+offset_right = 4.008
+offset_bottom = 3.992
+texture = ExtResource("4_6youc")
+stretch_mode = 2
+
+[node name="WeaponTriangeArrowDown" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_nman0")
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.281
+anchor_top = 0.719
+anchor_right = 0.281
+anchor_bottom = 0.719
+offset_left = 4.008
+offset_top = 3.992
+offset_right = 12.008
+offset_bottom = 11.992
+rotation = -3.14159
+texture = ExtResource("4_6youc")
+stretch_mode = 2
+
+[node name="EquippedLabel" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(8, 16)
+layout_mode = 0
+offset_left = 22.0
+offset_top = 17.0
+offset_right = 32.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0.544835, 0.953351, 1.15514e-06, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("5_gnmyp")
+theme_override_font_sizes/font_size = 16
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 2

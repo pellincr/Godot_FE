@@ -16,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jbmw7")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MainContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(1150, 355)
 layout_mode = 2
 theme_override_constants/separation = 50

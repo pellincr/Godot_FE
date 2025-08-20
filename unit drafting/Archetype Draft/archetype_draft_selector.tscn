@@ -19,6 +19,7 @@ offset_right = -1030.0
 offset_bottom = -365.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 theme = ExtResource("1_pmami")
 script = ExtResource("1_knpel")
 
@@ -32,17 +33,19 @@ offset_bottom = 355.0
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 244.0
+offset_right = 246.0
 offset_bottom = 349.0
 theme_override_constants/separation = 75
 
 [node name="HeaderLabel" type="Label" parent="Panel/MainVContainer"]
+custom_minimum_size = Vector2(240, 34)
 layout_mode = 2
 theme = SubResource("Theme_q4euw")
 text = "Header"
 horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="UnitListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
+[node name="ArchetypeListContainer" type="VBoxContainer" parent="Panel/MainVContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 theme = SubResource("Theme_mte0y")
@@ -51,5 +54,8 @@ theme = SubResource("Theme_mte0y")
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]
-[connection signal="mouse_exited" from="Panel" to="." method="_on_panel_mouse_exited"]

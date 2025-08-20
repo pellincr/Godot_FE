@@ -1,38 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddgx1hll377nx"]
+[gd_scene load_steps=7 format=3 uid="uid://ddgx1hll377nx"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_ui.gd" id="1_cy8ae"]
-[ext_resource type="PackedScene" uid="uid://8ljsagtku4bh" path="res://ui/combat/shared/action_inventory/action_inventory.tscn" id="2_0imbg"]
 [ext_resource type="PackedScene" uid="uid://ckrpuok3owxp1" path="res://ui/combat/unit_selected_footer/unit_selected_footer.tscn" id="2_aaxjh"]
 [ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat/combat_tile_info/combat_tile_info.tscn" id="3_ha77v"]
-[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="4_57c2t"]
-[ext_resource type="PackedScene" uid="uid://dfb20o5wgprx0" path="res://ui/combat/unit_combat_exchange_preview/unit_combat_exchange_preview.tscn" id="6_xo23b"]
-[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="8_27of8"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/combat/combat_header/header_ui.tscn" id="11_m0dmj"]
 [ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat/unit_experience_bar/unit_experience_bar.tscn" id="11_xgqke"]
 [ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/combat/unit_status_detailed/unit_status_detailed.tscn" id="14_snhky"]
-[ext_resource type="PackedScene" uid="uid://c7q7e586v7bpx" path="res://ui/combat/attack_action_inventory/attack_action_inventory.tscn" id="15_vlk4f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kj4jo"]
-bg_color = Color(0, 0, 0, 0.52549)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7wir"]
-bg_color = Color(0, 0, 0, 0.470588)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.607843, 0.607843, 0.607843, 1)
-shadow_offset = Vector2(1, 1)
-
-[sub_resource type="Theme" id="Theme_irj7g"]
-default_font = ExtResource("8_27of8")
-default_font_size = 32
-Button/styles/normal = SubResource("StyleBoxFlat_l7wir")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvosb"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="Theme" id="Theme_r421v"]
 
 [node name="UI" type="Control"]
 texture_filter = 1
@@ -45,13 +18,6 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
-[node name="ActionInventory" parent="." instance=ExtResource("2_0imbg")]
-layout_mode = 1
-offset_left = 826.0
-offset_top = 34.0
-offset_right = -5.0
-offset_bottom = -47.0
-
 [node name="UnitStatus" parent="." instance=ExtResource("2_aaxjh")]
 layout_mode = 1
 
@@ -60,146 +26,8 @@ layout_mode = 1
 offset_top = 43.0
 offset_bottom = -518.0
 
-[node name="Actions" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 792.0
-offset_top = 652.0
-offset_right = 936.0
-offset_bottom = 764.0
-
-[node name="ActionsPanel" type="PanelContainer" parent="Actions"]
-visible = false
-layout_mode = 0
-offset_left = 37.0
-offset_top = -622.0
-offset_right = 303.0
-offset_bottom = -572.0
-
-[node name="ActionsMenu" type="VBoxContainer" parent="Actions/ActionsPanel"]
-layout_mode = 2
-theme = ExtResource("4_57c2t")
-
-[node name="Slot1" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot2" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-disabled = true
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot3" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot4" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Slot5" type="Button" parent="Actions/ActionsPanel/ActionsMenu"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Movement" type="Label" parent="Actions"]
-visible = false
-layout_mode = 0
-offset_left = 100.0
-offset_top = -91.0
-offset_right = 140.0
-offset_bottom = -65.0
-tooltip_text = "Movement"
-mouse_filter = 1
-theme_override_colors/font_color = Color(0.960784, 0.898039, 0.231373, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_kj4jo")
-text = "3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EndTurnButton" type="Button" parent="Actions"]
-layout_mode = 0
-offset_left = 117.0
-offset_top = -141.0
-offset_right = 317.0
-offset_bottom = -89.0
-focus_mode = 0
-theme = SubResource("Theme_irj7g")
-text = "END"
-
-[node name="Information" type="PanelContainer" parent="Actions"]
-visible = false
-layout_mode = 0
-offset_left = -776.0
-offset_top = -286.0
-offset_right = -422.0
-offset_bottom = -189.0
-theme = ExtResource("4_57c2t")
-theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
-
-[node name="Text" type="RichTextLabel" parent="Actions/Information"]
-layout_mode = 2
-bbcode_enabled = true
-scroll_following = true
-shortcut_keys_enabled = false
-
-[node name="Guide" type="PanelContainer" parent="Actions"]
-visible = false
-layout_mode = 0
-offset_left = -789.0
-offset_top = -626.0
-offset_right = -395.0
-offset_bottom = -602.0
-theme = ExtResource("4_57c2t")
-theme_override_styles/panel = SubResource("StyleBoxFlat_jvosb")
-
-[node name="Text" type="RichTextLabel" parent="Actions/Guide"]
-layout_mode = 2
-theme = SubResource("Theme_r421v")
-bbcode_enabled = true
-scroll_following = true
-shortcut_keys_enabled = false
-
-[node name="SelectTargetMessage" type="PanelContainer" parent="Actions"]
-visible = false
-layout_mode = 0
-offset_left = 185.0
-offset_top = -38.0
-offset_right = 385.0
-offset_bottom = 2.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Actions/SelectTargetMessage"]
-layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
-
-[node name="Label" type="Label" parent="Actions/SelectTargetMessage/MarginContainer"]
-layout_mode = 2
-text = "Select Target"
-
-[node name="unit_combat_exchange_preview" parent="." instance=ExtResource("6_xo23b")]
-visible = false
-layout_mode = 1
-offset_left = 833.0
-offset_top = 70.0
-offset_right = 832.824
-offset_bottom = 69.768
-scale = Vector2(2, 2)
-
 [node name="Header" parent="." instance=ExtResource("11_m0dmj")]
+visible = false
 layout_mode = 1
 offset_bottom = 45.0
 
@@ -211,15 +39,6 @@ offset_top = 125.0
 offset_right = -356.0
 offset_bottom = -122.0
 
-[node name="AttackActionInventory" parent="." instance=ExtResource("15_vlk4f")]
-visible = false
-layout_mode = 1
-offset_left = 830.0
-offset_top = 30.0
-offset_right = -41.0
-offset_bottom = -436.0
-mouse_filter = 0
-
 [node name="unit_experience_bar" parent="." instance=ExtResource("11_xgqke")]
 visible = false
 layout_mode = 1
@@ -229,5 +48,4 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 
-[connection signal="pressed" from="Actions/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="finished" from="unit_experience_bar" to="." method="_on_unit_experience_bar_finished"]

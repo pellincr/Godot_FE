@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyd1lpcparr1m"]
+
+[ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://unit_type_almanac/panel_container_focused.tres" id="1_77ubq"]
+[ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="2_f0wfo"]
+[ext_resource type="Script" path="res://unit_type_almanac/unit_type_panel_container.gd" id="2_o427w"]
+
+[node name="UnitTypePanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(350, 80)
+offset_right = 40.0
+offset_bottom = 40.0
+focus_mode = 2
+theme = ExtResource("1_77ubq")
+script = ExtResource("2_o427w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 9
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UnitTypeLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(260, 38)
+layout_mode = 2
+text = "Lance Cavalier"
+vertical_alignment = 1
+
+[node name="UnitTypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(62, 62)
+layout_mode = 2
+texture = ExtResource("2_f0wfo")
+expand_mode = 2
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

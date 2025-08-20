@@ -18,10 +18,11 @@ func update_fields():
 func set_unit(unit:Unit):
 	self.reference_unit = unit
 	set_unit_icon(self.reference_unit.map_sprite)
-	set_base_stat_array(self.reference_unit.get_basic_stat_array())
-	set_unit_type(UnitTypeDatabase.unit_types[self.reference_unit.unit_class_key].unit_type_name)
+	set_base_stat_array(self.reference_unit.stats.to_array())
+	var unit_type = UnitTypeDatabase.get_definition(self.reference_unit.unit_type_key)
+	set_unit_type(unit_type.unit_type_name)
 	set_unit_level(self.reference_unit.level)
-	set_unit_name(self.reference_unit.unit_name)
+	set_unit_name(self.reference_unit.name)
 
 func set_unit_level(level: int):
 	self.unit_level = level
@@ -48,9 +49,10 @@ func update_sprite():
 func update_level_up_stats():
 	var children = $Panel/VBoxContainer/MarginContainer/HBoxContainer/CenterContainer/StatsGrid.get_children()
 	for i in range(base_stat_array.size()):
-		if children[i] is LevelUpAttributeContainer:
-			children[i].set_ints(base_stat_array[i],level_up_stat_array[i])
-			children[i].update_fields()
+		if i in range(children.size()):
+			if children[i] is LevelUpAttributeContainer:
+				children[i].set_ints(base_stat_array[i],level_up_stat_array[i])
+				children[i].update_fields()
 
 func update_unit_type(): 
 	$Panel/VBoxContainer/Panel/HBoxContainer/MarginContainer2/HBoxContainer/UnitTypeLabel.text = unit_type

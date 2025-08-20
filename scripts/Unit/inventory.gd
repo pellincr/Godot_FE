@@ -1,18 +1,73 @@
 extends Resource
 class_name Inventory
-var capacity : int = 4
-#first item in the array is always equipped
-var items: Array[ItemDefinition]
-var equipped: ItemDefinition
-var inventory_owner = Unit
 
+#The Inventory data type store items for use with units
+
+#The maximum size of the inventory
+@export var capacity : int = 4
+
+#The List of items 
+@export var items: Array[ItemDefinition]
+
+#indicates if the first item in the inventory is currently equipped
+@export var equipped: bool
+
+var inventory_owner = Unit ##IS THIS REDUNDANT?
+
+var attack_range_map = {} # map<range : int, items:Array[index]> 
+
+var support_range_map = {} # map<range : int, items:Array[index]> 
+
+#
+# Constructor
+#
+static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inventory:
+	var inv = Inventory.new()
+	if(input_items.size() > inv.capacity):
+		input_items.resize(inv.capacity)
+	for input_item in input_items:
+		if input_item:
+			var item = input_item.duplicate()
+			if input_item.equippable and !inv.equipped:
+				inv.set_equipped(item)
+			inv.give_item(item)
+	return inv
+
+#
+# Update the weapon range map (THIS DOES NOT ACCOUNT FOR UNIT EQUIPPABILITY LIMITS)
+#
+func update_range_map():
+	attack_range_map.clear()
+	for item_index in items.size():
+			if items[item_index] is WeaponDefinition:
+				for attack_range in items[item_index].attack_range:
+					if attack_range_map.has(attack_range):
+						attack_range_map.get(attack_range).append(item_index)
+					else:
+						attack_range_map.put([item_index])
+
+#
+# Force sets the currently equipped item
+#
 func set_equipped(item : ItemDefinition):
-	if (item.equippable) :
-		if items.has(item):
-			items.push_front(item)
-			equipped = item
-			items.remove_at(items.rfind(item))
+	if items.has(item):
+		var index = get_item_index(item)
+		items.push_front(item)
+		items.remove_at(index + 1)
+		equipped = true
 
+#
+# Equips currently onwed item at specified index
+#
+func equip_at_index(index : int):
+	var item = items[index]
+	items.remove_at(index)
+	items.push_front(item)
+	equipped = true
+
+#
+# get the attack ranges of all items 
+#
 func get_available_attack_ranges()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:
@@ -25,6 +80,9 @@ func get_available_attack_ranges()-> Array[int]:
 								ranges.append(attack_range)
 	return ranges
 
+#
+# Returns the maximum attack range of the items contained in the inventory
+#
 func get_max_attack_range() -> int:
 	if get_available_attack_ranges().max():
 		return get_available_attack_ranges().max()
@@ -39,7 +97,7 @@ func get_available_support_ranges()-> Array[int]:
 			if item.equippable:
 				if item is WeaponDefinition:
 					if not item.attack_range.is_empty():
-						if item.item_target_faction == WeaponDefinition.AVAILABLE_TARGETS.ALLY:
+						if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
 							for attack_range in item.attack_range:
 								if not ranges.has(attack_range):
 									ranges.append(attack_range)
@@ -71,6 +129,9 @@ func use_at_index(index : int):
 	if index < capacity:
 		items[index].use
 
+#
+# Gives an item to the inventory, at the end of the list
+#
 func give_item(item: ItemDefinition) -> bool:
 	var item_gave = false
 	if is_full() :
@@ -80,6 +141,10 @@ func give_item(item: ItemDefinition) -> bool:
 		item_gave = true
 	return item_gave
 
+
+#
+# Returns a list of WeaponDefinitions contained in the inventory
+# 
 func get_weapons() -> Array[WeaponDefinition]:
 	var weapon_array : Array[WeaponDefinition]
 	for item in items:
@@ -87,33 +152,30 @@ func get_weapons() -> Array[WeaponDefinition]:
 			weapon_array.append(item)
 	return weapon_array
 
-func get_stalves():
-	pass
-
-func has(item: ItemDefinition) -> bool:
-	for i in items:
-		if i.db_key == item.db_key:
-			return true
+#
+# checks if a version of the target item is inside 
+#
+func has(target_item: ItemDefinition) -> bool:
+	for inventory_slot in items:
+		if inventory_slot != null:
+			if inventory_slot.db_key == target_item.db_key:
+				return true
 	return false
-	
+
+
+#
+# returns the index of a specific item resource
+#
 func get_item_index(item: ItemDefinition)-> int:
 	for index in items.size():
 		if items[index] == item:
 			return index
 	return -1
 
-static func create(input_items:Array[ItemDefinition], unit:Unit = null) -> Inventory:
-	var inv = Inventory.new()
-	if(input_items.size() > inv.capacity):
-		input_items.resize(inv.capacity)
-	for input_item in input_items:
-		if input_item:
-			var item = input_item.duplicate()
-			#if input_item.equippable and inv.equipped == null:
-				#inv.equipped = item
-			inv.give_item(item)
-	return inv
 
+#
+# remove an item at a specific index of the list, returns false if error
+#
 func discard_at_index(index : int) -> bool:
 	if(index < items.size() - 1):
 		items.remove_at(index)
@@ -121,9 +183,15 @@ func discard_at_index(index : int) -> bool:
 	else: 
 		return false
 
+#
+# removes an item if it exists within the inventory
+#
 func discard_item(target_item: ItemDefinition):
 	items.erase(target_item)
 
+#
+# Swaps two items with indexes
+#
 func swap_at_indexes(index_a:int , index_b : int):
 	if (index_a >=0): 
 		if  (index_b >=0): 
@@ -142,11 +210,57 @@ func swap_at_indexes(index_a:int , index_b : int):
 			items.remove_at(index_b)
 			items.append(placeHolder)
 
-func replace_item_at_index(index:int, item: ItemDefinition):
-	items.insert(index,item)
-	items.remove_at(index + 1)
+#
+# Replaces an item at a specified index with another item
+#
+func replace_item_at_index(target_index:int, replacement_item: ItemDefinition):
+	items.insert(target_index,replacement_item)
+	items.remove_at(target_index + 1)
 
+#
+# gets the item at inventory index
+#
 func get_item(index:int) -> ItemDefinition:
 	if index < items.size():
 		return items[index]
 	return null
+
+#
+# gets the item that is currently equipped
+#
+func get_equipped_item() -> ItemDefinition:
+	if equipped == true:
+		if items.front() != null: 
+			return items.front()
+	return null
+
+#
+# returns a weaponDefinition if the current item equpped is a weapon
+#
+func get_equipped_weapon() -> WeaponDefinition:
+	var wpn = get_equipped_item()
+	if wpn is WeaponDefinition:
+		return wpn
+	return null
+
+func unequip():
+	equipped = false
+
+#
+# Returns all weapons in inventory that contain input attack ranges
+#
+func get_weapons_with_range(ranges: Array[int]) -> Array[WeaponDefinition]:
+	var weaponList : Array[WeaponDefinition] = []
+	for range in ranges:
+		if attack_range_map.has(range):
+			var attack_range_weapons_index : Array[int] = attack_range_map.get(range)
+			for index in attack_range_weapons_index:
+				if weaponList.find(get_item(index)) == -1:
+					weaponList.append(get_item(index))
+	return weaponList
+
+func get_items() -> Array[WeaponDefinition]:
+	var _item_arr : Array[WeaponDefinition] = [null, null, null, null]
+	for i in range(items.size()):
+		_item_arr[i] = items[i]
+	return _item_arr

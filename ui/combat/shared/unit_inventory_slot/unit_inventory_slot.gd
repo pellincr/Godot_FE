@@ -1,64 +1,76 @@
-extends Control
-
+extends Button
 class_name UnitInventorySlot
 
-signal btn_entered(item: ItemDefinition)
+const UNIT_INVENTORY_SLOT_DISABLED = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot_disabled.tres")
+const UNIT_INVENTORY_SLOT_ENABLED = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot_enabled.tres")
+#Signals
+signal _hover_item(item: ItemDefinition)
+signal selected_item(item: ItemDefinition)
 
-@export var reference_item : ItemDefinition
-var equipped : bool
+#Export
+@export var item : ItemDefinition
+@export var equipped : bool
 
-func get_button() -> Button:
-	return $Button
+#onready vars (references to ui components)
+@onready var inventory_item_icon: InventoryItemIcon = $MarginContainer/HBoxContainer/LeftContainer/InventoryItemIcon
+@onready var item_name_label: Label = $MarginContainer/HBoxContainer/LeftContainer/ItemNameLabel
+@onready var item_type_icon: ItemTypeIcon = $MarginContainer/HBoxContainer/LeftContainer/ItemTypeIcon
+@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesLabel
 
-func update_item_fields():
-	##check_if_item()
-	if reference_item :
-		$InventoryItemIcon.set_item(reference_item)
-		$Button.text = reference_item.name
-		$InfoMargin/Uses.text = str(reference_item.uses)
-	else : 
-		$Button.icon = null
-		$Button.text = ""
-		$InfoMargin/Uses.text = ""
-func set_equipped(is_equipped: bool) :
-	$EquippedMargin.visible = is_equipped
-	self.equipped = is_equipped
+func _ready() -> void:
+	self.update_inventory_item_icon()
+	self.update_item_name_label()
+	self.update_item_type_icon()
+	self.update_uses_label()
+	self.style_fields()
 
-func update_equipped() :
-	$EquippedMargin.visible = equipped
+func update_inventory_item_icon():
+	if item != null:
+		inventory_item_icon.set_image(item.icon)
+	inventory_item_icon.set_equipped(equipped)
 
-func set_reference_item(item: ItemDefinition) :
-	self.reference_item = item
-	update_item_fields()
-	
-func update_all():
-	update_item_fields()
-	update_equipped()
-	
+func update_item_name_label():
+	if item != null:
+		item_name_label.text = item.name
+	else :
+		item_name_label.text = ""
+
+func update_item_type_icon():
+	item_type_icon.set_types_from_item(item)
+
+func update_uses_label():
+	if item != null:
+		uses_label.text = str(item.uses)
+	else :
+		uses_label.text = ""
+
+func set_fields(input_item: ItemDefinition, e:bool = false) :
+	self.item = input_item
+	self.equipped = e
+	self.update_inventory_item_icon()
+	self.update_item_name_label()
+	self.update_item_type_icon()
+	self.update_uses_label()
+	self.style_fields()
+
+func style_fields():
+	if disabled:
+		self.theme = UNIT_INVENTORY_SLOT_DISABLED
+	else :
+		self.theme = UNIT_INVENTORY_SLOT_ENABLED
+
 func create(item:ItemDefinition, e:bool = false) -> UnitInventorySlot:
-	var unit_inv_slot = UnitInventorySlot.new()
-	unit_inv_slot.set_reference_item(item)
-	unit_inv_slot.set_equipped(e)
-	return unit_inv_slot
-	
-func set_all(item:ItemDefinition, e:bool = false) :
-	set_reference_item(item)
-	set_equipped(e)
-	
-func mouse_entered():
-	emit_signal("btn_entered", reference_item )
-	
-func check_if_item():
-	if(reference_item) :
-		self.visible =  true
-	else :
-		self.visible =  false	
+	var unitInventorySlot = UnitInventorySlot.new()
+	unitInventorySlot.set_fields(item, e)
+	return unitInventorySlot
 
+func grab_button_focus():
+	$Button.grab_focus()
 
-func show_options(item:ItemDefinition):
-	$OptionsContainer.visible = true
-	if item is WeaponDefinition:
-		$OptionsContainer/Panel/VBoxContainer/Button1.text = "Equip"
-	else :
-		$OptionsContainer/Panel/VBoxContainer/Button1.text = "Use"
-	$OptionsContainer/Panel/VBoxContainer/Button2.text = "Discard"
+func _on_focus_entered() -> void:
+	if not disabled:
+		emit_signal("_hover_item", item)
+
+func _on_pressed() -> void:
+	if not disabled:
+		emit_signal("selected_item", item)

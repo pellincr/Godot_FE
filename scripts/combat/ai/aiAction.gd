@@ -7,6 +7,7 @@ var target: CombatUnit
 var rating : float = 0
 var item_index: int
 var action_type : String ##ADD TO CONSTANTS?
+var combat_action_data: UnitCombatExchangeData
 
 func generate_rating():
 	pass

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://bnx6qng2moqwn"]
+
+[ext_resource type="Resource" uid="uid://dvdih6cmacrsq" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_base_combat_stats.tres" id="1_4ulf3"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_hthee"]
+[ext_resource type="Resource" uid="uid://c8r2s17i2hon1" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_growth_stats.tres" id="2_ncdjn"]
+[ext_resource type="Texture2D" uid="uid://bgvg1ci81sjkg" path="res://resources/sprites/units/mage_knight.png" id="3_splch"]
+[ext_resource type="Resource" uid="uid://emdxo0xvw2sq" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_max_stats.tres" id="4_h3l3e"]
+
+[resource]
+script = ExtResource("1_hthee")
+boon = ""
+bane = ""
+unit_type_name = "Mage Knight"
+db_key = "mage_knight"
+description = ""
+initiative = 1
+faction = Array[int]([1])
+traits = Array[int]([1])
+movement_type = 3
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([7, 8, 9])
+base_stats = ExtResource("1_4ulf3")
+maxuimum_stats = ExtResource("4_h3l3e")
+growth_stats = ExtResource("2_ncdjn")
+icon = ExtResource("3_splch")
+map_sprite = ExtResource("3_splch")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

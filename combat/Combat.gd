@@ -16,13 +16,14 @@ signal combatant_added(combatant: CombatUnit)
 signal entity_added(cme:CombatMapEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_information(text: String)
-signal update_combatants(combatants: Array)
+signal update_combatants(combatants: Array) #THIS IS OLD?
 signal target_selected(combat_exchange_info: CombatUnit)
 signal perform_shove(unit: CombatUnit, push_vector : Vector2i)
 signal major_action_completed()
 signal minor_action_completed()
 signal trading_completed()
 signal shove_completed()
+
 	
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
@@ -45,7 +46,9 @@ var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITIO
 
 var combatExchange: CombatExchange
 
+
 var _player_unit_alive : bool = true
+
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
@@ -53,6 +56,21 @@ var _player_unit_alive : bool = true
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
 @export var mapEntityData: MapEntityGroupData
+
+@export var ally_spawn_top_left : Vector2
+@export var ally_spawn_bottom_right: Vector2
+@export var enemy_start_group : EnemyGroup
+@export var max_allowed_ally_units : int
+@export var base_win_gold_reward : int = 0
+@export var turn_reward_modifier : int = 0
+#@export var draft_amount_on_win : int
+#@export var battle_prep_on_win : bool = true
+@export var heal_on_win : bool = true
+
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+
+const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 
 func _ready():
 	emit_signal("register_combat", self)
@@ -64,134 +82,16 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	randomize()
-	##Create units and dummy inventories
-	#Dummy Inventory for temp unit gen
-	var iventory_array :Array[ItemDefinition] 
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["heal_staff"])
-	iventory_array.insert(1, ItemDatabase.items["iron_sword"])
-	#iventory_array.insert(2, ItemDatabase.items["bolting"])
-	iventory_array.insert(3, ItemDatabase.items["key"])
-	#iventory_array.insert(0, ItemDatabase.items["harm"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cleric"], iventory_array, "Flavius", 1,9),0), Vector2i(7,14))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["smite"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["monk"], iventory_array, "Jacob", 6,12),0), Vector2i(9,14))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
-	iventory_array.insert(1, ItemDatabase.items["enchanted_bow"])
-	iventory_array.insert(2, ItemDatabase.items["potion"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["archer"], iventory_array, "Boko", 5,10, false),0), Vector2i(7,15))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_sword"])
-	iventory_array.insert(1, ItemDatabase.items["sabre"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["fencer"], iventory_array, "Christian", 6,12, false), 0), Vector2i(7,16))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["enchanted_shotel"])
-	iventory_array.insert(1, ItemDatabase.items["iron_dagger"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["thief"], iventory_array, "Craig", 3,9, false), 0), Vector2i(8,16))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
-	iventory_array.insert(1, ItemDatabase.items["silver_axe"])
-	iventory_array.insert(1, ItemDatabase.items["hand_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Devin", 4,11, false), 0), Vector2i(8,14))
-	iventory_array.clear()
-	iventory_array.append(ItemDatabase.items["iron_lance"])
-	iventory_array.append(ItemDatabase.items["javelin"])
-	iventory_array.append(ItemDatabase.items["killer_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["legionary_lance"], iventory_array, "Justin", 8,15),0), Vector2i(8,15))
-	iventory_array.clear()
-	iventory_array.append(ItemDatabase.items["wind_blade"])
-	iventory_array.append(ItemDatabase.items["fire_spell"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Lynn", 4,11),0), Vector2i(9,15))
-	iventory_array.clear()
-	iventory_array.append(ItemDatabase.items["brass_knuckles"])
-	iventory_array.append(ItemDatabase.items["devil_knuckles"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["martial_artist"], iventory_array, "Avon", 4,11),0), Vector2i(9,16))
-	#var playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
-	#add_combatant(create_combatant_unit(playerOverworldData.total_party[0],0),Vector2i(10,16))
-	
 
-	#ENEMY
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["javelin"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["gargoyle"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(9,2))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["gargoyle"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(17,11))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_bow"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_archer"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(6,2))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["dark_pulse"])
-	iventory_array.insert(0, ItemDatabase.items["sharp_claws"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["drake"], iventory_array, "Braumulus", 12,2, false), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false, true), Vector2i(12,2))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["halberd"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,12, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(2,4))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["steel_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(3,3))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["javelin"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_lance"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(15,8))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 9,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(3,14))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["dark_pulse"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 7,12, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(13,3))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["fiend_fire"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["imp"], iventory_array, "Fiend", 9,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(7,7))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(14,8))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["silver_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(6,9))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["dark_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 9,9, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(7,9))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(15,3))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["killer_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["bonewalker_sword"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(16,4))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["steel_sword"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["mercenary"], iventory_array, "Gemni's Guard", 6,10, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(10,23))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_axe"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(8,23))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_lance"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(15,21))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["steel_lance"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_lance"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(0,20))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["fire_spell"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Bandit", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(14,21))
-	iventory_array.clear()
-	iventory_array.insert(2, ItemDatabase.items["bolting"])
-	iventory_array.insert(0, ItemDatabase.items["fiend_fire"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["cavalier_magic"], iventory_array, "Gemni", 12,15, true), 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false, true), Vector2i(10,24))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["kobold_axe"], iventory_array, "Fiend", 5,11, true), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(16,7))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["iron_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["kobold_axe"], iventory_array, "Fiend", 5,11, true), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(1,11))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["sharp_claws"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["zombie"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(2,3))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["zombie"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE), Vector2i(16,3))
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["zombie"], iventory_array, "Fiend", 8,13, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(15,11))
-	iventory_array.clear()
-	iventory_array.insert(0, ItemDatabase.items["hand_axe"])
-	add_combatant(create_combatant_unit(Unit.create_generic(UnitTypeDatabase.unit_types["warrior"], iventory_array, "Gemni's Guard", 6,8, false), 1, Constants.UNIT_AI_TYPE.DEFAULT), Vector2i(10,26))
+
+func populate():
+	var current_party_index = 0 
+	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
+		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
+			if !(current_party_index >= playerOverworldData.selected_party.size()):
+				add_combatant(create_combatant_unit(playerOverworldData.selected_party[current_party_index],0),Vector2i(i,j))
+				current_party_index+= 1
+	spawn_initial_units()
 	load_entities()
 
 func load_entities():
@@ -205,8 +105,13 @@ func spawn_reinforcements(turn_number : int):
 		for group in mapReinforcementData.reinforcements: 
 			if(turn_number in group.turn):
 				for unit in group.units:
-					var reinforcement_unit = create_combatant_unit(Unit.create_generic(unit.unitDefinition, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
+					var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
 					add_combatant(reinforcement_unit, unit.map_position)
+
+func spawn_initial_units():
+	for unit in enemy_start_group.group:
+		var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
+		add_combatant(reinforcement_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss)
@@ -219,8 +124,8 @@ func sort_turn_queue(a, b):
 		return false
 
 func add_combatant(combat_unit: CombatUnit, position: Vector2i):
-	combat_unit.map_tile.position = position
-	combat_unit.map_tile.terrain = controller.get_terrain_at_position(position)
+	combat_unit.map_position = position
+	combat_unit.map_terrain = controller.grid.get_terrain(position)
 	combatants.append(combat_unit)
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 
@@ -229,9 +134,11 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	$"../Terrain/TileMap".add_child(new_combatant_sprite)
 	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
 	new_combatant_sprite.z_index = 1
-	if combat_unit.allegience != 0:
-		combat_unit.unit.initiative -= 1
+	#if combat_unit.allegience != 0:
+	#	combat_unit.unit.initiative -= 1
 	combat_unit.map_display = new_combatant_sprite
+	combat_unit.stats.populate_unit_stats(combat_unit.unit)
+	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	emit_signal("combatant_added", combat_unit)
 	
 func add_entity(cme:CombatMapEntity):
@@ -251,29 +158,17 @@ func set_current_combatant(cu:CombatUnit):
 	current_combatant = combatants.find(cu)
 
 func get_distance(attacker: CombatUnit, target: CombatUnit):
-	var point1 = attacker.map_tile.position
-	var point2 = target.map_tile.position
+	var point1 = attacker.map_position
+	var point2 = target.map_position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
-func perform_attack(attacker: CombatUnit, target: CombatUnit):
+func perform_attack(attacker: CombatUnit, target: CombatUnit, data: UnitCombatExchangeData):
 	print("Entered Perform_attack in combat.gd")
 	_player_unit_alive = true
-	#check the distance between the target and attacker
-	var distance = get_distance(attacker, target)
-	# check if that item can hit the target
-	var valid = combatExchange.check_can_attack(attacker, target, distance)
-	if valid:
-		await combatExchange.enact_combat_exchange(attacker, target, distance)
-		if attacker.allegience == Constants.FACTION.PLAYERS:
-			major_action_complete()
-		if attacker.allegience == Constants.FACTION.ENEMIES:
-			major_action_complete()
-			complete_unit_turn()
-	else:
-		update_information.emit("Target too far to attack.\n")
-		if attacker.allegience == Constants.FACTION.ENEMIES:
-			complete_unit_turn()
-			major_action_complete()
+	await combatExchange.enact_combat_exchange_new(attacker, target, data)
+	major_action_complete()
+	if attacker.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
 
 func perform_staff(user: CombatUnit, target: CombatUnit):
 	print("Entered Perform_attack in combat.gd")
@@ -281,11 +176,11 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 	#check the distance between the target and attacker
 	var distance = get_distance(user, target)
 	#get the item info from the attacker
-	var item = user.unit.inventory.equipped
+	var item = user.unit.inventory.get_equipped_item()
 	# check if that item can hit the target
 	var valid = (item and item.attack_range.has(distance))
 	if valid:
-		await combatExchange.enact_staff_exchange(user, target, distance)
+		await combatExchange.enact_support_exchange(user, target, distance)
 		if user.allegience == Constants.FACTION.PLAYERS:
 			major_action_complete()
 		if user.allegience == Constants.FACTION.ENEMIES:
@@ -296,12 +191,6 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 		if user.allegience == Constants.FACTION.ENEMIES:
 			complete_unit_turn()
 			major_action_complete()
-
-##ACTIONS
-#Attack Action
-func Attack(attacker: CombatUnit, target: CombatUnit):
-	print("Entered Attack in Combat.gd")
-	await perform_attack(attacker, target)
 
 #trade
 func Trade(unit: CombatUnit, target: CombatUnit):
@@ -314,7 +203,8 @@ func Trade(unit: CombatUnit, target: CombatUnit):
 
 func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
 	print("Entered Chest in Combat.gd")
-	key.use()
+	if key:
+		key.use()
 	for item in chest.contents:
 		await combat_unit_item_manager.give_combat_unit_item(unit, item)
 	entity_disable(chest)
@@ -367,6 +257,7 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 	
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
+	
 
 func advance_turn(faction: int):
 	## Reset Players to active
@@ -375,25 +266,90 @@ func advance_turn(faction: int):
 			if combatants[entry]:
 				combatants[entry].refresh_unit()
 				combatants[entry].map_display.update_values()
+	#decrement the turn reward modifier
+	turn_reward_modifier -= .5
+
+
 func major_action_complete():
-	
+	get_current_combatant().minor_action_taken = true
+	get_current_combatant().turn_taken = true
+	get_current_combatant().minor_action_taken = true
+	get_current_combatant().update_display()
 	emit_signal("major_action_completed")
 
 func combatExchangeComplete(friendly_unit_alive:bool):
 	_player_unit_alive = friendly_unit_alive
 	major_action_complete()
+	#WIN/LOSE CONDITION LOGIC
+	if(check_win()):
+		if heal_on_win:
+			heal_ally_units()
+		#playerOverworldData.next_level = win_go_to_scene
+		#playerOverworldData.current_level += 1
+		playerOverworldData.began_level = false
+		playerOverworldData.gold += calculate_reward_gold()
+		SelectedSaveFile.save(playerOverworldData)
+		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+			#if not at the final level, go back to the campaign map
+			#if draft_amount_on_win > 0:
+				#if allowed to draft after level
+				#playerOverworldData.current_archetype_count = 0
+				#playerOverworldData.max_archetype = draft_amount_on_win
+				#SelectedSaveFile.save(playerOverworldData)
+				#get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
+			#else:
+				#if battle_prep_on_win:
+					#if allowed to go to battle prep on win
+				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
+				#else:
+			playerOverworldData.began_level = false
+			playerOverworldData.current_level = null
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+		else:
+			#reset the game back to the start screen after final level so that it can be played again
+			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+			reset_game_state()
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+	if(check_lose()):
+		reset_game_state()
+		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+
+func reset_game_state():
+	playerOverworldData.began_level = false
+	playerOverworldData.completed_drafting = false
+	playerOverworldData.current_level = null
+	playerOverworldData.current_campaign = null
+	playerOverworldData.total_party = []
+	playerOverworldData.dead_party_members = []
+	playerOverworldData.current_archetype_count = 0
+	playerOverworldData.archetype_allotments = []
+	playerOverworldData.campaign_map_data = []
+
+func heal_ally_units():
+	for unit:Unit in playerOverworldData.total_party:
+		unit.hp = unit.stats.hp
 
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
+		if playerOverworldData.total_party.has(combatant.unit):
+			playerOverworldData.dead_party_members.append(combatant.unit)
+			playerOverworldData.total_party.erase(combatant.unit)
 		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
-			combatant.unit.unit_name
+			combatant.unit.name
 		]
 	))
 	combatant_died.emit(combatant)
+	
 
 func entity_disable(e: CombatMapEntity):
 	e.active = false
@@ -413,6 +369,7 @@ func ai_process(comb : CombatUnit):
 	var comb_attack_range : Array[int]
 	var nearest_target: CombatUnit
 	var l = INF
+	var attack_data: UnitCombatExchangeData
 	comb_attack_range = comb.unit.inventory.get_available_attack_ranges()
 	for target_comb_index in groups[Constants.FACTION.PLAYERS]:
 		var target = combatants[target_comb_index] #DO A CHECK TO MAKE SURE THERE ARE AVAILABLE TARGETS
@@ -423,8 +380,8 @@ func ai_process(comb : CombatUnit):
 	## can they reach?
 	if nearest_target:
 		if comb_attack_range.has(get_distance(comb, nearest_target)):
-			ai_equip_best_weapon(comb, nearest_target)
-			await Attack(comb, nearest_target)
+			attack_data = ai_equip_best_weapon(comb, nearest_target,l)
+			await perform_attack(comb, nearest_target, attack_data)
 			return
 	#if the current unit AI types lets them move on map
 	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
@@ -432,12 +389,12 @@ func ai_process(comb : CombatUnit):
 		#await controller.finished_move
 		print("finished waiting for controller")
 		if comb_attack_range.has(get_distance(comb, nearest_target)):
-			ai_equip_best_weapon(comb, nearest_target)
-			await Attack(comb, nearest_target)
+			attack_data = ai_equip_best_weapon(comb, nearest_target,l)
+			await perform_attack(comb, nearest_target, attack_data)
 			return
 	if comb:
 		if is_instance_valid(comb.map_display) :
-			comb.map_display.update_values()
+			comb.update_display()
 	return	 
 	
 	#Process does the legwork for targetting for AI
@@ -450,11 +407,11 @@ func ai_process_new(comb : CombatUnit):
 			print("@ EQUIPPING BEST WEAPON")
 			comb.unit.set_equipped(comb.unit.get_equippable_weapons()[action.item_index])
 			print("@ CALLED ATTACK")
-			await Attack(comb, action.target)
+			await perform_attack(comb, action.target, action.combat_action_data)
 			print("@ FINISHED WAITING FOR ATTACK")
 	if comb:
 		if is_instance_valid(comb.map_display) :
-			comb.map_display.update_values()
+			comb.update_display()
 	return	 
 
 func get_ai_units() -> Array[CombatUnit]:
@@ -464,77 +421,68 @@ func get_ai_units() -> Array[CombatUnit]:
 			enemy_unit_array.append(combatants[enemy_unit])
 	return enemy_unit_array
 
-#AI logic to pick a target in range
-func ai_pick_target(weights):
-	var rand_num = randf()
-	var full_weight = 1.0
-	for w in weights:
-		var weight = w[0]
-		full_weight -= weight
-		if rand_num > full_weight - 0.001: #full_weight - 0.001 due to float inaccuracy
-			return w[1]
-
-func calc_expected_combat_exchange(attacker:CombatUnit, target:CombatUnit, distance:int = -1) -> Dictionary:
+func calc_expected_combat_exchange(attacker:CombatUnit, defender:CombatUnit, data: UnitCombatExchangeData) -> UnitCombatActionExpectedOutcome:
 	#Get the values to run calcs on
+	var combat_exchange_outcome : UnitCombatActionExpectedOutcome = UnitCombatActionExpectedOutcome.new()
 	var max_damage : int = 0 # What is our max potential damage?
 	var can_lethal : bool = false
 	var attack_mult :int = 1
 	var expected_damage : float = 0
 	var exchange_info
-	if distance == -1:
-		exchange_info = combatExchange.calc_combat_exchange_preview(attacker, target, attacker.unit.inventory.get_available_attack_ranges().front())
-	else :
-		exchange_info = combatExchange.calc_combat_exchange_preview(attacker, target, distance)
- 
-	if exchange_info.double_attacker == 1:
-		attack_mult = 2
-	if exchange_info.attacker_hit_chance > 0:
-		if exchange_info.attacker_critical_chance > 0:
-			max_damage = attack_mult * exchange_info.attacker_damage * 3
-			expected_damage = attack_mult * ((exchange_info.attacker_damage * float(exchange_info.attacker_hit_chance /float(100))) 
-			+ (2 * (exchange_info.attacker_damage * float(exchange_info.attacker_hit_chance /float(100))) * float(exchange_info.attacker_critical_chance) /float(100)))
-		else : 
-			max_damage = attack_mult * exchange_info.attacker_damage
-			expected_damage = attack_mult * (exchange_info.attacker_damage * exchange_info.attacker_hit_chance /float(100))
+	for turn in data.exchange_data:
+		if turn.owner == attacker:
+			var turn_damage = ((turn.attack_damage * turn.attack_count) * float(1 + turn.critical/float(100) * attacker.get_equipped().critical_multiplier))
+			combat_exchange_outcome.expected_damage = combat_exchange_outcome.expected_damage + turn_damage
+			combat_exchange_outcome.maximum_damage = combat_exchange_outcome.maximum_damage + ((turn.attack_damage * turn.attack_count) * attacker.get_equipped().critical_multiplier)
+			if combat_exchange_outcome.expected_damage_taken < attacker.unit.hp:
+				combat_exchange_outcome.expected_damage_before_defeat = combat_exchange_outcome.expected_damage_before_defeat + turn_damage
+		elif turn.owner == defender:
+			var turn_damage = ((turn.attack_damage * turn.attack_count) * float(1 + turn.critical/float(100) * defender.get_equipped().critical_multiplier))
+			combat_exchange_outcome.expected_damage_taken = combat_exchange_outcome.expected_damage_taken + turn_damage
 	# is it lethal?
-	if (max_damage > target.unit.hp ):
-		can_lethal = true	
-	var expected_combat_outcome = {
-		"can_lethal"  = can_lethal,
-		"expected_damage" = expected_damage,
-		"attacker_hit_chance" = exchange_info.attacker_hit_chance
-	}
-	return expected_combat_outcome
+	if (combat_exchange_outcome.maximum_damage > defender.unit.hp ):
+		combat_exchange_outcome.can_lethal = true
+	return combat_exchange_outcome
 
+#
+# Calculates the best attack action for a particular combat action
+#
 func ai_get_best_attack_action(ai_unit: CombatUnit, distance: int, target:CombatUnit, terrain: Terrain) -> aiAction:
 	var best_action : aiAction = aiAction.new()
 	var usable_weapons : Array[WeaponDefinition] =  ai_unit.unit.get_usable_weapons_at_range(distance)
 	if not usable_weapons.is_empty():
-		var expected_damage : Array[Vector2]
 		for i in range(usable_weapons.size()):
 			ai_unit.unit.set_equipped(usable_weapons[i])
 			var action: aiAction = aiAction.new()
-			var expected_combat_return_outcome = calc_expected_combat_exchange(ai_unit, target, distance)
-			action.generate_attack_action_rating(terrain.avoid/100,expected_combat_return_outcome.attacker_hit_chance, expected_combat_return_outcome.expected_damage, target.unit.max_hp, expected_combat_return_outcome.can_lethal)
+			var data: UnitCombatExchangeData = combatExchange.generate_combat_exchange_data(ai_unit, target, distance)
+			var combat_exchange_outcome : UnitCombatActionExpectedOutcome = calc_expected_combat_exchange(ai_unit, target, data)
+			action.generate_attack_action_rating(terrain.avoid/100,combat_exchange_outcome.attacker_hit_chance, combat_exchange_outcome.expected_damage, target.unit.stats.hp, combat_exchange_outcome.can_lethal)
 			action.item_index = i
 			action.target = target
 			action.action_type = "ATTACK"
+			action.combat_action_data = data
 			if best_action == null or action.rating > best_action.rating: 
 				best_action = action
 		print("@ BEST ATTACK RATING CALC : " + str(best_action.rating))
 	return best_action
-	
-func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit):
+
+#
+# calculates the best weapon the ai should use in an action
+#
+func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit, distance:int) -> UnitCombatExchangeData:
 	## get weapon options
+	var data: UnitCombatExchangeData
 	var usable_weapons : Array[WeaponDefinition] =  comb.unit.get_usable_weapons_at_range(get_distance(comb, target))
 	if not usable_weapons.is_empty():
 		var expected_damage : Array[Vector2]
 		for i in range(usable_weapons.size()):
 			comb.unit.set_equipped(usable_weapons[i])
-			expected_damage.append(Vector2(i, calc_expected_combat_exchange(comb, target).expected_damage))
+			data = combatExchange.generate_combat_exchange_data(comb, target, distance)
+			expected_damage.append(Vector2(i, calc_expected_combat_exchange(comb, target, data).expected_damage))
 		expected_damage.sort_custom(sort_by_y_value)
 		print("@ EXPECTED DAMAGE CALC : " + str(expected_damage))
 		comb.unit.set_equipped(usable_weapons[expected_damage.front().x])
+	return data
 
 func sort_by_y_value(a: Vector2, b : Vector2):
 	return a.y > b.y
@@ -548,6 +496,7 @@ func complete_shove():
 func minor_action_complete(unit: CombatUnit):
 	unit.minor_action_taken = true
 	set_current_combatant(unit)
+	unit.update_display()
 	emit_signal("minor_action_completed")
 
 func unit_gain_experience(u: Unit, value: int):
@@ -559,3 +508,21 @@ func play_audio(sound : AudioStream):
 	combat_audio.play()
 	await combat_audio.finished
 	combatExchange.audio_player_ready()
+
+
+func check_win():
+	match victory_condition:
+		Constants.VICTORY_CONDITION.DEFEAT_ALL:
+			return check_group_clear(groups[1])
+
+func check_group_clear(group):
+	if group.is_empty():
+		print("WIN!")
+		return true
+
+
+func check_lose():
+	return check_group_clear(groups[0])
+
+func calculate_reward_gold():
+	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)

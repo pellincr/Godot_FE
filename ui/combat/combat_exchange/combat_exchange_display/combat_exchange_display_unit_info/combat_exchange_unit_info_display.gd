@@ -31,13 +31,13 @@ func set_all(u : Unit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool, wts: 
 	self.damage = dmg
 	self.critical_chance = crit_chance
 	self.weapon_effective = wpn_eff
-	self.weapon = u.inventory.equipped
+	self.weapon = u.inventory.get_equipped_weapon()
 	self.wpn_triangle_state = wts
 	update()
 
 func update_hp_bar():
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.hp)
-	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.max_hp)
+	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.stats.hp)
 
 func hp_bar_tween(value:int): 
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_desired_value(value)
@@ -52,7 +52,7 @@ func update():
 	update_comb_exchange_fields()
 
 func update_unit_fields():
-	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.unit_name
+	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.name
 	$Unit/UnitIcon.texture = unit.icon
 	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.attack_speed)
 

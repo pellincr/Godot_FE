@@ -1,0 +1,103 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=18 format=3 uid="uid://dklhd7ncdtuuj"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_wylkh"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_4m6cw"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="3_aagoq"]
+[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="3_vqq6r"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="4_mmqbc"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="5_yeadg"]
+[ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="6_ccgxi"]
+[ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="7_1brhm"]
+[ext_resource type="Resource" uid="uid://pm3p8kf4cm30" path="res://resources/definitions/items/weapons/bow/killer_bow.tres" id="8_f572t"]
+
+[sub_resource type="Resource" id="Resource_yjned"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(9, 2)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("3_aagoq")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_mylap"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(17, 11)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("3_aagoq")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_684ou"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(5, 2)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "archer"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("4_mmqbc")])
+ai_type = 0
+
+[sub_resource type="Resource" id="Resource_ig6bo"]
+script = ExtResource("1_wylkh")
+name = "Braumulus"
+map_position = Vector2i(12, 2)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("5_yeadg")])
+ai_type = 2
+
+[sub_resource type="Resource" id="Resource_r1yue"]
+script = ExtResource("1_wylkh")
+name = "Forguth"
+map_position = Vector2i(15, 25)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "corsair"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("6_ccgxi")])
+ai_type = 2
+
+[sub_resource type="Resource" id="Resource_grvbo"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(14, 24)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "gunner"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("7_1brhm")])
+ai_type = 1
+
+[sub_resource type="Resource" id="Resource_f30gi"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(16, 24)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "gunner"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("8_f572t")])
+ai_type = 1
+
+[sub_resource type="Resource" id="Resource_odyui"]
+script = ExtResource("1_wylkh")
+name = "Bandit"
+map_position = Vector2i(14, 26)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "gunner"
+inventory = Array[ExtResource("2_4m6cw")]([ExtResource("4_mmqbc")])
+ai_type = 1
+
+[resource]
+script = ExtResource("3_vqq6r")
+group = Array[ExtResource("1_wylkh")]([SubResource("Resource_yjned"), SubResource("Resource_mylap"), SubResource("Resource_684ou"), SubResource("Resource_ig6bo"), SubResource("Resource_r1yue"), SubResource("Resource_grvbo"), SubResource("Resource_f30gi"), SubResource("Resource_odyui")])

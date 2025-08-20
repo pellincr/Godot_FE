@@ -20,9 +20,10 @@ func _process(delta):
 		pass
 
 func activate_tween():
-	tween = get_tree().create_tween()
-	tween.tween_property(self, "value", desired_value, 0.4)
-	tween.connect("finished", tween_done)
+	if get_tree() != null:
+		tween = get_tree().create_tween()
+		tween.tween_property(self, "value", desired_value, 0.4)
+		tween.connect("finished", tween_done)
 	
 func tween_done():
 	tween = null

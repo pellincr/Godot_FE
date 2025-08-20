@@ -1,71 +1,31 @@
 extends ItemDefinition
 class_name WeaponDefinition
 
-enum WEAPON_TYPE
-{
-	AXE,
-	SWORD,
-	LANCE,
-	BOW,
-	ANIMA,
-	LIGHT,
-	DARK,
-	STAFF,
-	FIST,
-	MONSTER,
-	OTHER
-}
-
-enum DAMAGE_TYPE
-{
-	PHYSICAL,
-	MAGICAL,
-	NONE
-}
-
-enum SCALING_TYPE
-{
-	PHYSICAL,
-	MAGICAL,
-	NONE
-}
-enum HIT_EFFECT
-{
-	PHYSICAL_DAMAGE,
-	MAGICAL_DAMAGE,
-	HEAL,
-	SLEEP,
-	PLACEHOLDER
-}
-enum AVAILABLE_TARGETS #this will expanded when more factions are added
-{
-	ENEMY,
-	ALLY,
-	SELF
-}
-
 @export_subgroup("Weapon Type")
-@export_enum("Axe", "Sword", "Lance", "Bow", "Anima", "Light", "Dark", "Staff", "Fist", "Monster", "Other" ) var weapon_type : String
-@export_enum("none", "Axe", "Sword", "Lance") var physical_weapon_triangle_type : String
-@export_enum("none","Dark", "Light", "Nature") var magic_weapon_triangle_type : String
-@export_enum("Physical", "Magic", "NONE" ) var item_damage_type : int = 0
-@export_enum("Physical", "Magic", "NONE" ) var item_scaling_type : int = 0
-@export_enum("Enemy", "Ally", "Self") var item_target_faction : int = 0
+@export var weapon_type : itemConstants.WEAPON_TYPE
+@export var alignment : itemConstants.ALIGNMENT
+@export var physical_weapon_triangle_type : itemConstants.MUNDANE_WEAPON_TRIANGLE
+@export var magic_weapon_triangle_type : itemConstants.MAGICAL_WEAPON_TRIANGLE
+@export var item_damage_type : Constants.DAMAGE_TYPE = 0
+@export var item_scaling_type : itemConstants.SCALING_TYPE = 0
+@export var item_target_faction : Array[itemConstants.AVAILABLE_TARGETS] = [0]
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED
-@export_enum("E","D","C","B","A","S", "NONE") var required_mastery = 0
+@export var required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
 @export_range(0, 30, 1) var attack_range : Array[int] = [1]
 @export_group("Combat Stats") 
 @export_range(0, 30, 1, "or_greater") var damage = 0
 @export_range(0, 100, 1, "or_greater") var hit = 100
 @export_range(0, 30, 1, "or_greater") var critical_chance = 0
 @export_range(0, 30, 1, "or_greater") var weight = 5
+@export var critical_multiplier : float = 3
+@export var attacks_per_combat_turn : int = 1
 
 @export_group("Weapon Effectiveness")
-@export_enum("Infantry","Calvary", "Armored", "Monster", "Animal", "Flying") var weapon_effectiveness : Array[String] = []
-@export_enum("PHYSICAL_DAMAGE","MAGICAL_DAMAGE","HEAL","SLEEP","PLACEHOLDER") var weapon_hit_effect = 0
-@export var is_wpn_triangle_effective = false
+@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
+@export var status_ailments : Array[String] = []
 @export_group("Weapon Specials") 
+@export var is_wpn_triangle_effective = false
 @export var crit_disabled : bool = false
 @export var is_brave = false
 @export var is_vampyric = false

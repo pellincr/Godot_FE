@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_734hv"]
 
-
 [resource]
 script = ExtResource("1_734hv")
 name = "Empty Terrain"

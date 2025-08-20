@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkrqibh031py2"]
+
+[ext_resource type="PackedScene" uid="uid://b26kxlm2q45nj" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_health_bar/unit_health_bar_container.tscn" id="1_2kyu6"]
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.gd" id="1_gyffb"]
+[ext_resource type="PackedScene" uid="uid://dvu1wufqkwj1i" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_stat_container.tscn" id="2_3wu8b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k30e1"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_anw6s"]
+Panel/styles/panel = SubResource("StyleBoxFlat_k30e1")
+
+[node name="UnitCombatExchangeStatsPanel" type="Panel"]
+custom_minimum_size = Vector2(350, 170)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_anw6s")
+script = ExtResource("1_gyffb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(350, 170)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UnitHealthBarContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_2kyu6")]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="UnitCombatStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_3wu8b")]
+layout_mode = 2
+size_flags_horizontal = 4

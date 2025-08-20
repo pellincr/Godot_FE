@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://crhq4kqlvv2il"]
+
+[ext_resource type="Script" path="res://hall_of_heroes/hall_of_heroes_main_scroll_container.gd" id="1_431a5"]
+
+[node name="HallOfHeroesMainScrollContainer" type="ScrollContainer"]
+custom_minimum_size = Vector2(1000, 600)
+offset_right = 40.0
+script = ExtResource("1_431a5")
+
+[node name="MainScrollContainer" type="VBoxContainer" parent="."]
+layout_mode = 2

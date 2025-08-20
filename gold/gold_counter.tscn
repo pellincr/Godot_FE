@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8ack2q1osxdy"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_1o380"]
+[ext_resource type="Script" path="res://gold/gold_counter.gd" id="2_eglww"]
+
+[sub_resource type="Theme" id="Theme_1u230"]
+default_font = ExtResource("1_1o380")
+default_font_size = 24
+
+[node name="GoldCounter" type="Label"]
+modulate = Color(1, 0.658824, 0, 1)
+custom_minimum_size = Vector2(100, 24)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1180.0
+offset_bottom = -696.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1u230")
+text = "10000G"
+autowrap_mode = 3
+script = ExtResource("2_eglww")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://cmm88qxp1ec6f"]
+
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_vquyn"]
+
+[resource]
+script = ExtResource("1_vquyn")
+hp = 24
+strength = 10
+magic = 0
+skill = 3
+speed = 1
+luck = 0
+defense = 2
+resistance = 0
+movement = 6
+constitution = 15

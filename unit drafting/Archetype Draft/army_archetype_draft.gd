@@ -3,7 +3,7 @@ extends Control
 class_name armyArchetypeDraft
 
 signal archetype_selection_complete(po_data)
-signal archetype_selected()
+signal archetype_selected(archetype)
 
 const archetype_selector_scene = preload("res://unit drafting/Archetype Draft/archetype_draft_selector.tscn")
 var playerOverworldData : PlayerOverworldData
@@ -35,9 +35,11 @@ func create_archetype_selector_list(selector_count: int, selector_container):
 	var accum = []
 	for i in range(selector_count):
 		var archetype_selector : archetypeDraftSelector = archetype_selector_scene.instantiate()
+		archetype_selector.set_po_data(playerOverworldData)
 		selector_container.add_child(archetype_selector)
 		archetype_selector.connect("archetype_selected",on_archetype_selected)
 		accum.append(archetype_selector)
+	accum[0].grab_focus()
 	return accum
 
 
@@ -53,29 +55,27 @@ func update_archetype_selectors():
 		selector.update_all()
 
 
-func on_archetype_selected(archetype):
+func on_archetype_selected(archetype:ArmyArchetypeDefinition):
 	#Increase the number of archetypes the player has selected by 1
 	playerOverworldData.current_archetype_count += 1
-	#add the archtype to the players archetype allotment list
-	var given_allotments = get_classes_from_archetype(archetype.given_archetypes)
-	playerOverworldData.archetype_allotments.append_array(given_allotments)
+	#add the archtype allotments to the players archetype allotment list
+	var selected_archetype_picks = archetype.archetype_picks
+	var archetype_list = create_archetype_list(selected_archetype_picks)
+	playerOverworldData.archetype_allotments.append_array(archetype_list)
 	#Re-Randomize the selectors
 	update_archetype_selectors()
-	archetype_selected.emit()
+	archetype_selected.emit(archetype)
 	if (playerOverworldData.current_archetype_count == playerOverworldData.max_archetype):
 		archetype_selection_complete.emit(playerOverworldData)
 		queue_free()
 		print("All Archetypes Selected")
 
-# dictionary -> array of classes
-func get_classes_from_archetype(archetype_allotments):
+
+func create_archetype_list(archetype_picks):
 	var accum = []
-	for key in archetype_allotments.keys():
-		var dict_value = archetype_allotments.get(key)
-		if dict_value == 0:
-			pass
-		else:
-			while dict_value > 0:
-				accum.append(key)
-				dict_value -= 1
+	for pick in archetype_picks:
+		var volume = pick.volume
+		while volume >= 1:
+			accum.append(pick)
+			volume -= 1
 	return accum

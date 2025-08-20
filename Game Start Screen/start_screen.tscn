@@ -1,0 +1,170 @@
+[gd_scene load_steps=6 format=3 uid="uid://du3bm08i3a50w"]
+
+[ext_resource type="Script" path="res://Game Start Screen/start_screen.gd" id="1_2x6th"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_4w0we"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7uvd"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hssry"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_yi5ef"]
+default_font = ExtResource("1_4w0we")
+Button/styles/focus = SubResource("StyleBoxFlat_s7uvd")
+Button/styles/normal = SubResource("StyleBoxFlat_hssry")
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_yi5ef")
+script = ExtResource("1_2x6th")
+
+[node name="MainVContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 397.0
+offset_top = 294.0
+offset_right = 885.0
+offset_bottom = 400.0
+
+[node name="Start_Button" type="Button" parent="MainVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Start Game"
+
+[node name="Options_Button" type="Button" parent="MainVContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="Quit_Button" type="Button" parent="MainVContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="OptionVContainer" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="OptionVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+current_tab = 0
+
+[node name="Video" type="TabBar" parent="OptionVContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Audio" type="TabBar" parent="OptionVContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Return_Button" type="Button" parent="OptionVContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionVContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Apply_Button" type="Button" parent="OptionVContainer/HBoxContainer"]
+layout_mode = 2
+text = "Apply"
+
+[node name="Return_Button" type="Button" parent="OptionVContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[node name="SaveVContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 389.0
+offset_top = 183.0
+offset_right = 891.0
+offset_bottom = 475.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Save1HContainer" type="HBoxContainer" parent="SaveVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Save_Button1" type="Button" parent="SaveVContainer/Save1HContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 1 - NEW"
+
+[node name="Delete_Button" type="Button" parent="SaveVContainer/Save1HContainer"]
+visible = false
+layout_mode = 2
+text = "X"
+
+[node name="Save2HContainer" type="HBoxContainer" parent="SaveVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Save_Button2" type="Button" parent="SaveVContainer/Save2HContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 2 - NEW"
+
+[node name="Delete_Button" type="Button" parent="SaveVContainer/Save2HContainer"]
+visible = false
+layout_mode = 2
+text = "X"
+
+[node name="Save3HContainer" type="HBoxContainer" parent="SaveVContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Save_Button3" type="Button" parent="SaveVContainer/Save3HContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slot 3 - NEW"
+
+[node name="Delete_Button" type="Button" parent="SaveVContainer/Save3HContainer"]
+visible = false
+layout_mode = 2
+text = "X"
+
+[node name="Return_Button" type="Button" parent="SaveVContainer"]
+layout_mode = 2
+text = "Return"
+
+[connection signal="pressed" from="MainVContainer/Start_Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainVContainer/Options_Button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainVContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="OptionVContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="OptionVContainer/HBoxContainer/Return_Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save1HContainer/Save_Button1" to="." method="_on_save_button_1_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save1HContainer/Delete_Button" to="." method="_on_save_slot_1_delete_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save2HContainer/Save_Button2" to="." method="_on_save_button_2_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save2HContainer/Delete_Button" to="." method="_on_save_slot_2_delete_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save3HContainer/Save_Button3" to="." method="_on_save_button_3_pressed"]
+[connection signal="pressed" from="SaveVContainer/Save3HContainer/Delete_Button" to="." method="_on_save_slot_3_delete_button_pressed"]
+[connection signal="pressed" from="SaveVContainer/Return_Button" to="." method="_on_return_button_pressed"]

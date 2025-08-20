@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://rutpjdu02rph"]
+[gd_scene load_steps=6 format=3 uid="uid://rutpjdu02rph"]
 
-[ext_resource type="Texture2D" uid="uid://cqm5bfwkx8b3p" path="res://resources/sprites/icons/amor_icon.png" id="1_5m170"]
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_jn6tx"]
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_select_overview.gd" id="2_j5hyn"]
+[ext_resource type="PackedScene" uid="uid://di7v11sroksay" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.tscn" id="3_741w1"]
 
 [sub_resource type="Theme" id="Theme_2a7jc"]
 default_font_size = 36
@@ -9,14 +10,16 @@ default_font_size = 36
 [sub_resource type="Theme" id="Theme_n1qum"]
 default_font_size = 36
 
-[node name="CommanderSelectOverview" type="Control"]
+[node name="UnitSelectOverview" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_jn6tx")
+script = ExtResource("2_j5hyn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -24,12 +27,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 50
 
-[node name="ClassTypeContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="WeaponTraitIconContainer" parent="VBoxContainer" instance=ExtResource("3_741w1")]
 layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ClassTypeContainer"]
-layout_mode = 2
-texture = ExtResource("1_5m170")
 
 [node name="SkillsContainer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -60,11 +59,11 @@ uppercase = true
 
 [node name="GradeLabelContainer" type="VBoxContainer" parent="VBoxContainer/StatsOverviewContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="StatsOverviewLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/GradeLabelContainer"]
 layout_mode = 2
-text = "C+"
-horizontal_alignment = 2
+text = "A"
 
 [node name="GrowthsOverviewLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/GradeLabelContainer"]
 layout_mode = 2

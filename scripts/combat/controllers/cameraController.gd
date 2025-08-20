@@ -1,8 +1,12 @@
 extends Camera2D
+class_name level
 
 @export var zoomSpeed : float = 10;
 @export var map: Node 
 var zoomTarget :Vector2
+
+
+@onready var combat = $"../Combat"
 
 var dragStartMousePos = Vector2.ZERO
 var dragStartCameraPos = Vector2.ZERO
@@ -33,7 +37,7 @@ func Zoom(delta):
 	zoom = zoom.slerp(zoomTarget, zoomSpeed * delta)
 	
 	
-	
+
 func SimplePan(delta):
 	var moveAmount = Vector2.ZERO
 	if Input.is_action_pressed("camera_move_right"):
@@ -71,3 +75,7 @@ func set_camera_limits(): ## needs to be updated
 	self.limit_right = map_limits.end.x * map_cellsize.x
 	self.limit_top = map_limits.position.y * map_cellsize.y
 	self.limit_bottom = map_limits.end.y * map_cellsize.y
+
+
+func set_win_condition():
+	combat.win_condition = Constants.WIN_CONDITION.CLEAR_ENEMIES
