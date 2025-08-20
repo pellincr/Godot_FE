@@ -9,5 +9,6 @@
 
 [resource]
 script = ExtResource("6_wh0xa")
-battle_levels = Array[PackedScene]([ExtResource("1_5lqjb"), ExtResource("2_2b0u2"), ExtResource("3_vakfn"), ExtResource("4_1r3a6")])
+tier_1_battle_levels = Array[PackedScene]([ExtResource("1_5lqjb")])
+tier_2_battle_levels = Array[PackedScene]([ExtResource("2_2b0u2"), ExtResource("3_vakfn"), ExtResource("4_1r3a6")])
 boss_levels = Array[PackedScene]([ExtResource("5_i142n")])

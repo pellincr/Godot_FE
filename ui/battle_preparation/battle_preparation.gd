@@ -49,10 +49,24 @@ func _ready():
 	playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.army_convoy_header.set_units_left_value(0,playerOverworldData.available_party_capacity)
-	army_convoy_container.fill_army_scroll_container()
+	#army_convoy_container.fill_army_scroll_container()
 	army_convoy_container.set_units_left_value(playerOverworldData.selected_party.size(),playerOverworldData.available_party_capacity)
 	#army_convoy_container.get_sub_container_first_child_focus()
 	SelectedSaveFile.save(playerOverworldData)
+	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
+		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+		tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		tutorial_panel.grab_focus()
+		tutorial_panel.total_pages = 4
+		tutorial_panel.tutorial_page_text.append("This is the Battle Preparation Screen. Before every battle you enter, you will be able to adjust your units and send a select group of them to battle.")
+		tutorial_panel.tutorial_page_text.append("The top of the screen displays the amount of units you are allowed to take on the current mission and how many units you have currently selected.")
+		tutorial_panel.tutorial_page_text.append("By pressing the toggle buttons, you will be able to see either your total party, or the items you have in your convoy.")
+		tutorial_panel.tutorial_page_text.append("Sell, equip, and trade items between units to make sure your party is ready for battle!")
+		tutorial_panel.tutorial_completed.connect(tutorial_completed)
+		add_child(tutorial_panel)
+		tutorial_panel.grab_focus()
+	else:
+		tutorial_completed()
 
 func _process(delta):
 	if Input.is_action_just_pressed("start_game") and playerOverworldData.selected_party.size() > 0:
@@ -90,6 +104,9 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
+
+func tutorial_completed():
+	army_convoy_container.fill_army_scroll_container()
 
 func clear_sub_container():
 	var children = army_convoy_container.get_sub_container().get_children()

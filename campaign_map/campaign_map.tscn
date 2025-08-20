@@ -23,14 +23,13 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(640, 360)
-zoom = Vector2(3, 3)
+position = Vector2(643, 360)
 
 [node name="CampaignMapControls" parent="Camera2D" instance=ExtResource("2_m0mgj")]
-offset_left = 427.0
-offset_top = 449.0
-offset_right = 611.0
-offset_bottom = 481.0
+offset_left = -638.0
+offset_top = 328.0
+offset_right = -422.0
+offset_bottom = 360.0
 
 [node name="CampaignMapGenerator" type="Node" parent="."]
 script = ExtResource("1_1uwo1")

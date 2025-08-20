@@ -1,6 +1,6 @@
 extends Control
 @onready var current_draft_state = Constants.DRAFT_STATE.COMMANDER
-@onready var main_container = $MarginContainer/VBoxContainer
+@onready var main_container = $MarginContainer/MainContainer
 var playerOverworldData : PlayerOverworldData
 var control_node : Node = self
 
@@ -13,17 +13,17 @@ const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
-@onready var army_draft_stage_label = $MarginContainer/VBoxContainer/HBoxContainer/ArmyDraftStageLabel
-@onready var pick_amount_label = $MarginContainer/VBoxContainer/HBoxContainer/PickAmountLabel
-@onready var header_label = $MarginContainer/VBoxContainer/HeaderPanel/HeaderLabel
+@onready var army_draft_stage_label = $MarginContainer/MainContainer/HBoxContainer/ArmyDraftStageLabel
+@onready var pick_amount_label = $MarginContainer/MainContainer/HBoxContainer/PickAmountLabel
+@onready var header_label = $MarginContainer/MainContainer/HeaderPanel/HeaderLabel
 
-@onready var gold_counter = $MarginContainer/VBoxContainer/GoldCounter
+@onready var gold_counter = $MarginContainer/MainContainer/GoldCounter
 
-@onready var army_list_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer
-@onready var army_list_label = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArmyListLabel
-@onready var archetype_icon_container = $MarginContainer/VBoxContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
+@onready var army_list_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer
+@onready var army_list_label = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArmyListLabel
+@onready var archetype_icon_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
 
-@onready var unit_draft_controls = $"MarginContainer/UnitDraftControls"
+@onready var unit_draft_controls = $MarginContainer/UnitDraftControls
 
 var max_unit_draft = 0
 var current_drafted = []
@@ -33,9 +33,8 @@ func _ready():
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	gold_counter.set_gold_count(playerOverworldData.gold)
-	
 	load_data()
+	gold_counter.set_gold_count(playerOverworldData.gold)
 	if playerOverworldData.floors_climbed > 0:
 		#if drafting in the middle of a campaign
 		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
@@ -49,7 +48,18 @@ func _ready():
 		unit_draft.current_state = current_draft_state
 		main_container.add_child(unit_draft)
 		unit_draft.connect("commander_drafted",commander_selection_complete)
-
+		if playerOverworldData.current_campaign.name == "Tutorial":
+			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+			
+			tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+			tutorial_panel.grab_focus()
+			tutorial_panel.total_pages = 4
+			tutorial_panel.tutorial_page_text.append("Welcome to your first Campaign! The first part of every campaign is the army draft. Your first unit, and perhaps most important, will be the commander.")
+			tutorial_panel.tutorial_page_text.append("After you select the Commander of your Army, you will select the archetypes you want your army to be built out of.")
+			tutorial_panel.tutorial_page_text.append("Each Archetype will allow you to select from the units and items you have unlocked that fit the description.")
+			tutorial_panel.tutorial_page_text.append("Once all archetypes are selected, you may select the units that are right for you and get ready to play")
+			tutorial_panel.tutorial_completed.connect(tutorial_completed.bind(unit_draft.get_first_selector()))
+			add_child(tutorial_panel)
 
 func set_player_overworld_data(po_data):
 	playerOverworldData = po_data
@@ -72,7 +82,9 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
-
+func tutorial_completed(selector):
+	await Input.is_action_pressed("ui_accept")
+	selector.grab_focus()
 
 func commander_selection_complete(commander):
 	playerOverworldData.append_to_array(playerOverworldData.total_party,commander)
@@ -207,6 +219,7 @@ func clear_archetype_icons():
 
 func set_army_draft_stage_label(text):
 	army_draft_stage_label.text = text
+
 
 func set_pick_amount_label(text):
 	pick_amount_label.text = text

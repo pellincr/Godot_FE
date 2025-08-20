@@ -30,6 +30,7 @@ func _ready() -> void:
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
 	if !playerOverworldData.campaign_map_data:
+		#If this is the first time loading into the campaign map for the campaign
 		generate_new_map()
 		unlock_floor(0)
 	else:
@@ -38,9 +39,22 @@ func _ready() -> void:
 			unlock_next_rooms()
 		else:
 			unlock_floor(0)
+	
 	grab_first_available_room_foucs()
 	set_map_room_focus_neighbors()
 	SelectedSaveFile.save(playerOverworldData)
+	
+	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 0:
+			#If it's the tutorial campaign, show the tutorial
+			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+			tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+			tutorial_panel.total_pages = 3
+			tutorial_panel.tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
+			tutorial_panel.tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
+			tutorial_panel.tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+			camera_2d.add_child(tutorial_panel)
+			tutorial_panel.tutorial_completed.connect(tutorial_completed)
+			tutorial_panel.grab_focus()
 
 
 func transition_in_animation():
@@ -64,7 +78,9 @@ func _input(event:InputEvent) ->void:
 		camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
 
-
+func tutorial_completed():
+#	camera_2d.zoom = Vector2(3,3)
+	rooms.get_child(0).grab_focus()
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
@@ -81,8 +97,10 @@ func create_map() -> void:
 	_spawn_room(playerOverworldData.campaign_map_data[campaign_map_generator.FLOORS-1][middle])
 	
 	var map_width_pixels := CampaignMapGenerator.X_DIST * (CampaignMapGenerator.MAP_WIDTH-1)
+	var map_height_pixels := CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
-	visuals.position.y = get_viewport_rect().size.y/2
+	visuals.position.y = (get_viewport_rect().size.y - map_height_pixels)/2
+
 
 func unlock_floor(which_floor:int = playerOverworldData.floors_climbed) -> void:
 	for map_room : CampaignMapRoom in rooms.get_children():
@@ -132,7 +150,10 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 	playerOverworldData.floors_climbed += 1
 	match  room.type:
 		CampaignRoom.TYPE.BATTLE:
-			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.pick_random()
+			if playerOverworldData.floors_climbed < playerOverworldData.current_campaign.tier_2_floor_start_number:
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_1_battle_levels.pick_random()
+			else:
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_2_battle_levels.pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)

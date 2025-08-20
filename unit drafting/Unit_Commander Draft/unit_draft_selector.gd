@@ -51,15 +51,15 @@ func _ready():
 	
 	
 
-func _process(delta):
-	if Input.is_action_just_pressed("right_bumper") and has_focus():
-		show_next_screen()
-	if Input.is_action_just_pressed("left_bumper") and has_focus():
-		show_previous_screen()
-	if Input.is_action_just_pressed("ui_confirm") and has_focus():
+func _on_gui_input(event):
+	if event.is_action_pressed("ui_confirm") and has_focus():
 		$AudioStreamPlayer.stream = menu_enter_effect
 		$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
+	if event.is_action_pressed("right_bumper") and has_focus():
+		show_next_screen()
+	if event.is_action_pressed("left_bumper") and has_focus():
+		show_previous_screen()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -507,7 +507,10 @@ func filter_commander_by_already_generated(commander_class_keys):
 	for commander_class_key in commander_class_keys:
 		if !randomized_commander_types.has(commander_class_key):
 			accum.append(commander_class_key)
-	return accum
+	if accum.is_empty():
+		return commander_class_keys
+	else:
+		return accum
 
 func randomize_weapon(archetype_pick, weapon_rarity):
 	var all_item_types = ItemDatabase.items.keys()

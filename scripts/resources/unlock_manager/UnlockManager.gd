@@ -15,20 +15,20 @@ class_name UnlockManager
 
 @export var commander_types_unlocked : Dictionary = {
 	"centurion" : true,
-	"destroyer" : true,
-	"mage_knight" : true,
-	"war_maiden" : true,
+	"destroyer" : false,
+	"mage_knight" : false,
+	"war_maiden" : false,
 	"weapon_master": false
 }
 
 @export var unit_types_unlocked : Dictionary = {
-	"archer" : false,
-	"axe_armor" : false,
-	"axe_cavalier" : false,
-	"bishop" : false,
-	"bladehand" : false,
-	"brawler" : false,
-	"corsair" : false,
+	"archer" : true,
+	"axe_armor" : true,
+	"axe_cavalier" : true,
+	"bishop" : true,
+	"bladehand" : true,
+	"brawler" : true,
+	"corsair" : true,
 	"duelist" : true,
 	"field_medic" : true,
 	"fighter" : true,
@@ -45,7 +45,7 @@ class_name UnlockManager
 	"sellsword" : true,
 	"sword_armor" : true,
 	"sword_cavalier" : true,
-	"theif:" : true,
+	"thief:" : true,
 	"ward" : true
 }
 

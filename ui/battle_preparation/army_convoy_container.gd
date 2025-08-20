@@ -130,3 +130,6 @@ func in_shop_state():
 
 #func get_sub_container_first_child_focus():
 #	army_convoy_sub_container.get_first_child_focus()
+
+func get_first_sub_container_child():
+	return army_convoy_sub_container.get_child(0)
