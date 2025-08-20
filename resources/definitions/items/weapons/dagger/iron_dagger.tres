@@ -23,6 +23,7 @@ hit = 85
 critical_chance = 20
 weight = 5
 critical_multiplier = 5.0
+attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailments = Array[String]([])
 is_wpn_triangle_effective = false

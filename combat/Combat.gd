@@ -176,26 +176,13 @@ func get_distance(attacker: CombatUnit, target: CombatUnit):
 	var point2 = target.map_position
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
 
-func perform_attack(attacker: CombatUnit, target: CombatUnit, distance:int = -9999999):
+func perform_attack(attacker: CombatUnit, target: CombatUnit, data: UnitCombatExchangeData):
 	print("Entered Perform_attack in combat.gd")
 	_player_unit_alive = true
-	#check the distance between the target and attacker
-	if distance == -9999999:
-		distance = get_distance(attacker, target)
-	# check if that item can hit the target
-	var valid = combatExchange.check_can_attack(attacker, target, distance)
-	if valid:
-		await combatExchange.enact_combat_exchange(attacker, target, distance)
-		if attacker.allegience == Constants.FACTION.PLAYERS:
-			major_action_complete()
-		if attacker.allegience == Constants.FACTION.ENEMIES:
-			major_action_complete()
-			complete_unit_turn()
-	else:
-		update_information.emit("Target too far to attack.\n")
-		if attacker.allegience == Constants.FACTION.ENEMIES:
-			complete_unit_turn()
-			major_action_complete()
+	await combatExchange.enact_combat_exchange_new(attacker, target, data)
+	major_action_complete()
+	if attacker.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
 
 func perform_staff(user: CombatUnit, target: CombatUnit):
 	print("Entered Perform_attack in combat.gd")
@@ -218,12 +205,6 @@ func perform_staff(user: CombatUnit, target: CombatUnit):
 		if user.allegience == Constants.FACTION.ENEMIES:
 			complete_unit_turn()
 			major_action_complete()
-
-##ACTIONS
-#Attack Action
-func Attack(attacker: CombatUnit, target: CombatUnit):
-	print("Entered Attack in Combat.gd")
-	await perform_attack(attacker, target)
 
 #trade
 func Trade(unit: CombatUnit, target: CombatUnit):
@@ -394,6 +375,7 @@ func ai_process(comb : CombatUnit):
 	var comb_attack_range : Array[int]
 	var nearest_target: CombatUnit
 	var l = INF
+	var attack_data: UnitCombatExchangeData
 	comb_attack_range = comb.unit.inventory.get_available_attack_ranges()
 	for target_comb_index in groups[Constants.FACTION.PLAYERS]:
 		var target = combatants[target_comb_index] #DO A CHECK TO MAKE SURE THERE ARE AVAILABLE TARGETS
@@ -404,8 +386,8 @@ func ai_process(comb : CombatUnit):
 	## can they reach?
 	if nearest_target:
 		if comb_attack_range.has(get_distance(comb, nearest_target)):
-			ai_equip_best_weapon(comb, nearest_target)
-			await Attack(comb, nearest_target)
+			attack_data = ai_equip_best_weapon(comb, nearest_target,l)
+			await perform_attack(comb, nearest_target, attack_data)
 			return
 	#if the current unit AI types lets them move on map
 	if(comb.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT):
@@ -413,8 +395,8 @@ func ai_process(comb : CombatUnit):
 		#await controller.finished_move
 		print("finished waiting for controller")
 		if comb_attack_range.has(get_distance(comb, nearest_target)):
-			ai_equip_best_weapon(comb, nearest_target)
-			await Attack(comb, nearest_target)
+			attack_data = ai_equip_best_weapon(comb, nearest_target,l)
+			await perform_attack(comb, nearest_target, attack_data)
 			return
 	if comb:
 		if is_instance_valid(comb.map_display) :
@@ -431,7 +413,7 @@ func ai_process_new(comb : CombatUnit):
 			print("@ EQUIPPING BEST WEAPON")
 			comb.unit.set_equipped(comb.unit.get_equippable_weapons()[action.item_index])
 			print("@ CALLED ATTACK")
-			await Attack(comb, action.target)
+			await perform_attack(comb, action.target, action.combat_action_data)
 			print("@ FINISHED WAITING FOR ATTACK")
 	if comb:
 		if is_instance_valid(comb.map_display) :
@@ -445,77 +427,68 @@ func get_ai_units() -> Array[CombatUnit]:
 			enemy_unit_array.append(combatants[enemy_unit])
 	return enemy_unit_array
 
-#AI logic to pick a target in range
-func ai_pick_target(weights):
-	var rand_num = randf()
-	var full_weight = 1.0
-	for w in weights:
-		var weight = w[0]
-		full_weight -= weight
-		if rand_num > full_weight - 0.001: #full_weight - 0.001 due to float inaccuracy
-			return w[1]
-
-func calc_expected_combat_exchange(attacker:CombatUnit, target:CombatUnit, distance:int = -1) -> Dictionary:
+func calc_expected_combat_exchange(attacker:CombatUnit, defender:CombatUnit, data: UnitCombatExchangeData) -> UnitCombatActionExpectedOutcome:
 	#Get the values to run calcs on
+	var combat_exchange_outcome : UnitCombatActionExpectedOutcome = UnitCombatActionExpectedOutcome.new()
 	var max_damage : int = 0 # What is our max potential damage?
 	var can_lethal : bool = false
 	var attack_mult :int = 1
 	var expected_damage : float = 0
 	var exchange_info
-	if distance == -1:
-		exchange_info = combatExchange.calc_combat_exchange_preview(attacker, target, attacker.unit.inventory.get_available_attack_ranges().front())
-	else :
-		exchange_info = combatExchange.calc_combat_exchange_preview(attacker, target, distance)
- 
-	if exchange_info.double_attacker == 1:
-		attack_mult = 2
-	if exchange_info.attacker_hit_chance > 0:
-		if exchange_info.attacker_critical_chance > 0:
-			max_damage = attack_mult * exchange_info.attacker_damage * 3
-			expected_damage = attack_mult * ((exchange_info.attacker_damage * float(exchange_info.attacker_hit_chance /float(100))) 
-			+ (2 * (exchange_info.attacker_damage * float(exchange_info.attacker_hit_chance /float(100))) * float(exchange_info.attacker_critical_chance) /float(100)))
-		else : 
-			max_damage = attack_mult * exchange_info.attacker_damage
-			expected_damage = attack_mult * (exchange_info.attacker_damage * exchange_info.attacker_hit_chance /float(100))
+	for turn in data.exchange_data:
+		if turn.owner == attacker:
+			var turn_damage = ((turn.attack_damage * turn.attack_count) * float(1 + turn.critical/float(100) * attacker.get_equipped().critical_multiplier))
+			combat_exchange_outcome.expected_damage = combat_exchange_outcome.expected_damage + turn_damage
+			combat_exchange_outcome.maximum_damage = combat_exchange_outcome.maximum_damage + ((turn.attack_damage * turn.attack_count) * attacker.get_equipped().critical_multiplier)
+			if combat_exchange_outcome.expected_damage_taken < attacker.unit.hp:
+				combat_exchange_outcome.expected_damage_before_defeat = combat_exchange_outcome.expected_damage_before_defeat + turn_damage
+		elif turn.owner == defender:
+			var turn_damage = ((turn.attack_damage * turn.attack_count) * float(1 + turn.critical/float(100) * defender.get_equipped().critical_multiplier))
+			combat_exchange_outcome.expected_damage_taken = combat_exchange_outcome.expected_damage_taken + turn_damage
 	# is it lethal?
-	if (max_damage > target.unit.hp ):
-		can_lethal = true	
-	var expected_combat_outcome = {
-		"can_lethal"  = can_lethal,
-		"expected_damage" = expected_damage,
-		"attacker_hit_chance" = exchange_info.attacker_hit_chance
-	}
-	return expected_combat_outcome
+	if (combat_exchange_outcome.maximum_damage > defender.unit.hp ):
+		combat_exchange_outcome.can_lethal = true
+	return combat_exchange_outcome
 
+#
+# Calculates the best attack action for a particular combat action
+#
 func ai_get_best_attack_action(ai_unit: CombatUnit, distance: int, target:CombatUnit, terrain: Terrain) -> aiAction:
 	var best_action : aiAction = aiAction.new()
 	var usable_weapons : Array[WeaponDefinition] =  ai_unit.unit.get_usable_weapons_at_range(distance)
 	if not usable_weapons.is_empty():
-		var expected_damage : Array[Vector2]
 		for i in range(usable_weapons.size()):
 			ai_unit.unit.set_equipped(usable_weapons[i])
 			var action: aiAction = aiAction.new()
-			var expected_combat_return_outcome = calc_expected_combat_exchange(ai_unit, target, distance)
-			action.generate_attack_action_rating(terrain.avoid/100,expected_combat_return_outcome.attacker_hit_chance, expected_combat_return_outcome.expected_damage, target.unit.stats.hp, expected_combat_return_outcome.can_lethal)
+			var data: UnitCombatExchangeData = combatExchange.generate_combat_exchange_data(ai_unit, target, distance)
+			var combat_exchange_outcome : UnitCombatActionExpectedOutcome = calc_expected_combat_exchange(ai_unit, target, data)
+			action.generate_attack_action_rating(terrain.avoid/100,combat_exchange_outcome.attacker_hit_chance, combat_exchange_outcome.expected_damage, target.unit.stats.hp, combat_exchange_outcome.can_lethal)
 			action.item_index = i
 			action.target = target
 			action.action_type = "ATTACK"
+			action.combat_action_data = data
 			if best_action == null or action.rating > best_action.rating: 
 				best_action = action
 		print("@ BEST ATTACK RATING CALC : " + str(best_action.rating))
 	return best_action
-	
-func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit):
+
+#
+# calculates the best weapon the ai should use in an action
+#
+func ai_equip_best_weapon(comb: CombatUnit, target:CombatUnit, distance:int) -> UnitCombatExchangeData:
 	## get weapon options
+	var data: UnitCombatExchangeData
 	var usable_weapons : Array[WeaponDefinition] =  comb.unit.get_usable_weapons_at_range(get_distance(comb, target))
 	if not usable_weapons.is_empty():
 		var expected_damage : Array[Vector2]
 		for i in range(usable_weapons.size()):
 			comb.unit.set_equipped(usable_weapons[i])
-			expected_damage.append(Vector2(i, calc_expected_combat_exchange(comb, target).expected_damage))
+			data = combatExchange.generate_combat_exchange_data(comb, target, distance)
+			expected_damage.append(Vector2(i, calc_expected_combat_exchange(comb, target, data).expected_damage))
 		expected_damage.sort_custom(sort_by_y_value)
 		print("@ EXPECTED DAMAGE CALC : " + str(expected_damage))
 		comb.unit.set_equipped(usable_weapons[expected_damage.front().x])
+	return data
 
 func sort_by_y_value(a: Vector2, b : Vector2):
 	return a.y > b.y

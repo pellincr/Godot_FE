@@ -97,6 +97,8 @@ var _action_tiles : Array[Vector2i]
 var _action_valid_targets : Array[CombatUnit]
 var _action_ranges : Array[int] = []
 
+#Combat Action Variables
+var exchange_info: UnitCombatExchangeData
 #Item Selection Variables
 var _selected_item: ItemDefinition
 var _selected_entity: CombatMapEntity
@@ -523,11 +525,11 @@ func _on_visual_combat_minor_action_completed() -> void:
 	combat.game_ui.hide_end_turn_button()
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
 
-# AI Methods
+## AI Methods
+#
+# This method finds the best move for the AI, and checks all actionable tiles
+#
 func ai_process_new(ai_unit: CombatUnit) -> aiAction:
-	print("Entered ai_process in cController.gd")
-	#find nearest non-solid tile to target_position
-	#Get Attack Range to see what are "attackable tiles"	
 	grid.update_astar_points(ai_unit)
 	var current_position = grid.position_to_map(controlled_node.position)
 	var moveable_tiles : Array[Vector2i]
@@ -537,11 +539,9 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	var selected_action: aiAction
 	var called_move : bool = false
 	#Step 1 : Get all moveable tiles
-	print("@ BEGAN TILE ANALYSIS WITH CURRENT TILE")
 	selected_action = ai_get_best_move_at_tile(ai_unit, current_position, actionable_range)
-	# Step 2, if the unit can move do analysis on movable tiles
+	# Step 2, if the unit can move do analysis on movable tiles, this does not include defend point AI as they do not move
 	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
-		print("@ BEGAN MOVABLE TILE ANALYSIS")
 		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true)
 		for moveable_tile in moveable_tiles:
 			if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type):
@@ -614,15 +614,19 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	confirm_unit_move(ai_unit)
 	return selected_action
 
+#
+# Calculates the highest value move at a particular tile
+#
 func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, attack_range: Array[int]) -> aiAction:
-	#print("@ ENTERED ai_get_best_move_at_tile")
-	#are there targets?
 	var tile_best_action: aiAction = aiAction.new()
 	tile_best_action.action_type = "NONE"
 	tile_best_action.rating = 0
+	# Check combat action values
 	for range in attack_range:
 		for tile in grid.get_tiles_at_range_new(range,tile_position):
-			if grid.get_combat_unit(tile) != null:
+			# does the tile have a unit?
+			if grid.get_combat_unit(tile) != null: 
+				# is the unit hostile?
 				if grid.get_combat_unit(tile).allegience == Constants.FACTION.PLAYERS:
 					if not ai_unit.unit.get_usable_weapons_at_range(range).is_empty():
 						if grid.get_effective_terrain(grid.get_map_tile(tile)):
@@ -631,7 +635,6 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 							best_action_target.action_position = tile_position
 							if tile_best_action.rating < best_action_target.rating:
 								tile_best_action = best_action_target
-	#print("@ EXITED ai_get_best_move_at_tile")
 	return tile_best_action
 
 func ai_move(target_position: Vector2i):
@@ -919,7 +922,7 @@ func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
 	target_tile = targetting_resource.current_target_positon
 	update_current_tile(target_tile)
-	var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+	exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 	if targetting_resource._available_methods_at_target.size() > 1:
 		combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info, true)
 	else:
@@ -931,7 +934,7 @@ func fsm_unit_combat_action_targetting(delta):
 		if Input.is_action_just_pressed("ui_confirm"):
 			combat.game_ui.destory_active_ui_node()
 			confirm_unit_move(combat.get_current_combatant())
-			await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+			await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			#Enact combat exchange
 			pass
@@ -942,28 +945,28 @@ func fsm_unit_combat_action_targetting(delta):
 			if targetting_resource._available_methods_at_target.size() > 1:
 				targetting_resource.next_target_method()
 				combat.get_current_combatant().equip(targetting_resource.current_method)
-				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		if Input.is_action_just_pressed("left_bumper"):
 			#new weapon if applicable
 			if targetting_resource._available_methods_at_target.size() > 1:
 				targetting_resource.previous_target_method()
 				combat.get_current_combatant().equip(targetting_resource.current_method)
-				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		if Input.is_action_just_pressed("ui_left"):
 			if targetting_resource._available_targets_with_method.size() > 1:
 				targetting_resource.previous_target()
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
-				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		if Input.is_action_just_pressed("ui_right"):
 			if targetting_resource._available_targets_with_method.size() > 1:
 				targetting_resource.next_target()
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
-				var exchange_info: UnitCombatExchangeData = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				var exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 #
 # Main part of the FSM 

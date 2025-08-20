@@ -381,8 +381,6 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	return_object.populate()
 	return return_object
 
-
-
 func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: int, d_turn_count: int) -> Array[String]:
 	var _arr : Array[String]  =[]
 	var i :int = a_turn_count
@@ -533,3 +531,46 @@ func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALIN
 		ItemConstants.SCALING_TYPE.NONE:
 			return 0
 	return 0
+
+#Called when the attacker can hit and begin combat sequence
+func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchange_data: UnitCombatExchangeData):
+	var player_unit: CombatUnit
+	var enemy_unit: CombatUnit
+	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
+	if attacker.allegience == Constants.FACTION.PLAYERS:
+		player_unit = attacker
+		enemy_unit = defender
+	else : 
+		player_unit = defender
+		enemy_unit = attacker
+	# Create the Display
+	ce_display = combat_exchange_display.instantiate()
+	await ce_display
+	$"../../CanvasLayer/UI".add_child(ce_display) 
+	ce_display.visible = true
+	ce_display.set_all(attacker.unit, defender.unit, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
+		false, false, check_weapon_triangle(attacker.unit,defender.unit))
+	attacker.turn_taken = true
+	#Do the actual calcs
+	for turn in exchange_data.exchange_data:
+		for attack in turn.attack_count:
+			if turn.owner == attacker:
+				await perform_hit(attacker,defender,turn.attack_damage,turn.critical)
+				if not attacker.alive: 
+					if attacker == player_unit: 
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+					else:
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+					return
+			elif turn.owner == defender:
+				await perform_hit(defender,attacker,turn.attack_damage,turn.critical)
+				if not defender.alive:
+					unit_defeated.emit(defender)
+					if player_unit == defender:
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+					else : 
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+					return
+	# Both units have survived the exchange
+	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+		#get the allegience of the units
