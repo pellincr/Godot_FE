@@ -176,11 +176,11 @@ func update_astar_points(combatUnit: CombatUnit):
 				_astargrid.set_point_solid(tile)
 	## Update for movement classess
 		if entry.terrain.blocks:
-			if combatUnit.unit.movement_class in entry.terrain.blocks:
+			if combatUnit.unit.movement_type in entry.terrain.blocks:
 				_astargrid.set_point_solid(tile)
 		if entry.entity and entry.entity.active:
 			if entry.entity.terrain:
-				if combatUnit.unit.movement_class in entry.entity.terrain.blocks:
+				if combatUnit.unit.movement_type in entry.entity.terrain.blocks:
 					_astargrid.set_point_solid(tile)
 
 func find_path(tile_position: Vector2i, current_position : Vector2i = Vector2i(0,0)) -> Array[Vector2i]:

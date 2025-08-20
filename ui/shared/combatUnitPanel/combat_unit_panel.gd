@@ -31,6 +31,11 @@ func show_icons():
 		armor_icon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)
 		flyer_icon.visible = unit_types.has(unitConstants.TRAITS.FLIER)
 		undead_icon.visible = unit_types.has(unitConstants.TRAITS.UNDEAD)
+	else :
+		mounted_icon.visible = false
+		armor_icon.visible = false
+		flyer_icon.visible = false
+		undead_icon.visible = false
 
 func update_background():
 	if unit.allegience == Constants.FACTION.PLAYERS:

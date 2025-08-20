@@ -95,6 +95,7 @@ texture = ExtResource("4_6youc")
 stretch_mode = 2
 
 [node name="EquippedLabel" type="Label" parent="."]
+visible = false
 custom_minimum_size = Vector2(8, 16)
 layout_mode = 0
 offset_left = 22.0

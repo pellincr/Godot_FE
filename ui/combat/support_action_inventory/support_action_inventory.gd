@@ -1,5 +1,5 @@
 extends Panel
-class_name SupportActionInventory
+class_name AttackActionInventory
 
 #Imports
 const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
@@ -14,7 +14,6 @@ const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/
 
 signal item_selected(item:ItemDefinition)
 signal new_item_hovered(item:ItemDefinition)
-signal back()
 
 @export var data : Array[UnitInventorySlotData] 
 @export var combatUnit: CombatUnit
@@ -52,20 +51,19 @@ func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition,
 		target.grab_focus()
 		focus_grabbed = true
 		update_hover_item(item)
+		
 
 func update_hover_item(item: ItemDefinition):
 	if item is WeaponDefinition:
 		equippable_item_information.update_hover_stats(combatUnit, item)
 		new_item_hovered.emit(item)
+		
 
 func reset_focus(item: ItemDefinition):
 	equippable_item_information.hovering_new_item = false
 	equippable_item_information.update_fields()
 	new_item_hovered.emit(item)
+	
 
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
-
-
-func _on_back_button_pressed() -> void:
-	back.emit()

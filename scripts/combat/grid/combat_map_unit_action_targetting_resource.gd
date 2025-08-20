@@ -40,6 +40,20 @@ func create_target_methods_weapon(unit:Unit) -> Dictionary:
 							attack_range_map[attack_range] = weapons_at_range
 	return attack_range_map
 
+func create_target_methods_support(unit:Unit) -> Dictionary:
+	var attack_range_map : Dictionary = {}
+	for item in unit.inventory.get_items():
+			if item is WeaponDefinition:
+				if unit.can_equip(item):
+					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
+						for attack_range in item.attack_range:
+							if attack_range_map.has(attack_range):
+								attack_range_map.get(attack_range).append(item)
+							else:
+								var weapons_at_range : Array[WeaponDefinition] = [item]
+								attack_range_map[attack_range] = weapons_at_range
+	return attack_range_map
+
 #
 # Populates map with appropriate info
 #

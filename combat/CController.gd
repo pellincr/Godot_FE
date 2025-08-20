@@ -884,12 +884,10 @@ func fsm_unit_select_hover_process(delta):
 				if !selected_unit.turn_taken: 
 					selected_tile = current_tile
 					set_controlled_combatant(selected_unit)
-					# destroy old UI for hover here
-					#combat.game_ui.hide_end_turn_button()
-					# created UI for selected unit here
-					
-					# Do State transistion if applicable
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
+				else:
+					combat.game_ui.create_combat_map_game_menu()
+					update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU)
 			else : 
 			# To Be Implemented : Enemy Unit Range Map
 				pass 
@@ -1126,7 +1124,17 @@ func unit_action_selection_handler(action:String):
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
 	match action:
 		"Support":
-			pass
+			# Create the apprioriate UI
+			# Move the unit to the correct state
+			combat.game_ui.destory_active_ui_node()
+			_interactable_tiles.clear()
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+			targetting_resource.clear()
+			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_support(combat.get_current_combatant().unit))
+			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
 	match action:
 		"Skill":
 			pass
