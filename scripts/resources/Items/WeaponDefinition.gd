@@ -19,6 +19,7 @@ class_name WeaponDefinition
 @export_range(0, 30, 1, "or_greater") var critical_chance = 0
 @export_range(0, 30, 1, "or_greater") var weight = 5
 @export var critical_multiplier : float = 3
+@export var attacks_per_combat_turn : int = 1
 
 @export_group("Weapon Effectiveness")
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []

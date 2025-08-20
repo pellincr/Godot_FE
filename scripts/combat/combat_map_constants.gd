@@ -1,0 +1,92 @@
+extends Node
+
+enum FACTION
+{
+	PLAYERS, # Player faction
+	ENEMIES, # Enemy Faction
+	FRIENDLY, # Ally Faction
+	NOMAD, # Attack all faction
+	TERRAIN, # Used for Attackable Terrain
+	NULL
+}
+
+enum COMBAT_MAP_STATE
+{
+	INITIALIZING,
+	PLAYER_TURN,
+	AI_TURN,
+	PAUSE,
+	PROCESSING,
+	VICTORY,
+	DEFEAT
+}
+
+enum TURN_PHASE
+{
+	INITIALIZING, # When game is initializing
+	IDLE, #Awaiting further input -- In Menu? ** Verify
+	BEGINNING_PHASE, #The phase before player input
+	MAIN_PHASE, #Phase used for all player input
+	ENDING_PHASE #After player has ended, (end of turn effects)
+}
+
+enum PLAYER_STATE
+{
+	INITIALIZING, # Initializing the game
+	IDLE, # Awaiting further input
+	UNIT_SELECT,
+	UNIT_SELECT_HOVER,
+	UNIT_DETAILS_SCREEN,
+	GAME_MENU,
+	GAME_CAMPAIGN_MENU,
+	UNIT_MOVEMENT,
+	UNIT_ACTION_SELECT,
+	##ACTIONS
+	#Inventory
+	UNIT_INVENTORY,
+	UNIT_INVENTORY_USE,
+	#Trade
+	UNIT_TRADE_ACTION_TARGETTING,
+	UNIT_TRADE_ACTION_INVENTORY,
+	#Support
+	UNIT_SUPPORT_ACTION_INVENTORY,
+	UNIT_SUPPORT_ACTION_TARGETTING,
+	UNIT_SUPPORT_ACTION,
+	#Shove
+	UNIT_SHOVE_ACTION_TARGET,
+	UNIT_SHOVE_ACTION,
+	#Rescue
+	#TO BE IMPL
+	#Combat
+	UNIT_COMBAT_ACTION_INVENTORY,
+	UNIT_COMBAT_ACTION_TARGETTING,
+	UNIT_COMBAT_ACTION,
+	#Entity
+	UNIT_ENTITY_ACTION_INVENTORY, #chest
+	UNIT_ENTITY_ACTION #do the action itself sieze, lever, chest give, etc
+	#skill 
+	#TO BE IMPL
+}
+
+enum VICTORY_CONDITION
+{
+	DEFEAT_ALL,
+	DEFEAT_BOSS,
+	CAPTURE_TILE,
+	DEFEND_TILE,
+	SURVIVE_TURNS
+}
+
+
+enum UNIT_ACTION_STATE { ##REWRITE THIS LOGIC
+	ITEM_SELECT,
+	TARGET_SELECT,
+	OPTION_SELECT,
+	ACTION
+}
+
+enum UNIT_AI_TYPE {
+	DEFAULT, #Attack and Move
+	ATTACK_IN_RANGE, #Attack in move range
+	DEFEND_POINT #No Move, only attack in weapon attack range
+}

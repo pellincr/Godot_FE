@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dikknykmpv1k4"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_k41vw"]
+
+[resource]
+Label/colors/font_color = Color(0.509804, 0.509804, 0.509804, 1)
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("1_k41vw")

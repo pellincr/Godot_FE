@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bk8b7vmkl0wbh"]
+[gd_scene load_steps=10 format=3 uid="uid://bk8b7vmkl0wbh"]
 
-[ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_v1lah"]
 [ext_resource type="PackedScene" uid="uid://clvl0h558xy0f" path="res://combat/levels/tutorial_levels/tutorial_level_2/terrain.tscn" id="2_nsaq0"]
-[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="3_pfm0r"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_jd06t"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_qtsn5"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_7doqm"]
 [ext_resource type="Resource" uid="uid://b2gi8r4ckdqxw" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_2.tres" id="6_ccf4t"]
@@ -13,23 +12,17 @@
 
 [node name="Game" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
-position = Vector2(356, 302)
-zoom = Vector2(3, 3)
-script = ExtResource("1_v1lah")
-map = NodePath("../Terrain")
-
 [node name="Terrain" parent="." instance=ExtResource("2_nsaq0")]
 
-[node name="Select" type="Sprite2D" parent="Terrain"]
-visible = false
-position = Vector2(272, 208)
-texture = ExtResource("3_pfm0r")
-
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
 script = ExtResource("4_qtsn5")
 combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_jd06t")]
+top_level = true
+scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("5_7doqm")

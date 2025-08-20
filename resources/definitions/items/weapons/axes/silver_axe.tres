@@ -1,11 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dmxfjectp0ih3"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dmxfjectp0ih3"]
 
-[ext_resource type="Texture2D" uid="uid://ci2jai4efqmmq" path="res://resources/sprites/items/Axetober 2024.png" id="1_xckkk"]
+[ext_resource type="Texture2D" uid="uid://de0or00xldy5e" path="res://resources/sprites/items/weapons/axes/Silver_axe.png" id="1_dikwl"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ml7ah"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a2e7c"]
-atlas = ExtResource("1_xckkk")
-region = Rect2(64, 32, 32, 32)
 
 [resource]
 script = ExtResource("2_ml7ah")
@@ -23,6 +19,7 @@ hit = 80
 critical_chance = 0
 weight = 15
 critical_multiplier = 3.0
+attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailments = Array[String]([])
 is_wpn_triangle_effective = false
@@ -38,4 +35,4 @@ item_type = 0
 uses = 8
 max_uses = 15
 worth = 100
-icon = SubResource("AtlasTexture_a2e7c")
+icon = ExtResource("1_dikwl")

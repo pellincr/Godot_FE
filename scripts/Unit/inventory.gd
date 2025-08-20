@@ -245,3 +245,22 @@ func get_equipped_weapon() -> WeaponDefinition:
 
 func unequip():
 	equipped = false
+
+#
+# Returns all weapons in inventory that contain input attack ranges
+#
+func get_weapons_with_range(ranges: Array[int]) -> Array[WeaponDefinition]:
+	var weaponList : Array[WeaponDefinition] = []
+	for range in ranges:
+		if attack_range_map.has(range):
+			var attack_range_weapons_index : Array[int] = attack_range_map.get(range)
+			for index in attack_range_weapons_index:
+				if weaponList.find(get_item(index)) == -1:
+					weaponList.append(get_item(index))
+	return weaponList
+
+func get_items() -> Array[WeaponDefinition]:
+	var _item_arr : Array[WeaponDefinition] = [null, null, null, null]
+	for i in range(items.size()):
+		_item_arr[i] = items[i]
+	return _item_arr

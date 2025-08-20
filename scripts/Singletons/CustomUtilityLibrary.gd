@@ -12,6 +12,14 @@ func random_rolls_bool(chance: int, number_of_rolls : int) -> bool:
 	else :
 		return false
 
+#
+# Converts string into Vector2i
+#
+func vector2i(string : String) -> Vector2i: #(0, 0) RE-WORK THIS TO HAVE ERROR CATCHING
+	string.replace("(", "")
+	string.replace(")", "")
+	var arr = string.split(",")
+	return Vector2i(int(arr[0]), int(arr[1]))
 
 ##Checks if strings are equal ignoring thier case
 func equals_ignore_case(string_a: String, string_b : String) -> bool:
@@ -36,3 +44,33 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 	result.movement = a.movement + b.movement
 	result.constitution = a.constitution + b.constitution
 	return result
+
+func reverse_dictionary(dict: Dictionary) -> Dictionary:
+	var reverse_dict = {}
+	for key in dict.keys():
+		# For all the keys
+		if dict[key] is Array:
+			for key_element in dict[key]:
+				reverse_dict[key_element] = key
+		else :
+			reverse_dict[dict[key]] = key
+	return reverse_dict
+
+func array_next_index_with_loop(array: Array, index: int):
+	var  _next_index = index
+	if index + 1 < array.size():
+		_next_index = _next_index + 1 
+	else :
+		_next_index = 0
+	return _next_index
+
+func array_previous_index_with_loop(array: Array, index: int):
+	var  _next_index = index
+	if index - 1 >= 0:
+		_next_index = _next_index - 1 
+	else :
+		_next_index = array.size() -1
+	return _next_index
+
+func get_distance(point1: Vector2i, point2: Vector2i):
+	return absi(point1.x - point2.x) + absi(point1.y - point2.y)

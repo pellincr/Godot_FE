@@ -1,66 +1,107 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7q7e586v7bpx"]
+[gd_scene load_steps=9 format=3 uid="uid://c7q7e586v7bpx"]
 
 [ext_resource type="Script" path="res://ui/combat/attack_action_inventory/attack_action_inventory.gd" id="1_sbh7l"]
 [ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat/equippable_item_information/equippable_item_information.tscn" id="2_1pmif"]
+[ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="2_njhv8"]
+[ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="3_bdaoj"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="3_xugd8"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="5_g6oda"]
+[ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="5_ioc61"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htxf2"]
-bg_color = Color(0, 0, 0, 1)
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="Theme" id="Theme_dak8v"]
+Button/styles/normal = null
 
-[node name="AttackActionInventory" type="Control"]
-layout_mode = 3
+[node name="AttackActionInventory" type="Panel"]
+custom_minimum_size = Vector2(300, 459)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -870.0
-offset_bottom = -354.0
+offset_right = -980.0
+offset_bottom = -261.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = SubResource("Theme_dak8v")
 script = ExtResource("1_sbh7l")
 
-[node name="Equippable_item_information" parent="." instance=ExtResource("2_1pmif")]
-layout_mode = 1
-anchors_preset = -1
-anchor_bottom = 1.621
-offset_top = 194.0
-offset_right = -282.0
-offset_bottom = -99.401
-mouse_filter = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 272.0
-offset_bottom = 42.0
+offset_right = 300.0
+offset_bottom = 457.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="background" type="Panel" parent="MarginContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_htxf2")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
-[node name="UnitInventorySlot" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
+[node name="HeaderLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_njhv8")
+text = "Weapon Selection"
+
+[node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_bdaoj")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitInventorySlot1" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="UnitInventorySlot2" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
+[node name="UnitInventorySlot2" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
 
-[node name="UnitInventorySlot3" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
+[node name="UnitInventorySlot3" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
 
-[node name="UnitInventorySlot4" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xugd8")]
+[node name="UnitInventorySlot4" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("3_xugd8")]
 layout_mode = 2
 
-[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot" to="." method="btn_entered"]
-[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot2" to="." method="btn_entered"]
-[connection signal="btn_entered" from="MarginContainer/VBoxContainer/UnitInventorySlot3" to="." method="btn_entered"]
+[node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_bdaoj")
+
+[node name="BackButton" type="Button" parent="MarginContainer2/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("5_ioc61")
+text = "Back"
+
+[node name="inUseStatsLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_njhv8")
+text = "In-Use Stats"
+
+[node name="Divider2" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_bdaoj")
+
+[node name="Equippable_item_information" parent="MarginContainer2/VBoxContainer" instance=ExtResource("2_1pmif")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SpecialsLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_njhv8")
+text = "Weapon Selection"
+
+[node name="Divider3" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_bdaoj")
+
+[node name="Specials" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("5_g6oda")
+text = "Debug_text"

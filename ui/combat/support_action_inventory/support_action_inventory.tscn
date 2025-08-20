@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvmyx1w08sgk6"]
+
+[ext_resource type="Script" path="res://ui/combat/attack_action_inventory/attack_action_inventory.gd" id="1_babde"]
+[ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="2_pd8an"]
+[ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="3_ubpvs"]
+[ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="4_bdwi0"]
+[ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="5_7jb2k"]
+[ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat/equippable_item_information/equippable_item_information.tscn" id="6_y0tfx"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="7_062wl"]
+
+[sub_resource type="Theme" id="Theme_dak8v"]
+Button/styles/normal = null
+
+[node name="SupportActionInventory" type="Panel"]
+custom_minimum_size = Vector2(300, 459)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -980.0
+offset_bottom = -261.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_dak8v")
+script = ExtResource("1_babde")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 457.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_pd8an")
+text = "Support Selection "
+
+[node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_ubpvs")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitInventorySlot1" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("4_bdwi0")]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="UnitInventorySlot2" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("4_bdwi0")]
+layout_mode = 2
+
+[node name="UnitInventorySlot3" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("4_bdwi0")]
+layout_mode = 2
+
+[node name="UnitInventorySlot4" parent="MarginContainer2/VBoxContainer/VBoxContainer2" instance=ExtResource("4_bdwi0")]
+layout_mode = 2
+
+[node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_ubpvs")
+
+[node name="BackButton" type="Button" parent="MarginContainer2/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("5_7jb2k")
+text = "Back"
+
+[node name="inUseStatsLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_pd8an")
+text = "In-Use Stats"
+
+[node name="Divider2" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_ubpvs")
+
+[node name="Equippable_item_information" parent="MarginContainer2/VBoxContainer" instance=ExtResource("6_y0tfx")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SpecialsLabel" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("2_pd8an")
+text = "Weapon Selection"
+
+[node name="Divider3" type="Panel" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("3_ubpvs")
+
+[node name="Specials" type="Label" parent="MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("7_062wl")
+text = "Debug_text"
+
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/VBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cu8jtbkxt5kwa"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_frtar"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmtnb"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp5rc"]
+bg_color = Color(0.147672, 0.147672, 0.147672, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1ajl"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[resource]
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_frtar")
+Button/styles/disabled = SubResource("StyleBoxFlat_cmtnb")
+Button/styles/focus = SubResource("StyleBoxFlat_cp5rc")
+Button/styles/hover = SubResource("StyleBoxFlat_cp5rc")
+Button/styles/normal = SubResource("StyleBoxFlat_e1ajl")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_frtar")

@@ -383,6 +383,14 @@ func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
 			usable_weapons.append(weapon)
 	return usable_weapons
 
+func get_usable_weapons_at_ranges(ranges: Array[int]) -> Array[WeaponDefinition]:
+	var inventoryWeaponList : Array[WeaponDefinition] = inventory.get_weapons_with_range(ranges)
+	var usable_weapons : Array[WeaponDefinition] = []
+	for weapon in inventoryWeaponList:
+		if !can_equip(weapon):
+			usable_weapons.append(weapon)
+	return usable_weapons
+
 func use_consumable_item(item:ItemDefinition ):
 	if item is ConsumableItemDefinition:
 		if item.use_effect == item.USE_EFFECTS.HEAL:

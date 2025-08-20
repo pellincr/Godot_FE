@@ -14,11 +14,10 @@
 
 [node name="Game" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(356, 302)
 zoom = Vector2(3, 3)
 script = ExtResource("1_aallb")
-map = NodePath("../Terrain")
 
 [node name="Terrain" parent="." instance=ExtResource("1_huxbe")]
 
@@ -33,7 +32,6 @@ combat = NodePath("../Combat")
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_cujqt")
-level_name = "Test Level 3"
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8n36q4lwddv7"]
+
+[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_type_trait_container.gd" id="1_xeukf"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="2_e1hnk"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="3_ko784"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="4_yc11y"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="5_gag4l"]
+
+[node name="unit_type_trait_container" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+offset_right = 140.0
+offset_bottom = 32.0
+script = ExtResource("1_xeukf")
+
+[node name="ArmoredIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_e1hnk")
+expand_mode = 3
+
+[node name="MountedIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_ko784")
+expand_mode = 2
+
+[node name="FlierIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_yc11y")
+expand_mode = 2
+
+[node name="UndeadIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_gag4l")
+expand_mode = 2
