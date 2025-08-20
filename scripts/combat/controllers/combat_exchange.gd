@@ -166,10 +166,10 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	# check the damage type of the source
 	if attacker.get_equipped().negates_defense:
 		defense_mult = 0
-	if attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
-		damage = clampi(max_damage - (target.stats.defense * defense_mult),0, 999)
-	elif attacker.inventory.get_equipped_weapon().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
-		damage = clampi(max_damage - (target.stats.resistance * defense_mult),0, 999)
+	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
+		damage = clampi(max_damage - (target.stats.defense.evaluate() * defense_mult),0, 999)
+	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
+		damage = clampi(max_damage - (target.stats.resistance.evaluate() * defense_mult),0, 999)
 	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.TRUE:
 		damage = max_damage
 	else :

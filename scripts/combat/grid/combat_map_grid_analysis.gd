@@ -14,5 +14,5 @@ func insert_unit_index(allegience: int, position: Vector2i):
 func get_allegience_unit_indexes(allegience:int) -> Array[Vector2i]:
 	var _arr :Array[Vector2i] = []
 	if unit_indexes.has(allegience):
-		_arr.append(unit_indexes.get(allegience))
+		_arr.append_array(unit_indexes.get(allegience))
 	return _arr
