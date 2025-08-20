@@ -1,12 +1,20 @@
 extends Camera2D
 class_name CombatMapCamera
 
+enum CAMERA_MODE {
+	FOLLOW,
+	FOCUS,
+	FREE
+}
+
+@export var mode : CAMERA_MODE = CAMERA_MODE.FOLLOW
 @export var zoomSpeed : float = 10;
 @export var pan_threshold : float = .75
 @export var camSpeed : float = 3.5
 @export var game_map: TileMap 
 @export var controller : CController
 var zoomTarget :Vector2
+var focus_target :Vector2
 
 var dragStartMousePos = Vector2.ZERO
 var dragStartCameraPos = Vector2.ZERO
@@ -32,8 +40,12 @@ func init():
 func _process(delta):
 	if initialized :
 		Zoom(delta)
-		SimpleFollow(delta)
-		ClickAndDrag()
+		if mode == CAMERA_MODE.FOLLOW:
+			SimpleFollow(delta)
+		elif mode == CAMERA_MODE.FOCUS:
+			center_target(delta)
+		elif mode == CAMERA_MODE.FREE:
+			ClickAndDrag()
 	
 func Zoom(delta):
 	if Input.is_action_just_pressed("camera_zoom_in"):
@@ -101,7 +113,15 @@ func set_camera_limits(): ## needs to be updated
 	self.limit_top = map_limits.position.y * map_cellsize.y
 	self.limit_bottom = map_limits.end.y * map_cellsize.y
 
-##TO BE IMPL
+func set_mode(camera_mode : CAMERA_MODE):
+	self.mode = camera_mode
+
+func set_focus_target(target_position: Vector2):
+	self.focus_target = target_position
+	
 #Forces the camera to pan to a target location on the game Grid
-func pan_to_target():
+func center_target(delta):
+	#var moveAmount = lerp(position, focus_target, .25)
+	#moveAmount = moveAmount.normalized()
+	position = position.slerp(focus_target, camSpeed * delta)
 	pass

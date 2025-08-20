@@ -203,8 +203,9 @@ func _draw():
 		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER or player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
 			draw_ranges(_movable_tiles, true, _attackable_tiles,true)
 			drawSelectedpath()
-		#if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_TARGET_SELECT):
-			#draw_action_tiles(_action_tiles, _action)
+		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY):
+			draw_ranges(_movable_tiles, false, _attackable_tiles,true)
+			#drawSelectedpath()
 
 func process_unit_move(delta):
 	unit_move_fix_overshoots(delta)
@@ -351,7 +352,7 @@ func draw_ranges(move_range:Array[Vector2i], draw_move_range:bool, attack_range:
 			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
 	if (draw_attack_range) :
 		for tile in attack_range :
-			if(!move_range.has(tile)) : 
+			if(!move_range.has(tile) or !draw_move_range) : 
 				draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
 	if (draw_skill_range) :
 		for tile in skill_range :
@@ -451,12 +452,29 @@ func chest_action_available(cu:CombatUnit)-> bool:
 						return true
 	return false
 
+#
+#
+#
 func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
 	var attackable_tiles : Array[Vector2i]
 	for range in range_list:
 		if cu.move_position :
 			attackable_tiles.append_array(grid.get_tiles_at_range_new(range, cu.move_position))
 	return attackable_tiles
+
+#
+#
+#
+func populate_tiles_for_weapon(range_list: Array[int], origin: Vector2i) -> Array[Vector2i]:
+	var reachable_tiles : Array[Vector2i] 
+	reachable_tiles = grid.get_range_DFS(range_list.max(), origin)
+	if range_list.min() > 1:
+		var removed_tiles : Array[Vector2i] = grid.get_range_DFS(range_list.min()- 1, origin)
+		#remove the overlap where applicable
+		for tile in removed_tiles:
+			if reachable_tiles.has(tile):
+				reachable_tiles.erase(tile)
+	return reachable_tiles
 
 func process_terrain_effects():
 	for combat_unit in combat.combatants:
@@ -922,6 +940,8 @@ func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
 	target_tile = targetting_resource.current_target_positon
 	update_current_tile(target_tile)
+	camera.set_focus_target(grid.map_to_position(target_tile))
+	camera.set_mode(camera.CAMERA_MODE.FOCUS)
 	exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 	if targetting_resource._available_methods_at_target.size() > 1:
 		combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info, true)
@@ -947,6 +967,7 @@ func fsm_unit_combat_action_targetting(delta):
 				combat.get_current_combatant().equip(targetting_resource.current_method)
 				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+				_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant())
 		if Input.is_action_just_pressed("left_bumper"):
 			#new weapon if applicable
 			if targetting_resource._available_methods_at_target.size() > 1:
@@ -954,11 +975,13 @@ func fsm_unit_combat_action_targetting(delta):
 				combat.get_current_combatant().equip(targetting_resource.current_method)
 				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+				_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant())
 		if Input.is_action_just_pressed("ui_left"):
 			if targetting_resource._available_targets_with_method.size() > 1:
 				targetting_resource.previous_target()
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
+				camera.set_focus_target(grid.map_to_position(target_tile))
 				exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		if Input.is_action_just_pressed("ui_right"):
@@ -966,8 +989,12 @@ func fsm_unit_combat_action_targetting(delta):
 				targetting_resource.next_target()
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
+				camera.set_focus_target(grid.map_to_position(target_tile))
 				var exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+
+func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
+	_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
 #
 # Main part of the FSM 
 #
@@ -1038,6 +1065,7 @@ func unit_action_selection_handler(action:String):
 			targetting_resource.clear()
 			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
 			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
 			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
 	match action:
