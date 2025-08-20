@@ -998,8 +998,10 @@ func fsm_unit_combat_action_targetting(delta):
 		if Input.is_action_just_pressed("ui_confirm"):
 			combat.game_ui.destory_active_ui_node()
 			confirm_unit_move(combat.get_current_combatant())
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION)
 			await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+			targetting_resource.clear()
 			#Enact combat exchange
 			pass
 		if Input.is_action_just_pressed("ui_cancel"):

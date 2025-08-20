@@ -501,8 +501,8 @@ func get_analysis_on_tiles(tile_list : Array[Vector2i]) -> CombatMapGridAnalysis
 	for tile in tile_list:
 		if is_valid_tile(tile):
 			var tile_info: CombatMapTile = get_map_tile(tile)
-			if tile_info.unit != null:
+			if get_combat_unit(tile) != null:
 				analysis.insert_unit_index(tile_info.unit.allegience, tile)
-			if tile_info.entity != null:
+			if get_entity(tile) != null:
 				analysis.targetable_entity_indexes.append(tile)
 	return analysis

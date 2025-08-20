@@ -77,6 +77,7 @@ func heal_unit(unit: CombatUnit, amount: int):
 func hit_missed(dodging_unt: CombatUnit):
 	await use_audio_player(miss_sound)
 	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
+	await DamageNumbers.complete
 
 func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
 	if ce_display != null:
@@ -103,6 +104,7 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		await use_audio_player(no_damage_sound)
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
+		await DamageNumbers.complete
 	if (damage > 0):
 		target.unit.hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
@@ -111,9 +113,9 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
 			await use_audio_player(hit_sound)
-			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)	
+			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
-		await ce_display.update_unit_hp(target.unit, target.unit.hp)
+		await ce_display.update_unit_hp(target.unit, target.unit.hp) and DamageNumbers.complete
 		#await target.map_display.update_complete
 	##check and see if the unit has died
 	if target.unit.hp <= 0:

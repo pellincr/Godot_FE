@@ -1,5 +1,8 @@
 extends Node
 const theme = preload("res://resources/themes/Damage_Numbers.tres")
+
+signal complete()
+
 func display_number(value:int, position:Vector2, is_critical: bool = false):
 	var number = Label.new()
 	number.global_position = position
@@ -34,7 +37,8 @@ func display_number(value:int, position:Vector2, is_critical: bool = false):
 	).set_ease(Tween.EASE_IN).set_delay(0.5)
 	
 	await tween.finished
-	number.queue_free()		
+	number.queue_free()
+	complete.emit()
 
 func display_text(value:String, position:Vector2, text_color:Color, outline_color:Color, text_size: int) :
 	var display_text_object = Label.new()
@@ -67,7 +71,8 @@ func display_text(value:String, position:Vector2, text_color:Color, outline_colo
 	).set_ease(Tween.EASE_IN).set_delay(0.5)
 	
 	await tween.finished
-	display_text_object.queue_free()		
+	display_text_object.queue_free()
+	complete.emit()
 
 func no_damage(position:Vector2):
 	display_text("No Damage", position, Color.WHITE, Color.BLACK, 18)
