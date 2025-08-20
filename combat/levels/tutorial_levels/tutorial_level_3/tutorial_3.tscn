@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bal5lnj6tj03f"]
+[gd_scene load_steps=10 format=3 uid="uid://bal5lnj6tj03f"]
 
 [ext_resource type="PackedScene" uid="uid://cjfpjli0n0wh8" path="res://combat/levels/tutorial_levels/tutorial_level_3/terrain.tscn" id="2_a3hd1"]
-[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="3_obriy"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_6ngc8"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_h18eo"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_ehpk1"]
@@ -15,15 +14,11 @@
 
 [node name="Terrain" parent="." instance=ExtResource("2_a3hd1")]
 
-[node name="Select" type="Sprite2D" parent="Terrain"]
-visible = false
-position = Vector2(272, 208)
-texture = ExtResource("3_obriy")
-
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
 script = ExtResource("4_6ngc8")
 combat = NodePath("../Combat")
+selector = NodePath("Selector")
 
 [node name="Selector" parent="Controller" instance=ExtResource("4_h18eo")]
 top_level = true

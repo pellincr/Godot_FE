@@ -282,7 +282,7 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
 					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					if (is_position_occupied(target_tile) and is_position_occupied_by_friendly_faction(target_tile, allegience)) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile,movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -323,7 +323,7 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
 					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					if (is_position_occupied(target_tile) and is_position_occupied_by_friendly_faction(target_tile, allegience)) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile, movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -358,7 +358,7 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not is_position_occupied_by_friendly_faction(target_tile, allegience):
+						if (is_position_occupied(target_tile) and is_position_occupied_by_friendly_faction(target_tile, allegience)) or not is_position_occupied(target_tile):
 							var target_tile_cost = get_tile_cost(target_tile, movement_type)
 							remaining_range = range - target_tile_cost 
 							if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -486,8 +486,9 @@ func get_id_path(from_id: Vector2i, to_id: Vector2i, allow_partial_path: bool = 
 	return _astargrid.get_id_path(from_id, to_id,allow_partial_path)
 
 func is_map_position_available_for_unit_move(position: Vector2i, unit_movement_class:int) -> bool:
-	if not is_unit_blocked(position, unit_movement_class) and not is_position_occupied(position) == null :
-		return true
+	if not is_unit_blocked(position, unit_movement_class):
+		if not is_position_occupied(position):
+			return true
 	return false
 
 func position_to_map(position: Vector2) -> Vector2i:

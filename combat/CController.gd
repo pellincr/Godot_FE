@@ -97,6 +97,7 @@ var _action_ranges : Array[int] = []
 
 #Combat Action Variables
 var exchange_info: UnitCombatExchangeData
+var support_exchange_info : UnitSupportExchangeData
 #Item Selection Variables
 var _selected_item: ItemDefinition
 var _selected_entity: CombatMapEntity
@@ -962,6 +963,206 @@ func fsm_game_menu_end_turn():
 	combat.game_ui.destory_active_ui_node()
 	advance_turn()
 
+#
+# Main part of the FSM 
+#
+func player_fsm_process(delta):
+	match player_state:
+	## UNIT SELECTION
+		CombatMapConstants.PLAYER_STATE.UNIT_SELECT:
+			fsm_unit_select_process(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER:
+			fsm_unit_select_hover_process(delta)
+	## MENUS
+		CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN:
+			fsm_unit_details_screen_process(delta)
+		CombatMapConstants.PLAYER_STATE.GAME_MENU:
+			pass
+	## MOVEMENT
+		CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT:
+			fsm_unit_move_process(delta)
+	## ACTION SELECT
+		CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
+			fsm_unit_action_select_process(delta)
+	## INVENTORY
+		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY:
+			pass
+		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_USE:
+			pass
+	## TRADE
+		CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_TARGETTING:
+			pass
+		CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_INVENTORY:
+			pass
+	## SUPPORT
+		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY:
+			fsm_support_action_inventory_process(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_TARGETTING:
+			fsm_support_action_targetting(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION:
+			pass
+	## SHOVE
+		CombatMapConstants.PLAYER_STATE.UNIT_SHOVE_ACTION_TARGET:
+			pass
+		CombatMapConstants.PLAYER_STATE.UNIT_SHOVE_ACTION:
+			pass
+	## Combat
+		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
+			fsm_attack_action_inventory_process(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING:
+			fsm_unit_combat_action_targetting(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION:
+			pass
+	## Entity
+		CombatMapConstants.PLAYER_STATE.UNIT_ENTITY_ACTION_INVENTORY:
+			pass
+		CombatMapConstants.PLAYER_STATE.UNIT_ENTITY_ACTION:
+			pass
+
+#
+# Handles the selection action input and moves the player to the correct state
+#
+func unit_action_selection_handler(action:String):
+	match action:
+		"Attack":
+			# Create the apprioriate UI
+			# Move the unit to the correct state
+			combat.game_ui.destory_active_ui_node()
+			_interactable_tiles.clear()
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+			targetting_resource.clear()
+			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
+			targetting_resource.initalize(combat.get_current_combatant().move_position, grid_analysis.get_allegience_unit_indexes(Constants.FACTION.ENEMIES), targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
+			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
+	match action:
+		"Support":
+			# Create the apprioriate UI
+			# Move the unit to the correct state
+			combat.game_ui.destory_active_ui_node()
+			_interactable_tiles.clear()
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+			targetting_resource.clear()
+			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.PLAYERS),targetting_resource.create_target_methods_support(combat.get_current_combatant().unit))
+			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+			combat.game_ui.create_support_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
+	match action:
+		"Skill":
+			pass
+	match action:
+		"Shove":
+			pass
+	match action:
+		"Rescue":
+			pass
+	match action:
+		"Interact":
+			pass
+	match action:
+		"Wait":
+			combat.game_ui.destory_active_ui_node()
+			wait_action(combat.get_current_combatant())
+	match action:
+		"Cancel":
+			combat.game_ui.destory_active_ui_node()
+			fsm_unit_action_cancel()
+
+
+#Support
+func fsm_support_action_inventory_process(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_cancel"):
+			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
+				combat.game_ui.destory_active_ui_node()
+				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+				combat.game_ui.create_unit_action_container(actions)
+				update_current_tile(move_tile)
+				revert_player_state()
+
+func fsm_support_action_inventory_confirm(selected_item : ItemDefinition):
+	# equip selected item and call menu needed to progress flow
+	combat.get_current_combatant().equip(selected_item)
+	combat.game_ui.destory_active_ui_node()
+	# destroy the old menu
+	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
+	target_tile = targetting_resource.current_target_positon
+	update_current_tile(target_tile)
+	camera.set_focus_target(grid.map_to_position(target_tile))
+	camera.set_mode(camera.CAMERA_MODE.FOCUS)
+	selector.play("combat_targetting")
+	support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+	if targetting_resource._available_methods_at_target.size() > 1:
+		combat.game_ui.create_support_action_exchange_preview(support_exchange_info, true)
+	else:
+		combat.game_ui.create_support_action_exchange_preview(support_exchange_info)
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_TARGETTING)
+	
+func fsm_support_action_targetting(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_confirm"):
+			#Destroy old UI
+			combat.game_ui.destory_active_ui_node()
+			#Finalize the move
+			confirm_unit_move(combat.get_current_combatant())
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION)
+			await combat.perform_support(combat.get_current_combatant(), grid.get_combat_unit(target_tile), support_exchange_info)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+			targetting_resource.clear()
+		if Input.is_action_just_pressed("ui_cancel"):
+			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
+				combat.game_ui.destory_active_ui_node()
+				_interactable_tiles.clear()
+				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
+				targetting_resource.clear()
+				targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.ENEMIES),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
+				var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+				combat.game_ui.create_support_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+				revert_player_state()
+				update_current_tile(move_tile)
+		if Input.is_action_just_pressed("right_bumper"):
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.next_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_support_action_exchange_preview(support_exchange_info, true)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+		if Input.is_action_just_pressed("left_bumper"):
+			#new weapon if applicable
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.previous_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_support_action_exchange_preview(support_exchange_info, true)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+		if Input.is_action_just_pressed("ui_left"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				targetting_resource.previous_target()
+				target_tile = targetting_resource.current_target_positon
+				update_current_tile(target_tile)
+				camera.set_focus_target(grid.map_to_position(target_tile))
+				support_exchange_info = combat.combatExchange.generate_combat_support_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+		if Input.is_action_just_pressed("ui_right"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				targetting_resource.next_target()
+				target_tile = targetting_resource.current_target_positon
+				update_current_tile(target_tile)
+				camera.set_focus_target(grid.map_to_position(target_tile))
+				support_exchange_info = combat.combatExchange.generate_combat_support_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+
+func fsm_support_action_inventory_confirm_new_hover(item:ItemDefinition):
+	_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
+
+
+#Attack 
 func fsm_attack_action_inventory_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_cancel"):
@@ -1049,114 +1250,7 @@ func fsm_unit_combat_action_targetting(delta):
 
 func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
 	_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
-#
-# Main part of the FSM 
-#
-func player_fsm_process(delta):
-	match player_state:
-	## UNIT SELECTION
-		CombatMapConstants.PLAYER_STATE.UNIT_SELECT:
-			fsm_unit_select_process(delta)
-		CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER:
-			fsm_unit_select_hover_process(delta)
-	## MENUS
-		CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN:
-			fsm_unit_details_screen_process(delta)
-		CombatMapConstants.PLAYER_STATE.GAME_MENU:
-			pass
-	## MOVEMENT
-		CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT:
-			fsm_unit_move_process(delta)
-	## ACTION SELECT
-		CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
-			fsm_unit_action_select_process(delta)
-	## INVENTORY
-		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_USE:
-			pass
-	## TRADE
-		CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_TARGETTING:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_INVENTORY:
-			pass
-	## SUPPORT
-		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_TARGETTING:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION:
-			pass
-	## SHOVE
-		CombatMapConstants.PLAYER_STATE.UNIT_SHOVE_ACTION_TARGET:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_SHOVE_ACTION:
-			pass
-	## Combat
-		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
-			fsm_attack_action_inventory_process(delta)
-		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING:
-			fsm_unit_combat_action_targetting(delta)
-		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION:
-			pass
-	## Entity
-		CombatMapConstants.PLAYER_STATE.UNIT_ENTITY_ACTION_INVENTORY:
-			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_ENTITY_ACTION:
-			pass
-
-#
-# Handles the selection action input and moves the player to the correct state
-#
-func unit_action_selection_handler(action:String):
-	match action:
-		"Attack":
-			# Create the apprioriate UI
-			# Move the unit to the correct state
-			combat.game_ui.destory_active_ui_node()
-			_interactable_tiles.clear()
-			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
-			targetting_resource.clear()
-			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
-			targetting_resource.initalize(combat.get_current_combatant().move_position, grid_analysis.get_allegience_unit_indexes(Constants.FACTION.ENEMIES), targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
-			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
-			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
-			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
-			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
-	match action:
-		"Support":
-			# Create the apprioriate UI
-			# Move the unit to the correct state
-			combat.game_ui.destory_active_ui_node()
-			_interactable_tiles.clear()
-			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, 0, false)
-			targetting_resource.clear()
-			targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_allegience_unit_indexes(Constants.FACTION.PLAYERS),targetting_resource.create_target_methods_support(combat.get_current_combatant().unit))
-			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
-			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
-			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
-			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
-	match action:
-		"Skill":
-			pass
-	match action:
-		"Shove":
-			pass
-	match action:
-		"Rescue":
-			pass
-	match action:
-		"Interact":
-			pass
-	match action:
-		"Wait":
-			combat.game_ui.destory_active_ui_node()
-			wait_action(combat.get_current_combatant())
-	match action:
-		"Cancel":
-			combat.game_ui.destory_active_ui_node()
-			fsm_unit_action_cancel()
-
+#Wait
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true
 	confirm_unit_move(cu)

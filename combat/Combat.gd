@@ -170,6 +170,15 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit, data: UnitCombatEx
 	if attacker.allegience == Constants.FACTION.ENEMIES:
 		complete_unit_turn()
 
+func perform_support(supporter: CombatUnit, target: CombatUnit, data: UnitSupportExchangeData):
+	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
+	await combatExchange.enact_support_exchange(supporter, target, data)
+	major_action_complete()
+	if supporter.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
+
+
 func perform_staff(user: CombatUnit, target: CombatUnit):
 	print("Entered Perform_attack in combat.gd")
 	_player_unit_alive = true
