@@ -29,6 +29,7 @@ class_name UnlockManager
 	"bladehand" : true,
 	"brawler" : true,
 	"corsair" : true,
+	"crossbowman" : true,
 	"duelist" : true,
 	"field_medic" : true,
 	"fighter" : true,

@@ -25,16 +25,6 @@ func _ready():
 	update_all()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed("ui_confirm") and has_focus():
-		$AudioStreamPlayer.stream = menu_enter_effect
-		$AudioStreamPlayer.play()
-		archetype_selected.emit(archetype)
-		#randomize_archetype()
-		#update_all()
-		print("Archetype Selected")
-
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
@@ -108,3 +98,13 @@ func filter_archetypes_by_unlocked(archetype_keys: Array) -> Array:
 			if playerOverworldData.unlock_manager.archetypes_unlocked[archetype_key]:
 				accum.append(archetype_key)
 	return accum
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_confirm") and has_focus():
+			$AudioStreamPlayer.stream = menu_enter_effect
+			$AudioStreamPlayer.play()
+			archetype_selected.emit(archetype)
+			#randomize_archetype()
+			#update_all()
+			print("Archetype Selected")
