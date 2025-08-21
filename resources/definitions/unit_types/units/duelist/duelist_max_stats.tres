@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_fgl8n")
-hp = 80
-strength = 20
-magic = 9
-skill = 12
-speed = 11
+hp = 60
+strength = 25
+magic = 8
+skill = 35
+speed = 35
 luck = 30
-defense = 35
-resistance = 30
+defense = 12
+resistance = 10
 movement = 10
 constitution = 20
