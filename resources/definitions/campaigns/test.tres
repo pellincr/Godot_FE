@@ -9,4 +9,5 @@ max_floor_number = 0
 tier_2_floor_start_number = 0
 number_of_archetypes_drafted = 0
 rewards = ""
+unit_unlock_rewards = Array[String]([])
 boss = ""

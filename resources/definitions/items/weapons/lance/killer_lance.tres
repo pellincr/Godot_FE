@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://y7ka2nnej1gm" path="res://resources/sprites/items/weapons/lance/killer_lance.png" id="1_u5lva"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ym1ip"]
 
-
 [resource]
 script = ExtResource("2_ym1ip")
 weapon_type = 3
@@ -22,12 +21,8 @@ weight = 10
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+status_ailment = 0
+specials = Array[int]([])
 name = "Killer Lance"
 db_key = "kiler_lance"
 equippable = true

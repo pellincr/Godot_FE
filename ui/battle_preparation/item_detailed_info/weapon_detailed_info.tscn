@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://uij42thge1m2"]
+[gd_scene load_steps=9 format=3 uid="uid://uij42thge1m2"]
 
 [ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
 [ext_resource type="Script" path="res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
 [ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="5_4kelt"]
-
 
 [sub_resource type="Theme" id="Theme_trk22"]
 default_font_size = 36
@@ -14,18 +13,6 @@ default_font_size = 36
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_6j0ny"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_lk4wk"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_cxk82"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_kpjqg"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_4pt76"]
 default_font_size = 12
 
 [node name="WeaponDetailedInfo" type="Panel"]
@@ -84,50 +71,22 @@ autowrap_mode = 3
 [node name="WeaponStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_6v2xw")]
 layout_mode = 2
 
-[node name="StatAugmentContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="StatAugmentHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/StatAugmentContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_lk4wk")
-text = "Stat Augment"
-
-[node name="StatAugmentLabel" type="Label" parent="MarginContainer/VBoxContainer/StatAugmentContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-theme = SubResource("Theme_cxk82")
-text = "Stat Augmentation Here"
-
-[node name="SpecialTraitContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="SpecialHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialTraitContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_kpjqg")
-text = "Special"
-
-[node name="SpecialValueLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialTraitContainer"]
-layout_mode = 2
-theme = SubResource("Theme_4pt76")
-text = "Life Steal, Brave, Massive"
-
 [node name="ItemIcon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = 184.0
-offset_top = 23.0
-offset_right = 248.0
-offset_bottom = 87.0
+offset_left = 178.0
+offset_top = 43.0
+offset_right = 242.0
+offset_bottom = 107.0
 texture = ExtResource("5_4kelt")
 
-[node name="PriceLabel" type="Label" parent="."]
+[node name="PriceLabel" type="Label" parent="ItemIcon"]
 modulate = Color(0.899619, 0.69149, 0, 1)
 layout_mode = 1
-anchors_preset = -1
-offset_left = 189.0
-offset_top = 70.0
-offset_right = 229.0
-offset_bottom = 85.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+offset_right = 40.0
+grow_vertical = 0
 text = "50G"

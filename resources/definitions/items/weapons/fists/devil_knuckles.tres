@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://c7fpa1qtkryna" path="res://resources/sprites/items/weapons/fist/devilsknuckles.png" id="1_7jstn"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_30m8y"]
 
-
 [resource]
 script = ExtResource("2_30m8y")
 weapon_type = 5
@@ -22,12 +21,8 @@ weight = 1
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = true
-is_vampyric = false
-negates_defense = false
+status_ailment = 0
+specials = Array[int]([])
 name = "Devil Knuckles"
 db_key = "devil_knuckles"
 equippable = true

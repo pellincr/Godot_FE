@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcteldqbxn7l0"]
+[gd_scene load_steps=16 format=3 uid="uid://bcteldqbxn7l0"]
 
 [ext_resource type="Script" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_uy2uf"]
@@ -13,7 +13,13 @@ default_font = ExtResource("1_uy2uf")
 [sub_resource type="Theme" id="Theme_s01ql"]
 default_font_size = 12
 
-[sub_resource type="Theme" id="Theme_wh1t3"]
+[sub_resource type="Theme" id="Theme_k8s1b"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_fiq1w"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_dqod4"]
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_ls2o5"]
@@ -22,10 +28,10 @@ default_font_size = 12
 [sub_resource type="Theme" id="Theme_nks8u"]
 default_font_size = 12
 
-[sub_resource type="Theme" id="Theme_k7uiw"]
+[sub_resource type="Theme" id="Theme_wh1t3"]
 default_font_size = 12
 
-[sub_resource type="Theme" id="Theme_dqod4"]
+[sub_resource type="Theme" id="Theme_k7uiw"]
 default_font_size = 12
 
 [node name="WeaponStatContainer" type="HBoxContainer"]
@@ -35,124 +41,218 @@ offset_bottom = 157.0
 theme = SubResource("Theme_eqxhd")
 script = ExtResource("1_qgpcr")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="LeftContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="CombatStatsContainer" type="VBoxContainer" parent="LeftContainer"]
 layout_mode = 2
 
-[node name="CombatStatsHeader" type="Label" parent="VBoxContainer"]
+[node name="CombatStatsHeader" type="Label" parent="LeftContainer/CombatStatsContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_s01ql")
 text = "Combat Stats"
 
-[node name="DamageContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="DamageContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
 layout_mode = 2
 
-[node name="DamageHeaderLabel" type="Label" parent="VBoxContainer/DamageContainer"]
+[node name="DamageHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 layout_mode = 2
-text = "Damage"
+text = "Damage :"
 
-[node name="DamageValueLabel" type="Label" parent="VBoxContainer/DamageContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "15"
-
-[node name="DamageTypeIcon" type="TextureRect" parent="VBoxContainer/DamageContainer"]
+[node name="DamageTypeIcon" type="TextureRect" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
+size_flags_horizontal = 10
 
-[node name="HitContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="DamageValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="AttackXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
 layout_mode = 2
 
-[node name="HitHeaderLabel" type="Label" parent="VBoxContainer/HitContainer"]
+[node name="AttackXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
-text = "Hit"
+text = "Atk X :"
 
-[node name="HitValueLabel" type="Label" parent="VBoxContainer/HitContainer"]
-custom_minimum_size = Vector2(32, 0)
+[node name="AttackXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "15"
 
-[node name="CriticalContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HitContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
 layout_mode = 2
 
-[node name="CriticalHeaderLabel" type="Label" parent="VBoxContainer/CriticalContainer"]
+[node name="HitHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
-text = "Critical"
+text = "Hit :"
 
-[node name="CriticalValueLabel" type="Label" parent="VBoxContainer/CriticalContainer"]
-custom_minimum_size = Vector2(32, 0)
+[node name="HitValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "15"
 
-[node name="RangeContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="CriticalContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
 layout_mode = 2
 
-[node name="RangeHeaderLabel" type="Label" parent="VBoxContainer/RangeContainer"]
+[node name="CriticalHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
+layout_mode = 2
+text = "Critical :"
+
+[node name="CriticalValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="CritXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="CriticalXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
+layout_mode = 2
+text = "Crit X :"
+
+[node name="CriticalXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "3"
+
+[node name="RangeContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="RangeHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
 text = "Range"
 
-[node name="RangeValueLabel" type="Label" parent="VBoxContainer/RangeContainer"]
-custom_minimum_size = Vector2(32, 0)
+[node name="RangeValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "1-2"
 
-[node name="RequirementsContainer" type="VBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="SpecialAndBonusContainer" type="VBoxContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="SpecialandBonusHeaderLabel" type="Label" parent="LeftContainer/SpecialAndBonusContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_k8s1b")
+text = "Special And Bonus"
+
+[node name="SpecialAndBonusValueContainer" type="VBoxContainer" parent="LeftContainer/SpecialAndBonusContainer"]
+layout_mode = 2
+
+[node name="SpecialValueLabel1" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel2" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel3" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel4" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel5" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="RightContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ScalingContainer" type="VBoxContainer" parent="RightContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="RequirementsHeaderLabel" type="Label" parent="VBoxContainer/RequirementsContainer"]
+[node name="ScalingHeaderLabel" type="Label" parent="RightContainer/ScalingContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(108, 20)
 layout_mode = 2
-theme = SubResource("Theme_wh1t3")
-text = "Requirements"
+theme = SubResource("Theme_dqod4")
+text = "Scaling Type"
+horizontal_alignment = 2
 
-[node name="RequirementsIconContainer" type="HBoxContainer" parent="VBoxContainer/RequirementsContainer"]
+[node name="ScalingValueLabel" type="Label" parent="RightContainer/ScalingContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Mundane"
+horizontal_alignment = 2
+
+[node name="ScalingXContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ScalingXHeaderLabel" type="Label" parent="RightContainer/ScalingXContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_dqod4")
+text = "Scaling X"
+horizontal_alignment = 2
+
+[node name="ScalingXValueLabel" type="Label" parent="RightContainer/ScalingXContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="DurabilityContainer" type="VBoxContainer" parent="RightContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="DurabilityContainer" type="VBoxContainer" parent="VBoxContainer2"]
-layout_mode = 2
-
-[node name="DurabilityHeaderLabel" type="Label" parent="VBoxContainer2/DurabilityContainer"]
+[node name="DurabilityHeaderLabel" type="Label" parent="RightContainer/DurabilityContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_ls2o5")
 text = "Durability"
 horizontal_alignment = 2
 
-[node name="DurablityValueLabel" type="Label" parent="VBoxContainer2/DurabilityContainer"]
+[node name="DurabilityValueLabel" type="Label" parent="RightContainer/DurabilityContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "15"
 horizontal_alignment = 2
 
-[node name="WeightContainer" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="WeightContainer" type="VBoxContainer" parent="RightContainer"]
 layout_mode = 2
 
-[node name="WeightHeaderLabel" type="Label" parent="VBoxContainer2/WeightContainer"]
+[node name="WeightHeaderLabel" type="Label" parent="RightContainer/WeightContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_nks8u")
 text = "Weight"
 horizontal_alignment = 2
 
-[node name="WeightValueLabel" type="Label" parent="VBoxContainer2/WeightContainer"]
+[node name="WeightValueLabel" type="Label" parent="RightContainer/WeightContainer"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "15"
 horizontal_alignment = 2
 
-[node name="EffectiveContainer" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="RequirementsContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="RequirementsHeaderLabel" type="Label" parent="RightContainer/RequirementsContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_wh1t3")
+text = "Requirements"
+horizontal_alignment = 2
+
+[node name="EffectiveContainer" type="VBoxContainer" parent="RightContainer"]
 layout_mode = 2
 
-[node name="EffectiveHeaderLabel" type="Label" parent="VBoxContainer2/EffectiveContainer"]
+[node name="EffectiveHeaderLabel" type="Label" parent="RightContainer/EffectiveContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(108, 20)
 layout_mode = 2
@@ -160,49 +260,31 @@ theme = SubResource("Theme_k7uiw")
 text = "Effective"
 horizontal_alignment = 2
 
-[node name="EffectiveTraitIconContainer" type="HBoxContainer" parent="VBoxContainer2/EffectiveContainer"]
+[node name="EffectiveTraitIconContainer" type="HBoxContainer" parent="RightContainer/EffectiveContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
-[node name="ArmoredIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+[node name="ArmoredIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("3_dgerc")
 
-[node name="MountedIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+[node name="MountedIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("4_ayaq8")
 expand_mode = 2
 
-[node name="FlierIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+[node name="FlierIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("5_ufbdx")
 expand_mode = 2
 
-[node name="UndeadIcon" type="TextureRect" parent="VBoxContainer2/EffectiveContainer/EffectiveTraitIconContainer"]
+[node name="UndeadIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("6_vi1f8")
 expand_mode = 2
-
-[node name="ScalingContainer" type="VBoxContainer" parent="VBoxContainer2"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-alignment = 2
-
-[node name="ScalingHeaderLabel" type="Label" parent="VBoxContainer2/ScalingContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_dqod4")
-text = "Scaling Type"
-horizontal_alignment = 2
-
-[node name="ScalingValueLabel" type="Label" parent="VBoxContainer2/ScalingContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Scaler"
-horizontal_alignment = 2
