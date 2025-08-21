@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=58 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -51,6 +51,12 @@
 [ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="49_bdsdk"]
 [ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="50_d8m3e"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="51_5lqt6"]
+[ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="52_x6n6j"]
+[ext_resource type="Resource" uid="uid://bup40a1lgf3w0" path="res://resources/definitions/items/weapons/anima/mage_blade.tres" id="53_1g7xb"]
+[ext_resource type="Resource" uid="uid://d3q4u334gvuu6" path="res://resources/definitions/items/weapons/bow/steel_bow.tres" id="54_n4b3q"]
+[ext_resource type="Resource" uid="uid://b4jgumo2ycuyf" path="res://resources/definitions/items/weapons/bow/silver_bow.tres" id="55_n8hyn"]
+[ext_resource type="Resource" uid="uid://cpqf6v7ox1xs6" path="res://resources/definitions/items/weapons/dagger/silver_dagger.tres" id="56_gbxts"]
+[ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="57_yomul"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -86,6 +92,7 @@ items = {
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
 "kukri": ExtResource("50_d8m3e"),
+"mage_blade": ExtResource("53_1g7xb"),
 "mandate": ExtResource("46_jmx6f"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
@@ -94,13 +101,18 @@ items = {
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_bow": ExtResource("7_x6uf5"),
 "silver_axe": ExtResource("23_7wv7v"),
+"silver_bow": ExtResource("55_n8hyn"),
+"silver_dagger": ExtResource("56_gbxts"),
 "silver_lance": ExtResource("51_5lqt6"),
+"silver_shield": ExtResource("57_yomul"),
 "silver_sword": ExtResource("9_vblr4"),
 "smite": ExtResource("30_rffgk"),
 "soul_rip": ExtResource("48_m0w6q"),
 "steel_axe": ExtResource("6_meveu"),
+"steel_bow": ExtResource("54_n4b3q"),
 "steel_dagger": ExtResource("49_bdsdk"),
 "steel_lance": ExtResource("20_kc6t1"),
+"steel_shield": ExtResource("52_x6n6j"),
 "steel_sword": ExtResource("8_l7lwn"),
 "sword_reaver": ExtResource("14_dv5o2"),
 "warhammer": ExtResource("10_n4irs"),

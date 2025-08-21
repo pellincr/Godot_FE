@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bup40a1lgf3w0"]
+
+[ext_resource type="Texture2D" uid="uid://b42s0d1e60ju4" path="res://resources/sprites/items/weapons/nature/mage_blade.png" id="1_y0xkw"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_o1f2s"]
+
+[resource]
+script = ExtResource("2_o1f2s")
+weapon_type = 9
+alignment = 2
+physical_weapon_triangle_type = 1
+magic_weapon_triangle_type = 1
+item_damage_type = 1
+item_scaling_type = 2
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 1
+attack_range = Array[int]([1])
+damage = 8
+hit = 85
+critical_chance = 15
+weight = 10
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Mage Blade"
+db_key = "mage_blade"
+equippable = true
+description = ""
+item_type = 0
+uses = 12
+max_uses = 12
+worth = 100
+icon = ExtResource("1_y0xkw")

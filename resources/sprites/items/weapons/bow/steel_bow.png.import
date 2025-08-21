@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cehb2vtt72rlw"
-path="res://.godot/imported/heavy_bow.png-d05f35af124ac54973d27948cb8ae4b1.ctex"
+path="res://.godot/imported/steel_bow.png-ad044c4efb3e96fda3cb31c9c76b4055.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/weapons/bow/heavy_bow.png"
-dest_files=["res://.godot/imported/heavy_bow.png-d05f35af124ac54973d27948cb8ae4b1.ctex"]
+source_file="res://resources/sprites/items/weapons/bow/steel_bow.png"
+dest_files=["res://.godot/imported/steel_bow.png-ad044c4efb3e96fda3cb31c9c76b4055.ctex"]
 
 [params]
 
