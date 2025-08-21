@@ -20,10 +20,11 @@ visible = false
 position = Vector2(272, 208)
 texture = ExtResource("3_m3yo3")
 
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
 script = ExtResource("4_b02q1")
 combat = NodePath("../Combat")
+selector = NodePath("Selector")
 
 [node name="Selector" parent="Controller" instance=ExtResource("4_hjeir")]
 top_level = true
