@@ -104,6 +104,7 @@ func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
 				user_damage = 0 #THIS NEEDS TO BE IDIATED FURTHER
 			ItemConstants.SCALING_TYPE.NONE:
 				user_damage =  0
+		user_damage = floori(user_damage * weapon.item_scaling_multiplier) 
 		self.damage.append(StatModifier.create(user_damage, "Unit"))
 		self.damage.append(StatModifier.create(weapon.damage, "Weapon"))
 		
