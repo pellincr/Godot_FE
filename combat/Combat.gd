@@ -322,6 +322,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
 			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
 			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+			unlock_new_unit_types()
 			reset_game_state()
 			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
@@ -344,6 +345,14 @@ func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
 		unit.hp = unit.stats.hp
 
+func unlock_new_unit_types():
+	var unlocked_units = playerOverworldData.current_campaign.unit_unlock_rewards
+	for unlocked_unit in unlocked_units:
+		if UnitTypeDatabase.unit_types.has(unlocked_unit):
+			playerOverworldData.unlock_manager.unit_types_unlocked[unlocked_unit] = true
+		else:
+			playerOverworldData.unlock_manager.commander_types_unlocked[unlocked_unit] = true
+
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)
 	if comb_id != -1:
@@ -352,6 +361,11 @@ func combatant_die(combatant: CombatUnit):
 		if playerOverworldData.total_party.has(combatant.unit):
 			playerOverworldData.dead_party_members.append(combatant.unit)
 			playerOverworldData.total_party.erase(combatant.unit)
+		else:
+			if !playerOverworldData.game_stats_manager.enemy_types_killed.get(combatant.unit.unit_type_key):
+				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] = 1
+			else:
+				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] += 1
 		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.name

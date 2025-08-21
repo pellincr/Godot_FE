@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://djtoj5yawfpye"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cxnyafyx5fcyt"]
 
 [ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_qvl03"]
 [ext_resource type="Texture2D" uid="uid://d3pqwslpvbk1x" path="res://resources/sprites/items/weapons/shield/Eye Greatshield.png" id="2_dme6c"]
