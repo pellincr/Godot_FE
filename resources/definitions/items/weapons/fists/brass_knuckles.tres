@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://d2gcae0fe52md"]
 
-[ext_resource type="Texture2D" uid="uid://fwfeeawehvv0" path="res://resources/sprites/items/weapons/fist/brassknuckles.png" id="1_kqdmr"]
+[ext_resource type="Texture2D" uid="uid://fwfeeawehvv0" path="res://resources/sprites/items/weapons/fist/brassknuckles.png" id="1_clx2x"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_v7554"]
 
 [resource]
@@ -11,10 +11,11 @@ physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
 item_damage_type = 0
 item_scaling_type = 0
+item_scaling_weight = 0.0
 item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1])
-damage = 3
+damage = 0
 hit = 100
 critical_chance = 10
 weight = 1
@@ -22,11 +23,7 @@ critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = true
-is_vampyric = false
-negates_defense = false
+specials = Array[int]([])
 name = "Brass Knuckles"
 db_key = "brass_knuckles"
 equippable = true
@@ -35,4 +32,4 @@ item_type = 0
 uses = 1
 max_uses = 1
 worth = 100
-icon = ExtResource("1_kqdmr")
+icon = ExtResource("1_clx2x")

@@ -8,6 +8,7 @@ class_name WeaponDefinition
 @export var magic_weapon_triangle_type : itemConstants.MAGICAL_WEAPON_TRIANGLE
 @export var item_damage_type : Constants.DAMAGE_TYPE = 0
 @export var item_scaling_type : itemConstants.SCALING_TYPE = 0
+@export var item_scaling_weight : float = 1
 @export var item_target_faction : Array[itemConstants.AVAILABLE_TARGETS] = [0]
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED

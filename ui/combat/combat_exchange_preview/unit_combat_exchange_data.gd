@@ -22,9 +22,11 @@ func calc_net_damage():
 	if exchange_data != null:
 		for turn in exchange_data:
 			if attacker == turn.owner:
-				attacker_net_damage = attacker_net_damage + turn.attack_damage
+				for attack in turn.attack_count:
+					attacker_net_damage = attacker_net_damage + turn.attack_damage
 			elif defender == turn.owner:
-				defender_net_damage = defender_net_damage + turn.attack_damage
+				for attack in turn.attack_count:
+					defender_net_damage = defender_net_damage + turn.attack_damage
 
 func calc_predicted_hp():
 	attacker_predicted_hp = clampi(attacker.unit.hp - defender_net_damage, 0, 9999)

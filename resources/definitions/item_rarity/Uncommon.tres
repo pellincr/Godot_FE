@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_gobso")
-rarity_name = "Common"
-ui_color = Color(1, 1, 1, 1)
+rarity_name = "Uncommon"
+ui_color = Color(1.39579e-06, 0.797139, 0.302256, 1)

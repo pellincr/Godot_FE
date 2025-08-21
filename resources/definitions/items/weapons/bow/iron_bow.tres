@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://db355gw1lvem7"]
 
-[ext_resource type="Texture2D" uid="uid://btxwexlw6u1n5" path="res://resources/sprites/items/iron_bow.tres" id="1_y1kr3"]
+[ext_resource type="Texture2D" uid="uid://ur8a5sfpp10h" path="res://resources/sprites/items/weapons/bow/iron_bow.png" id="1_0k084"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_oslr7"]
 
 [resource]
@@ -22,11 +22,7 @@ critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([2])
 status_ailment = 0
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+specials = Array[int]([])
 name = "Iron Bow"
 db_key = "iron_bow"
 equippable = true
@@ -35,4 +31,4 @@ item_type = 0
 uses = 45
 max_uses = 45
 worth = 100
-icon = ExtResource("1_y1kr3")
+icon = ExtResource("1_0k084")

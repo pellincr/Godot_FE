@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=48 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -46,6 +46,7 @@
 [ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="44_677v3"]
 [ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="45_py2vi"]
 [ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="46_jmx6f"]
+[ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="47_v3anb"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -63,6 +64,7 @@ items = {
 "fiend_fire": ExtResource("28_hv28m"),
 "fire_spell": ExtResource("19_q1d18"),
 "great_bow": ExtResource("17_0gxut"),
+"greatsword": ExtResource("47_v3anb"),
 "halberd": ExtResource("22_epcxq"),
 "hand_axe": ExtResource("11_uxm7i"),
 "harm": ExtResource("32_xfxu7"),
