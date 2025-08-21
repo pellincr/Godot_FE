@@ -210,7 +210,9 @@ func get_tile_cost(tile:Vector2i, movement_class:int):
 		print("get_tile_cost called with out of bounds tile")
 	return INF
 
-##Use DFS to retrieve the available cells from an origin point
+#
+# Use DFS to retrieve the available cells from an origin point
+#
 func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 	var _return_array : PackedVector2Array
 	var tile_edge_dictionary : Dictionary
@@ -225,6 +227,9 @@ func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 				_return_array.append(tile)
 	return _return_array
 
+#
+# uses depth first search to get the tiles in range, but calls the DFS from multitple points
+#
 func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type:int = 0, effected_by_terrain:bool = false, allegience: int = 99):
 	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
 	const DEFAULT_TILE_COST = 1
@@ -241,7 +246,7 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not (is_position_occupied_by_friendly_faction(target_tile,allegience)):
+						if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 							var target_tile_cost = get_tile_cost(target_tile, movement_type)
 							remaining_range = range - target_tile_cost 
 							if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -266,7 +271,9 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 	_arr.append_array(visited.keys())
 	return _arr
 
-##Use DFS to retrieve the available cells from an origin point
+#
+# Performs a depth first search on the grid to get the tiles in range 
+#
 func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false, allegience : int = 99) -> Array[Vector2i]:
 	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
 	const DEFAULT_TILE_COST = 1
@@ -282,7 +289,7 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
 					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile,movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -298,6 +305,8 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 							else: 
 								visited.get_or_add(target_tile, remaining_range)
 								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+					else :
+						pass
 				else : 
 					remaining_range = range - DEFAULT_TILE_COST 
 					if (remaining_range >= 0) :
@@ -323,7 +332,7 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
 					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile, movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -358,7 +367,7 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not is_position_occupied_by_friendly_faction(target_tile, allegience):
+						if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 							var target_tile_cost = get_tile_cost(target_tile, movement_type)
 							remaining_range = range - target_tile_cost 
 							if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -486,8 +495,9 @@ func get_id_path(from_id: Vector2i, to_id: Vector2i, allow_partial_path: bool = 
 	return _astargrid.get_id_path(from_id, to_id,allow_partial_path)
 
 func is_map_position_available_for_unit_move(position: Vector2i, unit_movement_class:int) -> bool:
-	if not is_unit_blocked(position, unit_movement_class) and not is_position_occupied(position) == null :
-		return true
+	if not is_unit_blocked(position, unit_movement_class):
+		if not is_position_occupied(position):
+			return true
 	return false
 
 func position_to_map(position: Vector2) -> Vector2i:

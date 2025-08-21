@@ -30,7 +30,7 @@ func update():
 	set_damage_type_icon_visibility(damage_type)
 	flip_attack_direction_arrow(flipped)
 
-func populate(dmg: int, attack_quantity:int, damage_type:Constants.DAMAGE_TYPE, flipped: bool):
+func populate(dmg: int, attack_quantity:int, damage_type:Constants.DAMAGE_TYPE = Constants.DAMAGE_TYPE.NONE, flipped: bool = false):
 	self.dmg = dmg
 	self.attack_quantity = attack_quantity
 	self.damage_type = damage_type

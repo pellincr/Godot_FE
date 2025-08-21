@@ -1,8 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b6k51qllipmtk"]
-
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="1_xd8ye"]
-
-[resource]
-default_font = ExtResource("1_xd8ye")
-default_font_size = 12
-Label/colors/font_color = Color(0.870588, 0.196078, 0.309804, 1)

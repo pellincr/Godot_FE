@@ -23,7 +23,7 @@ class_name WeaponDefinition
 
 @export_group("Weapon Effectiveness")
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
-@export var status_ailments : Array[String] = []
+@export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
 @export_group("Weapon Specials") 
 @export var is_wpn_triangle_effective = false
 @export var crit_disabled : bool = false

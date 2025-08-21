@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbai5r4nou80q"]
+[gd_scene load_steps=10 format=3 uid="uid://cbai5r4nou80q"]
 
 [ext_resource type="PackedScene" uid="uid://bouxl8xwnlqn4" path="res://combat/levels/tutorial_levels/tutorial_level_4/terrain.tscn" id="2_r2lpq"]
-[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="3_6euwm"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_l8en5"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_vx4dk"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_6px8n"]
@@ -14,11 +13,6 @@
 [node name="Game" type="Node"]
 
 [node name="Terrain" parent="." instance=ExtResource("2_r2lpq")]
-
-[node name="Select" type="Sprite2D" parent="Terrain"]
-visible = false
-position = Vector2(272, 208)
-texture = ExtResource("3_6euwm")
 
 [node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1

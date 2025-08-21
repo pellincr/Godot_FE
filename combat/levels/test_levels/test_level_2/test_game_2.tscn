@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cw28pbyq5shkg"]
+[gd_scene load_steps=11 format=3 uid="uid://cw28pbyq5shkg"]
 
-[ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_bw773"]
 [ext_resource type="PackedScene" uid="uid://d1fryo0bc0x25" path="res://combat/levels/test_levels/test_level_2/terrain.tscn" id="2_o6b0w"]
-[ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="3_rqcll"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_p1tj2"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_unhkg"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_xl5df"]
 [ext_resource type="Resource" uid="uid://bnar8ricmvo5q" path="res://combat/levels/test_levels/test_level_2/test_level_2_entities.tres" id="6_lix0v"]
@@ -14,27 +13,20 @@
 
 [node name="Game" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("map")]
-position = Vector2(356, 302)
-zoom = Vector2(3, 3)
-script = ExtResource("1_bw773")
-map = NodePath("../Terrain")
-
 [node name="Terrain" parent="." instance=ExtResource("2_o6b0w")]
 
-[node name="Select" type="Sprite2D" parent="Terrain"]
-visible = false
-position = Vector2(272, 208)
-texture = ExtResource("3_rqcll")
-
-[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat")]
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
 script = ExtResource("4_unhkg")
 combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_p1tj2")]
+top_level = true
+scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("5_xl5df")
-level_name = "Test Level 2"
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")

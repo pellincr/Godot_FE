@@ -1,32 +1,31 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://c756h8hn06vn"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dwxnxxa0kw4y3"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_2joo2"]
+[ext_resource type="Texture2D" uid="uid://bo8stxiw4n7vi" path="res://resources/sprites/items/wand1.png" id="1_1auyd"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mrvr5"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2slxm"]
-atlas = ExtResource("1_2joo2")
-region = Rect2(128, 512, 32, 32)
 
 [resource]
 script = ExtResource("2_mrvr5")
-weapon_type = "Staff"
-physical_weapon_triangle_type = "none"
-magic_weapon_triangle_type = "none"
-item_damage_type = 1
-item_scaling_type = 1
-item_target_faction = 1
+weapon_type = 6
+alignment = 0
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 3
+item_scaling_type = 2
+item_target_faction = Array[int]([1])
 required_mastery = 0
 attack_range = Array[int]([1])
-damage = 1000
+damage = 5
 hit = 100
 critical_chance = 0
 weight = 5
-weapon_effectiveness = Array[String]([])
-weapon_hit_effect = 2
+critical_multiplier = 3.0
+attacks_per_combat_turn = 2
+weapon_effectiveness = Array[int]([])
+status_ailment = 2
 is_wpn_triangle_effective = false
 crit_disabled = false
 is_brave = false
-applies_status_effect = false
+is_vampyric = false
 negates_defense = true
 name = "Recover"
 db_key = "recover"
@@ -35,5 +34,5 @@ description = ""
 item_type = 1
 uses = 40
 max_uses = 40
-value = 0
-icon = SubResource("AtlasTexture_2slxm")
+worth = 100
+icon = ExtResource("1_1auyd")

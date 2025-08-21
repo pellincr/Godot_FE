@@ -187,7 +187,8 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker_weapon is WeaponDefinition:
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 		if attacker_weapon.attack_range.has(distance):
-			return true
+			if attacker_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+				return true
 	return false
 
 func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, distance:int) -> UnitCombatExchangeData:
@@ -254,6 +255,25 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	return_object.attacker_hit = attacker_hit_chance
 	return_object.defender_critical= defender_critical_chance
 	return_object.defender_hit = defender_hit_chance
+	return_object.populate()
+	return return_object
+
+func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
+	#How many hits are performed?
+	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
+	
+	return_object.supporter = supporter
+	return_object.target = target
+	
+	var turn_count = 1
+	
+	for turn in turn_count:
+		var turn_data : UnitSupportExchangeTurnData = UnitSupportExchangeTurnData.new()
+		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
+		turn_data.effect_type = supporter.get_equipped().status_ailment
+		turn_data.effect_weight = supporter.stats.damage.evaluate()
+		return_object.exchange_data.append(turn_data)
+		
 	return_object.populate()
 	return return_object
 
@@ -380,19 +400,20 @@ func unit_gain_experience_complete():
 #
 # Used for healing
 #
-func enact_support_exchange(attacker: CombatUnit, target:CombatUnit, distance:int):
-	var staff : WeaponDefinition
-	var give_xp = false
-	if attacker.allegience == Constants.FACTION.PLAYERS:
-		give_xp = true
-	if attacker.unit.inventory.equipped: 
-		staff = attacker.unit.inventory.get_equipped_weapon()
-		await perform_heal(attacker, target, staff.item_scaling_type)
-		if attacker.allegience == Constants.FACTION.PLAYERS:
-			await complete_combat_exchange(attacker.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
-		else :
+func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitSupportExchangeData):
+	var player_unit: CombatUnit
+	var enemy_unit: CombatUnit
+	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
+	
+	for turn in data.exchange_data:
+		for attack in turn.attack_count:
+			await heal_unit(target, turn.effect_weight)
+			
+	if supporter.allegience == Constants.FACTION.PLAYERS:
+		await complete_combat_exchange(supporter.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+	else :
 			pass
-	attacker.turn_taken = true
+	supporter.turn_taken = true
 
 #
 # Gets the scaling bonus based on the item scaling type for calc damage

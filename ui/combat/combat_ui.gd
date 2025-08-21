@@ -21,6 +21,7 @@ const UNIT_COMBAT_EXCHANGE_PREVIEW = preload("res://ui/combat/combat_exchange_pr
 
 #Support Action
 const SUPPORT_ACTION_INVENTORY = preload("res://ui/combat/support_action_inventory/support_action_inventory.tscn")
+const UNIT_SUPPORT_EXCHANGE_PREVIEW = preload("res://ui/combat/support_exchange_preview/unit_support_exchange_preview.tscn")
 
 #Trade Action
 const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
@@ -135,8 +136,8 @@ func create_support_action_inventory(inputCombatUnit : CombatUnit, inventory: Ar
 	var support_action_inventory = SUPPORT_ACTION_INVENTORY.instantiate()
 	self.add_child(support_action_inventory)
 	await support_action_inventory
-	support_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
-	support_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
+	support_action_inventory.item_selected.connect(controller.fsm_support_action_inventory_confirm.bind())
+	support_action_inventory.new_item_hovered.connect(controller.fsm_support_action_inventory_confirm_new_hover.bind())
 	#TO BE CONNECTED CANCEL
 	support_action_inventory.populate(inputCombatUnit, inventory)
 	active_ui_node = support_action_inventory
@@ -154,10 +155,25 @@ func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExcha
 	combat_exchange_preview.set_all(exchange_info,weapon_swap_visable)
 	active_ui_node = combat_exchange_preview
 	combat_exchange_preview.grab_focus()
-	
+
 func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
 	if active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
+#
+#
+#
+func create_support_action_exchange_preview(exchange_info: UnitSupportExchangeData, weapon_swap_visable: bool = false):
+	var support_exchange_preview = UNIT_SUPPORT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(support_exchange_preview)
+	await support_exchange_preview
+	support_exchange_preview.set_all(exchange_info,weapon_swap_visable)
+	active_ui_node = support_exchange_preview
+	support_exchange_preview.grab_focus()
+
+func update_support_action_exchange_preview(exchange_info: UnitSupportExchangeData, weapon_swap_visable: bool = false):
+	if active_ui_node is UnitSupportExchangePreview:
+		active_ui_node.set_all(exchange_info,weapon_swap_visable)
+
 #
 # Populates and displayes the detailed info for a combat unit
 #
