@@ -465,7 +465,6 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 			if turn.owner == attacker:
 				await perform_hit(attacker,defender,turn.hit,turn.critical)
 				if not defender.alive:
-					unit_defeated.emit(defender)
 					if player_unit == defender:
 						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else : 

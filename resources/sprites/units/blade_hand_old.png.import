@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h745ifqky6lx"
-path="res://.godot/imported/blade_hand.png-06958da1b9f63ef595bd3a73b3142309.ctex"
+uid="uid://bkpqbflwfil3f"
+path="res://.godot/imported/blade_hand_old.png-9a2386f8ccc306b749622eb65b08b460.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/units/blade_hand.png"
-dest_files=["res://.godot/imported/blade_hand.png-06958da1b9f63ef595bd3a73b3142309.ctex"]
+source_file="res://resources/sprites/units/blade_hand_old.png"
+dest_files=["res://.godot/imported/blade_hand_old.png-9a2386f8ccc306b749622eb65b08b460.ctex"]
 
 [params]
 

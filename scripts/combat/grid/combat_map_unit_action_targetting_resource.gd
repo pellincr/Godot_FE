@@ -23,6 +23,8 @@ func clear():
 	target_range_map.clear()
 	range_target_map.clear()
 	current_target_range = 0
+	_available_targets_at_range_index = 0
+	_available_targets_at_range_index = 0
 	current_method = null
 	_available_targets_with_method.clear()
 	_available_methods_at_target.clear()

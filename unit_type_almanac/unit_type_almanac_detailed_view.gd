@@ -69,7 +69,7 @@ func update_by_unit_type():
 	set_label(unit_type_description_label,unit_type.description)
 	set_unit_icon(unit_type.icon)
 	set_faction_text()
-	weapon_type_container.unit_type = unit_type
+	weapon_type_container.weapon_type = unit_type.usable_weapon_types
 	weapon_type_container.set_icon_visibility()
 	unit_type_full_stat_container.unit_type = unit_type
 	unit_type_full_stat_container.update_by_unit_type()

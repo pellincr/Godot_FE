@@ -625,10 +625,11 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 														_astar_closet_move_tile_distance_to_action = _astar_distance
 														print("@UPDATED CLOSET MOVE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
 									print("@ FOUND CLOSET MOVEABLE TILE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
-									if closet_tile_in_range_to_action_tile !=  Vector2i(current_position):
-										ai_unit.update_move_tile(grid.get_map_tile(closet_tile_in_range_to_action_tile))
-										ai_move(closet_tile_in_range_to_action_tile)
-										called_move = true
+									if closet_tile_in_range_to_action_tile != null:
+										if closet_tile_in_range_to_action_tile !=  Vector2i(current_position):
+											ai_unit.update_move_tile(grid.get_map_tile(closet_tile_in_range_to_action_tile))
+											ai_move(closet_tile_in_range_to_action_tile)
+											called_move = true
 			else:
 				if called_move == false:
 					if Vector2(current_position) != selected_action.action_position:
@@ -714,7 +715,9 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 # Calls Grid function to update map, and finalizes the tile updates to the combat_unit. This replaces the map_tile
 #
 func confirm_unit_move(combat_unit: CombatUnit):
-	grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
+	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
+	if not update_successful:
+		print("BAD NEWS")
 	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():

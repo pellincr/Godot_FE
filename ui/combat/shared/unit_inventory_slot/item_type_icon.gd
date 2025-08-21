@@ -22,8 +22,9 @@ const SWORD_ICON = preload("res://resources/sprites/icons/weapon_icons/sword_ico
 
 func set_types(new_type:  itemConstants.ITEM_TYPE, new_weapon_type: itemConstants.WEAPON_TYPE = itemConstants.WEAPON_TYPE.NONE):
 	self.type = new_type
-	if new_weapon_type != itemConstants.WEAPON_TYPE.NONE:
-		self.weapon_type = new_weapon_type
+	if type == itemConstants.ITEM_TYPE.WEAPON:
+		if new_weapon_type != itemConstants.WEAPON_TYPE.NONE:
+			self.weapon_type = new_weapon_type
 	self.update()
 
 func set_types_from_item(input_item: ItemDefinition):
@@ -40,7 +41,7 @@ func set_types_from_item(input_item: ItemDefinition):
 func update():
 	match type:
 		itemConstants.ITEM_TYPE.WEAPON:
-			match type:
+			match weapon_type:
 				itemConstants.WEAPON_TYPE.AXE:
 					self.texture = AXE_ICON
 				itemConstants.WEAPON_TYPE.BOW:

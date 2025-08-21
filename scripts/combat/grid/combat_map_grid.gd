@@ -125,13 +125,21 @@ func get_entity(position:Vector2i)-> CombatMapEntity:
 			return entry.entity
 	return null
 
-func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector2i):
+#
+# Updates combatUnit's position within the game grid map
+#
+func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector2i) -> bool:
 	if is_valid_tile(previous_map_positon) and is_valid_tile(new_map_position):
-		var previous_map_tile :CombatMapTile = get_map_tile(previous_map_positon)
-		var new_map_tile :CombatMapTile = get_map_tile(new_map_position)
-		if previous_map_tile.unit and !new_map_tile.unit:
-			new_map_tile.unit = previous_map_tile.unit
-			previous_map_tile.unit = null
+		if previous_map_positon != new_map_position:
+			if get_combat_unit(previous_map_positon) and not get_combat_unit(new_map_position):
+				var previous_map_tile :CombatMapTile = get_map_tile(previous_map_positon)
+				var new_map_tile :CombatMapTile = get_map_tile(new_map_position)
+				new_map_tile.unit = previous_map_tile.unit
+				previous_map_tile.unit = null
+				return true
+		else:
+			return true
+	return false
 
 func set_combat_unit(combatUnit: CombatUnit, position:Vector2i):
 	if game_map.has(str(position)):
