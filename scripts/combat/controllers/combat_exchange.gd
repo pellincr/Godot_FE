@@ -139,8 +139,8 @@ func calc_hit(attacker: CombatUnit, target: CombatUnit) -> int:
 		wpn_triangle_hit_active_bonus = - wpn_triangle_hit_bonus
 	return clamp(attacker.stats.hit.evaluate() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
 
-func calc_crit(attacker: Unit, target: Unit) -> int:
-	return clamp(attacker.critical_hit - target.critical_avoid, 0, 100)
+func calc_crit(attacker: CombatUnit, target: CombatUnit) -> int:
+	return clamp(attacker.stats.critical_chance.evaluate() - target.stats.luck.evaluate(), 0, 100)
 
 func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	var max_damage
@@ -215,7 +215,7 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	
 	attacker_hit_chance = calc_hit(attacker, defender)
 	attacker_damage = calc_damage(attacker, defender)
-	attacker_critical_chance = calc_crit(attacker.unit, defender.unit)
+	attacker_critical_chance = calc_crit(attacker, defender)
 	attacker_effective = check_effective(attacker.unit, defender.unit)
 	
 	var turn_vector :Vector2i = calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
@@ -226,7 +226,7 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	if defender_can_attack:
 		defender_hit_chance = calc_hit(defender, attacker)
 		defender_damage = calc_damage(defender, attacker)
-		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
+		defender_critical_chance = calc_crit(defender,attacker)
 		defender_effective = check_effective(defender.unit, attacker.unit)
 	else :
 		defender_turns = 0
