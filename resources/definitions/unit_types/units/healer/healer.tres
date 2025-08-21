@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("4_xibya")
 unit_type_name = "Healer"
-db_key = "thief"
+db_key = "healer"
 description = "Trained clergy devoted to preserving life through focused, restorative magic."
 initiative = 1
 faction = Array[int]([1])
