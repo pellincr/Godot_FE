@@ -49,8 +49,8 @@ level = 2
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "pikeman"
-inventory = Array[ExtResource("2_2vw2u")]([ExtResource("3_aia3m")])
-ai_type = 0
+inventory = Array[ExtResource("2_2vw2u")]([ExtResource("4_b8su4")])
+ai_type = 1
 
 [sub_resource type="Resource" id="Resource_dhpdn"]
 script = ExtResource("1_ipdnw")

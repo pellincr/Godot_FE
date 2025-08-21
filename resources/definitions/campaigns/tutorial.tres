@@ -11,4 +11,5 @@ max_floor_number = 6
 tier_2_floor_start_number = 2
 number_of_archetypes_drafted = 3
 rewards = ""
+unit_unlock_rewards = Array[String](["mage_knight"])
 boss = ""
