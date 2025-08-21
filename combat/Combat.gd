@@ -82,6 +82,7 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	randomize()
+	
 
 
 func populate():
@@ -349,10 +350,22 @@ func heal_ally_units():
 func unlock_new_unit_types():
 	var unlocked_units = playerOverworldData.current_campaign.unit_unlock_rewards
 	for unlocked_unit in unlocked_units:
-		if UnitTypeDatabase.unit_types.has(unlocked_unit):
+		if UnitTypeDatabase.unit_types.has(unlocked_unit) and !playerOverworldData.unlock_manager.unit_types_unlocked[unlocked_unit]:
+			#If the unit database has the unlocked unit and it hasn't been unlocked yet
 			playerOverworldData.unlock_manager.unit_types_unlocked[unlocked_unit] = true
-		else:
+			var unlock_panel : UnlockPanel= preload("res://ui/unlock_panel/unlock_panel.tscn").instantiate()
+			unlock_panel.unlocked_entity = UnitTypeDatabase.unit_types[unlocked_unit]
+			game_ui.add_child(unlock_panel)
+			await get_tree().create_timer(8).timeout
+			unlock_panel.queue_free()
+		elif UnitTypeDatabase.commander_types.has(unlocked_unit) and !playerOverworldData.unlock_manager.commander_types_unlocked[unlocked_unit]:
+			#If the commander database has the unlocked commander and it hasn't been unlocked yet
 			playerOverworldData.unlock_manager.commander_types_unlocked[unlocked_unit] = true
+			var unlock_panel : UnlockPanel= preload("res://ui/unlock_panel/unlock_panel.tscn").instantiate()
+			unlock_panel.unlocked_entity = UnitTypeDatabase.commander_types[unlocked_unit]
+			game_ui.add_child(unlock_panel)
+			await get_tree().create_timer(8).timeout
+			unlock_panel.queue_free()
 
 func combatant_die(combatant: CombatUnit):
 	var	comb_id = combatants.find(combatant)
