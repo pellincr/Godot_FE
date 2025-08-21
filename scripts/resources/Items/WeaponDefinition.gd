@@ -21,12 +21,11 @@ class_name WeaponDefinition
 @export var critical_multiplier : float = 3
 @export var attacks_per_combat_turn : int = 1
 
+@export_group("Bonus Stats")
+@export var bonus_stat : UnitStat = UnitStat.new()
+
 @export_group("Weapon Effectiveness")
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
 @export_group("Weapon Specials") 
-@export var is_wpn_triangle_effective = false
-@export var crit_disabled : bool = false
-@export var is_brave = false
-@export var is_vampyric = false
-@export var negates_defense = false 
+@export var specials : Array[ItemConstants.WEAPON_SPECIALS] = []

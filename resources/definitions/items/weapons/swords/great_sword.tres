@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://oo2d2ui6ymeg"]
+
+[ext_resource type="Texture2D" uid="uid://bgf6yxgeu8pj4" path="res://resources/sprites/items/weapons/swords/great_sword.png" id="1_f7pgc"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_l5p3n"]
+
+[resource]
+script = ExtResource("2_l5p3n")
+weapon_type = 1
+alignment = 0
+physical_weapon_triangle_type = 1
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_target_faction = Array[int]([0])
+required_mastery = 1
+attack_range = Array[int]([1])
+damage = 20
+hit = 55
+critical_chance = 0
+weight = 18
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+is_wpn_triangle_effective = false
+crit_disabled = false
+is_brave = false
+is_vampyric = false
+negates_defense = false
+name = "Great Sword"
+db_key = "great_sword"
+equippable = true
+description = ""
+item_type = 0
+uses = 12
+max_uses = 12
+worth = 100
+icon = ExtResource("1_f7pgc")

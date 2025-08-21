@@ -1,7 +1,21 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dm117ek0y3jdu"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dm117ek0y3jdu"]
 
+[ext_resource type="Texture2D" uid="uid://cmxahoox1gg2l" path="res://resources/sprites/items/weapons/shield/iron_shield.png" id="1_1hoqn"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_akoaa"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
-[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="1_s6fly"]
+
+[sub_resource type="Resource" id="Resource_qdqgw"]
+script = ExtResource("1_akoaa")
+hp = 0
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
 
 [resource]
 script = ExtResource("1_qvcxe")
@@ -17,9 +31,10 @@ attack_range = Array[int]([1])
 damage = 3
 hit = 100
 critical_chance = 25
-weight = 2
+weight = 8
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
+bonus_stat = SubResource("Resource_qdqgw")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 is_wpn_triangle_effective = false
@@ -32,7 +47,7 @@ db_key = "iron_shield"
 equippable = true
 description = ""
 item_type = 0
-uses = 1
-max_uses = 1
+uses = 25
+max_uses = 25
 worth = 100
-icon = ExtResource("1_s6fly")
+icon = ExtResource("1_1hoqn")

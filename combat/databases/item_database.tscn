@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=47 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -35,29 +35,38 @@
 [ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="33_gk068"]
 [ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/anima/wind_blade.tres" id="34_ttak5"]
 [ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/anima/bolting.tres" id="35_xal3d"]
-[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/swords/enchanted_shotel.tres" id="36_1rwxd"]
+[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/enchanted_shotel.tres" id="36_1rwxd"]
 [ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="37_psnnm"]
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="38_ysglg"]
 [ext_resource type="Resource" uid="uid://bxj522h8rq5l6" path="res://resources/definitions/items/weapons/fists/devil_knuckles.tres" id="39_kby4g"]
 [ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="40_8cwhn"]
 [ext_resource type="Resource" uid="uid://dwxnxxa0kw4y3" path="res://resources/definitions/items/stalves/recover_staff.tres" id="41_dpqwc"]
+[ext_resource type="Resource" uid="uid://bpj78rpsvpi2e" path="res://resources/definitions/items/weapons/shield/buckler.tres" id="42_bjlri"]
+[ext_resource type="Resource" uid="uid://djtoj5yawfpye" path="res://resources/definitions/items/weapons/shield/eye_greatshield.tres" id="43_v0y5j"]
+[ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="44_677v3"]
+[ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="45_py2vi"]
+[ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="46_jmx6f"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
 items = {
 "bolting": ExtResource("35_xal3d"),
 "brass_knuckles": ExtResource("38_ysglg"),
+"buckler": ExtResource("42_bjlri"),
 "dark_pulse": ExtResource("29_sc5t6"),
 "dark_sword": ExtResource("25_rrx52"),
 "devil_knuckles": ExtResource("39_kby4g"),
 "enchanted_bow": ExtResource("24_4o3e2"),
 "enchanted_shotel": ExtResource("36_1rwxd"),
+"evil_eye": ExtResource("45_py2vi"),
+"eye_greatshield": ExtResource("43_v0y5j"),
 "fiend_fire": ExtResource("28_hv28m"),
 "fire_spell": ExtResource("19_q1d18"),
 "great_bow": ExtResource("17_0gxut"),
 "halberd": ExtResource("22_epcxq"),
 "hand_axe": ExtResource("11_uxm7i"),
 "harm": ExtResource("32_xfxu7"),
+"hatchet": ExtResource("44_677v3"),
 "heal_staff": ExtResource("16_exr5t"),
 "iron_axe": ExtResource("3_u1np0"),
 "iron_bow": ExtResource("5_ge5kc"),
@@ -70,6 +79,7 @@ items = {
 "killer_bow": ExtResource("15_jhgao"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
+"mandate": ExtResource("46_jmx6f"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
 "recover": ExtResource("41_dpqwc"),

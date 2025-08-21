@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://c3u18f1abmb4n"]
 
-[ext_resource type="Texture2D" uid="uid://cdvi6tvqyl8lt" path="res://resources/sprites/items/Icon2.png" id="1_ps4gp"]
+[ext_resource type="Texture2D" uid="uid://cdvi6tvqyl8lt" path="res://resources/sprites/items/weapons/bow/holy_bow.png" id="1_wpmia"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_226rx"]
 
 [resource]
@@ -35,4 +35,4 @@ item_type = 0
 uses = 14
 max_uses = 14
 worth = 100
-icon = ExtResource("1_ps4gp")
+icon = ExtResource("1_wpmia")

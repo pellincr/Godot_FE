@@ -14,7 +14,10 @@ func set_item_name_label(name):
 	item_name_label.text = name
 
 func update_by_item():
-	set_item_name_label(item.name)
-	inventory_item_icon.set_item(item)
-	if item is WeaponDefinition:
-		unit_combat_weapon_types.weapon_type = item.weapon_type
+	if item != null:
+		set_item_name_label(item.name)
+		inventory_item_icon.set_item(item)
+		if item is WeaponDefinition:
+			unit_combat_weapon_types.weapon_type = item.weapon_type
+	else :
+		set_item_name_label("")

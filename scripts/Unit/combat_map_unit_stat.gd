@@ -75,20 +75,21 @@ func populate_unit_stats(unit : Unit):
 
 func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
 	if weapon != null:
-		self.max_hp.append(StatModifier.create(0, "Weapon"))
-		
-		self.strength.append(StatModifier.create(0, "Weapon"))
-		self.magic.append(StatModifier.create(0, "Weapon"))
-		
-		self.skill.append(StatModifier.create(0, "Weapon"))
-		self.speed.append(StatModifier.create(0, "Weapon"))
-		self.luck.append(StatModifier.create(0, "Weapon"))
-		
-		self.defense.append(StatModifier.create(0, "Weapon"))
-		self.resistance.append(StatModifier.create(0, "Weapon"))
+		if weapon.bonus_stat != null:
+			self.max_hp.append(StatModifier.create(weapon.bonus_stat.hp, "Weapon"))
+			
+			self.strength.append(StatModifier.create(weapon.bonus_stat.strength, "Weapon"))
+			self.magic.append(StatModifier.create(weapon.bonus_stat.magic, "Weapon"))
+			
+			self.skill.append(StatModifier.create(weapon.bonus_stat.skill, "Weapon"))
+			self.speed.append(StatModifier.create(weapon.bonus_stat.speed, "Weapon"))
+			self.luck.append(StatModifier.create(weapon.bonus_stat.luck, "Weapon"))
+			
+			self.defense.append(StatModifier.create(weapon.bonus_stat.defense, "Weapon"))
+			self.resistance.append(StatModifier.create(weapon.bonus_stat.resistance, "Weapon"))
 
-		self.movement.append(StatModifier.create(0, "Weapon"))
-		self.constitution.append(StatModifier.create(0, "Weapon"))
+			self.movement.append(StatModifier.create(weapon.bonus_stat.movement, "Weapon"))
+			self.constitution.append(StatModifier.create(weapon.bonus_stat.constitution, "Weapon"))
 
 		#other stats that require calculations
 		var user_damage : int = 0
