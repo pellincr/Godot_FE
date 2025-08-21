@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=52 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -47,6 +47,10 @@
 [ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="45_py2vi"]
 [ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="46_jmx6f"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="47_v3anb"]
+[ext_resource type="Resource" uid="uid://dttd16vj7vl7q" path="res://resources/definitions/items/weapons/dark_magic/soul_rip.tres" id="48_m0w6q"]
+[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="49_bdsdk"]
+[ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="50_d8m3e"]
+[ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="51_5lqt6"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -81,6 +85,7 @@ items = {
 "killer_bow": ExtResource("15_jhgao"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
+"kukri": ExtResource("50_d8m3e"),
 "mandate": ExtResource("46_jmx6f"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
@@ -89,9 +94,12 @@ items = {
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_bow": ExtResource("7_x6uf5"),
 "silver_axe": ExtResource("23_7wv7v"),
+"silver_lance": ExtResource("51_5lqt6"),
 "silver_sword": ExtResource("9_vblr4"),
 "smite": ExtResource("30_rffgk"),
+"soul_rip": ExtResource("48_m0w6q"),
 "steel_axe": ExtResource("6_meveu"),
+"steel_dagger": ExtResource("49_bdsdk"),
 "steel_lance": ExtResource("20_kc6t1"),
 "steel_sword": ExtResource("8_l7lwn"),
 "sword_reaver": ExtResource("14_dv5o2"),

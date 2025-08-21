@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_el3xl")
 rarity_name = "Rare"
-ui_color = Color(0.0117647, 1, 0.239216, 1)
+ui_color = Color(0, 0.454902, 0.827451, 1)
