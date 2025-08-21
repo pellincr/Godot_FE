@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dwxnxxa0kw4y3"]
 
-[ext_resource type="Texture2D" uid="uid://bo8stxiw4n7vi" path="res://resources/sprites/items/wand1.png" id="1_1auyd"]
+[ext_resource type="Texture2D" uid="uid://bo8stxiw4n7vi" path="res://resources/sprites/items/weapons/staff/wand1.png" id="1_8yngb"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mrvr5"]
 
 [resource]
@@ -35,4 +35,4 @@ item_type = 1
 uses = 40
 max_uses = 40
 worth = 100
-icon = ExtResource("1_1auyd")
+icon = ExtResource("1_8yngb")

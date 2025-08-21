@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dudqmvg5uumjl"]
 
-[ext_resource type="Texture2D" uid="uid://coap74eeqxw4f" path="res://resources/sprites/items/iron_axe.tres" id="1_x3tid"]
+[ext_resource type="Texture2D" uid="uid://cxe5er7jh32ki" path="res://resources/sprites/items/weapons/axes/sword_reaver.png" id="1_m0qll"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ye3hw"]
 
 [resource]
@@ -22,6 +22,7 @@ critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
+specials = Array[int]([])
 is_wpn_triangle_effective = true
 crit_disabled = false
 is_brave = false
@@ -35,4 +36,4 @@ item_type = 0
 uses = 45
 max_uses = 45
 worth = 100
-icon = ExtResource("1_x3tid")
+icon = ExtResource("1_m0qll")

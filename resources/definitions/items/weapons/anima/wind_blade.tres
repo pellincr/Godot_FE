@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dbivq6j2j5qrv"]
 
-[ext_resource type="Texture2D" uid="uid://cfrupqxxqg4d8" path="res://resources/sprites/items/book19.png" id="1_7ev12"]
+[ext_resource type="Texture2D" uid="uid://cfrupqxxqg4d8" path="res://resources/sprites/items/weapons/nature/book19.png" id="1_48rgp"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_nrcum"]
 
 [resource]
@@ -35,4 +35,4 @@ item_type = 0
 uses = 20
 max_uses = 20
 worth = 100
-icon = ExtResource("1_7ev12")
+icon = ExtResource("1_48rgp")

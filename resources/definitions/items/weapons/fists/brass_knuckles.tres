@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://d2gcae0fe52md"]
 
-[ext_resource type="Texture2D" uid="uid://fwfeeawehvv0" path="res://resources/sprites/items/brassknuckles.png" id="1_tjb2q"]
+[ext_resource type="Texture2D" uid="uid://fwfeeawehvv0" path="res://resources/sprites/items/weapons/fist/brassknuckles.png" id="1_kqdmr"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_v7554"]
 
 [resource]
@@ -35,4 +35,4 @@ item_type = 0
 uses = 1
 max_uses = 1
 worth = 100
-icon = ExtResource("1_tjb2q")
+icon = ExtResource("1_kqdmr")

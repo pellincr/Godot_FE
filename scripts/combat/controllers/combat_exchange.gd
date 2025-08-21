@@ -50,7 +50,7 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 			damage_dealt = calc_damage(attacker, target)
 			await do_damage(target,damage_dealt)
 		if attacker.unit.inventory.get_equipped_weapon():
-			if attacker.unit.inventory.get_equipped_weapon().is_vampyric:
+			if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.VAMPYRIC):
 				await heal_unit(attacker, damage_dealt)
 	else : ## Attack has missed
 		await hit_missed(target)
@@ -164,7 +164,7 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	else :
 		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus
 	# check the damage type of the source
-	if attacker.get_equipped().negates_defense:
+	if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
 		defense_mult = 0
 	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		damage = clampi(max_damage - (target.stats.defense.evaluate() * defense_mult),0, 999)
@@ -376,7 +376,7 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 			if effective_type in unit_type.traits :
 				_is_effective = true
 	if (check_weapon_triangle(attacker, target) == attacker): 
-		if(attacker.inventory.get_equipped_weapon().is_wpn_triangle_effective):
+		if attacker.inventory.get_equipped_weapon().specials.has(ItemConstants.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
 			_is_effective = true
 	return _is_effective
 
