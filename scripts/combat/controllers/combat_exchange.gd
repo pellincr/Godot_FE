@@ -160,7 +160,7 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	
 	#calculate the maximum damage output before factoring in defenses
 	if(effective): 
-		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus + (effective_damage_multiplier-1 * attacker.get_equipped().damage)
+		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus + ((effective_damage_multiplier-1) * attacker.get_equipped().damage)
 	else :
 		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus
 	# check the damage type of the source
@@ -218,7 +218,9 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	attacker_critical_chance = calc_crit(attacker.unit, defender.unit)
 	attacker_effective = check_effective(attacker.unit, defender.unit)
 	
-	calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
+	var turn_vector :Vector2i = calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
+	attacker_turns = turn_vector.x
+	defender_turns = turn_vector.y
 	
 	defender_can_attack = check_can_attack(defender, attacker, distance)
 	if defender_can_attack:
@@ -290,11 +292,14 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 			j = j -1
 	return _arr
 
-func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int):
-	if(attacker.stats.attack_speed.evaluate() - defender.stats.attack_speed.evaluate()  >= 4) :
-		attacker_turns = 2
-	elif (attacker.stats.attack_speed.evaluate()  - attacker.stats.attack_speed.evaluate()  <= - 4) :
-		defender_turns = 2
+func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
+	var net_attack_speed = attacker.stats.attack_speed.evaluate() - defender.stats.attack_speed.evaluate()
+	var net_turn_count = int(net_attack_speed / floor(4))
+	if net_turn_count > 0:
+		attacker_turns = attacker_turns + abs(net_turn_count)
+	elif net_turn_count < 0: 
+		defender_turns = defender_turns + abs(net_turn_count)
+	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 	var unit_a_weapon: WeaponDefinition
@@ -375,7 +380,8 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 			var unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
 			if effective_type in unit_type.traits :
 				_is_effective = true
-	if (check_weapon_triangle(attacker, target) == attacker): 
+	var weapon_triangle_victor = check_weapon_triangle(attacker, target)
+	if (weapon_triangle_victor == attacker): 
 		if attacker.inventory.get_equipped_weapon().specials.has(ItemConstants.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
 			_is_effective = true
 	return _is_effective
