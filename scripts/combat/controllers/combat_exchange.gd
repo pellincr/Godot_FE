@@ -40,7 +40,7 @@ var ce_display : CombatExchangeDisplay
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var damage_dealt
 	if check_hit(hit_chance):
-		attacker.unit.inventory.get_equipped_weapon().use()
+		attacker.unit.inventory.use_item(attacker.get_equipped())
 		if check_critical(critical_chance) :
 			#emit critical
 			damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
@@ -60,18 +60,18 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
 		attacker.unit.inventory.get_equipped_weapon().use()
 		await use_audio_player(heal_sound)
-		target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
+		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.stats.max_hp.evaluate())
 		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
-	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.stats.hp )
+	unit.unit.hp = clampi(amount + unit.current_hp, unit.current_hp, unit.stats.max_hp.evaluate() )
 	DamageNumbers.heal((32* unit.map_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	if ce_display != null:
-		await ce_display.update_unit_hp(unit.unit, unit.unit.hp)
+		await ce_display.update_unit_hp(unit.current_hp, unit.unit.hp)
 	#await unit.map_display.update_complete
 
 func hit_missed(dodging_unt: CombatUnit):
@@ -106,7 +106,7 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
-		target.unit.hp -= damage
+		target.current_hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
 			await use_audio_player(crit_sound)
@@ -115,10 +115,10 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 			await use_audio_player(hit_sound)
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
-		await ce_display.update_unit_hp(target.unit, target.unit.hp) and DamageNumbers.complete
+		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete
 		#await target.map_display.update_complete
 	##check and see if the unit has died
-	if target.unit.hp <= 0:
+	if target.current_hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED
 		target.map_display.update_values()
 		await target.map_display.update_complete
@@ -456,7 +456,7 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	await ce_display
 	$"../../CanvasLayer/UI".add_child(ce_display) 
 	ce_display.visible = true
-	ce_display.set_all(attacker.unit, defender.unit, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
+	ce_display.set_all(attacker, defender, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
 		false, false, check_weapon_triangle(attacker.unit,defender.unit))
 	attacker.turn_taken = true
 	#Do the actual calcs

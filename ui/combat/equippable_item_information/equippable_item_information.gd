@@ -19,13 +19,13 @@ var increase_color : Color = Color(0, 0.826, 0.946)
 @onready var crit_mult_value: Label = $HBoxContainer/CritMultiplierContainer/CritMultValue
 @onready var range_value: Label = $HBoxContainer/RangeContainer/RangeValue
 
-var current_equipped_stat: combatMapUnitStat 
+var current_equipped_stat: CombatMapUnitNetStat 
 var current_damage_type : Constants.DAMAGE_TYPE = 0
 var current_attack_range : Array[int] = []
 var current_weapon_effectiveness : Array[unitConstants.TRAITS] = []
 var current_required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
 
-@export var hover_stat : combatMapUnitStat = combatMapUnitStat.new() 
+@export var hover_stat : CombatMapUnitNetStat = CombatMapUnitNetStat.new() 
 var hover_damage_type : Constants.DAMAGE_TYPE = 0
 var hover_attack_range : Array[int] = []
 var hover_weapon_effectiveness : Array[unitConstants.TRAITS] = []
@@ -39,7 +39,7 @@ func calculate_hover_stats(combat_unit: CombatUnit, weapon :WeaponDefinition = n
 		hover_stat.populate_unit_stats(combat_unit.unit)
 		hover_stat.populate_weapon_stats(combat_unit, weapon)
 
-func populate_equipped_stats(current_stats: combatMapUnitStat, current_weapon: WeaponDefinition):
+func populate_equipped_stats(current_stats: CombatMapUnitNetStat, current_weapon: WeaponDefinition):
 	self.current_equipped_stat = current_stats
 	self.current_damage_type = current_weapon.item_damage_type
 	self.current_attack_range = current_weapon.attack_range
@@ -100,7 +100,7 @@ func update_fields_consumable():
 	crit_mult_value.set("theme_override_colors/font_color", base_color)
 	crit_mult_value.text = "--"
 
-func populate_hover_stats(hover_stats: combatMapUnitStat, hover_weapon: WeaponDefinition):
+func populate_hover_stats(hover_stats: CombatMapUnitNetStat, hover_weapon: WeaponDefinition):
 	self.hover_stat = hover_stats
 	self.hover_damage_type = hover_weapon.item_damage_type
 	self.hover_attack_range = hover_weapon.attack_range

@@ -1,23 +1,14 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://cxk8ovtotpucl"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=4 format=3 uid="uid://cxk8ovtotpucl"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_rmd1y"]
+[ext_resource type="Texture2D" uid="uid://dosv45gdwad0p" path="res://resources/sprites/items/consumables/potion.png" id="1_1os0b"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_v88bw"]
-[ext_resource type="Script" path="res://scripts/resources/effects/combat_effect.gd" id="3_ru1c7"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ke84"]
-atlas = ExtResource("1_rmd1y")
-region = Rect2(32, 608, 32, 32)
-
-[sub_resource type="Resource" id="Resource_uvin8"]
-script = ExtResource("3_ru1c7")
-effect_weight = 10
-source = 0
-effect = 1
-duration = -1
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_gmciw"]
 
 [resource]
 script = ExtResource("1_v88bw")
-use_effect = Array[ExtResource("3_ru1c7")]([SubResource("Resource_uvin8")])
+use_effect = 1
+power = 10
+status_effect = Array[ExtResource("3_gmciw")]([])
 name = "Potion"
 db_key = "potion"
 equippable = false
@@ -26,4 +17,4 @@ item_type = 2
 uses = 3
 max_uses = 3
 worth = 100
-icon = SubResource("AtlasTexture_7ke84")
+icon = ExtResource("1_1os0b")

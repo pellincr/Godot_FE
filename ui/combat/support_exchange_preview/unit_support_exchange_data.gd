@@ -17,7 +17,7 @@ func calc_net_heal():
 				supporter_net_heal = supporter_net_heal + turn.effect_weight
 				
 func calc_predicted_hp():
-	target_predicted_hp = clampi(target.unit.hp + supporter_net_heal, 0, target.stats.max_hp.evaluate())
+	target_predicted_hp = clampi(target.current_hp + supporter_net_heal, 0, target.stats.max_hp.evaluate())
 
 func populate(data : Array[UnitSupportExchangeTurnData] = []):
 	if not data.is_empty():

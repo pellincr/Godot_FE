@@ -32,6 +32,7 @@ LoadScreenGlobals="*res://load_screen/load_screen_globals.gd"
 EventDatabase="*res://combat/databases/event_database.tscn"
 CombatMapConstants="*res://scripts/combat/combat_map_constants.gd"
 EffectConstants="*res://scripts/Constants/EffectConstants.gd"
+EffectTypeDatabase="*res://combat/databases/effect_type_database.tscn"
 
 [display]
 

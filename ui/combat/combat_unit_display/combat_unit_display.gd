@@ -52,8 +52,8 @@ func set_reference_unit(unit: CombatUnit) :
 func set_values():
 	if not shader_material:
 		await self.ready
-	set_max_hp(self.reference_unit.unit.stats.hp)
-	set_hp(self.reference_unit.unit.hp)
+	set_max_hp(self.reference_unit.stats.max_hp.evaluate())
+	set_hp(self.reference_unit.current_hp)
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)
@@ -62,8 +62,8 @@ func set_values():
 	
 func update_values():
 	healthbar_update_complete = false
-	set_max_hp(self.reference_unit.unit.stats.hp)
-	await update_hp(self.reference_unit.unit.hp)
+	set_max_hp(self.reference_unit.stats.max_hp.evaluate())
+	await update_hp(self.reference_unit.current_hp)
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
 	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)

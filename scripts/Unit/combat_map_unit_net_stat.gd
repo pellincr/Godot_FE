@@ -1,5 +1,5 @@
 extends Resource
-class_name combatMapUnitStat
+class_name CombatMapUnitNetStat
 
 var max_hp : StatModifierList = StatModifierList.new()
 var strength : StatModifierList = StatModifierList.new()
@@ -19,7 +19,7 @@ var hit : StatModifierList = StatModifierList.new()
 var avoid :  StatModifierList = StatModifierList.new()
 var attack_speed :  StatModifierList = StatModifierList.new()
 var critical_chance : StatModifierList = StatModifierList.new()
-
+var critical_avoid : StatModifierList = StatModifierList.new() ##NEED TO IMPL
 
 #This comes straight from weapon --> update this when skills are added?
 var critical_multiplier : StatModifierList = StatModifierList.new()

@@ -493,7 +493,7 @@ func process_terrain_effects():
 					if target_terrain.active_effect_phases == CombatMapConstants.TURN_PHASE.keys()[turn_phase]:
 						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
 							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
-								if combat_unit.unit.hp < combat_unit.unit.stats.hp:
+								if combat_unit.current_hp < combat_unit.stats.max_hp.evaluate():
 									print("HEALED UNIT : " + combat_unit.unit.name)
 									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 

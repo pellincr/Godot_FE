@@ -174,7 +174,7 @@ func set_inventory() :
 func update_fields():
 	update_unit_name(Cunit.unit.name)
 	set_unit_icon(Cunit.unit.map_sprite)
-	set_unit_health_bar_values(Cunit.unit.stats.hp, Cunit.unit.hp)
+	set_unit_health_bar_values(Cunit.stats.max_hp.evaluate(), Cunit.current_hp)
 	set_unit_xp_bar_values(100, Cunit.unit.experience)
 	set_unit_sub_header(Cunit.unit.level, UnitTypeDatabase.get_definition(Cunit.unit.unit_type_key).unit_type_name)
 	update_stats_grid(Cunit.unit.attack, Cunit.unit.hit,Cunit.unit.attack_speed, Cunit.calc_map_avoid())

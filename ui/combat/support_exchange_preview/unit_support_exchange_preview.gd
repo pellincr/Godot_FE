@@ -26,7 +26,7 @@ func set_all(ei:UnitSupportExchangeData, wse:bool):
 
 func update_children():
 	supporting_unit_header.set_all(exchange_info.supporter, weapon_swap_enabled)
-	supporting_unit_stats.set_all(exchange_info.supporter.stats.max_hp.evaluate(), exchange_info.supporter.unit.hp, exchange_info.supporter.unit.hp, exchange_info.supporter_net_heal, Constants.DAMAGE_TYPE.NONE, 100, 0)
+	supporting_unit_stats.set_all(exchange_info.supporter.stats.max_hp.evaluate(), exchange_info.supporter.current_hp, exchange_info.supporter.current_hp, exchange_info.supporter_net_heal, Constants.DAMAGE_TYPE.NONE, 100, 0)
 	target_unit_header.set_all(exchange_info.target, false)
-	target_unit_stats.set_all(exchange_info.target.stats.max_hp.evaluate(), exchange_info.target.unit.hp, exchange_info.target_predicted_hp, 0, Constants.DAMAGE_TYPE.NONE, 0,0)
+	target_unit_stats.set_all(exchange_info.target.stats.max_hp.evaluate(), exchange_info.target.current_hp, exchange_info.target_predicted_hp, 0, Constants.DAMAGE_TYPE.NONE, 0,0)
 	arrow_container.populate_support(exchange_info.supporter, exchange_info.target, exchange_info.exchange_data)

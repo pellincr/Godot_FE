@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://r47ys8fk0g20"]
+
+[ext_resource type="Script" path="res://combat/databases/effect_type_database.gd" id="1_y5mac"]
+
+[node name="EffectTypeDatabase" type="Node"]
+script = ExtResource("1_y5mac")
