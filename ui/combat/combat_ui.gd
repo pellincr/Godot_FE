@@ -224,6 +224,8 @@ func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData)
 	inventory_options.equip.connect(controller.fsm_unit_inventory_equip.bind())
 	inventory_options.use.connect(controller.fsm_unit_inventory_use.bind())
 	inventory_options.unequip.connect(controller.fsm_unit_inventory_un_equip.bind())
+	inventory_options.arrange.connect(controller.fsm_unit_inventory_arrange.bind())
+	inventory_options.discard.connect(controller.fsm_unit_inventory_discard.bind())
 	push_ui_node_stack(inventory_options)
 	inventory_options.grab_focus_btn()
 	

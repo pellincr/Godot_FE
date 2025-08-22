@@ -249,6 +249,12 @@ func get_equipped_weapon() -> WeaponDefinition:
 func unequip():
 	equipped = false
 
+#Moves the item to the second spot
+func arrange(item: ItemDefinition):
+	var index :int = get_item_index(item)
+	if index > 1:
+		swap_at_indexes(index, 1)
+	
 #
 # Returns all weapons in inventory that contain input attack ranges
 #
