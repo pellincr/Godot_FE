@@ -3,7 +3,10 @@ extends Panel
 
 @onready var item_name_label = $MarginContainer/VBoxContainer/ItemNameLabel
 
-@onready var weapon_icon_container = $MarginContainer/VBoxContainer/WeaponIconContainer
+@onready var main_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MainWeaponIconContainer
+@onready var mundane_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MundaneWeaponIconContainer
+@onready var magic_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MagicWeaponIconContainer
+
 
 @onready var item_description_label = $MarginContainer/VBoxContainer/ItemDescriptionLabel
 
@@ -35,9 +38,15 @@ func update_by_item():
 	set_item_name(item.name)
 	set_item_icon(item.icon)
 	set_price_label(item.price)
-	weapon_icon_container.set_header_visibility(false)
-	weapon_icon_container.item = item
-	weapon_icon_container.set_icon_visibility_item()
+	main_weapon_icon_container.set_header_visibility(false)
+	main_weapon_icon_container.item = item
+	main_weapon_icon_container.set_icon_visibility_item()
+	mundane_weapon_icon_container.set_header_visibility(false)
+	mundane_weapon_icon_container.item = item
+	mundane_weapon_icon_container.set_mundane_triangle_icon_visibility()
+	magic_weapon_icon_container.set_header_visibility(false)
+	magic_weapon_icon_container.item = item
+	magic_weapon_icon_container.set_magic_triangle_icon_visibilty()
 	set_item_description(item.description)
 	weapon_stat_container.item = item
 	weapon_stat_container.update_by_item()

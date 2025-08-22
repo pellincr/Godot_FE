@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfqe5q8fp1281"
-path="res://.godot/imported/army_icon_2.png-1fa1ae2125b67499fb62c7fb45beb096.ctex"
+path="res://.godot/imported/event_icon.png-bbd738c3e7cf8c1610dbac0c188d9b0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/army_icon_2.png"
-dest_files=["res://.godot/imported/army_icon_2.png-1fa1ae2125b67499fb62c7fb45beb096.ctex"]
+source_file="res://resources/sprites/icons/event_icon.png"
+dest_files=["res://.godot/imported/event_icon.png-bbd738c3e7cf8c1610dbac0c188d9b0c.ctex"]
 
 [params]
 

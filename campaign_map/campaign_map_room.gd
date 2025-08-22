@@ -8,10 +8,10 @@ const ICONS:={
 	#Stores the Icon and the Scale it shold be places with
 	CampaignRoom.TYPE.NOT_ASSIGNED : [null,Vector2.ONE],
 	CampaignRoom.TYPE.BATTLE : [preload("res://resources/sprites/icons/weapon_icons/sword_icon.png"), Vector2.ONE],
-	CampaignRoom.TYPE.EVENT : [preload("res://resources/sprites/icons/army_icon_2.png"),Vector2.ONE],
-	CampaignRoom.TYPE.SHOP : [preload("res://resources/sprites/icons/UnitArchetype.png"),Vector2.ONE],
+	CampaignRoom.TYPE.EVENT : [preload("res://resources/sprites/icons/event_icon.png"),Vector2.ONE],
+	CampaignRoom.TYPE.SHOP : [preload("res://resources/sprites/icons/ui_icons/icon_coin.png"),Vector2.ONE],
 	CampaignRoom.TYPE.ELITE : [preload("res://resources/sprites/icons/UnitArchetype.png"),Vector2.ONE],
-	CampaignRoom.TYPE.TREASURE : [preload("res://resources/sprites/icons/convoy_icon.png"),Vector2.ONE],
+	CampaignRoom.TYPE.TREASURE : [preload("res://resources/sprites/icons/treasure_icon.png"),Vector2.ONE],
 	CampaignRoom.TYPE.BOSS : [preload("res://resources/sprites/icons/unit_trait_icons/undead_icon.png"),Vector2(1.25,1.25)]
 }
 

@@ -84,3 +84,45 @@ func set_icon_visibility_item():
 			dark_icon.visible = true
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.ANIMAL:
 			animal_icon.visible = true
+
+func set_magic_triangle_icon_visibilty():
+	if item is WeaponDefinition:
+		match item.magic_weapon_triangle_type:
+			ItemConstants.MAGICAL_WEAPON_TRIANGLE.NONE:
+				pass
+			ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.NATURE:
+					pass
+				else:
+					nature_icon.visible = true
+			ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.LIGHT:
+					pass
+				else:
+					light_icon.visible = true
+			ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.DARK:
+					pass
+				else:
+					dark_icon.visible = true
+
+func set_mundane_triangle_icon_visibility():
+	if item is WeaponDefinition:
+		match item.physical_weapon_triangle_type:
+			ItemConstants.MUNDANE_WEAPON_TRIANGLE.NONE:
+				pass
+			ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:
+					pass
+				else:
+					sword_icon.visible = true
+			ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.AXE:
+					pass
+				else:
+					axe_icon.visible = true
+			ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+				if item.weapon_type == ItemConstants.WEAPON_TYPE.LANCE:
+					pass
+				else:
+					lance_icon.visible = true

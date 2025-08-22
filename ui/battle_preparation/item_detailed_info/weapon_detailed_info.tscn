@@ -45,7 +45,7 @@ modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_wgwh4")
 
-[node name="ItemTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+[node name="ItemTypeHeader" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
 text = "Item Type"
 
@@ -53,17 +53,27 @@ text = "Item Type"
 layout_mode = 2
 text = "-"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+[node name="ItemType" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
-text = "Item subtype"
+text = "Item type"
 
-[node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_xvemf")]
+[node name="FullWeaponIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("3_xvemf")]
+layout_mode = 2
+
+[node name="MundaneWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("3_xvemf")]
+layout_mode = 2
+
+[node name="MagicWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("3_xvemf")]
 layout_mode = 2
 
 [node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(158, 72)
+custom_minimum_size = Vector2(230, 72)
 layout_mode = 2
+size_flags_horizontal = 0
 theme = SubResource("Theme_6j0ny")
 text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
 autowrap_mode = 3

@@ -23,7 +23,6 @@ default_font = ExtResource("1_41dgy")
 default_font_size = 12
 
 [node name="WeaponIconContainer" type="VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
 theme = SubResource("Theme_0gbyd")
 script = ExtResource("2_vgsq0")
 
@@ -34,83 +33,95 @@ theme = SubResource("Theme_ojs4k")
 text = "Weapons"
 
 [node name="WeaponTypeContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(225, 16)
 layout_mode = 2
 
 [node name="SwordIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("2_b5bnw")
 expand_mode = 2
 
 [node name="AxeIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("3_cmj5p")
 expand_mode = 2
 
 [node name="LanceIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("4_mee5p")
 expand_mode = 2
 
 [node name="ShieldIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("5_wjx4i")
 expand_mode = 2
 
 [node name="DaggerIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("6_yajmm")
 expand_mode = 2
 
 [node name="FistIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("7_80j7f")
 expand_mode = 2
 
 [node name="BowIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("8_ep2ek")
 expand_mode = 2
 
 [node name="BannerIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("9_bcnht")
 expand_mode = 2
 
 [node name="StaffIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("10_i3ifx")
 expand_mode = 2
 
 [node name="NatureIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("11_pop8h")
 expand_mode = 2
 
 [node name="LightIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("12_5ep1w")
 expand_mode = 2
 
 [node name="DarkIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("13_2ni6d")
 expand_mode = 2
 
 [node name="AnimalIcon" type="TextureRect" parent="WeaponTypeContainer"]
 visible = false
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("14_0wlcx")
 expand_mode = 2
