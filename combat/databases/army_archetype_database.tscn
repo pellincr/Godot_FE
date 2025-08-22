@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6on5oloy43oe"]
+[gd_scene load_steps=11 format=3 uid="uid://b6on5oloy43oe"]
 
 [ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
 [ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
@@ -9,10 +9,12 @@
 [ext_resource type="Resource" uid="uid://s73rtbpky8kb" path="res://resources/definitions/army_archetypes/might_and_magic.tres" id="7_sp3cl"]
 [ext_resource type="Resource" uid="uid://ctsy245thevlk" path="res://resources/definitions/army_archetypes/vicious_vigilantes.tres" id="8_x1tpj"]
 [ext_resource type="Resource" uid="uid://ci4moqvduab6q" path="res://resources/definitions/army_archetypes/swords.tres" id="9_5rsxe"]
+[ext_resource type="Resource" uid="uid://bk1uubqw28gd3" path="res://resources/definitions/army_archetypes/armor_up.tres" id="10_5m6ki"]
 
 [node name="ArmyArchetypeDatabase" type="Node"]
 script = ExtResource("1_2cpwe")
 army_archetypes = {
+"armor_up": ExtResource("10_5m6ki"),
 "classic": ExtResource("2_5nohr"),
 "healing_here": ExtResource("6_pc7my"),
 "might_and_magic": ExtResource("7_sp3cl"),

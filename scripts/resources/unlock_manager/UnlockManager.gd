@@ -3,6 +3,7 @@ extends Resource
 class_name UnlockManager
 
 @export var archetypes_unlocked : Dictionary = {
+	"armor_up" : true,
 	"classic" : true,
 	"healing_here" : true,
 	"might_and_magic" : true,

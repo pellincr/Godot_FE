@@ -17,5 +17,5 @@ func generate_attack_action_rating(terrain_bonus: float, player_hit: int, estima
 	if can_lethal :
 		kill_bonus = 1000
 	var damage_bonus = 100
-	self.rating =  (1+terrain_bonus)*((player_hit * kill_bonus) + clamp(estimated_damage/target_max_hp, 0, 1)* damage_bonus)
+	self.rating = (1+terrain_bonus)*( 1+ (player_hit * kill_bonus) + clamp(estimated_damage/target_max_hp, 0, 1)* damage_bonus)
 	
