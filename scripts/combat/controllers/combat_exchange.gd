@@ -67,11 +67,11 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
-	unit.unit.hp = clampi(amount + unit.current_hp, unit.current_hp, unit.stats.max_hp.evaluate() )
-	DamageNumbers.heal((32* unit.map_position + Vector2i(16,16)), amount)
+	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.stats.max_hp.evaluate())
+	DamageNumbers.heal((32* unit.move_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	if ce_display != null:
-		await ce_display.update_unit_hp(unit.current_hp, unit.unit.hp)
+		await ce_display.update_unit_hp(unit, unit.current_hp)
 	#await unit.map_display.update_complete
 
 func hit_missed(dodging_unt: CombatUnit):

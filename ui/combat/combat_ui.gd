@@ -100,7 +100,17 @@ func destory_active_ui_node():
 	if get_active_ui_node() != null:
 		var node_to_free = ui_node_stack.pop()
 		node_to_free.queue_free()
-		
+
+#
+# Frees the current node stored in the "active_ui_node" used in state transitions
+#
+func destory_all_active_ui_nodes_in_stack():
+	while ui_node_stack.get_size() > 0:
+		var node_to_free = ui_node_stack.pop()
+		node_to_free.queue_free()
+
+func flush_stack():
+	ui_node_stack.flush()
 
 func push_ui_node_stack(new_node : Node):
 	ui_node_stack.push(new_node)

@@ -6,7 +6,7 @@ signal discard_selection_complete
 @export var combat : Combat
 var current_node
 
-signal heal(cu: CombatUnit, amount: int)
+signal heal_unit(cu: CombatUnit, amount: int)
 var discard_index : int
 
 const POP_UP_COMPONENT = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
@@ -90,8 +90,7 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 	if item is ConsumableItemDefinition:
 		match item.use_effect:
 			ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
-				#await heal(combat_effect.effect_weight)
-				pass
+				heal_unit.emit(user, item.power)
 			ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
 				user.unit.unit_character.stats = CustomUtilityLibrary.add_unit_stat(user.unit.unit_character.stats, item.boost_stat)
 				user.stats.populate_unit_stats(user.unit)

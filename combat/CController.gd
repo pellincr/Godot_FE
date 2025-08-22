@@ -1296,12 +1296,14 @@ func fsm_unit_inventory_equip(item:ItemDefinition):
 func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
 	combat.game_ui.destory_active_ui_node()
+	confirm_unit_move(combat.get_current_combatant())
 	if item is ConsumableItemDefinition:
 		await combat.combat_unit_item_manager.use_item(combat.get_current_combatant(), item)
 	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
-	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
-	revert_player_state()
-	revert_player_state()
+	combat.game_ui.destory_all_active_ui_nodes_in_stack()
+	combat.major_action_complete()
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+
 #Wait
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true
