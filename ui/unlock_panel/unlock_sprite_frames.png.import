@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxc1y78hs710"
-path="res://.godot/imported/623.png-04da5afe912690a97131071b13484bcc.ctex"
+uid="uid://d0lq6ejn8fot6"
+path="res://.godot/imported/unlock_sprite_frames.png-7c3a23df23bbaec46cd7ce21b7405ca8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/level_up/623.png"
-dest_files=["res://.godot/imported/623.png-04da5afe912690a97131071b13484bcc.ctex"]
+source_file="res://ui/unlock_panel/unlock_sprite_frames.png"
+dest_files=["res://.godot/imported/unlock_sprite_frames.png-7c3a23df23bbaec46cd7ce21b7405ca8.ctex"]
 
 [params]
 

@@ -6,12 +6,6 @@
 [node name="Combat" type="Node" node_paths=PackedStringArray("game_ui")]
 script = ExtResource("1_e5jod")
 game_ui = NodePath("GameUI")
-ally_spawn_top_left = null
-ally_spawn_bottom_right = null
-max_allowed_ally_units = null
-base_win_gold_reward = null
-turn_reward_modifier = null
-heal_on_win = null
 
 [node name="GameUI" parent="." instance=ExtResource("1_127mc")]
 

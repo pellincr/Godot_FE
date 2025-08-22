@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://6leg2pgnfdjg"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_o6dpi"]
-[ext_resource type="Script" path="res://events/event_selection_container.gd" id="2_kacqx"]
-[ext_resource type="PackedScene" uid="uid://ctdkeej0r0x4a" path="res://events/event_option_button.tscn" id="3_7q0in"]
+[ext_resource type="Script" path="res://campaign_map/events/event_selection_container.gd" id="2_kacqx"]
+[ext_resource type="PackedScene" uid="uid://ctdkeej0r0x4a" path="res://campaign_map/events/event_option_button.tscn" id="3_7q0in"]
 
 [node name="EventSelectionContainer" type="VBoxContainer"]
 offset_right = 40.0

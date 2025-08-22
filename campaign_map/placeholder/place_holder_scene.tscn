@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0voiknnsi2ad"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_bjpm7"]
-[ext_resource type="Script" path="res://placeholder/place_holder_scene.gd" id="2_fjn6m"]
+[ext_resource type="Script" path="res://campaign_map/placeholder/place_holder_scene.gd" id="2_fjn6m"]
 
 [node name="PlaceHolderScene" type="Control"]
 layout_mode = 3

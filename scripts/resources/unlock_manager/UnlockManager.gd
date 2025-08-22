@@ -48,7 +48,7 @@ class_name UnlockManager
 	"sellsword" : true,
 	"sword_armor" : true,
 	"sword_cavalier" : true,
-	"thief:" : true,
+	"thief" : true,
 	"ward" : true
 }
 

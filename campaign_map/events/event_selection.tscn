@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://pyui2qjdy5lu"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_knt25"]
-[ext_resource type="PackedScene" uid="uid://6leg2pgnfdjg" path="res://events/event_selection_container.tscn" id="2_5kxem"]
-[ext_resource type="Script" path="res://events/event_selection.gd" id="2_tmuj8"]
+[ext_resource type="PackedScene" uid="uid://6leg2pgnfdjg" path="res://campaign_map/events/event_selection_container.tscn" id="2_5kxem"]
+[ext_resource type="Script" path="res://campaign_map/events/event_selection.gd" id="2_tmuj8"]
 
 [sub_resource type="Theme" id="Theme_q5c1h"]
 default_font_size = 36
