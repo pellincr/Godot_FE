@@ -43,14 +43,17 @@ class_name UnlockManager
 	"lancer" : true,
 	"marauder" : true,
 	"monk" : true,
+	"penitnet": true,
 	"pikeman" : true,
 	"runeblade" : true,
+	"sanctioner" : true,
 	"sea_witch" : true,
 	"sellsword" : true,
 	"sword_armor" : true,
 	"sword_cavalier" : true,
 	"thief" : true,
-	"ward" : true
+	"ward" : true,
+	"vandal" : true
 }
 
 @export var items_unlocked : Dictionary = {

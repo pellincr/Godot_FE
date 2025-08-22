@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=38 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -35,6 +35,8 @@
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="31_id5fj"]
 [ext_resource type="Resource" uid="uid://cgaophi6857j" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.tres" id="34_w1y03"]
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
+[ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
+[ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -58,13 +60,16 @@ unit_types = {
 "lancer": ExtResource("28_vkfaj"),
 "marauder": ExtResource("24_jj4js"),
 "monk": ExtResource("18_bpik5"),
+"penitent": ExtResource("36_lgvds"),
 "pikeman": ExtResource("9_5nlrr"),
 "runeblade": ExtResource("21_qhu82"),
+"sanctioner": ExtResource("37_yk7sk"),
 "sea_witch": ExtResource("25_fxnlp"),
 "sellsword": ExtResource("10_ntklw"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
+"vandal": ExtResource("35_vq7n6"),
 "ward": ExtResource("19_ks8uf")
 }
 commander_types = {
@@ -72,7 +77,6 @@ commander_types = {
 "destroyer": ExtResource("28_ov4kq"),
 "iron_viper": ExtResource("34_w1y03"),
 "mage_knight": ExtResource("29_ycdqo"),
-"vandal": ExtResource("35_vq7n6"),
 "war_maiden": ExtResource("30_uy0ry"),
 "weapon_master": ExtResource("31_025il")
 }

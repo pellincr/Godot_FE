@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://rb8jutcqf1uo"]
+
+[ext_resource type="Resource" uid="uid://efd01qemh4pu" path="res://resources/definitions/unit_types/units/penitent/penitent_base_combat_stats.tres" id="1_516t5"]
+[ext_resource type="Resource" uid="uid://cgfi10pixeip2" path="res://resources/definitions/unit_types/units/penitent/penitent_growth_stats.tres" id="2_ahgqu"]
+[ext_resource type="Texture2D" uid="uid://b0o1d0bk0xt54" path="res://resources/sprites/units/penitent.png" id="3_borof"]
+[ext_resource type="Resource" uid="uid://fmep3alwxd87" path="res://resources/definitions/unit_types/units/penitent/penitent_max_stats.tres" id="4_woijb"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_6q13h"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_t0gp2"]
+
+[resource]
+script = ExtResource("5_6q13h")
+unit_type_name = "Penitent"
+db_key = "penitent"
+description = "Ascetic warriors who endure pain in silence, defending their kin with iron will and unshakable faith."
+initiative = 1
+faction = Array[int]([2])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_t0gp2")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([12, 5])
+base_stats = ExtResource("1_516t5")
+maxuimum_stats = ExtResource("4_woijb")
+growth_stats = ExtResource("2_ahgqu")
+icon = ExtResource("3_borof")
+map_sprite = ExtResource("3_borof")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])
