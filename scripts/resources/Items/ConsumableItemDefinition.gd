@@ -1,18 +1,7 @@
 extends ItemDefinition
 class_name ConsumableItemDefinition
 
-
-enum USE_EFFECTS
-{
-	HEAL,
-	STAT_BONUS,
-	KEY
-}
-
-
-@export var use_effect : USE_EFFECTS
-@export var use_effect_power : int
-
+@export var use_effect : Array[CombatEffect]
 
 func use(): 
 	#Do something

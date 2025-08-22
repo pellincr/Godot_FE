@@ -90,8 +90,9 @@ func get_equipped() -> WeaponDefinition:
 	return self.unit.inventory.get_equipped_weapon()
 
 func equip(wpn: WeaponDefinition):
-	unit.inventory.set_equipped(wpn)
-	stats.populate_weapon_stats(self, wpn)
+	if unit.can_equip(wpn):
+		unit.inventory.set_equipped(wpn)
+		stats.populate_weapon_stats(self, wpn)
 
 func update_display():
 	if map_display != null:

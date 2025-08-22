@@ -544,9 +544,12 @@ func check_group_clear(group):
 		print("WIN!")
 		return true
 
-
 func check_lose():
 	return check_group_clear(groups[0])
 
 func calculate_reward_gold():
 	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)
+
+func heal_unit(unit:Unit, amount:int):
+	#await combatExchange.heal_unit(unit, amount)
+	pass

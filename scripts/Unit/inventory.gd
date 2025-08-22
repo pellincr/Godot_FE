@@ -127,7 +127,10 @@ func is_empty() -> bool:
 
 func use_at_index(index : int): 
 	if index < capacity:
-		items[index].use
+		var target_item = items[index]
+		target_item.use
+		if target_item.uses >= 0:
+			items.remove_at(index)
 
 #
 # Gives an item to the inventory, at the end of the list
@@ -259,8 +262,12 @@ func get_weapons_with_range(ranges: Array[int]) -> Array[WeaponDefinition]:
 					weaponList.append(get_item(index))
 	return weaponList
 
-func get_items() -> Array[WeaponDefinition]:
-	var _item_arr : Array[WeaponDefinition] = [null, null, null, null]
+func get_items() -> Array[ItemDefinition]:
+	var _item_arr : Array[ItemDefinition] = [null, null, null, null]
 	for i in range(items.size()):
 		_item_arr[i] = items[i]
 	return _item_arr
+
+func use_item(item: ItemDefinition):
+	if has(item):
+		use_at_index(get_item_index(item))

@@ -47,6 +47,7 @@ func clear():
 	critical_multiplier.clear()
 
 func populate_unit_stats(unit : Unit):
+	unit.update_stats()
 	# Add stats from Unit
 	self.max_hp.append(StatModifier.create(unit.stats.hp, "Unit"))
 	
