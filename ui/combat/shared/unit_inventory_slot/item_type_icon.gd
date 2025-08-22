@@ -70,3 +70,5 @@ func update():
 					self.texture = null
 		itemConstants.ITEM_TYPE.EQUIPMENT_LOOT:
 			self.texture = null
+		itemConstants.ITEM_TYPE.USEABLE_ITEM:
+			self.texture = null
