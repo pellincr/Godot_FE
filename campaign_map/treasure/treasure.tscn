@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgbnvnw0m1bo3"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_2gx3n"]
+[ext_resource type="Script" path="res://campaign_map/treasure/treasure.gd" id="1_fdq6l"]
+[ext_resource type="Texture2D" uid="uid://duoy8cp48oqp0" path="res://resources/sprites/items/weapons/lance/silver_lance.png" id="2_tvg7n"]
+
+[sub_resource type="Theme" id="Theme_pju5f"]
+default_font_size = 36
+
+[node name="Treasure" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fdq6l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderPanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1150, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_2gx3n")
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderPanelContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pju5f")
+text = "Select A Treasure"
+horizontal_alignment = 1
+
+[node name="TreasureButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_2gx3n")
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="TreasureButton1" type="Button" parent="MarginContainer/VBoxContainer/TreasureButtonContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Item Name"
+icon = ExtResource("2_tvg7n")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="TreasureButton2" type="Button" parent="MarginContainer/VBoxContainer/TreasureButtonContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Item Name"
+icon = ExtResource("2_tvg7n")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="TreasureButton3" type="Button" parent="MarginContainer/VBoxContainer/TreasureButtonContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Item Name"
+icon = ExtResource("2_tvg7n")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="LeaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1213.0
+offset_top = 677.0
+offset_right = 1266.0
+offset_bottom = 708.0
+theme = ExtResource("1_2gx3n")
+text = "Leave"
+
+[connection signal="pressed" from="LeaveButton" to="." method="_on_leave_button_pressed"]

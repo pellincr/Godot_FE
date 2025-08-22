@@ -69,9 +69,6 @@ var _player_unit_alive : bool = true
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
-const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
-
-
 func _ready():
 	emit_signal("register_combat", self)
 	combatExchange = $CombatExchange
