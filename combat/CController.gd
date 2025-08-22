@@ -493,7 +493,7 @@ func process_terrain_effects():
 					if target_terrain.active_effect_phases == CombatMapConstants.TURN_PHASE.keys()[turn_phase]:
 						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
 							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
-								if combat_unit.unit.hp < combat_unit.unit.stats.hp:
+								if combat_unit.current_hp < combat_unit.stats.max_hp.evaluate():
 									print("HEALED UNIT : " + combat_unit.unit.name)
 									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 
@@ -993,7 +993,9 @@ func player_fsm_process(delta):
 	## INVENTORY
 		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY:
 			pass
-		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_USE:
+		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_SELECTED:
+			fsm_unit_inventory_item_selected_process(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION:
 			pass
 	## TRADE
 		CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_TARGETTING:
@@ -1059,6 +1061,16 @@ func unit_action_selection_handler(action:String):
 	match action:
 		"Skill":
 			pass
+	match action:
+		"Item":
+			#detroy the node
+			combat.game_ui.destory_active_ui_node()
+			#get the item info
+			var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
+			#create the UI
+			combat.game_ui.create_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
+			#update the state
 	match action:
 		"Shove":
 			pass
@@ -1255,7 +1267,43 @@ func fsm_unit_combat_action_targetting(delta):
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 
 func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
-	_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
+	if item is WeaponDefinition:
+		_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
+
+#Inventory
+func fsm_unit_inventory_item_selected(data:UnitInventorySlotData):
+	combat.game_ui.create_unit_inventory_action_item_selected_menu(data)
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_SELECTED)
+	
+
+func fsm_unit_inventory_item_selected_process(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_cancel"):
+				combat.game_ui.destory_active_ui_node()
+				combat.game_ui.get_active_ui_node().re_grab_focus()
+				revert_player_state()
+
+func fsm_unit_inventory_equip(item:ItemDefinition):
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
+	combat.game_ui.destory_active_ui_node()
+	if item is WeaponDefinition:
+		await combat.get_current_combatant().equip(item)
+	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
+	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
+	revert_player_state()
+	revert_player_state()
+	
+func fsm_unit_inventory_use(item:ItemDefinition):
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
+	combat.game_ui.destory_active_ui_node()
+	confirm_unit_move(combat.get_current_combatant())
+	if item is ConsumableItemDefinition:
+		await combat.combat_unit_item_manager.use_item(combat.get_current_combatant(), item)
+	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
+	combat.game_ui.destory_all_active_ui_nodes_in_stack()
+	combat.major_action_complete()
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+
 #Wait
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true

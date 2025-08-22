@@ -2,6 +2,24 @@ extends Node
 
 enum EFFECT_TYPE {
 	NONE,
-	DAMAGE, 
-	HEAL
+	STAT,
+	HEAL, #USED IN SUPPORT ACTION
+	OTHER
+}
+
+enum APPLICATION_PHASE {
+	CONSTANT, #Generic stat up
+	ON_DECAY_PHASE, #Regen, heals when the proce decays
+}
+
+enum DECAY_PHASE {
+	END_OF_TURN,
+	START_OF_NEXT_TURN,
+	ON_ATTACK_COMPLETE,
+	NONE
+}
+
+enum STACKING_METHOD {
+	REFRESH,
+	COMPOUND
 }

@@ -395,7 +395,7 @@ func use_consumable_item(item:ItemDefinition ):
 	if item is ConsumableItemDefinition:
 		if item.use_effect == item.USE_EFFECTS.HEAL:
 			heal(item.use_effect_power)
-			item.use()
+			inventory.use_item(item)
 
 func can_use_consumable_item(item:ItemDefinition) -> bool:
 	var can_use :bool

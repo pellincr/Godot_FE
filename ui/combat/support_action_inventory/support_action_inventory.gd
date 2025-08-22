@@ -1,5 +1,5 @@
 extends Panel
-class_name AttackActionInventory
+class_name SupportActionInventory
 
 #Imports
 const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")

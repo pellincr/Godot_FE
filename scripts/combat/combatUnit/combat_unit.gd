@@ -28,7 +28,8 @@ var effective_move : int = 0
 @export var unit : Unit
 
 # The effective Stats of a unit
-var stats : combatMapUnitStat = combatMapUnitStat.new()
+var stats : CombatMapUnitNetStat = CombatMapUnitNetStat.new()
+var current_hp
 
 var map_position : Vector2i
 var map_terrain : Terrain
@@ -43,6 +44,7 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.alive = true
 	instance.turn_taken = false
 	instance.unit = unit
+	instance.current_hp = unit.hp
 	instance.ai_type = ai
 	instance.allegience = team
 	instance.effective_move = unit.stats.movement
@@ -90,8 +92,9 @@ func get_equipped() -> WeaponDefinition:
 	return self.unit.inventory.get_equipped_weapon()
 
 func equip(wpn: WeaponDefinition):
-	unit.inventory.set_equipped(wpn)
-	stats.populate_weapon_stats(self, wpn)
+	if unit.can_equip(wpn):
+		unit.inventory.set_equipped(wpn)
+		stats.populate_weapon_stats(self, wpn)
 
 func update_display():
 	if map_display != null:

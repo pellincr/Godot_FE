@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=4 format=3 uid="uid://ywngwx7ftaom"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://ywngwx7ftaom"]
 
 [ext_resource type="Texture2D" uid="uid://b8dt01ypfassm" path="res://resources/sprites/sheets/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="1_wyh6n"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_2ew3t"]
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_34ooh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0jbco"]
 atlas = ExtResource("1_wyh6n")
@@ -9,8 +10,7 @@ region = Rect2(88, 231, 8, 8)
 
 [resource]
 script = ExtResource("2_2ew3t")
-use_effect = 2
-use_effect_power = 0
+use_effect = Array[ExtResource("3_34ooh")]([])
 name = "Key"
 db_key = "key"
 equippable = false

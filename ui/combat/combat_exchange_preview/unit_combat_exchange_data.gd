@@ -29,8 +29,8 @@ func calc_net_damage():
 					defender_net_damage = defender_net_damage + turn.attack_damage
 
 func calc_predicted_hp():
-	attacker_predicted_hp = clampi(attacker.unit.hp - defender_net_damage, 0, 9999)
-	defender_predicted_hp = clampi(defender.unit.hp - attacker_net_damage, 0, 9999)
+	attacker_predicted_hp = clampi(attacker.current_hp - defender_net_damage, 0, 9999)
+	defender_predicted_hp = clampi(defender.current_hp - attacker_net_damage, 0, 9999)
 
 func populate(data : Array[UnitCombatExchangeTurnData] = []):
 	if not data.is_empty():

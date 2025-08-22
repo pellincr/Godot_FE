@@ -1,5 +1,5 @@
 extends Resource
-class_name combatMapUnitStat
+class_name CombatMapUnitNetStat
 
 var max_hp : StatModifierList = StatModifierList.new()
 var strength : StatModifierList = StatModifierList.new()
@@ -19,7 +19,7 @@ var hit : StatModifierList = StatModifierList.new()
 var avoid :  StatModifierList = StatModifierList.new()
 var attack_speed :  StatModifierList = StatModifierList.new()
 var critical_chance : StatModifierList = StatModifierList.new()
-
+var critical_avoid : StatModifierList = StatModifierList.new() ##NEED TO IMPL
 
 #This comes straight from weapon --> update this when skills are added?
 var critical_multiplier : StatModifierList = StatModifierList.new()
@@ -47,6 +47,7 @@ func clear():
 	critical_multiplier.clear()
 
 func populate_unit_stats(unit : Unit):
+	unit.update_stats()
 	# Add stats from Unit
 	self.max_hp.append(StatModifier.create(unit.stats.hp, "Unit"))
 	

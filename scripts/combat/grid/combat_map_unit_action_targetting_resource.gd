@@ -182,11 +182,12 @@ func generate_unit_inventory_slot_data(attacker: Unit) -> Array[UnitInventorySlo
 	for item in attacker.inventory.get_items():
 		var unit_inventory_slot_data :UnitInventorySlotData = UnitInventorySlotData.new() 
 		if item != null:
-			unit_inventory_slot_data.item = item
-			if attacker.inventory.get_equipped_item() == item:
-				unit_inventory_slot_data.equipped = true
-			if item in valid_list:
-				unit_inventory_slot_data.valid = true
+			if item is WeaponDefinition:
+				unit_inventory_slot_data.item = item
+				if attacker.inventory.get_equipped_item() == item:
+					unit_inventory_slot_data.equipped = true
+				if item in valid_list:
+					unit_inventory_slot_data.valid = true
 		else :
 			unit_inventory_slot_data.item = null
 			unit_inventory_slot_data.equipped = false

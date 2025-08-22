@@ -2,22 +2,15 @@ extends ItemDefinition
 class_name ConsumableItemDefinition
 
 
-enum USE_EFFECTS
-{
-	HEAL,
-	STAT_BONUS,
-	KEY
-}
+@export var use_effect : ItemConstants.CONSUMABLE_USE_EFFECT = ItemConstants.CONSUMABLE_USE_EFFECT.NONE
 
+@export_subgroup("Heal & Damage")
+@export var power : int = 0
 
-@export var use_effect : USE_EFFECTS
-@export var use_effect_power : int
+@export_subgroup("Stat Boost")
+@export var boost_stat : UnitStat
 
+@export_subgroup("Status Effect")
+@export var status_effect : Array[CombatUnitStatusEffect]
 
-func use(): 
-	#Do something
-	print(name + " was used!")
-	uses = uses - 1
-	print(str(uses) + " uses remain")
-	if uses == 0:
-		print(name + " broke!")
+@export_subgroup("Key")

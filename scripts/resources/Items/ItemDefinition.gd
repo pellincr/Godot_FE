@@ -28,13 +28,12 @@ var price : int = calculate_price()
 @export var icon: Texture2D
 
 
-func use():
+func expend_use():
 	print(name + " was used!")
 	uses = uses - 1
 	print(str(uses) + " uses remain")
 	if uses <= 0:
 		print(name + " broke!")
-	#free()
 
 func calculate_price():
 	return floor(worth * (uses / max_uses))

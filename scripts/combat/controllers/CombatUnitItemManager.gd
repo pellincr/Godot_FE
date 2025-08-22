@@ -3,7 +3,10 @@ class_name CombatUnitItemManager
 
 signal discard_selection_complete
 
-var current_node : Node = null
+@export var combat : Combat
+var current_node
+
+signal heal_unit(cu: CombatUnit, amount: int)
 var discard_index : int
 
 const POP_UP_COMPONENT = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
@@ -61,4 +64,36 @@ func trade(cu1: CombatUnit, cu2:CombatUnit):
 func _discard_item_inventory_item_selected(index : int):
 	discard_index = index
 	discard_selection_complete.emit()
-	
+
+func generate_combat_unit_inventory_data(cu:CombatUnit) -> Array[UnitInventorySlotData]:
+	var _arr : Array[UnitInventorySlotData] = []
+	for item in cu.unit.inventory.get_items():
+		var slot_data = UnitInventorySlotData.new()
+		if item != null:
+			slot_data.can_arrange = true
+			slot_data.valid = true
+			slot_data.item = item
+			if item is WeaponDefinition:
+				if item == cu.get_equipped():
+					slot_data.equipped = true
+				elif cu.unit.can_equip(item):
+					slot_data.can_use = true
+			elif item is ConsumableItemDefinition:
+				slot_data.can_use = true
+					# DO VETTING OF CONSUMABLES HERE
+		_arr.append(slot_data)
+	_arr[0].can_arrange = false
+	_arr[1].can_arrange = false
+	return _arr
+
+func use_item(user: CombatUnit, item: ItemDefinition):
+	if item is ConsumableItemDefinition:
+		match item.use_effect:
+			ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
+				heal_unit.emit(user, item.power)
+			ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
+				user.unit.unit_character.stats = CustomUtilityLibrary.add_unit_stat(user.unit.unit_character.stats, item.boost_stat)
+				user.stats.populate_unit_stats(user.unit)
+			ItemConstants.CONSUMABLE_USE_EFFECT.STATUS_EFFECT:
+				pass
+		user.unit.inventory.use_item(item)

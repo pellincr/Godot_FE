@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=62 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -59,11 +59,14 @@
 [ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="57_yomul"]
 [ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/expunge.tres" id="58_7gmx0"]
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="59_jqcuj"]
+[ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/consumables/wine.tres" id="60_inhro"]
+[ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
 items = {
 "bolting": ExtResource("35_xal3d"),
+"boost_bread": ExtResource("61_af6n4"),
 "brass_knuckles": ExtResource("38_ysglg"),
 "buckler": ExtResource("42_bjlri"),
 "dark_pulse": ExtResource("29_sc5t6"),
@@ -120,5 +123,6 @@ items = {
 "steel_sword": ExtResource("8_l7lwn"),
 "sword_reaver": ExtResource("14_dv5o2"),
 "warhammer": ExtResource("10_n4irs"),
-"wind_blade": ExtResource("34_ttak5")
+"wind_blade": ExtResource("34_ttak5"),
+"wine": ExtResource("60_inhro")
 }

@@ -78,6 +78,7 @@ func _ready():
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
+	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	randomize()
 	
 
@@ -128,15 +129,13 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 
 	var new_combatant_sprite = COMBAT_UNIT_DISPLAY.instantiate()
+	combat_unit.stats.populate_unit_stats(combat_unit.unit)
+	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	new_combatant_sprite.set_reference_unit(combat_unit)
 	$"../Terrain/TileMap".add_child(new_combatant_sprite)
 	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
 	new_combatant_sprite.z_index = 1
-	#if combat_unit.allegience != 0:
-	#	combat_unit.unit.initiative -= 1
 	combat_unit.map_display = new_combatant_sprite
-	combat_unit.stats.populate_unit_stats(combat_unit.unit)
-	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	emit_signal("combatant_added", combat_unit)
 	
 func add_entity(cme:CombatMapEntity):
@@ -554,9 +553,11 @@ func check_group_clear(group):
 		print("WIN!")
 		return true
 
-
 func check_lose():
 	return check_group_clear(groups[0])
 
 func calculate_reward_gold():
 	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)
+
+func heal_unit(cu:CombatUnit, amount:int):
+	await combatExchange.heal_unit(cu, amount)

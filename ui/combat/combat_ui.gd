@@ -8,7 +8,8 @@ signal unit_experience_ended()
 @export var ui_map_audio : AudioStreamPlayer
 @export var ui_menu_audio : AudioStreamPlayer
 
-@export var active_ui_node : Node
+var ui_node_stack : Stack = Stack.new()
+#@export var active_ui_node : Node
 
 #Scene Imports
 #Menu
@@ -22,6 +23,10 @@ const UNIT_COMBAT_EXCHANGE_PREVIEW = preload("res://ui/combat/combat_exchange_pr
 #Support Action
 const SUPPORT_ACTION_INVENTORY = preload("res://ui/combat/support_action_inventory/support_action_inventory.tscn")
 const UNIT_SUPPORT_EXCHANGE_PREVIEW = preload("res://ui/combat/support_exchange_preview/unit_support_exchange_preview.tscn")
+
+#Inventory Action
+const COMBAT_UNIT_INVENTORY = preload("res://ui/combat/unit_inventory/combat_unit_inventory.tscn")
+const COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS = preload("res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.tscn")
 
 #Trade Action
 const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
@@ -74,7 +79,7 @@ func create_unit_action_container(available_actions:Array[String]):
 	var unit_action_container = UnitActionContainer.instantiate()
 	unit_action_container.populate(available_actions, controller)
 	self.add_child(unit_action_container)
-	active_ui_node = unit_action_container
+	push_ui_node_stack(unit_action_container)
 	unit_action_container.grab_focus()
 
 #
@@ -86,14 +91,32 @@ func create_combat_map_game_menu():
 	self.add_child(game_menu)
 	game_menu.end_turn_btn.pressed.connect(func():controller.fsm_game_menu_end_turn())
 	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
-	active_ui_node = game_menu
+	push_ui_node_stack(game_menu)
 
 #
 # Frees the current node stored in the "active_ui_node" used in state transitions
 #
 func destory_active_ui_node():
-	if active_ui_node != null:
-		active_ui_node.queue_free()
+	if get_active_ui_node() != null:
+		var node_to_free = ui_node_stack.pop()
+		node_to_free.queue_free()
+
+#
+# Frees the current node stored in the "active_ui_node" used in state transitions
+#
+func destory_all_active_ui_nodes_in_stack():
+	while ui_node_stack.get_size() > 0:
+		var node_to_free = ui_node_stack.pop()
+		node_to_free.queue_free()
+
+func flush_stack():
+	ui_node_stack.flush()
+
+func push_ui_node_stack(new_node : Node):
+	ui_node_stack.push(new_node)
+
+func get_active_ui_node()-> Node:
+	return ui_node_stack.peek()
 
 ## OLD
 func target_selected(info: Dictionary):  ##OLD
@@ -126,7 +149,7 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
 	#TO BE CONNECTED CANCEL
 	attack_action_inventory.populate(inputCombatUnit, inventory)
-	active_ui_node = attack_action_inventory
+	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
 
 #
@@ -140,10 +163,8 @@ func create_support_action_inventory(inputCombatUnit : CombatUnit, inventory: Ar
 	support_action_inventory.new_item_hovered.connect(controller.fsm_support_action_inventory_confirm_new_hover.bind())
 	#TO BE CONNECTED CANCEL
 	support_action_inventory.populate(inputCombatUnit, inventory)
-	active_ui_node = support_action_inventory
+	push_ui_node_stack(support_action_inventory)
 	support_action_inventory.grab_focus()
-
-
 
 #
 #
@@ -153,11 +174,12 @@ func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExcha
 	self.add_child(combat_exchange_preview)
 	await combat_exchange_preview
 	combat_exchange_preview.set_all(exchange_info,weapon_swap_visable)
-	active_ui_node = combat_exchange_preview
+	push_ui_node_stack(combat_exchange_preview)
 	combat_exchange_preview.grab_focus()
 
 func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
-	if active_ui_node is UnitCombatExchangePreview:
+	var active_ui_node = ui_node_stack.peek()
+	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
 #
 #
@@ -167,12 +189,43 @@ func create_support_action_exchange_preview(exchange_info: UnitSupportExchangeDa
 	self.add_child(support_exchange_preview)
 	await support_exchange_preview
 	support_exchange_preview.set_all(exchange_info,weapon_swap_visable)
-	active_ui_node = support_exchange_preview
+	push_ui_node_stack(support_exchange_preview)
 	support_exchange_preview.grab_focus()
 
 func update_support_action_exchange_preview(exchange_info: UnitSupportExchangeData, weapon_swap_visable: bool = false):
+	var active_ui_node = ui_node_stack.peek()
 	if active_ui_node is UnitSupportExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
+
+
+func create_unit_item_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var combat_unit_inventory = COMBAT_UNIT_INVENTORY.instantiate()
+	self.add_child(combat_unit_inventory)
+	await combat_unit_inventory
+	combat_unit_inventory.populate(inputCombatUnit, inventory)
+	combat_unit_inventory.item_data_selected.connect(controller.fsm_unit_inventory_item_selected.bind())
+	combat_unit_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
+	#TO BE CONNECTED CANCEL
+	
+	push_ui_node_stack(combat_unit_inventory)
+	combat_unit_inventory.grab_focus()
+
+func update_unit_item_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var active_ui_node = ui_node_stack.peek()
+	if active_ui_node is CombatUnitInventoryDisplay:
+		active_ui_node.populate(inputCombatUnit, inventory)
+		active_ui_node.re_grab_focus()
+
+func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData):
+	var inventory_options = COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS.instantiate()
+	self.add_child(inventory_options)
+	inventory_options.popualate(data.item, data.equipped, data.can_use, data.can_arrange)
+	await inventory_options
+	inventory_options.equip.connect(controller.fsm_unit_inventory_equip.bind())
+	inventory_options.use.connect(controller.fsm_unit_inventory_use.bind())
+	push_ui_node_stack(inventory_options)
+	inventory_options.grab_focus_btn()
+	
 
 #
 # Populates and displayes the detailed info for a combat unit

@@ -1,5 +1,5 @@
 extends Panel
-class_name AttackActionInventory
+class_name CombatUnitInventoryDisplay
 
 #Imports
 const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
@@ -12,9 +12,9 @@ const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/
 
 @onready var equippable_item_information: EquippableItemInformation = $MarginContainer2/VBoxContainer/Equippable_item_information
 
+signal item_data_selected(data:UnitInventorySlotData)
 signal item_selected(item:ItemDefinition)
 signal new_item_hovered(item:ItemDefinition)
-signal back()
 
 @export var data : Array[UnitInventorySlotData] 
 @export var combatUnit: CombatUnit
@@ -26,10 +26,14 @@ func _ready() -> void:
 	unit_inventory_slot_2.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_3.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_4.connect("_hover_item", update_hover_item)
-	unit_inventory_slot_1.connect("selected_item",item_selected_button_press)
-	unit_inventory_slot_2.connect("selected_item",item_selected_button_press)
-	unit_inventory_slot_3.connect("selected_item",item_selected_button_press)
-	unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
+	unit_inventory_slot_1.connect("pressed", item_data_selected_pressed.bind(0))
+	unit_inventory_slot_2.connect("pressed", item_data_selected_pressed.bind(1))
+	unit_inventory_slot_3.connect("pressed", item_data_selected_pressed.bind(2))
+	unit_inventory_slot_4.connect("pressed", item_data_selected_pressed.bind(3))
+	#unit_inventory_slot_1.connect("selected_item",item_selected_button_press)
+	#unit_inventory_slot_2.connect("selected_item",item_selected_button_press)
+	#unit_inventory_slot_3.connect("selected_item",item_selected_button_press)
+	#unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
 
 func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
 	await equippable_item_information
@@ -45,6 +49,7 @@ func update_display():
 		set_unit_inventory_slot_info(unit_inventory_slot_3, data[2].item, data[2].equipped, data[2].valid)
 		set_unit_inventory_slot_info(unit_inventory_slot_4, data[3].item, data[3].equipped, data[3].valid)
 
+
 func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
 	target.disabled = !valid
 	target.set_fields(item, equipped)
@@ -54,17 +59,22 @@ func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition,
 		update_hover_item(item)
 
 func update_hover_item(item: ItemDefinition):
-	if item is WeaponDefinition:
-		equippable_item_information.update_hover_stats(combatUnit, item)
-		new_item_hovered.emit(item)
+	equippable_item_information.update_hover_stats(combatUnit, item)
+	new_item_hovered.emit(item)
 
 func reset_focus(item: ItemDefinition):
 	equippable_item_information.hovering_new_item = false
 	equippable_item_information.update_fields()
 	new_item_hovered.emit(item)
 
+func item_data_selected_pressed(index: int):
+	if index <= data.size() -1:
+		var emitted_data : UnitInventorySlotData = data[index]
+		item_data_selected.emit(emitted_data)
+
+
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
-
-func _on_back_button_pressed() -> void:
-	back.emit()
+	
+func re_grab_focus():
+	unit_inventory_slot_1.grab_focus()
