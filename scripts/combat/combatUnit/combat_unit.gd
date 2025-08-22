@@ -96,6 +96,11 @@ func equip(wpn: WeaponDefinition):
 		unit.inventory.set_equipped(wpn)
 		stats.populate_weapon_stats(self, wpn)
 
+func un_equip_current_weapon():
+	if get_equipped != null:
+		unit.inventory.equipped = false
+		stats.populate_weapon_stats(self, null)
+
 func update_display():
 	if map_display != null:
 		map_display.update_values()

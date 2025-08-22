@@ -41,10 +41,11 @@ func calculate_hover_stats(combat_unit: CombatUnit, weapon :WeaponDefinition = n
 
 func populate_equipped_stats(current_stats: CombatMapUnitNetStat, current_weapon: WeaponDefinition):
 	self.current_equipped_stat = current_stats
-	self.current_damage_type = current_weapon.item_damage_type
-	self.current_attack_range = current_weapon.attack_range
-	self.current_weapon_effectiveness = current_weapon.weapon_effectiveness
-	self.current_required_mastery = current_weapon.required_mastery
+	if current_weapon != null:
+		self.current_damage_type = current_weapon.item_damage_type
+		self.current_attack_range = current_weapon.attack_range
+		self.current_weapon_effectiveness = current_weapon.weapon_effectiveness
+		self.current_required_mastery = current_weapon.required_mastery
 	update_fields()
 
 func update_hover_stats(combat_unit: CombatUnit, item: ItemDefinition):
@@ -62,27 +63,29 @@ func update_hover_stats(combat_unit: CombatUnit, item: ItemDefinition):
 	
 func update_fields():
 	if not hovering_new_item:
-		damage_value.set("theme_override_colors/font_color", base_color)
-		damage_value.text = str(current_equipped_stat.damage.evaluate())
-		damage_type_icon.set_damage_type(current_damage_type)
-		hit_value.set("theme_override_colors/font_color", base_color)
-		hit_value.text = str(current_equipped_stat.hit.evaluate())
-		crit_value.set("theme_override_colors/font_color", base_color)
-		crit_value.text = str(current_equipped_stat.critical_chance.evaluate())
-		attack_speed_value.set("theme_override_colors/font_color", base_color)
-		attack_speed_value.text = str(current_equipped_stat.attack_speed.evaluate())
-		avoid_value.set("theme_override_colors/font_color", base_color)
-		avoid_value.text = str(current_equipped_stat.avoid.evaluate())
-		crit_mult_value.set("theme_override_colors/font_color", base_color)
-		crit_mult_value.text = str(current_equipped_stat.critical_multiplier.evaluate())
+		if current_equipped_stat != null:
+			damage_value.set("theme_override_colors/font_color", base_color)
+			damage_value.text = str(current_equipped_stat.damage.evaluate())
+			damage_type_icon.set_damage_type(current_damage_type)
+			hit_value.set("theme_override_colors/font_color", base_color)
+			hit_value.text = str(current_equipped_stat.hit.evaluate())
+			crit_value.set("theme_override_colors/font_color", base_color)
+			crit_value.text = str(current_equipped_stat.critical_chance.evaluate())
+			attack_speed_value.set("theme_override_colors/font_color", base_color)
+			attack_speed_value.text = str(current_equipped_stat.attack_speed.evaluate())
+			avoid_value.set("theme_override_colors/font_color", base_color)
+			avoid_value.text = str(current_equipped_stat.avoid.evaluate())
+			crit_mult_value.set("theme_override_colors/font_color", base_color)
+			crit_mult_value.text = str(current_equipped_stat.critical_multiplier.evaluate())
 	else:
-		do_number_styling(damage_value,current_equipped_stat.damage.evaluate(),hover_stat.damage.evaluate())
-		damage_type_icon.set_damage_type(hover_damage_type)
-		do_number_styling(hit_value,current_equipped_stat.hit.evaluate(),hover_stat.hit.evaluate())
-		do_number_styling(crit_value,current_equipped_stat.critical_chance.evaluate(),hover_stat.critical_chance.evaluate())
-		do_number_styling(attack_speed_value,current_equipped_stat.attack_speed.evaluate(),hover_stat.attack_speed.evaluate())
-		do_number_styling(avoid_value,current_equipped_stat.avoid.evaluate(),hover_stat.avoid.evaluate())
-		do_number_styling(crit_mult_value,current_equipped_stat.critical_multiplier.evaluate(),hover_stat.critical_multiplier.evaluate())
+		if current_equipped_stat != null:
+			do_number_styling(damage_value,current_equipped_stat.damage.evaluate(),hover_stat.damage.evaluate())
+			damage_type_icon.set_damage_type(hover_damage_type)
+			do_number_styling(hit_value,current_equipped_stat.hit.evaluate(),hover_stat.hit.evaluate())
+			do_number_styling(crit_value,current_equipped_stat.critical_chance.evaluate(),hover_stat.critical_chance.evaluate())
+			do_number_styling(attack_speed_value,current_equipped_stat.attack_speed.evaluate(),hover_stat.attack_speed.evaluate())
+			do_number_styling(avoid_value,current_equipped_stat.avoid.evaluate(),hover_stat.avoid.evaluate())
+			do_number_styling(crit_mult_value,current_equipped_stat.critical_multiplier.evaluate(),hover_stat.critical_multiplier.evaluate())
 		
 
 func update_fields_consumable():

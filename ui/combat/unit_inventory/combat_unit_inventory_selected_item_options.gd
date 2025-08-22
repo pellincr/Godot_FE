@@ -27,12 +27,15 @@ func popualate(selected_item : ItemDefinition, equipped : bool = false, can_use 
 func update_buttons():
 	if selected_item is WeaponDefinition:
 		use_button.disabled = true
+		use_button.visible = false
 		if equipped:
-			un_equip_button.visible = true
-			un_equip_button.grab_focus()
 			equip_button.visible = false
+			equip_button.disabled = true
+			un_equip_button.visible = true
+			un_equip_button.disabled = false
+			un_equip_button.grab_focus()
 		else:
-			if can_use:
+			if can_use: #the player can equip
 				un_equip_button.visible = false
 				equip_button.visible = true
 				equip_button.grab_focus()
@@ -74,19 +77,18 @@ func _on_discard_button_pressed() -> void:
 	discard.emit(selected_item)
 
 func grab_focus_btn():
-	if not equip_button.disabled:
-		equip_button.grab_focus()
-		return
-	if not un_equip_button.disabled:
-		un_equip_button.grab_focus()
-		return
-	if not use_button.disabled:
-		use_button.grab_focus()
-		return
-	if not arrange_button.disabled:
-		arrange_button.grab_focus()
-		return
 	if not discard_button.disabled:
 		discard_button.grab_focus()
-		return
+	if not arrange_button.disabled:
+		arrange_button.grab_focus()
+	if not use_button.disabled:
+		use_button.grab_focus()
+	if not un_equip_button.disabled:
+		un_equip_button.grab_focus()
+	if not equip_button.disabled:
+		equip_button.grab_focus()
+
+
+
+
 	

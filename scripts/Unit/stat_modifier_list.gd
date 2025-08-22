@@ -13,7 +13,8 @@ func evaluate():
 	return total
 
 func remove(source: String):
-	statModifierDictionary.erase(source)
+	if statModifierDictionary.has(source):
+		statModifierDictionary.erase(source)
 	
 func clear():
 	statModifierDictionary.clear()

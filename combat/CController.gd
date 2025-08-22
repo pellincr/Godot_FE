@@ -1292,6 +1292,15 @@ func fsm_unit_inventory_equip(item:ItemDefinition):
 	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
 	revert_player_state()
 	revert_player_state()
+
+func fsm_unit_inventory_un_equip(item:ItemDefinition):
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
+	combat.game_ui.destory_active_ui_node()
+	await combat.get_current_combatant().un_equip_current_weapon()
+	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
+	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
+	revert_player_state()
+	revert_player_state()
 	
 func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
