@@ -22,7 +22,7 @@ signal new_item_hovered(item:ItemDefinition)
 var focus_grabbed : bool
 
 func _ready() -> void:
-	unit_inventory_slot_1.connect("_hover_item", reset_focus)
+	unit_inventory_slot_1.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_2.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_3.connect("_hover_item", update_hover_item)
 	unit_inventory_slot_4.connect("_hover_item", update_hover_item)
@@ -43,6 +43,7 @@ func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotDa
 
 func update_display():
 	equippable_item_information.populate_equipped_stats(combatUnit.stats,combatUnit.get_equipped())
+	
 	if data.size() == 4:
 		set_unit_inventory_slot_info(unit_inventory_slot_1, data[0].item, data[0].equipped, data[0].valid)
 		set_unit_inventory_slot_info(unit_inventory_slot_2, data[1].item, data[1].equipped, data[1].valid)
@@ -59,13 +60,13 @@ func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition,
 		update_hover_item(item)
 
 func update_hover_item(item: ItemDefinition):
-	equippable_item_information.update_hover_stats(combatUnit, item)
+	if item == combatUnit.get_equipped():
+		equippable_item_information.hovering_new_item = false
+		equippable_item_information.update_fields()
+	else:
+		equippable_item_information.update_hover_stats(combatUnit, item)
 	new_item_hovered.emit(item)
 
-func reset_focus(item: ItemDefinition):
-	equippable_item_information.hovering_new_item = false
-	equippable_item_information.update_fields()
-	new_item_hovered.emit(item)
 
 func item_data_selected_pressed(index: int):
 	if index <= data.size() -1:
