@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://dvwklbav4enqn"]
+
+[ext_resource type="Resource" uid="uid://bnqfitexilrmt" path="res://resources/definitions/unit_types/units/vandal/vandal_base_combat_stats.tres" id="1_1lwud"]
+[ext_resource type="Resource" uid="uid://skc8ee3gycev" path="res://resources/definitions/unit_types/units/vandal/vandal_growth_stats.tres" id="2_f7cxh"]
+[ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/Vandal.tres" id="3_svssx"]
+[ext_resource type="Resource" uid="uid://b7nc2p5sd051c" path="res://resources/definitions/unit_types/units/vandal/vandal_max_stats.tres" id="4_nd5xf"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_otbbw"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_ctan2"]
+
+[resource]
+script = ExtResource("5_otbbw")
+unit_type_name = "Vandal"
+db_key = "vandal"
+description = "Wild, relentless brawlers who strike first and absorb punishment with stubborn grit."
+initiative = 1
+faction = Array[int]([3])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_ctan2")
+movement_type = 0
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([2])
+base_stats = ExtResource("1_1lwud")
+maxuimum_stats = ExtResource("4_nd5xf")
+growth_stats = ExtResource("2_f7cxh")
+icon = ExtResource("3_svssx")
+map_sprite = ExtResource("3_svssx")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

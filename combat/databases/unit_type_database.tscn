@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=36 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -34,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://b8y5bf7xcsh5m" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master.tres" id="31_025il"]
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="31_id5fj"]
 [ext_resource type="Resource" uid="uid://cgaophi6857j" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.tres" id="34_w1y03"]
+[ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -71,6 +72,7 @@ commander_types = {
 "destroyer": ExtResource("28_ov4kq"),
 "iron_viper": ExtResource("34_w1y03"),
 "mage_knight": ExtResource("29_ycdqo"),
+"vandal": ExtResource("35_vq7n6"),
 "war_maiden": ExtResource("30_uy0ry"),
 "weapon_master": ExtResource("31_025il")
 }
