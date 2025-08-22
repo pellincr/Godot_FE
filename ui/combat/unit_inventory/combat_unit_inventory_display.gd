@@ -59,9 +59,8 @@ func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition,
 		update_hover_item(item)
 
 func update_hover_item(item: ItemDefinition):
-	if item is WeaponDefinition:
-		equippable_item_information.update_hover_stats(combatUnit, item)
-		new_item_hovered.emit(item)
+	equippable_item_information.update_hover_stats(combatUnit, item)
+	new_item_hovered.emit(item)
 
 func reset_focus(item: ItemDefinition):
 	equippable_item_information.hovering_new_item = false

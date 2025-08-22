@@ -127,9 +127,9 @@ func is_empty() -> bool:
 
 func use_at_index(index : int): 
 	if index < capacity:
-		var target_item = items[index]
-		target_item.use
-		if target_item.uses >= 0:
+		var target_item :ItemDefinition = items[index]
+		target_item.expend_use()
+		if target_item.uses <= 0:
 			items.remove_at(index)
 
 #

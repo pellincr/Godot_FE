@@ -94,6 +94,7 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 		if not item.use_effect.is_empty():
 			for combat_effect : CombatEffect in item.use_effect:
 				if combat_effect.effect == itemConstants.ITEM_USE_EFFECT.HEAL:
+					
 					#await heal(combat_effect.effect_weight)
 					pass
 				if combat_effect.effect == itemConstants.ITEM_USE_EFFECT.STAT_BONUS:
@@ -103,4 +104,4 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 					elif combat_effect.duration >= 0: #This is for temporary stats in the combat
 						# add this to the combat unit stat, set the source to the item
 						pass
-						
+		user.unit.inventory.use_item(item)

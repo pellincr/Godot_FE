@@ -1267,7 +1267,8 @@ func fsm_unit_combat_action_targetting(delta):
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 
 func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
-	_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
+	if item is WeaponDefinition:
+		_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
 
 #Inventory
 func fsm_unit_inventory_item_selected(data:UnitInventorySlotData):
@@ -1296,7 +1297,7 @@ func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
 	combat.game_ui.destory_active_ui_node()
 	if item is ConsumableItemDefinition:
-		await combat.get_current_combatant().unit.use(item)
+		await combat.combat_unit_item_manager.use_item(combat.get_current_combatant(), item)
 	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
 	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
 	revert_player_state()
