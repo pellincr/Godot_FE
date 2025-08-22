@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://ij7vpsfl6vqo"]
 
-[ext_resource type="Texture2D" uid="uid://d2k45s1ybrv47" path="res://resources/sprites/items/consumables/wine.png" id="1_cxdlk"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_ebuoa"]
+
+[sub_resource type="Resource" id="Resource_fy3m0"]
+metadata/__load_path__ = "res://resources/sprites/items/consumables/wine.png"
 
 [sub_resource type="Resource" id="Resource_clutb"]
 script = ExtResource("3_ebuoa")
@@ -24,4 +26,4 @@ item_type = 2
 uses = 3
 max_uses = 3
 worth = 100
-icon = ExtResource("1_cxdlk")
+icon = SubResource("Resource_fy3m0")

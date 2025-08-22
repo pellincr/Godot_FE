@@ -10,7 +10,9 @@ region = Rect2(88, 231, 8, 8)
 
 [resource]
 script = ExtResource("2_2ew3t")
-use_effect = Array[ExtResource("3_34ooh")]([])
+use_effect = 0
+power = 0
+status_effect = Array[ExtResource("3_34ooh")]([])
 name = "Key"
 db_key = "key"
 equippable = false

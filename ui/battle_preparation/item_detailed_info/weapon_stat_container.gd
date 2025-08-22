@@ -23,11 +23,14 @@ func set_damage_value(dmg):
 func set_damage_type_icon(damage_type):
 	var physical_icon = preload("res://resources/sprites/icons/damage_icons/physical_damage_icon.png")
 	var magic_icon = preload("res://resources/sprites/icons/damage_icons/magic_damage_icon.png")
+	var true_icon = preload("res://resources/sprites/icons/damage_icons/true_damage_icon.png")
 	match damage_type:
 		ItemConstants.DAMAGE_TYPE.PHYSICAL:
 			damage_type_icon.texture = physical_icon
 		ItemConstants.DAMAGE_TYPE.MAGIC:
 			damage_type_icon.texture = magic_icon
+		ItemConstants.DAMAGE_TYPE.PURE:
+			damage_type_icon.texture = true_icon
 
 func set_attack_x_value(attack_x):
 	attack_x_value_label.text = str(attack_x)
@@ -49,6 +52,28 @@ func set_range_value(range):
 	else:
 		range_value_label.text = str(min)
 
+func turn_stat_to_string(header:String,stat:int):
+	if stat != 0:
+		return header + str(stat) + "\n"
+	else:
+		return ""
+
+func set_bonus_value(special_label :Label, weapon_bonus_stats:UnitStat):
+	var hp_bonus = turn_stat_to_string("HP: ",weapon_bonus_stats.hp)
+	var strength_bonus = turn_stat_to_string("STR: ",weapon_bonus_stats.strength)
+	var magic_bonus = turn_stat_to_string("MGC: ",weapon_bonus_stats.magic)
+	var skill_bonus = turn_stat_to_string("SKILL: ",weapon_bonus_stats.skill)
+	var speed_bonus = turn_stat_to_string("SPD: ",weapon_bonus_stats.speed)
+	var luck_bonus = turn_stat_to_string("LUCK: ",weapon_bonus_stats.luck)
+	var defense_bonus = turn_stat_to_string("DEF: ", weapon_bonus_stats.defense)
+	var resistance_bonus = turn_stat_to_string("RES: ",weapon_bonus_stats.resistance)
+	var combined_string = hp_bonus + strength_bonus + magic_bonus +  skill_bonus +  speed_bonus + luck_bonus + defense_bonus + resistance_bonus
+	if combined_string != "":
+		special_label.text = "BONUS STATS:\n" + combined_string
+	else:
+		special_label.text = ""
+
+
 func set_special_value(special_label, weapon_special: ItemConstants.WEAPON_SPECIALS):
 	var str = ""
 	match weapon_special:
@@ -62,10 +87,13 @@ func set_special_value(special_label, weapon_special: ItemConstants.WEAPON_SPECI
 			str = "True Damage"
 	special_label.text = str
 
-func set_special_values(specials:Array[ItemConstants.WEAPON_SPECIALS]):
+func set_special_values(bonus_stats:UnitStat, specials:Array[ItemConstants.WEAPON_SPECIALS]):
 	for special_index in special_value_labels.size():
 		if special_index < specials.size():
 			set_special_value(special_value_labels[special_index],specials[special_index])
+		elif bonus_stats:
+			set_bonus_value(special_value_labels[special_index],bonus_stats)
+			bonus_stats = null
 		else:
 			special_value_labels[special_index].text = ""
 
@@ -153,7 +181,7 @@ func update_by_item():
 		set_critical_label(item.critical_chance)
 		set_critical_x_value(item.critical_multiplier)
 		set_range_value(item.attack_range)
-		set_special_values(item.specials)
+		set_special_values(item.bonus_stat, item.specials)
 		#Right Container
 		set_scaling_value(item.item_scaling_type)
 		set_scaling_x_value(1)#TO BE UPDATED WHEN WEAPON IS UPDATED

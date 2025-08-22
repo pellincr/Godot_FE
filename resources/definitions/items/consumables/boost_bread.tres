@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_j21i2"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_lodhd"]
-[ext_resource type="Texture2D" uid="uid://c2lcuqecfuxm7" path="res://resources/sprites/items/consumables/boost_bread.png" id="2_1upyg"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="2_b0ma1"]
 
 [sub_resource type="Resource" id="Resource_r1e1t"]
@@ -18,6 +17,9 @@ resistance = 1
 movement = 0
 constitution = 0
 
+[sub_resource type="Resource" id="Resource_n47ew"]
+metadata/__load_path__ = "res://resources/sprites/items/consumables/boost_bread.png"
+
 [resource]
 script = ExtResource("1_j21i2")
 use_effect = 3
@@ -32,4 +34,4 @@ item_type = 2
 uses = 1
 max_uses = 1
 worth = 100
-icon = ExtResource("2_1upyg")
+icon = SubResource("Resource_n47ew")
