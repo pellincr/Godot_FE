@@ -46,6 +46,7 @@ func _ready():
 		#if it's the first draft of the campaign
 		var unit_draft = unit_draft_scene.instantiate()
 		unit_draft.current_state = current_draft_state
+		unit_draft.set_po_data(playerOverworldData)
 		main_container.add_child(unit_draft)
 		unit_draft.connect("commander_drafted",commander_selection_complete)
 		if playerOverworldData.current_campaign.name == "Tutorial":

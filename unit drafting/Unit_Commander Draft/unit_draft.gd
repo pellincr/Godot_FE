@@ -30,7 +30,10 @@ var unit_selectors = []
 var randomized_commander_types = []
 #Creates the initial amount of buttons needed in the Recruit Units menu
 func instantiate_unit_selectors():
-	unit_selectors = create_unit_selector_list(4, main_container)
+	if current_state == Constants.DRAFT_STATE.COMMANDER:
+		unit_selectors = create_unit_selector_list(playerOverworldData.current_campaign.commander_draft_limit, main_container)
+	else:
+		unit_selectors = create_unit_selector_list(4, main_container)
 
 
 #num string container -> list of buttons
