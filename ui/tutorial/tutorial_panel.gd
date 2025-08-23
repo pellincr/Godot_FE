@@ -1,17 +1,17 @@
-extends Panel
+extends PanelContainer
 
 class_name TutorialPanel
 
 signal tutorial_completed()
 
-@onready var tutorial_image = $MarginContainer/MainContainer/TutorialImage
-@onready var tutorial_text = $MarginContainer/MainContainer/TutorialText
+@onready var tutorial_image = $TutorialPanel/MarginContainer/MainContainer/TutorialImage
+@onready var tutorial_text = $TutorialPanel/MarginContainer/MainContainer/TutorialText
 
-@onready var page_number_label = $MarginContainer/MainContainer/PageContainer/PageNumberLabel
+@onready var page_number_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/PageNumberLabel
 
-@onready var back_container = $MarginContainer/MainContainer/PageContainer/ControlsContainer/BackContainer
-@onready var next_container = $MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer
-@onready var next_label = $MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
+@onready var back_container = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/BackContainer
+@onready var next_container = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer
+@onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
 
 
 var tutorial_page_text : Array[String] = []
