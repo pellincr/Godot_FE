@@ -67,8 +67,18 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
-	#var rarity:UnitRarity = UnitTypeDatabase.unit_types.get(unit.unit_type_key).unit_rarity
-	#name_label.self_modulate = rarity.ui_color
+	var rarity
+	if unit is Unit:
+		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
+	elif unit is ItemDefinition:
+		rarity= unit.rarity
+		
+	if rarity:
+		name_label.self_modulate = rarity.ui_color
+
+func set_rarity_shadow_hue(rarity):
+	var test :StyleBoxFlat = theme.get_stylebox("panel","Panel")
+	test.set_shadow_color(rarity.ui_color)
 
 func set_class_label(class_text):
 	class_label.text = class_text
@@ -173,6 +183,11 @@ func _on_focus_entered():
 	$AudioStreamPlayer.stream = menu_hover_effect
 	$AudioStreamPlayer.play()
 	print("Selection Focused")
+	if unit is Unit:
+		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
+		set_rarity_shadow_hue(unit_type.unit_rarity)
+	elif unit is ItemDefinition:
+		set_rarity_shadow_hue(unit.rarity)
 
 
 
@@ -351,6 +366,7 @@ func update_information():
 	if unit is Unit:
 		set_name_label(unit.name)
 		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
+		set_rarity_shadow_hue(unit_type.unit_rarity)
 		var weapon_types = unit_type.usable_weapon_types
 		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)

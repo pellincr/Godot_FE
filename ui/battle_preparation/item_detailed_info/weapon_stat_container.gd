@@ -78,7 +78,7 @@ func set_special_value(special_label, weapon_special: ItemConstants.WEAPON_SPECI
 	var str = ""
 	match weapon_special:
 		ItemConstants.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE:
-			str = "Weapon Triangle Adv. Eff."
+			str = "Weapon Adv. Eff."
 		ItemConstants.WEAPON_SPECIALS.CRITICAL_DISABLED:
 			str = "Crits Disabled"
 		ItemConstants.WEAPON_SPECIALS.VAMPYRIC:

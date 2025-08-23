@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://cgaophi6857j"]
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=7 format=3 uid="uid://cgaophi6857j"]
 
 [ext_resource type="Resource" uid="uid://bfkt7vxpdyljm" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_base_combat_stats.tres" id="1_0bt7m"]
 [ext_resource type="Resource" uid="uid://ct5ipci4ecpur" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_growth_stats.tres" id="2_unytg"]
 [ext_resource type="Texture2D" uid="uid://cv32n6driqxku" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.png" id="3_xpflg"]
 [ext_resource type="Resource" uid="uid://b1w3v3373la65" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_max_stats.tres" id="4_5ffw4"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_lu5y6"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_d6r1c"]
 
 [resource]
 script = ExtResource("5_lu5y6")
@@ -16,6 +17,7 @@ description = ""
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
+unit_rarity = ExtResource("6_d6r1c")
 movement_type = 0
 tier = 2
 promoted = false
