@@ -46,7 +46,7 @@ func _ready():
 	var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
 	var combat = campaign_level.get_child(2)
 	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units   #.combat.max_allowed_ally_units
-	playerOverworldData.selected_party = []
+	#playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.army_convoy_header.set_units_left_value(0,playerOverworldData.available_party_capacity)
 	#army_convoy_container.fill_army_scroll_container()
