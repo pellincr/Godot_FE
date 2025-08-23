@@ -77,8 +77,9 @@ func set_name_label(name):
 		name_label.self_modulate = rarity.ui_color
 
 func set_rarity_shadow_hue(rarity):
-	var test :StyleBoxFlat = theme.get_stylebox("panel","Panel")
-	test.set_shadow_color(rarity.ui_color)
+	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
+	panel_stylebox.set_shadow_color(rarity.ui_color)
+	theme.set_stylebox("panel","Panel",panel_stylebox)
 
 func set_class_label(class_text):
 	class_label.text = class_text
