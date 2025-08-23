@@ -79,6 +79,7 @@ func set_name_label(name):
 func set_rarity_shadow_hue(rarity):
 	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
 	panel_stylebox.set_shadow_color(rarity.ui_color)
+	panel_stylebox.set_shadow_size(rarity.shadow_size)
 	theme.set_stylebox("panel","Panel",panel_stylebox)
 
 func set_class_label(class_text):
@@ -367,7 +368,7 @@ func update_information():
 	if unit is Unit:
 		set_name_label(unit.name)
 		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
-		set_rarity_shadow_hue(unit_type.unit_rarity)
+		#set_rarity_shadow_hue(unit_type.unit_rarity)
 		var weapon_types = unit_type.usable_weapon_types
 		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)
