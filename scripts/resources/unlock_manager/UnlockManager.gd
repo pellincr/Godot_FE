@@ -97,3 +97,11 @@ class_name UnlockManager
 	"warhammer" : true,
 	"wind_blade" : true
 }
+
+func get_unlocked_count(dictionary : Dictionary):
+	var count = 0
+	var dict_keys = dictionary.keys()
+	for key in dict_keys:
+		if dictionary[key] == true:
+			count += 1
+	return count
