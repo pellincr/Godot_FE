@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b44d4qqkhwy1x" path="res://resources/sprites/units/Healer.png" id="3_icp6f"]
 [ext_resource type="Resource" uid="uid://ciy2akumtkx6h" path="res://resources/definitions/unit_types/units/healer/healer_max_stats.tres" id="4_peal4"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_xibya"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="5_q53qk"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="5_q53qk"]
 
 [resource]
 script = ExtResource("4_xibya")

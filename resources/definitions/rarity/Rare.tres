@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="UnitRarity" load_steps=2 format=3 uid="uid://bkum8s41x2au5"]
 
-[ext_resource type="Script" path="res://scripts/resources/unit_rarity/UnitRarityDefinition.gd" id="1_marpr"]
+[ext_resource type="Script" path="res://scripts/resources/rarity/RarityDefinition.gd" id="1_marpr"]
 
 [resource]
 script = ExtResource("1_marpr")

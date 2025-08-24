@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://h745ifqky6lx" path="res://resources/sprites/units/blade_hand.png" id="3_1374k"]
 [ext_resource type="Resource" uid="uid://dkiiut7apxu0x" path="res://resources/definitions/unit_types/units/bladehand/blandehand_max_stats.tres" id="4_qku7p"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_2ncmc"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_hmek0"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_hmek0"]
 
 [resource]
 script = ExtResource("5_2ncmc")

@@ -1,7 +1,6 @@
 extends Resource
 
-class_name ItemRarity
-
+class_name Rarity
 
 @export var rarity_name := ""
 @export var ui_color : Color

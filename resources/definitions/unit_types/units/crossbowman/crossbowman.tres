@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://vlk3mxq5ptlr" path="res://resources/sprites/units/crossbowman.png" id="3_p7uqe"]
 [ext_resource type="Resource" uid="uid://bnoje1tst5pv2" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_max_stats.tres" id="4_rbi7o"]
 [ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_mpnbg"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_f7ofk"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_f7ofk"]
 
 [resource]
 script = ExtResource("5_mpnbg")

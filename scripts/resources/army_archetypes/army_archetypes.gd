@@ -7,7 +7,7 @@ class_name ArmyArchetypeDefinition
 ##
 
 @export var name : String 
-@export var rarity :String ##THIS SHOULD BE CHANGED to a master rarity type in the future
+@export var rarity : Rarity
 @export_group("Picks")
 @export var archetype_picks : Array[armyArchetypePickDefinition]
 

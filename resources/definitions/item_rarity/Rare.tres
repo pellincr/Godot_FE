@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="ItemRarity" load_steps=2 format=3 uid="uid://533h0qfjffq1"]
-
-[ext_resource type="Script" path="res://scripts/resources/item_rarity/ItemRarityDefinition.gd" id="1_el3xl"]
-
-[resource]
-script = ExtResource("1_el3xl")
-rarity_name = "Rare"
-ui_color = Color(0, 0.454902, 0.827451, 1)

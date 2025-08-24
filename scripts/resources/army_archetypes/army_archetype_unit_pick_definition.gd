@@ -8,6 +8,6 @@ class_name armyArchetypePickUnitDefinition
 
 @export var factions :Array[unitConstants.FACTION]
 @export var traits : Array[unitConstants.TRAITS]
-@export var rarity : UnitRarity
+@export var rarity : Rarity
 @export var weapon_types : Array[ItemConstants.WEAPON_TYPE] = []
 @export var unit_type : String

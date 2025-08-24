@@ -29,5 +29,4 @@ volume = 1
 [resource]
 script = ExtResource("3_al87d")
 name = "Armor Up"
-rarity = ""
 archetype_picks = Array[ExtResource("1_c30fr")]([SubResource("Resource_xl07a"), SubResource("Resource_2qsfq")])

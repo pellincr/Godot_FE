@@ -31,6 +31,16 @@ func set_po_data(po_data):
 func set_header_label(text):
 	header_label.text = text
 
+func set_header_color(rarity : Rarity):
+	if rarity:
+		header_label.modulate = rarity.ui_color
+
+func set_rarity_shadow_hue(rarity):
+	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
+	panel_stylebox.set_shadow_color(rarity.ui_color)
+	panel_stylebox.set_shadow_size(rarity.shadow_size)
+	theme.set_stylebox("panel","Panel",panel_stylebox)
+
 func clear_unit_list_container():
 	var children = archetype_list_container.get_children()
 	for child in children:
@@ -66,6 +76,7 @@ func _on_focus_entered():
 	$AudioStreamPlayer.stream = menu_hover_effect
 	$AudioStreamPlayer.play()
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
+	set_rarity_shadow_hue(archetype.rarity)
 	print("Selection Focused")
 
 
@@ -78,6 +89,7 @@ func _on_panel_mouse_entered():
 
 func update_all():
 	set_header_label(archetype.name)
+	set_header_color(archetype.rarity)
 	#var given_unit_archetypes = [archetype.given_unit_faction_archetypes, archetype.given_unit_trait_archetypes, archetype.given_unit_weapon_archetypes]
 	clear_unit_list_container()
 	clear_archetype_icon_container()

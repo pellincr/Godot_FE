@@ -71,7 +71,7 @@ func set_name_label(name):
 	if unit is Unit:
 		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
 	elif unit is ItemDefinition:
-		rarity= unit.rarity
+		rarity = unit.rarity
 		
 	if rarity:
 		name_label.self_modulate = rarity.ui_color
@@ -219,7 +219,7 @@ func instantiate_unit_draft_selector():
 	
 
 func randomize_selection():
-	var class_rarity: UnitRarity = RarityDatabase.unit_rarities.get(get_random_rarity())
+	var rarity: Rarity = RarityDatabase.unit_rarities.get(get_random_rarity())
 	var weapon_rarity = null
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
@@ -229,7 +229,7 @@ func randomize_selection():
 			new_randomized_pick = randomize_weapon(current_archetype_pick, weapon_rarity)
 			unit = ItemDatabase.items.get(new_randomized_pick.pick_random())
 		else:
-			var filtered_unit_classes = filter_classes_by_archetype_pick(current_archetype_pick, class_rarity)
+			var filtered_unit_classes = filter_classes_by_archetype_pick(current_archetype_pick, rarity)
 			new_randomized_pick = filtered_unit_classes.pick_random()
 			var new_unit_name = playerOverworldData.temp_name_list.pick_random()
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
