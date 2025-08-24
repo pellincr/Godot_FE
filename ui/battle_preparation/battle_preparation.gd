@@ -55,16 +55,9 @@ func _ready():
 	SelectedSaveFile.save(playerOverworldData)
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
-		tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		tutorial_panel.grab_focus()
-		tutorial_panel.total_pages = 4
-		tutorial_panel.tutorial_page_text.append("This is the Battle Preparation Screen. Before every battle you enter, you will be able to adjust your units and send a select group of them to battle.")
-		tutorial_panel.tutorial_page_text.append("The top of the screen displays the amount of units you are allowed to take on the current mission and how many units you have currently selected.")
-		tutorial_panel.tutorial_page_text.append("By pressing the toggle buttons, you will be able to see either your total party, or the items you have in your convoy.")
-		tutorial_panel.tutorial_page_text.append("Sell, equip, and trade items between units to make sure your party is ready for battle!")
+		tutorial_panel.current_state = TutorialPanel.TUTORIAL.BATTLE_PREP
 		tutorial_panel.tutorial_completed.connect(tutorial_completed)
 		add_child(tutorial_panel)
-		tutorial_panel.grab_focus()
 	else:
 		tutorial_completed()
 

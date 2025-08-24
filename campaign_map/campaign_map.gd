@@ -48,14 +48,9 @@ func _ready() -> void:
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 0:
 			#If it's the tutorial campaign, show the tutorial
 			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
-			tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			tutorial_panel.total_pages = 3
-			tutorial_panel.tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
-			tutorial_panel.tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
-			tutorial_panel.tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.CAMPAIGN_MAP
 			camera_2d.add_child(tutorial_panel)
 			tutorial_panel.tutorial_completed.connect(tutorial_completed)
-			tutorial_panel.grab_focus()
 
 
 func transition_in_animation():

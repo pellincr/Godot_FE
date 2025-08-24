@@ -13,6 +13,11 @@ signal tutorial_completed()
 @onready var next_container = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer
 @onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
 
+enum TUTORIAL{
+	DRAFT, BATTLE_PREP, CAMPAIGN_MAP
+}
+
+var current_state : TUTORIAL
 
 var tutorial_page_text : Array[String] = []
 
@@ -22,8 +27,30 @@ var current_page = clampi(1,1,total_pages)
 
 
 func _ready():
+	instantiate_tutorial()
 	grab_focus()
+	
+	
 	update_tutorial_panel()
+
+func instantiate_tutorial():
+	match current_state:
+		TUTORIAL.DRAFT:
+			tutorial_page_text.append("Welcome to your first Campaign! The first part of every campaign is the army draft. Your first unit, and perhaps most important, will be the commander.")
+			tutorial_page_text.append("After you select the Commander of your Army, you will select the archetypes you want your army to be built out of.")
+			tutorial_page_text.append("Each Archetype will allow you to select from the units and items you have unlocked that fit the description.")
+			tutorial_page_text.append("Once all archetypes are selected, you may select the units that are right for you and get ready to play")
+		TUTORIAL.BATTLE_PREP:
+			tutorial_page_text.append("This is the Battle Preparation Screen. Before every battle you enter, you will be able to adjust your units and send a select group of them to battle.")
+			tutorial_page_text.append("The top of the screen displays the amount of units you are allowed to take on the current mission and how many units you have currently selected.")
+			tutorial_page_text.append("By pressing the toggle buttons, you will be able to see either your total party, or the items you have in your convoy.")
+			tutorial_page_text.append("Sell, equip, and trade items between units to make sure your party is ready for battle!")
+		TUTORIAL.CAMPAIGN_MAP:
+			tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
+			tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
+			tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+	total_pages = tutorial_page_text.size()
+
 
 func set_tutorial_text(text:String):
 	tutorial_text.text = text
@@ -40,8 +67,6 @@ func set_page_number_label():
 
 func set_control_sub_container_visibility(container, vis):
 	container.visible = vis
-
-
 
 
 

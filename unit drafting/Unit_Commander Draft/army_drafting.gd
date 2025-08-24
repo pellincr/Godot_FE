@@ -51,14 +51,7 @@ func _ready():
 		unit_draft.connect("commander_drafted",commander_selection_complete)
 		if playerOverworldData.current_campaign.name == "Tutorial":
 			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
-			
-			tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			tutorial_panel.grab_focus()
-			tutorial_panel.total_pages = 4
-			tutorial_panel.tutorial_page_text.append("Welcome to your first Campaign! The first part of every campaign is the army draft. Your first unit, and perhaps most important, will be the commander.")
-			tutorial_panel.tutorial_page_text.append("After you select the Commander of your Army, you will select the archetypes you want your army to be built out of.")
-			tutorial_panel.tutorial_page_text.append("Each Archetype will allow you to select from the units and items you have unlocked that fit the description.")
-			tutorial_panel.tutorial_page_text.append("Once all archetypes are selected, you may select the units that are right for you and get ready to play")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DRAFT
 			tutorial_panel.tutorial_completed.connect(tutorial_completed.bind(unit_draft.get_first_selector()))
 			add_child(tutorial_panel)
 
