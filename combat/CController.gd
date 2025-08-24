@@ -243,7 +243,7 @@ func process_unit_move(delta):
 					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
-			else: # AI Units do nothing 
+			else: # AI Units
 				pass
 
 func unit_move_fix_overshoots(delta):
@@ -613,7 +613,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 							if closet_action_tile != Vector2i(current_position):
 								if closet_action_tile in moveable_tiles:
 									ai_unit.update_move_tile(grid.get_map_tile(closet_action_tile))
-									ai_move(closet_action_tile)
+									ai_move(closet_action_tile, ai_unit)
 									called_move = true
 								else:
 									print("@ MOVEABLE TILES : [" + str(moveable_tiles) + "]")
@@ -632,13 +632,13 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 									if closet_tile_in_range_to_action_tile != null:
 										if closet_tile_in_range_to_action_tile !=  Vector2i(current_position):
 											ai_unit.update_move_tile(grid.get_map_tile(closet_tile_in_range_to_action_tile))
-											ai_move(closet_tile_in_range_to_action_tile)
+											ai_move(closet_tile_in_range_to_action_tile, ai_unit)
 											called_move = true
 			else:
 				if called_move == false:
 					if Vector2(current_position) != selected_action.action_position:
 						ai_unit.update_move_tile(grid.get_map_tile(selected_action.action_position))
-						ai_move(selected_action.action_position)
+						ai_move(selected_action.action_position, ai_unit)
 						called_move = true
 	# Step 4, Perform the move if it is required
 	if(called_move):
@@ -673,9 +673,11 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 								tile_best_action = best_action_target
 	return tile_best_action
 
-func ai_move(target_position: Vector2i):
+func ai_move(target_position: Vector2i, ai_unit: CombatUnit):
 	print("@ AI MOVE CALLED @ : "+ str(target_position))
 	var current_position = grid.position_to_map(controlled_node.position)
+	grid.combat_unit_moved(ai_unit.map_position,target_position)
+	ai_unit.update_move_tile(grid.get_map_tile(target_position))
 	_path = grid.find_path(target_position,current_position)
 	move_on_path(target_position)
 
