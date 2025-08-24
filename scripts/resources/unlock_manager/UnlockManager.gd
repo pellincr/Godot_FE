@@ -53,7 +53,7 @@ class_name UnlockManager
 	"sword_armor" : true,
 	"sword_cavalier" : true,
 	"thief" : true,
-	"ward" : false,
+	"ward" : true,
 	"vandal" : true
 }
 

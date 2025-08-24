@@ -37,3 +37,6 @@ func expend_use():
 
 func calculate_price():
 	return floor(worth * (uses / max_uses))
+
+func refresh_uses():
+	uses = max_uses

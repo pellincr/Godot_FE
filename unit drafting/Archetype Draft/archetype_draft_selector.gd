@@ -36,10 +36,11 @@ func set_header_color(rarity : Rarity):
 		header_label.modulate = rarity.ui_color
 
 func set_rarity_shadow_hue(rarity):
-	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
-	panel_stylebox.set_shadow_color(rarity.ui_color)
-	panel_stylebox.set_shadow_size(rarity.shadow_size)
-	theme.set_stylebox("panel","Panel",panel_stylebox)
+	if rarity:
+		var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
+		panel_stylebox.set_shadow_color(rarity.ui_color)
+		panel_stylebox.set_shadow_size(rarity.shadow_size)
+		theme.set_stylebox("panel","Panel",panel_stylebox)
 
 func clear_unit_list_container():
 	var children = archetype_list_container.get_children()
