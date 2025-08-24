@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_oypxe"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_5kr5i"]
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_53rl2"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_ak6uv"]
 
 [sub_resource type="Resource" id="Resource_eie8e"]
 script = ExtResource("2_5kr5i")
@@ -16,7 +16,7 @@ response_filter = 0
 volume = 2
 
 [resource]
-script = ExtResource("2_53rl2")
+script = ExtResource("3_ak6uv")
 name = "Classic"
-rarity = "Common"
+db_key = "classic"
 archetype_picks = Array[ExtResource("1_oypxe")]([SubResource("Resource_eie8e")])

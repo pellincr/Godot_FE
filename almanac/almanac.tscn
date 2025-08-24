@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqflyxkqwk4cu"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ikra4"]
+[ext_resource type="Script" path="res://almanac/almanac.gd" id="2_8ydfc"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="3_lickx"]
+[ext_resource type="PackedScene" uid="uid://h1lmy7pu0hfk" path="res://almanac/almanac_scroll_container.tscn" id="4_y0t33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0def"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_1ixqd"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_o0def")
+
+[sub_resource type="Theme" id="Theme_dtsd8"]
+default_font = ExtResource("3_lickx")
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_jquec"]
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_0s6gy"]
+default_font_size = 36
+
+[node name="Almanac" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1250.0
+offset_bottom = 690.0
+theme = ExtResource("1_ikra4")
+script = ExtResource("2_8ydfc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 1140.0
+offset_bottom = 78.0
+theme = SubResource("Theme_1ixqd")
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1140, 78)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_dtsd8")
+text = "Unit Almanac"
+horizontal_alignment = 1
+
+[node name="-" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_jquec")
+text = "-
+"
+
+[node name="AlmanacTotalPercent" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_0s6gy")
+text = "-
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AlmanacScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_y0t33")]
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Return"
+
+[connection signal="focus_entered" from="ReturnButton" to="." method="_on_return_button_focus_entered"]
+[connection signal="focus_exited" from="ReturnButton" to="." method="_on_return_button_focus_exited"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

@@ -22,9 +22,9 @@ func _process(delta):
 		transition_out_animation()
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	if return_button.has_focus():
-		return_button.theme = preload("res://unit_type_almanac/panel_container_focused.tres")
+		return_button.theme = preload("res://almanac/panel_container_focused.tres")
 	else:
-		return_button.theme = preload("res://unit_type_almanac/panel_container_not_focused.tres")
+		return_button.theme = preload("res://almanac/panel_container_not_focused.tres")
 
 
 func _on_return_button_mouse_entered():

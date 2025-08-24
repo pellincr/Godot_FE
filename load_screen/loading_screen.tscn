@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://btr7xm3kfbfvl"]
 
-[ext_resource type="Theme" uid="uid://c8s6g11sgxtnp" path="res://unit_type_almanac/loading_screen.tres" id="1_sw4dj"]
+[ext_resource type="Theme" uid="uid://c8s6g11sgxtnp" path="res://almanac/loading_screen.tres" id="1_sw4dj"]
 [ext_resource type="Script" path="res://load_screen/loading_screen.gd" id="2_v33nu"]
 
 [node name="LoadingScreen" type="Control"]

@@ -39,7 +39,7 @@ text = "Hall of Heroes"
 
 [node name="AlmanacButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Unit Almanac"
+text = "Almanac"
 
 [node name="ReturnToStartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
