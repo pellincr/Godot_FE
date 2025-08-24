@@ -961,6 +961,11 @@ func fsm_unit_action_select_process(delta):
 			combat.game_ui.destory_active_ui_node()
 			fsm_unit_action_cancel(delta)
 
+func fsm_game_menu_process(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_cancel"):
+			fsm_game_menu_cancel()
+
 func fsm_game_menu_cancel():
 	combat.game_ui.destory_active_ui_node()
 	revert_player_state()
@@ -983,7 +988,7 @@ func player_fsm_process(delta):
 		CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN:
 			fsm_unit_details_screen_process(delta)
 		CombatMapConstants.PLAYER_STATE.GAME_MENU:
-			pass
+			fsm_game_menu_process(delta)
 	## MOVEMENT
 		CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT:
 			fsm_unit_move_process(delta)
@@ -1209,7 +1214,7 @@ func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 	else:
 		combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info)
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING)
-	
+
 func fsm_unit_combat_action_targetting(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm"):
