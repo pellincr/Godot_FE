@@ -223,11 +223,9 @@ func process_unit_move(delta):
 			_position_id += 1
 			_next_position = grid.map_to_position(_path[_position_id])
 		else:
-			#update_game_state(previous_game_state)
+			update_game_state(previous_game_state)
 			_arrived = true
 			finished_move.emit(new_position)
-			# Update the unit's effective position on the map
-			update_game_state(previous_game_state)
 			if game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
 				# Cancelled the Unit's Move
 				if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT):
@@ -646,8 +644,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 		await finished_move
 		print("@ COMPLTED WAITING CALLING AI ACTION")
 		#update the combat_unit info with the new tile info
-		ai_unit.update_map_tile(grid.get_map_tile(ai_unit.move_position))
-		
+		confirm_unit_move(ai_unit)
 	return selected_action
 
 #
@@ -676,8 +673,6 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 func ai_move(target_position: Vector2i, ai_unit: CombatUnit):
 	print("@ AI MOVE CALLED @ : "+ str(target_position))
 	var current_position = grid.position_to_map(controlled_node.position)
-	grid.combat_unit_moved(ai_unit.map_position,target_position)
-	ai_unit.update_move_tile(grid.get_map_tile(target_position))
 	_path = grid.find_path(target_position,current_position)
 	move_on_path(target_position)
 
@@ -724,7 +719,8 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 func confirm_unit_move(combat_unit: CombatUnit):
 	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
 	if update_successful:
-		combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
+		pass
+	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
 	combat.spawn_reinforcements(turn_count)
