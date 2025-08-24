@@ -223,19 +223,23 @@ func process_unit_move(delta):
 			_position_id += 1
 			_next_position = grid.map_to_position(_path[_position_id])
 		else:
-			update_game_state(previous_game_state)
+			#update_game_state(previous_game_state)
 			_arrived = true
 			finished_move.emit(new_position)
+			# Update the unit's effective position on the map
+			update_game_state(previous_game_state)
 			if game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
-				# Cancel Flow
+				# Cancelled the Unit's Move
 				if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT):
 					# Return cursor
 					move_cursor(combat.get_current_combatant().map_position)
+					grid.combat_unit_moved(combat.get_current_combatant().move_position,combat.get_current_combatant().map_position)
 					_camera_follow_move = false
-					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
+					revert_player_state()
 				# Move Flow
 				elif(player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
 					combat.get_current_combatant().update_move_tile(grid.get_map_tile(new_position))
+					grid.combat_unit_moved(combat.get_current_combatant().map_position,combat.get_current_combatant().move_position)
 					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
@@ -642,7 +646,8 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 		await finished_move
 		print("@ COMPLTED WAITING CALLING AI ACTION")
 		#update the combat_unit info with the new tile info
-		confirm_unit_move(ai_unit)
+		ai_unit.update_map_tile(grid.get_map_tile(ai_unit.move_position))
+		
 	return selected_action
 
 #
@@ -716,9 +721,8 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 #
 func confirm_unit_move(combat_unit: CombatUnit):
 	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
-	if not update_successful:
-		print("BAD NEWS")
-	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
+	if update_successful:
+		combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
 	combat.spawn_reinforcements(turn_count)
@@ -1131,7 +1135,8 @@ func fsm_support_action_targetting(delta):
 			#Destroy old UI
 			combat.game_ui.destory_active_ui_node()
 			#Finalize the move
-			confirm_unit_move(combat.get_current_combatant())
+			#confirm_unit_move(combat.get_current_combatant())
+			combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION)
 			await combat.perform_support(combat.get_current_combatant(), grid.get_combat_unit(target_tile), support_exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
@@ -1219,7 +1224,8 @@ func fsm_unit_combat_action_targetting(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm"):
 			combat.game_ui.destory_active_ui_node()
-			confirm_unit_move(combat.get_current_combatant())
+			#confirm_unit_move(combat.get_current_combatant())
+			combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION)
 			await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
@@ -1328,7 +1334,8 @@ func fsm_unit_inventory_un_equip(item:ItemDefinition):
 func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
 	combat.game_ui.destory_active_ui_node()
-	confirm_unit_move(combat.get_current_combatant())
+	combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
+	#confirm_unit_move(combat.get_current_combatant())
 	if item is ConsumableItemDefinition:
 		await combat.combat_unit_item_manager.use_item(combat.get_current_combatant(), item)
 	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
@@ -1339,7 +1346,8 @@ func fsm_unit_inventory_use(item:ItemDefinition):
 #Wait
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true
-	confirm_unit_move(cu)
+	combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
+	#confirm_unit_move(cu)
 	if combat.get_current_combatant().alive:
 		combat.get_current_combatant().map_display.update_values()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
