@@ -6,7 +6,8 @@ class_name ArmyArchetypeDefinition
 #
 ##
 
-@export var name : String 
+@export var name : String
+@export var db_key : String
 @export var rarity : Rarity
 @export_group("Picks")
 @export var archetype_picks : Array[armyArchetypePickDefinition]

@@ -16,13 +16,13 @@
 script = ExtResource("1_2cpwe")
 army_archetypes = {
 "armor_up": ExtResource("10_5m6ki"),
-"bow": ExtResource("11_uxo86"),
+"bows": ExtResource("11_uxo86"),
 "classic": ExtResource("2_5nohr"),
 "healing_here": ExtResource("6_pc7my"),
 "might_and_magic": ExtResource("7_sp3cl"),
 "mighty_mercs": ExtResource("5_3c5le"),
 "random": ExtResource("3_c3rwr"),
 "swords": ExtResource("9_5rsxe"),
-"tavern_troop": ExtResource("4_vk6ie"),
+"taverns_troop": ExtResource("4_vk6ie"),
 "vicious vigilantes": ExtResource("8_x1tpj")
 }

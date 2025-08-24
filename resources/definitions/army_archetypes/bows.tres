@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_8mk2t"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_djq44"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_4jx75"]
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="4_70bm6"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="4_880nn"]
 
 [sub_resource type="Resource" id="Resource_nlecq"]
 script = ExtResource("2_djq44")
@@ -27,7 +27,7 @@ response_filter = 0
 volume = 1
 
 [resource]
-script = ExtResource("4_70bm6")
+script = ExtResource("4_880nn")
 name = "Bows"
-rarity = "Common"
+db_key = "bows"
 archetype_picks = Array[ExtResource("1_8mk2t")]([SubResource("Resource_nlecq"), SubResource("Resource_8l8jn")])

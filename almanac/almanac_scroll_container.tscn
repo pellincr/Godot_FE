@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://h1lmy7pu0hfk"]
 
-[ext_resource type="Script" path="res://unit_type_almanac/unit_type_scroll_container.gd" id="1_061de"]
-[ext_resource type="PackedScene" uid="uid://b36cv6rktmlvl" path="res://unit_type_almanac/unit_type_header.tscn" id="2_33mpr"]
+[ext_resource type="Script" path="res://almanac/almanac_scroll_container.gd" id="1_biyiu"]
+[ext_resource type="PackedScene" uid="uid://b36cv6rktmlvl" path="res://almanac/almanac_scroll_header.tscn" id="2_8xwna"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyh7k"]
 bg_color = Color(1, 1, 1, 1)
@@ -22,19 +22,18 @@ border_color = Color(1, 1, 1, 1)
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_jyh7k")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_gkqje")
 
-[node name="UnitTypeScrollContainer" type="HBoxContainer"]
+[node name="AlmanacScrollContainer" type="HBoxContainer"]
 offset_right = 457.0
 offset_bottom = 514.0
-script = ExtResource("1_061de")
+script = ExtResource("1_biyiu")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="UnitTypeHeader" parent="MainContainer" instance=ExtResource("2_33mpr")]
+[node name="AlmanacScrollHeader" parent="MainContainer" instance=ExtResource("2_8xwna")]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 2
 
 [node name="DetailedViewSubContainer" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
@@ -49,4 +48,4 @@ follow_focus = true
 [node name="MainScrollContainer" type="VBoxContainer" parent="MainContainer/DetailedViewSubContainer/ScrollContainer"]
 layout_mode = 2
 
-[connection signal="header_swapped" from="MainContainer/UnitTypeHeader" to="." method="_on_unit_type_header_header_swapped"]
+[connection signal="header_swapped" from="MainContainer/AlmanacScrollHeader" to="." method="_on_almanac_header_swapped"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjbn6qiqitrdm"]
+
+[ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://almanac/panel_container_focused.tres" id="1_n60p0"]
+[ext_resource type="Script" path="res://almanac/archetype/archetype_panel_container.gd" id="2_qi1l6"]
+
+[node name="ArchetypePanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(350, 80)
+offset_right = 40.0
+offset_bottom = 40.0
+focus_mode = 2
+theme = ExtResource("1_n60p0")
+script = ExtResource("2_qi1l6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ArchetypeName" type="Label" parent="MarginContainer"]
+layout_mode = 2
+focus_mode = 2
+text = "Archetype Name"
+horizontal_alignment = 1
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

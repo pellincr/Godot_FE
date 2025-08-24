@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_6s4dd"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_k7p6r"]
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes.gd" id="2_uqj7x"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_1kve7"]
 
 [sub_resource type="Resource" id="Resource_to88c"]
 script = ExtResource("2_k7p6r")
@@ -16,7 +16,7 @@ response_filter = 0
 volume = 2
 
 [resource]
-script = ExtResource("2_uqj7x")
+script = ExtResource("3_1kve7")
 name = "Vicious Vigilantes"
-rarity = ""
+db_key = "vicious_vigilantes"
 archetype_picks = Array[ExtResource("1_6s4dd")]([SubResource("Resource_to88c")])

@@ -102,7 +102,7 @@ func transition_out_animation():
 
 func _on_almanac_button_pressed():
 	transition_out_animation()
-	var almanac_scene = preload("res://unit_type_almanac/unit_type_almanac.tscn")
+	var almanac_scene = preload("res://almanac/almanac.tscn")
 	get_tree().change_scene_to_packed(almanac_scene)
 
 
