@@ -111,6 +111,8 @@ func show_next_screen():
 		SELECTOR_STATE.STATS:
 			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 				var overview_view = commander_overview_scene.instantiate()
+				if UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon:
+					overview_view.weapon = UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon
 				main_container.add_child(overview_view)
 				overview_view.set_icon_visibility(unit)
 				current_state = SELECTOR_STATE.OVERVIEW
@@ -203,6 +205,8 @@ func instantiate_unit_draft_selector():
 		var overview_scene = null
 		if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 			overview_scene = commander_overview_scene.instantiate()
+			if UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon:
+				overview_scene.weapon = UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon
 			main_container.add_child(overview_scene)
 			overview_scene.set_icon_visibility(unit)
 		elif current_draft_state == Constants.DRAFT_STATE.UNIT:
@@ -331,6 +335,10 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	var inventory: Array[ItemDefinition]
 	var unit_type: UnitTypeDefinition = UnitTypeDatabase.get_definition(unit_class)
 	var weapon_types = unit_type.usable_weapon_types
+	#Commander Specific Weapon Equip
+	if unit_type is CommanderDefinition:
+		inventory.append(unit_type.signature_weapon)
+	
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
