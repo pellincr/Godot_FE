@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=7 format=3 uid="uid://fjh2jmeyywal"]
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=8 format=3 uid="uid://fjh2jmeyywal"]
 
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_8cdro"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_sp0sl"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_kmwat"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_yxtgw"]
 
 [sub_resource type="Resource" id="Resource_3euvc"]
@@ -41,4 +42,5 @@ volume = 1
 script = ExtResource("3_yxtgw")
 name = "Tavern's Troop"
 db_key = "taverns_troop"
+rarity = ExtResource("3_kmwat")
 archetype_picks = Array[ExtResource("1_8cdro")]([SubResource("Resource_3euvc"), SubResource("Resource_qn615"), SubResource("Resource_p07r2")])
