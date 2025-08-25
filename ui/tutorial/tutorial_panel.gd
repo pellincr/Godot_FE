@@ -29,8 +29,6 @@ var current_page = clampi(1,1,total_pages)
 func _ready():
 	instantiate_tutorial()
 	grab_focus()
-	
-	
 	update_tutorial_panel()
 
 func instantiate_tutorial():
