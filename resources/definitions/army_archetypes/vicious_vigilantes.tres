@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=6 format=3 uid="uid://ctsy245thevlk"]
 
-[ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_6s4dd"]
-[ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_k7p6r"]
-[ext_resource type="Script" uid="uid://ddryvyc73ib0h" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_1kve7"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_6s4dd"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_k7p6r"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_1kve7"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_xcwno"]
 
 [sub_resource type="Resource" id="Resource_to88c"]

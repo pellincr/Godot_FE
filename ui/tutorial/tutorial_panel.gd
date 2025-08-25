@@ -14,7 +14,7 @@ signal tutorial_completed()
 @onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
 
 enum TUTORIAL{
-	DRAFT, BATTLE_PREP, CAMPAIGN_MAP
+	DRAFT, BATTLE_PREP, CAMPAIGN_MAP, MUNDANE_WEAPONS
 }
 
 var current_state : TUTORIAL
@@ -47,6 +47,9 @@ func instantiate_tutorial():
 			tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
 			tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
 			tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+		TUTORIAL.MUNDANE_WEAPONS:
+			tutorial_page_text.append("There are 3 types of Mundane Weapons: Swords, Axes, and Lances.")
+			tutorial_page_text.append("In combat, it is important to choose your weapon wisely. The Mundane Weapons work as follows: Swords beat Axes, Axes beat Lances, and Lances beat Swords.")
 	total_pages = tutorial_page_text.size()
 
 

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://cxnyafyx5fcyt"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_qvl03"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_qvl03"]
 [ext_resource type="Texture2D" uid="uid://d3pqwslpvbk1x" path="res://resources/sprites/items/weapons/shield/Eye Greatshield.png" id="2_dme6c"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_mqc8j"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_mvc2i"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_mvc2i"]
 
 [sub_resource type="Resource" id="Resource_tvbcc"]
 script = ExtResource("1_qvl03")

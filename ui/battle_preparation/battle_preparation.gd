@@ -44,6 +44,7 @@ func _ready():
 	transition_in_animation()
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
+	print(str(campaign_level.get_children()))
 	var combat = campaign_level.get_child(2)
 	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units   #.combat.max_allowed_ally_units
 	#playerOverworldData.selected_party = []

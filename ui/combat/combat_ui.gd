@@ -58,7 +58,10 @@ func _ready():
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
-	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+	if playerOverworldData.current_campaign:
+		scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+	else:
+		show_tutorial_panel(scene_transition, playerOverworldData.current_level)
 	scene_transition.play_animation("level_fade_out")
 	await get_tree().create_timer(5).timeout
 	scene_transition.queue_free()
@@ -71,6 +74,14 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
+
+func show_tutorial_panel(scene_transition, current_level:PackedScene):
+	var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+	match combat.tutorial_level:
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			scene_transition.set_label_text("Mundane Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MUNDANE_WEAPONS
+			add_child(tutorial_panel)
 
 #
 # Creates the unit action container

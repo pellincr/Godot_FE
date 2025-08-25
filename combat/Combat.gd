@@ -63,6 +63,10 @@ var _player_unit_alive : bool = true
 @export var max_allowed_ally_units : int
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
+
+@export var is_tutorial := false
+@export var tutorial_level : TutorialPanel.TUTORIAL
+#@export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var draft_amount_on_win : int
 #@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
@@ -87,6 +91,8 @@ func _ready():
 
 
 func populate():
+	if is_tutorial:
+		set_player_tutorial_party()
 	var current_party_index = 0 
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
@@ -95,6 +101,16 @@ func populate():
 				current_party_index+= 1
 	spawn_initial_units()
 	load_entities()
+
+func set_player_tutorial_party():
+	match tutorial_level:
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			var sword_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
+			playerOverworldData.selected_party.append(sword_unit)
+			var axe_unit = Unit.create_generic_unit("fighter",[ItemDatabase.items["iron_axe"]], "Axe", 2)
+			playerOverworldData.selected_party.append(axe_unit)
+			var lance_unit = Unit.create_generic_unit("pikeman",[ItemDatabase.items["iron_lance"]], "Lance", 2)
+			playerOverworldData.selected_party.append(lance_unit)
 
 func load_entities():
 	if mapEntityData != null:
@@ -303,34 +319,26 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		playerOverworldData.began_level = false
 		playerOverworldData.gold += calculate_reward_gold()
 		SelectedSaveFile.save(playerOverworldData)
-		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
-			#if not at the final level, go back to the campaign map
-			#if draft_amount_on_win > 0:
-				#if allowed to draft after level
-				#playerOverworldData.current_archetype_count = 0
-				#playerOverworldData.max_archetype = draft_amount_on_win
-				#SelectedSaveFile.save(playerOverworldData)
-				#get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
-			#else:
-				#if battle_prep_on_win:
-					#if allowed to go to battle prep on win
-				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
-				#else:
-			playerOverworldData.began_level = false
-			playerOverworldData.current_level = null
-			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
-		else:
-			#reset the game back to the start screen after final level so that it can be played again
-			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
-			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
-			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
-			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
-			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-			unlock_new_unit_types()
+		if is_tutorial:
 			reset_game_state()
-			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+		else:
+			if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+				playerOverworldData.began_level = false
+				playerOverworldData.current_level = null
+				SelectedSaveFile.save(playerOverworldData)
+				get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+			else:
+				#reset the game back to the start screen after final level so that it can be played again
+				var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+				playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+				playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+				playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+				playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+				unlock_new_unit_types()
+				reset_game_state()
+				SelectedSaveFile.save(playerOverworldData)
+				get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	if(check_lose()):
 		reset_game_state()
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
@@ -341,6 +349,7 @@ func reset_game_state():
 	playerOverworldData.current_level = null
 	playerOverworldData.current_campaign = null
 	playerOverworldData.total_party = []
+	playerOverworldData.selected_party = []
 	playerOverworldData.dead_party_members = []
 	playerOverworldData.current_archetype_count = 0
 	playerOverworldData.archetype_allotments = []
