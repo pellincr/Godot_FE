@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EventOption" load_steps=2 format=3 uid="uid://ddgwfyuel5m8g"]
+
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_xamao"]
+
+[resource]
+script = ExtResource("1_xamao")
+description = "Recieve 1 random Consumable"
+effect = 3
