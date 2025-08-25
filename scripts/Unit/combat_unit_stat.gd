@@ -12,12 +12,12 @@ class_name CombatUnitStat
 @export var current_hp :int
 
 @export_group("Combat Stats")
-var damage : int
-var hit : int
+@export var damage : int
+@export var hit : int
 
-var avoid :  int
-var attack_speed :  int
+@export var avoid :  int
+@export var attack_speed :  int
 
-var critical_chance : int
-var critical_multiplier :int
-var critical_avoid :int
+@export var critical_chance : int
+@export var critical_multiplier :int
+@export var critical_avoid :int

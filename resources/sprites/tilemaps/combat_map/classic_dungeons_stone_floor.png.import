@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwutiqkkxqei6"
-path="res://.godot/imported/tiles.png-4d8c0dcb59daedc083889c16e6595f84.ctex"
+uid="uid://bp75lum4ea0as"
+path="res://.godot/imported/classic_dungeons_stone_floor.png-8c040d0db9b0ebc026481d66176970bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/tiles.png"
-dest_files=["res://.godot/imported/tiles.png-4d8c0dcb59daedc083889c16e6595f84.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_stone_floor.png"
+dest_files=["res://.godot/imported/classic_dungeons_stone_floor.png-8c040d0db9b0ebc026481d66176970bb.ctex"]
 
 [params]
 

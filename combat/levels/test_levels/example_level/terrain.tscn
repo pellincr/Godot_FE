@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://ww05yde5nb2t"]
 
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="1_ol4pc"]
-[ext_resource type="Texture2D" uid="uid://cu82x5hvakoo" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_yqtwc"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="1_ol4pc"]
+[ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_yqtwc"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_81kdn"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_hrnf1"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="3_wi53r"]
@@ -13,10 +13,11 @@
 [ext_resource type="Resource" uid="uid://052mcrbllxuw" path="res://resources/definitions/terrians/pillar_terrain.tres" id="6_7tu2s"]
 [ext_resource type="Resource" uid="uid://dgfpibxdiinha" path="res://resources/definitions/terrians/ruins_terrain.tres" id="9_hup3p"]
 [ext_resource type="Resource" uid="uid://bdpax6msv6gx8" path="res://resources/definitions/terrians/forest_terrain.tres" id="9_rbl1j"]
-[ext_resource type="Texture2D" uid="uid://baayd7wfdl7aw" path="res://resources/sprites/tilemaps/upscalemedia-transformed.png" id="10_e6tbk"]
+[ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/upscalemedia-transformed.png" id="10_e6tbk"]
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="10_kjh4u"]
 [ext_resource type="Resource" uid="uid://bp7ibodvmd4sx" path="res://resources/definitions/terrians/house_terrain.tres" id="11_watv1"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="13_cjodj"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]
 texture = ExtResource("1_yqtwc")

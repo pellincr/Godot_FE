@@ -1,5 +1,5 @@
 extends Control
-const BLANK_TERRAIN = preload("res://resources/definitions/terrians/blank_terrain.tres")
+const BLANK_TERRAIN = preload("res://resources/definitions/terrians/grass_terrain.tres")
 
 var x_coordinate : int
 var y_coordinate: int
@@ -17,7 +17,7 @@ func update_defense_bonus() :
 	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Defense.text = "DEF " + str(terrain.defense)
 
 func update_magic_defense_bonus() : 
-	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Special.text = "RES " + str(terrain.magic_defense)
+	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Special.text = "RES " + str(terrain.resistance)
 
 func set_x_coordinates(value: int) :
 	self.x_coordinate = value

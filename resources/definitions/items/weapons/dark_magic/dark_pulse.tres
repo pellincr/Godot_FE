@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://d34qpam5lxbd8"]
 
 [ext_resource type="Texture2D" uid="uid://bvnx8kfddus1d" path="res://resources/sprites/items/weapons/dark/dark_pulse.png" id="1_cw831"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_3b2fq"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_3b2fq"]
 
 [resource]
 script = ExtResource("2_3b2fq")

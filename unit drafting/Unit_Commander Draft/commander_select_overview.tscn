@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_655jn"]
 [ext_resource type="Texture2D" uid="uid://ddxdxi688dan" path="res://resources/sprites/items/weapons/bow/great_bow.png" id="1_bjlfw"]
 [ext_resource type="PackedScene" uid="uid://di7v11sroksay" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.tscn" id="2_66c71"]
-[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/commander_select_overview.gd" id="2_oc3ny"]
+[ext_resource type="Script" uid="uid://bed6kqaqdev1k" path="res://unit drafting/Unit_Commander Draft/commander_select_overview.gd" id="2_oc3ny"]
 
 [sub_resource type="Theme" id="Theme_3g5xo"]
 default_font_size = 18

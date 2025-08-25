@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baayd7wfdl7aw"
-path="res://.godot/imported/upscalemedia-transformed.png-bfa3dd996338fd47e35349f82dbb72e0.ctex"
+uid="uid://ba6xcejwdlkak"
+path="res://.godot/imported/classic_dungeons_doors.png-3e6a85155aa5de41f7f7b491403d88b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/upscalemedia-transformed.png"
-dest_files=["res://.godot/imported/upscalemedia-transformed.png-bfa3dd996338fd47e35349f82dbb72e0.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_doors.png"
+dest_files=["res://.godot/imported/classic_dungeons_doors.png-3e6a85155aa5de41f7f7b491403d88b2.ctex"]
 
 [params]
 

@@ -3,8 +3,15 @@ class_name Terrain
 
 enum TYPE {
 	BASIC,
-	NATURE
+	NATURE,
+	STRUCTURE
 }
+
+enum EFFECT_SCALING {
+	FLAT,
+	PERCENTAGE
+}
+
 enum TERRAIN_EFFECTS {
 	NONE,
 	HEAL,
@@ -12,26 +19,23 @@ enum TERRAIN_EFFECTS {
 }
 @export_group("Terrain Info")
 @export var name = ""
-@export var db_key = ""
-@export_enum("Basic", "Nature") var type : Array[int] = [0]
+@export var description = ""
+@export var type : Array[TYPE] = [0]
 
-
-@export_group("Cost")
-@export  var cost : Array[int] = [1,1,1,1,1]
+@export_group("Movement Data")
+@export var cost : Array[int] = [1,1,1,1,1]
 @export var blocks : Array[unitConstants.movement_type] = []
-@export var stat_bonuses : UnitStat = UnitStat.new()
-@export_category("Stats Bonuses OLD")
-@export var strength = 0
-@export var magic = 0
-@export var skill = 0
-@export var speed = 0
-@export var luck = 0
-@export var defense = 0
-@export var magic_defense = 0
-@export var avoid = 0
-@export_category("Status Effects")
-@export_enum("BEGINNING_PHASE","ENDING_PHASE") var active_effect_phases : String = ""
-@export_enum("NONE","HEAL","DAMAGE") var effect : int = 0
-@export var effect_weight : int = 4
-@export_category("Visual")
+
+@export_category("Stats Data")
+@export var defense : int = 0
+@export var resistance : int = 0
+@export var avoid : int = 0
+
+@export_category("Status Data")
+@export var active_effect_phases : CombatMapConstants.TURN_PHASE = CombatMapConstants.TURN_PHASE.BEGINNING_PHASE
+@export var effect : TERRAIN_EFFECTS = 0
+@export var effect_scaling : EFFECT_SCALING = 0
+@export var effect_weight : int = 0
+
+@export_category("Visual Data")
 @export var tile_texture : Texture = null

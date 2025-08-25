@@ -50,7 +50,7 @@ var selected_unit_player_state_stack: Stack = Stack.new()
 ##Controller Main Variables
 @export var controlled_node : Control
 @export var combat: Combat 
-var tile_map : TileMap
+var tile_map : TileMapLayer
 var grid: CombatMapGrid
 var camera: CombatMapCamera
 
@@ -112,7 +112,7 @@ func _ready():
 	##Load Seed to ensure consistent runs
 	#seed(seed)
 	##Configure FSM States
-	tile_map = get_node("../Terrain/TileMap")
+	tile_map = get_node("../Terrain/ActiveMapTerrain")
 	turn_count = 1
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
 	previous_game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
@@ -492,12 +492,15 @@ func process_terrain_effects():
 			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
 				if grid.get_terrain(combat_unit.map_position): 
 					var target_terrain = grid.get_terrain(combat_unit.map_position)
-					if target_terrain.active_effect_phases == CombatMapConstants.TURN_PHASE.keys()[turn_phase]:
+					if target_terrain.active_effect_phases == turn_phase:
 						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
 							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
 								if combat_unit.current_hp < combat_unit.stats.max_hp.evaluate():
-									print("HEALED UNIT : " + combat_unit.unit.name)
-									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
+									if target_terrain.effect_scaling == Terrain.EFFECT_SCALING.PERCENTAGE:
+										combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.stats.max_hp.evaluate() * target_terrain.effect_weight /100))
+									else:
+										print("HEALED UNIT : " + combat_unit.unit.name)
+										combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 
 func get_available_unit_actions(cu:CombatUnit) -> Array[UnitAction]:
 	#get maximum actionable distance (ex weapons that have far atk)

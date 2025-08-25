@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://psk2h1mn514a"]
 
-[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_scw58"]
+[ext_resource type="Script" uid="uid://c0ucpcge8vpm1" path="res://scripts/combat/terrain/Terrain.gd" id="1_scw58"]
 
 [resource]
 script = ExtResource("1_scw58")

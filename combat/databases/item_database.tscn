@@ -1,6 +1,6 @@
 [gd_scene load_steps=63 format=3 uid="uid://cm5gan74bnf37"]
 
-[ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" uid="uid://inmihgh33enk" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_o8mgg"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="5_ge5kc"]

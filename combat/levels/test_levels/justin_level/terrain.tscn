@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bnehnessek60a"]
 
-[ext_resource type="Texture2D" uid="uid://cu82x5hvakoo" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_8w121"]
+[ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_8w121"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_w5yty"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="3_cmk3k"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="4_l3rgt"]
@@ -9,8 +9,9 @@
 [ext_resource type="Resource" uid="uid://cu7shacnlicgb" path="res://resources/definitions/terrians/bones_terrain.tres" id="7_7mru1"]
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="8_kcek4"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="9_htabg"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="9_sriu2"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="9_sriu2"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="11_k6e33"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]
 texture = ExtResource("1_8w121")
