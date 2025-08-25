@@ -42,6 +42,10 @@ window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://resources/sprites/grid/cursor.png"
 mouse_cursor/tooltip_position_offset=Vector2(64, 10)
 
+[editor]
+
+export/convert_text_resources_to_binary=false
+
 [input]
 
 ui_cancel={
