@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="2_a14u6"]
 [ext_resource type="Shader" uid="uid://hucqqdwnqvi8" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="3_mgjym"]
-[ext_resource type="Texture2D" uid="uid://cx1516od8owqh" path="res://resources/sprites/icons/boss_unit.png" id="4_pyuub"]
 [ext_resource type="Script" uid="uid://b8ja4wxi56iq3" path="res://ui/healthbar.gd" id="6_13a20"]
+[ext_resource type="Texture2D" uid="uid://b5a2jao5ef4rq" path="res://resources/sprites/icons/monster_icon.png" id="6_e7ls2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
 resource_local_to_scene = true
@@ -53,11 +53,6 @@ visible = false
 position = Vector2(12, -12)
 texture = ExtResource("3_mgjym")
 
-[node name="boss_indicator" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(11, 7)
-texture = ExtResource("4_pyuub")
-
 [node name="weapon_icon" type="Sprite2D" parent="."]
 visible = false
 
@@ -72,3 +67,12 @@ step = 1.0
 value = 55.0
 show_percentage = false
 script = ExtResource("6_13a20")
+
+[node name="boss_indicator" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 5.0
+offset_right = 18.0
+offset_bottom = 13.0
+texture = ExtResource("6_e7ls2")

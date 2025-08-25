@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_h18eo"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_ehpk1"]
 [ext_resource type="Resource" uid="uid://das3nby4hielm" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_3.tres" id="6_of0la"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_gys8t"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="8_miqnb"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_svvcn"]
+[ext_resource type="Script" uid="uid://duca8rg2bbf2d" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_gys8t"]
+[ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="8_miqnb"]
+[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_svvcn"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_pp7db"]
 
 [node name="Game" type="Node"]

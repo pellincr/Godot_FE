@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_8gwvc"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_8lpqq"]
-[ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="3_w0h5n"]
+[ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/stone_wall_terrain.tres" id="3_w0h5n"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="4_wub5q"]
 [ext_resource type="Resource" uid="uid://2qq6yi3brlv0" path="res://resources/definitions/terrians/grass_terrain.tres" id="5_becfa"]
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="6_l88gi"]
-[ext_resource type="Resource" uid="uid://cu7shacnlicgb" path="res://resources/definitions/terrians/bones_terrain.tres" id="7_xlsxc"]
+[ext_resource type="Resource" path="res://resources/definitions/terrians/bones_terrain.tres" id="7_xlsxc"]
 [ext_resource type="Resource" uid="uid://bdpax6msv6gx8" path="res://resources/definitions/terrians/forest_terrain.tres" id="8_1un70"]
 [ext_resource type="Resource" uid="uid://dgfpibxdiinha" path="res://resources/definitions/terrians/ruins_terrain.tres" id="9_ubmch"]
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="10_4sm5r"]
