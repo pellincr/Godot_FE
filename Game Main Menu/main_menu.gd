@@ -6,6 +6,10 @@ var playerOverworldData : PlayerOverworldData
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+const ALMANAC_SCENE = preload("res://almanac/almanac.tscn")
+const TUTORIAL_PAGE_SCENE = preload("res://tutorials/tutorial_page.tscn")
+const HALL_OF_HEROES_SCENE = preload("res://hall_of_heroes/hall_of_heroes.tscn")
+
 @onready var start_game_button = $VBoxContainer/StartGameButton
 
 func _ready():
@@ -102,11 +106,14 @@ func transition_out_animation():
 
 func _on_almanac_button_pressed():
 	transition_out_animation()
-	var almanac_scene = preload("res://almanac/almanac.tscn")
-	get_tree().change_scene_to_packed(almanac_scene)
+	get_tree().change_scene_to_packed(ALMANAC_SCENE)
 
 
 func _on_hall_of_heroes_button_pressed():
 	transition_out_animation()
-	var hoh_scene = preload("res://hall_of_heroes/hall_of_heroes.tscn")
-	get_tree().change_scene_to_packed(hoh_scene)
+	get_tree().change_scene_to_packed(HALL_OF_HEROES_SCENE)
+
+
+func _on_tutorials_pressed():
+	transition_out_animation()
+	get_tree().change_scene_to_packed(TUTORIAL_PAGE_SCENE)
