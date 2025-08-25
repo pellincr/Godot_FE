@@ -15,6 +15,7 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("3_e5fug")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_m8py6"]
 script = ExtResource("1_os3lc")
@@ -26,6 +27,7 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("3_e5fug")])
 ai_type = 2
+is_boss = false
 
 [resource]
 script = ExtResource("2_c0qvc")

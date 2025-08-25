@@ -42,8 +42,8 @@ var unit_groups = [
 	[] #enemies
 ]
 var current_combatant = 0
-var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
-
+@export var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
+@export var turns_to_survive:=0
 var combatExchange: CombatExchange
 
 
@@ -67,7 +67,10 @@ var _player_unit_alive : bool = true
 #@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
 
+@onready var current_turn = 0
+
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+
 
 func _ready():
 	emit_signal("register_combat", self)
@@ -274,7 +277,11 @@ func advance_turn(faction: int):
 				combatants[entry].map_display.update_values()
 	#decrement the turn reward modifier
 	turn_reward_modifier -= .5
-
+	#advace the current turn count
+	current_turn += .5
+	print("TURN#:" + str(current_turn))
+	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+		check_win()
 
 func major_action_complete():
 	get_current_combatant().minor_action_taken = true
@@ -557,14 +564,34 @@ func check_win():
 	match victory_condition:
 		Constants.VICTORY_CONDITION.DEFEAT_ALL:
 			return check_group_clear(groups[1])
+		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
+			return check_all_bosses_killed()
+		Constants.VICTORY_CONDITION.CAPTURE_TILE:
+			pass
+		Constants.VICTORY_CONDITION.DEFEND_TILE:
+			pass
+		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+			return check_turns_survived()
 
 func check_group_clear(group):
 	if group.is_empty():
 		print("WIN!")
 		return true
 
+func check_all_bosses_killed():
+	var enemy_units = groups[1]
+	for enemy in enemy_units:
+		if combatants[enemy].is_boss:
+			return false
+	return true
+
+func check_turns_survived():
+	return turns_to_survive > current_turn
+
 func check_lose():
 	return check_group_clear(groups[0])
+
+
 
 func calculate_reward_gold():
 	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)
