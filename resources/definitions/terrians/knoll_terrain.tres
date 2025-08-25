@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://0kq68jui0jc5"]
+
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_gmtpr"]
+
+[resource]
+script = ExtResource("1_gmtpr")
+name = "Knoll"
+description = ""
+type = Array[int]([0])
+cost = Array[int]([2, 3, 1, 2, 1])
+blocks = Array[int]([])
+defense = 1
+resistance = 1
+avoid = 15
+active_effect_phases = 2
+effect = 0
+effect_scaling = 0
+effect_weight = 0

@@ -132,7 +132,7 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	combat_unit.stats.populate_unit_stats(combat_unit.unit)
 	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	new_combatant_sprite.set_reference_unit(combat_unit)
-	$"../Terrain/TileMap".add_child(new_combatant_sprite)
+	$"../Terrain/ActiveMapTerrain".add_child(new_combatant_sprite)
 	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
 	new_combatant_sprite.z_index = 1
 	combat_unit.map_display = new_combatant_sprite
@@ -142,7 +142,7 @@ func add_entity(cme:CombatMapEntity):
 	entities.append(cme)
 	var new_entity_sprite : CombatMapEntityDisplay = COMBAT_MAP_ENTITY_DISPLAY.instantiate()
 	new_entity_sprite.set_reference_entity(cme)
-	$"../Terrain/TileMap".add_child(new_entity_sprite)
+	$"../Terrain/ActiveMapTerrain".add_child(new_entity_sprite)
 	new_entity_sprite.position = Vector2((cme.position.x * 32.0) + 16,(cme.position.y * 32.0) + 16)
 	new_entity_sprite.z_index = 0
 	cme.display = new_entity_sprite

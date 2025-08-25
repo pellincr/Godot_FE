@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://d3q4u334gvuu6"]
 
 [ext_resource type="Texture2D" uid="uid://cehb2vtt72rlw" path="res://resources/sprites/items/weapons/bow/steel_bow.png" id="1_8ndqs"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_skxeh"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_skxeh"]
 
 [resource]
 script = ExtResource("2_skxeh")

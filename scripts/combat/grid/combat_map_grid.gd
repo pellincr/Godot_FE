@@ -8,7 +8,7 @@ class_name CombatMapGrid
 signal tile_info_updated(tile : Dictionary)
 
 ##EXPORTS
-var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
+var terrain_tile_map : TileMapLayer
 
 const tiles_to_check = [
 	Vector2i.RIGHT,
@@ -39,7 +39,7 @@ func _ready():
 	#initialize_grid(terrain_tile_map) 
 	#populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
 
-func setup(tileMap : TileMap):
+func setup(tileMap : TileMapLayer):
 	terrain_tile_map = tileMap
 	initialize_grid(tileMap) 
 	populate_map_tiles_from_terrain_tile_map(tileMap)
@@ -48,8 +48,8 @@ func setup(tileMap : TileMap):
 # populates the combatMapGrid with appriopriate terrain values
 # @param tile_map : the target tile_map layer with terrian that will be used in the combat grid
 ##
-func populate_map_tiles_from_terrain_tile_map(tile_map: TileMap):
-	for tile in tile_map.get_used_cells(0):
+func populate_map_tiles_from_terrain_tile_map(tile_map: TileMapLayer):
+	for tile in tile_map.get_used_cells():
 		create_map_tile(tile)
 		populate_map_tile_terrain(tile)
 
@@ -102,7 +102,7 @@ func populate_map_tile_terrain(tile: Vector2i):
 			#_mapTile.blocks_unit_movement = get_terrain_from_tile_map(tile).blocks
 		game_map[str(tile)] = _mapTile
 
-func initialize_grid(tile_map:TileMap):
+func initialize_grid(tile_map:TileMapLayer):
 	#configure _astargrid
 	_astargrid.region = tile_map.get_used_rect()
 	_astargrid.cell_size = Vector2i(32, 32)
@@ -445,7 +445,7 @@ func set_entity(cme :CombatMapEntity, position: Vector2i):
 
 func get_terrain_from_tile_map(position:Vector2) -> Terrain:
 	if _astargrid.is_in_boundsv(position):
-		var tile_data = terrain_tile_map.get_cell_tile_data(0, position)
+		var tile_data = terrain_tile_map.get_cell_tile_data(position)
 		if tile_data :
 			if tile_data.get_custom_data("Terrain") is Terrain:
 				return tile_data.get_custom_data("Terrain")

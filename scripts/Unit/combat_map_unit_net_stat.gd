@@ -134,3 +134,8 @@ func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
 		self.avoid.remove("Weapon")
 		self.critical_chance.remove("Weapon")
 		self.critical_multiplier.remove("Weapon")
+
+func populate_terrain_stats(terrain:Terrain):
+	self.avoid.append(StatModifier.create(terrain.avoid, "Terrain"))
+	self.defense.append(StatModifier.create(terrain.defense, "Terrain"))
+	self.resistance.append(StatModifier.create(terrain.resistance, "Terrain"))

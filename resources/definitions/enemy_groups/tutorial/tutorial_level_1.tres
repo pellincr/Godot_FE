@@ -1,15 +1,17 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=7 format=3 uid="uid://bv0aejyu52m5r"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=10 format=3 uid="uid://bv0aejyu52m5r"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_os3lc"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_c0qvc"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_o74ob"]
+[ext_resource type="Script" uid="uid://chbp3xvq3mw5o" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_os3lc"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_c0qvc"]
+[ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_o74ob"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_e5fug"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="4_88oro"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_utrog"]
 
 [sub_resource type="Resource" id="Resource_kbx8i"]
 script = ExtResource("1_os3lc")
 name = "Bandit"
-map_position = Vector2i(2, 6)
-level = 1
+map_position = Vector2i(9, 9)
+level = 2
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "fighter"
@@ -19,14 +21,25 @@ ai_type = 0
 [sub_resource type="Resource" id="Resource_m8py6"]
 script = ExtResource("1_os3lc")
 name = "Bandit"
-map_position = Vector2i(3, 2)
+map_position = Vector2i(3, 7)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "bladehand"
+inventory = Array[ExtResource("2_o74ob")]([ExtResource("4_88oro")])
+ai_type = 1
+
+[sub_resource type="Resource" id="Resource_s72wl"]
+script = ExtResource("1_os3lc")
+name = "Rodriguez"
+map_position = Vector2i(2, 1)
 level = 2
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "fighter"
-inventory = Array[ExtResource("2_o74ob")]([ExtResource("3_e5fug")])
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_o74ob")]([ExtResource("4_utrog")])
 ai_type = 2
 
 [resource]
 script = ExtResource("2_c0qvc")
-group = Array[ExtResource("1_os3lc")]([SubResource("Resource_kbx8i"), SubResource("Resource_m8py6")])
+group = Array[ExtResource("1_os3lc")]([SubResource("Resource_kbx8i"), SubResource("Resource_m8py6"), SubResource("Resource_s72wl")])

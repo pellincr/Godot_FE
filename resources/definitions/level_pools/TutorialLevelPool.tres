@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bal5lnj6tj03f" path="res://combat/levels/tutorial_levels/tutorial_level_3/tutorial_3.tscn" id="3_vakfn"]
 [ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/levels/tutorial_levels/tutorial_level_4/tutorial_4.tscn" id="4_1r3a6"]
 [ext_resource type="PackedScene" uid="uid://bwh2mplnd8dpq" path="res://combat/levels/tutorial_levels/tutorial_level_5/tutorial_5.tscn" id="5_i142n"]
-[ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="6_wh0xa"]
+[ext_resource type="Script" uid="uid://b5s2v42akjt33" path="res://scripts/resources/level_pool/LevelPool.gd" id="6_wh0xa"]
 
 [resource]
 script = ExtResource("6_wh0xa")

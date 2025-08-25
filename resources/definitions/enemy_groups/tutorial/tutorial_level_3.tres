@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=14 format=3 uid="uid://das3nby4hielm"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_ipdnw"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_2vw2u"]
+[ext_resource type="Script" uid="uid://chbp3xvq3mw5o" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_ipdnw"]
+[ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_2vw2u"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_aia3m"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_b8su4"]
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="5_eu0e1"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="6_idfh4"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_yekb7"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_yekb7"]
 
 [sub_resource type="Resource" id="Resource_uinjt"]
 script = ExtResource("1_ipdnw")
