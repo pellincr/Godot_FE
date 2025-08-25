@@ -330,21 +330,7 @@ func move_on_path(current_position):
 
 ##Draw the path between the selected Combatant and the mouse cursor
 func drawSelectedpath():
-	if _arrived == true :
-		var path_length = combat.get_current_combatant().unit.stats.movement
-		#Get the length of the path
-		for i in range(_path.size()):
-			var point = _path[i]
-			var draw_color = Color.TRANSPARENT
-			if grid.is_unit_blocked(point, combat.get_current_combatant().unit.movement_type):
-				draw_color = Color.DIM_GRAY
-				if path_length - grid.get_tile_cost_at_position(point, combat.get_current_combatant()) >= 0:
-					draw_color = Color.WHITE
-				if i > 0:
-					path_length -= grid.get_tile_cost_at_position(point, combat.get_current_combatant())
-			else : 
-				break
-			draw_texture(PATH_TEXTURE, point - Vector2(16, 16), draw_color)
+	pass
 
 #Draws a units move and attack ranges
 func draw_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool, attack_range:Array[Vector2i], draw_attack_range:bool):
