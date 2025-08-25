@@ -18,6 +18,7 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_xvqm5"]
 script = ExtResource("1_myack")
@@ -29,6 +30,7 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_dku5f"]
 script = ExtResource("1_myack")
@@ -40,6 +42,7 @@ hard_mode_leveling = false
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_1468u"]
 script = ExtResource("1_myack")
@@ -51,6 +54,7 @@ hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_g1a8q")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_4ij3a"]
 script = ExtResource("1_myack")
@@ -62,6 +66,7 @@ hard_mode_leveling = false
 unit_type_key = "gunner"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_r8012"]
 script = ExtResource("1_myack")
@@ -73,6 +78,7 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_uh1vl"]
 script = ExtResource("1_myack")
@@ -84,6 +90,7 @@ hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_g1a8q")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_tk4gb"]
 script = ExtResource("1_myack")
@@ -95,6 +102,7 @@ hard_mode_leveling = false
 unit_type_key = "gunner"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 0
+is_boss = false
 
 [sub_resource type="Resource" id="Resource_wke7l"]
 script = ExtResource("1_myack")
@@ -106,6 +114,7 @@ hard_mode_leveling = false
 unit_type_key = "corsair"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5"), ExtResource("3_pejxp")])
 ai_type = 2
+is_boss = false
 
 [resource]
 script = ExtResource("9_5sp5b")

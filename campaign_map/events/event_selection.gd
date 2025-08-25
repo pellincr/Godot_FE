@@ -47,9 +47,36 @@ func _on_event_option_selected(event_option: EventOption):
 			#Give All Units +1 Magic
 			for unit : Unit in playerOverworldData.total_party:
 				unit.stats.magic += 1
+		EventOption.EVENT_EFFECT.RANDOM_WEAPON:
+			give_random_item(ItemConstants.ITEM_TYPE.WEAPON)
+		EventOption.EVENT_EFFECT.RANDOM_CONSUMABLE:
+			give_random_item(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	get_tree().change_scene_to_file("res://campaign_map/campaign_map.tscn")
+
+
+
+func give_random_item(item_type : ItemConstants.ITEM_TYPE):
+	var item_keys = ItemDatabase.items.keys()
+	var available_items = []
+	var chosen_item : ItemDefinition
+	for key in item_keys:
+		var item = ItemDatabase.items[key]
+		match item_type:
+			ItemConstants.ITEM_TYPE.WEAPON:
+				if item is WeaponDefinition:
+					available_items.append(item)
+			ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+				if item is ConsumableItemDefinition:
+					available_items.append(item)
+	if !available_items.is_empty():
+		chosen_item = available_items.pick_random()
+	else:
+		chosen_item = ItemDatabase.items["iron_sword"]
+	playerOverworldData.convoy.append(chosen_item)
+	print("Item Recieved")
+
 
 
 func _on_event_selection_container_leave_selected():
