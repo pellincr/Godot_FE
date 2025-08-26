@@ -81,7 +81,37 @@ func show_tutorial_panel(scene_transition, current_level:PackedScene):
 		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
 			scene_transition.set_label_text("Mundane Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MUNDANE_WEAPONS
-			add_child(tutorial_panel)
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			scene_transition.set_label_text("Magic Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MAGIC_WEAPONS
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			scene_transition.set_label_text("Weapon Cycle Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.WEAPON_CYCLE
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			scene_transition.set_label_text("Support Actions Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SUPPORT_ACTIONS
+		TutorialPanel.TUTORIAL.STAFFS:
+			scene_transition.set_label_text("Staffs Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.STAFFS
+		TutorialPanel.TUTORIAL.BANNERS:
+			scene_transition.set_label_text("Banners Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.BANNERS
+		TutorialPanel.TUTORIAL.TERRAIN:
+			scene_transition.set_label_text("Terrain Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.TERRAIN
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			scene_transition.set_label_text("Defeat All Enemies Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			scene_transition.set_label_text("Sieze Landmark Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SIEZE_LANDMARK
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			scene_transition.set_label_text("Defeat Bosses Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_BOSSES
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			scene_transition.set_label_text("Survive Turns Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SURVIVE_TURNS
+	add_child(tutorial_panel)
 
 #
 # Creates the unit action container

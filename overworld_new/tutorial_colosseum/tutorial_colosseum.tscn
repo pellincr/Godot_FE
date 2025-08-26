@@ -39,22 +39,17 @@ layout_mode = 2
 [node name="Mundane" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Mundan Weapons"
+text = "Mundane Triangle"
 
 [node name="Magic" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Magic Weapons"
+text = "Magic Triangle"
 
-[node name="Nimble" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
+[node name="WeaponCycle" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Nimble Weapons"
-
-[node name="Defensive" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Defensive Weapons"
+text = "Weapon Cycle"
 
 [node name="SupportTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
 layout_mode = 2
@@ -118,4 +113,15 @@ grow_vertical = 0
 text = "Return"
 
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Mundane" to="." method="_on_mundane_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Magic" to="." method="_on_magic_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/WeaponCycle" to="." method="_on_weapon_cycle_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/SupportActions" to="." method="_on_support_actions_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Staffs" to="." method="_on_staffs_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Banners" to="." method="_on_banners_pressed"]
+[connection signal="pressed" from="TutorialContainer/Terrain" to="." method="_on_terrain_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatAllEnemies" to="." method="_on_defeat_all_enemies_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/SiezeLandmark" to="." method="_on_sieze_landmark_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatBosses" to="." method="_on_defeat_bosses_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/SurviveTurns" to="." method="_on_survive_turns_pressed"]
+[connection signal="pressed" from="TutorialContainer/Campaign" to="." method="_on_campaign_pressed"]
 [connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
