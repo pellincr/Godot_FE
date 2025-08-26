@@ -41,10 +41,13 @@ const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 #transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAnimation.tscn")
+
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 func _ready():
 	transition_in_animation()
+	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
@@ -371,6 +374,23 @@ func play_audio(sound : AudioStream, audio_source: AudioStreamPlayer):
 func _on_unit_experience_bar_finished() -> void:
 	hide_unit_experience_bar()
 	emit_signal("unit_experience_ended")
+
+
+
+func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
+	var turn_transition = turn_transition_scene.instantiate()
+	self.add_child(turn_transition)
+	match state:
+		CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
+			turn_transition.set_label("Player Turn")
+			turn_transition.set_texture_hue(Color.BLUE)
+		CombatMapConstants.COMBAT_MAP_STATE.AI_TURN:
+			turn_transition.set_label("Enemy Turn")
+			turn_transition.set_texture_hue(Color.RED)
+	turn_transition.play_animation("new_turn")
+	await turn_transition.animation_player.animation_finished
+	turn_transition.queue_free()
+
 
 """
 func set_inventory_list_support(unit: Unit): ## OLD

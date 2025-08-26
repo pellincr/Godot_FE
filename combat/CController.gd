@@ -263,8 +263,10 @@ func progress_turn_order():
 	combat.advance_turn(turn_owner)
 	if turn_owner in player_factions:
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
+		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	else : 
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
+		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
 
 func get_entity_at_tile(tile:Vector2i)-> CombatMapEntity:
 	for ent in combat.entities:
