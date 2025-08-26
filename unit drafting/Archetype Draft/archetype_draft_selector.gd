@@ -17,6 +17,13 @@ var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 @onready var archetype:ArmyArchetypeDefinition = null
 
+var possible_rarities = {
+	"common" : 60,
+	"uncommon" : 25,
+	"rare" : 10,
+	"legendary" : 1
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !playerOverworldData:
@@ -46,6 +53,20 @@ func clear_unit_list_container():
 	var children = archetype_list_container.get_children()
 	for child in children:
 		child.queue_free()
+
+func get_random_rarity():
+	var total_weight : int
+	for weight in possible_rarities.values():
+		total_weight += weight
+		
+	var random_value = randi() % total_weight
+	var current_weight = 0
+	
+	for rarity in possible_rarities.keys():
+		current_weight += possible_rarities[rarity]
+		if random_value < current_weight:
+			return rarity
+	return "common"
 
 # list-of-dictionaries -> null
 #purpose: to use the given list of archetypes to fill in the selector card container
@@ -99,8 +120,10 @@ func update_all():
 
 func randomize_archetype():
 	var army_archetypes = ArmyArchetypeDatabase.army_archetypes.keys()
+	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var unlocked_army_archetypes = filter_archetypes_by_unlocked(army_archetypes)
-	var chosen_archetype_key = unlocked_army_archetypes.pick_random()
+	var chosen_rarity_archetypes = filter_archetypes_by_rarity(unlocked_army_archetypes,rarity)
+	var chosen_archetype_key = chosen_rarity_archetypes.pick_random()
 	archetype =  ArmyArchetypeDatabase.army_archetypes.get(chosen_archetype_key)
 
 
@@ -112,12 +135,20 @@ func filter_archetypes_by_unlocked(archetype_keys: Array) -> Array:
 				accum.append(archetype_key)
 	return accum
 
+func filter_archetypes_by_rarity(archetype_keys:Array, rarity:Rarity):
+	var accum = []
+	for key in archetype_keys:
+		var archetype :ArmyArchetypeDefinition= ArmyArchetypeDatabase.army_archetypes[key]
+		if archetype.rarity == rarity:
+			accum.append(key)
+	if accum.is_empty():
+		return archetype_keys
+	else:
+		return accum
 
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_confirm") and has_focus():
 			$AudioStreamPlayer.stream = menu_enter_effect
 			$AudioStreamPlayer.play()
 			archetype_selected.emit(archetype)
-			#randomize_archetype()
-			#update_all()
 			print("Archetype Selected")

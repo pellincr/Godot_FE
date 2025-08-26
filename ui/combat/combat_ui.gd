@@ -84,7 +84,7 @@ func get_objective_text(victory_condition:Constants.VICTORY_CONDITION) -> String
 			objective_text = "Defeat All Enemies"
 		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
 			var boss_names = get_all_boss_names()
-			objective_text = "Defeat:" + boss_names
+			objective_text = "Defeat : " + boss_names
 		Constants.VICTORY_CONDITION.CAPTURE_TILE:
 			objective_text = "Capture the Landmark"
 		Constants.VICTORY_CONDITION.DEFEND_TILE:
