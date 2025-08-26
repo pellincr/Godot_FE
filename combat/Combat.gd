@@ -173,9 +173,11 @@ func spawn_reinforcements(turn_number : int):
 					add_combatant(reinforcement_unit, unit.map_position)
 
 func spawn_initial_units():
-	for unit in enemy_start_group.group:
-		var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
-		add_combatant(reinforcement_unit, unit.map_position)
+	for unit :CombatUnitData in enemy_start_group.group:
+		var enemy_unit : CombatUnit
+		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
+		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type,false, unit.is_boss)
+		add_combatant(enemy_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss)

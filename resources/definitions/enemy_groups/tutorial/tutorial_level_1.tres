@@ -41,7 +41,7 @@ hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("4_utrog")])
 ai_type = 2
-is_boss = false
+is_boss = true
 
 [resource]
 script = ExtResource("2_c0qvc")

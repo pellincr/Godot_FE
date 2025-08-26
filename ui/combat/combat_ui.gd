@@ -59,7 +59,9 @@ func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
 	if playerOverworldData.current_campaign:
-		scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+		scene_transition.set_upper_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+		scene_transition.set_middle_label_text("Objective")
+		scene_transition.set_lower_label_text(get_objective_text(combat.victory_condition))
 	else:
 		show_tutorial_panel(scene_transition, playerOverworldData.current_level)
 	scene_transition.play_animation("level_fade_out")
@@ -74,6 +76,31 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
+
+func get_objective_text(victory_condition:Constants.VICTORY_CONDITION) -> String:
+	var objective_text := ""
+	match victory_condition:
+		Constants.VICTORY_CONDITION.DEFEAT_ALL:
+			objective_text = "Defeat All Enemies"
+		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
+			var boss_names = get_all_boss_names()
+			objective_text = "Defeat:" + boss_names
+		Constants.VICTORY_CONDITION.CAPTURE_TILE:
+			objective_text = "Capture the Landmark"
+		Constants.VICTORY_CONDITION.DEFEND_TILE:
+			objective_text = "Defend Tile"
+		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+			objective_text = "Survive " + str(combat.turns_to_survive) + " Turns"
+	return objective_text
+
+func get_all_boss_names():
+	var enemies = combat.groups[1]
+	var boss_names = ""
+	for enemy in enemies:
+		var enemy_unit : CombatUnit = combat.combatants[enemy]
+		if enemy_unit.is_boss:
+			boss_names =  boss_names + enemy_unit.unit.name + ", "
+	return boss_names
 
 func show_tutorial_panel(scene_transition, current_level:PackedScene):
 	var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
