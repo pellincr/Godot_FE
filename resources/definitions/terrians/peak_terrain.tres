@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_cfpk1")
 name = "Peak"
-db_key = "peak"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([1, 1, 4, 1, 1])
 blocks = Array[int]([0, 1, 3])

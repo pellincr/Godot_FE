@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://ljmq5r4awn0i"]
+
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_x8vls"]
+
+[resource]
+script = ExtResource("1_x8vls")
+name = "Broken Wall"
+description = ""
+type = Array[int]([0])
+cost = Array[int]([1, 1, 1, 1, 1])
+blocks = Array[int]([])
+defense = 0
+resistance = 0
+avoid = 0
+active_effect_phases = 2
+effect = 0
+effect_scaling = 0
+effect_weight = 0
