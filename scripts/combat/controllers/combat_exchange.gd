@@ -11,6 +11,7 @@ const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_
 
 signal unit_defeated(unit: CombatUnit)
 signal entity_destroyed(entity: CombatEntity)
+signal entity_destroyed_in_combat_effect_complete
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -73,6 +74,7 @@ func do_damage_entity(target: CombatEntity, damage:int):
 	if target.hp <= 0:
 		target.destroyed = true
 		entity_destroyed.emit(target)
+		await entity_destroyed_in_combat_effect_complete
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
@@ -282,19 +284,15 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
 	#How many hits are performed?
 	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
-	
 	return_object.supporter = supporter
 	return_object.target = target
-	
 	var turn_count = 1
-	
 	for turn in turn_count:
 		var turn_data : UnitSupportExchangeTurnData = UnitSupportExchangeTurnData.new()
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
 		turn_data.effect_weight = supporter.stats.damage.evaluate()
 		return_object.exchange_data.append(turn_data)
-		
 	return_object.populate()
 	return return_object
 
@@ -309,9 +307,9 @@ func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatE
 	var effective = false
 	var attacker_damage = 0
 	if(effective): 
-		attacker_damage = attacker.stats.damage.evaluate() + (2 * attacker.get_equipped().damage)
+		attacker_damage = clampi(attacker.stats.damage.evaluate() + (2 * attacker.get_equipped().damage) - defender.defense, 0, 9999)
 	else :
-		attacker_damage = attacker.stats.damage.evaluate()
+		attacker_damage = clampi(attacker.stats.damage.evaluate() - defender.defense, 0, 9999)
 	for attack in attacker_turns:
 		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
 		turn_data.owner = attacker
@@ -538,7 +536,6 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		player_unit = attacker
-	
 	attacker.turn_taken = true
 	#Do the actual calcs
 	for turn : UnitCombatExchangeTurnData in exchange_data.exchange_data:
@@ -547,3 +544,6 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 				await perform_hit_entity(attacker,defender, turn.attack_damage)
 				if defender.destroyed:
 					return
+
+func _on_entity_destroyed_in_combat_effect_complete():
+	entity_destroyed_in_combat_effect_complete.emit()

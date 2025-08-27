@@ -68,8 +68,9 @@ enum PLAYER_STATE
 	UNIT_COMBAT_ACTION_TARGETTING,
 	UNIT_COMBAT_ACTION,
 	#Entity
-	UNIT_ENTITY_ACTION_INVENTORY, #chest
-	UNIT_ENTITY_ACTION #do the action itself sieze, lever, chest give, etc
+	UNIT_INTERACT_ACTION_TARGETTING,
+	UNIT_INTERACT_ACTION_INVENTORY, #chest
+	UNIT_INTERACT_ACTION #do the action itself sieze, lever, chest give, etc
 	#skill 
 	#TO BE IMPL
 }

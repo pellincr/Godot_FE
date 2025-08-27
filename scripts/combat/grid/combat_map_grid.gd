@@ -112,7 +112,8 @@ func get_entity(position:Vector2i)-> CombatEntity:
 	if game_map.has(str(position)):
 		var entry: CombatMapTile = game_map.get(str(position))
 		if entry.entity:
-			return entry.entity
+			if entry.entity.active:
+				return entry.entity
 	return null
 
 #

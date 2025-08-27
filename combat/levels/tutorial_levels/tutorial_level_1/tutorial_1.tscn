@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://blo7n0hudl834"]
+[gd_scene load_steps=26 format=3 uid="uid://blo7n0hudl834"]
 
 [ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/levels/tutorial_levels/tutorial_level_1/terrain.tscn" id="2_mkd81"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
@@ -13,24 +13,61 @@
 [ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_pa0j6"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_8otve"]
-[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="11_870aq"]
+[ext_resource type="Resource" uid="uid://dmxfjectp0ih3" path="res://resources/definitions/items/weapons/axes/silver_axe.tres" id="11_v1ojm"]
 [ext_resource type="Texture2D" uid="uid://xui2movippkm" path="res://resources/sprites/entities/crate.png" id="12_wqjs8"]
+[ext_resource type="Texture2D" uid="uid://bdmoktd0737x" path="res://resources/sprites/entities/door_new.png" id="14_8j80e"]
+[ext_resource type="Resource" uid="uid://nbx0ga6nag7e" path="res://resources/definitions/items/weapons/anima/fiend_fire.tres" id="14_tcfs8"]
+[ext_resource type="Resource" uid="uid://can7ubbmqhujh" path="res://resources/definitions/terrians/door_terrain.tres" id="15_cur0m"]
+[ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="16_8vdd1"]
 
 [sub_resource type="Resource" id="Resource_0qdvw"]
 script = ExtResource("9_4kqs3")
-name = "Crate"
-interaction_type = 4
-position = Vector2i(12, 9)
+name = "Chest"
+interaction_type = 0
+position = Vector2i(11, 9)
 map_view = ExtResource("12_wqjs8")
 hp = 5
 defense = 1
 resistance = 1
 attack_speed = 5
-contents = Array[ExtResource("10_pa0j6")]([ExtResource("11_870aq")])
+contents = Array[ExtResource("10_pa0j6")]([ExtResource("11_v1ojm")])
 
 [sub_resource type="Resource" id="Resource_a5foj"]
 script = ExtResource("8_csdku")
 entities = Array[ExtResource("9_4kqs3")]([SubResource("Resource_0qdvw")])
+
+[sub_resource type="Resource" id="Resource_nhfgy"]
+script = ExtResource("9_4kqs3")
+name = "Door"
+interaction_type = 1
+position = Vector2i(10, 9)
+terrain = ExtResource("15_cur0m")
+map_view = ExtResource("14_8j80e")
+hp = 150
+defense = 10
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_pa0j6")]([ExtResource("14_tcfs8")])
+
+[sub_resource type="Resource" id="Resource_vhr5g"]
+script = ExtResource("8_csdku")
+entities = Array[ExtResource("9_4kqs3")]([SubResource("Resource_nhfgy")])
+
+[sub_resource type="Resource" id="Resource_qimqh"]
+script = ExtResource("9_4kqs3")
+name = "Crate"
+interaction_type = 4
+position = Vector2i(11, 7)
+map_view = ExtResource("12_wqjs8")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_pa0j6")]([ExtResource("16_8vdd1")])
+
+[sub_resource type="Resource" id="Resource_pqkt4"]
+script = ExtResource("8_csdku")
+entities = Array[ExtResource("9_4kqs3")]([SubResource("Resource_qimqh")])
 
 [node name="Game" type="Node"]
 
@@ -66,7 +103,7 @@ script = ExtResource("8_6vv1a")
 
 [node name="CombatMapEntityManager" type="Node" parent="Combat"]
 script = ExtResource("7_nr24d")
-mapEntityData = Array[ExtResource("8_csdku")]([SubResource("Resource_a5foj")])
+mapEntityData = Array[ExtResource("8_csdku")]([SubResource("Resource_a5foj"), SubResource("Resource_vhr5g"), SubResource("Resource_pqkt4")])
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("9_nrsst")

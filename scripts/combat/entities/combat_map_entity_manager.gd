@@ -7,7 +7,6 @@ const CRATE = preload("res://resources/sprites/entities/crate.png")
 const DOOR_NEW = preload("res://resources/sprites/entities/door_new.png")
 const CHEST_SPRITE_SHEET = preload("res://resources/sprites/entities/chest_sprite_sheet.png")
 
-
 ## Terrains
 const CRACKED_STONE_WALL_TERRAIN = preload("res://resources/definitions/terrians/cracked_stone_wall_terrain.tres")
 
@@ -15,13 +14,13 @@ const CRACKED_STONE_WALL_TERRAIN = preload("res://resources/definitions/terrians
 const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_display/combat_map_entity_display.tscn")
 
 signal entity_added(cme:CombatEntity) #Use this to add the entity to the grid in CC
-signal give_items(items : Array[ItemDefinition])
+signal give_items(items : Array[ItemDefinition], source:String)
+signal give_items_complete()
 
 @export var mapEntityData: Array[MapEntityGroupData]
-@export var usable_chest_db_keys: Array[String]  = ["skeleton_key"]
 
-var entity_groups : Dictionary #Dict<Group_index, Array[entities]>
-var targetable_entity_types : Array[mapEntityDefinition.TYPE] = [mapEntityDefinition.TYPE.CHEST,mapEntityDefinition.TYPE.DOOR,mapEntityDefinition.TYPE.BREAKABLE_TERRAIN, mapEntityDefinition.TYPE.CRATE]
+var entity_groups : Dictionary 
+
 func load_entities():
 	if mapEntityData != null:
 		for entity_group_index in range(mapEntityData.size()):
@@ -70,26 +69,50 @@ func get_contents(combat_entity: CombatEntity) -> Array[ItemDefinition]:
 func entity_destroyed(combat_entity: CombatEntity):
 	match combat_entity.interaction_type:
 		CombatEntityConstants.ENTITY_TYPE.CRATE:
-			entity_destroyed_crate(combat_entity)
+			await entity_destroyed_give_item(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.BREAKABLE_TERRAIN:
+			entity_destroyed_remove(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.DOOR:
+			entity_destroyed_remove(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.CHEST:
+			await entity_destroyed_chest(combat_entity)
 
-func entity_destroyed_crate(combat_entity: CombatEntity):
+func entity_destroyed_give_item(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
 	# give the item 
-	give_items.emit(combat_entity.contents)
+	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
+	await give_items_complete
+
+func entity_destroyed_remove(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+
+func entity_destroyed_chest(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+	# give the item 
+	var rubbish : Array[ItemDefinition] = [ItemDatabase.items.get("rubbish")]
+	give_items.emit(rubbish, CombatMapConstants.COMBAT_ENTITY)
+	await give_items_complete
+
+func entity_interacted(combat_entity: CombatEntity):
+	match combat_entity.interaction_type:
+		CombatEntityConstants.ENTITY_TYPE.CRATE:
+			pass
+		CombatEntityConstants.ENTITY_TYPE.BREAKABLE_TERRAIN:
+			pass
+		CombatEntityConstants.ENTITY_TYPE.CHEST:
+			await entity_interacted_give_item(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.DOOR:
+			await entity_interacted_remove(combat_entity)
 	
-#func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
-	#print("Entered Chest in Combat.gd")
-	#if key:
-		#key.use()
-	#for item in chest.contents:
-		#await combat_unit_item_manager.give_combat_unit_item(unit, item)
-	#entity_disable(chest)
-	#major_action_complete()
-	#
-#func Door(unit: CombatUnit, key: ItemDefinition, door:CombatMapDoorEntity):
-	#print("Entered Door in Combat.gd")
-	#key.use()
-	#for posn in door.entity_position_group:
-		#entity_disable(controller.get_entity_at_position(posn))
-	#controller.update_points_weight()
-	#major_action_complete()
+
+func entity_interacted_give_item(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+	# give the item 
+	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
+	await give_items_complete
+
+func entity_interacted_remove(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+	
+func _on_give_item_complete():
+	give_items_complete.emit()

@@ -2,8 +2,6 @@ extends Node
 class_name CombatUnitItemManager
 
 signal discard_selection_complete(give_item_required: bool)
-
-@export var combat : Combat
 var give_item_required
 
 signal heal_unit(cu: CombatUnit, amount: int)
@@ -30,6 +28,7 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 				cu.unit.inventory.give_item(item)
 		else:
 			cu.unit.inventory.give_item(item)
+		
 
 func trade(cu1: CombatUnit, cu2:CombatUnit):
 	pass
@@ -51,6 +50,17 @@ func generate_combat_unit_inventory_data(cu:CombatUnit) -> Array[UnitInventorySl
 	_arr[0].can_arrange = false
 	_arr[1].can_arrange = false
 	return _arr
+
+func generate_interaction_inventory_data(cu:CombatUnit, db_key_whitelist: Array[String]) -> Array[UnitInventorySlotData]:
+	var _arr : Array[UnitInventorySlotData] = []
+	for item in cu.unit.inventory.get_items():
+		var item_data = UnitInventorySlotData.new()
+		item_data.item = item
+		if item.db_key in db_key_whitelist:
+			item_data.valid = true
+		_arr.append(item_data)
+	return _arr
+
 
 func generate_combat_unit_inventory_data_for_item(cu:CombatUnit, item:ItemDefinition) -> UnitInventorySlotData:
 	var item_data = UnitInventorySlotData.new()

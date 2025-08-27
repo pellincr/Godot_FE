@@ -156,6 +156,16 @@ func next_target():
 		update_available_target_methods(target_methods_range_map[current_method])
 	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
 
+func next_target_no_new_methods():
+	#get the next target in the index ASSUMES ALL HAVE SAME RANGE/NO NEW TARGETS POSSIBLE AFTER SWAP
+	_available_targets_at_range_index = CustomUtilityLibrary.array_next_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
+	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
+
+func previous_target_no_new_methods():
+	#get the next target in the index ASSUMES ALL HAVE SAME RANGE/NO NEW TARGETS POSSIBLE AFTER SWAP
+	_available_targets_at_range_index = CustomUtilityLibrary.array_previous_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
+	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
+
 # get the previous target_method
 func previous_target_method():
 	# get the previous target_method

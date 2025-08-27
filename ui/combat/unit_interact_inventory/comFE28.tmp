@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d284uh4c8cxyf"]
 
-[ext_resource type="Script" uid="uid://fhvsu4v75ot0" path="res://ui/combat/unit_inventory/combat_unit_inventory_display.gd" id="1_m12ty"]
+[ext_resource type="Script" path="res://ui/combat/unit_inventory/combat_unit_inventory.gd" id="1_v0vwn"]
 [ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="2_u5wjv"]
 [ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="3_odqxq"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="4_u0jsy"]
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme = SubResource("Theme_dak8v")
-script = ExtResource("1_m12ty")
+script = ExtResource("1_v0vwn")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0

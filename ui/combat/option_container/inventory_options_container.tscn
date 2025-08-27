@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://buok3w7e38h17"]
 
-[ext_resource type="Script" path="res://ui/combat/option_container/inventory_options_container.gd" id="1_2koql"]
+[ext_resource type="Script" uid="uid://vr48vrmth2bo" path="res://ui/combat/option_container/inventory_options_container.gd" id="1_2koql"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="1_48pqp"]
 [ext_resource type="FontFile" uid="uid://b63aolstq2o3t" path="res://resources/fonts/CrimsonText-Regular.ttf" id="2_xyuu1"]
 

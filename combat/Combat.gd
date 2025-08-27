@@ -25,6 +25,7 @@ signal trading_completed()
 signal shove_completed()
 signal pause_fsm()
 signal resume_fsm()
+signal entity_interact_completed()
 	
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
@@ -85,7 +86,7 @@ func _ready():
 	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
-	combat_unit_item_manager.connect("create_give_item_pop_up", give_curent_unit_items)
+	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
 	entity_manager.connect("entity_added", entity_added)
 	entity_manager.connect("give_items", give_curent_unit_items)
 	randomize()
@@ -574,11 +575,14 @@ func heal_unit(cu:CombatUnit, amount:int):
 	await combatExchange.heal_unit(cu, amount)
 
 func entity_destroyed_combat(ce : CombatEntity):
-	entity_manager.entity_destroyed(ce)
+	await entity_manager.entity_destroyed(ce)
+	combatExchange._on_entity_destroyed_in_combat_effect_complete()
 
-func give_curent_unit_items(items: Array[ItemDefinition]):
+func give_curent_unit_items(items: Array[ItemDefinition], source: String):
 	for item in items:
 		await combat_unit_item_manager.give_combat_unit_item(get_current_combatant(), item)
+	if source == CombatMapConstants.COMBAT_ENTITY:
+		entity_manager._on_give_item_complete()
 
 func create_unit_item_discard_container(cu: CombatUnit, new_item: ItemDefinition):
 	# Create inventory slot data
@@ -593,3 +597,15 @@ func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
 	game_ui.destory_active_ui_node()
 	await combat_unit_item_manager.give_item_discard_result_complete(cu, discard_item)
 	resume_fsm.emit()
+
+func create_item_obtained_pop_up(item:ItemDefinition):
+	pause_fsm.emit()
+	await game_ui.create_item_obtained_pop_up(item)
+	resume_fsm.emit()
+
+func entity_interact_use_item(unit: CombatUnit, use_item:ItemDefinition, entity:CombatEntity):
+	unit.unit.inventory.use_item(use_item)
+	await entity_manager.entity_interacted(entity)
+
+func entity_interact(unit: CombatUnit, entity:CombatEntity):
+	entity_manager.entity_interacted(entity)

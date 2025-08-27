@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=3 format=3 uid="uid://d5pot52721n2"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="1_3ucgw"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="2_gfyxx"]
+
+[resource]
+script = ExtResource("2_gfyxx")
+entities = Array[ExtResource("1_3ucgw")]([])

@@ -27,6 +27,8 @@ func get_all_targetables(targetable_allegiences:Array[int]) -> Array[Vector2i]:
 			_arr.append(entity_position)
 	return _arr
 
+func get_targetable_entities()-> Array[Vector2i]:
+	return targetable_entity_indexes
 
 class CombatMapGridAnalysisTargetablePosition:
 	var positon : Vector2i

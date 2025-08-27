@@ -38,6 +38,9 @@ const COMBAT_VIEW_POP_UP = preload("res://ui/shared/pop_up/combat_view_pop_up.ts
 const DISCARD_ITEM_SELECTED = preload("res://ui/combat/discard_action_inventory_new/discard_item_selected.tscn")
 const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_inventory_new/discard_action_inventory.tscn")
 
+#Interact
+const COMBAT_UNIT_INTERACT_ACTION_INVENTORY = preload("res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.tscn")
+
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -333,3 +336,25 @@ func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[Uni
 	discard_container.populate(unit, inventory, new_item)
 	push_ui_node_stack(discard_container)
 	discard_container.grab_focus_btn()
+
+func create_item_obtained_pop_up(item:ItemDefinition):
+	var _pop_up = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.set_item(item)
+	_pop_up.visible = true
+	await get_tree().create_timer(1).timeout
+	_pop_up.queue_free()
+
+#
+# Creates the attack action inventory used to select the weapon to be used in the combat preview
+#
+func create_interact_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var interact_action_inventory = COMBAT_UNIT_INTERACT_ACTION_INVENTORY.instantiate()
+	self.add_child(interact_action_inventory)
+	await interact_action_inventory
+	interact_action_inventory.item_selected.connect(controller.fsm_interact_action_inventory_confirm.bind())
+	#TO BE CONNECTED CANCEL
+	interact_action_inventory.populate(inputCombatUnit, inventory)
+	push_ui_node_stack(interact_action_inventory)
+	interact_action_inventory.grab_focus()
