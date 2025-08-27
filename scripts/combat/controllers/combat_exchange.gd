@@ -10,6 +10,8 @@ const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.tscn")
 
 signal unit_defeated(unit: CombatUnit)
+signal entity_destroyed(entity: CombatEntity)
+signal entity_destroyed_in_combat_effect_complete
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -54,6 +56,25 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 				await heal_unit(attacker, damage_dealt)
 	else : ## Attack has missed
 		await hit_missed(target)
+
+func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
+	await do_damage_entity(target,hit_damage)
+
+func do_damage_entity(target: CombatEntity, damage:int):
+	if(damage == 0):
+		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
+		await use_audio_player(no_damage_sound)
+		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
+		#play no damage noise
+		await DamageNumbers.complete
+	if (damage > 0):
+		await use_audio_player(hit_sound)
+		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+		target.hp = target.hp - damage
+	if target.hp <= 0:
+		target.destroyed = true
+		entity_destroyed.emit(target)
+		await entity_destroyed_in_combat_effect_complete
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
@@ -263,22 +284,46 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
 	#How many hits are performed?
 	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
-	
 	return_object.supporter = supporter
 	return_object.target = target
-	
 	var turn_count = 1
-	
 	for turn in turn_count:
 		var turn_data : UnitSupportExchangeTurnData = UnitSupportExchangeTurnData.new()
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
 		turn_data.effect_weight = supporter.stats.damage.evaluate()
 		return_object.exchange_data.append(turn_data)
-		
 	return_object.populate()
 	return return_object
 
+func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatEntity) -> UnitCombatExchangeData:
+	var return_object : UnitCombatExchangeData = UnitCombatExchangeData.new()
+	return_object.attacker = attacker
+	var net_attack_speed = attacker.stats.attack_speed.evaluate() - defender.attack_speed
+	var net_turn_count = int(net_attack_speed / floor(4))
+	var attacker_turns = 1
+	if net_turn_count > 0:
+		attacker_turns = attacker_turns + abs(net_turn_count)
+	var effective = false
+	var attacker_damage = 0
+	if(effective): 
+		attacker_damage = clampi(attacker.stats.damage.evaluate() + (2 * attacker.get_equipped().damage) - defender.defense, 0, 9999)
+	else :
+		attacker_damage = clampi(attacker.stats.damage.evaluate() - defender.defense, 0, 9999)
+	for attack in attacker_turns:
+		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
+		turn_data.owner = attacker
+		turn_data.attack_damage = attacker_damage
+		turn_data.damage_type = attacker.get_equipped().item_damage_type
+		turn_data.effective_damage = false
+		turn_data.attack_count = attacker.get_equipped().attacks_per_combat_turn
+		turn_data.critical = 0
+		turn_data.hit = 100
+		return_object.exchange_data.append(turn_data)
+	return_object.calc_net_damage()
+	return_object.calc_predicted_hp_entity(defender.hp)
+	return return_object
+	
 func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: int, d_turn_count: int) -> Array[String]:
 	var _arr : Array[String]  =[]
 	var i :int = a_turn_count
@@ -481,3 +526,24 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	# Both units have survived the exchange
 	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 		#get the allegience of the units
+
+#
+# Called when the attacker can hit and begin combat sequence
+#
+func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, exchange_data: UnitCombatExchangeData):
+	var player_unit: CombatUnit
+	var enemy_unit: CombatUnit
+	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
+	if attacker.allegience == Constants.FACTION.PLAYERS:
+		player_unit = attacker
+	attacker.turn_taken = true
+	#Do the actual calcs
+	for turn : UnitCombatExchangeTurnData in exchange_data.exchange_data:
+		for attack in turn.attack_count:
+			if turn.owner == attacker:
+				await perform_hit_entity(attacker,defender, turn.attack_damage)
+				if defender.destroyed:
+					return
+
+func _on_entity_destroyed_in_combat_effect_complete():
+	entity_destroyed_in_combat_effect_complete.emit()

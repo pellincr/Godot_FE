@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="1_ol4pc"]
 [ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_yqtwc"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_81kdn"]
-[ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/stone_wall_terrain.tres" id="2_hrnf1"]
+[ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_hrnf1"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="3_wi53r"]
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="4_afflb"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="4_qknpy"]

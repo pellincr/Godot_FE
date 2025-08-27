@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="1_b1n8f"]
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.gd" id="1_eslat"]
-[ext_resource type="Script" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="3_j02ov"]
+[ext_resource type="Script" uid="uid://qrvvscj5a8ec" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="3_j02ov"]
 
 [sub_resource type="Theme" id="Theme_yq15n"]
 default_font_size = 24

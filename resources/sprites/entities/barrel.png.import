@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clcn5rm11u4gp"
-path="res://.godot/imported/classic_dungeons_WALLS.png-213ef7268642f6c29843f49b9234baa6.ctex"
+uid="uid://b5s4gbenwmq67"
+path="res://.godot/imported/barrel.png-a3644fe17c9459f438e3462d16011959.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_WALLS.png"
-dest_files=["res://.godot/imported/classic_dungeons_WALLS.png-213ef7268642f6c29843f49b9234baa6.ctex"]
+source_file="res://resources/sprites/entities/barrel.png"
+dest_files=["res://.godot/imported/barrel.png-a3644fe17c9459f438e3462d16011959.ctex"]
 
 [params]
 

@@ -36,5 +36,8 @@ func set_disabled(state: bool):
 	pass
 
 func set_item(item: ItemDefinition):
-	self.item_sprite = item.icon
+	if item != null:
+		self.item_sprite = item.icon
+	else : 
+		self.item_sprite = null
 	self.update_display()

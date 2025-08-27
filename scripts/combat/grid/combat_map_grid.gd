@@ -63,16 +63,6 @@ func populate_game_map_units(unit_data: Array[CombatUnit]):
 		if game_map.has(str(unit.map_position)):
 			set_combat_unit(unit, unit.map_position)
 
-##
-# populates the combatMapGrid with Map Entities
-#
-# @param entity_data : a list of CombatUnits to be added to the combatMapGrid
-##
-func populate_game_map_entities(entity_data : MapEntityGroupData):
-	for entity : CombatMapEntity in entity_data.entities:
-		if game_map.has(str(entity.position)):
-			set_entity(entity, entity.position)
-
 func create_map_tile(tile_index: Vector2i):
 	if not game_map.has(str(tile_index)):
 		var _mapTile = CombatMapTile.new()
@@ -118,11 +108,12 @@ func get_combat_unit(position: Vector2i) -> CombatUnit:
 			return entry.unit
 	return null
 
-func get_entity(position:Vector2i)-> CombatMapEntity:
+func get_entity(position:Vector2i)-> CombatEntity:
 	if game_map.has(str(position)):
 		var entry: CombatMapTile = game_map.get(str(position))
 		if entry.entity:
-			return entry.entity
+			if entry.entity.active:
+				return entry.entity
 	return null
 
 #
@@ -437,7 +428,7 @@ func get_effective_terrain(mapTile : CombatMapTile) -> Terrain:
 		return mapTile.terrain
 	return null
 
-func set_entity(cme :CombatMapEntity, position: Vector2i):
+func set_entity(cme :CombatEntity, position: Vector2i):
 	if game_map.has(str(position)):
 		var mapTile:CombatMapTile = game_map.get(str(position))
 		mapTile.entity = cme

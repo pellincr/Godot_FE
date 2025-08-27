@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0tvau6igvmf0"]
 
-[ext_resource type="Script" path="res://ui/combat/discard_item_inventory/discard_item_inventory.gd" id="1_7c36g"]
+[ext_resource type="Script" uid="uid://di3ejwbdr8mpd" path="res://ui/combat/discard_item_inventory/discard_item_inventory.gd" id="1_7c36g"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="2_ay6sm"]
 
 [node name="DiscardItemInventory" type="Control"]
@@ -219,9 +219,3 @@ layout_mode = 2
 layout_mode = 2
 text = "Some random description goes here that maybe should be sufficiently long"
 fit_content = true
-
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot2" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot3" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot4" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot5" to="." method="btn_entered"]

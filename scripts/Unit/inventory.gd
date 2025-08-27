@@ -277,3 +277,19 @@ func get_items() -> Array[ItemDefinition]:
 func use_item(item: ItemDefinition):
 	if has(item):
 		use_at_index(get_item_index(item))
+
+func has_item(item: ItemDefinition):
+	return items.has(item)
+
+func has_item_with_db_key(db_key : String):
+	for item in items:
+		if item.db_key == db_key:
+			return true
+	return false
+
+func has_item_with_any_db_key(db_keys : Array[String]):
+	for db_key in db_keys:
+		for item in items:
+			if item.db_key == db_key:
+				return true
+	return false

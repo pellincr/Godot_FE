@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=64 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://inmihgh33enk" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -61,6 +61,7 @@
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="59_jqcuj"]
 [ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/consumables/wine.tres" id="60_inhro"]
 [ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
+[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/rubbish.tres" id="62_2aj2t"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="62_xe68h"]
 
 [node name="ItemDatabase" type="Node"]
@@ -94,7 +95,6 @@ items = {
 "iron_shield": ExtResource("40_8cwhn"),
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
-"key": ExtResource("37_psnnm"),
 "killer_bow": ExtResource("15_jhgao"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
@@ -105,6 +105,7 @@ items = {
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
 "recover": ExtResource("41_dpqwc"),
+"rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_bow": ExtResource("7_x6uf5"),
@@ -114,6 +115,7 @@ items = {
 "silver_lance": ExtResource("51_5lqt6"),
 "silver_shield": ExtResource("57_yomul"),
 "silver_sword": ExtResource("9_vblr4"),
+"skeleton_key": ExtResource("37_psnnm"),
 "smite": ExtResource("30_rffgk"),
 "soul_rip": ExtResource("48_m0w6q"),
 "steel_axe": ExtResource("6_meveu"),

@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm0qbxevm3w1g"]
+
+[ext_resource type="Script" path="res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.gd" id="1_30dk8"]
+[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="2_c00ii"]
+[ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="2_lk8i8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jiof"]
+bg_color = Color(0, 0, 0, 0.490196)
+
+[node name="CombatUnitInventorySelectedItemOptions" type="Panel"]
+custom_minimum_size = Vector2(400, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4jiof")
+script = ExtResource("1_30dk8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_left = 490.0
+offset_top = 285.0
+offset_right = 890.0
+offset_bottom = 485.0
+theme = ExtResource("2_lk8i8")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Discard"
+horizontal_alignment = 2
+
+[node name="ItemIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("2_c00ii")
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Claymore?"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DiscardButton" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_lk8i8")
+text = "Discard"
+
+[node name="CancelButton" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_lk8i8")
+text = "Cancel
+"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer2/HBoxContainer/DiscardButton" to="." method="_on_discard_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer2/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

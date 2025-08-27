@@ -1,9 +1,6 @@
 extends Panel
 class_name AttackActionInventory
 
-#Imports
-const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
-
 @onready var unit_inventory_slot_1: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1
 @onready var unit_inventory_slot_2: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2
 @onready var unit_inventory_slot_3: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3
@@ -18,6 +15,7 @@ signal back()
 
 @export var data : Array[UnitInventorySlotData] 
 @export var combatUnit: CombatUnit
+
 @export var hovered_item : ItemDefinition
 var focus_grabbed : bool
 
@@ -65,6 +63,6 @@ func reset_focus(item: ItemDefinition):
 
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
-
-func _on_back_button_pressed() -> void:
 	back.emit()
+
+	

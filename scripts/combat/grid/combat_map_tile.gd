@@ -5,7 +5,7 @@ var position : Vector2i
 var terrain: Terrain
 var effects : Array[UnitStat]
 var unit : CombatUnit
-var entity : CombatMapEntity
+var entity : CombatEntity
 
 #class_name MapTile
 #

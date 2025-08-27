@@ -21,3 +21,5 @@ func update_by_item():
 			weapon_type.set_types(itemConstants.ITEM_TYPE.WEAPON, item.weapon_type)
 	else :
 		set_item_name_label("")
+		inventory_item_icon.set_item(null)
+		

@@ -1,4 +1,5 @@
 extends Resource
 class_name MapEntityGroupData
-
-@export var entities : Array[CombatMapEntity]
+@export_group("EntityGroup Info ")
+#@export var group_index : int
+@export var entities : Array[mapEntityDefinition]
