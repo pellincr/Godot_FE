@@ -15,6 +15,7 @@ const CRACKED_STONE_WALL_TERRAIN = preload("res://resources/definitions/terrians
 const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_display/combat_map_entity_display.tscn")
 
 signal entity_added(cme:CombatEntity) #Use this to add the entity to the grid in CC
+signal give_items(items : Array[ItemDefinition])
 
 @export var mapEntityData: Array[MapEntityGroupData]
 @export var usable_chest_db_keys: Array[String]  = ["skeleton_key"]
@@ -23,9 +24,9 @@ var entity_groups : Dictionary #Dict<Group_index, Array[entities]>
 var targetable_entity_types : Array[mapEntityDefinition.TYPE] = [mapEntityDefinition.TYPE.CHEST,mapEntityDefinition.TYPE.DOOR,mapEntityDefinition.TYPE.BREAKABLE_TERRAIN, mapEntityDefinition.TYPE.CRATE]
 func load_entities():
 	if mapEntityData != null:
-		for entity_group : MapEntityGroupData  in mapEntityData:
-			for entity_definition : mapEntityDefinition in entity_group.entities:
-				add_entity(entity_definition, entity_group.group_index)
+		for entity_group_index in range(mapEntityData.size()):
+			for entity: mapEntityDefinition in mapEntityData[entity_group_index].entities:
+				add_entity(entity, entity_group_index)
 
 func add_entity(cme:mapEntityDefinition, group_index: int):
 	#create the combatEntity
@@ -48,7 +49,10 @@ func add_entity(cme:mapEntityDefinition, group_index: int):
 		entity_groups[group_index] = new_entity_group
 	emit_signal("entity_added", combat_entity)
 
-func disable_entity_group(index: int):
+func disable_entity_group_by_entity(combat_entity : CombatEntity):
+	disable_entity_group_by_index(combat_entity.group)
+
+func disable_entity_group_by_index(index: int):
 	if entity_groups.has(index):
 		for entity in entity_groups.get(index):
 			disable_entity(entity)
@@ -63,6 +67,16 @@ func activate_entity(combat_entity: CombatEntity):
 func get_contents(combat_entity: CombatEntity) -> Array[ItemDefinition]:
 	return combat_entity.contents
 
+func entity_destroyed(combat_entity: CombatEntity):
+	match combat_entity.interaction_type:
+		CombatEntityConstants.ENTITY_TYPE.CRATE:
+			entity_destroyed_crate(combat_entity)
+
+func entity_destroyed_crate(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+	# give the item 
+	give_items.emit(combat_entity.contents)
+	
 #func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
 	#print("Entered Chest in Combat.gd")
 	#if key:

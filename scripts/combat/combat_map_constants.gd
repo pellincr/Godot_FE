@@ -1,5 +1,8 @@
 extends Node
 
+const COMBAT_UNIT = "COMBAT_UNIT"
+const COMBAT_ENTITY = "COMBAT_ENTITY"
+
 enum FACTION
 {
 	PLAYERS, # Player faction

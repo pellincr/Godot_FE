@@ -23,7 +23,7 @@ func _on_discard_button_pressed() -> void:
 	discard.emit(selected_item)
 
 func grab_focus_btns():
-	selected_item.grab_focus()
+	discard_button.grab_focus()
 
 func _on_cancel_button_pressed() -> void:
 	cancel.emit()

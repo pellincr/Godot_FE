@@ -10,12 +10,13 @@
 [ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="8_miqnb"]
 [ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="8_sys21"]
 [ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="9_psf4l"]
-[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_svvcn"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_svvcn"]
 [ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_2k4iy"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_pp7db"]
 
 [sub_resource type="Resource" id="Resource_v45pi"]
 script = ExtResource("9_psf4l")
+name = ""
 interaction_type = 0
 position = Vector2i(0, 0)
 hp = 0
@@ -26,7 +27,6 @@ contents = Array[ExtResource("10_2k4iy")]([])
 
 [sub_resource type="Resource" id="Resource_nmv0l"]
 script = ExtResource("8_sys21")
-group_index = 1
 entities = Array[ExtResource("9_psf4l")]([SubResource("Resource_v45pi")])
 
 [node name="Game" type="Node"]

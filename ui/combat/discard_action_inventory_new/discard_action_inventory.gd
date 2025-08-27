@@ -1,8 +1,7 @@
 extends Panel
 class_name DiscardItemInventoryNew
 
-#Imports
-const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn")
+const DISCARD_ITEM_SELECTED = preload("res://ui/combat/discard_action_inventory_new/discard_item_selected.tscn")
 
 @onready var unit_inventory_slot_1: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1
 @onready var unit_inventory_slot_2: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2
@@ -16,10 +15,12 @@ signal item_selected(item:ItemDefinition)
 signal new_item_hovered(item:ItemDefinition)
 
 @export var data : Array[UnitInventorySlotData] 
+@export var incoming_item_data : UnitInventorySlotData
+
 @export var combatUnit: CombatUnit
-@export var incoming_item : UnitInventorySlotData
 @export var hovered_item : ItemDefinition
 var focus_grabbed : bool
+var discard_confirm_container: Node
 
 func _ready() -> void:
 	unit_inventory_slot_1.connect("_hover_item", reset_focus)
@@ -33,11 +34,18 @@ func _ready() -> void:
 	unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
 	incoming_item_button.connect("selected_item",item_selected_button_press)
 
-func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData], incoming_item : UnitInventorySlotData):
+func _process(delta)-> void:
+	if discard_confirm_container != null:
+		if Input:
+			if Input.is_action_just_pressed("ui_cancel"):
+				close_confirm_container()
+				
+
+func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData], incoming_item_data : UnitInventorySlotData):
 	await equippable_item_information
 	self.combatUnit = inputCombatUnit
 	self.data = inventory
-	self.incoming_item = incoming_item
+	self.incoming_item_data = incoming_item_data
 	update_display()
 
 func update_display():
@@ -47,7 +55,7 @@ func update_display():
 		set_unit_inventory_slot_info(unit_inventory_slot_2, data[1].item, data[1].equipped, data[1].valid)
 		set_unit_inventory_slot_info(unit_inventory_slot_3, data[2].item, data[2].equipped, data[2].valid)
 		set_unit_inventory_slot_info(unit_inventory_slot_4, data[3].item, data[3].equipped, data[3].valid)
-		set_unit_inventory_slot_info(incoming_item_button,incoming_item.item, incoming_item.equipped, incoming_item.valid)
+		set_unit_inventory_slot_info(incoming_item_button,incoming_item_data.item, incoming_item_data.equipped, incoming_item_data.valid)
 
 func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
 	target.disabled = !valid
@@ -68,4 +76,25 @@ func reset_focus(item: ItemDefinition):
 	new_item_hovered.emit(item)
 
 func item_selected_button_press(item: ItemDefinition):
+	create_discard_confirm_panel(item)
+
+func grab_focus_btn():
+	unit_inventory_slot_1.grab_focus()
+
+func create_discard_confirm_panel(item:ItemDefinition):
+	discard_confirm_container = DISCARD_ITEM_SELECTED.instantiate()
+	self.add_child(discard_confirm_container)
+	await discard_confirm_container
+	discard_confirm_container.popualate(item)
+	discard_confirm_container.grab_focus_btns()
+	#connect buttons
+	discard_confirm_container.discard.connect(complete_discard_selection)
+	discard_confirm_container.cancel.connect(close_confirm_container)
+
+func close_confirm_container():
+	discard_confirm_container.queue_free()
+	unit_inventory_slot_1.grab_focus()
+
+func complete_discard_selection(item:ItemDefinition):
 	item_selected.emit(item)
+	

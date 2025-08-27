@@ -56,7 +56,7 @@ func set_all_ent(centity: CombatEntity, weapon_swap:bool):
 	update_entity()
 
 func update_entity():
-	set_unit_icon(entity.display.texture)
+	set_unit_icon(entity.display.sprite)
 	set_unit_name(entity.name)
 	unit_type_trait_container.set_all_icons_invisible()
 	unit_combat_weapon.item = null

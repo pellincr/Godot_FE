@@ -3,6 +3,7 @@ class_name CombatEntity
 
 var name : String
 var active : bool = true
+var destroyed : bool = false
 var display : CombatEntityDisplay
 var group : int
 var interaction_type : mapEntityDefinition.TYPE
@@ -19,6 +20,7 @@ var attack_speed = 0
 var contents: Array[ItemDefinition] = []
 
 func populate(definition: mapEntityDefinition):
+	self.name = definition.name
 	self.map_position = definition.position
 	self.interaction_type = definition.interaction_type
 	self.terrain = definition.terrain
@@ -30,7 +32,7 @@ func populate(definition: mapEntityDefinition):
 	self.contents = definition.contents
 
 func set_display(map_display : CombatEntityDisplay):
-	self.display = display
+	self.display = map_display
 
 func set_entity_group(index: int):
 	self.group = index

@@ -11,25 +11,25 @@
 [ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="9_4kqs3"]
 [ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="9_nrsst"]
 [ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_pa0j6"]
-[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_8otve"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="11_870aq"]
 [ext_resource type="Texture2D" uid="uid://xui2movippkm" path="res://resources/sprites/entities/crate.png" id="12_wqjs8"]
 
 [sub_resource type="Resource" id="Resource_0qdvw"]
 script = ExtResource("9_4kqs3")
-interaction_type = 0
+name = "Crate"
+interaction_type = 4
 position = Vector2i(12, 9)
 map_view = ExtResource("12_wqjs8")
-hp = 0
-defense = 0
-resistance = 0
-attack_speed = 0
+hp = 5
+defense = 1
+resistance = 1
+attack_speed = 5
 contents = Array[ExtResource("10_pa0j6")]([ExtResource("11_870aq")])
 
 [sub_resource type="Resource" id="Resource_a5foj"]
 script = ExtResource("8_csdku")
-group_index = 0
 entities = Array[ExtResource("9_4kqs3")]([SubResource("Resource_0qdvw")])
 
 [node name="Game" type="Node"]

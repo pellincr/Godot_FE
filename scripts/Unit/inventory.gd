@@ -277,3 +277,6 @@ func get_items() -> Array[ItemDefinition]:
 func use_item(item: ItemDefinition):
 	if has(item):
 		use_at_index(get_item_index(item))
+
+func has_item(item: ItemDefinition):
+	return items.has(item)

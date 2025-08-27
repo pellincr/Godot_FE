@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://b0sd3s30y0yy0" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_5.tres" id="6_xsfe1"]
 [ext_resource type="Resource" uid="uid://cgw58mt7lbjfq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_5_reinforcments.tres" id="6_yyu6e"]
 [ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="7_sehg0"]
-[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_wqpeo"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_wqpeo"]
 [ext_resource type="Script" uid="uid://co2iak53to12n" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="8_xo7tu"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="9_3ljho"]
 

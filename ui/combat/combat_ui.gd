@@ -33,6 +33,11 @@ const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn"
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
 
+#Item Discard & Popup
+const COMBAT_VIEW_POP_UP = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
+const DISCARD_ITEM_SELECTED = preload("res://ui/combat/discard_action_inventory_new/discard_item_selected.tscn")
+const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_inventory_new/discard_action_inventory.tscn")
+
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
 const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
@@ -196,7 +201,7 @@ func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitComb
 func update_weapon_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
 	var active_ui_node = ui_node_stack.peek()
 	if  active_ui_node is UnitCombatExchangePreview:
-		active_ui_node.set_all_entity(exchange_info,weapon_swap_visable)
+		active_ui_node.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
 #
 #
 #
@@ -320,172 +325,11 @@ func _on_unit_experience_bar_finished() -> void:
 	hide_unit_experience_bar()
 	emit_signal("unit_experience_ended")
 
-"""
-func set_inventory_list_support(unit: Unit): ## OLD
-	print("set_inventory_list_support")
-	var attack_action_inventory = $AttackActionInventory
-	attack_action_inventory.set_unit(unit)
-	attack_action_inventory.hide_equippable_item_info()
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			var weapon_list = unit.get_equippable_weapons()
-			if not weapon_list.is_empty():
-				
-				if weapon_list.size() > i:
-					var item = weapon_list[i]
-					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
-						var equipped = false
-						if i == 0: 
-							equipped = true
-						inventory_container_children[i].set_all(item, equipped)
-						inventory_container_children[i].visible = true
-						
-						item_btn.pressed.connect(func():
-							play_menu_confirm()
-							controller.set_selected_item(item)
-							
-							controller.action_item_selected()
-							)
-					else : 
-						inventory_container_children[i].visible = false
-						clear_action_button_connections(item_btn)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-	var test = inventory_container_children[0]
-	test.grab_button_focus()
-
-##OLD
-func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
-	print("set_inventory_list_support")
-	var  action_inv = $ActionInventory
-	
-	var inventory_container_children = action_inv.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			if not items.is_empty():
-				if items.size() > i:
-					var item = items[i]
-					inventory_container_children[i].set_all(item)
-					inventory_container_children[i].visible = true
-					item_btn.pressed.connect(func():
-						play_menu_confirm()
-						controller.set_selected_item(item)
-						controller.action_item_selected()
-						)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-	var test = inventory_container_children[0]
-	test.grab_button_focus()
-
-func set_inventory_list(unit: Unit):
-	print("@# set_inventory_list called")
-	var attack_action_inventory:  = $AttackActionInventory
-	attack_action_inventory.show_equippable_item_info()
-	attack_action_inventory.set_unit(unit)
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			var item_list = unit.inventory.items
-			if not item_list.is_empty():
-				if item_list.size() > i:
-					var item = item_list[i]
-					var equipped = false
-					if i == 0: 
-						equipped = true
-					inventory_container_children[i].set_all(item, equipped)
-					inventory_container_children[i].visible = true
-					item_btn.pressed.connect(func():
-						play_menu_confirm()
-						controller.set_selected_item(item)
-						controller.action_item_selected()
-						create_inventory_options_container(unit, item, attack_action_inventory)
-						)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-
-func create_inventory_options_container(unit:Unit, item: ItemDefinition, parent: Node):
-	var inv_op_con = inventoryOptionsContainer.instantiate()
-	parent.add_child(inv_op_con)
-	inv_op_con.position = Vector2(0,0)
-	var btn_1 : Button = inv_op_con.get_button1()
-	var btn_2 : Button = inv_op_con.get_button2()
-	if item is WeaponDefinition:
-		btn_1.text = "Equip"
-		btn_1.disabled = not unit.can_equip(item)
-		btn_1.pressed.connect(func():
-			unit.set_equipped(item)
-			play_menu_confirm()
-			set_inventory_list(unit)
-			inv_op_con.queue_free())
-	if item is ConsumableItemDefinition:
-		btn_1.text = "Use"
-		btn_1.disabled = not unit.can_use_consumable_item(item)
-		btn_1.pressed.connect(func(): 
-			controller.set_unit_action(controller.use_action)
-			controller.use_action_selected()
-			#controller.combat.Use_Consumable_Item(item)
-			play_menu_confirm()
-			inv_op_con.queue_free())
-	btn_2.text = "Discard"
-	btn_2.pressed.connect(func():
-		unit.discard_item(item)
-		play_menu_confirm()
-		set_inventory_list(unit)
-		inv_op_con.queue_free())
-
-func remove_inventory_options_container():
-	var a_a_i = $AttackActionInventory
-	var children = a_a_i.get_children()
-	for child in children:
-		if child is IventoryOptionsContainer :
-			child.queue_free()
-	enable_inventory_list_butttons()
-
-func disable_inventory_list_butttons():
-	var attack_action_inventory = $AttackActionInventory
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = true
-			item_btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-func enable_inventory_list_butttons():
-	var attack_action_inventory = $AttackActionInventory
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			item_btn.mouse_filter = Control.MOUSE_FILTER_STOP
-
-
-
-func show_trade_container(ua,ub):
-	var tc : TradeContainer = tradeContainer.instantiate()
-	await tc
-	tc.set_unit_a(ua.unit)
-	tc.set_unit_b(ub.unit)
-	tc.update_trade_inventories()
-	self.add_child(tc)
-
-func destroy_trade_container():
-	var children = self.get_children()
-	for child in children:
-		if child is TradeContainer:
-			child.queue_free()
-			return
-"""
+func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[UnitInventorySlotData], new_item:UnitInventorySlotData):
+	var discard_container = DISCARD_ACTION_INVENTORY.instantiate()
+	self.add_child(discard_container)
+	await discard_container
+	discard_container.item_selected.connect(combat.discard_item_selected.bind(unit))
+	discard_container.populate(unit, inventory, new_item)
+	push_ui_node_stack(discard_container)
+	discard_container.grab_focus_btn()

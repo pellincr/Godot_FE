@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://bba77rcw2g3tq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_j1pk3"]
 [ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="8_wifo0"]
-[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_c4tgo"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_c4tgo"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_r7vsa"]
 
 [node name="Game" type="Node"]

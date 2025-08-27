@@ -23,7 +23,8 @@ signal major_action_completed()
 signal minor_action_completed()
 signal trading_completed()
 signal shove_completed()
-
+signal pause_fsm()
+signal resume_fsm()
 	
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
@@ -81,8 +82,12 @@ func _ready():
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
+	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
+	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
+	combat_unit_item_manager.connect("create_give_item_pop_up", give_curent_unit_items)
 	entity_manager.connect("entity_added", entity_added)
+	entity_manager.connect("give_items", give_curent_unit_items)
 	randomize()
 
 func populate():
@@ -150,6 +155,14 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit, data: UnitCombatEx
 	print("Entered Perform_attack in combat.gd")
 	_player_unit_alive = true
 	await combatExchange.enact_combat_exchange_new(attacker, target, data)
+	major_action_complete()
+	if attacker.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
+
+func perform_attack_entity(attacker: CombatUnit, target: CombatEntity, data: UnitCombatExchangeData):
+	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
+	await combatExchange.enact_combat_exchange_entity(attacker, target, data)
 	major_action_complete()
 	if attacker.allegience == Constants.FACTION.ENEMIES:
 		complete_unit_turn()
@@ -559,3 +572,24 @@ func calculate_reward_gold():
 
 func heal_unit(cu:CombatUnit, amount:int):
 	await combatExchange.heal_unit(cu, amount)
+
+func entity_destroyed_combat(ce : CombatEntity):
+	entity_manager.entity_destroyed(ce)
+
+func give_curent_unit_items(items: Array[ItemDefinition]):
+	for item in items:
+		await combat_unit_item_manager.give_combat_unit_item(get_current_combatant(), item)
+
+func create_unit_item_discard_container(cu: CombatUnit, new_item: ItemDefinition):
+	# Create inventory slot data
+	var inventory_data : Array[UnitInventorySlotData] = combat_unit_item_manager.generate_combat_unit_inventory_data(cu)
+	# Create new item slot data
+	var new_item_data : UnitInventorySlotData = combat_unit_item_manager.generate_combat_unit_inventory_data_for_item(cu, new_item)
+	# Create UI Component
+	pause_fsm.emit()
+	game_ui.create_combat_unit_discard_inventory(cu, inventory_data, new_item_data)
+
+func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
+	game_ui.destory_active_ui_node()
+	await combat_unit_item_manager.give_item_discard_result_complete(cu, discard_item)
+	resume_fsm.emit()

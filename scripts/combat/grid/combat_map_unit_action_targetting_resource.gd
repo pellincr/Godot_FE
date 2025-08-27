@@ -9,6 +9,7 @@ var target_range_map = {} # Dict<positon : Vector2i, Range>
 var range_target_map = {} # Dict<Range position: Vector2i>
 
 var current_target_positon : Vector2i
+var current_target_type : String 
 var current_target_range : int #Current Distance from user
 var current_method: Object #Current weapon
 
@@ -22,6 +23,7 @@ func clear():
 	range_target_methods_map.clear()
 	target_range_map.clear()
 	range_target_map.clear()
+	current_target_type = ""
 	current_target_range = 0
 	_available_targets_at_range_index = 0
 	_available_targets_at_range_index = 0

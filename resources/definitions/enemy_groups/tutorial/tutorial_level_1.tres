@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_kbx8i"]
 script = ExtResource("1_os3lc")
 name = "Bandit"
-map_position = Vector2i(12, 9)
+map_position = Vector2i(11, 9)
 level = 2
 level_bonus = 0
 hard_mode_leveling = false
