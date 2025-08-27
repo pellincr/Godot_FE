@@ -140,6 +140,8 @@ func _ready():
 	#await combat.load_entities()
 	# Prepare to transition to player turn and handle player input
 	await combat.game_ui.ready
+	if combat.is_tutorial:
+		await combat.game_ui.tutorial_panel.tutorial_completed
 	autoCursor()
 	##Set the correct states to begin FSM flow
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)

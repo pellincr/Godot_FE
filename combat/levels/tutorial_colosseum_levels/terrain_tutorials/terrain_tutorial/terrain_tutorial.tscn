@@ -36,7 +36,7 @@ ally_spawn_bottom_right = Vector2(3, 9)
 enemy_start_group = ExtResource("5_u8v6t")
 max_allowed_ally_units = 3
 is_tutorial = true
-tutorial_level = 9
+tutorial_level = 10
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_whdsm")

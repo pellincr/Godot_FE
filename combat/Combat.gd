@@ -104,6 +104,9 @@ func populate():
 
 func set_player_tutorial_party():
 	match tutorial_level:
+		TutorialPanel.TUTORIAL.HOW_TO_PLAY:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
 		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
 			var sword_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
 			playerOverworldData.selected_party.append(sword_unit)

@@ -26,6 +26,8 @@ scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_68w52")
+victory_condition = 4
+turns_to_survive = 3
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
@@ -36,7 +38,7 @@ ally_spawn_bottom_right = Vector2(3, 9)
 enemy_start_group = ExtResource("5_gj5ej")
 max_allowed_ally_units = 3
 is_tutorial = true
-tutorial_level = 13
+tutorial_level = 14
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_aosi3")

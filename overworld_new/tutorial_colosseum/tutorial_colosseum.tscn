@@ -33,6 +33,10 @@ offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HowToPlay" type="Button" parent="TutorialContainer"]
+layout_mode = 2
+text = "How to Play"
+
 [node name="WeaponTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
 layout_mode = 2
 
@@ -44,7 +48,7 @@ text = "Mundane Triangle"
 [node name="Magic" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Magic Triangle"
+text = "Magic Triangle - NEED MAGIC UNITS"
 
 [node name="WeaponCycle" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
@@ -56,7 +60,7 @@ layout_mode = 2
 
 [node name="SupportActions" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
 layout_mode = 2
-text = "Support Actions"
+text = "Support Actions - NOT WORKING"
 
 [node name="Staffs" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
 layout_mode = 2
@@ -64,7 +68,7 @@ text = "Staffs"
 
 [node name="Banners" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
 layout_mode = 2
-text = "Banners"
+text = "Banners - NOT WORKING"
 
 [node name="Terrain" type="Button" parent="TutorialContainer"]
 layout_mode = 2
@@ -83,7 +87,7 @@ text = "Defeat Enemies"
 [node name="SiezeLandmark" type="Button" parent="TutorialContainer/WinConditionContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Sieze Landmark"
+text = "Sieze Landmark - NOT WORKING"
 
 [node name="DefeatBosses" type="Button" parent="TutorialContainer/WinConditionContainer"]
 layout_mode = 2
@@ -112,6 +116,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Return"
 
+[connection signal="pressed" from="TutorialContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Mundane" to="." method="_on_mundane_pressed"]
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Magic" to="." method="_on_magic_pressed"]
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/WeaponCycle" to="." method="_on_weapon_cycle_pressed"]

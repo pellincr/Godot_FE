@@ -43,6 +43,8 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 
 const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAnimation.tscn")
 
+var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 func _ready():
@@ -106,42 +108,45 @@ func get_all_boss_names():
 	return boss_names
 
 func show_tutorial_panel(scene_transition, current_level:PackedScene):
-	var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 	match combat.tutorial_level:
 		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
-			scene_transition.set_label_text("Mundane Tutorial")
+			scene_transition.set_middle_label_text("Mundane Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MUNDANE_WEAPONS
 		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
-			scene_transition.set_label_text("Magic Tutorial")
+			scene_transition.set_middle_label_text("Magic Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MAGIC_WEAPONS
 		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
-			scene_transition.set_label_text("Weapon Cycle Tutorial")
+			scene_transition.set_middle_label_text("Weapon Cycle Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.WEAPON_CYCLE
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
-			scene_transition.set_label_text("Support Actions Tutorial")
+			scene_transition.set_middle_label_text("Support Actions Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SUPPORT_ACTIONS
 		TutorialPanel.TUTORIAL.STAFFS:
-			scene_transition.set_label_text("Staffs Tutorial")
+			scene_transition.set_middle_label_text("Staffs Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.STAFFS
 		TutorialPanel.TUTORIAL.BANNERS:
-			scene_transition.set_label_text("Banners Tutorial")
+			scene_transition.set_middle_label_text("Banners Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.BANNERS
 		TutorialPanel.TUTORIAL.TERRAIN:
-			scene_transition.set_label_text("Terrain Tutorial")
+			scene_transition.set_middle_label_text("Terrain Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.TERRAIN
 		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
-			scene_transition.set_label_text("Defeat All Enemies Tutorial")
+			scene_transition.set_middle_label_text("Defeat All Enemies Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES
 		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
-			scene_transition.set_label_text("Sieze Landmark Tutorial")
+			scene_transition.set_middle_label_text("Sieze Landmark Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SIEZE_LANDMARK
 		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
-			scene_transition.set_label_text("Defeat Bosses Tutorial")
+			scene_transition.set_middle_label_text("Defeat Bosses Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_BOSSES
 		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
-			scene_transition.set_label_text("Survive Turns Tutorial")
+			scene_transition.set_middle_label_text("Survive Turns Tutorial")
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SURVIVE_TURNS
 	add_child(tutorial_panel)
+	tutorial_panel.tutorial_completed.connect(tutorial_complete)
+
+func tutorial_complete():
+	print("Tutorial Complete")
 
 #
 # Creates the unit action container

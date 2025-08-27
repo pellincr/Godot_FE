@@ -54,7 +54,7 @@ hard_mode_leveling = false
 unit_type_key = "ward"
 inventory = Array[ExtResource("2_ieken")]([ExtResource("6_opinu")])
 ai_type = 2
-is_boss = false
+is_boss = true
 
 [resource]
 script = ExtResource("7_xsrch")

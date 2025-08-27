@@ -14,6 +14,7 @@ signal tutorial_completed()
 @onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
 
 enum TUTORIAL{
+	HOW_TO_PLAY,
 	DRAFT, BATTLE_PREP, CAMPAIGN_MAP, 
 	MUNDANE_WEAPONS, MAGIC_WEAPONS, WEAPON_CYCLE,
 	SUPPORT_ACTIONS,STAFFS,BANNERS,
@@ -37,6 +38,10 @@ func _ready():
 
 func instantiate_tutorial():
 	match current_state:
+		TUTORIAL.HOW_TO_PLAY:
+			tutorial_page_text.append("How to play! If you're new to the game this is an important step to learn. So let's go over the basics.")
+			tutorial_page_text.append("Understanding your party. Each time you enter a battle, you will have a certain amount of units under your control. Each of these units can move once and use one action per turn.")
+			tutorial_page_text.append("You can decide whether or not to use those actions or to simply wait for a better moment to strike. Once you're satisfied with your turn, you may end your turn and wait for the enemies to move")
 		TUTORIAL.DRAFT:
 			tutorial_page_text.append("Welcome to your first Campaign! The first part of every campaign is the army draft. Your first unit, and perhaps most important, will be the commander.")
 			tutorial_page_text.append("After you select the Commander of your Army, you will select the archetypes you want your army to be built out of.")
@@ -148,14 +153,15 @@ func update_tutorial_panel():
 		set_tutorial_text(tutorial_page_text[current_page-1])
 
 func _on_gui_input(event):
-	if has_focus() and event.is_action_pressed("ui_accept") and current_page == total_pages:
+	print(str(current_page))
+	if event.is_action_pressed("ui_accept") and current_page >= total_pages:
 		tutorial_completed.emit()
 		queue_free()
-	if has_focus() and event.is_action_pressed("ui_back") and current_page != 1:
+	if event.is_action_pressed("ui_back") and current_page != 1:
 		current_page -= 1
 		grab_focus()
 		update_tutorial_panel()
-	if has_focus() and event.is_action_pressed("ui_accept") and current_page != total_pages:
+	if event.is_action_pressed("ui_accept") and current_page != total_pages:
 		current_page += 1
 		grab_focus()
 		update_tutorial_panel()

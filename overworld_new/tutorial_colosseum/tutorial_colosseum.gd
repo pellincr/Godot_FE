@@ -26,7 +26,7 @@ func transition_out_animation():
 func _on_return_pressed():
 	var overworld_scene = preload("res://overworld_new/overworld.tscn")
 	transition_out_animation()
-	get_tree().change_scene_to_packed(overworld_scene)
+	get_tree().change_scene_to_file("res://overworld_new/overworld.tscn")
 
 func go_to_totorial_scene(tutorial:PackedScene):
 	playerOverworldData.current_level = tutorial
@@ -95,3 +95,8 @@ func _on_campaign_pressed():
 	transition_out_animation()
 	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	get_tree().change_scene_to_packed(army_draft)
+
+
+func _on_how_to_play_pressed():
+	var how_to_play_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/how_to_play/how_to_play_tutorial/how_to_play_tutorial.tscn")
+	go_to_totorial_scene(how_to_play_tutorial_scene)
