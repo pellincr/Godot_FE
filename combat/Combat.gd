@@ -13,7 +13,7 @@ const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_dis
 signal register_combat(combat_node: Node)
 signal turn_advanced()
 signal combatant_added(combatant: CombatUnit)
-signal entity_added(cme:CombatMapEntity)
+#signal entity_added(cme:CombatEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_information(text: String)
 signal update_combatants(combatants: Array) #THIS IS OLD?
@@ -28,8 +28,7 @@ signal shove_completed()
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
-var entities: Array[CombatMapEntity]
-var disabled_entities : Array[CombatMapEntity]
+
 var groups = [
 	[], #players
 	[], #enemies
@@ -55,7 +54,7 @@ var _player_unit_alive : bool = true
 @export var unit_experience_manager : UnitExperienceManager 
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
-@export var mapEntityData: MapEntityGroupData
+@export var entity_manager : CombatMapEntityManager
 
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
@@ -77,14 +76,14 @@ func _ready():
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
 	unit_experience_manager = $UnitExperienceManager
+	entity_manager = $CombatMapEntityManager
 	combatExchange.connect("combat_exchange_finished", combatExchangeComplete)
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
+	entity_manager.connect("entity_added", entity_added)
 	randomize()
-	
-
 
 func populate():
 	var current_party_index = 0 
@@ -94,12 +93,7 @@ func populate():
 				add_combatant(create_combatant_unit(playerOverworldData.selected_party[current_party_index],0),Vector2i(i,j))
 				current_party_index+= 1
 	spawn_initial_units()
-	load_entities()
-
-func load_entities():
-	if mapEntityData != null:
-		for entity in mapEntityData.entities:
-			add_entity(entity)
+	entity_manager.load_entities()
 		
 
 func spawn_reinforcements(turn_number : int):
@@ -135,21 +129,11 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	combat_unit.stats.populate_unit_stats(combat_unit.unit)
 	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	new_combatant_sprite.set_reference_unit(combat_unit)
-	$"../Terrain/ActiveMapTerrain".add_child(new_combatant_sprite)
+	$"../Terrain/UnitLayer".add_child(new_combatant_sprite)
 	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
 	new_combatant_sprite.z_index = 1
 	combat_unit.map_display = new_combatant_sprite
 	emit_signal("combatant_added", combat_unit)
-	
-func add_entity(cme:CombatMapEntity):
-	entities.append(cme)
-	var new_entity_sprite : CombatMapEntityDisplay = COMBAT_MAP_ENTITY_DISPLAY.instantiate()
-	new_entity_sprite.set_reference_entity(cme)
-	$"../Terrain/ActiveMapTerrain".add_child(new_entity_sprite)
-	new_entity_sprite.position = Vector2((cme.position.x * 32.0) + 16,(cme.position.y * 32.0) + 16)
-	new_entity_sprite.z_index = 0
-	cme.display = new_entity_sprite
-	emit_signal("entity_added", cme)
 
 func get_current_combatant():
 	return combatants[current_combatant]
@@ -209,23 +193,6 @@ func Trade(unit: CombatUnit, target: CombatUnit):
 	combat_unit_item_manager.free_current_node()
 	minor_action_complete(unit)
 	print("Exited Trade in Combat.gd")
-
-func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
-	print("Entered Chest in Combat.gd")
-	if key:
-		key.use()
-	for item in chest.contents:
-		await combat_unit_item_manager.give_combat_unit_item(unit, item)
-	entity_disable(chest)
-	major_action_complete()
-	
-func Door(unit: CombatUnit, key: ItemDefinition, door:CombatMapDoorEntity):
-	print("Entered Door in Combat.gd")
-	key.use()
-	for posn in door.entity_position_group:
-		entity_disable(controller.get_entity_at_position(posn))
-	controller.update_points_weight()
-	major_action_complete()
 
 #Staff Action
 func Support(user: CombatUnit, target: CombatUnit):
@@ -399,12 +366,6 @@ func combatant_die(combatant: CombatUnit):
 		]
 	))
 	combatant_died.emit(combatant)
-	
-
-func entity_disable(e: CombatMapEntity):
-	e.active = false
-	disabled_entities.append(e)
-	e.display.queue_free()
 
 func sort_weight_array(a, b):
 	if a[0] > b[0]:
@@ -559,6 +520,8 @@ func play_audio(sound : AudioStream):
 	await combat_audio.finished
 	combatExchange.audio_player_ready()
 
+func entity_added(cme:CombatEntity):
+	controller.grid.set_entity(cme, cme.map_position)
 
 func check_win():
 	match victory_condition:
@@ -590,8 +553,6 @@ func check_turns_survived():
 
 func check_lose():
 	return check_group_clear(groups[0])
-
-
 
 func calculate_reward_gold():
 	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)

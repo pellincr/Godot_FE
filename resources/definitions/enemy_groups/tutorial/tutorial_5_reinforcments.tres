@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=8 format=3 uid="uid://cgw58mt7lbjfq"]
 
-[ext_resource type="Script" uid="uid://7x76sxa2qmh6" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_17j55"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_17j55"]
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_k2lsh"]
 [ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_pkuuo"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_ed5qg"]
@@ -33,5 +33,5 @@ is_boss = false
 [resource]
 script = ExtResource("1_17j55")
 units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa")])
-turn = Array[int]([3, 4, 5, 6, 7])
+turn = Array[int]([3, 5, 7])
 faction = 0

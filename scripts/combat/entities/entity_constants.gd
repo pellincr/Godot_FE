@@ -1,0 +1,15 @@
+extends Node
+class_name CombatEntityConstants
+
+enum ENTITY_TYPE {
+	CHEST,
+	DOOR,
+	LEVER,
+	MOVEMENT,
+	CRATE,
+	BREAKABLE_TERRAIN,
+	VISITABLE, #Wall & SNAG
+	ON_GROUP_TRIGGER
+}
+
+var targetable_entity_types : Array[ENTITY_TYPE] = [ENTITY_TYPE.CHEST,ENTITY_TYPE.DOOR,ENTITY_TYPE.BREAKABLE_TERRAIN, ENTITY_TYPE.CRATE]

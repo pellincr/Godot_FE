@@ -279,6 +279,34 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 	return_object.populate()
 	return return_object
 
+func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatEntity) -> UnitCombatExchangeData:
+	var return_object : UnitCombatExchangeData = UnitCombatExchangeData.new()
+	return_object.attacker = attacker
+	var net_attack_speed = attacker.stats.attack_speed.evaluate() - defender.attack_speed
+	var net_turn_count = int(net_attack_speed / floor(4))
+	var attacker_turns = 1
+	if net_turn_count > 0:
+		attacker_turns = attacker_turns + abs(net_turn_count)
+	var effective = false
+	var attacker_damage = 0
+	if(effective): 
+		attacker_damage = attacker.stats.damage.evaluate() + (2 * attacker.get_equipped().damage)
+	else :
+		attacker_damage = attacker.stats.damage.evaluate()
+	for attack in attacker_turns:
+		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
+		turn_data.owner = attacker
+		turn_data.attack_damage = attacker_damage
+		turn_data.damage_type = attacker.get_equipped().item_damage_type
+		turn_data.effective_damage = false
+		turn_data.attack_count = attacker.get_equipped().attacks_per_combat_turn
+		turn_data.critical = 0
+		turn_data.hit = 100
+		return_object.exchange_data.append(turn_data)
+	return_object.calc_net_damage()
+	return_object.calc_predicted_hp_entity(defender.hp)
+	return return_object
+	
 func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: int, d_turn_count: int) -> Array[String]:
 	var _arr : Array[String]  =[]
 	var i :int = a_turn_count

@@ -1,14 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://bal5lnj6tj03f"]
+[gd_scene load_steps=16 format=3 uid="uid://bal5lnj6tj03f"]
 
 [ext_resource type="PackedScene" uid="uid://cjfpjli0n0wh8" path="res://combat/levels/tutorial_levels/tutorial_level_3/terrain.tscn" id="2_a3hd1"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_6ngc8"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_h18eo"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_ehpk1"]
 [ext_resource type="Resource" uid="uid://das3nby4hielm" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_3.tres" id="6_of0la"]
-[ext_resource type="Script" uid="uid://duca8rg2bbf2d" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_gys8t"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_gys8t"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_ufgyw"]
 [ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="8_miqnb"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="8_sys21"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="9_psf4l"]
 [ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_svvcn"]
+[ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_2k4iy"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_pp7db"]
+
+[sub_resource type="Resource" id="Resource_v45pi"]
+script = ExtResource("9_psf4l")
+interaction_type = 0
+position = Vector2i(0, 0)
+hp = 0
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_2k4iy")]([])
+
+[sub_resource type="Resource" id="Resource_nmv0l"]
+script = ExtResource("8_sys21")
+group_index = 1
+entities = Array[ExtResource("9_psf4l")]([SubResource("Resource_v45pi")])
 
 [node name="Game" type="Node"]
 
@@ -24,13 +43,14 @@ selector = NodePath("Selector")
 top_level = true
 scale = Vector2(1, 1)
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_ehpk1")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_top_left = Vector2(0, 3)
 ally_spawn_bottom_right = Vector2(2, 5)
 enemy_start_group = ExtResource("6_of0la")
@@ -39,11 +59,15 @@ max_allowed_ally_units = 3
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("7_gys8t")
 
-[node name="UnitExperienceManager" type="Node" parent="Combat"]
-script = ExtResource("8_miqnb")
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("7_ufgyw")
+mapEntityData = Array[ExtResource("8_sys21")]([SubResource("Resource_nmv0l")])
 
 [node name="CombatUnitItemManager" type="Node" parent="Combat"]
 script = ExtResource("9_svvcn")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("8_miqnb")
 
 [node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
 
