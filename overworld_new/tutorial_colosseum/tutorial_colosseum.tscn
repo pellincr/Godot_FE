@@ -1,0 +1,132 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuat4kr55edh3"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ygkcv"]
+[ext_resource type="Script" path="res://overworld_new/tutorial_colosseum/tutorial_colosseum.gd" id="2_qicv6"]
+[ext_resource type="Texture2D" uid="uid://ctpauqnt2sdmw" path="res://resources/sprites/colosseum_map/Colosseum.jpg" id="2_xhsin"]
+
+[node name="TutorialColosseum" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_ygkcv")
+script = ExtResource("2_qicv6")
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("2_xhsin")
+
+[node name="TutorialContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -27.0
+offset_right = 273.5
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HowToPlay" type="Button" parent="TutorialContainer"]
+layout_mode = 2
+text = "How to Play"
+
+[node name="WeaponTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
+layout_mode = 2
+
+[node name="Mundane" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Mundane Triangle"
+
+[node name="Magic" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Magic Triangle - NEED MAGIC UNITS"
+
+[node name="WeaponCycle" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Weapon Cycle"
+
+[node name="SupportTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
+layout_mode = 2
+
+[node name="SupportActions" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
+layout_mode = 2
+text = "Support Actions - NOT WORKING"
+
+[node name="Staffs" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
+layout_mode = 2
+text = "Staffs"
+
+[node name="Banners" type="Button" parent="TutorialContainer/SupportTutorialContainer"]
+layout_mode = 2
+text = "Banners - NOT WORKING"
+
+[node name="Terrain" type="Button" parent="TutorialContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Terrain
+"
+
+[node name="WinConditionContainer" type="HBoxContainer" parent="TutorialContainer"]
+layout_mode = 2
+
+[node name="DefeatAllEnemies" type="Button" parent="TutorialContainer/WinConditionContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Defeat Enemies"
+
+[node name="SiezeLandmark" type="Button" parent="TutorialContainer/WinConditionContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Sieze Landmark - NOT WORKING"
+
+[node name="DefeatBosses" type="Button" parent="TutorialContainer/WinConditionContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Defeat Bosses"
+
+[node name="SurviveTurns" type="Button" parent="TutorialContainer/WinConditionContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Survive Turns"
+
+[node name="Campaign" type="Button" parent="TutorialContainer"]
+layout_mode = 2
+text = "Campaign"
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Return"
+
+[connection signal="pressed" from="TutorialContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Mundane" to="." method="_on_mundane_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Magic" to="." method="_on_magic_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/WeaponCycle" to="." method="_on_weapon_cycle_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/SupportActions" to="." method="_on_support_actions_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Staffs" to="." method="_on_staffs_pressed"]
+[connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Banners" to="." method="_on_banners_pressed"]
+[connection signal="pressed" from="TutorialContainer/Terrain" to="." method="_on_terrain_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatAllEnemies" to="." method="_on_defeat_all_enemies_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/SiezeLandmark" to="." method="_on_sieze_landmark_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatBosses" to="." method="_on_defeat_bosses_pressed"]
+[connection signal="pressed" from="TutorialContainer/WinConditionContainer/SurviveTurns" to="." method="_on_survive_turns_pressed"]
+[connection signal="pressed" from="TutorialContainer/Campaign" to="." method="_on_campaign_pressed"]
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]

@@ -49,10 +49,15 @@ const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 #transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAnimation.tscn")
+
+var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 func _ready():
 	transition_in_animation()
+	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
@@ -66,7 +71,12 @@ func _ready():
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
-	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+	if playerOverworldData.current_campaign:
+		scene_transition.set_upper_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+		scene_transition.set_middle_label_text("Objective")
+		scene_transition.set_lower_label_text(get_objective_text(combat.victory_condition))
+	else:
+		show_tutorial_panel(scene_transition, playerOverworldData.current_level)
 	scene_transition.play_animation("level_fade_out")
 	await get_tree().create_timer(5).timeout
 	scene_transition.queue_free()
@@ -79,6 +89,72 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
+
+func get_objective_text(victory_condition:Constants.VICTORY_CONDITION) -> String:
+	var objective_text := ""
+	match victory_condition:
+		Constants.VICTORY_CONDITION.DEFEAT_ALL:
+			objective_text = "Defeat All Enemies"
+		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
+			var boss_names = get_all_boss_names()
+			objective_text = "Defeat : " + boss_names
+		Constants.VICTORY_CONDITION.CAPTURE_TILE:
+			objective_text = "Capture the Landmark"
+		Constants.VICTORY_CONDITION.DEFEND_TILE:
+			objective_text = "Defend Tile"
+		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+			objective_text = "Survive " + str(combat.turns_to_survive) + " Turns"
+	return objective_text
+
+func get_all_boss_names():
+	var enemies = combat.groups[1]
+	var boss_names = ""
+	for enemy in enemies:
+		var enemy_unit : CombatUnit = combat.combatants[enemy]
+		if enemy_unit.is_boss:
+			boss_names =  boss_names + enemy_unit.unit.name + ", "
+	return boss_names
+
+func show_tutorial_panel(scene_transition, current_level:PackedScene):
+	match combat.tutorial_level:
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			scene_transition.set_middle_label_text("Mundane Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MUNDANE_WEAPONS
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			scene_transition.set_middle_label_text("Magic Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.MAGIC_WEAPONS
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			scene_transition.set_middle_label_text("Weapon Cycle Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.WEAPON_CYCLE
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			scene_transition.set_middle_label_text("Support Actions Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SUPPORT_ACTIONS
+		TutorialPanel.TUTORIAL.STAFFS:
+			scene_transition.set_middle_label_text("Staffs Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.STAFFS
+		TutorialPanel.TUTORIAL.BANNERS:
+			scene_transition.set_middle_label_text("Banners Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.BANNERS
+		TutorialPanel.TUTORIAL.TERRAIN:
+			scene_transition.set_middle_label_text("Terrain Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.TERRAIN
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			scene_transition.set_middle_label_text("Defeat All Enemies Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			scene_transition.set_middle_label_text("Sieze Landmark Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SIEZE_LANDMARK
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			scene_transition.set_middle_label_text("Defeat Bosses Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DEFEAT_BOSSES
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			scene_transition.set_middle_label_text("Survive Turns Tutorial")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.SURVIVE_TURNS
+	add_child(tutorial_panel)
+	tutorial_panel.tutorial_completed.connect(tutorial_complete)
+
+func tutorial_complete():
+	print("Tutorial Complete")
 
 #
 # Creates the unit action container
@@ -358,3 +434,18 @@ func create_interact_action_inventory(inputCombatUnit : CombatUnit, inventory: A
 	interact_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(interact_action_inventory)
 	interact_action_inventory.grab_focus()
+	
+func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
+	var turn_transition = turn_transition_scene.instantiate()
+	self.add_child(turn_transition)
+	match state:
+		CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
+			turn_transition.set_label("Player Turn")
+			turn_transition.set_texture_hue(Color.BLUE)
+		CombatMapConstants.COMBAT_MAP_STATE.AI_TURN:
+			turn_transition.set_label("Enemy Turn")
+			turn_transition.set_texture_hue(Color.RED)
+	turn_transition.play_animation("new_turn")
+	await turn_transition.animation_player.animation_finished
+	turn_transition.queue_free()
+

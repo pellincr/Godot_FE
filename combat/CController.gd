@@ -142,6 +142,8 @@ func _ready():
 	#await combat.load_entities()
 	# Prepare to transition to player turn and handle player input
 	await combat.game_ui.ready
+	if combat.is_tutorial:
+		await combat.game_ui.tutorial_panel.tutorial_completed
 	autoCursor()
 	##Set the correct states to begin FSM flow
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
@@ -270,8 +272,10 @@ func progress_turn_order():
 	turn_owner = turn_order[turn_order_index]
 	if turn_owner in player_factions:
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
+		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	else : 
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
+		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
 
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)

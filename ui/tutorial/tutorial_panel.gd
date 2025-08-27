@@ -14,7 +14,12 @@ signal tutorial_completed()
 @onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
 
 enum TUTORIAL{
-	DRAFT, BATTLE_PREP, CAMPAIGN_MAP
+	HOW_TO_PLAY,
+	DRAFT, BATTLE_PREP, CAMPAIGN_MAP, 
+	MUNDANE_WEAPONS, MAGIC_WEAPONS, WEAPON_CYCLE,
+	SUPPORT_ACTIONS,STAFFS,BANNERS,
+	TERRAIN,
+	DEFEAT_ALL_ENEMIES, SIEZE_LANDMARK,DEFEAT_BOSSES,SURVIVE_TURNS
 }
 
 var current_state : TUTORIAL
@@ -33,6 +38,10 @@ func _ready():
 
 func instantiate_tutorial():
 	match current_state:
+		TUTORIAL.HOW_TO_PLAY:
+			tutorial_page_text.append("How to play! If you're new to the game this is an important step to learn. So let's go over the basics.")
+			tutorial_page_text.append("Understanding your party. Each time you enter a battle, you will have a certain amount of units under your control. Each of these units can move once and use one action per turn.")
+			tutorial_page_text.append("You can decide whether or not to use those actions or to simply wait for a better moment to strike. Once you're satisfied with your turn, you may end your turn and wait for the enemies to move")
 		TUTORIAL.DRAFT:
 			tutorial_page_text.append("Welcome to your first Campaign! The first part of every campaign is the army draft. Your first unit, and perhaps most important, will be the commander.")
 			tutorial_page_text.append("After you select the Commander of your Army, you will select the archetypes you want your army to be built out of.")
@@ -47,6 +56,38 @@ func instantiate_tutorial():
 			tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
 			tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
 			tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+		TUTORIAL.MUNDANE_WEAPONS:
+			tutorial_page_text.append("There are 3 types of Mundane Weapons: Swords, Axes, and Lances.")
+			tutorial_page_text.append("In combat, it is important to choose your weapon wisely. The Mundane Weapons work as follows: Swords beats Axes, Axes beats Lances, and Lances beats Swords.")
+		TUTORIAL.MAGIC_WEAPONS:
+			tutorial_page_text.append("There are 3 types of Magic Weapons: Nature, Light, and Dark.")
+			tutorial_page_text.append("In combat, it is important to choose your weapon wisely. The Magic Weapons work as follows: Nature beats Light, Light beats Dark, and Dark beats Nature.")
+		TUTORIAL.WEAPON_CYCLE:
+			tutorial_page_text.append("There are 4 main weapon types a unit can use: Mundane, Nimble, Magic, and Defensive.")
+			tutorial_page_text.append("In combat, it is important to choose your weapon wisely. The Weapon Cycle works as follows: Mundane beats Nimble, Nimble beats Magic, Magic beats Defensive, and Defensive beats Mundane.")
+		TUTORIAL.SUPPORT_ACTIONS:
+			tutorial_page_text.append("In combat, it is important to think carefully before each action you take. Outside of just attacking enemies, there are other actions you can do to better prepare your units.")
+			tutorial_page_text.append("Shove: If you want to move a unit to a safer position, but cant move any further, you can use another unit to shove the initial unit 1 square away.")
+			tutorial_page_text.append("Item Use: there are certain items, such as potions that a unit can use that provide a beneficial effect. Try using the potion in your commanders inventory to heal them back to full.")
+		TUTORIAL.STAFFS:
+			tutorial_page_text.append("Certain units have the ability to use staffs to harness their magical ability. Different staffs have different purposes, so be sure to plan accordingly. Try using the healer to heal your commander to full.")
+		TUTORIAL.BANNERS:
+			pass
+		TUTORIAL.TERRAIN:
+			tutorial_page_text.append("Not all terrain will be equal in combat. Each tile provides different stat bonuses to the units standing on them.")
+			tutorial_page_text.append("However be careful! Certain units find it more difficult to move through terrain while others are able to move more freely.")
+		TUTORIAL.DEFEAT_ALL_ENEMIES:
+			tutorial_page_text.append("There are a few different ways a battle can be completed, it is based on the battle you are in.")
+			tutorial_page_text.append("In this battle, the goal is to kill all enemies on the map. Kill the enemies and proceed with victory!")
+		TUTORIAL.SIEZE_LANDMARK:
+			tutorial_page_text.append("There are a few different ways a battle can be completed, it is based on the battle you are in.")
+			tutorial_page_text.append("In this battle, the goal is to sieze the designated landmark. In this case, the landmark is the throne. Move a unit there and press sieze!")
+		TUTORIAL.DEFEAT_BOSSES:
+			tutorial_page_text.append("There are a few different ways a battle can be completed, it is based on the battle you are in.")
+			tutorial_page_text.append("In this battle, the goal is to kill all of the bosses on the map. Kill the enemies and proceed with victory!")
+		TUTORIAL.SURVIVE_TURNS:
+			tutorial_page_text.append("There are a few different ways a battle can be completed, it is based on the battle you are in.")
+			tutorial_page_text.append("In this battle, the goal is to survive until the turn count is up.")
 	total_pages = tutorial_page_text.size()
 
 
@@ -112,14 +153,15 @@ func update_tutorial_panel():
 		set_tutorial_text(tutorial_page_text[current_page-1])
 
 func _on_gui_input(event):
-	if has_focus() and event.is_action_pressed("ui_accept") and current_page == total_pages:
+	print(str(current_page))
+	if event.is_action_pressed("ui_accept") and current_page >= total_pages:
 		tutorial_completed.emit()
 		queue_free()
-	if has_focus() and event.is_action_pressed("ui_back") and current_page != 1:
+	if event.is_action_pressed("ui_back") and current_page != 1:
 		current_page -= 1
 		grab_focus()
 		update_tutorial_panel()
-	if has_focus() and event.is_action_pressed("ui_accept") and current_page != total_pages:
+	if event.is_action_pressed("ui_accept") and current_page != total_pages:
 		current_page += 1
 		grab_focus()
 		update_tutorial_panel()

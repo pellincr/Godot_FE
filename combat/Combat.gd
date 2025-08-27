@@ -64,6 +64,10 @@ var _player_unit_alive : bool = true
 @export var max_allowed_ally_units : int
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
+
+@export var is_tutorial := false
+@export var tutorial_level : TutorialPanel.TUTORIAL
+#@export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var draft_amount_on_win : int
 #@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
@@ -92,6 +96,8 @@ func _ready():
 	randomize()
 
 func populate():
+	if is_tutorial:
+		set_player_tutorial_party()
 	var current_party_index = 0 
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
@@ -100,6 +106,65 @@ func populate():
 				current_party_index+= 1
 	spawn_initial_units()
 	entity_manager.load_entities()
+
+func set_player_tutorial_party():
+	match tutorial_level:
+		TutorialPanel.TUTORIAL.HOW_TO_PLAY:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			var sword_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
+			playerOverworldData.selected_party.append(sword_unit)
+			var axe_unit = Unit.create_generic_unit("fighter",[ItemDatabase.items["iron_axe"]], "Axe", 2)
+			playerOverworldData.selected_party.append(axe_unit)
+			var lance_unit = Unit.create_generic_unit("pikeman",[ItemDatabase.items["iron_lance"]], "Lance", 2)
+			playerOverworldData.selected_party.append(lance_unit)
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			#CURRENTLY NO NATURE UNIT
+			#var nature_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
+			#playerOverworldData.selected_party.append(sword_unit)
+			var light_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Light", 2)
+			playerOverworldData.selected_party.append(light_unit)
+			#CURRENTLY NO DARK UNIT
+			#var dark_unit = Unit.create_generic_unit("imp",[ItemDatabase.items[""]], "Dark", 2)
+			#playerOverworldData.selected_party.append(lance_unit)
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			var mundane_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Mundane", 2)
+			playerOverworldData.selected_party.append(mundane_unit)
+			var magic_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Magic", 2)
+			playerOverworldData.selected_party.append(magic_unit)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"]], "Nimble", 2)
+			playerOverworldData.selected_party.append(nimble_unit)
+			var defensive_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_shield"]], "Defensive", 2)
+			playerOverworldData.selected_party.append(defensive_unit)
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			pass
+		TutorialPanel.TUTORIAL.STAFFS:
+			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["staff"]], "Staff", 2)
+			playerOverworldData.selected_party.append(healer)
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.BANNERS:
+			pass
+		TutorialPanel.TUTORIAL.TERRAIN:
+			var heavy = Unit.create_generic_unit("axe_armor",[ItemDatabase.items["iron_axe"]],"Heavy",2)
+			playerOverworldData.selected_party.append(heavy)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"]], "Nimble", 2)
+			playerOverworldData.selected_party.append(nimble_unit)
+			var flying = Unit.create_generic_unit("freewing",[ItemDatabase.items["iron_sword"]],"Flying",2)
+			playerOverworldData.selected_party.append(flying)
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",4)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
 		
 
 func spawn_reinforcements(turn_number : int):
@@ -111,9 +176,11 @@ func spawn_reinforcements(turn_number : int):
 					add_combatant(reinforcement_unit, unit.map_position)
 
 func spawn_initial_units():
-	for unit in enemy_start_group.group:
-		var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
-		add_combatant(reinforcement_unit, unit.map_position)
+	for unit :CombatUnitData in enemy_start_group.group:
+		var enemy_unit : CombatUnit
+		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
+		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type,false, unit.is_boss)
+		add_combatant(enemy_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss)
@@ -284,34 +351,26 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		playerOverworldData.began_level = false
 		playerOverworldData.gold += calculate_reward_gold()
 		SelectedSaveFile.save(playerOverworldData)
-		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
-			#if not at the final level, go back to the campaign map
-			#if draft_amount_on_win > 0:
-				#if allowed to draft after level
-				#playerOverworldData.current_archetype_count = 0
-				#playerOverworldData.max_archetype = draft_amount_on_win
-				#SelectedSaveFile.save(playerOverworldData)
-				#get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
-			#else:
-				#if battle_prep_on_win:
-					#if allowed to go to battle prep on win
-				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
-				#else:
-			playerOverworldData.began_level = false
-			playerOverworldData.current_level = null
-			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
-		else:
-			#reset the game back to the start screen after final level so that it can be played again
-			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
-			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
-			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
-			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
-			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-			unlock_new_unit_types()
+		if is_tutorial:
 			reset_game_state()
-			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+		else:
+			if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+				playerOverworldData.began_level = false
+				playerOverworldData.current_level = null
+				SelectedSaveFile.save(playerOverworldData)
+				get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+			else:
+				#reset the game back to the start screen after final level so that it can be played again
+				var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+				playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+				playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+				playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+				playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+				unlock_new_unit_types()
+				reset_game_state()
+				SelectedSaveFile.save(playerOverworldData)
+				get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	if(check_lose()):
 		reset_game_state()
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
@@ -322,6 +381,7 @@ func reset_game_state():
 	playerOverworldData.current_level = null
 	playerOverworldData.current_campaign = null
 	playerOverworldData.total_party = []
+	playerOverworldData.selected_party = []
 	playerOverworldData.dead_party_members = []
 	playerOverworldData.current_archetype_count = 0
 	playerOverworldData.archetype_allotments = []

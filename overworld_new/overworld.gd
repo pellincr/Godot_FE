@@ -49,3 +49,9 @@ func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 func _on_return_button_pressed():
 	transition_out_animation()
 	get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+
+
+func _on_colosseum_button_pressed():
+	transition_out_animation()
+	var tutorial_colosseum_scene = preload("res://overworld_new/tutorial_colosseum/tutorial_colosseum.tscn")
+	get_tree().change_scene_to_packed(tutorial_colosseum_scene)

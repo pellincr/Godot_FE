@@ -5,18 +5,14 @@
 [resource]
 script = ExtResource("1_dkey1")
 name = "Door"
-db_key = "door"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 1, 0])
 blocks = Array[int]([0, 1, 2, 3, 4])
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
 defense = 0
-magic_defense = 0
+resistance = 0
 avoid = 0
-active_effect_phases = ""
+active_effect_phases = 2
 effect = 0
+effect_scaling = 0
 effect_weight = 4

@@ -7,9 +7,21 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 
 
 var tutorials = [
+	TutorialPanel.TUTORIAL.HOW_TO_PLAY,
 	TutorialPanel.TUTORIAL.DRAFT,
 	TutorialPanel.TUTORIAL.BATTLE_PREP,
-	TutorialPanel.TUTORIAL.CAMPAIGN_MAP]
+	TutorialPanel.TUTORIAL.CAMPAIGN_MAP,
+	TutorialPanel.TUTORIAL.MUNDANE_WEAPONS,
+	TutorialPanel.TUTORIAL.MAGIC_WEAPONS,
+	TutorialPanel.TUTORIAL.WEAPON_CYCLE,
+	TutorialPanel.TUTORIAL.SUPPORT_ACTIONS,
+	TutorialPanel.TUTORIAL.STAFFS,
+	TutorialPanel.TUTORIAL.BANNERS,
+	TutorialPanel.TUTORIAL.TERRAIN,
+	TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES,
+	TutorialPanel.TUTORIAL.SIEZE_LANDMARK,
+	TutorialPanel.TUTORIAL.DEFEAT_BOSSES,
+	TutorialPanel.TUTORIAL.SURVIVE_TURNS]
 
 var focused := false
 var pressed_tutorial_button : Button
@@ -34,12 +46,36 @@ func transition_out_animation():
 func create_tutorial_button(tutorial : TutorialPanel.TUTORIAL) -> Button:
 	var button := Button.new()
 	match tutorial:
+		TutorialPanel.TUTORIAL.HOW_TO_PLAY:
+			button.text = "How to Play"
 		TutorialPanel.TUTORIAL.DRAFT:
 			button.text = "Army Drafting"
 		TutorialPanel.TUTORIAL.BATTLE_PREP:
 			button.text = "Battle Preparation"
 		TutorialPanel.TUTORIAL.CAMPAIGN_MAP:
 			button.text = "Campaign Map"
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			button.text = "Mundane Weapons"
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			button.text = "Magic Weapons"
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			button.text = "Weapon Cycle"
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			button.text = "Support Actions"
+		TutorialPanel.TUTORIAL.STAFFS:
+			button.text = "Staffs"
+		TutorialPanel.TUTORIAL.BANNERS:
+			button.text = "Banners"
+		TutorialPanel.TUTORIAL.TERRAIN:
+			button.text = "Terrain"
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			button.text = "Defeat All Enemies"
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			button.text = "Sieze Landmark"
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			button.text = "Defeat Bosses"
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			button.text = "Survive Turns"
 	button.pressed.connect(_on_tutorial_button_pressed.bind(tutorial,button))
 	return button
 

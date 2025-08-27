@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr83t2kyv8jyn"]
+[gd_scene load_steps=6 format=3 uid="uid://dr83t2kyv8jyn"]
 
 [ext_resource type="Script" path="res://combat/databases/rarity_database.gd" id="1_rwxl3"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_1bnin"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_elbnm"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="4_j35y3"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="5_t0ygi"]
 
 [node name="rarity_database" type="Node"]
 script = ExtResource("1_rwxl3")
-unit_rarities = {
+rarities = {
 "common": ExtResource("2_1bnin"),
+"legendary": ExtResource("5_t0ygi"),
 "rare": ExtResource("3_elbnm"),
 "uncommon": ExtResource("4_j35y3")
 }
