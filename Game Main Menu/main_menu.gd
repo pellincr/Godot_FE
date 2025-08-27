@@ -10,7 +10,10 @@ const ALMANAC_SCENE = preload("res://almanac/almanac.tscn")
 const TUTORIAL_PAGE_SCENE = preload("res://tutorials/tutorial_page.tscn")
 const HALL_OF_HEROES_SCENE = preload("res://hall_of_heroes/hall_of_heroes.tscn")
 
-@onready var start_game_button = $VBoxContainer/StartGameButton
+@onready var new_game_button = $VBoxContainer/NewGameButton
+
+@onready var continue_game_button = $VBoxContainer/ContinueGameButton
+
 
 func _ready():
 	transition_in_animation()
@@ -18,9 +21,12 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	#SelectedSaveFile.save(playerOverworldData)
 	load_data()
-	start_game_button.grab_focus()
+	new_game_button.grab_focus()
 	if playerOverworldData.current_campaign:
-		set_button_text(start_game_button, "Continue Game")
+		continue_game_button.visible = true
+		set_continue_game_button_text()
+	else:
+		continue_game_button.visible = false
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
@@ -32,56 +38,29 @@ func set_player_overworld_data(po_data):
 func set_button_text(button,text):
 	button.text = text
 
-func _on_begin_adventure_button_pressed():
-	if playerOverworldData.current_campaign:
-		if playerOverworldData.completed_drafting:
-			if playerOverworldData.current_level:
-				if playerOverworldData.began_level:
-					#if the level was previously being played
-					transition_out_animation()
-					get_tree().change_scene_to_packed(playerOverworldData.current_level)
-				else:
-					#when the level has been selected but battle prep has not been completed
-					var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-					get_tree().change_scene_to_packed(battle_prep_scene)
-			else:
-				#when the level has not been selected from the campaign map yet
-				var campaign_map = preload("res://campaign_map/campaign_map.tscn")
-				get_tree().change_scene_to_packed(campaign_map)
-		else:
-			#when drafting is not completed, but the campaign was selected
-			var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
-			get_tree().change_scene_to_packed(draft_scene)
-	else:
-		#if no campaign has been selected
-		var overworld = preload(overworld_scene)
-		overworld.instantiate().set_po_data(playerOverworldData)
-		transition_out_animation()
-		get_tree().change_scene_to_packed(overworld)
-	
-	"""
-	if playerOverworldData.current_campaign:
-		if playerOverworldData.completed_drafting:
+
+
+func _on_continue_game_button_pressed():
+	if playerOverworldData.completed_drafting:
+		if playerOverworldData.current_level:
 			if playerOverworldData.began_level:
-				#If you previously began the level
+				#if the level was previously being played
 				transition_out_animation()
 				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 			else:
-				#if you finished drafting, but did not enter the level yet
+				#when the level has been selected but battle prep has not been completed
 				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-				battle_prep_scene.instantiate().set_po_data(playerOverworldData)
 				get_tree().change_scene_to_packed(battle_prep_scene)
 		else:
-			#if you have not finished drafting but have selected a campaign
-			var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
-			get_tree().change_scene_to_packed(draft_scene)
+			#when the level has not been selected from the campaign map yet
+			var campaign_map = preload("res://campaign_map/campaign_map.tscn")
+			get_tree().change_scene_to_packed(campaign_map)
 	else:
-		#if no campaign has been selected
-		var overworld = preload(overworld_scene)
-		overworld.instantiate().set_po_data(playerOverworldData)
-		transition_out_animation()
-		get_tree().change_scene_to_packed(overworld)
-		"""
+		#when drafting is not completed, but the campaign was selected
+		var draft_scene = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+		get_tree().change_scene_to_packed(draft_scene)
+	
+
 
 #Returns to the main menu scene from the selected save
 func _on_return_to_start_button_pressed():
@@ -117,3 +96,27 @@ func _on_hall_of_heroes_button_pressed():
 func _on_tutorials_pressed():
 	transition_out_animation()
 	get_tree().change_scene_to_packed(TUTORIAL_PAGE_SCENE)
+
+
+func _on_new_game_button_pressed():
+	var overworld = preload(overworld_scene)
+	playerOverworldData.current_campaign = null
+	playerOverworldData.completed_drafting = false
+	playerOverworldData.current_level = null
+	playerOverworldData.began_level = false
+	overworld.instantiate().set_po_data(playerOverworldData)
+	SelectedSaveFile.save(playerOverworldData)
+	transition_out_animation()
+	get_tree().change_scene_to_packed(overworld)
+
+func set_continue_game_button_text():
+	var str = ""
+	if playerOverworldData.completed_drafting:
+		str = playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed)
+		if playerOverworldData.began_level:
+			str += " - Battle"
+		elif playerOverworldData.current_level:
+			str += " - Prep"
+	else:
+		str = playerOverworldData.current_campaign.name + " - Draft"
+	continue_game_button.text = "Continue :" + str
