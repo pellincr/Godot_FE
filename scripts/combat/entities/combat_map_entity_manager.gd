@@ -67,19 +67,13 @@ func activate_entity(combat_entity: CombatEntity):
 func get_contents(combat_entity: CombatEntity) -> Array[ItemDefinition]:
 	return combat_entity.contents
 
-func entity_destroyed(combat_entity: CombatEntity):
-	match combat_entity.interaction_type:
-		CombatEntityConstants.ENTITY_TYPE.CRATE:
-			await entity_destroyed_give_item(combat_entity)
-		CombatEntityConstants.ENTITY_TYPE.BREAKABLE_TERRAIN:
-			entity_destroyed_remove(combat_entity)
-		CombatEntityConstants.ENTITY_TYPE.DOOR:
-			entity_destroyed_remove(combat_entity)
-		CombatEntityConstants.ENTITY_TYPE.CHEST:
-			await entity_destroyed_chest(combat_entity)
-	entity_process_complete.emit()
-
 func entity_destroyed_give_item(combat_entity: CombatEntity):
+	disable_entity_group_by_entity(combat_entity)
+	# give the item 
+	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
+	await give_items_complete
+
+func entity_interacted_give_item(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
 	# give the item 
 	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
@@ -106,13 +100,18 @@ func entity_interacted(combat_entity: CombatEntity):
 		CombatEntityConstants.ENTITY_TYPE.DOOR:
 			await entity_interacted_remove(combat_entity)
 	entity_process_complete.emit()
-	
 
-func entity_interacted_give_item(combat_entity: CombatEntity):
-	disable_entity_group_by_entity(combat_entity)
-	# give the item 
-	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
-	await give_items_complete
+func entity_destroyed(combat_entity: CombatEntity):
+	match combat_entity.interaction_type:
+		CombatEntityConstants.ENTITY_TYPE.CRATE:
+			await entity_destroyed_give_item(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.BREAKABLE_TERRAIN:
+			entity_destroyed_remove(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.DOOR:
+			entity_destroyed_remove(combat_entity)
+		CombatEntityConstants.ENTITY_TYPE.CHEST:
+			await entity_destroyed_chest(combat_entity)
+	#entity_process_complete.emit()
 
 func entity_interacted_remove(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)

@@ -6,6 +6,7 @@ var give_item_required
 
 signal heal_unit(cu: CombatUnit, amount: int)
 signal create_give_item_pop_up(item:ItemDefinition)
+signal give_item_popup_completed()
 signal create_discard_container(cu:CombatUnit, item:ItemDefinition)
 signal unit_inventory_updated(cu: CombatUnit)
 
@@ -20,6 +21,7 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 	if cu != null and item != null:
 		# Create signal for pop-up
 		create_give_item_pop_up.emit(item)
+		await give_item_popup_completed
 		#check if unit inventory has space
 		if cu.unit.inventory.is_full():
 			create_discard_container.emit(cu, item)
@@ -28,7 +30,6 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 				cu.unit.inventory.give_item(item)
 		else:
 			cu.unit.inventory.give_item(item)
-		
 
 func trade(cu1: CombatUnit, cu2:CombatUnit):
 	pass
@@ -96,3 +97,6 @@ func discard_item(owner: CombatUnit, item: ItemDefinition):
 
 func discard_item_at_index(owner: CombatUnit, index: int):
 	owner.unit.inventory.discard_at_index(index)
+
+func _on_give_item_popup_completed():
+	give_item_popup_completed.emit()

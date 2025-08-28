@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://blo7n0hudl834"]
+[gd_scene load_steps=22 format=3 uid="uid://blo7n0hudl834"]
 
 [ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/levels/tutorial_levels/tutorial_level_1/terrain.tscn" id="2_mkd81"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
@@ -16,11 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_8otve"]
 [ext_resource type="Resource" uid="uid://nbx0ga6nag7e" path="res://resources/definitions/items/weapons/anima/fiend_fire.tres" id="11_s0dlt"]
 [ext_resource type="Resource" uid="uid://can7ubbmqhujh" path="res://resources/definitions/terrians/door_terrain.tres" id="12_4lxwm"]
+[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="14_0csln"]
 
 [sub_resource type="Resource" id="Resource_uby4q"]
 script = ExtResource("9_n8p6m")
 name = "Door"
-interaction_type = 4
+interaction_type = 0
 position = Vector2i(12, 9)
 terrain = ExtResource("12_4lxwm")
 map_view = ExtResource("11_7mdax")
@@ -33,6 +34,22 @@ contents = Array[ExtResource("10_1bo0f")]([ExtResource("11_s0dlt")])
 [sub_resource type="Resource" id="Resource_xn5qw"]
 script = ExtResource("8_76dqm")
 entities = Array[ExtResource("9_n8p6m")]([SubResource("Resource_uby4q")])
+
+[sub_resource type="Resource" id="Resource_vg51b"]
+script = ExtResource("9_n8p6m")
+name = "aesdfrasfsa"
+interaction_type = 0
+position = Vector2i(11, 9)
+map_view = ExtResource("14_0csln")
+hp = 123
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_1bo0f")]([])
+
+[sub_resource type="Resource" id="Resource_duray"]
+script = ExtResource("8_76dqm")
+entities = Array[ExtResource("9_n8p6m")]([SubResource("Resource_vg51b")])
 
 [node name="Game" type="Node"]
 
@@ -68,7 +85,7 @@ script = ExtResource("8_6vv1a")
 
 [node name="CombatMapEntityManager" type="Node" parent="Combat"]
 script = ExtResource("7_nr24d")
-mapEntityData = Array[ExtResource("8_76dqm")]([SubResource("Resource_xn5qw")])
+mapEntityData = Array[ExtResource("8_76dqm")]([SubResource("Resource_xn5qw"), SubResource("Resource_duray")])
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("9_nrsst")

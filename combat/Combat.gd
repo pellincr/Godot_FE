@@ -634,8 +634,9 @@ func heal_unit(cu:CombatUnit, amount:int):
 	await combatExchange.heal_unit(cu, amount)
 
 func entity_destroyed_combat(ce : CombatEntity):
-	entity_processing.emit()
+	#entity_processing.emit()
 	await entity_manager.entity_destroyed(ce)
+	combatExchange._on_entity_destroyed_processing_completed()
 
 func give_curent_unit_items(items: Array[ItemDefinition], source: String):
 	for item in items:
@@ -657,6 +658,7 @@ func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
 
 func create_item_obtained_pop_up(item:ItemDefinition):
 	await game_ui.create_item_obtained_pop_up(item)
+	combat_unit_item_manager._on_give_item_popup_completed()
 
 func entity_interact_use_item(unit: CombatUnit, use_item:ItemDefinition, entity:CombatEntity):
 	entity_processing.emit()
