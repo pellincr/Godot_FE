@@ -104,6 +104,7 @@ func _on_new_game_button_pressed():
 	playerOverworldData.completed_drafting = false
 	playerOverworldData.current_level = null
 	playerOverworldData.began_level = false
+	playerOverworldData.floors_climbed = 0
 	overworld.instantiate().set_po_data(playerOverworldData)
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()

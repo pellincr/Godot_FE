@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsuiymby21svb"]
+[gd_scene load_steps=11 format=3 uid="uid://dfacpmcugk3wq"]
 
-[ext_resource type="PackedScene" uid="uid://xwxh157h141d" path="res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/terrain_tutorial/terrain.tscn" id="1_0i6x3"]
-[ext_resource type="Script" path="res://combat/CController.gd" id="2_oryha"]
-[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_4ix2r"]
-[ext_resource type="Script" path="res://combat/Combat.gd" id="4_2ro5i"]
-[ext_resource type="Resource" uid="uid://bn3tut6kbqem7" path="res://resources/definitions/enemy_groups/tutorial_colosseum/terrain_tutorial/terrain_tutorial.tres" id="5_u8v6t"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_whdsm"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_ve81j"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_qv6rk"]
-[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="9_88246"]
+[ext_resource type="PackedScene" uid="uid://pul4hfvugkrv" path="res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/terrain_tutorial/terrain.tscn" id="1_0i6x3"]
+[ext_resource type="Script" path="res://combat/CController.gd" id="2_bc6r3"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_nndgi"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="4_s3pwu"]
+[ext_resource type="Resource" uid="uid://bn3tut6kbqem7" path="res://resources/definitions/enemy_groups/tutorial_colosseum/terrain_tutorial/terrain_tutorial.tres" id="5_4lh4j"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_eww4b"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_yonbg"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="8_rwve3"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_nhd7g"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_21uvs"]
 
 [node name="Game" type="Node"]
 
@@ -16,16 +17,16 @@
 
 [node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
-script = ExtResource("2_oryha")
+script = ExtResource("2_bc6r3")
 combat = NodePath("../Combat")
 selector = NodePath("Selector")
 
-[node name="Selector" parent="Controller" instance=ExtResource("3_4ix2r")]
+[node name="Selector" parent="Controller" instance=ExtResource("3_nndgi")]
 top_level = true
 scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
-script = ExtResource("4_2ro5i")
+script = ExtResource("4_s3pwu")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
@@ -33,25 +34,28 @@ unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 ally_spawn_top_left = Vector2(2, 3)
 ally_spawn_bottom_right = Vector2(3, 9)
-enemy_start_group = ExtResource("5_u8v6t")
+enemy_start_group = ExtResource("5_4lh4j")
 max_allowed_ally_units = 3
 is_tutorial = true
 tutorial_level = 10
 
 [node name="CombatExchange" type="Node" parent="Combat"]
-script = ExtResource("6_whdsm")
+script = ExtResource("6_eww4b")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("7_yonbg")
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
-script = ExtResource("7_ve81j")
+script = ExtResource("8_rwve3")
 
 [node name="CombatUnitItemManager" type="Node" parent="Combat"]
-script = ExtResource("8_qv6rk")
+script = ExtResource("9_nhd7g")
 
 [node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("9_88246")]
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("10_21uvs")]
 combat = NodePath("../../Combat")
 controller = NodePath("../../Controller")
 ui_map_audio = NodePath("UIMapAudio")

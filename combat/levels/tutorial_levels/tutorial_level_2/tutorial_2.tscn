@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_qtsn5"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_7doqm"]
 [ext_resource type="Resource" uid="uid://b2gi8r4ckdqxw" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_2.tres" id="6_ccf4t"]
-[ext_resource type="Script" uid="uid://duca8rg2bbf2d" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_nt0vi"]
-[ext_resource type="Script" uid="uid://cr8qdqgwn1wy8" path="res://scripts/Unit/unit_experience_manager.gd" id="8_1dsbh"]
-[ext_resource type="Script" uid="uid://djq3wlpk4g4is" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_ft471"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_nt0vi"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="8_1dsbh"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_ft471"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_poxkm"]
 
 [node name="Game" type="Node"]

@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://diva2lk5420oe"]
+[gd_scene load_steps=11 format=3 uid="uid://diva2lk5420oe"]
 
-[ext_resource type="PackedScene" uid="uid://dn3qjrl602j54" path="res://combat/levels/tutorial_colosseum_levels/weapon_tutorials/mundane_tutorial/terrain.tscn" id="1_xf3k7"]
+[ext_resource type="PackedScene" uid="uid://dn3qjrl602j54" path="res://combat/levels/tutorial_colosseum_levels/base_tutorial_colosseum_terrain.tscn" id="1_xf3k7"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="2_p6uhq"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_ryrna"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_k3fha"]
 [ext_resource type="Resource" uid="uid://tty2uu147opp" path="res://resources/definitions/enemy_groups/tutorial_colosseum/support_tutorials/support_actions_tutorial.tres" id="5_hmd53"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_qnvh8"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_7ptn1"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_vbpko"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_xykm5"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="9_vgfr6"]
 
@@ -24,13 +25,14 @@ selector = NodePath("Selector")
 top_level = true
 scale = Vector2(1, 1)
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("4_k3fha")
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_top_left = Vector2(2, 3)
 ally_spawn_bottom_right = Vector2(3, 9)
 enemy_start_group = ExtResource("5_hmd53")
@@ -40,6 +42,9 @@ tutorial_level = 7
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_qnvh8")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("7_vbpko")
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("7_7ptn1")

@@ -1,0 +1,191 @@
+[gd_scene load_steps=37 format=3 uid="uid://bsuiymby21svb"]
+
+[ext_resource type="PackedScene" uid="uid://xwxh157h141d" path="res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/map_entity_tutorial/map_entity_terrain.tscn" id="1_rfb5f"]
+[ext_resource type="Script" path="res://combat/CController.gd" id="2_253l4"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_nen0k"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="4_gmnln"]
+[ext_resource type="Resource" uid="uid://bn3tut6kbqem7" path="res://resources/definitions/enemy_groups/tutorial_colosseum/terrain_tutorial/terrain_tutorial.tres" id="5_ug4do"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_0sedp"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_h5wne"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="8_10fim"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="9_xravh"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_xtpce"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="11_2smp6"]
+[ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="11_kthx5"]
+[ext_resource type="Resource" uid="uid://ljmq5r4awn0i" path="res://resources/definitions/terrians/broken_wall_terrain.tres" id="11_yt1d2"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="12_jpf3e"]
+[ext_resource type="Texture2D" uid="uid://bdmoktd0737x" path="res://resources/sprites/entities/door_new.png" id="13_46hxs"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="13_rmpov"]
+[ext_resource type="Resource" uid="uid://can7ubbmqhujh" path="res://resources/definitions/terrians/door_terrain.tres" id="14_8b1jd"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="15_fr46x"]
+[ext_resource type="Texture2D" uid="uid://xui2movippkm" path="res://resources/sprites/entities/crate.png" id="16_ha0m1"]
+[ext_resource type="Resource" uid="uid://c3u18f1abmb4n" path="res://resources/definitions/items/weapons/bow/enchanted_bow.tres" id="17_g1v82"]
+[ext_resource type="Texture2D" uid="uid://cue1laq76ryum" path="res://resources/sprites/entities/chest_sprite.tres" id="18_ei6x1"]
+[ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="19_8sepb"]
+[ext_resource type="Resource" uid="uid://dudqmvg5uumjl" path="res://resources/definitions/items/weapons/axes/sword_reaver.tres" id="20_uaqsu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0jie"]
+atlas = ExtResource("11_kthx5")
+region = Rect2(96.81, 160.67, 32, 32)
+
+[sub_resource type="Resource" id="Resource_f7uf2"]
+script = ExtResource("9_xravh")
+name = "Breakable Wall"
+interaction_type = 5
+position = Vector2i(6, 4)
+terrain = ExtResource("11_yt1d2")
+map_view = SubResource("AtlasTexture_j0jie")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([])
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5dtx"]
+atlas = ExtResource("11_kthx5")
+region = Rect2(99.23, 149.78, 32, 32)
+
+[sub_resource type="Resource" id="Resource_fcu0v"]
+script = ExtResource("9_xravh")
+name = "Breakable Wall"
+interaction_type = 5
+position = Vector2i(6, 5)
+terrain = ExtResource("11_yt1d2")
+map_view = SubResource("AtlasTexture_b5dtx")
+hp = 0
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([])
+
+[sub_resource type="Resource" id="Resource_kme3y"]
+script = ExtResource("8_10fim")
+entities = Array[ExtResource("9_xravh")]([SubResource("Resource_f7uf2"), SubResource("Resource_fcu0v")])
+
+[sub_resource type="Resource" id="Resource_4eylj"]
+script = ExtResource("9_xravh")
+name = "Door"
+interaction_type = 1
+position = Vector2i(4, 4)
+terrain = ExtResource("14_8b1jd")
+map_view = ExtResource("13_46hxs")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([])
+
+[sub_resource type="Resource" id="Resource_fu8b7"]
+script = ExtResource("8_10fim")
+entities = Array[ExtResource("9_xravh")]([SubResource("Resource_4eylj")])
+
+[sub_resource type="Resource" id="Resource_pa37d"]
+script = ExtResource("9_xravh")
+name = "Crate"
+interaction_type = 4
+position = Vector2i(2, 1)
+map_view = ExtResource("16_ha0m1")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([ExtResource("15_fr46x")])
+
+[sub_resource type="Resource" id="Resource_2y6nt"]
+script = ExtResource("8_10fim")
+entities = Array[ExtResource("9_xravh")]([SubResource("Resource_pa37d")])
+
+[sub_resource type="Resource" id="Resource_4qx1n"]
+script = ExtResource("9_xravh")
+name = "Chest"
+interaction_type = 0
+position = Vector2i(8, 4)
+terrain = ExtResource("19_8sepb")
+map_view = ExtResource("18_ei6x1")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([ExtResource("17_g1v82")])
+
+[sub_resource type="Resource" id="Resource_3kjd7"]
+script = ExtResource("8_10fim")
+entities = Array[ExtResource("9_xravh")]([SubResource("Resource_4qx1n")])
+
+[sub_resource type="Resource" id="Resource_46vgd"]
+script = ExtResource("9_xravh")
+name = "Chest"
+interaction_type = 0
+position = Vector2i(8, 5)
+terrain = ExtResource("19_8sepb")
+map_view = ExtResource("18_ei6x1")
+hp = 5
+defense = 0
+resistance = 0
+attack_speed = 0
+contents = Array[ExtResource("10_xtpce")]([ExtResource("20_uaqsu")])
+
+[sub_resource type="Resource" id="Resource_ml34x"]
+script = ExtResource("8_10fim")
+entities = Array[ExtResource("9_xravh")]([SubResource("Resource_46vgd")])
+
+[node name="Game" type="Node"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_rfb5f")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+texture_filter = 1
+script = ExtResource("2_253l4")
+combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_nen0k")]
+top_level = true
+scale = Vector2(1, 1)
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
+script = ExtResource("4_gmnln")
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+combat_audio = NodePath("CombatAudio")
+unit_experience_manager = NodePath("UnitExperienceManager")
+combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
+ally_spawn_top_left = Vector2(2, 3)
+ally_spawn_bottom_right = Vector2(3, 9)
+enemy_start_group = ExtResource("5_ug4do")
+max_allowed_ally_units = 3
+is_tutorial = true
+tutorial_level = 11
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("6_0sedp")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("7_h5wne")
+mapEntityData = Array[ExtResource("8_10fim")]([SubResource("Resource_kme3y"), SubResource("Resource_fu8b7"), SubResource("Resource_2y6nt"), SubResource("Resource_3kjd7"), SubResource("Resource_ml34x")])
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("11_2smp6")
+
+[node name="CombatUnitItemManager" type="Node" parent="Combat"]
+script = ExtResource("12_jpf3e")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("13_rmpov")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+ui_map_audio = NodePath("UIMapAudio")
+ui_menu_audio = NodePath("UIMenuAudio")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

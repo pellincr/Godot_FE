@@ -48,7 +48,7 @@ text = "Mundane Triangle"
 [node name="Magic" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Magic Triangle - NEED MAGIC UNITS"
+text = "Magic Triangle"
 
 [node name="WeaponCycle" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
 layout_mode = 2
@@ -70,11 +70,18 @@ text = "Staffs"
 layout_mode = 2
 text = "Banners - NOT WORKING"
 
-[node name="Terrain" type="Button" parent="TutorialContainer"]
+[node name="TerrainTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
+layout_mode = 2
+
+[node name="Terrain" type="Button" parent="TutorialContainer/TerrainTutorialContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Terrain
 "
+
+[node name="MapEntities" type="Button" parent="TutorialContainer/TerrainTutorialContainer"]
+layout_mode = 2
+text = "Map Entities"
 
 [node name="WinConditionContainer" type="HBoxContainer" parent="TutorialContainer"]
 layout_mode = 2
@@ -123,7 +130,8 @@ text = "Return"
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/SupportActions" to="." method="_on_support_actions_pressed"]
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Staffs" to="." method="_on_staffs_pressed"]
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Banners" to="." method="_on_banners_pressed"]
-[connection signal="pressed" from="TutorialContainer/Terrain" to="." method="_on_terrain_pressed"]
+[connection signal="pressed" from="TutorialContainer/TerrainTutorialContainer/Terrain" to="." method="_on_terrain_pressed"]
+[connection signal="pressed" from="TutorialContainer/TerrainTutorialContainer/MapEntities" to="." method="_on_map_entities_pressed"]
 [connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatAllEnemies" to="." method="_on_defeat_all_enemies_pressed"]
 [connection signal="pressed" from="TutorialContainer/WinConditionContainer/SiezeLandmark" to="." method="_on_sieze_landmark_pressed"]
 [connection signal="pressed" from="TutorialContainer/WinConditionContainer/DefeatBosses" to="." method="_on_defeat_bosses_pressed"]

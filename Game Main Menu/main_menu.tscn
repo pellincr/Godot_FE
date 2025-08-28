@@ -29,14 +29,14 @@ offset_bottom = 477.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Start New Campaign"
-
 [node name="ContinueGameButton" type="Button" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Continue Game"
+
+[node name="NewGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start New Campaign"
 
 [node name="HallOfHeroesButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -54,8 +54,8 @@ text = "Tutorials"
 layout_mode = 2
 text = "Return To Start"
 
-[connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ContinueGameButton" to="." method="_on_continue_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HallOfHeroesButton" to="." method="_on_hall_of_heroes_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AlmanacButton" to="." method="_on_almanac_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Tutorials" to="." method="_on_tutorials_pressed"]

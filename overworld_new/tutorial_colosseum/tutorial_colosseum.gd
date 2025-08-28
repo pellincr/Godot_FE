@@ -100,3 +100,8 @@ func _on_campaign_pressed():
 func _on_how_to_play_pressed():
 	var how_to_play_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/how_to_play/how_to_play_tutorial/how_to_play_tutorial.tscn")
 	go_to_totorial_scene(how_to_play_tutorial_scene)
+
+
+func _on_map_entities_pressed() -> void:
+	var map_entities_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/map_entity_tutorial/map_entity_tutorial.tscn")
+	go_to_totorial_scene(map_entities_tutorial_scene)

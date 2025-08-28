@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://w8dasdm73bpm"]
 
 [ext_resource type="Texture2D" uid="uid://bvk5thdhknfc7" path="res://resources/sprites/items/weapons/dark/life_tap.png" id="1_i8uoc"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_uqb62"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_uqb62"]
 
 [resource]
 script = ExtResource("2_uqb62")

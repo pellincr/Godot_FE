@@ -119,14 +119,12 @@ func set_player_tutorial_party():
 			var lance_unit = Unit.create_generic_unit("pikeman",[ItemDatabase.items["iron_lance"]], "Lance", 2)
 			playerOverworldData.selected_party.append(lance_unit)
 		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
-			#CURRENTLY NO NATURE UNIT
-			#var nature_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
-			#playerOverworldData.selected_party.append(sword_unit)
+			var dark_unit = Unit.create_generic_unit("shaman",[ItemDatabase.items["life_tap"]], "Dark", 2)
+			playerOverworldData.selected_party.append(dark_unit)
+			var nature_unit = Unit.create_generic_unit("mage",[ItemDatabase.items["fire_spell"]], "Sword", 2)
+			playerOverworldData.selected_party.append(nature_unit)
 			var light_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Light", 2)
 			playerOverworldData.selected_party.append(light_unit)
-			#CURRENTLY NO DARK UNIT
-			#var dark_unit = Unit.create_generic_unit("imp",[ItemDatabase.items[""]], "Dark", 2)
-			#playerOverworldData.selected_party.append(lance_unit)
 		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
 			var mundane_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Mundane", 2)
 			playerOverworldData.selected_party.append(mundane_unit)
@@ -148,10 +146,13 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.TERRAIN:
 			var heavy = Unit.create_generic_unit("axe_armor",[ItemDatabase.items["iron_axe"]],"Heavy",2)
 			playerOverworldData.selected_party.append(heavy)
-			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"]], "Nimble", 2)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"],ItemDatabase.items["skeleton_key"],ItemDatabase.items["skeleton_key"],ItemDatabase.items["skeleton_key"]], "Nimble", 2)
 			playerOverworldData.selected_party.append(nimble_unit)
 			var flying = Unit.create_generic_unit("freewing",[ItemDatabase.items["iron_sword"]],"Flying",2)
 			playerOverworldData.selected_party.append(flying)
+		TutorialPanel.TUTORIAL.MAP_ENTITY:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.items["iron_sword"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
 		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
 			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",4)
 			playerOverworldData.selected_party.append(commander)

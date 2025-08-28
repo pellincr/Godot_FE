@@ -18,7 +18,7 @@ enum TUTORIAL{
 	DRAFT, BATTLE_PREP, CAMPAIGN_MAP, 
 	MUNDANE_WEAPONS, MAGIC_WEAPONS, WEAPON_CYCLE,
 	SUPPORT_ACTIONS,STAFFS,BANNERS,
-	TERRAIN,
+	TERRAIN, MAP_ENTITY,
 	DEFEAT_ALL_ENEMIES, SIEZE_LANDMARK,DEFEAT_BOSSES,SURVIVE_TURNS
 }
 
@@ -76,6 +76,8 @@ func instantiate_tutorial():
 		TUTORIAL.TERRAIN:
 			tutorial_page_text.append("Not all terrain will be equal in combat. Each tile provides different stat bonuses to the units standing on them.")
 			tutorial_page_text.append("However be careful! Certain units find it more difficult to move through terrain while others are able to move more freely.")
+		TUTORIAL.MAP_ENTITY:
+			tutorial_page_text.append("There will be certian type of terriain that units will be able to interact with. Some examples are breakable walls, doors, and chests. Make sure to keep your eye out and move your selector over anything that may look interactable")
 		TUTORIAL.DEFEAT_ALL_ENEMIES:
 			tutorial_page_text.append("There are a few different ways a battle can be completed, it is based on the battle you are in.")
 			tutorial_page_text.append("In this battle, the goal is to kill all enemies on the map. Kill the enemies and proceed with victory!")
