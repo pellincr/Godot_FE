@@ -121,7 +121,7 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
 			var dark_unit = Unit.create_generic_unit("shaman",[ItemDatabase.items["life_tap"]], "Dark", 2)
 			playerOverworldData.selected_party.append(dark_unit)
-			var nature_unit = Unit.create_generic_unit("mage",[ItemDatabase.items["fire_spell"]], "Sword", 2)
+			var nature_unit = Unit.create_generic_unit("mage",[ItemDatabase.items["fire_spell"]], "Nature", 2)
 			playerOverworldData.selected_party.append(nature_unit)
 			var light_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Light", 2)
 			playerOverworldData.selected_party.append(light_unit)
@@ -367,6 +367,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 				playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
 				playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
 				playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+				playerOverworldData.selected_party = []
 				unlock_new_unit_types()
 				reset_game_state()
 				SelectedSaveFile.save(playerOverworldData)
