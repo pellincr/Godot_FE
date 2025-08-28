@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbai5r4nou80q"]
+[gd_scene load_steps=11 format=3 uid="uid://cbai5r4nou80q"]
 
 [ext_resource type="PackedScene" uid="uid://bouxl8xwnlqn4" path="res://combat/levels/tutorial_levels/tutorial_level_4/terrain.tscn" id="2_r2lpq"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_l8en5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_6px8n"]
 [ext_resource type="Resource" uid="uid://bba77rcw2g3tq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_j1pk3"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_t70ys"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="8_wifo0"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_c4tgo"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_r7vsa"]
@@ -38,6 +39,9 @@ max_allowed_ally_units = 5
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("7_j1pk3")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("7_t70ys")
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("8_wifo0")
