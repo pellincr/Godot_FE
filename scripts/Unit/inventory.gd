@@ -131,6 +131,8 @@ func use_at_index(index : int):
 		target_item.expend_use()
 		if target_item.uses <= 0:
 			items.remove_at(index)
+			items.push_back(null)
+				
 
 #
 # Gives an item to the inventory, at the end of the list

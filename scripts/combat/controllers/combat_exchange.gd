@@ -42,7 +42,6 @@ var ce_display : CombatExchangeDisplay
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var damage_dealt
 	if check_hit(hit_chance):
-		attacker.unit.inventory.use_item(attacker.get_equipped())
 		if check_critical(critical_chance) :
 			#emit critical
 			damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
@@ -54,6 +53,7 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		if attacker.unit.inventory.get_equipped_weapon():
 			if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.VAMPYRIC):
 				await heal_unit(attacker, damage_dealt)
+		attacker.unit.inventory.use_item(attacker.get_equipped())
 	else : ## Attack has missed
 		await hit_missed(target)
 
@@ -72,10 +72,10 @@ func do_damage_entity(target: CombatEntity, damage:int):
 		await use_audio_player(hit_sound)
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
-	if target.hp <= 0:
-		target.destroyed = true
-		entity_destroyed.emit(target)
-		await entity_destroyed_processing_completed
+		if target.hp <= 0:
+			target.destroyed = true
+			entity_destroyed.emit(target)
+			await entity_destroyed_processing_completed
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
@@ -509,21 +509,23 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	for turn in exchange_data.exchange_data:
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
-				await perform_hit(attacker,defender,turn.hit,turn.critical)
-				if not defender.alive:
-					if player_unit == defender:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else : 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if attacker.get_equipped() != null:
+					await perform_hit(attacker,defender,turn.hit,turn.critical)
+					if not defender.alive:
+						if player_unit == defender:
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else : 
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 			elif turn.owner == defender:
-				await perform_hit(defender,attacker,turn.hit,turn.critical)
-				if not attacker.alive: 
-					if attacker == player_unit: 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if defender.get_equipped() != null:
+					await perform_hit(defender,attacker,turn.hit,turn.critical)
+					if not attacker.alive: 
+						if attacker == player_unit: 
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else:
+							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 	# Both units have survived the exchange
 	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 		#get the allegience of the units
@@ -542,9 +544,12 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 	for turn : UnitCombatExchangeTurnData in exchange_data.exchange_data:
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
-				await perform_hit_entity(attacker,defender, turn.attack_damage)
-				if defender.destroyed:
-					return
+				if not defender.destroyed:
+					if attacker.get_equipped() != null:
+						await perform_hit_entity(attacker,defender, turn.attack_damage)
+				else:
+					break
 
 func _on_entity_destroyed_processing_completed():
+	await get_tree().create_timer(.1).timeout
 	entity_destroyed_processing_completed.emit()

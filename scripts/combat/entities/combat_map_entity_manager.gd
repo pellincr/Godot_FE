@@ -50,12 +50,12 @@ func add_entity(cme:mapEntityDefinition, group_index: int):
 	emit_signal("entity_added", combat_entity)
 
 func disable_entity_group_by_entity(combat_entity : CombatEntity):
-	disable_entity_group_by_index(combat_entity.group)
+	await disable_entity_group_by_index(combat_entity.group)
 
 func disable_entity_group_by_index(index: int):
 	if entity_groups.has(index):
 		for entity in entity_groups.get(index):
-			disable_entity(entity)
+			await disable_entity(entity)
 
 func disable_entity(combat_entity : CombatEntity):
 	combat_entity.active = false
@@ -80,7 +80,7 @@ func entity_interacted_give_item(combat_entity: CombatEntity):
 	await give_items_complete
 
 func entity_destroyed_remove(combat_entity: CombatEntity):
-	disable_entity_group_by_entity(combat_entity)
+	await disable_entity_group_by_entity(combat_entity)
 
 func entity_destroyed_chest(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
@@ -106,9 +106,9 @@ func entity_destroyed(combat_entity: CombatEntity):
 		CombatEntityConstants.ENTITY_TYPE.CRATE:
 			await entity_destroyed_give_item(combat_entity)
 		CombatEntityConstants.ENTITY_TYPE.BREAKABLE_TERRAIN:
-			entity_destroyed_remove(combat_entity)
+			await entity_destroyed_remove(combat_entity)
 		CombatEntityConstants.ENTITY_TYPE.DOOR:
-			entity_destroyed_remove(combat_entity)
+			await entity_destroyed_remove(combat_entity)
 		CombatEntityConstants.ENTITY_TYPE.CHEST:
 			await entity_destroyed_chest(combat_entity)
 	#entity_process_complete.emit()
