@@ -65,7 +65,7 @@ func on_archetype_selected(archetype:ArmyArchetypeDefinition):
 	#Re-Randomize the selectors
 	update_archetype_selectors()
 	archetype_selected.emit(archetype)
-	if (playerOverworldData.current_archetype_count == playerOverworldData.max_archetype):
+	if (playerOverworldData.current_archetype_count >= playerOverworldData.max_archetype):
 		archetype_selection_complete.emit(playerOverworldData)
 		queue_free()
 		print("All Archetypes Selected")

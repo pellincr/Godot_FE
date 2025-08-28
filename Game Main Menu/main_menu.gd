@@ -21,12 +21,13 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	#SelectedSaveFile.save(playerOverworldData)
 	load_data()
-	new_game_button.grab_focus()
 	if playerOverworldData.current_campaign:
 		continue_game_button.visible = true
 		set_continue_game_button_text()
+		continue_game_button.grab_focus()
 	else:
 		continue_game_button.visible = false
+		new_game_button.grab_focus()
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
@@ -105,6 +106,7 @@ func _on_new_game_button_pressed():
 	playerOverworldData.current_level = null
 	playerOverworldData.began_level = false
 	playerOverworldData.floors_climbed = 0
+	playerOverworldData.current_archetype_count = 0
 	overworld.instantiate().set_po_data(playerOverworldData)
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()

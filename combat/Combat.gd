@@ -387,7 +387,7 @@ func reset_game_state():
 	playerOverworldData.current_archetype_count = 0
 	playerOverworldData.archetype_allotments = []
 	playerOverworldData.campaign_map_data = []
-	playerOverworldData.floors_climbed = 0
+	playerOverworldData.floors_climbed = 0 
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
