@@ -56,8 +56,9 @@ func generate_interaction_inventory_data(cu:CombatUnit, db_key_whitelist: Array[
 	for item in cu.unit.inventory.get_items():
 		var item_data = UnitInventorySlotData.new()
 		item_data.item = item
-		if item.db_key in db_key_whitelist:
-			item_data.valid = true
+		if item != null:
+			if item.db_key in db_key_whitelist:
+				item_data.valid = true
 		_arr.append(item_data)
 	return _arr
 

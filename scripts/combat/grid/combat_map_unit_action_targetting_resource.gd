@@ -200,6 +200,10 @@ func generate_unit_inventory_slot_data(attacker: Unit) -> Array[UnitInventorySlo
 					unit_inventory_slot_data.equipped = true
 				if item in valid_list:
 					unit_inventory_slot_data.valid = true
+			else : 
+				unit_inventory_slot_data.item = item
+				unit_inventory_slot_data.equipped = false
+				unit_inventory_slot_data.valid = false
 		else :
 			unit_inventory_slot_data.item = null
 			unit_inventory_slot_data.equipped = false

@@ -11,7 +11,6 @@ const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_
 
 signal unit_defeated(unit: CombatUnit)
 signal entity_destroyed(entity: CombatEntity)
-signal entity_destroyed_in_combat_effect_complete
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -59,6 +58,7 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 
 func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
 	await do_damage_entity(target,hit_damage)
+	attacker.unit.inventory.use_item(attacker.get_equipped())
 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
@@ -74,7 +74,7 @@ func do_damage_entity(target: CombatEntity, damage:int):
 	if target.hp <= 0:
 		target.destroyed = true
 		entity_destroyed.emit(target)
-		await entity_destroyed_in_combat_effect_complete
+		#await entity_destroyed_in_combat_effect_complete
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
@@ -544,6 +544,3 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 				await perform_hit_entity(attacker,defender, turn.attack_damage)
 				if defender.destroyed:
 					return
-
-func _on_entity_destroyed_in_combat_effect_complete():
-	entity_destroyed_in_combat_effect_complete.emit()

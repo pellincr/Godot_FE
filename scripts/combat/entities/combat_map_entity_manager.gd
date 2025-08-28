@@ -16,6 +16,7 @@ const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_dis
 signal entity_added(cme:CombatEntity) #Use this to add the entity to the grid in CC
 signal give_items(items : Array[ItemDefinition], source:String)
 signal give_items_complete()
+signal entity_process_complete()
 
 @export var mapEntityData: Array[MapEntityGroupData]
 
@@ -76,6 +77,7 @@ func entity_destroyed(combat_entity: CombatEntity):
 			entity_destroyed_remove(combat_entity)
 		CombatEntityConstants.ENTITY_TYPE.CHEST:
 			await entity_destroyed_chest(combat_entity)
+	entity_process_complete.emit()
 
 func entity_destroyed_give_item(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
@@ -103,6 +105,7 @@ func entity_interacted(combat_entity: CombatEntity):
 			await entity_interacted_give_item(combat_entity)
 		CombatEntityConstants.ENTITY_TYPE.DOOR:
 			await entity_interacted_remove(combat_entity)
+	entity_process_complete.emit()
 	
 
 func entity_interacted_give_item(combat_entity: CombatEntity):

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b8dt01ypfassm" path="res://resources/sprites/sheets/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="1_wyh6n"]
 [ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_2ew3t"]
-[ext_resource type="Script" uid="uid://cfd3khmk6juy5" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_34ooh"]
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_34ooh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0jbco"]
 atlas = ExtResource("1_wyh6n")

@@ -133,8 +133,7 @@ func _ready():
 	combat.connect("major_action_completed", _on_visual_combat_major_action_completed)
 	combat.connect("minor_action_completed", _on_visual_combat_minor_action_completed)
 	combat.connect("turn_advanced", advance_turn)
-	combat.connect("pause_fsm", pause)
-	combat.connect("resume_fsm", resume)
+	combat.connect("entity_processing", await_entity_resolution)
 	await combat.ready
 	combat.populate()	
 	# Init & Populate dynamically created nodes
@@ -1404,12 +1403,6 @@ func wait_action(cu: CombatUnit):
 		combat.get_current_combatant().map_display.update_values()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 
-func pause():
-	paused = true
-	
-func resume():
-	paused = false
-
 #Interact
 func fsm_interact_targetting(delta):
 	if Input:
@@ -1461,3 +1454,10 @@ func fsm_do_target_entity_interaction():
 	await combat.entity_interact(combat.get_current_combatant(), grid.get_entity(target_tile))
 	combat.major_action_complete()
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+
+func await_entity_resolution():
+	var previous_state = game_state
+	game_state = CombatMapConstants.COMBAT_MAP_STATE.PROCESSING
+	await combat.entity_processing_completed
+	game_state = previous_state
+	

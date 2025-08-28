@@ -2,14 +2,6 @@ extends Resource
 
 class_name CombatUnit
 
-enum Group
-{
-	PLAYERS,
-	ENEMIES,
-	FRIENDLY,
-	NOMAD
-}
-
 # Status
 var alive : bool
 var allegience : Constants.FACTION
@@ -30,13 +22,17 @@ var effective_move : int = 0
 # The effective Stats of a unit
 var stats : CombatMapUnitNetStat = CombatMapUnitNetStat.new()
 var current_hp
+# Satus Effect
+var status_effects : Dictionary = {}
+var status_effect_immunities : Array[String] = []
 
+#Map info
 var map_position : Vector2i
 var map_terrain : Terrain
-
 var move_position: Vector2i
 var move_terrain : Terrain
 
+#display
 var map_display : CombatUnitDisplay
 
 static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> CombatUnit:

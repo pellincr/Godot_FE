@@ -25,23 +25,21 @@ signal trading_completed()
 signal shove_completed()
 signal pause_fsm()
 signal resume_fsm()
-signal entity_interact_completed()
+signal entity_processing_completed()
+signal entity_processing()
 	
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
 
-var groups = [
+var groups = [ #TO BE UPDATED TO DICTIONARY
 	[], #players
 	[], #enemies
 	[], #FRIENDLY
 	[],  #NOMAD
 	[] #Terrain
 ]
-var unit_groups = [
-	[], #players
-	[] #enemies
-]
+	
 var current_combatant = 0
 @export var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
 @export var turns_to_survive:=0
@@ -93,6 +91,7 @@ func _ready():
 	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
 	entity_manager.connect("entity_added", entity_added)
 	entity_manager.connect("give_items", give_curent_unit_items)
+	entity_manager.connect("entity_process_complete",_on_entity_processing_completed)
 	randomize()
 
 func populate():
@@ -635,8 +634,8 @@ func heal_unit(cu:CombatUnit, amount:int):
 	await combatExchange.heal_unit(cu, amount)
 
 func entity_destroyed_combat(ce : CombatEntity):
+	entity_processing.emit()
 	await entity_manager.entity_destroyed(ce)
-	combatExchange._on_entity_destroyed_in_combat_effect_complete()
 
 func give_curent_unit_items(items: Array[ItemDefinition], source: String):
 	for item in items:
@@ -650,22 +649,23 @@ func create_unit_item_discard_container(cu: CombatUnit, new_item: ItemDefinition
 	# Create new item slot data
 	var new_item_data : UnitInventorySlotData = combat_unit_item_manager.generate_combat_unit_inventory_data_for_item(cu, new_item)
 	# Create UI Component
-	pause_fsm.emit()
 	game_ui.create_combat_unit_discard_inventory(cu, inventory_data, new_item_data)
 
 func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
 	game_ui.destory_active_ui_node()
 	await combat_unit_item_manager.give_item_discard_result_complete(cu, discard_item)
-	resume_fsm.emit()
 
 func create_item_obtained_pop_up(item:ItemDefinition):
-	pause_fsm.emit()
 	await game_ui.create_item_obtained_pop_up(item)
-	resume_fsm.emit()
 
 func entity_interact_use_item(unit: CombatUnit, use_item:ItemDefinition, entity:CombatEntity):
+	entity_processing.emit()
 	unit.unit.inventory.use_item(use_item)
 	await entity_manager.entity_interacted(entity)
 
 func entity_interact(unit: CombatUnit, entity:CombatEntity):
+	entity_processing.emit()
 	entity_manager.entity_interacted(entity)
+
+func _on_entity_processing_completed():
+	entity_processing_completed.emit()
