@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dpkxvd1xt2kjo"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_ky2q4"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_ky2q4"]
 [ext_resource type="Texture2D" uid="uid://c03gmahxq8fnl" path="res://resources/sprites/items/weapons/shield/silver_shield.png" id="2_nxm05"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_aqgsm"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_aqgsm"]
 
 [sub_resource type="Resource" id="Resource_fb5s5"]
 script = ExtResource("1_ky2q4")
