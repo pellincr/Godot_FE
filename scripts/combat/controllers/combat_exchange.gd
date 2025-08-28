@@ -40,26 +40,28 @@ var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
-	var damage_dealt
-	if check_hit(hit_chance):
-		if check_critical(critical_chance) :
-			#emit critical
-			damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
-			await do_damage(target,damage_dealt, true)
-		else : 
-			#emit generic damage
-			damage_dealt = calc_damage(attacker, target)
-			await do_damage(target,damage_dealt)
-		if attacker.unit.inventory.get_equipped_weapon():
-			if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.VAMPYRIC):
-				await heal_unit(attacker, damage_dealt)
-		attacker.unit.inventory.use_item(attacker.get_equipped())
-	else : ## Attack has missed
-		await hit_missed(target)
+	if attacker.get_equipped() != null:
+		var damage_dealt
+		if check_hit(hit_chance):
+			if check_critical(critical_chance) :
+				#emit critical
+				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+				await do_damage(target,damage_dealt, true)
+			else : 
+				#emit generic damage
+				damage_dealt = calc_damage(attacker, target)
+				await do_damage(target,damage_dealt)
+			if attacker.unit.inventory.get_equipped_weapon():
+				if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.VAMPYRIC):
+					await heal_unit(attacker, damage_dealt)
+			attacker.unit.inventory.use_item(attacker.get_equipped())
+		else : ## Attack has missed
+			await hit_missed(target)
 
 func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
-	await do_damage_entity(target,hit_damage)
-	attacker.unit.inventory.use_item(attacker.get_equipped())
+	if attacker.get_equipped() != null:
+		await do_damage_entity(target,hit_damage)
+		attacker.unit.inventory.use_item(attacker.get_equipped())
 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
@@ -509,23 +511,21 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	for turn in exchange_data.exchange_data:
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
-				if attacker.get_equipped() != null:
-					await perform_hit(attacker,defender,turn.hit,turn.critical)
-					if not defender.alive:
-						if player_unit == defender:
-							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-						else : 
-							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-						return
+				await perform_hit(attacker,defender,turn.hit,turn.critical)
+				if not defender.alive:
+					if player_unit == defender:
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+					else : 
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+					return
 			elif turn.owner == defender:
-				if defender.get_equipped() != null:
-					await perform_hit(defender,attacker,turn.hit,turn.critical)
-					if not attacker.alive: 
-						if attacker == player_unit: 
-							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-						else:
-							await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-						return
+				await perform_hit(defender,attacker,turn.hit,turn.critical)
+				if not attacker.alive: 
+					if attacker == player_unit: 
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+					else:
+						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+					return
 	# Both units have survived the exchange
 	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 		#get the allegience of the units
@@ -545,8 +545,7 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
 				if not defender.destroyed:
-					if attacker.get_equipped() != null:
-						await perform_hit_entity(attacker,defender, turn.attack_damage)
+					await perform_hit_entity(attacker,defender, turn.attack_damage)
 				else:
 					break
 
