@@ -119,7 +119,7 @@ func set_player_tutorial_party():
 			var lance_unit = Unit.create_generic_unit("pikeman",[ItemDatabase.items["iron_lance"]], "Lance", 2)
 			playerOverworldData.selected_party.append(lance_unit)
 		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
-			var dark_unit = Unit.create_generic_unit("shaman",[ItemDatabase.items["life_tap"]], "Dark", 2)
+			var dark_unit = Unit.create_generic_unit("shaman",[ItemDatabase.items["evil_eye"]], "Dark", 2)
 			playerOverworldData.selected_party.append(dark_unit)
 			var nature_unit = Unit.create_generic_unit("mage",[ItemDatabase.items["fire_spell"]], "Nature", 2)
 			playerOverworldData.selected_party.append(nature_unit)
@@ -132,7 +132,7 @@ func set_player_tutorial_party():
 			playerOverworldData.selected_party.append(magic_unit)
 			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"]], "Nimble", 2)
 			playerOverworldData.selected_party.append(nimble_unit)
-			var defensive_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_shield"]], "Defensive", 2)
+			var defensive_unit = Unit.create_generic_unit("ward",[ItemDatabase.items["iron_shield"]], "Defensive", 2)
 			playerOverworldData.selected_party.append(defensive_unit)
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
 			pass
