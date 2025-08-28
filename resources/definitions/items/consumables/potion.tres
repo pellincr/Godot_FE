@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=4 format=3 uid="uid://cxk8ovtotpucl"]
 
 [ext_resource type="Texture2D" uid="uid://dosv45gdwad0p" path="res://resources/sprites/items/consumables/potion.png" id="1_0q0jx"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_v88bw"]
-[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_gmciw"]
+[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_v88bw"]
+[ext_resource type="Script" uid="uid://cfd3khmk6juy5" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_gmciw"]
 
 [resource]
 script = ExtResource("1_v88bw")

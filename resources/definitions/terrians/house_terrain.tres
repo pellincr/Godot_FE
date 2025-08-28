@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_woacd")
 name = "House"
-db_key = "house"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 2, 1])
 blocks = Array[int]([])

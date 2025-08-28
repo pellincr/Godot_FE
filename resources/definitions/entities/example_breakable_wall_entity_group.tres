@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=8 format=3 uid="uid://jd8kpn1weik3"]
 
 [ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="1_nrob8"]
-[ext_resource type="Script" uid="uid://dtkt2yxwwy1le" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_5f7oj"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_5f7oj"]
 [ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="3_ljp8u"]
 [ext_resource type="Resource" uid="uid://d0k5n3y6wepdj" path="res://resources/definitions/terrians/cracked_stone_wall_terrain.tres" id="4_kkpsl"]
 [ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="5_kyg66"]

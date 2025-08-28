@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_6q3eh")
 name = "Forest"
-db_key = "forest"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([2, 2, 2, 2, 1])
 blocks = Array[int]([])

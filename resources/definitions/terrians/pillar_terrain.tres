@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_wacm8")
 name = "Pillar"
-db_key = "pillar"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([2, 2, 2, 3, 1])
 blocks = Array[int]([])

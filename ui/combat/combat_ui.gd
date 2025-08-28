@@ -448,4 +448,3 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 	turn_transition.play_animation("new_turn")
 	await turn_transition.animation_player.animation_finished
 	turn_transition.queue_free()
-

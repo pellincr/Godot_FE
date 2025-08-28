@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=40 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -33,6 +33,8 @@
 [ext_resource type="Resource" uid="uid://dm8fw53ceseeg" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden.tres" id="30_uy0ry"]
 [ext_resource type="Resource" uid="uid://b8y5bf7xcsh5m" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master.tres" id="31_025il"]
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="31_id5fj"]
+[ext_resource type="Resource" uid="uid://06uoo1n8hpyw" path="res://resources/definitions/unit_types/units/mage/mage.tres" id="32_um71q"]
+[ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="33_b6uy8"]
 [ext_resource type="Resource" uid="uid://cgaophi6857j" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.tres" id="34_w1y03"]
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
@@ -58,6 +60,7 @@ unit_types = {
 "lance_armor": ExtResource("7_m2b6g"),
 "lance_cavalier": ExtResource("8_b047a"),
 "lancer": ExtResource("28_vkfaj"),
+"mage": ExtResource("32_um71q"),
 "marauder": ExtResource("24_jj4js"),
 "monk": ExtResource("18_bpik5"),
 "penitent": ExtResource("36_lgvds"),
@@ -66,6 +69,7 @@ unit_types = {
 "sanctioner": ExtResource("37_yk7sk"),
 "sea_witch": ExtResource("25_fxnlp"),
 "sellsword": ExtResource("10_ntklw"),
+"shaman": ExtResource("33_b6uy8"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
