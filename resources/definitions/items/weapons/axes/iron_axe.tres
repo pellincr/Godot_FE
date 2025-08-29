@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bmyc03suasno"]
 
 [ext_resource type="Texture2D" uid="uid://coap74eeqxw4f" path="res://resources/sprites/items/weapons/axes/iron_axe.tres" id="1_excfp"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_53rw2"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_53rw2"]
 
 [resource]
 script = ExtResource("2_53rw2")

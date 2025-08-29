@@ -39,6 +39,7 @@ class_name UnlockManager
 	"fighter" : true,
 	"freewing" : true,
 	"gunner" : true,
+	"hakkapel" : true,
 	"healer" : true,
 	"lance_armor" : true,
 	"lance_cavalier" : true,
@@ -56,6 +57,7 @@ class_name UnlockManager
 	"sword_armor" : true,
 	"sword_cavalier" : true,
 	"thief" : true,
+	"troubadour" : true,
 	"ward" : true,
 	"vandal" : true
 }

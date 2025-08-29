@@ -1,6 +1,6 @@
-[gd_scene load_steps=40 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=42 format=3 uid="uid://sgve77vtu623"]
 
-[ext_resource type="Script" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
+[ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
 [ext_resource type="Resource" uid="uid://cq57ltputqp77" path="res://resources/definitions/unit_types/units/axe_cavalier/axe_cavalier.tres" id="4_bf4by"]
 [ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/units/bladehand/bladehand.tres" id="5_k6vk5"]
@@ -35,7 +35,9 @@
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="31_id5fj"]
 [ext_resource type="Resource" uid="uid://06uoo1n8hpyw" path="res://resources/definitions/unit_types/units/mage/mage.tres" id="32_um71q"]
 [ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="33_b6uy8"]
+[ext_resource type="Resource" uid="uid://bakbb4v2mvxn6" path="res://resources/definitions/unit_types/units/hakkapel/hakkapel.tres" id="34_oj3db"]
 [ext_resource type="Resource" uid="uid://cgaophi6857j" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.tres" id="34_w1y03"]
+[ext_resource type="Resource" uid="uid://1v4f5kpeul8x" path="res://resources/definitions/unit_types/units/troubadour/troubadour.tres" id="35_45nux"]
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
 [ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
@@ -56,6 +58,7 @@ unit_types = {
 "fighter": ExtResource("6_dtgcv"),
 "freewing": ExtResource("17_6h8uy"),
 "gunner": ExtResource("26_kidx7"),
+"hakkapel": ExtResource("34_oj3db"),
 "healer": ExtResource("15_nrv8r"),
 "lance_armor": ExtResource("7_m2b6g"),
 "lance_cavalier": ExtResource("8_b047a"),
@@ -73,6 +76,7 @@ unit_types = {
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
+"troubadour": ExtResource("35_45nux"),
 "vandal": ExtResource("35_vq7n6"),
 "ward": ExtResource("19_ks8uf")
 }

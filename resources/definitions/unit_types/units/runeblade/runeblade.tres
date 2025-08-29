@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://cu70p0ec10s5t" path="res://resources/definitions/unit_types/units/runeblade/runeblade_growth_stats.tres" id="2_0mekc"]
 [ext_resource type="Texture2D" uid="uid://b10tjmy3uu15y" path="res://resources/sprites/units/runeblade.png" id="3_618j1"]
 [ext_resource type="Resource" uid="uid://drgg5w3s5uab5" path="res://resources/definitions/unit_types/units/runeblade/runeblade_max_stats.tres" id="4_18quh"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_qgypm"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_kggfg"]
+[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_qgypm"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="6_my475"]
 
 [resource]
 script = ExtResource("5_qgypm")
@@ -15,7 +15,7 @@ description = "Arcane swordsmen who wield elemental energy with disciplined prec
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
-unit_rarity = ExtResource("6_kggfg")
+unit_rarity = ExtResource("6_my475")
 movement_type = 0
 tier = 2
 promoted = false
