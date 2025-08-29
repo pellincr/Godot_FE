@@ -1142,7 +1142,7 @@ func fsm_support_action_targetting(delta):
 			targetting_resource.clear()
 		if Input.is_action_just_pressed("ui_cancel"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
-			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
+			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
 				_interactable_tiles.clear()
 				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, combat.get_current_combatant().allegience, false)

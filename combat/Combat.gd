@@ -142,7 +142,7 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
 			pass
 		TutorialPanel.TUTORIAL.STAFFS:
-			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["staff"]], "Staff", 2)
+			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["heal_staff"]], "Staff", 2)
 			playerOverworldData.selected_party.append(healer)
 			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
 			playerOverworldData.selected_party.append(commander)
@@ -151,7 +151,7 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.TERRAIN:
 			var heavy = Unit.create_generic_unit("axe_armor",[ItemDatabase.items["iron_axe"]],"Heavy",2)
 			playerOverworldData.selected_party.append(heavy)
-			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"],ItemDatabase.items["skeleton_key"],ItemDatabase.items["skeleton_key"],ItemDatabase.items["skeleton_key"]], "Nimble", 2)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"],ItemDatabase.items["skeleton_key"]], "Nimble", 2)
 			playerOverworldData.selected_party.append(nimble_unit)
 			var flying = Unit.create_generic_unit("freewing",[ItemDatabase.items["iron_sword"]],"Flying",2)
 			playerOverworldData.selected_party.append(flying)
