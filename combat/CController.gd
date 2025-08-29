@@ -675,10 +675,13 @@ func ai_turn ():
 func populate_combatant_tile_ranges(combatant: CombatUnit):
 	grid.update_astar_points(combatant)
 	_movable_tiles.clear()
-	_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true, combatant.allegience)
 	_attackable_tiles.clear()
-	var edge_array = grid.find_edges(_movable_tiles)
-	_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
+	if combatant.ai_type == CombatMapConstants.UNIT_AI_TYPE.DEFEND_POINT:
+		_attackable_tiles = populate_tiles_for_weapon(combatant.unit.inventory.get_available_attack_ranges(), combatant.map_position)
+	else :
+		_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true, combatant.allegience)
+		var edge_array = grid.find_edges(_movable_tiles)
+		_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
 
 func set_controlled_combatant(combatant: CombatUnit):
 	#combat.get_current_combatant() = combatant
@@ -902,12 +905,16 @@ func fsm_unit_select_hover_process(delta):
 			# To be implemented : combat map main menu
 			pass
 		elif Input.is_action_just_pressed("combat_map_up"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			update_current_tile(current_tile + Vector2i.UP)
 		elif Input.is_action_just_pressed("combat_map_left"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			update_current_tile(current_tile + Vector2i.LEFT)
 		elif Input.is_action_just_pressed("combat_map_right"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			update_current_tile(current_tile + Vector2i.RIGHT)
 		elif Input.is_action_just_pressed("combat_map_down"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			update_current_tile(current_tile + Vector2i.DOWN)
 		camera.SimpleFollow(delta)
 
