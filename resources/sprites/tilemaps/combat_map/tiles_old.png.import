@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2x58onqjxwnc"
-path="res://.godot/imported/world_map_tiles_SumerWinter-Merger_Tiles.png-56bec503f9e148a3c603bd34b224c731.ctex"
+uid="uid://bwutiqkkxqei6"
+path="res://.godot/imported/tiles_old.png-2bbcc65e95545769a7f108de79425297.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/world_map_tiles_SumerWinter-Merger_Tiles.png"
-dest_files=["res://.godot/imported/world_map_tiles_SumerWinter-Merger_Tiles.png-56bec503f9e148a3c603bd34b224c731.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/tiles_old.png"
+dest_files=["res://.godot/imported/tiles_old.png-2bbcc65e95545769a7f108de79425297.ctex"]
 
 [params]
 

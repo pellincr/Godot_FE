@@ -30,7 +30,6 @@ signal finished_move(position: Vector2i)
 signal target_selection_started()
 signal target_selection_finished()
 signal tile_info_updated(tile : CombatMapTile, unit: CombatUnit)
-signal target_detailed_info(combat_unit : CombatUnit)
 
 ##State Machine
 #@export var seed : int
@@ -499,9 +498,9 @@ func process_terrain_effects():
 					if target_terrain.active_effect_phases == turn_phase:
 						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
 							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
-								if combat_unit.current_hp < combat_unit.stats.max_hp.evaluate():
+								if combat_unit.current_hp < combat_unit.get_max_hp():
 									if target_terrain.effect_scaling == Terrain.EFFECT_SCALING.PERCENTAGE:
-										combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.stats.max_hp.evaluate() * target_terrain.effect_weight /100))
+										combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * target_terrain.effect_weight /100))
 									else:
 										print("HEALED UNIT : " + combat_unit.unit.name)
 										combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
@@ -777,13 +776,6 @@ func update_current_tile(position : Vector2i):
 		combat.game_ui._set_tile_info(grid.get_map_tile(current_tile), grid.get_combat_unit(current_tile))
 
 ## FSM METHODS
-#
-# Called on cancel in the UNIT_SELECT state
-#
-func fsm_unit_select_cancel(delta):
-	if unit_detail_open:
-		target_detailed_info.emit(null)
-		unit_detail_open = false
 
 func fsm_unit_move_process(delta):
 	if Input:
@@ -890,8 +882,8 @@ func fsm_unit_select_hover_process(delta):
 		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
 				if unit_detail_open == false:
-					target_detailed_info.emit(selected_unit)
-					unit_detail_open = true
+					combat.game_ui.create_combat_unit_detail_panel(selected_unit)
+					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
 			#populate the detail info with the unit
 			#create a faction unit traversal list
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
@@ -921,8 +913,7 @@ func fsm_unit_select_hover_process(delta):
 func fsm_unit_details_screen_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_cancel"):
-			target_detailed_info.emit(null)
-			unit_detail_open = false
+			combat.game_ui.destory_active_ui_node()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("right_bumper"):
 			# To be implemented

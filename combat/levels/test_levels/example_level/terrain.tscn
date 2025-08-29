@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://ww05yde5nb2t"]
 
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="1_ol4pc"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="1_ol4pc"]
 [ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_yqtwc"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_81kdn"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_hrnf1"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="10_kjh4u"]
 [ext_resource type="Resource" uid="uid://bp7ibodvmd4sx" path="res://resources/definitions/terrians/house_terrain.tres" id="11_watv1"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="13_cjodj"]
+
 
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]

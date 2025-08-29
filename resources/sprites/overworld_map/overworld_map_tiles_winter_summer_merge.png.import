@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bacmoc0y2l8hy"
-path="res://.godot/imported/classic_dungeons_stagnant_water_red.png-3de9ddd6eafe657a093e9a4f28fa0eb3.ctex"
+uid="uid://dbamyq32o3h32"
+path="res://.godot/imported/overworld_map_tiles_winter_summer_merge.png-8c66b982d81e48c4ec1a3cbd5814925e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_stagnant_water_red.png"
-dest_files=["res://.godot/imported/classic_dungeons_stagnant_water_red.png-3de9ddd6eafe657a093e9a4f28fa0eb3.ctex"]
+source_file="res://resources/sprites/overworld_map/overworld_map_tiles_winter_summer_merge.png"
+dest_files=["res://.godot/imported/overworld_map_tiles_winter_summer_merge.png-8c66b982d81e48c4ec1a3cbd5814925e.ctex"]
 
 [params]
 

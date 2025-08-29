@@ -37,7 +37,7 @@ func set_all(cu : CombatUnit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool
 
 func update_hp_bar():
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.current_hp)
-	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.stats.max_hp.evaluate())
+	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.get_max_hp())
 
 func hp_bar_tween(value:int): 
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_desired_value(value)
@@ -54,7 +54,7 @@ func update():
 func update_unit_fields():
 	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.unit.name
 	$Unit/UnitIcon.texture = unit.unit.icon
-	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.stats.attack_speed.evaluate())
+	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.get_attack_speed())
 
 func update_weapon():
 	if weapon:

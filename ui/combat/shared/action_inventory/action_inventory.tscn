@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://8ljsagtku4bh"]
 
-[ext_resource type="Script" path="res://ui/combat/shared/action_inventory/action_inventory.gd" id="1_q4eh2"]
+[ext_resource type="Script" uid="uid://dv1qthd41tm68" path="res://ui/combat/shared/action_inventory/action_inventory.gd" id="1_q4eh2"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="2_5jn1s"]
 
 [node name="ActionInventory" type="Control"]
@@ -219,7 +219,3 @@ layout_mode = 2
 layout_mode = 2
 text = "Some random description goes here that maybe should be sufficiently long"
 fit_content = true
-
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot2" to="." method="btn_entered"]
-[connection signal="btn_entered" from="PanelContainer/MarginContainer/VboxContainer/InventoryPanel/CenterContainer/Inventory/UnitInventorySlot3" to="." method="btn_entered"]

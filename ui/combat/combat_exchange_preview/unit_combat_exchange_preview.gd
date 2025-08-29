@@ -34,14 +34,14 @@ func set_all(ei:UnitCombatExchangeData, wse:bool):
 
 func update_children():
 	attacking_unit_header.set_all(exchange_info.attacker, weapon_swap_enabled)
-	attacking_unit_stats.set_all(exchange_info.attacker.stats.max_hp.evaluate(), exchange_info.attacker.current_hp, exchange_info.attacker_predicted_hp, exchange_info.attacker_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.attacker_hit, exchange_info.attacker_critical)
+	attacking_unit_stats.set_all(exchange_info.attacker.get_max_hp(), exchange_info.attacker.current_hp, exchange_info.attacker_predicted_hp, exchange_info.attacker_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.attacker_hit, exchange_info.attacker_critical)
 	defending_unit_header.set_all(exchange_info.defender, false)
-	defending_unit_stats.set_all(exchange_info.defender.stats.max_hp.evaluate(), exchange_info.defender.current_hp, exchange_info.defender_predicted_hp, exchange_info.defender_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.defender_hit, exchange_info.defender_critical)
+	defending_unit_stats.set_all(exchange_info.defender.get_max_hp(), exchange_info.defender.current_hp, exchange_info.defender_predicted_hp, exchange_info.defender_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.defender_hit, exchange_info.defender_critical)
 	arrow_container.populate_combat(exchange_info.attacker, exchange_info.defender, exchange_info.exchange_data)
 
 func update_children_entity():
 	attacking_unit_header.set_all(exchange_info.attacker, weapon_swap_enabled)
-	attacking_unit_stats.set_all(exchange_info.attacker.stats.max_hp.evaluate(), exchange_info.attacker.current_hp,  exchange_info.attacker.current_hp, exchange_info.attacker_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.attacker_hit, exchange_info.attacker_critical)
+	attacking_unit_stats.set_all(exchange_info.attacker.get_max_hp(), exchange_info.attacker.current_hp,  exchange_info.attacker.current_hp, exchange_info.attacker_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.attacker_hit, exchange_info.attacker_critical)
 	defending_unit_header.set_all_ent(target_entity, false)
 	defending_unit_stats.set_all(target_entity.max_hp, target_entity.hp, exchange_info.defender_predicted_hp, 0, Constants.DAMAGE_TYPE.NONE, 0, 0)
 	arrow_container.populate_combat(exchange_info.attacker, null, exchange_info.exchange_data)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cm0qbxevm3w1g"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.gd" id="1_30dk8"]
+[ext_resource type="Script" path="res://ui/combat/discard_action_inventory_new/discard_item_selected.gd" id="1_sqfj1"]
 [ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="2_c00ii"]
 [ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="2_lk8i8"]
 
@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4jiof")
-script = ExtResource("1_30dk8")
+script = ExtResource("1_sqfj1")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2

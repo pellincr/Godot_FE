@@ -15,6 +15,8 @@ var ui_node_stack : Stack = Stack.new()
 #Menu
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
+# Detail Menu
+const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.tscn")
 
 #Combat Action
 const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
@@ -61,9 +63,7 @@ func _ready():
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
-	#combat.connect("update_combatants", update_combatants) ## THIS IS OLD?
-	#combat.connect("update_information", update_information) ##Old, was in use with the combat log
-	controller.connect("target_detailed_info", _target_detailed_info)
+
 
 #
 # Plays the transition animation on combat map begin
@@ -327,13 +327,13 @@ func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData)
 #
 # Populates and displayes the detailed info for a combat unit
 #
-func _target_detailed_info(combat_unit: CombatUnit):
-	if combat_unit:
-		if not $UnitStatusDetailed.visible :
-			$UnitStatusDetailed.set_unit(combat_unit)
-			$UnitStatusDetailed.visible = true
-	else :
-		$UnitStatusDetailed.visible = false	
+func create_combat_unit_detail_panel(combat_unit: CombatUnit):
+	var unit_detailed_info_combat_map = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
+	self.add_child(unit_detailed_info_combat_map)
+	await unit_detailed_info_combat_map
+	unit_detailed_info_combat_map.unit = combat_unit
+	unit_detailed_info_combat_map.update_by_unit()
+	push_ui_node_stack(unit_detailed_info_combat_map)
 	
 #
 #

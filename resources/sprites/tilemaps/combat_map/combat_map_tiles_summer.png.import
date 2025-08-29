@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwutiqkkxqei6"
-path="res://.godot/imported/tiles_old.png-cb0cba3db83ab4dbe3c9b4977b81fe34.ctex"
+uid="uid://72mw7tg16r5r"
+path="res://.godot/imported/combat_map_tiles_summer.png-be0cdead780ffb8938b5442951d75cf1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/tiles_old.png"
-dest_files=["res://.godot/imported/tiles_old.png-cb0cba3db83ab4dbe3c9b4977b81fe34.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_summer.png"
+dest_files=["res://.godot/imported/combat_map_tiles_summer.png-be0cdead780ffb8938b5442951d75cf1.ctex"]
 
 [params]
 

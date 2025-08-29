@@ -9,8 +9,9 @@
 [ext_resource type="Resource" path="res://resources/definitions/terrians/bones_terrain.tres" id="7_7mru1"]
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="8_kcek4"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="9_htabg"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="9_sriu2"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="9_sriu2"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="11_k6e33"]
+
 
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]

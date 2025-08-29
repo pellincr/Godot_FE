@@ -53,11 +53,11 @@ func set_map_terrain(ter : Terrain) :
 func calc_map_avoid()-> int:
 	if map_position != move_position:
 		if move_terrain:
-			return stats.avoid.evaluate() + move_terrain.avoid
+			return get_avoid() + move_terrain.avoid
 	else: 
 		if map_terrain:
-			return stats.avoid.evaluate() + map_terrain.avoid
-	return stats.avoid.evaluate() 
+			return get_avoid() + map_terrain.avoid
+	return get_avoid() 
 
 func calc_map_avoid_staff() -> int:
 	#if current_map_tile:
@@ -100,3 +100,54 @@ func un_equip_current_weapon():
 func update_display():
 	if map_display != null:
 		map_display.update_values()
+
+func get_max_hp() -> int:
+	return clampi(stats.max_hp.evaluate(), 1, 999)
+
+func get_strength() -> int:
+	return stats.strength.evaluate()
+
+func get_magic() -> int:
+	return stats.magic.evaluate()
+
+func get_skill() -> int:
+	return stats.skill.evaluate()
+
+func get_speed() -> int:
+	return stats.speed.evaluate()
+
+func get_luck() -> int:
+	return stats.luck.evaluate()
+
+func get_defense() -> int:
+	return stats.defense.evaluate()
+
+func get_resistance() -> int:
+	return stats.resistance.evaluate()
+
+func get_movement() -> int:
+	return stats.movement.evaluate()
+
+func get_constitution() -> int:
+	return stats.constitution.evaluate()
+
+func get_damage() -> int:
+	return clampi(stats.damage.evaluate(), 0, 99999)
+
+func get_hit() -> int:
+	return clampi(stats.hit.evaluate(), 0, 99999)
+
+func get_avoid() -> int:
+	return clampi(stats.avoid.evaluate(), 0, 99999)
+
+func get_attack_speed() -> int:
+	return stats.attack_speed.evaluate()
+
+func get_critical_chance() -> int:
+	return clampi(stats.critical_chance.evaluate(), 0, 99999)
+
+func get_critical_avoid() -> int:
+	return clampi(stats.critical_avoid.evaluate(), 0, 99999)
+
+func get_critical_multiplier() -> int:
+	return clampi(stats.critical_multiplier.evaluate(), 1, 99999)

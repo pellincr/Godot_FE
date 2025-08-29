@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=38 format=3 uid="uid://1xc1hafct0nn"]
+[gd_resource type="TileSet" load_steps=36 format=3 uid="uid://1xc1hafct0nn"]
 
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="1_01w6u"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_054w4"]
@@ -7,18 +7,16 @@
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="5_1bp4v"]
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="6_l5175"]
 [ext_resource type="Resource" uid="uid://bdpax6msv6gx8" path="res://resources/definitions/terrians/forest_terrain.tres" id="7_82vvf"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="7_ppspv"]
 [ext_resource type="Resource" uid="uid://dgfpibxdiinha" path="res://resources/definitions/terrians/ruins_terrain.tres" id="8_f6m6q"]
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="9_h6cht"]
 [ext_resource type="Resource" uid="uid://bp7ibodvmd4sx" path="res://resources/definitions/terrians/house_terrain.tres" id="10_xs3rf"]
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="11_16mmm"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="12_oydaj"]
 [ext_resource type="Resource" uid="uid://052mcrbllxuw" path="res://resources/definitions/terrians/pillar_terrain.tres" id="13_7japi"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="14_iojnx"]
-[ext_resource type="Texture2D" uid="uid://b2x58onqjxwnc" path="res://resources/sprites/tilemaps/world_map_tiles_SumerWinter-Merger_Tiles.png" id="15_ua665"]
+[ext_resource type="Texture2D" uid="uid://b2x58onqjxwnc" path="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_merger.png" id="15_tdq0g"]
 [ext_resource type="Resource" uid="uid://cleu65vv815j5" path="res://resources/definitions/terrians/fort_terrain.tres" id="16_g6w4p"]
 [ext_resource type="Resource" uid="uid://cw0xpeqitngds" path="res://resources/definitions/terrians/ocean_terrain.tres" id="16_i7usy"]
-[ext_resource type="Texture2D" uid="uid://72mw7tg16r5r" path="res://resources/sprites/tilemaps/world_map_tiles_SUMMER.png" id="16_megx8"]
-[ext_resource type="Texture2D" uid="uid://b6adbkhfrhqju" path="res://resources/sprites/tilemaps/world_map_tiles_WINTER.png" id="17_2evgt"]
 [ext_resource type="Resource" uid="uid://cl6ucgmubmy26" path="res://resources/definitions/terrians/road_terrain.tres" id="18_3ynnk"]
 [ext_resource type="Resource" uid="uid://bpwmwax4cwar" path="res://resources/definitions/terrians/bridge_terrain.tres" id="18_228i6"]
 [ext_resource type="Resource" uid="uid://0kq68jui0jc5" path="res://resources/definitions/terrians/knoll_terrain.tres" id="18_qso64"]
@@ -26,12 +24,13 @@
 [ext_resource type="Resource" uid="uid://btm64auo5s30t" path="res://resources/definitions/terrians/mountain_terrain.tres" id="20_2p2d3"]
 [ext_resource type="Resource" uid="uid://bd76uje2lef6" path="res://resources/definitions/terrians/camp_terrain.tres" id="21_a76n5"]
 [ext_resource type="Resource" uid="uid://cdhq11mn67ycd" path="res://resources/definitions/terrians/peak_terrain.tres" id="21_q6b55"]
+[ext_resource type="Texture2D" uid="uid://72mw7tg16r5r" path="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_summer.png" id="25_61em8"]
+[ext_resource type="Texture2D" uid="uid://b6adbkhfrhqju" path="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_winter.png" id="26_e1h5m"]
 [ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="27_1kq38"]
 [ext_resource type="Resource" uid="uid://ljmq5r4awn0i" path="res://resources/definitions/terrians/broken_wall_terrain.tres" id="27_a156t"]
-[ext_resource type="Texture2D" uid="uid://j2y5rtny47r2" path="res://resources/sprites/tilemaps/walls.png" id="27_rq2ra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhu4e"]
-atlas = ExtResource("14_iojnx")
+atlas = ExtResource("7_ppspv")
 region = Rect2(96, 320, 32, 32)
 
 [sub_resource type="Resource" id="Resource_w0w17"]
@@ -51,7 +50,7 @@ effect_weight = 0
 tile_texture = SubResource("AtlasTexture_jhu4e")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bi1gy"]
-texture = ExtResource("14_iojnx")
+texture = ExtResource("7_ppspv")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 2:0/0 = 0
@@ -188,7 +187,7 @@ texture_region_size = Vector2i(32, 32)
 5:14/0/custom_data_0 = ExtResource("10_xs3rf")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l4om8"]
-texture = ExtResource("15_ua665")
+texture = ExtResource("15_tdq0g")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -265,7 +264,7 @@ texture_region_size = Vector2i(32, 32)
 5:6/0/terrain_set = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_il6un"]
-texture = ExtResource("16_megx8")
+texture = ExtResource("25_61em8")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 1:0/0/custom_data_0 = ExtResource("1_01w6u")
@@ -1014,7 +1013,7 @@ texture_region_size = Vector2i(32, 32)
 6:19/0/custom_data_0 = ExtResource("21_a76n5")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3usp2"]
-texture = ExtResource("17_2evgt")
+texture = ExtResource("26_e1h5m")
 texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 2:0/0 = 0
@@ -1785,42 +1784,6 @@ texture_region_size = Vector2i(32, 32)
 8:6/0 = 0
 8:6/0/custom_data_0 = ExtResource("12_oydaj")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_svofj"]
-texture = ExtResource("27_rq2ra")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/custom_data_0 = ExtResource("2_054w4")
-1:0/0 = 0
-1:0/0/custom_data_0 = ExtResource("2_054w4")
-2:0/0 = 0
-2:0/0/custom_data_0 = ExtResource("2_054w4")
-3:0/0 = 0
-3:0/0/custom_data_0 = ExtResource("2_054w4")
-0:1/0 = 0
-0:1/0/custom_data_0 = ExtResource("2_054w4")
-1:1/0 = 0
-1:1/0/custom_data_0 = ExtResource("2_054w4")
-2:1/0 = 0
-2:1/0/custom_data_0 = ExtResource("2_054w4")
-3:1/0 = 0
-3:1/0/custom_data_0 = ExtResource("2_054w4")
-0:2/0 = 0
-0:2/0/custom_data_0 = ExtResource("2_054w4")
-1:2/0 = 0
-1:2/0/custom_data_0 = ExtResource("2_054w4")
-2:2/0 = 0
-2:2/0/custom_data_0 = ExtResource("2_054w4")
-3:2/0 = 0
-3:2/0/custom_data_0 = ExtResource("2_054w4")
-0:3/0 = 0
-0:3/0/custom_data_0 = ExtResource("2_054w4")
-1:3/0 = 0
-1:3/0/custom_data_0 = ExtResource("2_054w4")
-2:3/0 = 0
-2:3/0/custom_data_0 = ExtResource("2_054w4")
-3:3/0 = 0
-3:3/0/custom_data_0 = ExtResource("2_054w4")
-
 [resource]
 tile_size = Vector2i(32, 32)
 terrain_set_0/mode = 0
@@ -1839,5 +1802,4 @@ sources/1 = SubResource("TileSetAtlasSource_bi1gy")
 sources/3 = SubResource("TileSetAtlasSource_l4om8")
 sources/4 = SubResource("TileSetAtlasSource_il6un")
 sources/5 = SubResource("TileSetAtlasSource_3usp2")
-sources/8 = SubResource("TileSetAtlasSource_svofj")
 sources/7 = SubResource("TileSetAtlasSource_2l5ne")

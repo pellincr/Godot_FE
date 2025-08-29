@@ -12,8 +12,9 @@
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="12_dwhvt"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="13_4ubk2"]
 [ext_resource type="Resource" uid="uid://052mcrbllxuw" path="res://resources/definitions/terrians/pillar_terrain.tres" id="14_c3nmn"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles_old.png" id="15_mlqr7"]
+[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="15_mlqr7"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="17_bhaku"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]
 texture_region_size = Vector2i(32, 32)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6adbkhfrhqju"
-path="res://.godot/imported/world_map_tiles_WINTER.png-a298bd944ce36982024053c5cd28db51.ctex"
+uid="uid://b2x58onqjxwnc"
+path="res://.godot/imported/combat_map_tiles_merger.png-16a4f371b60e8a3ad0e9f32b6afd1587.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/world_map_tiles_WINTER.png"
-dest_files=["res://.godot/imported/world_map_tiles_WINTER.png-a298bd944ce36982024053c5cd28db51.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_merger.png"
+dest_files=["res://.godot/imported/combat_map_tiles_merger.png-16a4f371b60e8a3ad0e9f32b6afd1587.ctex"]
 
 [params]
 

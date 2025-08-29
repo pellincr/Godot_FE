@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bui7o80t86d0g"
-path="res://.godot/imported/classic_dungeons_stone_floor_wall_edges.png-9944e08eab27cb0b166b74433b3f69d4.ctex"
+uid="uid://de3tw5c4yg3h1"
+path="res://.godot/imported/overworld_map_tiles_summer.png-d26965995b42ae5b636a332b6228bfff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_stone_floor_wall_edges.png"
-dest_files=["res://.godot/imported/classic_dungeons_stone_floor_wall_edges.png-9944e08eab27cb0b166b74433b3f69d4.ctex"]
+source_file="res://resources/sprites/overworld_map/overworld_map_tiles_summer.png"
+dest_files=["res://.godot/imported/overworld_map_tiles_summer.png-d26965995b42ae5b636a332b6228bfff.ctex"]
 
 [params]
 

@@ -1,0 +1,273 @@
+[gd_scene load_steps=8 format=3 uid="uid://cv6457742216o"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_3fj3p"]
+[ext_resource type="Script" path="res://ui/combat/unit_detailed_info_combat_map/combat_unit_stat_progression.gd" id="2_ch458"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo4mh"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wx011"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_e3lwf"]
+default_font = ExtResource("1_3fj3p")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_uo4mh")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_wx011")
+
+[sub_resource type="Theme" id="Theme_07khm"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_rmyy4"]
+default_font_size = 18
+
+[node name="UnitStatProgression" type="VBoxContainer"]
+offset_right = 210.0
+offset_bottom = 259.0
+theme = SubResource("Theme_e3lwf")
+script = ExtResource("2_ch458")
+
+[node name="UnitStatsHeaderLabel" type="Label" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_07khm")
+text = "Unit Stats"
+
+[node name="StrengthContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StrengthContainer"]
+layout_mode = 2
+
+[node name="StrengthHeaderLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Strength : "
+
+[node name="StrengthValueLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="StrengthGrowthLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="StrengthProgress" type="ProgressBar" parent="StrengthContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="MagicContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MagicContainer"]
+layout_mode = 2
+
+[node name="MagicHeaderLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Magic : "
+
+[node name="MagicValueLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="MagicGrowthLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="MagicProgress" type="ProgressBar" parent="MagicContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="SkillContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SkillContainer"]
+layout_mode = 2
+
+[node name="SkillHeaderLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Skill : "
+
+[node name="SkillValueLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="SkillGrowthLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="SkillProgress" type="ProgressBar" parent="SkillContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="SpeedContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SpeedContainer"]
+layout_mode = 2
+
+[node name="SpeedHeaderLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Speed : "
+
+[node name="SpeedValueLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="SpeedGrowthLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="SpeedProgress" type="ProgressBar" parent="SpeedContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="LuckContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LuckContainer"]
+layout_mode = 2
+
+[node name="LuckHeaderLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Luck : "
+
+[node name="LuckValueLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="LuckGrowthLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="LuckProgress" type="ProgressBar" parent="LuckContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="DefenseContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DefenseContainer"]
+layout_mode = 2
+
+[node name="DefenseHeaderLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Defense : "
+
+[node name="DefenseValueLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="DefenseGrowthLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="DefenseProgress" type="ProgressBar" parent="DefenseContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="ResistanceContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResistanceContainer"]
+layout_mode = 2
+
+[node name="ResistanceHeaderLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+custom_minimum_size = Vector2(108, 18)
+layout_mode = 2
+text = "Resistance : "
+
+[node name="ResistanceValueLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+layout_mode = 2
+text = "123"
+
+[node name="ResistanceGrowthLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "123"
+horizontal_alignment = 2
+
+[node name="ResistanceProgress" type="ProgressBar" parent="ResistanceContainer"]
+custom_minimum_size = Vector2(134, 3)
+layout_mode = 2
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="MoveContainer" type="HBoxContainer" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="MoveHeaderLabel" type="Label" parent="MoveContainer"]
+custom_minimum_size = Vector2(134, 18)
+layout_mode = 2
+text = "Move
+"
+
+[node name="MoveValueLabel" type="Label" parent="MoveContainer"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "9"
+horizontal_alignment = 2
+
+[node name="ConstitutionContainer" type="HBoxContainer" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_rmyy4")
+
+[node name="ConstitutionHeaderLabel" type="Label" parent="ConstitutionContainer"]
+custom_minimum_size = Vector2(134, 18)
+layout_mode = 2
+text = "Constitution"
+
+[node name="ConstitutionValueLabel" type="Label" parent="ConstitutionContainer"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "17"
+horizontal_alignment = 2

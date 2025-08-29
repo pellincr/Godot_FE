@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j2y5rtny47r2"
-path="res://.godot/imported/walls.png-1ff1aa8abd5dc9abac2e93179c4ebae1.ctex"
+uid="uid://b6adbkhfrhqju"
+path="res://.godot/imported/combat_map_tiles_winter.png-fdd33f9d66359dfaca96e56b6506589b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/walls.png"
-dest_files=["res://.godot/imported/walls.png-1ff1aa8abd5dc9abac2e93179c4ebae1.ctex"]
+source_file="res://resources/sprites/tilemaps/combat_map/combat_map_tiles_winter.png"
+dest_files=["res://.godot/imported/combat_map_tiles_winter.png-fdd33f9d66359dfaca96e56b6506589b.ctex"]
 
 [params]
 

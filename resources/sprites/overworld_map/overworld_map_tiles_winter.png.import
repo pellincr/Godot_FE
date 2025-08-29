@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp75lum4ea0as"
-path="res://.godot/imported/classic_dungeons_stone_floor.png-8c040d0db9b0ebc026481d66176970bb.ctex"
+uid="uid://bni7lhwfru2hs"
+path="res://.godot/imported/overworld_map_tiles_winter.png-3555b4d0f8f8e40556905c7f03bc24cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_stone_floor.png"
-dest_files=["res://.godot/imported/classic_dungeons_stone_floor.png-8c040d0db9b0ebc026481d66176970bb.ctex"]
+source_file="res://resources/sprites/overworld_map/overworld_map_tiles_winter.png"
+dest_files=["res://.godot/imported/overworld_map_tiles_winter.png-3555b4d0f8f8e40556905c7f03bc24cf.ctex"]
 
 [params]
 

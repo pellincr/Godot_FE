@@ -84,14 +84,14 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
 		attacker.unit.inventory.get_equipped_weapon().use()
 		await use_audio_player(heal_sound)
-		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.stats.max_hp.evaluate())
+		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
 		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
-	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.stats.max_hp.evaluate())
+	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.get_max_hp())
 	DamageNumbers.heal((32* unit.move_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	if ce_display != null:
@@ -161,10 +161,10 @@ func calc_hit(attacker: CombatUnit, target: CombatUnit) -> int:
 		wpn_triangle_hit_active_bonus = wpn_triangle_hit_bonus
 	elif (check_weapon_triangle(attacker.unit, target.unit) == target.unit): 
 		wpn_triangle_hit_active_bonus = - wpn_triangle_hit_bonus
-	return clamp(attacker.stats.hit.evaluate() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
+	return clamp(attacker.get_hit() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
 
 func calc_crit(attacker: CombatUnit, target: CombatUnit) -> int:
-	return clamp(attacker.stats.critical_chance.evaluate() - target.stats.luck.evaluate(), 0, 100)
+	return clamp(attacker.get_critical_chance() - target.get_critical_avoid(), 0, 100)
 
 func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	var max_damage
@@ -184,16 +184,16 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	
 	#calculate the maximum damage output before factoring in defenses
 	if(effective): 
-		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus + ((effective_damage_multiplier-1) * attacker.get_equipped().damage)
+		max_damage = attacker.get_damage() + wpn_triangle_active_bonus + ((effective_damage_multiplier-1) * attacker.get_equipped().damage)
 	else :
-		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus
+		max_damage = attacker.get_damage() + wpn_triangle_active_bonus
 	# check the damage type of the source
 	if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
 		defense_mult = 0
 	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
-		damage = clampi(max_damage - (target.stats.defense.evaluate() * defense_mult),0, 999)
+		damage = clampi(max_damage - (target.get_defense() * defense_mult),0, 999)
 	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
-		damage = clampi(max_damage - (target.stats.resistance.evaluate() * defense_mult),0, 999)
+		damage = clampi(max_damage - (target.get_resistance() * defense_mult),0, 999)
 	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.TRUE:
 		damage = max_damage
 	else :
@@ -294,7 +294,7 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 		var turn_data : UnitSupportExchangeTurnData = UnitSupportExchangeTurnData.new()
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
-		turn_data.effect_weight = supporter.stats.damage.evaluate()
+		turn_data.effect_weight = supporter.get_damage()
 		return_object.exchange_data.append(turn_data)
 	return_object.populate()
 	return return_object
@@ -302,7 +302,7 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatEntity) -> UnitCombatExchangeData:
 	var return_object : UnitCombatExchangeData = UnitCombatExchangeData.new()
 	return_object.attacker = attacker
-	var net_attack_speed = attacker.stats.attack_speed.evaluate() - defender.attack_speed
+	var net_attack_speed = attacker.get_attack_speed() - defender.attack_speed
 	var net_turn_count = int(net_attack_speed / floor(4))
 	var attacker_turns = 1
 	if net_turn_count > 0:
@@ -310,9 +310,9 @@ func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatE
 	var effective = false
 	var attacker_damage = 0
 	if(effective): 
-		attacker_damage = clampi(attacker.stats.damage.evaluate() + (2 * attacker.get_equipped().damage) - defender.defense, 0, 9999)
+		attacker_damage = clampi(attacker.get_damage() + (2 * attacker.get_equipped().damage) - defender.defense, 0, 9999)
 	else :
-		attacker_damage = clampi(attacker.stats.damage.evaluate() - defender.defense, 0, 9999)
+		attacker_damage = clampi(attacker.get_damage() - defender.defense, 0, 9999)
 	for attack in attacker_turns:
 		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
 		turn_data.owner = attacker
@@ -341,7 +341,7 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 	return _arr
 
 func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
-	var net_attack_speed = attacker.stats.attack_speed.evaluate() - defender.stats.attack_speed.evaluate()
+	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
 	var net_turn_count = int(net_attack_speed / floor(4))
 	if net_turn_count > 0:
 		attacker_turns = attacker_turns + abs(net_turn_count)

@@ -1,16 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://btp6yafud4eby"]
+[gd_scene load_steps=14 format=3 uid="uid://bi5dcwk41kp4o"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_2gf70"]
-[ext_resource type="Script" uid="uid://l8ypil671wf5" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.gd" id="1_811iy"]
-[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="2_rot0i"]
-[ext_resource type="PackedScene" uid="uid://ducowi3wugv78" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.tscn" id="3_i5jm2"]
-[ext_resource type="PackedScene" uid="uid://bg7on5l6leqo0" path="res://ui/battle_preparation/unit_detailed_info/combat_stat_container.tscn" id="4_juusa"]
-[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="4_n53r2"]
-[ext_resource type="PackedScene" uid="uid://bq8widitblsd" path="res://ui/battle_preparation/unit_detailed_info/skills_container.tscn" id="4_o1y3d"]
-[ext_resource type="PackedScene" uid="uid://lyxn6uge7asw" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.tscn" id="5_ind15"]
-[ext_resource type="PackedScene" uid="uid://dno5xha01kqy5" path="res://ui/battle_preparation/unit_detailed_info/unit_stat_progression.tscn" id="6_42es3"]
-[ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="6_yulbu"]
-[ext_resource type="Texture2D" uid="uid://j204awg3vg1a" path="res://resources/sprites/icons/Faction Banner.png" id="9_jfwn1"]
+[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_pw3uy"]
+[ext_resource type="Script" path="res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.gd" id="2_5r8sm"]
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="3_vcka7"]
+[ext_resource type="PackedScene" uid="uid://ducowi3wugv78" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.tscn" id="4_vij6f"]
+[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="5_1r1na"]
+[ext_resource type="PackedScene" uid="uid://bq8widitblsd" path="res://ui/battle_preparation/unit_detailed_info/skills_container.tscn" id="6_raogi"]
+[ext_resource type="PackedScene" uid="uid://lyxn6uge7asw" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.tscn" id="7_ucu3d"]
+[ext_resource type="PackedScene" uid="uid://djno20d05ctlw" path="res://ui/combat/unit_detailed_info_combat_map/combat_unit_stat_container.tscn" id="8_sy0ip"]
+[ext_resource type="PackedScene" uid="uid://cv6457742216o" path="res://ui/combat/unit_detailed_info_combat_map/combat_unit_stat_progression.tscn" id="9_n846i"]
+[ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="10_x1qyb"]
+[ext_resource type="Texture2D" uid="uid://j204awg3vg1a" path="res://resources/sprites/icons/Faction Banner.png" id="11_jx76i"]
 
 [sub_resource type="Theme" id="Theme_8a08l"]
 default_font_size = 36
@@ -20,12 +20,20 @@ default_font_size = 18
 
 [node name="UnitDetailedInfo" type="Panel"]
 custom_minimum_size = Vector2(500, 460)
-offset_top = 15.0
-offset_right = 230.0
-offset_bottom = 475.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -230.0
+offset_right = 250.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
-theme = ExtResource("1_2gf70")
-script = ExtResource("1_811iy")
+theme = ExtResource("1_pw3uy")
+script = ExtResource("2_5r8sm")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(500, 460)
@@ -42,19 +50,19 @@ theme_override_constants/separation = 7
 [node name="LeftHalfContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(230, 460)
 layout_mode = 2
-theme = ExtResource("2_rot0i")
+theme = ExtResource("3_vcka7")
 
 [node name="UnitNameLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftHalfContainer"]
 layout_mode = 2
 theme = SubResource("Theme_8a08l")
 text = "Character Name"
 
-[node name="UnitExperienceInfo" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("3_i5jm2")]
+[node name="UnitExperienceInfo" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("4_vij6f")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="WeaponIconContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("4_n53r2")]
+[node name="WeaponIconContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("5_1r1na")]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer"]
@@ -77,10 +85,10 @@ layout_mode = 2
 value = 99.0
 show_percentage = false
 
-[node name="SkillsContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("4_o1y3d")]
+[node name="SkillsContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("6_raogi")]
 layout_mode = 2
 
-[node name="UnitInventoryContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("5_ind15")]
+[node name="UnitInventoryContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("7_ucu3d")]
 layout_mode = 2
 size_flags_vertical = 6
 
@@ -88,12 +96,10 @@ size_flags_vertical = 6
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="CombatStatContainer" parent="MarginContainer/HBoxContainer/RightHalfContainer" instance=ExtResource("4_juusa")]
+[node name="CombatStatContainer" parent="MarginContainer/HBoxContainer/RightHalfContainer" instance=ExtResource("8_sy0ip")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
 
-[node name="UnitStatProgression" parent="MarginContainer/HBoxContainer/RightHalfContainer" instance=ExtResource("6_42es3")]
+[node name="UnitStatProgression" parent="MarginContainer/HBoxContainer/RightHalfContainer" instance=ExtResource("9_n846i")]
 layout_mode = 2
 
 [node name="UnitIcon" type="TextureRect" parent="."]
@@ -103,7 +109,7 @@ offset_left = 200.0
 offset_top = 40.0
 offset_right = 296.0
 offset_bottom = 136.0
-texture = ExtResource("6_yulbu")
+texture = ExtResource("10_x1qyb")
 
 [node name="FactionBanner" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
@@ -112,7 +118,7 @@ offset_left = 433.0
 offset_top = 1.0
 offset_right = 497.0
 offset_bottom = 65.0
-texture = ExtResource("9_jfwn1")
+texture = ExtResource("11_jx76i")
 
 [connection signal="item_equipped" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_equipped"]
 [connection signal="item_used" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
