@@ -16,7 +16,7 @@ signal tutorial_completed()
 enum TUTORIAL{
 	HOW_TO_PLAY,
 	DRAFT, BATTLE_PREP, CAMPAIGN_MAP, 
-	MUNDANE_WEAPONS, MAGIC_WEAPONS, WEAPON_CYCLE,
+	MUNDANE_WEAPONS, MAGIC_WEAPONS, WEAPON_CYCLE, WEAPON_EFFECTIVENESS,
 	SUPPORT_ACTIONS,STAFFS,BANNERS,
 	TERRAIN, MAP_ENTITY,
 	DEFEAT_ALL_ENEMIES, SIEZE_LANDMARK,DEFEAT_BOSSES,SURVIVE_TURNS
@@ -65,6 +65,8 @@ func instantiate_tutorial():
 		TUTORIAL.WEAPON_CYCLE:
 			tutorial_page_text.append("There are 4 main weapon types a unit can use: Mundane, Nimble, Magic, and Defensive.")
 			tutorial_page_text.append("In combat, it is important to choose your weapon wisely. The Weapon Cycle works as follows: Mundane beats Nimble, Nimble beats Magic, Magic beats Defensive, and Defensive beats Mundane.")
+		TUTORIAL.WEAPON_EFFECTIVENESS:
+			tutorial_page_text.append("Certain weapons are more effective against certain unit types than others. For example, bows are strong against fliers and rapiers are strong against Heavy Units. Equip your items for each battle wisely.")
 		TUTORIAL.SUPPORT_ACTIONS:
 			tutorial_page_text.append("In combat, it is important to think carefully before each action you take. Outside of just attacking enemies, there are other actions you can do to better prepare your units.")
 			tutorial_page_text.append("Shove: If you want to move a unit to a safer position, but cant move any further, you can use another unit to shove the initial unit 1 square away.")

@@ -134,6 +134,11 @@ func set_player_tutorial_party():
 			playerOverworldData.selected_party.append(nimble_unit)
 			var defensive_unit = Unit.create_generic_unit("ward",[ItemDatabase.items["iron_shield"]], "Defensive", 2)
 			playerOverworldData.selected_party.append(defensive_unit)
+		TutorialPanel.TUTORIAL.WEAPON_EFFECTIVENESS:
+			var bow_unit = Unit.create_generic_unit("archer",[ItemDatabase.items["iron_bow"]],"Bow User",2)
+			playerOverworldData.selected_party.append(bow_unit)
+			var rapier_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["rapier"]], "Rapier User", 2)
+			playerOverworldData.selected_party.append(rapier_unit)
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
 			pass
 		TutorialPanel.TUTORIAL.STAFFS:
@@ -353,6 +358,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		SelectedSaveFile.save(playerOverworldData)
 		if is_tutorial:
 			reset_game_state()
+			SelectedSaveFile.save(playerOverworldData)
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 		else:
 			if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
@@ -367,7 +373,6 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 				playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
 				playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
 				playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-				playerOverworldData.selected_party = []
 				unlock_new_unit_types()
 				reset_game_state()
 				SelectedSaveFile.save(playerOverworldData)

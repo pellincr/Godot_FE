@@ -62,7 +62,7 @@ func _on_banners_pressed():
 
 
 func _on_terrain_pressed():
-	var terrain_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/terrain_tutorial/terrain_tutorial.tscn")
+	var terrain_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/terrain_tutorial/terrain_stats_tutorial.tscn")
 	go_to_totorial_scene(terrain_tutorial_scene)
 
 
@@ -105,3 +105,8 @@ func _on_how_to_play_pressed():
 func _on_map_entities_pressed() -> void:
 	var map_entities_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/terrain_tutorials/map_entity_tutorial/map_entity_tutorial.tscn")
 	go_to_totorial_scene(map_entities_tutorial_scene)
+
+
+func _on_weapon_effectiveness_pressed() -> void:
+	var weapon_effectiveness_tutorial_scene = preload("res://combat/levels/tutorial_colosseum_levels/weapon_tutorials/weapon_effectiveness_tutorial/weapon_effectiveness_tutorial.tscn")
+	go_to_totorial_scene(weapon_effectiveness_tutorial_scene)

@@ -55,6 +55,10 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Weapon Cycle"
 
+[node name="WeaponEffectiveness" type="Button" parent="TutorialContainer/WeaponTutorialContainer"]
+layout_mode = 2
+text = "Weapon Effectiveness"
+
 [node name="SupportTutorialContainer" type="HBoxContainer" parent="TutorialContainer"]
 layout_mode = 2
 
@@ -127,6 +131,7 @@ text = "Return"
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Mundane" to="." method="_on_mundane_pressed"]
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/Magic" to="." method="_on_magic_pressed"]
 [connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/WeaponCycle" to="." method="_on_weapon_cycle_pressed"]
+[connection signal="pressed" from="TutorialContainer/WeaponTutorialContainer/WeaponEffectiveness" to="." method="_on_weapon_effectiveness_pressed"]
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/SupportActions" to="." method="_on_support_actions_pressed"]
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Staffs" to="." method="_on_staffs_pressed"]
 [connection signal="pressed" from="TutorialContainer/SupportTutorialContainer/Banners" to="." method="_on_banners_pressed"]

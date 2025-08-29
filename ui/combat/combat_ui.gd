@@ -118,29 +118,31 @@ func get_all_boss_names():
 func show_tutorial_panel(scene_transition, current_level:PackedScene):
 	match combat.tutorial_level:
 		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
-			scene_transition.set_middle_label_text("Mundane Tutorial")
+			scene_transition.set_upper_label_text("Mundane Tutorial")
 		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
-			scene_transition.set_middle_label_text("Magic Tutorial")
+			scene_transition.set_upper_label_text("Magic Tutorial")
 		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
-			scene_transition.set_middle_label_text("Weapon Cycle Tutorial")
+			scene_transition.set_upper_label_text("Weapon Cycle Tutorial")
+		TutorialPanel.TUTORIAL.WEAPON_EFFECTIVENESS:
+			scene_transition.set_upper_label_text("Weapon Effectiveness Tutorial")
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
-			scene_transition.set_middle_label_text("Support Actions Tutorial")
+			scene_transition.set_upper_label_text("Support Actions Tutorial")
 		TutorialPanel.TUTORIAL.STAFFS:
-			scene_transition.set_middle_label_text("Staffs Tutorial")
+			scene_transition.set_upper_label_text("Staffs Tutorial")
 		TutorialPanel.TUTORIAL.BANNERS:
-			scene_transition.set_middle_label_text("Banners Tutorial")
+			scene_transition.set_upper_label_text("Banners Tutorial")
 		TutorialPanel.TUTORIAL.TERRAIN:
-			scene_transition.set_middle_label_text("Terrain Tutorial")
+			scene_transition.set_upper_label_text("Terrain Tutorial")
 		TutorialPanel.TUTORIAL.MAP_ENTITY:
-			scene_transition.set_middle_label_text("Map Entity Tutorial")
+			scene_transition.set_upper_label_text("Map Entity Tutorial")
 		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
-			scene_transition.set_middle_label_text("Defeat All Enemies Tutorial")
+			scene_transition.set_upper_label_text("Defeat All Enemies Tutorial")
 		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
-			scene_transition.set_middle_label_text("Sieze Landmark Tutorial")
+			scene_transition.set_upper_label_text("Sieze Landmark Tutorial")
 		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
-			scene_transition.set_middle_label_text("Defeat Bosses Tutorial")
+			scene_transition.set_upper_label_text("Defeat Bosses Tutorial")
 		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
-			scene_transition.set_middle_label_text("Survive Turns Tutorial")
+			scene_transition.set_upper_label_text("Survive Turns Tutorial")
 	tutorial_panel.current_state = combat.tutorial_level
 	add_child(tutorial_panel)
 	tutorial_panel.tutorial_completed.connect(tutorial_complete)
