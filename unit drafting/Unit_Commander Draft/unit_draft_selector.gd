@@ -3,6 +3,8 @@ extends Control
 class_name unitDraftSelector
 
 signal unit_selected(unit)
+signal next_screen()
+signal previous_screen()
 
 enum SELECTOR_STATE{
 	OVERVIEW, STATS, GROWTHS
@@ -57,10 +59,12 @@ func _on_gui_input(event):
 		$AudioStreamPlayer.stream = menu_enter_effect
 		$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
-	if event.is_action_pressed("right_bumper") and has_focus():
-		show_next_screen()
-	if event.is_action_pressed("left_bumper") and has_focus():
-		show_previous_screen()
+	if event.is_action_pressed("right_bumper"):
+		#show_next_screen()
+		next_screen.emit()
+	if event.is_action_pressed("left_bumper"):
+		#show_previous_screen()
+		previous_screen.emit()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
