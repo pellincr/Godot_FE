@@ -63,6 +63,7 @@ var _player_unit_alive : bool = true
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
 
+@export var is_key_campaign_level : bool = false
 @export var is_tutorial := false
 @export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var tutorial_level : TutorialPanel.TUTORIAL
@@ -355,6 +356,8 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		#playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
 		playerOverworldData.gold += calculate_reward_gold()
+		if (is_key_campaign_level):
+			playerOverworldData.combat_maps_completed += 1
 		SelectedSaveFile.save(playerOverworldData)
 		if is_tutorial:
 			reset_game_state()
@@ -393,6 +396,7 @@ func reset_game_state():
 	playerOverworldData.archetype_allotments = []
 	playerOverworldData.campaign_map_data = []
 	playerOverworldData.floors_climbed = 0 
+	playerOverworldData.combat_maps_completed = 0
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:

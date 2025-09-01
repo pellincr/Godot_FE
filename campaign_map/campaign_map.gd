@@ -80,6 +80,7 @@ func tutorial_completed():
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
+	playerOverworldData.combat_maps_completed = 0
 	playerOverworldData.campaign_map_data = campaign_map_generator.generate_map()
 	create_map()
 
@@ -146,10 +147,9 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 	playerOverworldData.floors_climbed += 1
 	match  room.type:
 		CampaignRoom.TYPE.BATTLE:
-			if playerOverworldData.floors_climbed < playerOverworldData.current_campaign.tier_2_floor_start_number:
-				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_1_battle_levels.pick_random()
-			else:
-				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_2_battle_levels.pick_random()
+			var battle_tier = playerOverworldData.combat_maps_completed
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has(playerOverworldData.combat_maps_completed):
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(playerOverworldData.combat_maps_completed).pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)
@@ -158,7 +158,8 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			transition_out_animation()
 			get_tree().change_scene_to_packed(EVENT_SELECT)
 		CampaignRoom.TYPE.BOSS:
-			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.boss_levels.pick_random()
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has("BOSS") and not playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").is_empty():
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)

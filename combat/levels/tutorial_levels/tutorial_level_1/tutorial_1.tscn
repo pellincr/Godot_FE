@@ -39,6 +39,7 @@ enemy_start_group = ExtResource("6_17qwn")
 max_allowed_ally_units = 1
 base_win_gold_reward = 100
 turn_reward_modifier = 6
+is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("8_6vv1a")

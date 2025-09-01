@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bxj522h8rq5l6"]
 
 [ext_resource type="Texture2D" uid="uid://c7fpa1qtkryna" path="res://resources/sprites/items/weapons/fist/devilsknuckles.png" id="1_w7hqw"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_30m8y"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_30m8y"]
 
 [resource]
 script = ExtResource("2_30m8y")
