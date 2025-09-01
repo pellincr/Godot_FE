@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwh2mplnd8dpq"]
+[gd_scene load_steps=16 format=3 uid="uid://bwh2mplnd8dpq"]
 
 [ext_resource type="PackedScene" uid="uid://ci8416mnsxm8v" path="res://combat/levels/tutorial_levels/tutorial_level_5/terrain.tscn" id="2_hqrea"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_b02q1"]
@@ -9,14 +9,16 @@
 [ext_resource type="Resource" uid="uid://b0sd3s30y0yy0" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_5.tres" id="6_xsfe1"]
 [ext_resource type="Resource" uid="uid://cgw58mt7lbjfq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_5_reinforcments.tres" id="6_yyu6e"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_sehg0"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_4uopc"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_wqpeo"]
-[ext_resource type="Script" uid="uid://co2iak53to12n" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="8_xo7tu"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="8_xo7tu"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="9_3ljho"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="10_s3nwo"]
 
 [sub_resource type="Resource" id="Resource_i4ihq"]
 script = ExtResource("8_xo7tu")
 reinforcements = Array[ExtResource("5_dofhi")]([ExtResource("6_yyu6e")])
+zones = Array[ExtResource("8_4uopc")]([])
 
 [node name="Game" type="Node"]
 

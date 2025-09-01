@@ -32,6 +32,8 @@ is_boss = false
 
 [resource]
 script = ExtResource("1_17j55")
-units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa")])
-turn = Array[int]([3, 5, 7])
+trigger_type = 0
+turns = Array[int]([])
+zone_id = ""
 faction = 0
+units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa")])

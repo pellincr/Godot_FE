@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b07cyd1bkl6wb"]
 
 [ext_resource type="Texture2D" uid="uid://br86gxv5jwd2r" path="res://resources/sprites/items/Swordtember_2024.png" id="1_bp32f"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_hq0um"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_hq0um"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8cs32"]
 atlas = ExtResource("1_bp32f")

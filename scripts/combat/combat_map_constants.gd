@@ -18,9 +18,11 @@ enum COMBAT_MAP_STATE
 	INITIALIZING,
 	PLAYER_TURN,
 	AI_TURN,
+	TURN_TRANSITION,
 	PAUSE,
 	PLAYER_DISCARD,
 	PROCESSING,
+	REINFORCEMENT,
 	VICTORY,
 	DEFEAT
 }
@@ -30,6 +32,7 @@ enum TURN_PHASE
 	INITIALIZING, # When game is initializing
 	IDLE, #Awaiting further input -- In Menu? ** Verify
 	BEGINNING_PHASE, #The phase before player input
+	BEGINNING_PHASE_PROCESS,
 	MAIN_PHASE, #Phase used for all player input
 	ENDING_PHASE #After player has ended, (end of turn effects)
 }
@@ -96,4 +99,10 @@ enum UNIT_AI_TYPE {
 	DEFAULT, #Attack and Move
 	ATTACK_IN_RANGE, #Attack in move range
 	DEFEND_POINT #No Move, only attack in weapon attack range
+}
+
+enum REINFORCEMENT_TYPE {
+	TURN_COUNT,
+	MAP_ZONE_ENTERED,
+	BOSS_DEFEATED ## TO BE IMPL
 }

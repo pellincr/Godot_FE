@@ -31,6 +31,8 @@ signal target_selection_started()
 signal target_selection_finished()
 signal tile_info_updated(tile : CombatMapTile, unit: CombatUnit)
 
+signal reinforcement_phase_completed()
+
 ##State Machine
 #@export var seed : int
 var turn_count : int
@@ -156,14 +158,9 @@ func _process(delta):
 				# initializing UI method
 				update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)
 			elif(turn_phase == Constants.TURN_PHASE.BEGINNING_PHASE):
-				#await ui.play_turn_banner(turn_owner)
-				await process_terrain_effects()
-				# await process_skill_effects()
-				await clean_up() # --> remove debuffs / buffs, flush data structures
-				# await spawn reinforcements()
-				update_turn_phase(CombatMapConstants.TURN_PHASE.MAIN_PHASE)
-				if game_state == (CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
-					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+				beginning_phase_processing()
+			elif turn_phase == CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS:
+				pass
 			elif turn_phase == CombatMapConstants.TURN_PHASE.MAIN_PHASE :
 				if game_state == (CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
 					player_fsm_process(delta)
@@ -179,22 +176,21 @@ func _process(delta):
 					#DO PLAYER ACTION PROCESS HERE, WE GIVE PLAYER CONTROL
 			elif(turn_phase == CombatMapConstants.TURN_PHASE.ENDING_PHASE):
 				if game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN : 
-					pass
+					update_game_state(CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION)
 				elif game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN :
-					await trigger_reinforcements()
 					print("Enemy Ended Turn")
 					_in_ai_process = false
 					_enemy_units_turn_taken = false
-				# await process_skill_effects()
-				# await clean_up()
-				# await terrain_effects()
-				#await trigger_reinforcements()
-
-				#All players have completed their turns, and order resets
-				if turn_order_index == 0:
-					turn_count += 1
-				progress_turn_order()
-				update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)
+					print("Triggered Reinforcements")
+					trigger_reinforcements()
+		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.REINFORCEMENT):
+			pass
+		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION):
+			#All players have completed their turns, and order resets
+			if turn_order_index == 0:
+				turn_count += 1
+			progress_turn_order()
+			update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)
 		elif game_state == CombatMapConstants.COMBAT_MAP_STATE.PROCESSING:
 			if _arrived == false:
 				process_unit_move(delta)
@@ -209,6 +205,18 @@ func _draw():
 			drawSelectedpath()
 		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY):
 			draw_attack_range(_weapon_attackable_tiles)
+
+func beginning_phase_processing():
+	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
+	#await ui.play_turn_banner(turn_owner)
+	await process_terrain_effects()
+	# await process_skill_effects()
+	await clean_up() # --> remove debuffs / buffs, flush data structures
+	if (game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
+		await focus_player_camera_on_current_tile()
+		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+	update_turn_phase(CombatMapConstants.TURN_PHASE.MAIN_PHASE)
+	
 
 func clean_up():
 	selected_unit_player_state_stack.flush()
@@ -709,7 +717,11 @@ func confirm_unit_move(combat_unit: CombatUnit):
 	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
-	combat.spawn_reinforcements(turn_count)
+	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.REINFORCEMENT)
+	combat.check_reinforcement_spawn(turn_count)
+	await combat.reinforcement_check_completed
+	
+	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION)
 
 func update_player_state(new_state : CombatMapConstants.PLAYER_STATE):
 	queue_current_state()
@@ -774,6 +786,25 @@ func update_current_tile(position : Vector2i):
 		get_tile_info(position)
 		selector.position = grid.map_to_position(current_tile)
 		combat.game_ui._set_tile_info(grid.get_map_tile(current_tile), grid.get_combat_unit(current_tile))
+
+
+#
+# 
+#
+func perform_reinforcement_camera_adjustment(grid_position: Vector2i) -> bool:
+	# Check if the grid position is open
+	if grid.get_combat_unit(grid_position) == null:
+		camera.set_focus_target(grid.map_to_position(grid_position))
+		camera.set_mode(camera.CAMERA_MODE.FOCUS)
+		return true
+	return false 
+
+func focus_player_camera_on_current_tile():
+	if camera.focus_target != grid.map_to_position(current_tile): 
+		camera.set_focus_target(grid.map_to_position(current_tile))
+		camera.set_mode(camera.CAMERA_MODE.FOCUS)
+		await get_tree().create_timer(1).timeout
+		camera.set_mode(camera.CAMERA_MODE.FOLLOW)
 
 ## FSM METHODS
 
