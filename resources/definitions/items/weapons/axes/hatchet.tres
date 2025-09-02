@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cgjl88iuvllwq" path="res://resources/sprites/items/weapons/axes/hatchet.png" id="1_d87q4"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_byfh1"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_h6ov0"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_h6ov0"]
 
 [resource]
 script = ExtResource("2_h6ov0")

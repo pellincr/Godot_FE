@@ -12,9 +12,14 @@ script = ExtResource("6_wh0xa")
 tier_1_battle_levels = Array[PackedScene]([ExtResource("1_5lqjb")])
 tier_2_battle_levels = Array[PackedScene]([ExtResource("2_2b0u2"), ExtResource("3_vakfn"), ExtResource("4_1r3a6")])
 boss_levels = Array[PackedScene]([ExtResource("5_i142n")])
+tier_thresholds = {}
 battle_levels = {
 0: [ExtResource("1_5lqjb")],
 1: [ExtResource("2_2b0u2")],
+"2": ExtResource("2_2b0u2"),
+"3": ExtResource("3_vakfn"),
+"4": ExtResource("4_1r3a6"),
+"5": ExtResource("5_i142n"),
 "BOSS": [],
 "EXTRA": []
 }

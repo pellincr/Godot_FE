@@ -339,7 +339,7 @@ func create_combat_unit_detail_panel(combat_unit: CombatUnit):
 #
 #
 func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
-	$combat_tile_info.set_all(tile.terrain, tile.position.x,tile.position.y)
+	$combat_tile_info.update_tile(tile)
 	if(unit):
 		$UnitStatus.set_unit(tile.unit)
 		$UnitStatus.visible = true

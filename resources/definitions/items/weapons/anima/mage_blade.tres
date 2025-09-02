@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b42s0d1e60ju4" path="res://resources/sprites/items/weapons/nature/mage_blade.png" id="1_y0xkw"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_7wv2d"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_o1f2s"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_o1f2s"]
 
 [resource]
 script = ExtResource("2_o1f2s")

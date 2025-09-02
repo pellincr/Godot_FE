@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=8 format=3 uid="uid://cxs5xb7s8yxrp"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="1_1akc2"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_d13vv"]
+[ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="3_lktj7"]
+[ext_resource type="Texture2D" uid="uid://cue1laq76ryum" path="res://resources/sprites/entities/chest_sprite.tres" id="4_u85qo"]
+[ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="5_f6gq2"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_6ep5a"]
+
+[sub_resource type="Resource" id="Resource_atp6n"]
+script = ExtResource("1_1akc2")
+name = "Chest"
+interaction_type = 0
+position = Vector2i(10, 3)
+terrain = ExtResource("5_f6gq2")
+map_view = ExtResource("4_u85qo")
+hp = 20
+defense = 5
+resistance = 5
+attack_speed = 5
+contents = Array[ExtResource("2_d13vv")]([ExtResource("3_lktj7")])
+
+[resource]
+script = ExtResource("6_6ep5a")
+entities = Array[ExtResource("1_1akc2")]([SubResource("Resource_atp6n")])

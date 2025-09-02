@@ -1,124 +1,229 @@
-[gd_scene load_steps=8 format=3 uid="uid://8y216guxyi22"]
+[gd_scene load_steps=7 format=3 uid="uid://8y216guxyi22"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_tile_info/combat_tile_info.gd" id="2_qy013"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="2_xscgn"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="3_l5uaj"]
-
-
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oymho"]
-bg_color = Color(0.0156863, 0.0156863, 0.0156863, 0.494118)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+bg_color = Color(0.027451, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.913725, 0.898039, 0.756863, 1)
 
 [sub_resource type="Theme" id="Theme_qjwpb"]
+Label/colors/font_color = Color(0.913725, 0.898039, 0.756863, 1)
+Label/fonts/font = ExtResource("2_xscgn")
 Panel/styles/panel = SubResource("StyleBoxFlat_oymho")
 
 [sub_resource type="Theme" id="Theme_scibi"]
 default_font = ExtResource("2_xscgn")
 default_font_size = 32
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3521q"]
-atlas = ExtResource("3_l5uaj")
-region = Rect2(64, 254, 32, 32)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amq6s"]
+bg_color = Color(0.027451, 0, 0, 1)
+border_width_bottom = 1
+border_color = Color(0.913725, 0.898039, 0.756863, 1)
 
-[node name="combat_tile_info" type="Control"]
+[node name="combat_tile_info" type="VBoxContainer"]
 custom_minimum_size = Vector2(250, 80)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1030.0
-offset_bottom = -640.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = SubResource("Theme_qjwpb")
-script = ExtResource("2_qy013")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(250, 80)
-layout_mode = 0
 offset_right = 250.0
 offset_bottom = 80.0
+mouse_filter = 2
+theme = SubResource("Theme_qjwpb")
+theme_override_constants/separation = 0
+script = ExtResource("2_qy013")
+
+[node name="TerrainInfoContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UpperTilePanel" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(250, 50)
+[node name="UpperTilePanel" type="Panel" parent="TerrainInfoContainer"]
+custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="UpperTileContainer" type="MarginContainer" parent="VBoxContainer/UpperTilePanel"]
-custom_minimum_size = Vector2(250, 50)
+[node name="Tile_Index" type="Label" parent="TerrainInfoContainer/UpperTilePanel"]
+custom_minimum_size = Vector2(20, 12)
 layout_mode = 2
-offset_right = 250.0
-offset_bottom = 50.0
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+offset_left = 193.0
+offset_top = 20.0
+offset_right = 248.0
+offset_bottom = 36.0
+theme = SubResource("Theme_scibi")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1,2"
+horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UpperTilePanel/UpperTileContainer"]
+[node name="UpperTileContainer" type="MarginContainer" parent="TerrainInfoContainer/UpperTilePanel"]
 layout_mode = 2
+offset_right = 172.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 11
+theme_override_constants/margin_bottom = 8
 
-[node name="Name" type="Label" parent="VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer"]
-custom_minimum_size = Vector2(157, 39)
+[node name="TerrainName" type="Label" parent="TerrainInfoContainer/UpperTilePanel/UpperTileContainer"]
+custom_minimum_size = Vector2(150, 24)
 layout_mode = 2
 theme = SubResource("Theme_scibi")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 24
 text = "Rocky Field"
 vertical_alignment = 1
 
-[node name="terrian_icon" type="TextureRect" parent="VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer"]
+[node name="TerrainBonusAvoid" type="Panel" parent="TerrainInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
-texture = SubResource("AtlasTexture_3521q")
-stretch_mode = 5
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
-[node name="Coordinates" type="Label" parent="VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon"]
-layout_mode = 0
-offset_left = -3.0
-offset_top = 23.0
-offset_right = 35.0
-offset_bottom = 45.0
-text = "(1,2)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LowerBonusPanel" type="Panel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(250, 30)
+[node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusAvoid"]
 layout_mode = 2
-
-[node name="LowerBonusContainer" type="MarginContainer" parent="VBoxContainer/LowerBonusPanel"]
-custom_minimum_size = Vector2(250, 30)
-layout_mode = 2
-offset_right = 250.0
-offset_bottom = 30.0
-theme_override_constants/margin_left = 25
+offset_right = 138.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="BonusContainer" type="HBoxContainer" parent="VBoxContainer/LowerBonusPanel/LowerBonusContainer"]
-custom_minimum_size = Vector2(210, 16)
+[node name="HBoxContainer" type="HBoxContainer" parent="TerrainInfoContainer/TerrainBonusAvoid/LowerBonusContainer"]
 layout_mode = 2
 
-[node name="Special" type="Label" parent="VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer"]
+[node name="Value" type="Label" parent="TerrainInfoContainer/TerrainBonusAvoid/LowerBonusContainer/HBoxContainer"]
 layout_mode = 2
-text = "RES 2"
-horizontal_alignment = 1
+text = "+ 15"
 vertical_alignment = 1
 
-[node name="Defense" type="Label" parent="VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer"]
+[node name="Label" type="Label" parent="TerrainInfoContainer/TerrainBonusAvoid/LowerBonusContainer/HBoxContainer"]
 layout_mode = 2
-text = "DEF 5"
-horizontal_alignment = 1
+text = "Avoid"
 vertical_alignment = 1
 
-[node name="Avoid" type="Label" parent="VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer"]
+[node name="TerrainBonusDefense" type="Panel" parent="TerrainInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
-text = "AVO 35"
-horizontal_alignment = 1
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
+
+[node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusDefense"]
+layout_mode = 2
+offset_right = 138.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TerrainInfoContainer/TerrainBonusDefense/LowerBonusContainer"]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="TerrainInfoContainer/TerrainBonusDefense/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "+ 15"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="TerrainInfoContainer/TerrainBonusDefense/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "Defense"
+vertical_alignment = 1
+
+[node name="TerrainBonusResistance" type="Panel" parent="TerrainInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
+
+[node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusResistance"]
+layout_mode = 2
+offset_right = 138.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TerrainInfoContainer/TerrainBonusResistance/LowerBonusContainer"]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="TerrainInfoContainer/TerrainBonusResistance/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "+ 15"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="TerrainInfoContainer/TerrainBonusResistance/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "Resistance"
+vertical_alignment = 1
+
+[node name="TerrainBonusEffect" type="Panel" parent="TerrainInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
+
+[node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusEffect"]
+layout_mode = 2
+offset_right = 138.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer"]
+layout_mode = 2
+
+[node name="Prefix" type="Label" parent="TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "+"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "15"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer"]
+layout_mode = 2
+text = "Health"
+vertical_alignment = 1
+
+[node name="EntityInfoPanel" type="Panel" parent="TerrainInfoContainer"]
+visible = false
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
+
+[node name="EntityHP" type="Label" parent="TerrainInfoContainer/EntityInfoPanel"]
+layout_mode = 2
+offset_left = 209.0
+offset_top = 6.0
+offset_right = 246.0
+offset_bottom = 21.0
+theme_override_font_sizes/font_size = 12
+text = "Hp 10"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/EntityInfoPanel"]
+layout_mode = 2
+offset_right = 138.0
+offset_bottom = 27.0
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="EntityName" type="Label" parent="TerrainInfoContainer/EntityInfoPanel/LowerBonusContainer"]
+layout_mode = 2
+text = "EntityName
+"
 vertical_alignment = 1
