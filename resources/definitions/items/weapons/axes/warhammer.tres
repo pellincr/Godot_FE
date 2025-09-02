@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dqb48wswsnj1e"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dqb48wswsnj1e"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_twnt5"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ijbgy"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ijbgy"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_kgnji"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toe2n"]
 atlas = ExtResource("1_twnt5")
@@ -33,6 +34,7 @@ db_key = "warhammer"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_kgnji")
 uses = 20
 max_uses = 20
 worth = 100

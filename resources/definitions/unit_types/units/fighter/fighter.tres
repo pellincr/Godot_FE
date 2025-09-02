@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dnlwb0vcm05er" path="res://resources/definitions/unit_types/units/fighter/fighter_growth_stats.tres" id="2_8o003"]
 [ext_resource type="Texture2D" uid="uid://cwip6mxincb88" path="res://resources/sprites/units/fighter.png" id="3_ngor2"]
 [ext_resource type="Resource" uid="uid://cdltacblirtka" path="res://resources/definitions/unit_types/units/fighter/fighter_max_stats.tres" id="4_7lbsj"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_g18ft"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_g18ft"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_rcp3b"]
 
 [resource]

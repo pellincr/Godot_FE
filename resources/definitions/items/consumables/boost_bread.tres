@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://cgqplmcwgkvli"]
 
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_j21i2"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_lodhd"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_j21i2"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_lodhd"]
 [ext_resource type="Texture2D" uid="uid://c2lcuqecfuxm7" path="res://resources/sprites/items/consumables/boost_bread.png" id="2_afe6c"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="2_b0ma1"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://blo7n0hudl834"]
+[gd_scene load_steps=17 format=3 uid="uid://blo7n0hudl834"]
 
 [ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/levels/tutorial_levels/tutorial_level_1/terrain.tscn" id="2_mkd81"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
@@ -7,9 +7,30 @@
 [ext_resource type="Resource" uid="uid://bv0aejyu52m5r" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_1.tres" id="6_17qwn"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_nr24d"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="8_6vv1a"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="8_lre1h"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="9_0vi2i"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="9_nrsst"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_8otve"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="12_cxe2k"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="13_470a3"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="14_lj31d"]
+
+[sub_resource type="Resource" id="Resource_xhnku"]
+script = ExtResource("14_lj31d")
+entities = Array[ExtResource("13_470a3")]([])
+chests = Array[ExtResource("9_0vi2i")]([])
+default_chest_hp = 25
+default_chest_defense = 10
+default_chest_resistance = 10
+doors = Array[ExtResource("12_cxe2k")]([])
+default_door_hp = 50
+default_door_defense = 20
+default_door_resistance = 20
+breakable_terrains = Array[ExtResource("8_lre1h")]([])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0
 
 [node name="Game" type="Node"]
 
@@ -46,6 +67,7 @@ script = ExtResource("8_6vv1a")
 
 [node name="CombatMapEntityManager" type="Node" parent="Combat"]
 script = ExtResource("7_nr24d")
+mapEntityData = SubResource("Resource_xhnku")
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("9_nrsst")
