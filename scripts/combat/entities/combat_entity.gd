@@ -43,9 +43,9 @@ func populate_chest(definition: MapChestEntityDefinition, hp: int, def: int, res
 	self.attack_speed = 0
 	self.contents = definition.contents
 
-func populate_door(definition: MapDoorEntityDefinition, hp: int, def: int, res : int):
+func populate_door(definition: MapDoorEntityDefinition, hp: int, def: int, res : int, position: Vector2i):
 	self.name = "Door"
-	self.map_position = definition.position
+	self.map_position = position
 	self.interaction_type = mapEntityDefinition.TYPE.DOOR
 	self.terrain = definition.terrain
 	self.max_hp = hp

@@ -38,7 +38,7 @@ func load_entities():
 		if not mapEntityData.doors.is_empty():
 			for door: MapDoorEntityDefinition in mapEntityData.doors:
 				for position in door.positions:
-					add_door_entity(door, mapEntityData.default_door_hp, mapEntityData.default_door_defense, mapEntityData.default_door_resistance,  entity_group_index)
+					add_door_entity(door, mapEntityData.default_door_hp, mapEntityData.default_door_defense, mapEntityData.default_door_resistance, position, entity_group_index)
 				entity_group_index += 1 
 	# Load the breakable terrain (walls)
 		if not mapEntityData.breakable_terrains.is_empty():
@@ -88,10 +88,10 @@ func add_chest_entity(mced : MapChestEntityDefinition, hp:int, def:int, res: int
 		entity_groups[group_index] = new_entity_group
 	emit_signal("entity_added", combat_entity)
 
-func add_door_entity(mded : MapDoorEntityDefinition, hp:int, def:int, res: int,  group_index:int ):
+func add_door_entity(mded : MapDoorEntityDefinition, hp:int, def:int, res: int, position:Vector2i, group_index:int ):
 	#create the combatEntity
 	var combat_entity : CombatEntity = CombatEntity.new()
-	combat_entity.populate_door(mded, hp, def, res)
+	combat_entity.populate_door(mded, hp, def, res, position)
 	combat_entity.set_entity_group(group_index)
 	#create the display
 	var cme_display : CombatEntityDisplay = COMBAT_MAP_ENTITY_DISPLAY.instantiate()
@@ -99,7 +99,7 @@ func add_door_entity(mded : MapDoorEntityDefinition, hp:int, def:int, res: int, 
 		cme_display.set_reference_entity_sprite(mded.map_view_horizontal)
 	elif mded.orientation == mded.ORIENTATION.VERTICAL:
 		cme_display.set_reference_entity_sprite(mded.map_view_vertical)
-	cme_display.position = Vector2((mded.position.x * 32.0) + 16,(mded.position.y * 32.0) + 16)
+	cme_display.position = Vector2((position.x * 32.0) + 16,(position.y * 32.0) + 16)
 	cme_display.z_index = 0
 	$"../../Terrain/EntityLayer".add_child(cme_display)
 	#Assign the display to the entity
