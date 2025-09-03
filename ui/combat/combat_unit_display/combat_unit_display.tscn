@@ -5,13 +5,13 @@
 [ext_resource type="Shader" uid="uid://hucqqdwnqvi8" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
 [ext_resource type="Texture2D" uid="uid://bojcs3tr70djf" path="res://resources/sprites/status_effects/Healing_2.png" id="4_qj3q6"]
 [ext_resource type="Script" uid="uid://b8ja4wxi56iq3" path="res://ui/healthbar.gd" id="6_13a20"]
-[ext_resource type="Texture2D" uid="uid://b5a2jao5ef4rq" path="res://resources/sprites/icons/monster_icon.png" id="6_e7ls2"]
+[ext_resource type="Texture2D" uid="uid://cyt3j7oedbf3h" path="res://resources/sprites/icons/crown_icon.png" id="6_tw1bj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
 resource_local_to_scene = true
 shader = ExtResource("2_gmc6e")
 shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 0.5
+shader_parameter/line_thickness = 1.0
 shader_parameter/color_factor = 1.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
@@ -74,4 +74,4 @@ offset_left = 11.0
 offset_top = 5.0
 offset_right = 18.0
 offset_bottom = 13.0
-texture = ExtResource("6_e7ls2")
+texture = ExtResource("6_tw1bj")
