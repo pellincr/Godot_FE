@@ -25,7 +25,7 @@ default_font_size = 12
 default_font_size = 18
 
 [node name="UnitStatProgression" type="VBoxContainer"]
-offset_right = 210.0
+offset_right = 182.0
 offset_bottom = 259.0
 theme = SubResource("Theme_e3lwf")
 script = ExtResource("2_ch458")
@@ -56,7 +56,7 @@ text = "123"
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
-text = "123"
+text = "452%"
 horizontal_alignment = 2
 
 [node name="StrengthProgress" type="ProgressBar" parent="StrengthContainer"]

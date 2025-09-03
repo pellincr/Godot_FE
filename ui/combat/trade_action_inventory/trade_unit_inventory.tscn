@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://1f3vadqgcqf3"]
 
 [ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_6gc0d"]
-[ext_resource type="Script" path="res://ui/combat/unit_trade/trade_unit_inventory.gd" id="1_pv2fu"]
+[ext_resource type="Script" path="res://ui/combat/trade_action_inventory/trade_unit_inventory.gd" id="1_pv2fu"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="2_wle3t"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="3_w2fve"]
 

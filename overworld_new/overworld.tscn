@@ -1,10 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cei3lp41phd8n"]
+[gd_scene load_steps=11 format=3 uid="uid://cei3lp41phd8n"]
 
 [ext_resource type="PackedScene" uid="uid://73uf76y6romg" path="res://overworld_new/overworld_map.tscn" id="1_538l4"]
 [ext_resource type="Script" uid="uid://j52qryrsnec7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
 [ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
 [ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
 [ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://resources/definitions/campaigns/tutorial.tres" id="5_uugxs"]
+[ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
+[ext_resource type="Resource" uid="uid://cghxx7c2042ce" path="res://resources/definitions/campaigns/isle_of_woe.tres" id="6_ls3an"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsq0u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_etdch"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_48x5t"]
+Button/icons/icon = ExtResource("6_6rrvc")
+Button/styles/hover = SubResource("StyleBoxFlat_nsq0u")
+Button/styles/normal = SubResource("StyleBoxFlat_etdch")
 
 [node name="OverworldMap" instance=ExtResource("1_538l4")]
 script = ExtResource("2_okeuv")
@@ -20,13 +38,21 @@ campaign = ExtResource("3_cxrwx")
 
 [node name="Tutorial" parent="." index="2" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
-offset_left = 851.0
-offset_top = 199.0
-offset_right = 891.0
-offset_bottom = 239.0
+offset_left = 847.0
+offset_top = 96.0
+offset_right = 887.0
+offset_bottom = 136.0
 campaign = ExtResource("5_uugxs")
 
-[node name="ReturnButton" type="Button" parent="." index="3"]
+[node name="Isle of Woe" parent="." index="3" instance=ExtResource("2_xtlnu")]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 258.0
+offset_right = 348.0
+offset_bottom = 298.0
+campaign = ExtResource("6_ls3an")
+
+[node name="ReturnButton" type="Button" parent="." index="4"]
 layout_mode = 0
 offset_left = 1217.0
 offset_top = 1061.0
@@ -34,19 +60,24 @@ offset_right = 1278.0
 offset_bottom = 1092.0
 text = "Return"
 
-[node name="TutorialColosseumButton" type="Button" parent="." index="4"]
+[node name="TutorialColosseumButton" type="Button" parent="." index="5"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -46.5
-offset_right = 46.5
-offset_bottom = 54.0
+offset_left = 428.0
+offset_top = 168.0
+offset_right = 521.0
+offset_bottom = 300.333
 grow_horizontal = 2
-text = "Tutorial
-Colosseum"
+theme = SubResource("Theme_48x5t")
+text = "Colosseum of Tutorials"
+icon = ExtResource("6_6rrvc")
+autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
 
-[node name="Canvas Layer" type="CanvasLayer" parent="." index="5"]
+[node name="Canvas Layer" type="CanvasLayer" parent="." index="6"]
 
 [node name="Panel" type="Panel" parent="Canvas Layer" index="0"]
 offset_right = 40.0
@@ -54,5 +85,6 @@ offset_bottom = 40.0
 
 [connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="campaign_selected" from="Isle of Woe" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="TutorialColosseumButton" to="." method="_on_colosseum_button_pressed"]

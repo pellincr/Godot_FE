@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_v88bw")
 use_effect = 1
-power = 10
+power = 15
 status_effect = Array[ExtResource("3_gmciw")]([])
 name = "Potion"
 db_key = "potion"
@@ -16,5 +16,5 @@ description = ""
 item_type = 2
 uses = 3
 max_uses = 3
-worth = 100
+worth = 250
 icon = ExtResource("1_0q0jx")

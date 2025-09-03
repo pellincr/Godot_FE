@@ -11,16 +11,6 @@ class_name CController
 const GRID_TEXTURE = preload("res://resources/sprites/grid/grid_marker_2.png")
 const PATH_TEXTURE = preload("res://resources/sprites/grid/path_ellipse.png")
 
-#Actions
-const ATTACK_ACTION : UnitAction = preload("res://resources/definitions/actions/unit_action_attack.tres")
-const WAIT_ACTION : UnitAction = preload("res://resources/definitions/actions/unit_action_wait.tres")
-const TRADE_ACTION : UnitAction =  preload("res://resources/definitions/actions/unit_action_trade.tres")
-const ITEM_ACTION : UnitAction =  preload("res://resources/definitions/actions/unit_action_inventory.tres")
-const USE_ACTION : UnitAction =  preload("res://resources/definitions/actions/unit_action_use_item.tres")
-const SUPPORT_ACTION : UnitAction =  preload("res://resources/definitions/actions/unit_action_support.tres")
-const SHOVE_ACTION: UnitAction = preload("res://resources/definitions/actions/unit_action_shove.tres")
-const CHEST_ACTION: UnitAction = preload("res://resources/definitions/actions/unit_action_chest.tres")
-
 #Movement
 const MOVEMENT_SPEED = 96
 
@@ -65,10 +55,6 @@ var move_tile : Vector2i # the tile we moved to
 
 ##Player Interaction Variables
 var paused = false
-var unit_detail_open = false #TO BE UPDATED TO unit_detial_overlay
-var option_menu : bool = false
-var unit_detail_overlay : bool = false
-#var map_focused : bool = true This may be redundant
 
 #Movement Variables
 var _arrived = true
@@ -86,9 +72,6 @@ var _position_id = 0
 var _camera_follow_move : bool = false
 
 #Action Select
-#var _available_actions : Array[UnitAction]
-#var _action: UnitAction
-#var _action_selected: bool # Is this redundant?
 
 #Action Variables
 var targetting_resource : CombatMapUnitActionTargettingResource = CombatMapUnitActionTargettingResource.new() 
@@ -912,9 +895,8 @@ func fsm_unit_select_hover_process(delta):
 				pass 
 		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
-				if unit_detail_open == false:
-					combat.game_ui.create_combat_unit_detail_panel(selected_unit)
-					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
+				combat.game_ui.create_combat_unit_detail_panel(selected_unit)
+				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
 			#populate the detail info with the unit
 			#create a faction unit traversal list
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
@@ -1357,7 +1339,7 @@ func fsm_attack_action_update_ui(target_type:String):
 			combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		else:
 			combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info)
-		
+
 func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
 	if item is WeaponDefinition:
 		_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
@@ -1410,7 +1392,7 @@ func fsm_unit_inventory_un_equip(item:ItemDefinition):
 	combat.game_ui.update_unit_item_action_inventory(combat.get_current_combatant(), unit_inventory_data)
 	revert_player_state()
 	revert_player_state()
-	
+
 func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
 	combat.game_ui.destory_active_ui_node()
@@ -1489,4 +1471,3 @@ func await_entity_resolution():
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.PROCESSING
 	await combat.entity_processing_completed
 	game_state = previous_state
-	

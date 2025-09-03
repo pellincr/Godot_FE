@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dbnmkmyptsh5r"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_1j6xe"]
-[ext_resource type="Script" path="res://ui/battle_preparation/trade_container/trade_container.gd" id="2_5uvyu"]
+[ext_resource type="Script" uid="uid://dxwfsadvgy2tp" path="res://ui/battle_preparation/trade_container/trade_container.gd" id="2_5uvyu"]
 [ext_resource type="PackedScene" uid="uid://hglqfyvm0o11" path="res://ui/battle_preparation/army_convoy_sub_container.tscn" id="3_uu3w6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onivx"]

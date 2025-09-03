@@ -45,7 +45,7 @@ var groups = [ #TO BE UPDATED TO DICTIONARY
 	
 var current_combatant = 0
 @export var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
-@export var turns_to_survive:=0
+@export var turns_to_survive:= 0
 var combatExchange: CombatExchange
 
 
@@ -185,7 +185,6 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
 			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
 			playerOverworldData.selected_party.append(commander)
-		
 
 
 func get_all_unit_positions_of_faction(faction : int) -> Array[Vector2i]:
@@ -462,6 +461,7 @@ func combatant_die(combatant: CombatUnit):
 		if playerOverworldData.total_party.has(combatant.unit):
 			playerOverworldData.dead_party_members.append(combatant.unit)
 			playerOverworldData.total_party.erase(combatant.unit)
+			playerOverworldData.selected_party.erase(combatant.unit)
 		else:
 			if !playerOverworldData.game_stats_manager.enemy_types_killed.get(combatant.unit.unit_type_key):
 				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] = 1

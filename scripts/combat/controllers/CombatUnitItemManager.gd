@@ -12,7 +12,7 @@ signal unit_inventory_updated(cu: CombatUnit)
 
 const POP_UP_COMPONENT = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
 const DISCARD_ITEM_COMPONENT = preload("res://ui/combat/discard_item_inventory/discard_item_inventory.tscn")
-const TRADE_CONTAINER = preload("res://ui/combat/unit_trade/trade_container.tscn")
+#const TRADE_CONTAINER = preload("res://ui/combat/unit_trade/trade_container.tscn")
 
 const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_inventory_new/discard_action_inventory.tscn")
 
@@ -62,7 +62,6 @@ func generate_interaction_inventory_data(cu:CombatUnit, db_key_whitelist: Array[
 				item_data.valid = true
 		_arr.append(item_data)
 	return _arr
-
 
 func generate_combat_unit_inventory_data_for_item(cu:CombatUnit, item:ItemDefinition) -> UnitInventorySlotData:
 	var item_data = UnitInventorySlotData.new()

@@ -32,6 +32,7 @@ func process_experience_gain(unit:Unit, experience_amount: int):
 		await level_up_component.update_level_up_stats()
 		await get_tree().create_timer(3).timeout
 		unit.apply_level_up_value(level_up_stats)
+		
 		level_up_component.queue_free()
 		experience_bar.set_initial_value(0)
 		experience_bar.set_desired_value(experience_excess)

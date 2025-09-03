@@ -102,7 +102,7 @@ func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
 			ItemConstants.SCALING_TYPE.MAGIC:
 				user_damage = cu.stats.magic.evaluate()
 			ItemConstants.SCALING_TYPE.CONSTITUTION:
-				user_damage = 0 #THIS NEEDS TO BE IDIATED FURTHER
+				user_damage = cu.stats.strength.evaluate()
 			ItemConstants.SCALING_TYPE.NONE:
 				user_damage =  0
 		user_damage = floori(user_damage * weapon.item_scaling_multiplier) 

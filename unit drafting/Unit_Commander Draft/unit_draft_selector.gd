@@ -295,14 +295,14 @@ func randomize_unit_stats(unit_character, unit_type_key):
 	var deviation = 1.75
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 10) 
-	var strength_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.strength, 4) 
-	var magic_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.magic, 4) 
-	var skill_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.skill, 4) 
-	var speed_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.speed, 4) 
-	var luck_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.luck, 4) 
-	var defense_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.defense, 4) 
-	var resistance_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.resistance, 4) 
+	var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 12) 
+	var strength_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.strength, 5) 
+	var magic_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.magic, 5) 
+	var skill_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.skill, 5) 
+	var speed_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.speed, 5) 
+	var luck_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.luck, 5) 
+	var defense_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.defense, 5) 
+	var resistance_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.resistance, 5) 
 	stats.hp = health_rand
 	stats.strength = strength_rand
 	stats.magic = magic_rand
@@ -317,14 +317,14 @@ func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn(1.5, 10), - unit_type.growth_stats.hp, 40) 
-	var strength_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.strength, 20) 
-	var magic_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.magic, 20) 
-	var skill_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.skill, 20) 
-	var speed_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.speed, 20) 
-	var luck_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.luck, 20) 
-	var defense_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.defense, 20) 
-	var resistance_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.resistance, 20) 
+	var health_rand = clampi(randfn(1.75, 10), - unit_type.growth_stats.hp, 50) 
+	var strength_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.strength, 25) 
+	var magic_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.magic, 25) 
+	var skill_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.skill, 25) 
+	var speed_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.speed, 25) 
+	var luck_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.luck, 25) 
+	var defense_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.defense, 25) 
+	var resistance_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.resistance, 25) 
 	growths.hp = health_rand
 	growths.strength = strength_rand
 	growths.magic = magic_rand
@@ -344,6 +344,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	#Commander Specific Weapon Equip
 	if unit_type is CommanderDefinition:
 		inventory.append(unit_type.signature_weapon)
+		inventory.append(ItemDatabase.items["potion"])
 	
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])

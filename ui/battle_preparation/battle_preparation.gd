@@ -230,14 +230,16 @@ func set_trade_item(item,unit):
 			current_trade_item = 1
 
 func swap_trade_items():
-	var inventory_1 = trade_unit_1.inventory
-	var inventory_2 = trade_unit_2.inventory
-	var item_1_index = inventory_1.items.find(trade_item_1)
-	var item_2_index = inventory_2.items.find(trade_item_2)
-	inventory_1.discard_item(trade_item_1)
-	inventory_1.give_item(trade_item_2)
-	inventory_2.discard_item(trade_item_2)
-	inventory_2.give_item(trade_item_1)
+	# set the inventories
+	if trade_unit_1 != trade_unit_2:
+		var inventory_1 = trade_unit_1.inventory
+		var inventory_2 = trade_unit_2.inventory
+		# get the indexes
+		var item_1_index = inventory_1.get_item_index(trade_item_1)
+		var item_2_index = inventory_2.get_item_index(trade_item_2)
+		
+		inventory_1.set_item_at_index(item_1_index, trade_item_2)
+		inventory_2.set_item_at_index(item_1_index, trade_item_1)
 	trade_item_1 = null
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()

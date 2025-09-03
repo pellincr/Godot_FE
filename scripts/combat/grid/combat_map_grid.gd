@@ -377,8 +377,7 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 										# this is a dead end.. We have already reached this tile with a superior range
 										pass
 									else: 
-										visited.erase(target_tile)
-										visited.get_or_add(target_tile, remaining_range)
+										visited[target_tile] = remaining_range
 										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
 								else: 
 									visited.get_or_add(target_tile, remaining_range)

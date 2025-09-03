@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://bi5dcwk41kp4o"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_pw3uy"]
+[ext_resource type="Theme" uid="uid://barsfbmu3v4t6" path="res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map_enemy.tres" id="1_c2tfe"]
 [ext_resource type="Script" path="res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.gd" id="2_5r8sm"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="3_vcka7"]
 [ext_resource type="PackedScene" uid="uid://ducowi3wugv78" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.tscn" id="4_vij6f"]
@@ -32,7 +32,7 @@ offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme = ExtResource("1_pw3uy")
+theme = ExtResource("1_c2tfe")
 script = ExtResource("2_5r8sm")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -112,6 +112,7 @@ offset_bottom = 136.0
 texture = ExtResource("10_x1qyb")
 
 [node name="FactionBanner" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 433.0

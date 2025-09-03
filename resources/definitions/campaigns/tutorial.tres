@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_jr7w2")
-name = "Tutorial"
+name = "Bandit Bash"
 commander_draft_limit = 1
 number_of_archetypes_drafted = 3
 max_floor_number = 8
