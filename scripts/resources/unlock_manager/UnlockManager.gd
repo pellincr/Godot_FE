@@ -9,6 +9,7 @@ class_name UnlockManager
 	"dark_development" : true,
 	"healing_here" : true,
 	"kingdom_come" : true,
+	"lickety_split_lances" : true,
 	"magic_mania" : true,
 	"might_and_magic" : true,
 	"mighty_mercs" : true,

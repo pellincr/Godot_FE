@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b6on5oloy43oe"]
+[gd_scene load_steps=17 format=3 uid="uid://b6on5oloy43oe"]
 
 [ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
 [ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://cm0dje7emsp6h" path="res://resources/definitions/army_archetypes/coverage.tres" id="13_ocwfd"]
 [ext_resource type="Resource" uid="uid://bt3tqqna18avc" path="res://resources/definitions/army_archetypes/magic_mania.tres" id="14_t1q8h"]
 [ext_resource type="Resource" uid="uid://5hher01jpylm" path="res://resources/definitions/army_archetypes/kingdom_come.tres" id="15_msipm"]
+[ext_resource type="Resource" uid="uid://ywdeyemhoyhp" path="res://resources/definitions/army_archetypes/lickety_split_lances.tres" id="16_wwqnn"]
 
 [node name="ArmyArchetypeDatabase" type="Node"]
 script = ExtResource("1_2cpwe")
@@ -26,6 +27,7 @@ army_archetypes = {
 "dark_development": ExtResource("12_ch5pe"),
 "healing_here": ExtResource("6_pc7my"),
 "kingdom_come": ExtResource("15_msipm"),
+"lickety_split_lances": ExtResource("16_wwqnn"),
 "magic_mania": ExtResource("14_t1q8h"),
 "might_and_magic": ExtResource("7_sp3cl"),
 "mighty_mercs": ExtResource("5_3c5le"),
