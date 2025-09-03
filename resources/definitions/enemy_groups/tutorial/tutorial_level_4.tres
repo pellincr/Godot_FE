@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=21 format=3 uid="uid://bba77rcw2g3tq"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=20 format=3 uid="uid://bba77rcw2g3tq"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_myack"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_dj2yu"]
@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_0bwsx"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_w3adp"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
-[ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="10_f6y27"]
 
 [sub_resource type="Resource" id="Resource_4eexp"]
 script = ExtResource("1_myack")
@@ -116,7 +115,7 @@ level = 3
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "freewing"
-inventory = Array[ExtResource("2_dj2yu")]([ExtResource("10_f6y27")])
+inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 0
 is_boss = false
 

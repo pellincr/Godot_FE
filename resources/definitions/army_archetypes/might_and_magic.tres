@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=7 format=3 uid="uid://s73rtbpky8kb"]
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=9 format=3 uid="uid://s73rtbpky8kb"]
 
 [ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_mimaf"]
 [ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_lbkke"]
 [ext_resource type="Script" uid="uid://ddryvyc73ib0h" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_akpt4"]
+[ext_resource type="Script" uid="uid://dknhr7fi1hh48" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_aocft"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_upfco"]
 
 [sub_resource type="Resource" id="Resource_igbp7"]
@@ -27,9 +28,19 @@ type = 0
 response_filter = 0
 volume = 1
 
+[sub_resource type="Resource" id="Resource_3hjka"]
+script = ExtResource("3_aocft")
+weapon_type = Array[int]([2, 9, 8, 7])
+item_damage_type = Array[int]([])
+item_scaling_type = Array[int]([])
+name = "Axe or Magic"
+type = 1
+response_filter = 0
+volume = 1
+
 [resource]
 script = ExtResource("3_akpt4")
 name = "Might and Magic"
 db_key = "might_and_magic"
 rarity = ExtResource("3_upfco")
-archetype_picks = Array[ExtResource("1_mimaf")]([SubResource("Resource_igbp7"), SubResource("Resource_b3ois")])
+archetype_picks = Array[ExtResource("1_mimaf")]([SubResource("Resource_igbp7"), SubResource("Resource_b3ois"), SubResource("Resource_3hjka")])
