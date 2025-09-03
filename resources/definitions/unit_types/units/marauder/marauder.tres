@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dxe6oht7h5k8w" path="res://resources/definitions/unit_types/units/marauder/marauder_growth_stats.tres" id="2_2qb62"]
 [ext_resource type="Texture2D" uid="uid://da5b4ie8i1bal" path="res://resources/sprites/units/marauder.png" id="3_60eqr"]
 [ext_resource type="Resource" uid="uid://ua12j817f0uw" path="res://resources/definitions/unit_types/units/marauder/marauder_max_stats.tres" id="4_lvhpc"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_wqe2v"]
+[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_wqe2v"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_n0m3k"]
 
 [resource]

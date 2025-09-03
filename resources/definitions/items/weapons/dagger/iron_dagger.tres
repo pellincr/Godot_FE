@@ -1,7 +1,21 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bq66blietc0ie"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://bq66blietc0ie"]
 
 [ext_resource type="Texture2D" uid="uid://dmi3j74tt3kxv" path="res://resources/sprites/items/weapons/dagger/iron_dagger.png" id="1_r1ot5"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_ukiyk"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_nfi3s"]
+
+[sub_resource type="Resource" id="Resource_08gc5"]
+script = ExtResource("1_ukiyk")
+hp = 0
+strength = 0
+magic = 0
+skill = 0
+speed = 2
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
 
 [resource]
 script = ExtResource("2_nfi3s")
@@ -21,6 +35,7 @@ critical_chance = 25
 weight = 5
 critical_multiplier = 4.0
 attacks_per_combat_turn = 2
+bonus_stat = SubResource("Resource_08gc5")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])

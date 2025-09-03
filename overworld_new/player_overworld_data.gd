@@ -926,8 +926,10 @@ class_name PlayerOverworldData
 @export var completed_drafting : bool = false
 @export var began_level : bool = false
 
+# Campaign Info
 @export var campaign_map_data : Array[Array]
 @export var floors_climbed: int
+@export var combat_maps_completed : int
 @export var last_room:CampaignRoom
 @export var current_level : PackedScene
 

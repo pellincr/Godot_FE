@@ -142,7 +142,6 @@ func _setup_room_types() -> void:
 	for room : CampaignRoom in map_data[0]:
 		if room.next_rooms.size() > 0:
 			room.type = CampaignRoom.TYPE.BATTLE
-	#always have a treasure in the middle
 	for room: CampaignRoom in map_data[FLOORS/2]:
 		if room.next_rooms.size() > 0:
 			room.type = CampaignRoom.TYPE.TREASURE

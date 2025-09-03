@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://xw5blar04bqb"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://xw5blar04bqb"]
 
 [ext_resource type="Texture2D" uid="uid://dnckbxrnna2l1" path="res://resources/sprites/items/weapons/axes/hand_axe.png" id="1_eb7qe"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_2ad6o"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_nbk5v"]
 
 [resource]
 script = ExtResource("2_2ad6o")
@@ -29,6 +30,7 @@ db_key = "hand_axe"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_nbk5v")
 uses = 20
 max_uses = 20
 worth = 100

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwh2mplnd8dpq"]
+[gd_scene load_steps=16 format=3 uid="uid://bwh2mplnd8dpq"]
 
 [ext_resource type="PackedScene" uid="uid://ci8416mnsxm8v" path="res://combat/levels/tutorial_levels/tutorial_level_5/terrain.tscn" id="2_hqrea"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_b02q1"]
@@ -9,14 +9,16 @@
 [ext_resource type="Resource" uid="uid://b0sd3s30y0yy0" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_5.tres" id="6_xsfe1"]
 [ext_resource type="Resource" uid="uid://cgw58mt7lbjfq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_5_reinforcments.tres" id="6_yyu6e"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="7_sehg0"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_4uopc"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="8_wqpeo"]
-[ext_resource type="Script" uid="uid://co2iak53to12n" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="8_xo7tu"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="8_xo7tu"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="9_3ljho"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="10_s3nwo"]
 
 [sub_resource type="Resource" id="Resource_i4ihq"]
 script = ExtResource("8_xo7tu")
 reinforcements = Array[ExtResource("5_dofhi")]([ExtResource("6_yyu6e")])
+zones = Array[ExtResource("8_4uopc")]([])
 
 [node name="Game" type="Node"]
 
@@ -32,7 +34,7 @@ selector = NodePath("Selector")
 top_level = true
 scale = Vector2(1, 1)
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_ypoq6")
 turns_to_survive = 8
 game_ui = NodePath("../CanvasLayer/UI")
@@ -41,10 +43,12 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapReinforcementData = SubResource("Resource_i4ihq")
-ally_spawn_top_left = Vector2(5, 6)
-ally_spawn_bottom_right = Vector2(9, 8)
+entity_manager = NodePath("CombatMapEntityManager")
+ally_spawn_top_left = Vector2(1, 9)
+ally_spawn_bottom_right = Vector2(3, 11)
 enemy_start_group = ExtResource("6_xsfe1")
 max_allowed_ally_units = 6
+is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_dvanv")

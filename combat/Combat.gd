@@ -27,7 +27,10 @@ signal pause_fsm()
 signal resume_fsm()
 signal entity_processing_completed()
 signal entity_processing()
-	
+
+signal spawn_reinforcement(reinforcement: CombatUnit)
+signal reinforcement_check_completed()
+
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
@@ -51,10 +54,13 @@ var _player_unit_alive : bool = true
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
+
+# MANAGERS
 @export var unit_experience_manager : UnitExperienceManager 
 @export var combat_unit_item_manager : CombatUnitItemManager
 @export var mapReinforcementData : MapReinforcementData
 @export var entity_manager : CombatMapEntityManager
+@export var reinforcement_manager : CombatMapReinforcementManager
 
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
@@ -63,6 +69,7 @@ var _player_unit_alive : bool = true
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
 
+@export var is_key_campaign_level : bool = false
 @export var is_tutorial := false
 @export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var tutorial_level : TutorialPanel.TUTORIAL
@@ -77,21 +84,29 @@ var _player_unit_alive : bool = true
 
 func _ready():
 	emit_signal("register_combat", self)
+	reinforcement_manager = CombatMapReinforcementManager.new()
+	await reinforcement_manager
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
 	unit_experience_manager = $UnitExperienceManager
 	entity_manager = $CombatMapEntityManager
+	#Connections CombatExchange 
 	combatExchange.connect("combat_exchange_finished", combatExchangeComplete)
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
+	#Connections Combat Unit Item Manager 
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
 	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
+	#Connections Entity Manager
 	entity_manager.connect("entity_added", entity_added)
 	entity_manager.connect("give_items", give_curent_unit_items)
 	entity_manager.connect("entity_process_complete",_on_entity_processing_completed)
+	#Connections Reinforcement Manager
+	reinforcement_manager.populate(mapReinforcementData)
+	reinforcement_manager.connect("spawn_reinforcement", _on_reinforcement_manager_spawn_reinforcement)
 	randomize()
 
 func populate():
@@ -172,13 +187,22 @@ func set_player_tutorial_party():
 			playerOverworldData.selected_party.append(commander)
 		
 
-func spawn_reinforcements(turn_number : int):
-	if mapReinforcementData:
-		for group in mapReinforcementData.reinforcements: 
-			if(turn_number in group.turn):
-				for unit in group.units:
-					var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
-					add_combatant(reinforcement_unit, unit.map_position)
+
+func get_all_unit_positions_of_faction(faction : int) -> Array[Vector2i]:
+	var _arr : Array[Vector2i] = []
+	for unit_index in groups[faction]:
+		var unit_position : Vector2i = combatants[unit_index].map_position
+		_arr.append(unit_position)
+	return _arr
+
+func check_reinforcement_spawn(turn_number : int):
+	# get all the unit positions for friendly units
+	if mapReinforcementData != null:
+		var _unit_positon_array :Array[Vector2i] =  get_all_unit_positions_of_faction(Constants.FACTION.PLAYERS)
+		# call the manager to see if there are reinforcements to be spawned, and await its completion
+		await reinforcement_manager.check_reinforcement_spawn(turn_number, _unit_positon_array)
+	await get_tree().create_timer(1).timeout
+	reinforcement_check_completed.emit()
 
 func spawn_initial_units():
 	for unit :CombatUnitData in enemy_start_group.group:
@@ -355,6 +379,8 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		#playerOverworldData.current_level += 1
 		playerOverworldData.began_level = false
 		playerOverworldData.gold += calculate_reward_gold()
+		if (is_key_campaign_level):
+			playerOverworldData.combat_maps_completed += 1
 		SelectedSaveFile.save(playerOverworldData)
 		if is_tutorial:
 			reset_game_state()
@@ -393,6 +419,7 @@ func reset_game_state():
 	playerOverworldData.archetype_allotments = []
 	playerOverworldData.campaign_map_data = []
 	playerOverworldData.floors_climbed = 0 
+	playerOverworldData.combat_maps_completed = 0
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
@@ -678,3 +705,11 @@ func entity_interact(unit: CombatUnit, entity:CombatEntity):
 
 func _on_entity_processing_completed():
 	entity_processing_completed.emit()
+
+func _on_reinforcement_manager_spawn_reinforcement(cu: CombatUnit, position: Vector2i):
+	if controller.perform_reinforcement_camera_adjustment(position):
+		await get_tree().create_timer(1).timeout
+		add_combatant(cu, position)
+		await get_tree().create_timer(1).timeout
+		reinforcement_manager._on_reinforcement_spawn_completed()
+	

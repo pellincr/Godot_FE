@@ -115,7 +115,7 @@ func _on_new_game_button_pressed():
 func set_continue_game_button_text():
 	var str = ""
 	if playerOverworldData.completed_drafting:
-		str = playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed)
+		str = playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.combat_maps_completed)
 		if playerOverworldData.began_level:
 			str += " - Battle"
 		elif playerOverworldData.current_level:
