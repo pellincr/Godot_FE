@@ -1203,7 +1203,7 @@ func fsm_support_action_targetting(delta):
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
 				camera.set_focus_target(grid.map_to_position(target_tile))
-				support_exchange_info = combat.combatExchange.generate_combat_support_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 		if Input.is_action_just_pressed("ui_right"):
 			if targetting_resource._available_targets_with_method.size() > 1:
@@ -1211,7 +1211,7 @@ func fsm_support_action_targetting(delta):
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
 				camera.set_focus_target(grid.map_to_position(target_tile))
-				support_exchange_info = combat.combatExchange.generate_combat_support_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
+				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
 
 func fsm_support_action_inventory_confirm_new_hover(item:ItemDefinition):

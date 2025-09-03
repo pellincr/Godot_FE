@@ -6,11 +6,12 @@
 [resource]
 script = ExtResource("1_jr7w2")
 name = "Tutorial"
-level_pool = ExtResource("1_obxiq")
 commander_draft_limit = 1
+number_of_archetypes_drafted = 3
 max_floor_number = 8
 number_of_required_combat_maps = 0
-number_of_archetypes_drafted = 3
+level_pool = ExtResource("1_obxiq")
+difficulty = 4
+length = ""
 rewards = ""
 unit_unlock_rewards = Array[String](["mage_knight"])
-boss = ""

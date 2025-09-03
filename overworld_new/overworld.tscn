@@ -10,6 +10,7 @@
 script = ExtResource("2_okeuv")
 
 [node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
+visible = false
 layout_mode = 0
 offset_left = 261.0
 offset_top = 587.0
@@ -19,31 +20,37 @@ campaign = ExtResource("3_cxrwx")
 
 [node name="Tutorial" parent="." index="2" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
-offset_left = 377.0
-offset_top = 822.0
-offset_right = 417.0
-offset_bottom = 862.0
+offset_left = 851.0
+offset_top = 199.0
+offset_right = 891.0
+offset_bottom = 239.0
 campaign = ExtResource("5_uugxs")
 
 [node name="ReturnButton" type="Button" parent="." index="3"]
 layout_mode = 0
-offset_left = 1221.0
-offset_top = 691.0
-offset_right = 1282.0
-offset_bottom = 722.0
+offset_left = 1217.0
+offset_top = 1061.0
+offset_right = 1278.0
+offset_bottom = 1092.0
 text = "Return"
 
 [node name="TutorialColosseumButton" type="Button" parent="." index="4"]
-layout_mode = 0
-offset_left = 704.0
-offset_top = 851.0
-offset_right = 797.0
-offset_bottom = 905.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.5
+offset_right = 46.5
+offset_bottom = 54.0
+grow_horizontal = 2
 text = "Tutorial
 Colosseum"
 
-[node name="Camera2D" type="Camera2D" parent="." index="5"]
-position = Vector2(642, 732)
+[node name="Canvas Layer" type="CanvasLayer" parent="." index="5"]
+
+[node name="Panel" type="Panel" parent="Canvas Layer" index="0"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]

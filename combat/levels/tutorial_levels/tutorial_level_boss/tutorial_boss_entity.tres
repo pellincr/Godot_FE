@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=7 format=3 uid="uid://bvjl2r6yapljb"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_424da"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_a2uqh"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="3_ogmlx"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="4_0wprg"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="5_dnaug"]
+
+[sub_resource type="Resource" id="Resource_lyq3u"]
+script = ExtResource("1_424da")
+position = Vector2i(16, 10)
+orientation = 1
+
+[resource]
+script = ExtResource("5_dnaug")
+entities = Array[ExtResource("4_0wprg")]([])
+chests = Array[ExtResource("2_a2uqh")]([])
+default_chest_hp = 25
+default_chest_defense = 10
+default_chest_resistance = 10
+doors = Array[ExtResource("3_ogmlx")]([])
+default_door_hp = 50
+default_door_defense = 20
+default_door_resistance = 20
+breakable_terrains = Array[ExtResource("1_424da")]([SubResource("Resource_lyq3u")])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0

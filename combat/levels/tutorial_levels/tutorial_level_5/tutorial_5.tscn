@@ -34,7 +34,7 @@ selector = NodePath("Selector")
 top_level = true
 scale = Vector2(1, 1)
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_ypoq6")
 turns_to_survive = 8
 game_ui = NodePath("../CanvasLayer/UI")
@@ -43,10 +43,12 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapReinforcementData = SubResource("Resource_i4ihq")
-ally_spawn_top_left = Vector2(5, 6)
-ally_spawn_bottom_right = Vector2(9, 8)
+entity_manager = NodePath("CombatMapEntityManager")
+ally_spawn_top_left = Vector2(1, 9)
+ally_spawn_bottom_right = Vector2(3, 11)
 enemy_start_group = ExtResource("6_xsfe1")
 max_allowed_ally_units = 6
+is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("6_dvanv")

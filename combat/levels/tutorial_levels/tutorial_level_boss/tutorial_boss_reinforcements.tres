@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=13 format=3 uid="uid://rtbh4h6xvt7s"]
+
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_eac13"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_rjnhc"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_m5vse"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="4_huwln"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="5_wqs3e"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="6_wkr77"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="7_b0b5x"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_2wr2h"]
+
+[sub_resource type="Resource" id="Resource_dr0ac"]
+script = ExtResource("2_rjnhc")
+name = "Bandit"
+map_position = Vector2i(5, 16)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "hakkapel"
+inventory = Array[ExtResource("3_m5vse")]([ExtResource("4_huwln"), ExtResource("5_wqs3e")])
+ai_type = 0
+is_boss = false
+
+[sub_resource type="Resource" id="Resource_uy3id"]
+script = ExtResource("1_eac13")
+trigger_type = 0
+turns = Array[int]([5, 6, 7, 8, 9])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_rjnhc")]([SubResource("Resource_dr0ac")])
+
+[sub_resource type="Resource" id="Resource_7fwfr"]
+script = ExtResource("2_rjnhc")
+name = "Bandit"
+map_position = Vector2i(2, 9)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "vandal"
+inventory = Array[ExtResource("3_m5vse")]([ExtResource("6_wkr77")])
+ai_type = 0
+is_boss = false
+
+[sub_resource type="Resource" id="Resource_0ua0q"]
+script = ExtResource("1_eac13")
+trigger_type = 0
+turns = Array[int]([2, 4, 6, 8])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_rjnhc")]([SubResource("Resource_7fwfr")])
+
+[resource]
+script = ExtResource("7_b0b5x")
+reinforcements = Array[ExtResource("1_eac13")]([SubResource("Resource_uy3id"), SubResource("Resource_0ua0q")])
+zones = Array[ExtResource("8_2wr2h")]([])

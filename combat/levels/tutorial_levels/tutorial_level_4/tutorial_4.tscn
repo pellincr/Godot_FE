@@ -36,6 +36,7 @@ ally_spawn_top_left = Vector2(2, 7)
 ally_spawn_bottom_right = Vector2(6, 10)
 enemy_start_group = ExtResource("6_byk7j")
 max_allowed_ally_units = 5
+is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("7_j1pk3")
