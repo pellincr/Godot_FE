@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://5b1f8mg0j3te"]
 
 [ext_resource type="Texture2D" uid="uid://d2lf27h2x18p3" path="res://resources/sprites/items/weapons/staff/staff3.png" id="1_c0s87"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
 
 [resource]
 script = ExtResource("1_wwyp7")

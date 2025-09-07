@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://k4sv13oaol6q"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://k4sv13oaol6q"]
 
 [ext_resource type="Texture2D" uid="uid://ddxdxi688dan" path="res://resources/sprites/items/weapons/bow/great_bow.png" id="1_3v0ld"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mh1a6"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mh1a6"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_q3yio"]
 
 [resource]
 script = ExtResource("2_mh1a6")
@@ -29,6 +30,7 @@ db_key = "great_bow"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_q3yio")
 uses = 15
 max_uses = 15
 worth = 100

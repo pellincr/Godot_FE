@@ -42,7 +42,7 @@ func set_button_icon(button:Button, texture:Texture2D):
 	button.icon = texture
 
 func randomize_item_selection() -> ItemDefinition:
-	var valid_treasure_items
+	var valid_treasure_items = []
 	for item_key in ItemDatabase.items.keys():
 		var item : ItemDefinition = ItemDatabase.items[item_key]
 		if item.rarity != RarityDatabase.get("common"):

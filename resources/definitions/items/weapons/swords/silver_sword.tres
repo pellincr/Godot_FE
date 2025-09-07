@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://b2diao7b1lmig"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b2diao7b1lmig"]
 
 [ext_resource type="Texture2D" uid="uid://bm8ko078vhtdk" path="res://resources/sprites/items/weapons/swords/silver_sword.png" id="1_nvg0u"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_4ij5v"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_0vawi"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_4ij5v"]
 
 [resource]
 script = ExtResource("2_4ij5v")
@@ -29,6 +30,7 @@ db_key = "silver_sword"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_0vawi")
 uses = 8
 max_uses = 20
 worth = 100

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dd1ykyn7p5ryd"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dd1ykyn7p5ryd"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_aq5s1"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_bptae"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_0yxbh"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_bptae"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_db4ub"]
 atlas = ExtResource("1_aq5s1")
@@ -33,6 +34,7 @@ db_key = "iron_sword"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_0yxbh")
 uses = 45
 max_uses = 45
 worth = 100

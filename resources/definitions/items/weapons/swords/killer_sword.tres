@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cq5siucueaoku"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cq5siucueaoku"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_eekfc"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ugwkr"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_siuy3"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ugwkr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6cqys"]
 atlas = ExtResource("1_eekfc")
@@ -33,6 +34,7 @@ db_key = "killer_sword"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_siuy3")
 uses = 20
 max_uses = 20
 worth = 100

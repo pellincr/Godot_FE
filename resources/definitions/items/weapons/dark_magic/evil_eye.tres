@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://drlr53p524ouy"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://drlr53p524ouy"]
 
 [ext_resource type="Texture2D" uid="uid://d3qng8xkytu8f" path="res://resources/sprites/items/weapons/dark/evil_eye.png" id="1_r2fyg"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a4dsu"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_hfadg"]
 
 [resource]
 script = ExtResource("2_a4dsu")
@@ -29,6 +30,7 @@ db_key = "evil_eye"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_hfadg")
 uses = 25
 max_uses = 25
 worth = 100

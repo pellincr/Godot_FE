@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://2w80i71bep67"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://2w80i71bep67"]
 
 [ext_resource type="Texture2D" uid="uid://dammw3urd7n3" path="res://resources/sprites/items/weapons/swords/steel_sword.png" id="1_pwbda"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_h0xpr"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_h0xpr"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_sa3ax"]
 
 [resource]
 script = ExtResource("2_h0xpr")
@@ -29,6 +30,7 @@ db_key = "steel_sword"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_sa3ax")
 uses = 30
 max_uses = 30
 worth = 100

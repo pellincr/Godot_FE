@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://pm3p8kf4cm30"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://pm3p8kf4cm30"]
 
 [ext_resource type="Texture2D" uid="uid://byte4f73em7ob" path="res://resources/sprites/items/weapons/bow/killer_bow.png" id="1_2ubhs"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_p1dpy"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_p1dpy"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_vjigv"]
 
 [resource]
 script = ExtResource("2_p1dpy")
@@ -29,6 +30,7 @@ db_key = "killer_bow"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_vjigv")
 uses = 45
 max_uses = 45
 worth = 100

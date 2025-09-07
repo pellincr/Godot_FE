@@ -107,6 +107,7 @@ func _on_new_game_button_pressed():
 	playerOverworldData.began_level = false
 	playerOverworldData.floors_climbed = 0
 	playerOverworldData.current_archetype_count = 0
+	playerOverworldData.total_party.clear()
 	overworld.instantiate().set_po_data(playerOverworldData)
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()

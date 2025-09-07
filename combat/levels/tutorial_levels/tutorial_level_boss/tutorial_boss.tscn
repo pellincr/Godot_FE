@@ -41,7 +41,7 @@ entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_top_left = Vector2(1, 1)
 ally_spawn_bottom_right = Vector2(4, 2)
 enemy_start_group = ExtResource("6_dakab")
-max_allowed_ally_units = 8
+max_allowed_ally_units = 10
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
