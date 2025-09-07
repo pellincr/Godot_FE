@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://ij7vpsfl6vqo"]
 
 [ext_resource type="Texture2D" uid="uid://d2k45s1ybrv47" path="res://resources/sprites/items/consumables/wine.png" id="1_46uwm"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_ebuoa"]
 
 [sub_resource type="Resource" id="Resource_clutb"]
