@@ -29,7 +29,8 @@ var camera_edge_y : float
 func _ready() -> void:
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
+	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		generate_new_map()
@@ -72,7 +73,7 @@ func _input(event:InputEvent) ->void:
 		camera_2d.position.y -= SCROLL_SPEED
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
-	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
+	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
 
 func tutorial_completed():
 #	camera_2d.zoom = Vector2(3,3)

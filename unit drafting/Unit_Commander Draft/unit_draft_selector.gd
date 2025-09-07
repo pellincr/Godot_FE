@@ -72,14 +72,13 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
-	var rarity
-	if unit is Unit:
-		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
-	elif unit is ItemDefinition:
-		rarity = unit.rarity
-		
-	if rarity:
-		name_label.self_modulate = rarity.ui_color
+	#var rarity
+	#if unit is Unit:
+		#rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
+	#elif unit is ItemDefinition:
+		#rarity = unit.rarity
+	#if rarity:
+		#name_label.self_modulate = rarity.ui_color
 
 func set_rarity_shadow_hue(rarity):
 	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
@@ -90,6 +89,13 @@ func set_rarity_shadow_hue(rarity):
 
 func set_class_label(class_text):
 	class_label.text = class_text
+	var rarity
+	if unit is Unit:
+		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
+	elif unit is ItemDefinition:
+		rarity = unit.rarity
+	if rarity:
+		class_label.self_modulate = rarity.ui_color
 
 func set_icon(img):
 	icon.texture = img
@@ -270,10 +276,6 @@ func randomize_selection():
 		
 		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
-		
-
-
-
 
 func get_random_rarity():
 	var total_weight : int
@@ -288,7 +290,6 @@ func get_random_rarity():
 		if random_value < current_weight:
 			return rarity
 	return "common"
-
 
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
@@ -335,8 +336,6 @@ func randomize_unit_growths(unit_character, unit_type_key):
 	growths.resistance = resistance_rand
 	unit_character.growths = growths
 
-
-
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
 	var inventory: Array[ItemDefinition]
 	var unit_type: UnitTypeDefinition = UnitTypeDatabase.get_definition(unit_class)
@@ -377,7 +376,6 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if inventory.size() > 4:
 		return inventory.slice(0,3)
 	return inventory
-
 
 
 func update_information():

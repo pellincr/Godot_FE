@@ -98,7 +98,6 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
-
 func tutorial_completed():
 	army_convoy_container.fill_army_scroll_container()
 
