@@ -6,6 +6,7 @@ class_name UnlockManager
 	"armor_up" : true,
 	"bows" : true,
 	"classic" : true,
+	"coverage" : true,
 	"dark_development" : true,
 	"healing_here" : true,
 	"kingdom_come" : true,

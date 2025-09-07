@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cpqf6v7ox1xs6"]
 
 [ext_resource type="Texture2D" uid="uid://cokhn7lqw3f3o" path="res://resources/sprites/items/weapons/dagger/silver_dagger.png" id="1_02130"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_f0i4m"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_owgl6"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_f0i4m"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_owgl6"]
 
 [sub_resource type="Resource" id="Resource_qigvi"]
 script = ExtResource("1_f0i4m")

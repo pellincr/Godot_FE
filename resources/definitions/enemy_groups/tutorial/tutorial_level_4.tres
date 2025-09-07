@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="7_50ind"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_0bwsx"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_w3adp"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
+[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
 
 [sub_resource type="Resource" id="Resource_4eexp"]
 script = ExtResource("1_myack")
