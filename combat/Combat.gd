@@ -200,7 +200,7 @@ func check_reinforcement_spawn(turn_number : int):
 		var _unit_positon_array :Array[Vector2i] =  get_all_unit_positions_of_faction(Constants.FACTION.PLAYERS)
 		# call the manager to see if there are reinforcements to be spawned, and await its completion
 		await reinforcement_manager.check_reinforcement_spawn(turn_number, _unit_positon_array)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.5).timeout
 	reinforcement_check_completed.emit()
 
 func spawn_initial_units():

@@ -482,19 +482,19 @@ func populate_tiles_for_weapon(range_list: Array[int], origin: Vector2i) -> Arra
 
 func process_terrain_effects():
 	for combat_unit in combat.combatants:
-		if combat not in combat.dead_units:
+		if combat_unit not in combat.dead_units:
 			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
 				if grid.get_terrain(combat_unit.map_position): 
 					var target_terrain = grid.get_terrain(combat_unit.map_position)
-					if target_terrain.active_effect_phases == turn_phase:
-						if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
-							if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
-								if combat_unit.current_hp < combat_unit.get_max_hp():
-									if target_terrain.effect_scaling == Terrain.EFFECT_SCALING.PERCENTAGE:
-										combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * target_terrain.effect_weight /100))
-									else:
-										print("HEALED UNIT : " + combat_unit.unit.name)
-										combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
+#					if target_terrain.active_effect_phases == turn_phase:
+					if target_terrain.effect != Terrain.TERRAIN_EFFECTS.NONE:
+						if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
+							if combat_unit.current_hp < combat_unit.get_max_hp():
+								if target_terrain.effect_scaling == Terrain.EFFECT_SCALING.PERCENTAGE:
+									combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * target_terrain.effect_weight /100))
+								else:
+									print("HEALED UNIT : " + combat_unit.unit.name)
+									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 
 func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)

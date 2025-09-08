@@ -136,7 +136,8 @@ func filter_by_weapon_type(weapon_type : ItemConstants.WEAPON_TYPE):
 	for item_key in all_items:
 		var item = ItemDatabase.items[item_key]
 		if item is WeaponDefinition and item.weapon_type == weapon_type:
-			accum.append(item)
+			if item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
+				accum.append(item)
 	return accum
 
 func filter_by_useable_item():

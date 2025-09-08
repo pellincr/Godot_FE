@@ -196,7 +196,8 @@ func _on_item_bought(item:ItemDefinition):
 		if focused_selection is Unit:
 			if !focused_selection.inventory.is_full():
 				#if the unit has inventory room
-				focused_selection.inventory.give_item(item)
+				var purchased_item = item.duplicate()
+				focused_selection.inventory.give_item(purchased_item)
 				focused_detailed_view.update_by_unit()
 				playerOverworldData.gold -= item.price
 				
