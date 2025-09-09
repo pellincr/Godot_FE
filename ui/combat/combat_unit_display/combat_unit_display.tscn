@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfk8uscbu36eu"]
+[gd_scene load_steps=12 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_unit_display/combat_unit_display.gd" id="1_sxmuu"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="2_a14u6"]
-[ext_resource type="Shader" uid="uid://hucqqdwnqvi8" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
-[ext_resource type="Texture2D" uid="uid://bojcs3tr70djf" path="res://resources/sprites/status_effects/Healing_2.png" id="4_qj3q6"]
-[ext_resource type="Script" uid="uid://b8ja4wxi56iq3" path="res://ui/healthbar.gd" id="6_13a20"]
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
+[ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="4_l8kmn"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_uqo4k"]
+[ext_resource type="Script" path="res://ui/healthbar.gd" id="6_13a20"]
 [ext_resource type="Texture2D" uid="uid://cyt3j7oedbf3h" path="res://resources/sprites/icons/crown_icon.png" id="6_tw1bj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
@@ -51,10 +52,12 @@ texture = ExtResource("2_a14u6")
 [node name="WarningIndicator" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(12, -12)
-texture = ExtResource("4_qj3q6")
+texture = ExtResource("4_l8kmn")
 
 [node name="weapon_icon" type="Sprite2D" parent="."]
-visible = false
+position = Vector2(-11, -10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_uqo4k")
 
 [node name="Healthbar" type="ProgressBar" parent="."]
 layout_mode = 0

@@ -192,14 +192,14 @@ func open_detailed_selection_view():
 		item_detailed_info.update_by_item()
 
 func _on_item_bought(item:ItemDefinition):
-	if playerOverworldData.gold >= item.price:
+	if playerOverworldData.gold >= item.worth:
 		if focused_selection is Unit:
 			if !focused_selection.inventory.is_full():
 				#if the unit has inventory room
 				var purchased_item = item.duplicate()
 				focused_selection.inventory.give_item(purchased_item)
 				focused_detailed_view.update_by_unit()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 				
 			#elif focused_selection is ItemDefinition:
 		else:
@@ -208,7 +208,7 @@ func _on_item_bought(item:ItemDefinition):
 				playerOverworldData.append_to_array(playerOverworldData.convoy, item)
 				army_convoy_container.clear_scroll_scontainer()
 				army_convoy_container.fill_convoy_scroll_container()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 	gold_counter.set_gold_count(playerOverworldData.gold)
 
 func set_trade_detailed(detailed_view):
@@ -257,13 +257,13 @@ func swap_convoy_to_unit_items():
 	current_trade_detailed_view.update_by_unit()
 
 func sell_item(item:ItemDefinition,unit:Unit):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth
 	unit.discard_item(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	focused_detailed_view.update_by_unit()
 
 func sell_item_from_convoy(item:ItemDefinition):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth
 	playerOverworldData.convoy.erase(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	army_convoy_container.clear_scroll_scontainer()
