@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=65 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -63,6 +63,7 @@
 [ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
 [ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/rubbish.tres" id="62_2aj2t"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="62_xe68h"]
+[ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="63_bw6kg"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -88,6 +89,7 @@ items = {
 "harm": ExtResource("32_xfxu7"),
 "hatchet": ExtResource("44_677v3"),
 "heal_staff": ExtResource("16_exr5t"),
+"imbue_staff": ExtResource("63_bw6kg"),
 "iron_axe": ExtResource("3_u1np0"),
 "iron_bow": ExtResource("5_ge5kc"),
 "iron_dagger": ExtResource("27_fgo5t"),

@@ -83,6 +83,7 @@ class_name UnlockManager
 	"hand_axe" : true,
 	"harm" : true,
 	"heal_staff" : true,
+	"imbue_staff" : true,
 	"iron_axe" : true,
 	"iron_bow" : true,
 	"iron_dagger" : true,
