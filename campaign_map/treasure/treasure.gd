@@ -10,6 +10,7 @@ extends Control
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
 func _ready():
 	transition_in_animation()
@@ -44,8 +45,7 @@ func set_button_icon(button:Button, texture:Texture2D):
 func randomize_item_selection() -> ItemDefinition:
 	var valid_treasure_items = []
 	for item_key in ItemDatabase.items.keys():
-		var item : ItemDefinition = ItemDatabase.items[item_key]
-		if item.rarity != RarityDatabase.get("common"):
+		if item_key not in treasure_blacklist:
 			valid_treasure_items.append(item_key)
 	var r_key = valid_treasure_items.pick_random()
 	

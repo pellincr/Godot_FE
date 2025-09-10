@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://xotuxr86t70g"]
 
 [ext_resource type="Texture2D" uid="uid://c10bxrxemkrfd" path="res://resources/sprites/items/weapons/axes/killer_axe.png" id="1_yh7ec"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_aq1ep"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_x43u2"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_sq644"]
 
 [resource]
@@ -30,7 +30,7 @@ db_key = "killer_axe"
 equippable = true
 description = "Improves critical hit rate."
 item_type = 0
-rarity = ExtResource("2_aq1ep")
+rarity = ExtResource("2_x43u2")
 uses = 18
 max_uses = 18
 worth = 3000

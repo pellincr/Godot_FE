@@ -11,9 +11,9 @@
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="9_fopdk"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="10_wj4ed"]
 [ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="11_mylha"]
-[ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="12_k5sp1"]
+[ext_resource type="Resource" uid="uid://iyqe4qfuefkp" path="res://resources/definitions/items/weapons/dark_magic/annihilate.tres" id="12_s1nq6"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="13_ptqhi"]
-[ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="14_ttaaa"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="14_l86sb"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="15_2q81n"]
 
 [sub_resource type="Resource" id="Resource_i02vg"]
@@ -156,7 +156,7 @@ level = 8
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "shaman"
-inventory = Array[ExtResource("2_3qlrb")]([ExtResource("12_k5sp1")])
+inventory = Array[ExtResource("2_3qlrb")]([ExtResource("12_s1nq6")])
 ai_type = 1
 is_boss = false
 
@@ -168,7 +168,7 @@ level = 10
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "penitent"
-inventory = Array[ExtResource("2_3qlrb")]([ExtResource("13_ptqhi"), ExtResource("14_ttaaa")])
+inventory = Array[ExtResource("2_3qlrb")]([ExtResource("13_ptqhi"), ExtResource("14_l86sb")])
 ai_type = 2
 is_boss = false
 

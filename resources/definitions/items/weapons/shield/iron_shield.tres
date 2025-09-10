@@ -14,7 +14,7 @@ skill = 0
 speed = 0
 luck = 0
 defense = 3
-resistance = 2
+resistance = 0
 movement = 0
 constitution = 0
 
@@ -32,7 +32,7 @@ required_mastery = 0
 attack_range = Array[int]([1])
 damage = 3
 hit = 100
-critical_chance = 25
+critical_chance = 0
 weight = 8
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1

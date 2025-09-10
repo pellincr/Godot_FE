@@ -641,7 +641,8 @@ func check_win():
 		Constants.VICTORY_CONDITION.DEFEND_TILE:
 			pass
 		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
-			return check_turns_survived()
+			#return check_turns_survived()
+			pass
 
 func check_group_clear(group):
 	if group.is_empty():
@@ -655,7 +656,7 @@ func check_all_bosses_killed():
 			return false
 	return true
 
-func check_turns_survived():
+func check_turns_survived(_current_turn :int):
 	return turns_to_survive > current_turn
 
 func check_lose():

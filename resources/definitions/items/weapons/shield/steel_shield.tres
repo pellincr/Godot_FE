@@ -13,8 +13,8 @@ magic = 0
 skill = 0
 speed = 0
 luck = 0
-defense = 5
-resistance = 3
+defense = 4
+resistance = 1
 movement = 0
 constitution = 0
 

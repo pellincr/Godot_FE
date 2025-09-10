@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_1ig0g"]
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="3_af1tq"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="4_5she8"]
-[ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="5_12gxg"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="5_uvlg7"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_1occr"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_06byb"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="8_mo036"]
@@ -45,7 +45,7 @@ level = 8
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "brawler"
-inventory = Array[ExtResource("2_1ig0g")]([ExtResource("5_12gxg")])
+inventory = Array[ExtResource("2_1ig0g")]([ExtResource("5_uvlg7")])
 ai_type = 0
 is_boss = false
 

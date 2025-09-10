@@ -191,6 +191,7 @@ func _draw():
 
 func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
+	await combat.check_turns_survived(turn_count)
 	#await ui.play_turn_banner(turn_owner)
 	await process_terrain_effects()
 	# await process_skill_effects()

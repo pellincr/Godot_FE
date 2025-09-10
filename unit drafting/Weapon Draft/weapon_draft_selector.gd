@@ -1,5 +1,7 @@
 extends Control
 
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
+
 @onready var item_name_label = $MarginContainer/VBoxContainer/ItemNameLabel
 
 @onready var main_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MainWeaponIconContainer
@@ -61,7 +63,8 @@ func randomize_weapon() -> WeaponDefinition:
 	# Remove default / Iron Weapons
 	var all_item_types = ItemDatabase.items.keys()
 	var all_weapon_types = []
-	for item in all_item_types:
-		if ItemDatabase.items.get(item) is WeaponDefinition:
-			all_weapon_types.append(ItemDatabase.items.get(item))
+	for item_key in all_item_types:
+		if item_key not in treasure_blacklist:
+			if ItemDatabase.items.get(item_key) is WeaponDefinition:
+				all_weapon_types.append(ItemDatabase.items.get(item_key))
 	return all_weapon_types.pick_random()
