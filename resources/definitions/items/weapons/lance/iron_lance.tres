@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://chyi446dfmveq"]
 
-[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="1_5ql03"]
+[ext_resource type="Texture2D" uid="uid://x7fceipr6e4x" path="res://resources/sprites/items/weapons/lance/iron_lance.png" id="1_725yc"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_6pm83"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_egufa"]
 
@@ -17,7 +17,7 @@ item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1])
 damage = 7
-hit = 70
+hit = 90
 critical_chance = 0
 weight = 8
 critical_multiplier = 3.0
@@ -33,5 +33,5 @@ item_type = 0
 rarity = ExtResource("2_egufa")
 uses = 45
 max_uses = 45
-worth = 100
-icon = ExtResource("1_5ql03")
+worth = 400
+icon = ExtResource("1_725yc")

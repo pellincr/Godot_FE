@@ -17,11 +17,11 @@ func populate(available_actions: Array[String], controller_node: CController):
 			btn.grab_focus.call_deferred()
 			focused = true
 	#add a cancel button
-	var btn = UNIT_ACTION_BUTTON.instantiate()
-	btn.set_button("Cancel")
-	btn.pressed.connect(func():
-			controller.unit_action_selection_handler("Cancel"))
-	self.add_child(btn)
-	if focused == false:
-		btn.grab_focus.call_deferred()
-		focused = true
+	#var btn = UNIT_ACTION_BUTTON.instantiate()
+	#btn.set_button("Cancel")
+	#btn.pressed.connect(func():
+	#		controller.unit_action_selection_handler("Cancel"))
+	#self.add_child(btn)
+	#if focused == false:
+	#	btn.grab_focus.call_deferred()
+	#	focused = true

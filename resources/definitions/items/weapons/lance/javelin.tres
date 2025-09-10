@@ -37,5 +37,5 @@ item_type = 0
 rarity = ExtResource("2_srtbm")
 uses = 20
 max_uses = 20
-worth = 100
+worth = 600
 icon = SubResource("AtlasTexture_thphj")

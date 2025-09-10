@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=93 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -18,23 +18,23 @@
 [ext_resource type="Resource" uid="uid://5b1f8mg0j3te" path="res://resources/definitions/items/stalves/heal_staff.tres" id="16_exr5t"]
 [ext_resource type="Resource" uid="uid://k4sv13oaol6q" path="res://resources/definitions/items/weapons/bow/great_bow.tres" id="17_0gxut"]
 [ext_resource type="Resource" uid="uid://cq5siucueaoku" path="res://resources/definitions/items/weapons/swords/killer_sword.tres" id="18_44h8f"]
-[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/anima/fire_spell.tres" id="19_q1d18"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="19_q1d18"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="20_kc6t1"]
 [ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="21_6erag"]
-[ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/lance/halberd.tres" id="22_epcxq"]
+[ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="22_epcxq"]
 [ext_resource type="Resource" uid="uid://dmxfjectp0ih3" path="res://resources/definitions/items/weapons/axes/silver_axe.tres" id="23_7wv7v"]
 [ext_resource type="Resource" uid="uid://c3u18f1abmb4n" path="res://resources/definitions/items/weapons/bow/enchanted_bow.tres" id="24_4o3e2"]
 [ext_resource type="Resource" uid="uid://b07cyd1bkl6wb" path="res://resources/definitions/items/weapons/swords/dark_sword.tres" id="25_rrx52"]
 [ext_resource type="Resource" uid="uid://co7l31ly5a5mj" path="res://resources/definitions/items/weapons/swords/sabre.tres" id="26_3x5tg"]
 [ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="27_fgo5t"]
-[ext_resource type="Resource" uid="uid://nbx0ga6nag7e" path="res://resources/definitions/items/weapons/anima/fiend_fire.tres" id="28_hv28m"]
+[ext_resource type="Resource" uid="uid://nbx0ga6nag7e" path="res://resources/definitions/items/weapons/dark_magic/fiend_fire.tres" id="28_hv28m"]
 [ext_resource type="Resource" uid="uid://d34qpam5lxbd8" path="res://resources/definitions/items/weapons/dark_magic/dark_pulse.tres" id="29_sc5t6"]
 [ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="30_rffgk"]
 [ext_resource type="Resource" uid="uid://dmhxgxg5q3q5w" path="res://resources/definitions/items/weapons/monster/sharp_claws.tres" id="31_wgdpf"]
 [ext_resource type="Resource" uid="uid://g62ghjpsmorp" path="res://resources/definitions/items/stalves/harm_staff.tres" id="32_xfxu7"]
 [ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="33_gk068"]
-[ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/anima/wind_blade.tres" id="34_ttak5"]
-[ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/anima/bolting.tres" id="35_xal3d"]
+[ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/nature/wind.tres" id="34_ttak5"]
+[ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/nature/bolting.tres" id="35_xal3d"]
 [ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/enchanted_shotel.tres" id="36_1rwxd"]
 [ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="37_psnnm"]
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="38_ysglg"]
@@ -52,36 +52,71 @@
 [ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="50_d8m3e"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="51_5lqt6"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="52_x6n6j"]
-[ext_resource type="Resource" uid="uid://bup40a1lgf3w0" path="res://resources/definitions/items/weapons/anima/mage_blade.tres" id="53_1g7xb"]
+[ext_resource type="Resource" uid="uid://bup40a1lgf3w0" path="res://resources/definitions/items/weapons/nature/mage_blade.tres" id="53_1g7xb"]
 [ext_resource type="Resource" uid="uid://d3q4u334gvuu6" path="res://resources/definitions/items/weapons/bow/steel_bow.tres" id="54_n4b3q"]
 [ext_resource type="Resource" uid="uid://b4jgumo2ycuyf" path="res://resources/definitions/items/weapons/bow/silver_bow.tres" id="55_n8hyn"]
 [ext_resource type="Resource" uid="uid://cpqf6v7ox1xs6" path="res://resources/definitions/items/weapons/dagger/silver_dagger.tres" id="56_gbxts"]
 [ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="57_yomul"]
-[ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/expunge.tres" id="58_7gmx0"]
+[ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/ray.tres" id="58_7gmx0"]
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="59_jqcuj"]
 [ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/consumables/wine.tres" id="60_inhro"]
 [ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
 [ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/rubbish.tres" id="62_2aj2t"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="62_xe68h"]
 [ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="63_bw6kg"]
+[ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="64_g2m76"]
+[ext_resource type="Resource" uid="uid://xotuxr86t70g" path="res://resources/definitions/items/weapons/axes/killer_axe.tres" id="66_2c4cv"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="67_dh53s"]
+[ext_resource type="Resource" uid="uid://dp624fv7qre82" path="res://resources/definitions/items/weapons/axes/slim_axe.tres" id="68_0yebc"]
+[ext_resource type="Resource" uid="uid://da02m5ekvhj2r" path="res://resources/definitions/items/weapons/axes/tomahawk.tres" id="69_q45qp"]
+[ext_resource type="Resource" uid="uid://c4m1lo8xvafk0" path="res://resources/sprites/items/weapons/bow/Ebonflight.tres" id="70_s8rv5"]
+[ext_resource type="Resource" uid="uid://caw6c3n05be81" path="res://resources/definitions/items/weapons/dagger/sanguis.tres" id="71_i5lad"]
+[ext_resource type="Resource" uid="uid://cmljuu3sxx1lf" path="res://resources/definitions/items/weapons/dagger/killer_dagger.tres" id="72_ckkvo"]
+[ext_resource type="Resource" uid="uid://q5auo22bnw4a" path="res://resources/definitions/items/weapons/dark_magic/abyss_typhoon.tres" id="73_fi30s"]
+[ext_resource type="Resource" uid="uid://iyqe4qfuefkp" path="res://resources/definitions/items/weapons/dark_magic/annihilate.tres" id="74_y5h4k"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="75_b030a"]
+[ext_resource type="Resource" uid="uid://cxnl7fkokgtrr" path="res://resources/definitions/items/weapons/fists/all_seeing_hands.tres" id="76_jk8mo"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="77_4s7is"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="78_vos4o"]
+[ext_resource type="Resource" uid="uid://cdmmwqsud7wcp" path="res://resources/definitions/items/weapons/fists/killer_fist.tres" id="79_uc6xq"]
+[ext_resource type="Resource" uid="uid://dmy68ob27p5l5" path="res://resources/definitions/items/weapons/fists/silver_fist.tres" id="80_gdl5g"]
+[ext_resource type="Resource" uid="uid://bm5sgovgm4u6r" path="res://resources/definitions/items/weapons/lance/pilum.tres" id="81_qvdqa"]
+[ext_resource type="Resource" uid="uid://b6l1kx4yenl1j" path="res://resources/definitions/items/weapons/lance/slim_lance.tres" id="82_3u13d"]
+[ext_resource type="Resource" uid="uid://cfr25jrickdoo" path="res://resources/definitions/items/weapons/lance/spear.tres" id="83_ptnxj"]
+[ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="84_u837s"]
+[ext_resource type="Resource" uid="uid://dptbskvp3q4wq" path="res://resources/definitions/items/weapons/axes/colossus.tres" id="85_6fek0"]
+[ext_resource type="Resource" uid="uid://bula1g6niv7bf" path="res://resources/definitions/items/weapons/lance/titans_will.tres" id="85_qfgim"]
+[ext_resource type="Resource" uid="uid://bepcce7jbts3x" path="res://resources/definitions/items/weapons/light_magic/deliverance.tres" id="86_ogapb"]
+[ext_resource type="Resource" uid="uid://dv135ep5smbds" path="res://resources/definitions/items/weapons/light_magic/lumen.tres" id="87_gcqt1"]
+[ext_resource type="Resource" uid="uid://7je7gpvirns" path="res://resources/definitions/items/weapons/nature/earth_split.tres" id="88_p6flx"]
+[ext_resource type="Resource" uid="uid://c068ci3uwxvd7" path="res://resources/definitions/items/weapons/nature/holy_fire.tres" id="89_uiv3h"]
+[ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="90_n7mel"]
+[ext_resource type="Resource" uid="uid://bvhngcd2psio" path="res://resources/definitions/items/weapons/swords/zweihander.tres" id="91_khgvj"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
 items = {
+"abyss_typhoon": ExtResource("73_fi30s"),
+"all_seeing_hands": ExtResource("76_jk8mo"),
+"annihilate": ExtResource("74_y5h4k"),
 "bolting": ExtResource("35_xal3d"),
 "boost_bread": ExtResource("61_af6n4"),
 "brass_knuckles": ExtResource("38_ysglg"),
 "buckler": ExtResource("42_bjlri"),
+"colossus": ExtResource("85_6fek0"),
 "dark_pulse": ExtResource("29_sc5t6"),
 "dark_sword": ExtResource("25_rrx52"),
+"deliverance": ExtResource("86_ogapb"),
 "devil_knuckles": ExtResource("39_kby4g"),
+"earth_split": ExtResource("88_p6flx"),
+"ebonflight": ExtResource("70_s8rv5"),
 "enchanted_bow": ExtResource("24_4o3e2"),
 "enchanted_shotel": ExtResource("36_1rwxd"),
 "evil_eye": ExtResource("45_py2vi"),
-"expunge": ExtResource("58_7gmx0"),
 "eye_greatshield": ExtResource("43_v0y5j"),
 "fiend_fire": ExtResource("28_hv28m"),
 "fire_spell": ExtResource("19_q1d18"),
+"great_axe": ExtResource("64_g2m76"),
 "great_bow": ExtResource("17_0gxut"),
 "greatsword": ExtResource("47_v3anb"),
 "halberd": ExtResource("22_epcxq"),
@@ -89,47 +124,68 @@ items = {
 "harm": ExtResource("32_xfxu7"),
 "hatchet": ExtResource("44_677v3"),
 "heal_staff": ExtResource("16_exr5t"),
+"heavy_lance": ExtResource("84_u837s"),
+"holy_fire": ExtResource("89_uiv3h"),
 "imbue_staff": ExtResource("63_bw6kg"),
 "iron_axe": ExtResource("3_u1np0"),
 "iron_bow": ExtResource("5_ge5kc"),
 "iron_dagger": ExtResource("27_fgo5t"),
+"iron_fist": ExtResource("77_4s7is"),
 "iron_lance": ExtResource("4_o8mgg"),
 "iron_shield": ExtResource("40_8cwhn"),
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
+"killer_axe": ExtResource("66_2c4cv"),
 "killer_bow": ExtResource("15_jhgao"),
+"killer_dagger": ExtResource("72_ckkvo"),
+"killer_fist": ExtResource("79_uc6xq"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
 "kukri": ExtResource("50_d8m3e"),
 "life_tap": ExtResource("59_jqcuj"),
+"lumen": ExtResource("87_gcqt1"),
 "mage_blade": ExtResource("53_1g7xb"),
 "mandate": ExtResource("46_jmx6f"),
+"pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
+"ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
 "rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
+"sanguis": ExtResource("71_i5lad"),
+"shade": ExtResource("75_b030a"),
 "sharp_claws": ExtResource("31_wgdpf"),
+"short_axe": ExtResource("67_dh53s"),
 "short_bow": ExtResource("7_x6uf5"),
 "silver_axe": ExtResource("23_7wv7v"),
 "silver_bow": ExtResource("55_n8hyn"),
 "silver_dagger": ExtResource("56_gbxts"),
+"silver_fist": ExtResource("80_gdl5g"),
 "silver_lance": ExtResource("51_5lqt6"),
 "silver_shield": ExtResource("57_yomul"),
 "silver_sword": ExtResource("9_vblr4"),
 "skeleton_key": ExtResource("37_psnnm"),
+"slim_axe": ExtResource("68_0yebc"),
+"slim_lance": ExtResource("82_3u13d"),
 "smite": ExtResource("30_rffgk"),
 "soul_rip": ExtResource("48_m0w6q"),
+"spear": ExtResource("83_ptnxj"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
 "steel_dagger": ExtResource("49_bdsdk"),
+"steel_fist": ExtResource("78_vos4o"),
 "steel_lance": ExtResource("20_kc6t1"),
 "steel_shield": ExtResource("52_x6n6j"),
 "steel_sword": ExtResource("8_l7lwn"),
 "sword_reaver": ExtResource("14_dv5o2"),
+"titans_will": ExtResource("85_qfgim"),
+"tomahawk": ExtResource("69_q45qp"),
+"torrent": ExtResource("90_n7mel"),
 "warhammer": ExtResource("10_n4irs"),
 "wind_blade": ExtResource("34_ttak5"),
-"wine": ExtResource("60_inhro")
+"wine": ExtResource("60_inhro"),
+"zweihander": ExtResource("91_khgvj")
 }
 commander_weapons = {
 "vipers_bite": ExtResource("62_xe68h")

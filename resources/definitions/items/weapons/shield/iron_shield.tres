@@ -48,5 +48,5 @@ item_type = 0
 rarity = ExtResource("3_r7dtk")
 uses = 35
 max_uses = 35
-worth = 100
+worth = 400
 icon = ExtResource("1_1hoqn")

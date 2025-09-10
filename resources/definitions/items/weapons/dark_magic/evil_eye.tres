@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d3qng8xkytu8f" path="res://resources/sprites/items/weapons/dark/evil_eye.png" id="1_r2fyg"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a4dsu"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_hfadg"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_pcwr0"]
 
 [resource]
 script = ExtResource("2_a4dsu")
@@ -16,10 +16,10 @@ item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1, 2])
-damage = 7
+damage = 5
 hit = 80
-critical_chance = 0
-weight = 8
+critical_chance = 30
+weight = 10
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
@@ -30,8 +30,8 @@ db_key = "evil_eye"
 equippable = true
 description = ""
 item_type = 0
-rarity = ExtResource("2_hfadg")
-uses = 25
-max_uses = 25
-worth = 100
+rarity = ExtResource("2_pcwr0")
+uses = 15
+max_uses = 15
+worth = 2800
 icon = ExtResource("1_r2fyg")

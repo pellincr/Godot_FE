@@ -1,12 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://bo6o65qd7agqb"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bo6o65qd7agqb"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_6hyuo"]
+[ext_resource type="Texture2D" uid="uid://cwgrmnpi5v65p" path="res://resources/sprites/items/weapons/bow/short_bow.png" id="1_3xlyr"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_q8t8u"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_wwtut"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jp7ry"]
-atlas = ExtResource("1_6hyuo")
-region = Rect2(32, 288, 32, 32)
 
 [resource]
 script = ExtResource("2_wwtut")
@@ -20,13 +16,13 @@ item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 1
 attack_range = Array[int]([1, 2])
-damage = 2
-hit = 90
-critical_chance = 20
-weight = 4
+damage = 5
+hit = 100
+critical_chance = 15
+weight = 3
 critical_multiplier = 3.5
 attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
+weapon_effectiveness = Array[int]([2])
 status_ailment = 0
 specials = Array[int]([])
 name = "Short Bow"
@@ -37,5 +33,5 @@ item_type = 0
 rarity = ExtResource("2_q8t8u")
 uses = 20
 max_uses = 20
-worth = 100
-icon = SubResource("AtlasTexture_jp7ry")
+worth = 900
+icon = ExtResource("1_3xlyr")
