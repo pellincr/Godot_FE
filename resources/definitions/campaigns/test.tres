@@ -1,14 +1,32 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=2 format=3 uid="uid://bufy43rodyy5x"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=5 format=3 uid="uid://bufy43rodyy5x"]
 
 [ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_a80uw"]
+[ext_resource type="PackedScene" uid="uid://bwh2mplnd8dpq" path="res://combat/levels/tutorial_levels/tutorial_level_5/tutorial_5.tscn" id="1_jksmp"]
+[ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="2_dvacv"]
+
+[sub_resource type="Resource" id="Resource_qhl1h"]
+script = ExtResource("2_dvacv")
+tier_1_battle_levels = Array[PackedScene]([])
+tier_2_battle_levels = Array[PackedScene]([])
+boss_levels = Array[PackedScene]([])
+tier_thresholds = {}
+battle_levels = {
+0: [ExtResource("1_jksmp")],
+1: [],
+"BOSS": [],
+"EXTRA": [],
+"MID_BOSS": []
+}
 
 [resource]
 script = ExtResource("1_a80uw")
-name = "Test Campaign"
+name = "DEV"
 commander_draft_limit = 1
-max_floor_number = 0
-tier_2_floor_start_number = 0
-number_of_archetypes_drafted = 0
+number_of_archetypes_drafted = 2
+max_floor_number = 5
+number_of_required_combat_maps = 1
+level_pool = SubResource("Resource_qhl1h")
+difficulty = 1
+length = ""
 rewards = ""
 unit_unlock_rewards = Array[String]([])
-boss = ""

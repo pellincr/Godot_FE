@@ -55,12 +55,20 @@ var _player_unit_alive : bool = true
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
 
-# MANAGERS
+## MANAGERS
+# UNIT MANAGERS
 @export var unit_experience_manager : UnitExperienceManager 
 @export var combat_unit_item_manager : CombatUnitItemManager
-@export var mapReinforcementData : MapReinforcementData
+
+# ENTITY MANAGER
 @export var entity_manager : CombatMapEntityManager
+
+# REINFORCEMENTS
+@export var mapReinforcementData : MapReinforcementData
 @export var reinforcement_manager : CombatMapReinforcementManager
+
+# GAME GRID
+@export var game_grid : CombatMapGrid
 
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
@@ -77,7 +85,7 @@ var _player_unit_alive : bool = true
 #@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
 
-@onready var current_turn = 0
+@onready var current_turn = 1
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
@@ -105,9 +113,14 @@ func _ready():
 	entity_manager.connect("give_items", give_curent_unit_items)
 	entity_manager.connect("entity_process_complete",_on_entity_processing_completed)
 	#Connections Reinforcement Manager
+	reinforcement_manager.game_grid = game_grid
 	reinforcement_manager.populate(mapReinforcementData)
 	reinforcement_manager.connect("spawn_reinforcement", _on_reinforcement_manager_spawn_reinforcement)
 	randomize()
+
+func set_game_grid(game_grid : CombatMapGrid):
+	self.game_grid = game_grid
+	reinforcement_manager.game_grid = game_grid
 
 func populate():
 	if is_tutorial:
@@ -338,8 +351,7 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 	complete_unit_turn()
 	major_action_complete()
 
-	
-	
+
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
 	
@@ -354,10 +366,9 @@ func advance_turn(faction: int):
 	#decrement the turn reward modifier
 	turn_reward_modifier -= .5
 	#advace the current turn count
-	current_turn += .5
-	print("TURN#:" + str(current_turn))
 	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
-		check_win()
+		if check_win():
+			combat_win()
 
 func major_action_complete():
 	get_current_combatant().minor_action_taken = true
@@ -369,39 +380,8 @@ func major_action_complete():
 func combatExchangeComplete(friendly_unit_alive:bool):
 	_player_unit_alive = friendly_unit_alive
 	major_action_complete()
-	#WIN/LOSE CONDITION LOGIC
-	if(check_win()):
-		if heal_on_win:
-			heal_ally_units()
-		refresh_commander_signature_weapon()
-		#playerOverworldData.next_level = win_go_to_scene
-		#playerOverworldData.current_level += 1
-		playerOverworldData.began_level = false
-		playerOverworldData.gold += calculate_reward_gold()
-		if (is_key_campaign_level):
-			playerOverworldData.combat_maps_completed += 1
-		SelectedSaveFile.save(playerOverworldData)
-		if is_tutorial:
-			reset_game_state()
-			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
-		else:
-			if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
-				playerOverworldData.began_level = false
-				playerOverworldData.current_level = null
-				SelectedSaveFile.save(playerOverworldData)
-				get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
-			else:
-				#reset the game back to the start screen after final level so that it can be played again
-				var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
-				playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
-				playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
-				playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
-				playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-				unlock_new_unit_types()
-				reset_game_state()
-				SelectedSaveFile.save(playerOverworldData)
-				get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+	if check_win():
+		combat_win()
 	if(check_lose()):
 		reset_game_state()
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
@@ -454,7 +434,7 @@ func unlock_new_unit_types():
 			unlock_panel.queue_free()
 
 func combatant_die(combatant: CombatUnit):
-	var	comb_id = combatants.find(combatant)
+	var comb_id = combatants.find(combatant)
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
@@ -641,8 +621,7 @@ func check_win():
 		Constants.VICTORY_CONDITION.DEFEND_TILE:
 			pass
 		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
-			#return check_turns_survived()
-			pass
+			return check_turns_survived()
 
 func check_group_clear(group):
 	if group.is_empty():
@@ -656,10 +635,15 @@ func check_all_bosses_killed():
 			return false
 	return true
 
-func check_turns_survived(_current_turn :int):
-	return turns_to_survive > current_turn
+func check_turns_survived():
+	return turns_to_survive < current_turn
 
 func check_lose():
+	# Did we fail the objective?
+	
+	# Did our commander die?
+	
+	# Did all of our units die?
 	return check_group_clear(groups[0])
 
 func calculate_reward_gold():
@@ -713,4 +697,40 @@ func _on_reinforcement_manager_spawn_reinforcement(cu: CombatUnit, position: Vec
 		add_combatant(cu, position)
 		await get_tree().create_timer(1).timeout
 		reinforcement_manager._on_reinforcement_spawn_completed()
-	
+
+func combat_loss():
+	reset_game_state()
+	get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+
+func combat_win():
+	if heal_on_win:
+		heal_ally_units()
+	refresh_commander_signature_weapon()
+	#playerOverworldData.next_level = win_go_to_scene
+	#playerOverworldData.current_level += 1
+	playerOverworldData.began_level = false
+	playerOverworldData.gold += calculate_reward_gold()
+	if (is_key_campaign_level):
+		playerOverworldData.combat_maps_completed += 1
+	SelectedSaveFile.save(playerOverworldData)
+	if is_tutorial:
+		reset_game_state()
+		SelectedSaveFile.save(playerOverworldData)
+		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+	else:
+		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+			playerOverworldData.began_level = false
+			playerOverworldData.current_level = null
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+		else:
+			#reset the game back to the start screen after final level so that it can be played again
+			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+			unlock_new_unit_types()
+			reset_game_state()
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
