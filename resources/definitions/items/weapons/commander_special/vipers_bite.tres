@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://bf8ot2t215k2q"]
 
 [ext_resource type="Texture2D" uid="uid://dh66mgbsodlwe" path="res://resources/sprites/items/weapons/commander_specific/viper_bite.png" id="1_2ri4r"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
 
 [resource]
 script = ExtResource("1_3xc2q")

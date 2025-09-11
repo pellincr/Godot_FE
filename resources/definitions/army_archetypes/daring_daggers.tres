@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=8 format=3 uid="uid://dxoqw1luiku0s"]
+
+[ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_ufomj"]
+[ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_efovv"]
+[ext_resource type="Script" uid="uid://dknhr7fi1hh48" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_ve7vl"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="4_2mwvu"]
+[ext_resource type="Script" uid="uid://ddryvyc73ib0h" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="5_5chhu"]
+
+[sub_resource type="Resource" id="Resource_nlecq"]
+script = ExtResource("2_efovv")
+factions = Array[int]([])
+traits = Array[int]([])
+weapon_types = Array[int]([13])
+unit_type = ""
+name = "Dagger Unit"
+type = 0
+response_filter = 0
+volume = 1
+
+[sub_resource type="Resource" id="Resource_8l8jn"]
+script = ExtResource("3_ve7vl")
+weapon_type = Array[int]([13])
+item_damage_type = Array[int]([])
+item_scaling_type = Array[int]([])
+name = "Dagger Pick"
+type = 1
+response_filter = 0
+volume = 1
+
+[resource]
+script = ExtResource("5_5chhu")
+name = "Daring Daggers"
+db_key = "darring_daggers"
+rarity = ExtResource("4_2mwvu")
+archetype_picks = Array[ExtResource("1_ufomj")]([SubResource("Resource_nlecq"), SubResource("Resource_8l8jn")])

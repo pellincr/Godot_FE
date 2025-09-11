@@ -8,6 +8,8 @@ class_name UnlockManager
 	"classic" : true,
 	"coverage" : false,
 	"dark_development" : true,
+	"daring_daggers" : true,
+	"fearless_fist" : true,
 	"healing_here" : true,
 	"kingdom_come" : false,
 	"lickety_split_lances" : false,
@@ -24,6 +26,7 @@ class_name UnlockManager
 @export var commander_types_unlocked : Dictionary = {
 	"centurion" : false,
 	"destroyer" : false,
+	"drengr" : false,
 	"iron_viper" : true,
 	"mage_knight" : false,
 	"war_maiden" : false,
