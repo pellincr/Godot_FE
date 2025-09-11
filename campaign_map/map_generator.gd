@@ -14,14 +14,16 @@ const EVENT_ROOM_WEIGHT := 2.5
 const TREASURE_ROOM_WEIGHT := 1.0
 const ELITE_ROOM_WEIGHT := 1.5
 const SHOP_ROOM_WEIGHT := 2.0
+const RECRUITMENT_ROOM_WEIGHT := 1.0
 
 var random_room_type_weights = {
 	CampaignRoom.TYPE.BATTLE : 0.0,
 	CampaignRoom.TYPE.KEY_BATTLE : 0.0,
-	CampaignRoom.TYPE.EVENT : 4.0,
-	CampaignRoom.TYPE.TREASURE : 8.0,
+	CampaignRoom.TYPE.EVENT : 6.0,
+	CampaignRoom.TYPE.TREASURE : 6.0,
 	CampaignRoom.TYPE.ELITE : 0.0,
-	CampaignRoom.TYPE.SHOP : 0.0
+	CampaignRoom.TYPE.SHOP : 0.0,
+	CampaignRoom.TYPE.RECRUITMENT : 6.0
 }
 
 var random_room_type_total_weight := 0
@@ -136,8 +138,9 @@ func _setup_random_room_weights() -> void:
 	random_room_type_weights[CampaignRoom.TYPE.EVENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
 	random_room_type_weights[CampaignRoom.TYPE.SHOP] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
 	random_room_type_weights[CampaignRoom.TYPE.ELITE] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT + RECRUITMENT_ROOM_WEIGHT
 	
-	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.ELITE]
+	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT]
 
 func _setup_room_types() -> void:
 	#first floor is always a battle

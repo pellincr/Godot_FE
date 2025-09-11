@@ -1,14 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=9 format=3 uid="uid://btx2g2jcyl211"]
 
-[ext_resource type="Script" uid="uid://bpraownu73ppx" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
-[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_klef3"]
-[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_xuf8l"]
-[ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="5_0gh02"]
+[ext_resource type="Script" path="res://campaign_map/recruitment/recruitment.gd" id="1_qo7pv"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="2_p00dm"]
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="3_v0ah3"]
+[ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="4_n6x6m"]
 
-[sub_resource type="Theme" id="Theme_stt1w"]
+[sub_resource type="Theme" id="Theme_epjme"]
 default_font_size = 36
 
-[sub_resource type="Theme" id="Theme_y16wd"]
+[sub_resource type="Theme" id="Theme_iq8s5"]
 default_font_size = 36
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3b7fu"]
@@ -18,25 +18,25 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
-[sub_resource type="Theme" id="Theme_i2tp0"]
+[sub_resource type="Theme" id="Theme_ydctg"]
 default_font_size = 24
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_3b7fu")
 
-[node name="ArmyDrafting" type="Control"]
+[node name="Recruitment" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_klef3")
-script = ExtResource("1_54qw1")
+script = ExtResource("1_qo7pv")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(1280, 720)
-layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+theme = ExtResource("2_p00dm")
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 36
 theme_override_constants/margin_right = 60
@@ -50,11 +50,10 @@ modulate = Color(0.509804, 0.509804, 0.509804, 1)
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(1150, 36)
 layout_mode = 2
-theme = SubResource("Theme_stt1w")
+theme = SubResource("Theme_epjme")
 
 [node name="ArmyDraftStageLabel" type="Label" parent="MarginContainer/MainContainer/HBoxContainer"]
 layout_mode = 2
-text = "Army Draft - Stage 1 of 3"
 uppercase = true
 
 [node name="PickAmountLabel" type="Label" parent="MarginContainer/MainContainer/HBoxContainer"]
@@ -64,14 +63,15 @@ size_flags_vertical = 0
 text = "Pick 1 of 1"
 horizontal_alignment = 2
 
-[node name="GoldCounter" parent="MarginContainer/MainContainer" instance=ExtResource("2_xuf8l")]
+[node name="GoldCounter" parent="MarginContainer/MainContainer" instance=ExtResource("3_v0ah3")]
 layout_mode = 2
+text = ""
 autowrap_mode = 0
 
 [node name="HeaderPanel" type="Panel" parent="MarginContainer/MainContainer"]
 custom_minimum_size = Vector2(830, 78)
 layout_mode = 2
-theme = ExtResource("1_klef3")
+theme = ExtResource("2_p00dm")
 
 [node name="HeaderLabel" type="Label" parent="MarginContainer/MainContainer/HeaderPanel"]
 layout_mode = 1
@@ -80,8 +80,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_y16wd")
-text = "Choose a Commander"
+theme = SubResource("Theme_iq8s5")
+text = "Recruit a Unit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -95,7 +95,7 @@ self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(870, 34)
 layout_mode = 2
 size_flags_stretch_ratio = 2.83
-theme = SubResource("Theme_i2tp0")
+theme = SubResource("Theme_ydctg")
 
 [node name="ArmyListLabel" type="Label" parent="MarginContainer/MainContainer/MarginContainer/ArmyListContainer"]
 visible = false
@@ -106,9 +106,16 @@ text = "Army: "
 [node name="ArchetypeIconContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/MarginContainer/ArmyListContainer"]
 layout_mode = 2
 
-[node name="UnitDraftControls" parent="MarginContainer" instance=ExtResource("5_0gh02")]
+[node name="UnitDraftControls" parent="MarginContainer" instance=ExtResource("4_n6x6m")]
 z_index = -1
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="LeaveButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("2_p00dm")
+text = "Leave"
+
+[connection signal="pressed" from="MarginContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

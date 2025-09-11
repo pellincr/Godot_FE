@@ -7,6 +7,7 @@ const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
 const EVENT_SELECT = preload("res://campaign_map/events/event_selection.tscn")
 const TREASURE_SCENE = preload("res://campaign_map/treasure/treasure.tscn")
+const RECRUITMENT_SCENE = preload("res://campaign_map/recruitment/recruitment.tscn")
 const PLACEHOLDER = preload("res://campaign_map/placeholder/place_holder_scene.tscn")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -172,6 +173,10 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
+		CampaignRoom.TYPE.RECRUITMENT:
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(RECRUITMENT_SCENE)
 		CampaignRoom.TYPE.ELITE:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()

@@ -60,7 +60,7 @@ class_name Unit
 # @param _inventory : reference inventory to assign
 # @retuns Unit : created unit
 ##
-static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition]) -> Unit:
+static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition], simulated_levels: int = 0) -> Unit:
 	#Create the unit
 	var new_unit = Unit.new()
 	#pull base data
@@ -80,6 +80,9 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	create_inventory(new_unit, _inventory)
 	update_visuals(new_unit)
 	new_unit.update_stats()
+	for levelup in simulated_levels:
+		var level_up_stats : UnitStat = new_unit.get_level_up_value()
+		new_unit.apply_level_up_value(level_up_stats)
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
 

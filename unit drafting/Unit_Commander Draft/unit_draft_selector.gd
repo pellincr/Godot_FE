@@ -40,6 +40,7 @@ const unit_overview_scene = preload("res://unit drafting/Unit_Commander Draft/un
 const stat_view_scene = preload("res://unit drafting/Unit_Commander Draft/stat_view.tscn")
 const growths_view_scene = preload("res://unit drafting/Unit_Commander Draft/growths_view.tscn")
 const weapon_draft_scene = preload("res://unit drafting/Weapon Draft/weapon_draft_selector.tscn")
+const RANDOM_UNIT_SELECTION = preload("res://campaign_map/recruitment/random_unit_selection.tres")
 
 var playerOverworldData : PlayerOverworldData
 
@@ -48,7 +49,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection()
+	randomize_selection(playerOverworldData.combat_maps_completed +  1)
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -234,12 +235,16 @@ func instantiate_unit_draft_selector():
 	#create the unit to be drafted (will be different between commanders and units)
 	
 
-func randomize_selection():
+func randomize_selection(unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
-		var current_archetype_pick = playerOverworldData.archetype_allotments[0]
+		var current_archetype_pick
+		if playerOverworldData.archetype_allotments.is_empty():
+			current_archetype_pick = RANDOM_UNIT_SELECTION
+		else : 
+			current_archetype_pick = playerOverworldData.archetype_allotments[0]
 		if current_archetype_pick is armyArchetypePickWeaponDefinition:
 			#If the player is picking from a choice of weapons
 			new_randomized_pick = randomize_weapon(current_archetype_pick, rarity)
@@ -252,9 +257,10 @@ func randomize_selection():
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 			var unit_character = UnitCharacter.new()
 			unit_character.name = new_unit_name
+			unit_character.level += unit_bonus_levels
 			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,unit_bonus_levels) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 			unit = new_recruit
 	else:
 		#For Commander Drafting

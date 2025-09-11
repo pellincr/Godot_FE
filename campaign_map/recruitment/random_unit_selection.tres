@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="armyArchetypePickUnitDefinition" load_steps=2 format=3 uid="uid://duhko414x5s6l"]
+
+[ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="1_rjwml"]
+
+[resource]
+script = ExtResource("1_rjwml")
+factions = Array[int]([])
+traits = Array[int]([])
+weapon_types = Array[int]([])
+unit_type = ""
+name = "Random Unit"
+type = 0
+response_filter = 2
+volume = 2
