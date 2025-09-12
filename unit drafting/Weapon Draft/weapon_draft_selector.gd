@@ -1,6 +1,6 @@
 extends Control
 
-const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff","shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
 @onready var item_name_label = $MarginContainer/VBoxContainer/ItemNameLabel
 
@@ -66,5 +66,24 @@ func randomize_weapon() -> WeaponDefinition:
 	for item_key in all_item_types:
 		if item_key not in treasure_blacklist:
 			if ItemDatabase.items.get(item_key) is WeaponDefinition:
-				all_weapon_types.append(ItemDatabase.items.get(item_key))
+				var roll = randi_range(0, 100)
+				if roll < 3:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 10:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["mythical"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 25:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 40:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 65:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["uncommon"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				else :
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["common"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				#all_weapon_types.append(ItemDatabase.items.get(item_key))
 	return all_weapon_types.pick_random()

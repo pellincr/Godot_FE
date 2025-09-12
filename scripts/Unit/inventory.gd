@@ -131,18 +131,21 @@ func use_at_index(index : int):
 		target_item.expend_use()
 		if target_item.uses <= 0:
 			items.remove_at(index)
-			items.push_back(null)
+			#items.push_back(null)
 				
 
 
 func set_item_at_index(index: int, item: ItemDefinition):
 	if item != null:
-		if index > 0 and index < capacity - 1:
-			items[index] = item
+		if index >= 0 and index < capacity:
+			if index < items.size():
+				items[index] = item
+			else: 
+				items.append(item)
 		else : 
 			items.append(item)
 	else : 
-		if index < capacity - 1:
+		if index < capacity:
 			items.remove_at(index)
 #
 # Gives an item to the inventory, at the end of the list

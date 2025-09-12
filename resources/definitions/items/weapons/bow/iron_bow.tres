@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_oslr7")
 weapon_type = 4
-alignment = 1
+alignment = 0
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
 item_damage_type = 0

@@ -104,6 +104,7 @@ class_name UnlockManager
 	"iron_shield" : true,
 	"iron_sword" : true,
 	"javelin" : true,
+	"knife" : true,
 	"killer_axe" : true,
 	"killer_bow" : true,
 	"killer_dagger" : true,

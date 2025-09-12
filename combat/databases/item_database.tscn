@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=94 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -92,6 +92,7 @@
 [ext_resource type="Resource" uid="uid://c068ci3uwxvd7" path="res://resources/definitions/items/weapons/nature/holy_fire.tres" id="89_uiv3h"]
 [ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="90_n7mel"]
 [ext_resource type="Resource" uid="uid://bvhngcd2psio" path="res://resources/definitions/items/weapons/swords/zweihander.tres" id="91_khgvj"]
+[ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="92_gsk0d"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -141,6 +142,7 @@ items = {
 "killer_fist": ExtResource("79_uc6xq"),
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
+"knife": ExtResource("92_gsk0d"),
 "kukri": ExtResource("50_d8m3e"),
 "life_tap": ExtResource("59_jqcuj"),
 "lumen": ExtResource("87_gcqt1"),

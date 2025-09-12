@@ -239,7 +239,7 @@ func swap_trade_items():
 		var item_2_index = inventory_2.get_item_index(trade_item_2)
 		
 		inventory_1.set_item_at_index(item_1_index, trade_item_2)
-		inventory_2.set_item_at_index(item_1_index, trade_item_1)
+		inventory_2.set_item_at_index(item_2_index, trade_item_1)
 	trade_item_1 = null
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()
@@ -257,13 +257,13 @@ func swap_convoy_to_unit_items():
 	current_trade_detailed_view.update_by_unit()
 
 func sell_item(item:ItemDefinition,unit:Unit):
-	playerOverworldData.gold += item.worth
+	playerOverworldData.gold += item.worth/2
 	unit.discard_item(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	focused_detailed_view.update_by_unit()
 
 func sell_item_from_convoy(item:ItemDefinition):
-	playerOverworldData.gold += item.worth
+	playerOverworldData.gold += item.worth/2
 	playerOverworldData.convoy.erase(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	army_convoy_container.clear_scroll_scontainer()
