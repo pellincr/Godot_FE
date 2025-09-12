@@ -14,6 +14,8 @@ signal sell_item(item,unit)
 
 @onready var combat_stat_container = $MarginContainer/VBoxContainer/CombatStatContainer
 @onready var unit_inventory_container = $MarginContainer/VBoxContainer/UnitInventoryContainer
+@onready var constitution_value_label: Label = $MarginContainer/VBoxContainer/CombatStatContainer/ConstitutionContainer/ConstitutionValueLabel
+
 
 
 var unit : Unit
@@ -41,9 +43,13 @@ func set_hp_bar(hp):
 	hp_bar.value = hp
 	hp_bar.max_value = unit.stats.hp
 
+func set_constitution(con):
+	constitution_value_label.text = str(con)
+
 func update_by_unit():
 	set_unit_name_label(unit.name)
 	set_unit_icon(unit.icon)
+	set_constitution(unit.stats.constitution)
 	set_hp_value(unit.hp)
 	set_hp_bar(unit.hp)
 	unit_experience_info.unit = unit
@@ -55,6 +61,7 @@ func update_by_unit():
 	unit_inventory_container.unit = unit
 	unit_inventory_container.update_by_unit()
 	reset_inventory_selection_theme()
+
 	#unit_inventory_container.set_trade_item.connect(_on_set_trade_item)
 
 func _on_set_trade_item(item):
