@@ -72,20 +72,23 @@ func update_values():
 func set_allegience(team : int):
 	self.allegience = team
 	if allegience == 0:
-		$UnitSprite.material.set_shader_parameter("modulate_color",BLUE)
+		$UnitSprite.material.set_shader_parameter("line_color", Color.NAVY_BLUE)
+		#$UnitSprite.material.set_shader_parameter("modulate_color",BLUE)
 	elif allegience == 1:
-		$UnitSprite.material.set_shader_parameter("modulate_color", RED)
+		$UnitSprite.material.set_shader_parameter("line_color", Color.DARK_RED)
+		#$UnitSprite.material.set_shader_parameter("modulate_color", RED)
 	else :
-		$UnitSprite.material.set_shader_parameter("modulate_color",Color.WHITE)
+		$UnitSprite.material.set_shader_parameter("line_color", Color.WHITE)
+		#$UnitSprite.material.set_shader_parameter("modulate_color",Color.WHITE)
 
 func set_color_factor(turn_taken: bool):
 	self.turn_taken = turn_taken
 	if turn_taken:
 		$UnitSprite.material.set_shader_parameter("color_factor", 1)
-		$UnitSprite.material.set_shader_parameter("line_color", Color.BLACK)
+		#$UnitSprite.material.set_shader_parameter("line_color", Color.BLACK)
 	else :
 		$UnitSprite.material.set_shader_parameter("color_factor", 0)
-		$UnitSprite.material.set_shader_parameter("line_color", Color.WHITE)
+		#$UnitSprite.material.set_shader_parameter("line_color", Color.WHITE)
 
 func set_is_boss(state: bool):
 	self.is_boss = state

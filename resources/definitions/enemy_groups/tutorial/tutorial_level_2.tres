@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=14 format=3 uid="uid://b2gi8r4ckdqxw"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=12 format=3 uid="uid://b2gi8r4ckdqxw"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_yl3be"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_35xx0"]
@@ -6,7 +6,6 @@
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_6gkmg"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_tc8lp"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_m4gdi"]
-[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_32a85"]
 
 [sub_resource type="Resource" id="Resource_uinjt"]
 script = ExtResource("1_yl3be")
@@ -20,22 +19,10 @@ inventory = Array[ExtResource("2_35xx0")]([ExtResource("3_hi250")])
 ai_type = 0
 is_boss = false
 
-[sub_resource type="Resource" id="Resource_atl36"]
-script = ExtResource("1_yl3be")
-name = "Bandit"
-map_position = Vector2i(9, 8)
-level = 2
-level_bonus = 0
-hard_mode_leveling = false
-unit_type_key = "pikeman"
-inventory = Array[ExtResource("2_35xx0")]([ExtResource("4_6gkmg")])
-ai_type = 0
-is_boss = false
-
 [sub_resource type="Resource" id="Resource_iq1ji"]
 script = ExtResource("1_yl3be")
 name = "Bandit"
-map_position = Vector2i(13, 6)
+map_position = Vector2i(13, 5)
 level = 2
 level_bonus = 0
 hard_mode_leveling = false
@@ -68,18 +55,18 @@ inventory = Array[ExtResource("2_35xx0")]([ExtResource("5_m4gdi")])
 ai_type = 2
 is_boss = true
 
-[sub_resource type="Resource" id="Resource_5k21i"]
+[sub_resource type="Resource" id="Resource_gkead"]
 script = ExtResource("1_yl3be")
 name = "Bandit"
-map_position = Vector2i(1, 0)
+map_position = Vector2i(6, 2)
 level = 2
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "vandal"
-inventory = Array[ExtResource("2_35xx0")]([ExtResource("6_32a85")])
-ai_type = 0
+unit_type_key = "corsair"
+inventory = Array[ExtResource("2_35xx0")]([ExtResource("5_m4gdi")])
+ai_type = 1
 is_boss = false
 
 [resource]
 script = ExtResource("4_tc8lp")
-group = Array[ExtResource("1_yl3be")]([SubResource("Resource_uinjt"), SubResource("Resource_atl36"), SubResource("Resource_iq1ji"), SubResource("Resource_o80dc"), SubResource("Resource_dhpdn"), SubResource("Resource_5k21i")])
+group = Array[ExtResource("1_yl3be")]([SubResource("Resource_uinjt"), SubResource("Resource_iq1ji"), SubResource("Resource_o80dc"), SubResource("Resource_dhpdn"), SubResource("Resource_gkead")])

@@ -4,6 +4,7 @@ signal item_equipped(item)
 signal item_used(item)
 signal set_trade_item(item)
 signal sell_item(item)
+signal item_focused(item)
 
 @onready var inventory_slot_1 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot
 @onready var inventory_slot_2 = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2
@@ -76,6 +77,9 @@ func _on_item_equipped(item):
 	update_by_unit()
 	item_equipped.emit(item)
 
+func _on_item_focused(item):
+	item_focused.emit(item)
+
 func _on_item_set_for_trade(item):
 	set_trade_item.emit(item)
 
@@ -88,12 +92,9 @@ func _on_inventory_container_slot_use_item(item):
 		item_use_option.item = item
 		item_use_option.unit = unit
 
-
 func _on_item_confirmed(item):
 	update_by_unit()
 	item_used.emit(item)
-
-
 
 func _on_inventory_container_slot_sell_item(item):
 	sell_item.emit(item)

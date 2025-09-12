@@ -1,6 +1,17 @@
 extends ItemDefinition
 class_name WeaponDefinition
 
+enum WEAPON_SPECIALS
+{
+	WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE,
+	CRITICAL_DISABLED,
+	VAMPYRIC,
+	NEGATES_FOE_DEFENSE,
+	NEGATES_FOE_DEFENSE_ON_CRITICAL,
+	HEAL_10_PERCENT_ON_TURN_BEGIN,
+	CANNOT_RETALIATE
+}
+
 @export_subgroup("Weapon Type")
 @export var weapon_type : itemConstants.WEAPON_TYPE
 @export var alignment : itemConstants.ALIGNMENT
@@ -25,8 +36,7 @@ class_name WeaponDefinition
 @export_group("Bonus Stats")
 @export var bonus_stat : UnitStat = UnitStat.new()
 
-@export_group("Weapon Effectiveness")
+@export_group("Weapon Specials") 
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
-@export_group("Weapon Specials") 
-@export var specials : Array[ItemConstants.WEAPON_SPECIALS] = []
+@export var specials : Array[WEAPON_SPECIALS] = []

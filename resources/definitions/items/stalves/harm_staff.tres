@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://g62ghjpsmorp"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://g62ghjpsmorp"]
 
-[ext_resource type="Texture2D" uid="uid://bo8stxiw4n7vi" path="res://resources/sprites/items/weapons/staff/wand1.png" id="1_165ok"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a5lhf"]
+[ext_resource type="Texture2D" uid="uid://77dr3ea06peh" path="res://resources/sprites/items/weapons/staff/harm_staff.png" id="1_2xy4b"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_7rih0"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a5lhf"]
 
 [resource]
 script = ExtResource("2_a5lhf")
@@ -10,7 +11,7 @@ alignment = 0
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
 item_damage_type = 1
-item_scaling_type = 1
+item_scaling_type = 2
 item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 0
@@ -18,18 +19,20 @@ attack_range = Array[int]([1])
 damage = 15
 hit = 100
 critical_chance = 0
-weight = 5
+weight = 15
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
-specials = Array[int]([])
+specials = Array[int]([6])
 name = "Harm"
 db_key = "harm"
 equippable = true
-description = ""
+description = "A staff used for offense. Cannot retailate."
 item_type = 1
-uses = 3
-max_uses = 3
-worth = 100
-icon = ExtResource("1_165ok")
+rarity = ExtResource("2_7rih0")
+uses = 8
+max_uses = 8
+unbreakable = false
+worth = 1800
+icon = ExtResource("1_2xy4b")

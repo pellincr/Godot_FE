@@ -10,6 +10,7 @@ extends Control
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
 func _ready():
 	transition_in_animation()
@@ -42,7 +43,31 @@ func set_button_icon(button:Button, texture:Texture2D):
 	button.icon = texture
 
 func randomize_item_selection() -> ItemDefinition:
-	var r_key = ItemDatabase.items.keys().pick_random()
+	var valid_treasure_items = []
+	for item_key in ItemDatabase.items.keys():
+		if item_key not in treasure_blacklist:
+			var roll = randi_range(0, 100)
+			if roll < 3:
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
+					valid_treasure_items.append(item_key)
+			elif roll < 10:
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["mythical"]:
+					valid_treasure_items.append(item_key)
+			elif roll < 25:
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+					valid_treasure_items.append(item_key)
+			elif roll < 40:
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+					valid_treasure_items.append(item_key)
+			elif roll < 65:
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["uncommon"]:
+					valid_treasure_items.append(item_key)
+			else :
+				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["common"]:
+					valid_treasure_items.append(item_key)
+			valid_treasure_items.append(item_key)
+	var r_key = valid_treasure_items.pick_random()
+	
 	return ItemDatabase.items[r_key]
 
 func set_all_buttons():

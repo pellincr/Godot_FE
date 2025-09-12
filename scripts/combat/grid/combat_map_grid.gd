@@ -148,9 +148,9 @@ func is_position_occupied(position:Vector2i) -> bool:
 	return false
 
 func is_position_occupied_by_friendly_faction(position:Vector2i, faction:int) -> bool:
-	if get_combat_unit(position):
-		var combat_unit = get_combat_unit(position)
-		if combat_unit.allegience == faction:
+	var target_tile_combat_unit = get_combat_unit(position)
+	if target_tile_combat_unit != null:
+		if target_tile_combat_unit.allegience == faction:
 			return true
 	return false
 
@@ -257,10 +257,10 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 										pass
 									else: 
 										visited[target_tile] = remaining_range
-										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited,allegience)
 								else: 
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 					else : 
 						remaining_range = range - DEFAULT_TILE_COST 
 						if (remaining_range >= 0) :
@@ -287,7 +287,7 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 			var target_tile = terrain_tile_map.get_neighbor_cell(origin, neighbors)
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
-					#should we even be considering this tile?
+					#should we even be considering this tile, does this matter wont it be blocked from the astar?
 					if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile,movement_type)
 						remaining_range = range - target_tile_cost 
@@ -300,10 +300,10 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 									pass
 								else: 
 									visited[target_tile] = remaining_range
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 							else: 
 								visited.get_or_add(target_tile, remaining_range)
-								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 					else :
 						pass
 				else : 
@@ -344,10 +344,10 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 								else: 
 									visited.erase(target_tile)
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 							else: 
 								visited.get_or_add(target_tile, remaining_range)
-								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 				else : 
 					remaining_range = range - DEFAULT_TILE_COST 
 					if (remaining_range >= 0) :
@@ -377,12 +377,14 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 										# this is a dead end.. We have already reached this tile with a superior range
 										pass
 									else: 
-										visited.erase(target_tile)
-										visited.get_or_add(target_tile, remaining_range)
-										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+										visited[target_tile] = remaining_range
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 								else: 
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
+						else : 
+							print("This tile was not considered due to unit positions : " + str(target_tile))
+							print("LOGIC : " + str(is_position_occupied_by_friendly_faction(target_tile, allegience)))
 					else : 
 						remaining_range = range - DEFAULT_TILE_COST 
 						if (remaining_range >= 0) :

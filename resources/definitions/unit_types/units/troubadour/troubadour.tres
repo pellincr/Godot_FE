@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://7wuqrdibbe8w" path="res://resources/sprites/units/troubadour.png" id="3_calfy"]
 [ext_resource type="Resource" uid="uid://cefjnyqn5131f" path="res://resources/definitions/unit_types/units/troubadour/troubadour_max_stats.tres" id="4_68l5h"]
 [ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_6jeud"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="6_2i4cw"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_orimm"]
 
 [resource]
 script = ExtResource("5_6jeud")
@@ -15,7 +15,7 @@ description = ""
 initiative = 1
 faction = Array[int]([2])
 traits = Array[int]([1])
-unit_rarity = ExtResource("6_2i4cw")
+unit_rarity = ExtResource("6_orimm")
 movement_type = 3
 tier = 2
 promoted = false

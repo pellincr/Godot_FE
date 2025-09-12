@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_lyq3u"]
 script = ExtResource("1_424da")
-position = Vector2i(16, 10)
+position = Vector2i(16, 11)
 orientation = 1
 
 [resource]

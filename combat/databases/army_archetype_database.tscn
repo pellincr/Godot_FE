@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b6on5oloy43oe"]
+[gd_scene load_steps=19 format=3 uid="uid://b6on5oloy43oe"]
 
 [ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
 [ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
@@ -16,6 +16,8 @@
 [ext_resource type="Resource" uid="uid://bt3tqqna18avc" path="res://resources/definitions/army_archetypes/magic_mania.tres" id="14_t1q8h"]
 [ext_resource type="Resource" uid="uid://5hher01jpylm" path="res://resources/definitions/army_archetypes/kingdom_come.tres" id="15_msipm"]
 [ext_resource type="Resource" uid="uid://ywdeyemhoyhp" path="res://resources/definitions/army_archetypes/lickety_split_lances.tres" id="16_wwqnn"]
+[ext_resource type="Resource" uid="uid://dxoqw1luiku0s" path="res://resources/definitions/army_archetypes/daring_daggers.tres" id="17_mqwel"]
+[ext_resource type="Resource" uid="uid://dr2gmnbxo5mfw" path="res://resources/definitions/army_archetypes/fearless_fists.tres" id="18_kgq8e"]
 
 [node name="ArmyArchetypeDatabase" type="Node"]
 script = ExtResource("1_2cpwe")
@@ -24,7 +26,9 @@ army_archetypes = {
 "bows": ExtResource("11_uxo86"),
 "classic": ExtResource("2_5nohr"),
 "coverage": ExtResource("13_ocwfd"),
+"daring_daggers": ExtResource("17_mqwel"),
 "dark_development": ExtResource("12_ch5pe"),
+"fearless_fist": ExtResource("18_kgq8e"),
 "healing_here": ExtResource("6_pc7my"),
 "kingdom_come": ExtResource("15_msipm"),
 "lickety_split_lances": ExtResource("16_wwqnn"),

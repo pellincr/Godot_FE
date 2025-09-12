@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bp0ajjfrcs2dv"]
 
 [ext_resource type="Theme" uid="uid://ssswv1j40iib" path="res://ui/battle_preparation/shop/big_and_bold.tres" id="1_iifyg"]
-[ext_resource type="Script" path="res://ui/battle_preparation/shop/tab_icon.gd" id="2_b7g8l"]
+[ext_resource type="Script" uid="uid://c0x1yn0emsh0i" path="res://ui/battle_preparation/shop/tab_icon.gd" id="2_b7g8l"]
 [ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="2_fwc4r"]
 
 [node name="TabIcon" type="PanelContainer"]

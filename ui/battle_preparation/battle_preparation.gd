@@ -98,7 +98,6 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
-
 func tutorial_completed():
 	army_convoy_container.fill_army_scroll_container()
 
@@ -193,13 +192,14 @@ func open_detailed_selection_view():
 		item_detailed_info.update_by_item()
 
 func _on_item_bought(item:ItemDefinition):
-	if playerOverworldData.gold >= item.price:
+	if playerOverworldData.gold >= item.worth:
 		if focused_selection is Unit:
 			if !focused_selection.inventory.is_full():
 				#if the unit has inventory room
-				focused_selection.inventory.give_item(item)
+				var purchased_item = item.duplicate()
+				focused_selection.inventory.give_item(purchased_item)
 				focused_detailed_view.update_by_unit()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 				
 			#elif focused_selection is ItemDefinition:
 		else:
@@ -208,7 +208,7 @@ func _on_item_bought(item:ItemDefinition):
 				playerOverworldData.append_to_array(playerOverworldData.convoy, item)
 				army_convoy_container.clear_scroll_scontainer()
 				army_convoy_container.fill_convoy_scroll_container()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 	gold_counter.set_gold_count(playerOverworldData.gold)
 
 func set_trade_detailed(detailed_view):
@@ -230,14 +230,16 @@ func set_trade_item(item,unit):
 			current_trade_item = 1
 
 func swap_trade_items():
-	var inventory_1 = trade_unit_1.inventory
-	var inventory_2 = trade_unit_2.inventory
-	var item_1_index = inventory_1.items.find(trade_item_1)
-	var item_2_index = inventory_2.items.find(trade_item_2)
-	inventory_1.discard_item(trade_item_1)
-	inventory_1.give_item(trade_item_2)
-	inventory_2.discard_item(trade_item_2)
-	inventory_2.give_item(trade_item_1)
+	# set the inventories
+	if trade_unit_1 != trade_unit_2:
+		var inventory_1 = trade_unit_1.inventory
+		var inventory_2 = trade_unit_2.inventory
+		# get the indexes
+		var item_1_index = inventory_1.get_item_index(trade_item_1)
+		var item_2_index = inventory_2.get_item_index(trade_item_2)
+		
+		inventory_1.set_item_at_index(item_1_index, trade_item_2)
+		inventory_2.set_item_at_index(item_2_index, trade_item_1)
 	trade_item_1 = null
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()
@@ -255,13 +257,13 @@ func swap_convoy_to_unit_items():
 	current_trade_detailed_view.update_by_unit()
 
 func sell_item(item:ItemDefinition,unit:Unit):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth/2
 	unit.discard_item(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	focused_detailed_view.update_by_unit()
 
 func sell_item_from_convoy(item:ItemDefinition):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth/2
 	playerOverworldData.convoy.erase(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	army_convoy_container.clear_scroll_scontainer()

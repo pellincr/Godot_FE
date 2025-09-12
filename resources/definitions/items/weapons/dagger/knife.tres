@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cs8wva34dhd8m"]
+
+[ext_resource type="Texture2D" uid="uid://djl8qosvkyanw" path="res://resources/sprites/items/weapons/dagger/knife.png" id="1_m78wi"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_38fr4"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_0cl4e"]
+
+[resource]
+script = ExtResource("3_0cl4e")
+weapon_type = 13
+alignment = 4
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 5
+hit = 65
+critical_chance = 10
+weight = 4
+critical_multiplier = 4.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Knife"
+db_key = "knife"
+equippable = true
+description = ""
+item_type = 0
+rarity = ExtResource("2_38fr4")
+uses = 25
+max_uses = 25
+worth = 550
+icon = ExtResource("1_m78wi")

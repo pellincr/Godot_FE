@@ -13,6 +13,8 @@ var current_state = Constants.DRAFT_STATE.COMMANDER
 
 @onready var main_container = $MainContainer
 
+func _init(state : Constants.DRAFT_STATE = Constants.DRAFT_STATE.COMMANDER) -> void:
+	self.current_state = state
 
 func _ready():
 	if playerOverworldData == null:

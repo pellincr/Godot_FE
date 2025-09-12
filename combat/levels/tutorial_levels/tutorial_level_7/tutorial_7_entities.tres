@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=14 format=3 uid="uid://dmyam3trofa82"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=15 format=3 uid="uid://dmyam3trofa82"]
 
 [ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_abcju"]
 [ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_rdhhm"]
@@ -28,6 +28,11 @@ script = ExtResource("1_abcju")
 position = Vector2i(3, 11)
 orientation = 0
 
+[sub_resource type="Resource" id="Resource_qb4ob"]
+script = ExtResource("1_abcju")
+position = Vector2i(3, 5)
+orientation = 0
+
 [sub_resource type="Resource" id="Resource_3j66j"]
 script = ExtResource("2_rdhhm")
 position = Vector2i(3, 9)
@@ -35,7 +40,7 @@ contents = Array[ExtResource("3_s1ubh")]([ExtResource("4_362v0")])
 
 [sub_resource type="Resource" id="Resource_4npq6"]
 script = ExtResource("5_y6jvv")
-positions = Array[Vector2i]([Vector2i(3, 5)])
+positions = Array[Vector2i]([])
 orientation = 0
 
 [resource]
@@ -49,7 +54,7 @@ doors = Array[ExtResource("5_y6jvv")]([SubResource("Resource_4npq6")])
 default_door_hp = 50
 default_door_defense = 20
 default_door_resistance = 20
-breakable_terrains = Array[ExtResource("1_abcju")]([SubResource("Resource_gm82p"), SubResource("Resource_hbiic"), SubResource("Resource_a22vi"), SubResource("Resource_w4jk0")])
+breakable_terrains = Array[ExtResource("1_abcju")]([SubResource("Resource_gm82p"), SubResource("Resource_hbiic"), SubResource("Resource_a22vi"), SubResource("Resource_w4jk0"), SubResource("Resource_qb4ob")])
 default_breakable_terrain_hp = 25
 default_breakable_terrain_defense = 0
 default_breakable_terrain_resistance = 0

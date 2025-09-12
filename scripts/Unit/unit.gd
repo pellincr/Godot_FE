@@ -60,7 +60,7 @@ class_name Unit
 # @param _inventory : reference inventory to assign
 # @retuns Unit : created unit
 ##
-static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition]) -> Unit:
+static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition], simulated_levels: int = 0) -> Unit:
 	#Create the unit
 	var new_unit = Unit.new()
 	#pull base data
@@ -80,6 +80,9 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	create_inventory(new_unit, _inventory)
 	update_visuals(new_unit)
 	new_unit.update_stats()
+	for levelup in simulated_levels:
+		var level_up_stats : UnitStat = new_unit.get_level_up_value()
+		new_unit.apply_level_up_value(level_up_stats)
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
 
@@ -268,10 +271,10 @@ func calculate_hit(weapon: WeaponDefinition = null) -> int:
 func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 	var critcal_value : int = 0
 	if weapon:
-		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 100)
+		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 500)
 	else :
 		if inventory.get_equipped_weapon():
-			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 100) 
+			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 500) 
 	return critcal_value
 
 func calculate_critical_avoid():
@@ -314,7 +317,7 @@ func calculate_experience_gain_hit(hit_unit:Unit) -> int:
 	var self_unit_type = UnitTypeDatabase.get_definition(self.unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 20
-	experience_gain = clamp(((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / get_unit_type_definition().tier, 0, 100)
+	experience_gain = clamp((((hit_unit.level + target_unit_value) - (level + my_unit_value)*1.25) + 31)  / get_unit_type_definition().tier, 0, 100)
 	print ("calculate_experience_gain_hit = " + str(experience_gain))
 	return experience_gain
 
@@ -332,7 +335,8 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	var self_unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 60
-	experience_gain = clamp(experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
+	experience_gain = clampi(experience_gain + (((killed_unit.level + target_unit_value) - (level + my_unit_value)*1.25)+ killed_unit.xp_worth + 20), 0, 100)
+		#(killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
 	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
 

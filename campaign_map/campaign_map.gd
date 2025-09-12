@@ -7,6 +7,7 @@ const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
 const EVENT_SELECT = preload("res://campaign_map/events/event_selection.tscn")
 const TREASURE_SCENE = preload("res://campaign_map/treasure/treasure.tscn")
+const RECRUITMENT_SCENE = preload("res://campaign_map/recruitment/recruitment.tscn")
 const PLACEHOLDER = preload("res://campaign_map/placeholder/place_holder_scene.tscn")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -29,7 +30,8 @@ var camera_edge_y : float
 func _ready() -> void:
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
+	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		generate_new_map()
@@ -72,7 +74,7 @@ func _input(event:InputEvent) ->void:
 		camera_2d.position.y -= SCROLL_SPEED
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
-	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
+	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
 
 func tutorial_completed():
 #	camera_2d.zoom = Vector2(3,3)
@@ -171,6 +173,10 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
+		CampaignRoom.TYPE.RECRUITMENT:
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(RECRUITMENT_SCENE)
 		CampaignRoom.TYPE.ELITE:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()

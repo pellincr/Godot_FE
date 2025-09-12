@@ -40,6 +40,7 @@ const unit_overview_scene = preload("res://unit drafting/Unit_Commander Draft/un
 const stat_view_scene = preload("res://unit drafting/Unit_Commander Draft/stat_view.tscn")
 const growths_view_scene = preload("res://unit drafting/Unit_Commander Draft/growths_view.tscn")
 const weapon_draft_scene = preload("res://unit drafting/Weapon Draft/weapon_draft_selector.tscn")
+const RANDOM_UNIT_SELECTION = preload("res://campaign_map/recruitment/random_unit_selection.tres")
 
 var playerOverworldData : PlayerOverworldData
 
@@ -48,7 +49,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection()
+	randomize_selection(playerOverworldData.combat_maps_completed +  1)
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -72,14 +73,13 @@ func set_po_data(po_data):
 
 func set_name_label(name):
 	name_label.text = name
-	var rarity
-	if unit is Unit:
-		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
-	elif unit is ItemDefinition:
-		rarity = unit.rarity
-		
-	if rarity:
-		name_label.self_modulate = rarity.ui_color
+	#var rarity
+	#if unit is Unit:
+		#rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
+	#elif unit is ItemDefinition:
+		#rarity = unit.rarity
+	#if rarity:
+		#name_label.self_modulate = rarity.ui_color
 
 func set_rarity_shadow_hue(rarity):
 	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
@@ -90,6 +90,13 @@ func set_rarity_shadow_hue(rarity):
 
 func set_class_label(class_text):
 	class_label.text = class_text
+	var rarity
+	if unit is Unit:
+		rarity = UnitTypeDatabase.get_definition(unit.unit_type_key).unit_rarity
+	elif unit is ItemDefinition:
+		rarity = unit.rarity
+	if rarity:
+		class_label.self_modulate = rarity.ui_color
 
 func set_icon(img):
 	icon.texture = img
@@ -228,12 +235,16 @@ func instantiate_unit_draft_selector():
 	#create the unit to be drafted (will be different between commanders and units)
 	
 
-func randomize_selection():
+func randomize_selection(unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
-		var current_archetype_pick = playerOverworldData.archetype_allotments[0]
+		var current_archetype_pick
+		if playerOverworldData.archetype_allotments.is_empty():
+			current_archetype_pick = RANDOM_UNIT_SELECTION
+		else : 
+			current_archetype_pick = playerOverworldData.archetype_allotments[0]
 		if current_archetype_pick is armyArchetypePickWeaponDefinition:
 			#If the player is picking from a choice of weapons
 			new_randomized_pick = randomize_weapon(current_archetype_pick, rarity)
@@ -248,7 +259,7 @@ func randomize_selection():
 			unit_character.name = new_unit_name
 			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,unit_bonus_levels) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 			unit = new_recruit
 	else:
 		#For Commander Drafting
@@ -270,10 +281,6 @@ func randomize_selection():
 		
 		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
-		
-
-
-
 
 func get_random_rarity():
 	var total_weight : int
@@ -289,20 +296,19 @@ func get_random_rarity():
 			return rarity
 	return "common"
 
-
 func randomize_unit_stats(unit_character, unit_type_key):
 	var stats = UnitStat.new()
 	var deviation = 1.75
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 10) 
-	var strength_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.strength, 4) 
-	var magic_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.magic, 4) 
-	var skill_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.skill, 4) 
-	var speed_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.speed, 4) 
-	var luck_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.luck, 4) 
-	var defense_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.defense, 4) 
-	var resistance_rand = clampi(randfn( 0.2, deviation), - unit_type.base_stats.resistance, 4) 
+	var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 12) 
+	var strength_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.strength, 5) 
+	var magic_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.magic, 5) 
+	var skill_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.skill, 5) 
+	var speed_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.speed, 5) 
+	var luck_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.luck, 5) 
+	var defense_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.defense, 5) 
+	var resistance_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.resistance, 5) 
 	stats.hp = health_rand
 	stats.strength = strength_rand
 	stats.magic = magic_rand
@@ -317,14 +323,14 @@ func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn(1.5, 10), - unit_type.growth_stats.hp, 40) 
-	var strength_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.strength, 20) 
-	var magic_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.magic, 20) 
-	var skill_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.skill, 20) 
-	var speed_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.speed, 20) 
-	var luck_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.luck, 20) 
-	var defense_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.defense, 20) 
-	var resistance_rand = clampi(randfn( 1.5, 10), - unit_type.growth_stats.resistance, 20) 
+	var health_rand = clampi(randfn(1.75, 10), - unit_type.growth_stats.hp, 50) 
+	var strength_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.strength, 25) 
+	var magic_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.magic, 25) 
+	var skill_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.skill, 25) 
+	var speed_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.speed, 25) 
+	var luck_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.luck, 25) 
+	var defense_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.defense, 25) 
+	var resistance_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.resistance, 25) 
 	growths.hp = health_rand
 	growths.strength = strength_rand
 	growths.magic = magic_rand
@@ -335,8 +341,6 @@ func randomize_unit_growths(unit_character, unit_type_key):
 	growths.resistance = resistance_rand
 	unit_character.growths = growths
 
-
-
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
 	var inventory: Array[ItemDefinition]
 	var unit_type: UnitTypeDefinition = UnitTypeDatabase.get_definition(unit_class)
@@ -344,6 +348,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	#Commander Specific Weapon Equip
 	if unit_type is CommanderDefinition:
 		inventory.append(unit_type.signature_weapon)
+		inventory.append(ItemDatabase.items["potion"])
 	
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
@@ -354,11 +359,11 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.BOW):
 		inventory.append(ItemDatabase.items["iron_bow"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
-		inventory.append(ItemDatabase.items["brass_knuckles"])
+		inventory.append(ItemDatabase.items["iron_fist"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
 		inventory.append(ItemDatabase.items["heal_staff"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
-		inventory.append(ItemDatabase.items["evil_eye"])
+		inventory.append(ItemDatabase.items["shade"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):
 		inventory.append(ItemDatabase.items["smite"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
@@ -376,7 +381,6 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if inventory.size() > 4:
 		return inventory.slice(0,3)
 	return inventory
-
 
 
 func update_information():

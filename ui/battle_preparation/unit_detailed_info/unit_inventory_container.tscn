@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://lyxn6uge7asw"]
 
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_6faxh"]
-[ext_resource type="Script" uid="uid://bpf82t3jtm0k8" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.gd" id="2_gwuai"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.gd" id="2_gwuai"]
 [ext_resource type="PackedScene" uid="uid://om16g0kfxkyu" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.tscn" id="2_odfbt"]
 
 [sub_resource type="Theme" id="Theme_x4s2w"]
@@ -53,18 +53,22 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_focused"]
 [connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_set_for_trade"]
 [connection signal="sell_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_inventory_container_slot_sell_item"]
 [connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_equipped"]
 [connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_focused"]
 [connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_set_for_trade"]
 [connection signal="sell_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_inventory_container_slot_sell_item"]
 [connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_equipped"]
 [connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_focused"]
 [connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_set_for_trade"]
 [connection signal="sell_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_inventory_container_slot_sell_item"]
 [connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_equipped"]
 [connection signal="use_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_inventory_container_slot_use_item"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_focused"]
 [connection signal="item_selected_for_trade" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_set_for_trade"]
 [connection signal="sell_item" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_inventory_container_slot_sell_item"]
 [connection signal="set_equippped" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_equipped"]

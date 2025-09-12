@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://dwxnxxa0kw4y3"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dwxnxxa0kw4y3"]
 
-[ext_resource type="Texture2D" uid="uid://bo8stxiw4n7vi" path="res://resources/sprites/items/weapons/staff/wand1.png" id="1_8yngb"]
+[ext_resource type="Texture2D" uid="uid://du14vd0w32y7b" path="res://resources/sprites/items/weapons/staff/recover_staff.png" id="1_vsvjf"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_5p6gx"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mrvr5"]
 
 [resource]
@@ -15,10 +16,10 @@ item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([1])
 required_mastery = 0
 attack_range = Array[int]([1])
-damage = 5
+damage = 8
 hit = 100
 critical_chance = 0
-weight = 5
+weight = 8
 critical_multiplier = 3.0
 attacks_per_combat_turn = 2
 weapon_effectiveness = Array[int]([])
@@ -27,9 +28,10 @@ specials = Array[int]([])
 name = "Recover"
 db_key = "recover"
 equippable = true
-description = ""
+description = "Restores HP to allies in adjacent spaces twice."
 item_type = 1
+rarity = ExtResource("2_5p6gx")
 uses = 40
 max_uses = 40
-worth = 100
-icon = ExtResource("1_8yngb")
+worth = 1600
+icon = ExtResource("1_vsvjf")

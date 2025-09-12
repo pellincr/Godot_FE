@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://bc4h5cwsmimmu"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bc4h5cwsmimmu"]
 
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_1u8tj"]
 [ext_resource type="Texture2D" uid="uid://b0547xqiwcb8e" path="res://resources/sprites/items/weapons/shield/steel_shield.png" id="2_0npjr"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_4emrw"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_g60ob"]
 
 [sub_resource type="Resource" id="Resource_5g3cf"]
@@ -12,8 +13,8 @@ magic = 0
 skill = 0
 speed = 0
 luck = 0
-defense = 5
-resistance = 3
+defense = 4
+resistance = 1
 movement = 0
 constitution = 0
 
@@ -31,7 +32,7 @@ required_mastery = 0
 attack_range = Array[int]([1])
 damage = 5
 hit = 100
-critical_chance = 10
+critical_chance = 0
 weight = 16
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
@@ -44,7 +45,8 @@ db_key = "steel_shield"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("3_4emrw")
 uses = 20
 max_uses = 20
-worth = 100
+worth = 900
 icon = ExtResource("2_0npjr")

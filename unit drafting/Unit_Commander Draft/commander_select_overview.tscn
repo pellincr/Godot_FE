@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_655jn"]
 [ext_resource type="Texture2D" uid="uid://ddxdxi688dan" path="res://resources/sprites/items/weapons/bow/great_bow.png" id="1_bjlfw"]
 [ext_resource type="PackedScene" uid="uid://di7v11sroksay" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.tscn" id="2_66c71"]
-[ext_resource type="Script" uid="uid://bed6kqaqdev1k" path="res://unit drafting/Unit_Commander Draft/commander_select_overview.gd" id="2_oc3ny"]
+[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/commander_select_overview.gd" id="2_oc3ny"]
 
 [sub_resource type="Theme" id="Theme_3g5xo"]
 default_font_size = 18
@@ -20,8 +20,8 @@ default_font_size = 24
 [sub_resource type="Theme" id="Theme_a1qqt"]
 default_font_size = 25
 
-[sub_resource type="Theme" id="Theme_pcktg"]
-default_font_size = 18
+[sub_resource type="Theme" id="Theme_rgtxi"]
+default_font_size = 12
 
 [node name="CommanderSelectOverview" type="Control"]
 layout_mode = 3
@@ -93,15 +93,40 @@ text = "Weapon Name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WeaponContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 56
 
-[node name="WeaponAbility" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer"]
-self_modulate = Color(1, 0.568627, 0.568627, 1)
+[node name="SpecialAndBonusValueContainer" type="VBoxContainer" parent="VBoxContainer/WeaponContainer/HBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_pcktg")
-text = "Weapon Ability"
+
+[node name="SpecialValueLabel1" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rgtxi")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel2" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rgtxi")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel3" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rgtxi")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel4" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rgtxi")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel5" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_rgtxi")
+text = "Special or Bonus 1"
 
 [node name="WeaponImage" type="TextureRect" parent="VBoxContainer/WeaponContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 texture = ExtResource("1_bjlfw")

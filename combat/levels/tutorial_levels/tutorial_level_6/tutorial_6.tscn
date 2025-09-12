@@ -81,16 +81,17 @@ scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("4_nvohi")
+victory_condition = 1
 turns_to_survive = 8
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
-mapReinforcementData = ExtResource("5_hgrh0")
 entity_manager = NodePath("CombatMapEntityManager")
-ally_spawn_top_left = Vector2(5, 6)
-ally_spawn_bottom_right = Vector2(9, 8)
+mapReinforcementData = ExtResource("5_hgrh0")
+ally_spawn_top_left = Vector2(1, 7)
+ally_spawn_bottom_right = Vector2(3, 11)
 enemy_start_group = ExtResource("9_d3j33")
 max_allowed_ally_units = 8
 is_key_campaign_level = true

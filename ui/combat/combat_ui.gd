@@ -31,7 +31,7 @@ const COMBAT_UNIT_INVENTORY = preload("res://ui/combat/unit_inventory/combat_uni
 const COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS = preload("res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.tscn")
 
 #Trade Action
-const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
+#const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
 

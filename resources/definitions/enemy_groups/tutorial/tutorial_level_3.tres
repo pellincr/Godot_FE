@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_2vw2u"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_aia3m"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_b8su4"]
-[ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="5_eu0e1"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="5_7l3wt"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="6_idfh4"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_ivdtm"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_yekb7"]
@@ -42,7 +42,7 @@ level = 2
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "brawler"
-inventory = Array[ExtResource("2_2vw2u")]([ExtResource("5_eu0e1")])
+inventory = Array[ExtResource("2_2vw2u")]([ExtResource("5_7l3wt")])
 ai_type = 1
 is_boss = false
 
@@ -77,7 +77,7 @@ map_position = Vector2i(11, 1)
 level = 4
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "axe_armor"
+unit_type_key = "marauder"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("7_4opyl")])
 ai_type = 2
 is_boss = true

@@ -6,20 +6,24 @@ const X_DIST := 30 #x distance between rooms
 const Y_DIST : = 25#y distance between rooms
 const PLACEMENT_RANDOMNESS := 5 #randomly move the rooms a bit to give a bt extra feel
 var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
+var NUMBER_OF_REQUIRED_COMBAT_MAPS : int = 0
 const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
-const BATTLE_ROOM_WEIGHT := 10.0
+const BATTLE_ROOM_WEIGHT := 0.0
 const EVENT_ROOM_WEIGHT := 2.5
 const TREASURE_ROOM_WEIGHT := 1.0
 const ELITE_ROOM_WEIGHT := 1.5
 const SHOP_ROOM_WEIGHT := 2.0
+const RECRUITMENT_ROOM_WEIGHT := 1.0
 
 var random_room_type_weights = {
 	CampaignRoom.TYPE.BATTLE : 0.0,
-	CampaignRoom.TYPE.EVENT : 0.0,
-	CampaignRoom.TYPE.TREASURE : 0.0,
+	CampaignRoom.TYPE.KEY_BATTLE : 0.0,
+	CampaignRoom.TYPE.EVENT : 6.0,
+	CampaignRoom.TYPE.TREASURE : 6.0,
 	CampaignRoom.TYPE.ELITE : 0.0,
-	CampaignRoom.TYPE.SHOP : 0.0
+	CampaignRoom.TYPE.SHOP : 0.0,
+	CampaignRoom.TYPE.RECRUITMENT : 6.0
 }
 
 var random_room_type_total_weight := 0
@@ -134,8 +138,9 @@ func _setup_random_room_weights() -> void:
 	random_room_type_weights[CampaignRoom.TYPE.EVENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
 	random_room_type_weights[CampaignRoom.TYPE.SHOP] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
 	random_room_type_weights[CampaignRoom.TYPE.ELITE] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT + RECRUITMENT_ROOM_WEIGHT
 	
-	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.ELITE]
+	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT]
 
 func _setup_room_types() -> void:
 	#first floor is always a battle
@@ -145,6 +150,11 @@ func _setup_room_types() -> void:
 	for room: CampaignRoom in map_data[FLOORS/2]:
 		if room.next_rooms.size() > 0:
 			room.type = CampaignRoom.TYPE.TREASURE
+	var key_combat_room_index = int(FLOORS / NUMBER_OF_REQUIRED_COMBAT_MAPS)
+	for required_combat_map_index in NUMBER_OF_REQUIRED_COMBAT_MAPS:
+		for room: CampaignRoom in map_data[key_combat_room_index * required_combat_map_index]:
+			if room.next_rooms.size() > 0:
+				room.type = CampaignRoom.TYPE.BATTLE
 	#OMITTING THE RULE THAT LAST FLOOR BEFORE BOSS IS CAMPFIRE
 	for current_floor in map_data:
 		for room : CampaignRoom in current_floor:

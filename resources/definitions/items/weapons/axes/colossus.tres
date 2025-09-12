@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://dptbskvp3q4wq"]
+
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_a7cgr"]
+[ext_resource type="Texture2D" uid="uid://dvhspor166tsq" path="res://resources/sprites/items/weapons/axes/colossus.png" id="2_cm38f"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_i6pjt"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_i1cx8"]
+
+[sub_resource type="Resource" id="Resource_0tmbu"]
+script = ExtResource("1_a7cgr")
+hp = 20
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 5
+resistance = 0
+movement = 0
+constitution = 5
+
+[resource]
+script = ExtResource("4_i1cx8")
+weapon_type = 2
+alignment = 0
+physical_weapon_triangle_type = 2
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 4
+attack_range = Array[int]([1])
+damage = 25
+hit = 70
+critical_chance = 20
+weight = 20
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+bonus_stat = SubResource("Resource_0tmbu")
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Colossus"
+db_key = "colossus"
+equippable = true
+description = "A weapon as vast as its name, it infuses the bearer with towering strength to match its bulk. +20 HP, +5 Def & Con"
+item_type = 0
+rarity = ExtResource("3_i6pjt")
+uses = 15
+max_uses = 15
+worth = 120000
+icon = ExtResource("2_cm38f")

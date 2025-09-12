@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://bulr5308i3tpv"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bulr5308i3tpv"]
 
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_8rg1s"]
 [ext_resource type="Texture2D" uid="uid://d2bynq7apdoay" path="res://resources/sprites/items/weapons/shield/buckler.png" id="1_ewuvi"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_522gm"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_tgg5h"]
 
 [sub_resource type="Resource" id="Resource_7reny"]
 script = ExtResource("1_8rg1s")
@@ -10,7 +11,7 @@ hp = 0
 strength = 0
 magic = 0
 skill = 0
-speed = 3
+speed = 2
 luck = 0
 defense = 1
 resistance = 1
@@ -31,10 +32,10 @@ required_mastery = 0
 attack_range = Array[int]([1])
 damage = 2
 hit = 100
-critical_chance = 50
+critical_chance = 25
 weight = 3
 critical_multiplier = 3.0
-attacks_per_combat_turn = 2
+attacks_per_combat_turn = 1
 bonus_stat = SubResource("Resource_7reny")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
@@ -44,7 +45,8 @@ db_key = "buckler"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("3_tgg5h")
 uses = 20
 max_uses = 20
-worth = 100
+worth = 1200
 icon = ExtResource("1_ewuvi")

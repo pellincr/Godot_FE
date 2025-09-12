@@ -12,6 +12,9 @@ extends Panel
 
 @onready var weapon_stat_container = $MarginContainer/VBoxContainer/WeaponStatContainer
 
+@onready var item_rarity_header = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemTypeHeader
+@onready var item_type_header = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemType
+
 
 @onready var item_icon = $ItemIcon
 @onready var price_label = $ItemIcon/PriceLabel
@@ -19,7 +22,12 @@ extends Panel
 var item : ItemDefinition
 
 
+func set_item_rarity_header(rarity : Rarity):
+	item_rarity_header.text = rarity.rarity_name
+	item_rarity_header.self_modulate = rarity.ui_color
 
+func set_item_type_header(item_type):
+	item_type_header.text = item_type
 
 func set_item_name(name):
 	item_name_label.text = name
@@ -37,7 +45,8 @@ func set_price_label(price):
 func update_by_item():
 	set_item_name(item.name)
 	set_item_icon(item.icon)
-	set_price_label(item.price)
+	set_price_label(item.worth)
+	set_item_rarity_header(item.rarity)
 	main_weapon_icon_container.set_header_visibility(false)
 	main_weapon_icon_container.item = item
 	main_weapon_icon_container.set_icon_visibility_item()

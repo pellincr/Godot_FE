@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b6bof28m5atar"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://b6bof28m5atar"]
 
 [ext_resource type="Texture2D" uid="uid://d0vvrij6lu4a5" path="res://resources/sprites/items/weapons/lance/javelin.png" id="1_icm1x"]
 [ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_irhin"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_srtbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_thphj"]
 atlas = ExtResource("1_icm1x")
@@ -33,7 +34,8 @@ db_key = "javelin"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_srtbm")
 uses = 20
 max_uses = 20
-worth = 100
+worth = 600
 icon = SubResource("AtlasTexture_thphj")

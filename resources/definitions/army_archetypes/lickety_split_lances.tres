@@ -41,6 +41,6 @@ volume = 1
 [resource]
 script = ExtResource("4_84qrd")
 name = "Lickety Split Lances"
-db_key = "lickey_split_lances"
+db_key = "lickety_split_lances"
 rarity = ExtResource("3_rwv0o")
 archetype_picks = Array[ExtResource("1_iayq4")]([SubResource("Resource_dlv6f"), SubResource("Resource_20mui"), SubResource("Resource_m8817")])

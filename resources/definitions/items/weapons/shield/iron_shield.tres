@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dm117ek0y3jdu"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://dm117ek0y3jdu"]
 
 [ext_resource type="Texture2D" uid="uid://cmxahoox1gg2l" path="res://resources/sprites/items/weapons/shield/iron_shield.png" id="1_1hoqn"]
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_akoaa"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_r7dtk"]
 
 [sub_resource type="Resource" id="Resource_qdqgw"]
 script = ExtResource("1_akoaa")
@@ -13,7 +14,7 @@ skill = 0
 speed = 0
 luck = 0
 defense = 3
-resistance = 2
+resistance = 0
 movement = 0
 constitution = 0
 
@@ -31,7 +32,7 @@ required_mastery = 0
 attack_range = Array[int]([1])
 damage = 3
 hit = 100
-critical_chance = 25
+critical_chance = 0
 weight = 8
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
@@ -42,9 +43,11 @@ specials = Array[int]([])
 name = "Iron Shield"
 db_key = "iron_shield"
 equippable = true
-description = ""
+description = "A standard Shield, unbreakable and high in quality."
 item_type = 0
-uses = 35
-max_uses = 35
-worth = 100
+rarity = ExtResource("3_r7dtk")
+uses = 1
+max_uses = 1
+unbreakable = true
+worth = 400
 icon = ExtResource("1_1hoqn")

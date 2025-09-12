@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cdcmk38330ekx"]
 
-[ext_resource type="Script" uid="uid://bv3xhamb3d7hd" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
-[ext_resource type="Script" uid="uid://dco5hubsxa62r" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
+[ext_resource type="Script" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
+[ext_resource type="Script" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
 [ext_resource type="PackedScene" uid="uid://dujcntmufuji2" path="res://campaign_map/campaign_map_controls.tscn" id="2_m0mgj"]
 
 [sub_resource type="Gradient" id="Gradient_j1yjd"]
@@ -18,12 +18,14 @@ script = ExtResource("1_1bvku")
 
 [node name="Lines" type="Node2D" parent="Visuals"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.509804)
 
 [node name="Rooms" type="Node2D" parent="Visuals"]
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(643, 360)
+zoom = Vector2(2, 2)
 
 [node name="CampaignMapControls" parent="Camera2D" instance=ExtResource("2_m0mgj")]
 offset_left = -638.0

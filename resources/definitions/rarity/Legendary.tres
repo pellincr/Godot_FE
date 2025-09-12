@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="Rarity" load_steps=2 format=3 uid="uid://cjb6i4xhstxv8"]
 
-[ext_resource type="Script" path="res://scripts/resources/rarity/RarityDefinition.gd" id="1_twcof"]
+[ext_resource type="Script" uid="uid://dhrpqkobtc1ng" path="res://scripts/resources/rarity/RarityDefinition.gd" id="1_twcof"]
 
 [resource]
 script = ExtResource("1_twcof")
 rarity_name = "Legendary"
-ui_color = Color(0.94902, 0.631373, 0, 1)
+ui_color = Color(1, 0.590298, 0.238363, 1)
 shadow_size = 30

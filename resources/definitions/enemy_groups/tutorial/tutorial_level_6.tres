@@ -6,9 +6,9 @@
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="4_na5mc"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="5_2j6rr"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="6_2rrga"]
-[ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="7_3a4ys"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="7_irine"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_m5qmb"]
-[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/anima/fire_spell.tres" id="9_r263a"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="9_r263a"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="10_6c0sh"]
 [ext_resource type="Resource" uid="uid://d3q4u334gvuu6" path="res://resources/definitions/items/weapons/bow/steel_bow.tres" id="11_dvt1y"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_s2rcr"]
@@ -57,7 +57,7 @@ level = 5
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "shaman"
-inventory = Array[ExtResource("2_wutmn")]([ExtResource("7_3a4ys")])
+inventory = Array[ExtResource("2_wutmn")]([ExtResource("7_irine")])
 ai_type = 1
 is_boss = false
 

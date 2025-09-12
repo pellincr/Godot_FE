@@ -45,14 +45,17 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		if check_hit(hit_chance):
 			if check_critical(critical_chance) :
 				#emit critical
-				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
+					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
+				else:
+					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
 				await do_damage(target,damage_dealt, true)
 			else : 
 				#emit generic damage
 				damage_dealt = calc_damage(attacker, target)
 				await do_damage(target,damage_dealt)
 			if attacker.unit.inventory.get_equipped_weapon():
-				if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.VAMPYRIC):
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
 					await heal_unit(attacker, damage_dealt)
 			attacker.unit.inventory.use_item(attacker.get_equipped())
 		else : ## Attack has missed
@@ -166,7 +169,7 @@ func calc_hit(attacker: CombatUnit, target: CombatUnit) -> int:
 func calc_crit(attacker: CombatUnit, target: CombatUnit) -> int:
 	return clamp(attacker.get_critical_chance() - target.get_critical_avoid(), 0, 100)
 
-func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
+func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : bool = false) -> int:
 	var max_damage
 	var damage
 	const wpn_triangle_damage_bonus = 2
@@ -188,7 +191,7 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	else :
 		max_damage = attacker.get_damage() + wpn_triangle_active_bonus
 	# check the damage type of the source
-	if attacker.get_equipped().specials.has(itemConstants.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
+	if defense_negated or attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
 		defense_mult = 0
 	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		damage = clampi(max_damage - (target.get_defense() * defense_mult),0, 999)
@@ -214,6 +217,17 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 			if attacker_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
 				return true
 	return false
+
+func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
+	var defender_weapon = defender.get_equipped()
+	if defender_weapon is WeaponDefinition:
+		if not defender_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE):
+		#if attacker_weapon.item_target_faction.has(defender.allegience):
+			if defender_weapon.attack_range.has(distance):
+				if defender_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+					return true
+	return false
+
 
 func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, distance:int) -> UnitCombatExchangeData:
 	#How many hits are performed?
@@ -246,7 +260,7 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	attacker_turns = turn_vector.x
 	defender_turns = turn_vector.y
 	
-	defender_can_attack = check_can_attack(defender, attacker, distance)
+	defender_can_attack = check_can_retaliate(attacker, defender, distance)
 	if defender_can_attack:
 		defender_hit_chance = calc_hit(defender, attacker)
 		defender_damage = calc_damage(defender, attacker)
@@ -430,7 +444,7 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 				_is_effective = true
 	var weapon_triangle_victor = check_weapon_triangle(attacker, target)
 	if (weapon_triangle_victor == attacker): 
-		if attacker.inventory.get_equipped_weapon().specials.has(ItemConstants.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
+		if attacker.inventory.get_equipped_weapon().specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
 			_is_effective = true
 	return _is_effective
 

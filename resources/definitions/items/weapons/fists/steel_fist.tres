@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://brutmp44rppty"]
+
+[ext_resource type="Texture2D" uid="uid://d3aixh2efvb6s" path="res://resources/sprites/items/weapons/fist/steel_guantlets.png" id="1_iprjp"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_qvls2"]
+[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_rmkil"]
+
+[resource]
+script = ExtResource("3_rmkil")
+weapon_type = 5
+alignment = 0
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 1
+attack_range = Array[int]([1])
+damage = 5
+hit = 85
+critical_chance = 5
+weight = 5
+critical_multiplier = 3.0
+attacks_per_combat_turn = 2
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Steel Fist"
+db_key = "steel_fist"
+equippable = true
+description = ""
+item_type = 0
+rarity = ExtResource("2_qvls2")
+uses = 40
+max_uses = 40
+worth = 800
+icon = ExtResource("1_iprjp")
