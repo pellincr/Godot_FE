@@ -25,8 +25,7 @@ class_name WeaponDefinition
 @export_group("Bonus Stats")
 @export var bonus_stat : UnitStat = UnitStat.new()
 
-@export_group("Weapon Effectiveness")
+@export_group("Weapon Specials") 
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
-@export_group("Weapon Specials") 
 @export var specials : Array[ItemConstants.WEAPON_SPECIALS] = []

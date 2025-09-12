@@ -271,10 +271,10 @@ func calculate_hit(weapon: WeaponDefinition = null) -> int:
 func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 	var critcal_value : int = 0
 	if weapon:
-		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 100)
+		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 500)
 	else :
 		if inventory.get_equipped_weapon():
-			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 100) 
+			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 500) 
 	return critcal_value
 
 func calculate_critical_avoid():

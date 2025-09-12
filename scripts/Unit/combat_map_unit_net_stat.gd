@@ -66,10 +66,10 @@ func populate_unit_stats(unit : Unit):
 
 	#other stats that require calculations
 	#stats.damage Awaits the weapon equip to see what stat to pull from
-	self.attack_speed.append(StatModifier.create(self.speed.evaluate(), "Unit"))
+	#self.attack_speed.append(StatModifier.create(self.speed.evaluate(), "Unit")) THIS IS REDUNDANT and should be calced in the combat unit
 	
-	self.hit.append(StatModifier.create(int(2 * self.skill.evaluate() +self.luck.evaluate()/2), "Unit"))
-	self.avoid.append(StatModifier.create(int(self.luck.evaluate() + 2 * self.speed.evaluate()), "Unit"))
+	#self.hit.append(StatModifier.create(int(2 * self.skill.evaluate() +self.luck.evaluate()/2), "Unit"))
+	#self.avoid.append(StatModifier.create(int(self.luck.evaluate() + 2 * self.speed.evaluate()), "Unit"))
 
 	self.critical_chance.append(StatModifier.create(int(self.skill.evaluate()/2), "Unit"))
 	self.critical_multiplier.append(StatModifier.create(0, "Unit"))

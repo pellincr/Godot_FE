@@ -93,6 +93,7 @@ text = "Weapon Name"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/WeaponContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 56
 
 [node name="WeaponAbility" type="Label" parent="VBoxContainer/WeaponContainer/HBoxContainer"]

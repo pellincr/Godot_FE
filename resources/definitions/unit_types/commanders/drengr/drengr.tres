@@ -1,23 +1,25 @@
-[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=7 format=3 uid="uid://d4kej3pq2am2g"]
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=8 format=3 uid="uid://d4kej3pq2am2g"]
 
 [ext_resource type="Resource" uid="uid://dpda6dqyp2t3y" path="res://resources/definitions/unit_types/commanders/drengr/drengr_base_stats.tres" id="1_ceec2"]
 [ext_resource type="Resource" uid="uid://bys0yl34usqmp" path="res://resources/definitions/unit_types/commanders/drengr/drengr_growths.tres" id="2_cxotm"]
 [ext_resource type="Texture2D" uid="uid://ki21icjkbuov" path="res://resources/definitions/unit_types/commanders/drengr/Drengr.png" id="3_32tj6"]
 [ext_resource type="Resource" uid="uid://ctmih7sttpn4c" path="res://resources/definitions/unit_types/commanders/drengr/drengr_max_stats.tres" id="4_xeand"]
 [ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_umpt2"]
-[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="7_un7b4"]
+[ext_resource type="Resource" uid="uid://cpajlj7mngeuj" path="res://resources/definitions/items/weapons/commander_special/dawnbreak.tres" id="6_cul14"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="7_xsimk"]
 
 [resource]
 script = ExtResource("5_umpt2")
 boon = ""
 bane = ""
+signature_weapon = ExtResource("6_cul14")
 unit_type_name = "Drengr"
 db_key = "drengr"
 description = ""
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
-unit_rarity = ExtResource("7_un7b4")
+unit_rarity = ExtResource("7_xsimk")
 movement_type = 0
 tier = 2
 promoted = false

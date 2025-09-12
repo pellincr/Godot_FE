@@ -20,6 +20,7 @@ enum ITEM_TYPE {
 @export_subgroup("Item Stats")
 @export_range(-1, 100, 1, "or_greater") var uses = 1
 @export_range(1, 2, 1, "or_greater") var max_uses = 1
+@export var unbreakable = false
 
 @export_range(0,1000,1, "or_greater") var worth = 100
 var price : int = calculate_price()
@@ -29,14 +30,16 @@ var price : int = calculate_price()
 
 
 func expend_use():
-	print(name + " was used!")
-	uses = uses - 1
-	print(str(uses) + " uses remain")
-	if uses <= 0:
-		print(name + " broke!")
+	if not unbreakable:
+		uses = uses - 1
+		if uses <= 0:
+			print(name + " broke!")
 
 func calculate_price():
-	return floor(worth * (uses / max_uses))
+	if unbreakable:
+		return worth
+	else: 
+		return floor(worth * (uses / max_uses))
 
 func refresh_uses():
 	uses = max_uses

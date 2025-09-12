@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cv32n6driqxku" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.png" id="3_xpflg"]
 [ext_resource type="Resource" uid="uid://b1w3v3373la65" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_max_stats.tres" id="4_5ffw4"]
 [ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_lu5y6"]
-[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="6_jqy83"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="6_r0im7"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="7_d6rc7"]
 
 [resource]
 script = ExtResource("5_lu5y6")
@@ -19,7 +19,7 @@ description = ""
 initiative = 1
 faction = Array[int]([0])
 traits = Array[int]([])
-unit_rarity = ExtResource("6_jqy83")
+unit_rarity = ExtResource("7_d6rc7")
 movement_type = 0
 tier = 2
 promoted = false

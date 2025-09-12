@@ -26,7 +26,7 @@ class_name UnlockManager
 @export var commander_types_unlocked : Dictionary = {
 	"centurion" : false,
 	"destroyer" : false,
-	"drengr" : false,
+	"drengr" : true,
 	"iron_viper" : true,
 	"mage_knight" : false,
 	"war_maiden" : false,
