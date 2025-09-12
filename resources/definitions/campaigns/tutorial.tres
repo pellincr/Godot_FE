@@ -14,4 +14,4 @@ level_pool = ExtResource("1_obxiq")
 difficulty = 4
 length = ""
 rewards = ""
-unit_unlock_rewards = Array[String](["mage_knight"])
+unit_unlock_rewards = Array[String](["drengr"])
