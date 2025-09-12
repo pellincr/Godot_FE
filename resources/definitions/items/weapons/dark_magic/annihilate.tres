@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://co5dhoh7q3q2s" path="res://resources/sprites/items/weapons/dark/ruin_tome.png" id="1_tiy2f"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_7nwx6"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_euaoq"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_euaoq"]
 
 [resource]
 script = ExtResource("3_euaoq")
@@ -24,7 +24,7 @@ critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
-specials = Array[int]([])
+specials = Array[int]([6])
 name = "Annihilate"
 db_key = "annihilate"
 equippable = true
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_7nwx6")
 uses = 12
 max_uses = 12
+unbreakable = false
 worth = 2400
 icon = ExtResource("1_tiy2f")
