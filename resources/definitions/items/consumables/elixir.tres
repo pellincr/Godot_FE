@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://j2uu2bvu8yli"]
+
+[ext_resource type="Texture2D" uid="uid://cdlfag250l6jk" path="res://resources/sprites/items/consumables/elixir.png" id="1_n7frl"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_30ffo"]
+[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_a2fum"]
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_46pf7"]
+
+[resource]
+script = ExtResource("3_a2fum")
+use_effect = 1
+power = 999
+status_effect = Array[ExtResource("4_46pf7")]([])
+name = "Elixir"
+db_key = "elixir"
+equippable = false
+description = "An expertly crafted brew, heals the user to full"
+item_type = 2
+rarity = ExtResource("2_30ffo")
+uses = 1
+max_uses = 1
+unbreakable = false
+worth = 1000
+icon = ExtResource("1_n7frl")

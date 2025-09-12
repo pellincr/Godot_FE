@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://5kqovc5gkudg" path="res://resources/sprites/items/weapons/fist/iron_guantlets.png" id="1_t6d3l"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_ranbe"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_xocnp"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_xocnp"]
 
 [resource]
 script = ExtResource("3_xocnp")
@@ -28,7 +28,7 @@ specials = Array[int]([])
 name = "Iron Fist"
 db_key = "iron_fist"
 equippable = true
-description = ""
+description = "A standard Fist, unbreakable."
 item_type = 0
 rarity = ExtResource("2_ranbe")
 uses = 1

@@ -74,20 +74,26 @@ func set_bonus_value(special_label :Label, weapon_bonus_stats:UnitStat):
 		special_label.text = ""
 
 
-func set_special_value(special_label, weapon_special: ItemConstants.WEAPON_SPECIALS):
+func set_special_value(special_label, weapon_special: WeaponDefinition.WEAPON_SPECIALS):
 	var str = ""
 	match weapon_special:
-		ItemConstants.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE:
+		WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE:
 			str = "Weapon Adv. Eff."
-		ItemConstants.WEAPON_SPECIALS.CRITICAL_DISABLED:
+		WeaponDefinition.WEAPON_SPECIALS.CRITICAL_DISABLED:
 			str = "Crits Disabled"
-		ItemConstants.WEAPON_SPECIALS.VAMPYRIC:
+		WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC:
 			str = "Vampyric"
-		ItemConstants.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE:
+		WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE:
 			str = "True Damage"
+		WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL:
+			str = "Critical True Damage"
+		WeaponDefinition.WEAPON_SPECIALS.HEAL_10_PERCENT_ON_TURN_BEGIN:
+			str = "10% Hp Regen"
+		WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE:
+			str = "Cannot retailate"
 	special_label.text = str
 
-func set_special_values(bonus_stats:UnitStat, specials:Array[ItemConstants.WEAPON_SPECIALS]):
+func set_special_values(bonus_stats:UnitStat, specials:Array[WeaponDefinition.WEAPON_SPECIALS]):
 	for special_index in special_value_labels.size():
 		if special_index < specials.size():
 			set_special_value(special_value_labels[special_index],specials[special_index])

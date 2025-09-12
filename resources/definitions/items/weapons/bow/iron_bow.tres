@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ur8a5sfpp10h" path="res://resources/sprites/items/weapons/bow/iron_bow.png" id="1_0k084"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_0e487"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_oslr7"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_oslr7"]
 
 [resource]
 script = ExtResource("2_oslr7")
@@ -28,7 +28,7 @@ specials = Array[int]([])
 name = "Iron Bow"
 db_key = "iron_bow"
 equippable = true
-description = "A common bow."
+description = "A standard Bow, unbreakable."
 item_type = 0
 rarity = ExtResource("2_0e487")
 uses = 1

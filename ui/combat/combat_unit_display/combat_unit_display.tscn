@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="4_l8kmn"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_uqo4k"]
 [ext_resource type="Script" uid="uid://b8ja4wxi56iq3" path="res://ui/healthbar.gd" id="6_13a20"]
-[ext_resource type="Texture2D" uid="uid://cyt3j7oedbf3h" path="res://resources/sprites/icons/crown_icon.png" id="6_tw1bj"]
+[ext_resource type="Texture2D" uid="uid://rdgquuhqygmo" path="res://resources/sprites/icons/boss_icon.png" id="7_uv63t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
 resource_local_to_scene = true
@@ -78,4 +78,4 @@ offset_left = 11.0
 offset_top = 5.0
 offset_right = 18.0
 offset_bottom = 13.0
-texture = ExtResource("6_tw1bj")
+texture = ExtResource("7_uv63t")

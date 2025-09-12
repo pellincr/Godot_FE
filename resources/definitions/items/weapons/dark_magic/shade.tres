@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://mxfak7j7pjno" path="res://resources/sprites/items/weapons/dark/shade_tome.png" id="1_ffxoa"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_cwmrc"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_nmn1r"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_nmn1r"]
 
 [resource]
 script = ExtResource("3_nmn1r")
@@ -28,7 +28,7 @@ specials = Array[int]([])
 name = "Shade"
 db_key = "shade"
 equippable = true
-description = ""
+description = "A standard dark tome, unbreakable."
 item_type = 0
 rarity = ExtResource("2_cwmrc")
 uses = 1

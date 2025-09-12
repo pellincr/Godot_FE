@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=29 format=3 uid="uid://epi5ykhkqvec"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=30 format=3 uid="uid://epi5ykhkqvec"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_dfvn4"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_3qlrb"]
 [ext_resource type="Resource" uid="uid://da02m5ekvhj2r" path="res://resources/definitions/items/weapons/axes/tomahawk.tres" id="3_h8i4d"]
+[ext_resource type="Resource" uid="uid://cpajlj7mngeuj" path="res://resources/definitions/items/weapons/commander_special/dawnbreak.tres" id="4_1gu7y"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="5_3ieet"]
 [ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="6_fb7ok"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="7_mmejh"]
@@ -23,7 +24,7 @@ level = 10
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "drengr"
-inventory = Array[ExtResource("2_3qlrb")]([ExtResource("3_h8i4d"), ExtResource("10_wj4ed")])
+inventory = Array[ExtResource("2_3qlrb")]([ExtResource("4_1gu7y"), ExtResource("3_h8i4d")])
 ai_type = 2
 is_boss = true
 

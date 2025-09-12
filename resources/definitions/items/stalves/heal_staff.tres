@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://5b1f8mg0j3te"]
 
 [ext_resource type="Texture2D" uid="uid://b48v0uyoqb775" path="res://resources/sprites/items/weapons/staff/heal_staff.png" id="1_3mthl"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_eo7vp"]
 
 [resource]
@@ -28,7 +28,7 @@ specials = Array[int]([])
 name = "Heal"
 db_key = "heal"
 equippable = true
-description = "Restores HP to allies in adjacent spaces. "
+description = "Restores HP to allies in adjacent spaces, unbreakable."
 item_type = 1
 rarity = ExtResource("2_eo7vp")
 uses = 1

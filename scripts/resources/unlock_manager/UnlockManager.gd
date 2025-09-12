@@ -81,6 +81,7 @@ class_name UnlockManager
 	"dark_sword" : true,
 	"deliverance": true,
 	"devil_knuckles" : true,
+	"elixir": true,
 	"enchanted_bow" : true,
 	"enchanted_shotel" : true,
 	"evil_eye" : true,

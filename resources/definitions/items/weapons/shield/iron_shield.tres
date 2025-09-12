@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cmxahoox1gg2l" path="res://resources/sprites/items/weapons/shield/iron_shield.png" id="1_1hoqn"]
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_akoaa"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_r7dtk"]
 
 [sub_resource type="Resource" id="Resource_qdqgw"]
@@ -43,7 +43,7 @@ specials = Array[int]([])
 name = "Iron Shield"
 db_key = "iron_shield"
 equippable = true
-description = ""
+description = "A standard Shield, unbreakable and high in quality."
 item_type = 0
 rarity = ExtResource("3_r7dtk")
 uses = 1

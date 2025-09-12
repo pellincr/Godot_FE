@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=96 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -93,6 +93,7 @@
 [ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="90_n7mel"]
 [ext_resource type="Resource" uid="uid://bvhngcd2psio" path="res://resources/definitions/items/weapons/swords/zweihander.tres" id="91_khgvj"]
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="92_gsk0d"]
+[ext_resource type="Resource" uid="uid://j2uu2bvu8yli" path="res://resources/definitions/items/consumables/elixir.tres" id="93_1d4v0"]
 [ext_resource type="Resource" uid="uid://cpajlj7mngeuj" path="res://resources/definitions/items/weapons/commander_special/dawnbreak.tres" id="94_f0nre"]
 
 [node name="ItemDatabase" type="Node"]
@@ -112,6 +113,7 @@ items = {
 "devil_knuckles": ExtResource("39_kby4g"),
 "earth_split": ExtResource("88_p6flx"),
 "ebonflight": ExtResource("70_s8rv5"),
+"elixir": ExtResource("93_1d4v0"),
 "enchanted_bow": ExtResource("24_4o3e2"),
 "enchanted_shotel": ExtResource("36_1rwxd"),
 "evil_eye": ExtResource("45_py2vi"),

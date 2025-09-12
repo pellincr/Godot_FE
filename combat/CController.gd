@@ -193,6 +193,7 @@ func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
 	#await ui.play_turn_banner(turn_owner)
 	await process_terrain_effects()
+	await process_weapon_effects()
 	# await process_skill_effects()
 	await clean_up() # --> remove debuffs / buffs, flush data structures
 	if (game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
@@ -332,8 +333,8 @@ func draw_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool, atta
 				draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
 
 func draw_hover_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool, attack_range:Array[Vector2i], draw_attack_range:bool):
-	var move_range_color = Color(Color.BLUE,.25)
-	var attack_range_color = Color(Color.CRIMSON,.25)
+	var move_range_color = Color(Color.BLUE,.5)
+	var attack_range_color = Color(Color.CRIMSON,.5)
 	if (draw_move_range) :
 		for tile in move_range :
 			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
@@ -495,6 +496,16 @@ func process_terrain_effects():
 								else:
 									print("HEALED UNIT : " + combat_unit.unit.name)
 									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
+
+func process_weapon_effects():
+	for combat_unit in combat.combatants:
+		if combat_unit not in combat.dead_units:
+			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
+				var cu_equipped_weapon = combat_unit.get_equipped()
+				if cu_equipped_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_10_PERCENT_ON_TURN_BEGIN): # changed to 10 in the code
+					if combat_unit.current_hp < combat_unit.get_max_hp():
+						print("ATTEMPTED WEAPON BASED HEAL")
+						await combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * 10/100))
 
 func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)
