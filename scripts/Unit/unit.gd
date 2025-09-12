@@ -317,7 +317,7 @@ func calculate_experience_gain_hit(hit_unit:Unit) -> int:
 	var self_unit_type = UnitTypeDatabase.get_definition(self.unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 20
-	experience_gain = clamp(((hit_unit.level + target_unit_value) - (level + my_unit_value) + 31)  / get_unit_type_definition().tier, 0, 100)
+	experience_gain = clamp((((hit_unit.level + target_unit_value) - (level + my_unit_value)*1.25) + 31)  / get_unit_type_definition().tier, 0, 100)
 	print ("calculate_experience_gain_hit = " + str(experience_gain))
 	return experience_gain
 
@@ -335,7 +335,8 @@ func calculate_experience_gain_kill(killed_unit:Unit) -> int:
 	var self_unit_type = UnitTypeDatabase.get_definition(unit_type_key)
 	if (self_unit_type.promoted) :
 		my_unit_value = 60
-	experience_gain = clamp(experience_gain + ((killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
+	experience_gain = clampi(experience_gain + (((killed_unit.level + target_unit_value) - (level + my_unit_value)*1.25)+ killed_unit.xp_worth + 20), 0, 100)
+		#(killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
 	print ("calculate_experience_gain_kill = " + str(experience_gain))
 	return experience_gain
 
