@@ -28,10 +28,11 @@ CustomUtilityLibrary="*res://scripts/Singletons/CustomUtilityLibrary.gd"
 SelectedSaveFile="*res://selected_save_file.gd"
 unitConstants="*res://scripts/Unit/unit_constants.gd"
 ItemConstants="*res://scripts/resources/Items/item_constants.gd"
-CommanderDatabase="res://combat/databases/commander_database.tscn"
 LoadScreenGlobals="*res://load_screen/load_screen_globals.gd"
 EventDatabase="*res://combat/databases/event_database.tscn"
 CombatMapConstants="*res://scripts/combat/combat_map_constants.gd"
+EffectConstants="*res://scripts/Constants/EffectConstants.gd"
+EffectTypeDatabase="*res://combat/databases/effect_type_database.tscn"
 
 [display]
 
@@ -40,6 +41,14 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://resources/sprites/grid/cursor.png"
 mouse_cursor/tooltip_position_offset=Vector2(64, 10)
+
+[editor]
+
+export/convert_text_resources_to_binary=false
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 

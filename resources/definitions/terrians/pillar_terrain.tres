@@ -5,18 +5,14 @@
 [resource]
 script = ExtResource("1_wacm8")
 name = "Pillar"
-db_key = "pillar"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([2, 2, 2, 3, 1])
 blocks = Array[int]([])
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
 defense = 1
-magic_defense = 0
+resistance = 1
 avoid = 20
-active_effect_phases = ""
+active_effect_phases = 2
 effect = 0
-effect_weight = 4
+effect_scaling = 0
+effect_weight = 0

@@ -1,22 +1,18 @@
 [gd_resource type="Resource" script_class="Terrain" load_steps=2 format=3 uid="uid://335btf4puav"]
 
-[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_n0ra4"]
+[ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="1_2uf8l"]
 
 [resource]
-script = ExtResource("1_n0ra4")
-name = "Stone Wall"
-db_key = "stone_wall"
+script = ExtResource("1_2uf8l")
+name = "Wall"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([1, 1, 1, 1, 0])
 blocks = Array[int]([0, 1, 2, 3, 4])
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
 defense = 0
-magic_defense = 0
+resistance = 0
 avoid = 0
-active_effect_phases = ""
+active_effect_phases = 2
 effect = 0
-effect_weight = 4
+effect_scaling = 0
+effect_weight = 0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Campaign" load_steps=2 format=3 uid="uid://cghxx7c2042ce"]
+
+[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_aq0b8"]
+
+[resource]
+script = ExtResource("1_aq0b8")
+name = "Isle of Woe"
+commander_draft_limit = 1
+number_of_archetypes_drafted = 5
+max_floor_number = 15
+number_of_required_combat_maps = 10
+difficulty = 1
+length = ""
+rewards = ""
+unit_unlock_rewards = Array[String]([])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://btp6yafud4eby"]
+[gd_scene load_steps=15 format=3 uid="uid://btp6yafud4eby"]
 
 [ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_2gf70"]
 [ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.gd" id="1_811iy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dno5xha01kqy5" path="res://ui/battle_preparation/unit_detailed_info/unit_stat_progression.tscn" id="6_42es3"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="6_yulbu"]
 [ext_resource type="Texture2D" uid="uid://j204awg3vg1a" path="res://resources/sprites/icons/Faction Banner.png" id="9_jfwn1"]
+[ext_resource type="PackedScene" uid="uid://uij42thge1m2" path="res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn" id="12_7dcc6"]
 
 [sub_resource type="Theme" id="Theme_8a08l"]
 default_font_size = 36
@@ -31,7 +32,7 @@ script = ExtResource("1_811iy")
 custom_minimum_size = Vector2(500, 460)
 layout_mode = 0
 offset_right = 506.0
-offset_bottom = 460.0
+offset_bottom = 470.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
@@ -110,10 +111,21 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 offset_left = 433.0
 offset_top = 1.0
-offset_right = 497.0
-offset_bottom = 65.0
+offset_right = 503.0
+offset_bottom = 74.0
 texture = ExtResource("9_jfwn1")
 
+[node name="ItemInfoContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 519.0
+offset_right = 769.0
+offset_bottom = 460.0
+
+[node name="WeaponDetailedInfo" parent="ItemInfoContainer" instance=ExtResource("12_7dcc6")]
+visible = false
+layout_mode = 2
+
 [connection signal="item_equipped" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_equipped"]
+[connection signal="item_focused" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_focused"]
 [connection signal="item_used" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
 [connection signal="set_trade_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

@@ -109,11 +109,13 @@ func _on_unit_selected(unit):
 	var current_selected_count = playerOverworldData.selected_party.size()
 	var max_selected_count = playerOverworldData.available_party_capacity
 	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
+	sort_party_by_selected()
 
 func _on_unit_deselected(unit):
 	var current_selected_count = playerOverworldData.selected_party.size()
 	var max_selected_count = playerOverworldData.available_party_capacity
 	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
+	sort_party_by_selected()
 
 func get_sub_container():
 	return army_convoy_sub_container
@@ -133,3 +135,16 @@ func in_shop_state():
 
 func get_first_sub_container_child():
 	return army_convoy_sub_container.get_child(0)
+
+func sort_party_by_selected():
+	var party = []
+	for unit : Unit in playerOverworldData.total_party:
+		if playerOverworldData.selected_party.has(unit):
+			party.append(unit)
+	for unit : Unit in playerOverworldData.total_party:
+		if !playerOverworldData.selected_party.has(unit):
+			party.append(unit)
+	playerOverworldData.total_party = party
+	clear_scroll_scontainer()
+	fill_army_scroll_container()
+	

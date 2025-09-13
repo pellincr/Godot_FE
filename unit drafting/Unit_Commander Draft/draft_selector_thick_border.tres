@@ -8,6 +8,7 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
+shadow_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pv26y"]
 bg_color = Color(0, 0, 0, 1)

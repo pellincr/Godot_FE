@@ -1,6 +1,17 @@
 extends ItemDefinition
 class_name WeaponDefinition
 
+enum WEAPON_SPECIALS
+{
+	WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE,
+	CRITICAL_DISABLED,
+	VAMPYRIC,
+	NEGATES_FOE_DEFENSE,
+	NEGATES_FOE_DEFENSE_ON_CRITICAL,
+	HEAL_10_PERCENT_ON_TURN_BEGIN,
+	CANNOT_RETALIATE
+}
+
 @export_subgroup("Weapon Type")
 @export var weapon_type : itemConstants.WEAPON_TYPE
 @export var alignment : itemConstants.ALIGNMENT
@@ -8,6 +19,7 @@ class_name WeaponDefinition
 @export var magic_weapon_triangle_type : itemConstants.MAGICAL_WEAPON_TRIANGLE
 @export var item_damage_type : Constants.DAMAGE_TYPE = 0
 @export var item_scaling_type : itemConstants.SCALING_TYPE = 0
+@export var item_scaling_multiplier : float = 1
 @export var item_target_faction : Array[itemConstants.AVAILABLE_TARGETS] = [0]
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED
@@ -21,12 +33,10 @@ class_name WeaponDefinition
 @export var critical_multiplier : float = 3
 @export var attacks_per_combat_turn : int = 1
 
-@export_group("Weapon Effectiveness")
-@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
-@export var status_ailments : Array[String] = []
+@export_group("Bonus Stats")
+@export var bonus_stat : UnitStat = UnitStat.new()
+
 @export_group("Weapon Specials") 
-@export var is_wpn_triangle_effective = false
-@export var crit_disabled : bool = false
-@export var is_brave = false
-@export var is_vampyric = false
-@export var negates_defense = false 
+@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
+@export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
+@export var specials : Array[WEAPON_SPECIALS] = []

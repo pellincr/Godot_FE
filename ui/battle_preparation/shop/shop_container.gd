@@ -19,7 +19,7 @@ signal item_bought(item)
 @onready var dagger_tab_icon = $HBoxContainer/VBoxContainer/ScrollContainer2/HBoxContainer/DaggerTabIcon
 @onready var banner_tab_icon = $HBoxContainer/VBoxContainer/ScrollContainer2/HBoxContainer/BannerTabIcon
 
-@onready var main_shop_inventory_container = $HBoxContainer/VBoxContainer/ScrollContainer/VBoxContainer
+@onready var main_shop_inventory_container = $HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer
 @onready var main_container = $HBoxContainer
 
 const sword_icon_texture = preload("res://resources/sprites/icons/weapon_icons/sword_icon.png")
@@ -36,7 +36,7 @@ const monster_icon_texture = preload("res://resources/sprites/icons/monster_icon
 const shield_icon_texture = preload("res://resources/sprites/icons/weapon_icons/shield_icon.png")
 const dagger_icon_texture = preload("res://resources/sprites/icons/weapon_icons/dagger_icon.png")
 const banner_icon_texture = preload("res://resources/sprites/icons/weapon_icons/banner_icon.png")
-const item_icon_texture = preload("res://resources/sprites/icons/infantry_icon.png") #TEMPORARY
+const item_icon_texture = preload("res://resources/sprites/icons/ui_icons/icon_potion.png") #TEMPORARY
 
 const item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
 const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
@@ -44,6 +44,7 @@ const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_det
 @onready var current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
 @onready var current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
 
+var expanded_shop = false
 var focused = false
 
 func _ready():
@@ -136,7 +137,10 @@ func filter_by_weapon_type(weapon_type : ItemConstants.WEAPON_TYPE):
 	for item_key in all_items:
 		var item = ItemDatabase.items[item_key]
 		if item is WeaponDefinition and item.weapon_type == weapon_type:
-			accum.append(item)
+			if item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
+				accum.append(item)
 	return accum
 
 func filter_by_useable_item():

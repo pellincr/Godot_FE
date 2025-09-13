@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://d34qpam5lxbd8"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://d34qpam5lxbd8"]
 
-[ext_resource type="Texture2D" uid="uid://bvnx8kfddus1d" path="res://resources/sprites/items/book17.png" id="1_rbokd"]
+[ext_resource type="Texture2D" uid="uid://bvnx8kfddus1d" path="res://resources/sprites/items/weapons/dark/dark_pulse.png" id="1_cw831"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_3b2fq"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_6g5eq"]
 
 [resource]
 script = ExtResource("2_3b2fq")
@@ -11,28 +12,27 @@ physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
 item_damage_type = 1
 item_scaling_type = 2
+item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2])
+required_mastery = 3
+attack_range = Array[int]([1, 2, 3])
 damage = 12
 hit = 70
 critical_chance = 0
-weight = 9
+weight = 18
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+status_ailment = 0
+specials = Array[int]([])
 name = "Dark Pulse"
 db_key = "dark_pulse"
 equippable = true
-description = ""
+description = "Extended attack range."
 item_type = 0
-uses = 25
-max_uses = 25
-worth = 100
-icon = ExtResource("1_rbokd")
+rarity = ExtResource("2_6g5eq")
+uses = 12
+max_uses = 12
+unbreakable = false
+worth = 3000
+icon = ExtResource("1_cw831")

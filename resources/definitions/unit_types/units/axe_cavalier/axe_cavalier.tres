@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://dlyfhy62vud01" path="res://resources/definitions/unit_types/units/axe_cavalier/axe_cavalier_growth_stats.tres" id="2_2v6as"]
 [ext_resource type="Texture2D" uid="uid://b0gknjdusylln" path="res://resources/sprites/units/axe_cavalier.png" id="3_uclne"]
 [ext_resource type="Resource" uid="uid://davho0ywwvlph" path="res://resources/definitions/unit_types/units/axe_cavalier/axe_cavalier_max_stats.tres" id="4_rqn1f"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n8ukj"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="6_i6ipj"]
+[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n8ukj"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_i6ipj"]
 
 [resource]
 script = ExtResource("5_n8ukj")

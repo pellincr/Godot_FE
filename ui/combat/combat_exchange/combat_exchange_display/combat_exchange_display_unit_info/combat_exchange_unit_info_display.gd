@@ -17,7 +17,7 @@ const up_arrow_char = "↑"
 var tween_complete :bool = true
 var tween_active : bool = false
 
-var unit: Unit
+var unit: CombatUnit
 var hit_chance: int
 var damage : int
 var critical_chance : int 
@@ -25,19 +25,19 @@ var weapon_effective: bool = false
 var weapon: ItemDefinition
 var wpn_triangle_state : wpn_triange = wpn_triange.NONE
 
-func set_all(u : Unit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool, wts: int ):
-	self.unit = u
+func set_all(cu : CombatUnit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool, wts: int ):
+	self.unit = cu
 	self.hit_chance =hc
 	self.damage = dmg
 	self.critical_chance = crit_chance
 	self.weapon_effective = wpn_eff
-	self.weapon = u.inventory.get_equipped_weapon()
+	self.weapon = cu.get_equipped()
 	self.wpn_triangle_state = wts
 	update()
 
 func update_hp_bar():
-	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.hp)
-	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.stats.hp)
+	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.current_hp)
+	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.get_max_hp())
 
 func hp_bar_tween(value:int): 
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_desired_value(value)
@@ -52,9 +52,9 @@ func update():
 	update_comb_exchange_fields()
 
 func update_unit_fields():
-	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.name
-	$Unit/UnitIcon.texture = unit.icon
-	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.attack_speed)
+	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.unit.name
+	$Unit/UnitIcon.texture = unit.unit.icon
+	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.get_attack_speed())
 
 func update_weapon():
 	if weapon:

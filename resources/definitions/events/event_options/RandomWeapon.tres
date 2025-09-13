@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EventOption" load_steps=2 format=3 uid="uid://bu3sym1ibjgii"]
+
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_p3b7n"]
+
+[resource]
+script = ExtResource("1_p3b7n")
+description = "Recieve 1 random Weapon"
+effect = 2

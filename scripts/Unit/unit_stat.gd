@@ -1,7 +1,7 @@
 extends Resource
 
 class_name UnitStat
-@export_group("Combat Stats")
+@export_group("Generic Stats")
 @export var hp : int  = 0 
 @export var strength : int = 0
 @export var magic : int = 0

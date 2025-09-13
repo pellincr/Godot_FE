@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://da02m5ekvhj2r"]
+
+[ext_resource type="Texture2D" uid="uid://ck4bfbpnp5yus" path="res://resources/sprites/items/weapons/axes/tomahawk.png" id="1_v80rd"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="1_yke3o"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_y6dbe"]
+
+[resource]
+script = ExtResource("3_y6dbe")
+weapon_type = 2
+alignment = 0
+physical_weapon_triangle_type = 2
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 2
+attack_range = Array[int]([1, 2])
+damage = 13
+hit = 75
+critical_chance = 5
+weight = 14
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Tomahawk"
+db_key = "tomahawk"
+equippable = true
+description = "Can be thrown at range."
+item_type = 0
+rarity = ExtResource("1_yke3o")
+uses = 20
+max_uses = 20
+unbreakable = false
+worth = 4000
+icon = ExtResource("1_v80rd")

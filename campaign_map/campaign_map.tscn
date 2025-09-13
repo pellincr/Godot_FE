@@ -18,12 +18,14 @@ script = ExtResource("1_1bvku")
 
 [node name="Lines" type="Node2D" parent="Visuals"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.509804)
 
 [node name="Rooms" type="Node2D" parent="Visuals"]
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(643, 360)
+zoom = Vector2(2, 2)
 
 [node name="CampaignMapControls" parent="Camera2D" instance=ExtResource("2_m0mgj")]
 offset_left = -638.0
@@ -36,9 +38,9 @@ script = ExtResource("1_1uwo1")
 
 [node name="MapBackground" type="CanvasLayer" parent="."]
 layer = -1
-visible = false
 
 [node name="Background" type="TextureRect" parent="MapBackground"]
+visible = false
 custom_minimum_size = Vector2(1280, 720)
 anchors_preset = 15
 anchor_right = 1.0

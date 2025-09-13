@@ -127,8 +127,26 @@ func is_empty() -> bool:
 
 func use_at_index(index : int): 
 	if index < capacity:
-		items[index].use
+		var target_item :ItemDefinition = items[index]
+		target_item.expend_use()
+		if target_item.uses <= 0:
+			items.remove_at(index)
+			#items.push_back(null)
+				
 
+
+func set_item_at_index(index: int, item: ItemDefinition):
+	if item != null:
+		if index >= 0 and index < capacity:
+			if index < items.size():
+				items[index] = item
+			else: 
+				items.append(item)
+		else : 
+			items.append(item)
+	else : 
+		if index < capacity:
+			items.remove_at(index)
 #
 # Gives an item to the inventory, at the end of the list
 #
@@ -246,6 +264,12 @@ func get_equipped_weapon() -> WeaponDefinition:
 func unequip():
 	equipped = false
 
+#Moves the item to the second spot
+func arrange(item: ItemDefinition):
+	var index :int = get_item_index(item)
+	if index > 1:
+		swap_at_indexes(index, 1)
+	
 #
 # Returns all weapons in inventory that contain input attack ranges
 #
@@ -259,8 +283,28 @@ func get_weapons_with_range(ranges: Array[int]) -> Array[WeaponDefinition]:
 					weaponList.append(get_item(index))
 	return weaponList
 
-func get_items() -> Array[WeaponDefinition]:
-	var _item_arr : Array[WeaponDefinition] = [null, null, null, null]
+func get_items() -> Array[ItemDefinition]:
+	var _item_arr : Array[ItemDefinition] = [null, null, null, null]
 	for i in range(items.size()):
 		_item_arr[i] = items[i]
 	return _item_arr
+
+func use_item(item: ItemDefinition):
+	if has(item):
+		use_at_index(get_item_index(item))
+
+func has_item(item: ItemDefinition):
+	return items.has(item)
+
+func has_item_with_db_key(db_key : String):
+	for item in items:
+		if item.db_key == db_key:
+			return true
+	return false
+
+func has_item_with_any_db_key(db_keys : Array[String]):
+	for db_key in db_keys:
+		for item in items:
+			if item.db_key == db_key:
+				return true
+	return false

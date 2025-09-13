@@ -18,6 +18,9 @@ func peek():
 	assert(_stack.size() > 0, "Unable to peek at data - Stack is empty")
 	return _stack[-1]
 
+func get_size() -> int:
+	return _stack.size()
+
 func is_empty() -> bool:
 	return _stack.size() == 0
 

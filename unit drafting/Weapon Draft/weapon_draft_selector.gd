@@ -1,69 +1,89 @@
 extends Control
 
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff","shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
-@onready var damage_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/DamageValueLabel
-@onready var scaling_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/ScalingValueLabel
-@onready var hit_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/HitValueLabel
-@onready var critical_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/CriticalValueLabel
-@onready var weight_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/WeightValueLabel
-@onready var durability_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/DurabilityValueLabel
-@onready var range_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/RangeValueLabel
-@onready var special_value_label = $MarginContainer/VBoxContainer/HBoxContainer/LabelVaues/SpecialValueLabel
+@onready var item_name_label = $MarginContainer/VBoxContainer/ItemNameLabel
 
-var weapon : WeaponDefinition
+@onready var main_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MainWeaponIconContainer
+@onready var mundane_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MundaneWeaponIconContainer
+@onready var magic_weapon_icon_container = $MarginContainer/VBoxContainer/FullWeaponIconContainer/MagicWeaponIconContainer
 
 
+@onready var item_description_label = $MarginContainer/VBoxContainer/ItemDescriptionLabel
+
+@onready var weapon_stat_container = $MarginContainer/VBoxContainer/WeaponStatContainer
+
+@onready var item_rarity_header = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemTypeHeader
+@onready var item_type_header = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemType
+
+
+@onready var item_icon = $ItemIcon
+@onready var price_label = $ItemIcon/PriceLabel
+
+@export var weapon : WeaponDefinition
 
 func update_all():
-	set_damage_value_label(weapon.damage)
-	set_scaling_value_label(weapon.item_scaling_type)
-	set_hit_value_label(weapon.hit)
-	set_critical_value_label(weapon.critical_chance)
-	set_weight_value_label(weapon.weight)
-	set_durability_value_label(weapon.uses)
-	set_range_value_label(weapon.attack_range)
-	set_special_value_label() #UNKOWN CURRENTLY
+	set_item_name(weapon.name)
+	set_item_icon(weapon.icon)
+	set_price_label(weapon.worth)
+	set_item_rarity_header(weapon.rarity)
+	main_weapon_icon_container.set_header_visibility(false)
+	main_weapon_icon_container.item = weapon
+	main_weapon_icon_container.set_icon_visibility_item()
+	mundane_weapon_icon_container.set_header_visibility(false)
+	mundane_weapon_icon_container.item = weapon
+	mundane_weapon_icon_container.set_mundane_triangle_icon_visibility()
+	magic_weapon_icon_container.set_header_visibility(false)
+	magic_weapon_icon_container.item = weapon
+	magic_weapon_icon_container.set_magic_triangle_icon_visibilty()
+	set_item_description(weapon.description)
+	weapon_stat_container.item = weapon
+	weapon_stat_container.update_by_item()
 
+func set_item_rarity_header(rarity : Rarity):
+	item_rarity_header.text = rarity.rarity_name
+	item_rarity_header.self_modulate = rarity.ui_color
 
-func set_damage_value_label(dmg):
-	damage_value_label.text = str(dmg)
+func set_item_type_header(item_type):
+	item_type_header.text = item_type
 
-func set_scaling_value_label(scaling):
-	var text: String = ""
-	match(scaling):
-		0:
-			text = "Physical"
-		1:
-			text = "Magic"
-	scaling_value_label.text = text
-	
-func set_hit_value_label(hit):
-	hit_value_label.text = str(hit)
+func set_item_name(name):
+	item_name_label.text = name
 
-func set_critical_value_label(crit):
-	critical_value_label.text = str(crit)
+func set_item_description(desc):
+	item_description_label.text = desc
 
-func set_weight_value_label(wgt):
-	weight_value_label.text = str(wgt)
+func set_item_icon(texture):
+	item_icon.texture = texture
 
-func set_durability_value_label(uses):
-	durability_value_label.text = str(uses)
-
-func set_range_value_label(range):
-	var front_value = range[0]
-	var back_value = range[-1]
-	if front_value == back_value:
-		range_value_label.text = str(front_value)
-	else:
-		range_value_label.text = str(front_value) + "-" + str(back_value)
-
-func set_special_value_label():
-	special_value_label.text = ""
+func set_price_label(price):
+	price_label.text = str(price) + "G"
 
 func randomize_weapon() -> WeaponDefinition:
+	# Remove default / Iron Weapons
 	var all_item_types = ItemDatabase.items.keys()
 	var all_weapon_types = []
-	for item in all_item_types:
-		if ItemDatabase.items.get(item) is WeaponDefinition:
-			all_weapon_types.append(ItemDatabase.items.get(item))
+	for item_key in all_item_types:
+		if item_key not in treasure_blacklist:
+			if ItemDatabase.items.get(item_key) is WeaponDefinition:
+				var roll = randi_range(0, 100)
+				if roll < 3:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 10:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["mythical"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 25:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 40:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				elif roll < 65:
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["uncommon"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				else :
+					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["common"]:
+						all_weapon_types.append(ItemDatabase.items.get(item_key))
+				#all_weapon_types.append(ItemDatabase.items.get(item_key))
 	return all_weapon_types.pick_random()

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dqb48wswsnj1e"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dqb48wswsnj1e"]
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_twnt5"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ijbgy"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_kgnji"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toe2n"]
 atlas = ExtResource("1_twnt5")
@@ -15,28 +16,27 @@ physical_weapon_triangle_type = 2
 magic_weapon_triangle_type = 0
 item_damage_type = 0
 item_scaling_type = 0
+item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 2
 attack_range = Array[int]([1])
-damage = 12
-hit = 45
+damage = 10
+hit = 80
 critical_chance = 0
-weight = 18
+weight = 15
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+weapon_effectiveness = Array[int]([0])
+status_ailment = 0
+specials = Array[int]([])
 name = "Warhammer"
 db_key = "warhammer"
 equippable = true
-description = ""
+description = "Effective against armor."
 item_type = 0
-uses = 20
-max_uses = 20
-worth = 100
+rarity = ExtResource("2_kgnji")
+uses = 12
+max_uses = 12
+unbreakable = false
+worth = 2000
 icon = SubResource("AtlasTexture_toe2n")

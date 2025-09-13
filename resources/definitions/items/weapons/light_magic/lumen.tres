@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dv135ep5smbds"]
+
+[ext_resource type="Texture2D" uid="uid://6mujpxab6tr3" path="res://resources/sprites/items/weapons/light/Lumen_tome.png" id="1_nmemp"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_v7atr"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_84gk6"]
+
+[resource]
+script = ExtResource("3_84gk6")
+weapon_type = 8
+alignment = 2
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 2
+item_damage_type = 1
+item_scaling_type = 2
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 2
+attack_range = Array[int]([1, 2])
+damage = 15
+hit = 85
+critical_chance = 30
+weight = 14
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Lumen"
+db_key = "lumen"
+equippable = true
+description = ""
+item_type = 0
+rarity = ExtResource("2_v7atr")
+uses = 12
+max_uses = 12
+unbreakable = false
+worth = 6000
+icon = ExtResource("1_nmemp")

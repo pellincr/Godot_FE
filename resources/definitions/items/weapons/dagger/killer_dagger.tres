@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cmljuu3sxx1lf"]
+
+[ext_resource type="Texture2D" uid="uid://56ubtfqfg0s4" path="res://resources/sprites/items/weapons/dagger/killer_dagger.png" id="1_gu205"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_fqgdy"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_mvlhl"]
+
+[resource]
+script = ExtResource("3_mvlhl")
+weapon_type = 13
+alignment = 4
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([0])
+required_mastery = 0
+attack_range = Array[int]([1, 2])
+damage = 8
+hit = 80
+critical_chance = 40
+weight = 9
+critical_multiplier = 4.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Killer Dagger"
+db_key = "killer_dagger"
+equippable = true
+description = ""
+item_type = 0
+rarity = ExtResource("2_fqgdy")
+uses = 20
+max_uses = 20
+unbreakable = false
+worth = 3500
+icon = ExtResource("1_gu205")

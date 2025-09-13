@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2bnyn3hh5vva"]
+[gd_scene load_steps=8 format=3 uid="uid://d2bnyn3hh5vva"]
 
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="1_27a5s"]
 [ext_resource type="Script" path="res://campaign_map/campaign_map_room.gd" id="1_w1275"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_evsr8"]
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_t8wdb"]
 length = 0.001
@@ -97,6 +100,10 @@ modulate = Color(1, 1, 1, 0)
 points = PackedVector2Array(-6, -12, 6, -12, 10, -6, 10, 8, 6, 12, -6, 12, -10, 8, -10, -8, -8, -10)
 closed = true
 width = 2.0
+
+[node name="Backdrop" type="Sprite2D" parent="Visuals"]
+modulate = Color(0, 0, 0, 1)
+texture = SubResource("PlaceholderTexture2D_evsr8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 texture = ExtResource("1_27a5s")

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://chyi446dfmveq"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://chyi446dfmveq"]
 
-[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/iron_lance.tres" id="1_olk82"]
+[ext_resource type="Texture2D" uid="uid://x7fceipr6e4x" path="res://resources/sprites/items/weapons/lance/iron_lance.png" id="1_725yc"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_6pm83"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_egufa"]
 
 [resource]
 script = ExtResource("2_6pm83")
@@ -11,28 +12,27 @@ physical_weapon_triangle_type = 3
 magic_weapon_triangle_type = 0
 item_damage_type = 0
 item_scaling_type = 0
+item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1])
 damage = 7
-hit = 70
+hit = 90
 critical_chance = 0
 weight = 8
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+status_ailment = 0
+specials = Array[int]([])
 name = "Iron Lance"
 db_key = "iron_lance"
 equippable = true
-description = ""
+description = "A standard lance, unbreakable."
 item_type = 0
-uses = 45
-max_uses = 45
-worth = 100
-icon = ExtResource("1_olk82")
+rarity = ExtResource("2_egufa")
+uses = 1
+max_uses = 1
+unbreakable = true
+worth = 400
+icon = ExtResource("1_725yc")

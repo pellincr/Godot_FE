@@ -1,24 +1,42 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6on5oloy43oe"]
+[gd_scene load_steps=19 format=3 uid="uid://b6on5oloy43oe"]
 
 [ext_resource type="Script" path="res://combat/databases/army_archetype_database.gd" id="1_2cpwe"]
 [ext_resource type="Resource" uid="uid://ciwap3bbtyq5l" path="res://resources/definitions/army_archetypes/classic.tres" id="2_5nohr"]
 [ext_resource type="Resource" uid="uid://5ogcvn2plkpy" path="res://resources/definitions/army_archetypes/random.tres" id="3_c3rwr"]
-[ext_resource type="Resource" uid="uid://fjh2jmeyywal" path="res://resources/definitions/army_archetypes/tavern_troop.tres" id="4_vk6ie"]
+[ext_resource type="Resource" uid="uid://fjh2jmeyywal" path="res://resources/definitions/army_archetypes/mundane_many.tres" id="4_vk6ie"]
 [ext_resource type="Resource" uid="uid://de1rpqrulvauy" path="res://resources/definitions/army_archetypes/mighty_mercs.tres" id="5_3c5le"]
 [ext_resource type="Resource" uid="uid://bergei0ceod75" path="res://resources/definitions/army_archetypes/healing_here.tres" id="6_pc7my"]
 [ext_resource type="Resource" uid="uid://s73rtbpky8kb" path="res://resources/definitions/army_archetypes/might_and_magic.tres" id="7_sp3cl"]
 [ext_resource type="Resource" uid="uid://ctsy245thevlk" path="res://resources/definitions/army_archetypes/vicious_vigilantes.tres" id="8_x1tpj"]
 [ext_resource type="Resource" uid="uid://ci4moqvduab6q" path="res://resources/definitions/army_archetypes/swords.tres" id="9_5rsxe"]
+[ext_resource type="Resource" uid="uid://bk1uubqw28gd3" path="res://resources/definitions/army_archetypes/armor_up.tres" id="10_5m6ki"]
+[ext_resource type="Resource" uid="uid://ctoc2ftgxorsy" path="res://resources/definitions/army_archetypes/bows.tres" id="11_uxo86"]
+[ext_resource type="Resource" uid="uid://3phu007ifbtf" path="res://resources/definitions/army_archetypes/dark_development.tres" id="12_ch5pe"]
+[ext_resource type="Resource" uid="uid://cm0dje7emsp6h" path="res://resources/definitions/army_archetypes/coverage.tres" id="13_ocwfd"]
+[ext_resource type="Resource" uid="uid://bt3tqqna18avc" path="res://resources/definitions/army_archetypes/magic_mania.tres" id="14_t1q8h"]
+[ext_resource type="Resource" uid="uid://5hher01jpylm" path="res://resources/definitions/army_archetypes/kingdom_come.tres" id="15_msipm"]
+[ext_resource type="Resource" uid="uid://ywdeyemhoyhp" path="res://resources/definitions/army_archetypes/lickety_split_lances.tres" id="16_wwqnn"]
+[ext_resource type="Resource" uid="uid://dxoqw1luiku0s" path="res://resources/definitions/army_archetypes/daring_daggers.tres" id="17_mqwel"]
+[ext_resource type="Resource" uid="uid://dr2gmnbxo5mfw" path="res://resources/definitions/army_archetypes/fearless_fists.tres" id="18_kgq8e"]
 
 [node name="ArmyArchetypeDatabase" type="Node"]
 script = ExtResource("1_2cpwe")
 army_archetypes = {
+"armor_up": ExtResource("10_5m6ki"),
+"bows": ExtResource("11_uxo86"),
 "classic": ExtResource("2_5nohr"),
+"coverage": ExtResource("13_ocwfd"),
+"daring_daggers": ExtResource("17_mqwel"),
+"dark_development": ExtResource("12_ch5pe"),
+"fearless_fist": ExtResource("18_kgq8e"),
 "healing_here": ExtResource("6_pc7my"),
+"kingdom_come": ExtResource("15_msipm"),
+"lickety_split_lances": ExtResource("16_wwqnn"),
+"magic_mania": ExtResource("14_t1q8h"),
 "might_and_magic": ExtResource("7_sp3cl"),
 "mighty_mercs": ExtResource("5_3c5le"),
+"mundane_many": ExtResource("4_vk6ie"),
 "random": ExtResource("3_c3rwr"),
 "swords": ExtResource("9_5rsxe"),
-"tavern_troop": ExtResource("4_vk6ie"),
 "vicious vigilantes": ExtResource("8_x1tpj")
 }

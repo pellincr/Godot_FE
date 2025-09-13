@@ -10,6 +10,8 @@ const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.tscn")
 
 signal unit_defeated(unit: CombatUnit)
+signal entity_destroyed(entity: CombatEntity)
+signal entity_destroyed_processing_completed()
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -38,40 +40,65 @@ var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
-	var damage_dealt
-	if check_hit(hit_chance):
-		attacker.unit.inventory.get_equipped_weapon().use()
-		if check_critical(critical_chance) :
-			#emit critical
-			damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
-			await do_damage(target,damage_dealt, true)
-		else : 
-			#emit generic damage
-			damage_dealt = calc_damage(attacker, target)
-			await do_damage(target,damage_dealt)
-		if attacker.unit.inventory.get_equipped_weapon():
-			if attacker.unit.inventory.get_equipped_weapon().is_vampyric:
-				await heal_unit(attacker, damage_dealt)
-	else : ## Attack has missed
-		await hit_missed(target)
+	if attacker.get_equipped() != null:
+		var damage_dealt
+		if check_hit(hit_chance):
+			if check_critical(critical_chance) :
+				#emit critical
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
+					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
+				else:
+					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+				await do_damage(target,damage_dealt, true)
+			else : 
+				#emit generic damage
+				damage_dealt = calc_damage(attacker, target)
+				await do_damage(target,damage_dealt)
+			if attacker.unit.inventory.get_equipped_weapon():
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
+					await heal_unit(attacker, damage_dealt)
+			attacker.unit.inventory.use_item(attacker.get_equipped())
+		else : ## Attack has missed
+			await hit_missed(target)
+
+func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
+	if attacker.get_equipped() != null:
+		await do_damage_entity(target,hit_damage)
+		attacker.unit.inventory.use_item(attacker.get_equipped())
+
+func do_damage_entity(target: CombatEntity, damage:int):
+	if(damage == 0):
+		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
+		await use_audio_player(no_damage_sound)
+		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
+		#play no damage noise
+		await DamageNumbers.complete
+	if (damage > 0):
+		await use_audio_player(hit_sound)
+		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
+		target.hp = target.hp - damage
+		if target.hp <= 0:
+			target.destroyed = true
+			entity_destroyed.emit(target)
+			await entity_destroyed_processing_completed
 
 func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
 		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
 		attacker.unit.inventory.get_equipped_weapon().use()
 		await use_audio_player(heal_sound)
-		target.unit.hp = clampi(heal_amount + target.unit.hp, target.unit.hp, target.unit.stats.hp )
+		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
 		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
 	await use_audio_player(heal_sound)
-	unit.unit.hp = clampi(amount + unit.unit.hp, unit.unit.hp, unit.unit.stats.hp )
-	DamageNumbers.heal((32* unit.map_position + Vector2i(16,16)), amount)
+	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.get_max_hp())
+	DamageNumbers.heal((32* unit.move_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
 	if ce_display != null:
-		await ce_display.update_unit_hp(unit.unit, unit.unit.hp)
+		await ce_display.update_unit_hp(unit, unit.current_hp)
 	#await unit.map_display.update_complete
 
 func hit_missed(dodging_unt: CombatUnit):
@@ -106,7 +133,7 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
-		target.unit.hp -= damage
+		target.current_hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
 			await use_audio_player(crit_sound)
@@ -115,10 +142,10 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 			await use_audio_player(hit_sound)
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
-		await ce_display.update_unit_hp(target.unit, target.unit.hp) and DamageNumbers.complete
+		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete
 		#await target.map_display.update_complete
 	##check and see if the unit has died
-	if target.unit.hp <= 0:
+	if target.current_hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED
 		target.map_display.update_values()
 		await target.map_display.update_complete
@@ -137,12 +164,12 @@ func calc_hit(attacker: CombatUnit, target: CombatUnit) -> int:
 		wpn_triangle_hit_active_bonus = wpn_triangle_hit_bonus
 	elif (check_weapon_triangle(attacker.unit, target.unit) == target.unit): 
 		wpn_triangle_hit_active_bonus = - wpn_triangle_hit_bonus
-	return clamp(attacker.stats.hit.evaluate() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
+	return clamp(attacker.get_hit() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
 
-func calc_crit(attacker: Unit, target: Unit) -> int:
-	return clamp(attacker.critical_hit - target.critical_avoid, 0, 100)
+func calc_crit(attacker: CombatUnit, target: CombatUnit) -> int:
+	return clamp(attacker.get_critical_chance() - target.get_critical_avoid(), 0, 100)
 
-func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
+func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : bool = false) -> int:
 	var max_damage
 	var damage
 	const wpn_triangle_damage_bonus = 2
@@ -160,16 +187,16 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit) -> int:
 	
 	#calculate the maximum damage output before factoring in defenses
 	if(effective): 
-		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus + (effective_damage_multiplier-1 * attacker.get_equipped().damage)
+		max_damage = attacker.get_damage() + wpn_triangle_active_bonus + ((effective_damage_multiplier-1) * attacker.get_equipped().damage)
 	else :
-		max_damage = attacker.stats.damage.evaluate() + wpn_triangle_active_bonus
+		max_damage = attacker.get_damage() + wpn_triangle_active_bonus
 	# check the damage type of the source
-	if attacker.get_equipped().negates_defense:
+	if defense_negated or attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
 		defense_mult = 0
 	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
-		damage = clampi(max_damage - (target.stats.defense.evaluate() * defense_mult),0, 999)
+		damage = clampi(max_damage - (target.get_defense() * defense_mult),0, 999)
 	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.MAGIC :
-		damage = clampi(max_damage - (target.stats.resistance.evaluate() * defense_mult),0, 999)
+		damage = clampi(max_damage - (target.get_resistance() * defense_mult),0, 999)
 	elif attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.TRUE:
 		damage = max_damage
 	else :
@@ -187,8 +214,20 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker_weapon is WeaponDefinition:
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 		if attacker_weapon.attack_range.has(distance):
-			return true
+			if attacker_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+				return true
 	return false
+
+func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
+	var defender_weapon = defender.get_equipped()
+	if defender_weapon is WeaponDefinition:
+		if not defender_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE):
+		#if attacker_weapon.item_target_faction.has(defender.allegience):
+			if defender_weapon.attack_range.has(distance):
+				if defender_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+					return true
+	return false
+
 
 func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, distance:int) -> UnitCombatExchangeData:
 	#How many hits are performed?
@@ -214,16 +253,18 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	
 	attacker_hit_chance = calc_hit(attacker, defender)
 	attacker_damage = calc_damage(attacker, defender)
-	attacker_critical_chance = calc_crit(attacker.unit, defender.unit)
+	attacker_critical_chance = calc_crit(attacker, defender)
 	attacker_effective = check_effective(attacker.unit, defender.unit)
 	
-	calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
+	var turn_vector :Vector2i = calc_unit_turn_count(attacker, defender, attacker_turns, defender_turns)
+	attacker_turns = turn_vector.x
+	defender_turns = turn_vector.y
 	
-	defender_can_attack = check_can_attack(defender, attacker, distance)
+	defender_can_attack = check_can_retaliate(attacker, defender, distance)
 	if defender_can_attack:
 		defender_hit_chance = calc_hit(defender, attacker)
 		defender_damage = calc_damage(defender, attacker)
-		defender_critical_chance = calc_crit(defender.unit,attacker.unit)
+		defender_critical_chance = calc_crit(defender,attacker)
 		defender_effective = check_effective(defender.unit, attacker.unit)
 	else :
 		defender_turns = 0
@@ -257,6 +298,49 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	return_object.populate()
 	return return_object
 
+func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
+	#How many hits are performed?
+	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
+	return_object.supporter = supporter
+	return_object.target = target
+	var turn_count = 1
+	for turn in turn_count:
+		var turn_data : UnitSupportExchangeTurnData = UnitSupportExchangeTurnData.new()
+		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
+		turn_data.effect_type = supporter.get_equipped().status_ailment
+		turn_data.effect_weight = supporter.get_damage()
+		return_object.exchange_data.append(turn_data)
+	return_object.populate()
+	return return_object
+
+func generate_combat_exchange_data_entity(attacker: CombatUnit, defender:CombatEntity) -> UnitCombatExchangeData:
+	var return_object : UnitCombatExchangeData = UnitCombatExchangeData.new()
+	return_object.attacker = attacker
+	var net_attack_speed = attacker.get_attack_speed() - defender.attack_speed
+	var net_turn_count = int(net_attack_speed / floor(4))
+	var attacker_turns = 1
+	if net_turn_count > 0:
+		attacker_turns = attacker_turns + abs(net_turn_count)
+	var effective = false
+	var attacker_damage = 0
+	if(effective): 
+		attacker_damage = clampi(attacker.get_damage() + (2 * attacker.get_equipped().damage) - defender.defense, 0, 9999)
+	else :
+		attacker_damage = clampi(attacker.get_damage() - defender.defense, 0, 9999)
+	for attack in attacker_turns:
+		var turn_data : UnitCombatExchangeTurnData = UnitCombatExchangeTurnData.new()
+		turn_data.owner = attacker
+		turn_data.attack_damage = attacker_damage
+		turn_data.damage_type = attacker.get_equipped().item_damage_type
+		turn_data.effective_damage = false
+		turn_data.attack_count = attacker.get_equipped().attacks_per_combat_turn
+		turn_data.critical = 0
+		turn_data.hit = 100
+		return_object.exchange_data.append(turn_data)
+	return_object.calc_net_damage()
+	return_object.calc_predicted_hp_entity(defender.hp)
+	return return_object
+	
 func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: int, d_turn_count: int) -> Array[String]:
 	var _arr : Array[String]  =[]
 	var i :int = a_turn_count
@@ -270,11 +354,14 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 			j = j -1
 	return _arr
 
-func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int):
-	if(attacker.stats.attack_speed.evaluate() - defender.stats.attack_speed.evaluate()  >= 4) :
-		attacker_turns = 2
-	elif (attacker.stats.attack_speed.evaluate()  - attacker.stats.attack_speed.evaluate()  <= - 4) :
-		defender_turns = 2
+func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
+	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
+	var net_turn_count = int(net_attack_speed / floor(4))
+	if net_turn_count > 0:
+		attacker_turns = attacker_turns + abs(net_turn_count)
+	elif net_turn_count < 0: 
+		defender_turns = defender_turns + abs(net_turn_count)
+	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 	var unit_a_weapon: WeaponDefinition
@@ -355,8 +442,9 @@ func check_effective(attacker: Unit, target:Unit) -> bool:
 			var unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
 			if effective_type in unit_type.traits :
 				_is_effective = true
-	if (check_weapon_triangle(attacker, target) == attacker): 
-		if(attacker.inventory.get_equipped_weapon().is_wpn_triangle_effective):
+	var weapon_triangle_victor = check_weapon_triangle(attacker, target)
+	if (weapon_triangle_victor == attacker): 
+		if attacker.inventory.get_equipped_weapon().specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
 			_is_effective = true
 	return _is_effective
 
@@ -380,19 +468,20 @@ func unit_gain_experience_complete():
 #
 # Used for healing
 #
-func enact_support_exchange(attacker: CombatUnit, target:CombatUnit, distance:int):
-	var staff : WeaponDefinition
-	var give_xp = false
-	if attacker.allegience == Constants.FACTION.PLAYERS:
-		give_xp = true
-	if attacker.unit.inventory.equipped: 
-		staff = attacker.unit.inventory.get_equipped_weapon()
-		await perform_heal(attacker, target, staff.item_scaling_type)
-		if attacker.allegience == Constants.FACTION.PLAYERS:
-			await complete_combat_exchange(attacker.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
-		else :
+func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitSupportExchangeData):
+	var player_unit: CombatUnit
+	var enemy_unit: CombatUnit
+	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
+	
+	for turn in data.exchange_data:
+		for attack in turn.attack_count:
+			await heal_unit(target, turn.effect_weight)
+			
+	if supporter.allegience == Constants.FACTION.PLAYERS:
+		await complete_combat_exchange(supporter.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+	else :
 			pass
-	attacker.turn_taken = true
+	supporter.turn_taken = true
 
 #
 # Gets the scaling bonus based on the item scaling type for calc damage
@@ -429,7 +518,7 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	await ce_display
 	$"../../CanvasLayer/UI".add_child(ce_display) 
 	ce_display.visible = true
-	ce_display.set_all(attacker.unit, defender.unit, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
+	ce_display.set_all(attacker, defender, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
 		false, false, check_weapon_triangle(attacker.unit,defender.unit))
 	attacker.turn_taken = true
 	#Do the actual calcs
@@ -438,7 +527,6 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 			if turn.owner == attacker:
 				await perform_hit(attacker,defender,turn.hit,turn.critical)
 				if not defender.alive:
-					unit_defeated.emit(defender)
 					if player_unit == defender:
 						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else : 
@@ -455,3 +543,26 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	# Both units have survived the exchange
 	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 		#get the allegience of the units
+
+#
+# Called when the attacker can hit and begin combat sequence
+#
+func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, exchange_data: UnitCombatExchangeData):
+	var player_unit: CombatUnit
+	var enemy_unit: CombatUnit
+	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
+	if attacker.allegience == Constants.FACTION.PLAYERS:
+		player_unit = attacker
+	attacker.turn_taken = true
+	#Do the actual calcs
+	for turn : UnitCombatExchangeTurnData in exchange_data.exchange_data:
+		for attack in turn.attack_count:
+			if turn.owner == attacker:
+				if not defender.destroyed:
+					await perform_hit_entity(attacker,defender, turn.attack_damage)
+				else:
+					break
+
+func _on_entity_destroyed_processing_completed():
+	await get_tree().create_timer(.1).timeout
+	entity_destroyed_processing_completed.emit()

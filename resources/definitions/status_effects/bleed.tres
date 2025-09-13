@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitStatusEffectDefinition" load_steps=2 format=3 uid="uid://0cg72wbyr2md"]
+
+[ext_resource type="Script" path="res://scripts/resources/effects/UnitStatusEffectDefinition.gd" id="1_pmupc"]
+
+[resource]
+script = ExtResource("1_pmupc")
+name = ""
+db_key = ""
+description = ""
+effect_type = 1
+application_type = 0
+decay_phase = 0
+stacking_type = 0

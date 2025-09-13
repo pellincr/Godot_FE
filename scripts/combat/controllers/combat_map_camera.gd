@@ -11,7 +11,7 @@ enum CAMERA_MODE {
 @export var zoomSpeed : float = 10;
 @export var pan_threshold : float = .75
 @export var camSpeed : float = 3.5
-@export var game_map: TileMap 
+@export var game_map: TileMapLayer 
 @export var controller : CController
 var zoomTarget :Vector2
 var focus_target :Vector2

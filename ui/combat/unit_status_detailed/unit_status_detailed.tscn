@@ -1,12 +1,12 @@
 [gd_scene load_steps=20 format=3 uid="uid://c1mja0j0own6p"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_status_detailed/unit_status_detailed.gd" id="1_6m1bp"]
+[ext_resource type="Script" uid="uid://b0vn5vjboakdq" path="res://ui/combat/unit_status_detailed/unit_status_detailed.gd" id="1_6m1bp"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="4_6drah"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="4_hq6tf"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="5_bppi7"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="6_k8b2s"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="7_77j75"]
-[ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/iron_sword.tres" id="8_0mf55"]
+[ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/weapons/swords/iron_sword.tres" id="8_0mf55"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="9_bah1f"]
 [ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="10_cchag"]
 

@@ -9,6 +9,7 @@ var target_range_map = {} # Dict<positon : Vector2i, Range>
 var range_target_map = {} # Dict<Range position: Vector2i>
 
 var current_target_positon : Vector2i
+var current_target_type : String 
 var current_target_range : int #Current Distance from user
 var current_method: Object #Current weapon
 
@@ -22,7 +23,10 @@ func clear():
 	range_target_methods_map.clear()
 	target_range_map.clear()
 	range_target_map.clear()
+	current_target_type = ""
 	current_target_range = 0
+	_available_targets_at_range_index = 0
+	_available_targets_at_range_index = 0
 	current_method = null
 	_available_targets_with_method.clear()
 	_available_methods_at_target.clear()
@@ -152,6 +156,16 @@ func next_target():
 		update_available_target_methods(target_methods_range_map[current_method])
 	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
 
+func next_target_no_new_methods():
+	#get the next target in the index ASSUMES ALL HAVE SAME RANGE/NO NEW TARGETS POSSIBLE AFTER SWAP
+	_available_targets_at_range_index = CustomUtilityLibrary.array_next_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
+	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
+
+func previous_target_no_new_methods():
+	#get the next target in the index ASSUMES ALL HAVE SAME RANGE/NO NEW TARGETS POSSIBLE AFTER SWAP
+	_available_targets_at_range_index = CustomUtilityLibrary.array_previous_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
+	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
+
 # get the previous target_method
 func previous_target_method():
 	# get the previous target_method
@@ -180,11 +194,16 @@ func generate_unit_inventory_slot_data(attacker: Unit) -> Array[UnitInventorySlo
 	for item in attacker.inventory.get_items():
 		var unit_inventory_slot_data :UnitInventorySlotData = UnitInventorySlotData.new() 
 		if item != null:
-			unit_inventory_slot_data.item = item
-			if attacker.inventory.get_equipped_item() == item:
-				unit_inventory_slot_data.equipped = true
-			if item in valid_list:
-				unit_inventory_slot_data.valid = true
+			if item is WeaponDefinition:
+				unit_inventory_slot_data.item = item
+				if attacker.inventory.get_equipped_item() == item:
+					unit_inventory_slot_data.equipped = true
+				if item in valid_list:
+					unit_inventory_slot_data.valid = true
+			else : 
+				unit_inventory_slot_data.item = item
+				unit_inventory_slot_data.equipped = false
+				unit_inventory_slot_data.valid = false
 		else :
 			unit_inventory_slot_data.item = null
 			unit_inventory_slot_data.equipped = false

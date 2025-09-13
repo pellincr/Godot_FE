@@ -27,6 +27,8 @@ func _ready() -> void:
 func update_inventory_item_icon():
 	if item != null:
 		inventory_item_icon.set_image(item.icon)
+	else : 
+		inventory_item_icon.set_image(null)
 	inventory_item_icon.set_equipped(equipped)
 
 func update_item_name_label():

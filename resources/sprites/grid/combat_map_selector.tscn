@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3lfk8ggnmb52" path="res://resources/sprites/grid/crosshair.png" id="1_rbqgg"]
 [ext_resource type="Texture2D" uid="uid://dqws5iqtv5dw5" path="res://resources/sprites/grid/selector.png" id="2_y1wwk"]
-[ext_resource type="Script" path="res://resources/sprites/grid/combat_map_selector.gd" id="3_082x7"]
+[ext_resource type="Script" uid="uid://bvfb5ur5bpamt" path="res://resources/sprites/grid/combat_map_selector.gd" id="3_082x7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1kv2"]
 atlas = ExtResource("1_rbqgg")

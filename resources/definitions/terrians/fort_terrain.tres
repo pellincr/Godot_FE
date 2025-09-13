@@ -5,18 +5,14 @@
 [resource]
 script = ExtResource("1_sjf7s")
 name = "Fort"
-db_key = "fort"
+description = ""
 type = Array[int]([0])
 cost = Array[int]([2, 2, 2, 2, 2])
 blocks = Array[int]([])
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-magic_defense = 0
-avoid = 0
-active_effect_phases = "BEGINNING_PHASE"
+defense = 2
+resistance = 2
+avoid = 20
+active_effect_phases = 2
 effect = 1
-effect_weight = 5
+effect_scaling = 1
+effect_weight = 20

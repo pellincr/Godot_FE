@@ -44,9 +44,10 @@ func _ready():
 	transition_in_animation()
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
+	print(str(campaign_level.get_children()))
 	var combat = campaign_level.get_child(2)
 	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units   #.combat.max_allowed_ally_units
-	playerOverworldData.selected_party = []
+	#playerOverworldData.selected_party = []
 	army_convoy_container.set_po_data(playerOverworldData)
 	army_convoy_container.army_convoy_header.set_units_left_value(0,playerOverworldData.available_party_capacity)
 	#army_convoy_container.fill_army_scroll_container()
@@ -55,16 +56,9 @@ func _ready():
 	SelectedSaveFile.save(playerOverworldData)
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
-		tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		tutorial_panel.grab_focus()
-		tutorial_panel.total_pages = 4
-		tutorial_panel.tutorial_page_text.append("This is the Battle Preparation Screen. Before every battle you enter, you will be able to adjust your units and send a select group of them to battle.")
-		tutorial_panel.tutorial_page_text.append("The top of the screen displays the amount of units you are allowed to take on the current mission and how many units you have currently selected.")
-		tutorial_panel.tutorial_page_text.append("By pressing the toggle buttons, you will be able to see either your total party, or the items you have in your convoy.")
-		tutorial_panel.tutorial_page_text.append("Sell, equip, and trade items between units to make sure your party is ready for battle!")
+		tutorial_panel.current_state = TutorialPanel.TUTORIAL.BATTLE_PREP
 		tutorial_panel.tutorial_completed.connect(tutorial_completed)
 		add_child(tutorial_panel)
-		tutorial_panel.grab_focus()
 	else:
 		tutorial_completed()
 
@@ -103,7 +97,6 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
-
 
 func tutorial_completed():
 	army_convoy_container.fill_army_scroll_container()
@@ -164,6 +157,8 @@ func update_army_convoy_container_state():
 				focused_detailed_view = unit_detailed_simple_info
 			var shop = shop_container_scene.instantiate()
 			shop.item_bought.connect(_on_item_bought)
+			if playerOverworldData.floors_climbed / playerOverworldData.current_campaign.max_floor_number > 0.5:
+				shop.expanded_shop = true
 			main_container.add_child(shop)
 
 func _on_army_convoy_container_unit_focused(unit):
@@ -199,13 +194,14 @@ func open_detailed_selection_view():
 		item_detailed_info.update_by_item()
 
 func _on_item_bought(item:ItemDefinition):
-	if playerOverworldData.gold >= item.price:
+	if playerOverworldData.gold >= item.worth:
 		if focused_selection is Unit:
 			if !focused_selection.inventory.is_full():
 				#if the unit has inventory room
-				focused_selection.inventory.give_item(item)
+				var purchased_item = item.duplicate()
+				focused_selection.inventory.give_item(purchased_item)
 				focused_detailed_view.update_by_unit()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 				
 			#elif focused_selection is ItemDefinition:
 		else:
@@ -214,7 +210,7 @@ func _on_item_bought(item:ItemDefinition):
 				playerOverworldData.append_to_array(playerOverworldData.convoy, item)
 				army_convoy_container.clear_scroll_scontainer()
 				army_convoy_container.fill_convoy_scroll_container()
-				playerOverworldData.gold -= item.price
+				playerOverworldData.gold -= item.worth
 	gold_counter.set_gold_count(playerOverworldData.gold)
 
 func set_trade_detailed(detailed_view):
@@ -236,14 +232,16 @@ func set_trade_item(item,unit):
 			current_trade_item = 1
 
 func swap_trade_items():
-	var inventory_1 = trade_unit_1.inventory
-	var inventory_2 = trade_unit_2.inventory
-	var item_1_index = inventory_1.items.find(trade_item_1)
-	var item_2_index = inventory_2.items.find(trade_item_2)
-	inventory_1.discard_item(trade_item_1)
-	inventory_1.give_item(trade_item_2)
-	inventory_2.discard_item(trade_item_2)
-	inventory_2.give_item(trade_item_1)
+	# set the inventories
+	if trade_unit_1 != trade_unit_2:
+		var inventory_1 = trade_unit_1.inventory
+		var inventory_2 = trade_unit_2.inventory
+		# get the indexes
+		var item_1_index = inventory_1.get_item_index(trade_item_1)
+		var item_2_index = inventory_2.get_item_index(trade_item_2)
+		
+		inventory_1.set_item_at_index(item_1_index, trade_item_2)
+		inventory_2.set_item_at_index(item_2_index, trade_item_1)
 	trade_item_1 = null
 	trade_item_2 = null
 	focused_detailed_view.update_by_unit()
@@ -261,13 +259,13 @@ func swap_convoy_to_unit_items():
 	current_trade_detailed_view.update_by_unit()
 
 func sell_item(item:ItemDefinition,unit:Unit):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth/2
 	unit.discard_item(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	focused_detailed_view.update_by_unit()
 
 func sell_item_from_convoy(item:ItemDefinition):
-	playerOverworldData.gold += item.price
+	playerOverworldData.gold += item.worth/2
 	playerOverworldData.convoy.erase(item)
 	gold_counter.set_gold_count(playerOverworldData.gold)
 	army_convoy_container.clear_scroll_scontainer()

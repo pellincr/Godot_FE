@@ -13,6 +13,8 @@ var current_state = Constants.DRAFT_STATE.COMMANDER
 
 @onready var main_container = $MainContainer
 
+func _init(state : Constants.DRAFT_STATE = Constants.DRAFT_STATE.COMMANDER) -> void:
+	self.current_state = state
 
 func _ready():
 	if playerOverworldData == null:
@@ -30,7 +32,12 @@ var unit_selectors = []
 var randomized_commander_types = []
 #Creates the initial amount of buttons needed in the Recruit Units menu
 func instantiate_unit_selectors():
-	unit_selectors = create_unit_selector_list(4, main_container)
+	if current_state == Constants.DRAFT_STATE.COMMANDER:
+		var unlocked_commander_count = playerOverworldData.unlock_manager.get_unlocked_count(playerOverworldData.unlock_manager.commander_types_unlocked)
+		var selector_count = min(playerOverworldData.current_campaign.commander_draft_limit,unlocked_commander_count)
+		unit_selectors = create_unit_selector_list(selector_count, main_container)
+	else:
+		unit_selectors = create_unit_selector_list(4, main_container)
 
 
 #num string container -> list of buttons
@@ -40,6 +47,8 @@ func create_unit_selector_list(selector_count: int, selector_container):
 	for i in range(selector_count):
 		var unit_selector : unitDraftSelector = unit_selector_scene.instantiate()
 		unit_selector.connect("unit_selected",unit_selected)
+		unit_selector.next_screen.connect(next_screens)
+		unit_selector.previous_screen.connect(previous_screens)
 		unit_selector.set_po_data(playerOverworldData)
 		unit_selector.current_draft_state = current_state
 		unit_selector.randomized_commander_types = randomized_commander_types
@@ -61,6 +70,14 @@ func unit_selected(unit):
 				#if there are still unit types left to draft
 				update_unit_selectors()
 			print("Unit Drafted!")
+
+func next_screens():
+	for selector in unit_selectors:
+		selector.show_next_screen()
+
+func previous_screens():
+	for selector in unit_selectors:
+		selector.show_previous_screen()
 
 func update_unit_selectors():
 	for i in unit_selectors.size():

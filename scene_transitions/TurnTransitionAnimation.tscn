@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://gds4jfmlqqj1"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_cwjjs"]
+[ext_resource type="Script" path="res://scene_transitions/turn_transition_animation.gd" id="1_p2m4h"]
+
+[sub_resource type="Gradient" id="Gradient_owo2d"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.568627, 1)
+colors = PackedColorArray(0, 0.305882, 0.870588, 1, 0.970744, 0.979693, 0.996214, 0.0292561, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m7shn"]
+gradient = SubResource("Gradient_owo2d")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Theme" id="Theme_51lns"]
+default_font = ExtResource("1_cwjjs")
+default_font_size = 128
+Label/fonts/font = ExtResource("1_cwjjs")
+
+[sub_resource type="Animation" id="Animation_4uuft"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l4ed3"]
+resource_name = "new_turn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_31kux"]
+_data = {
+"RESET": SubResource("Animation_4uuft"),
+"new_turn": SubResource("Animation_l4ed3")
+}
+
+[node name="TurnTransitionAnimation" type="Node2D"]
+script = ExtResource("1_p2m4h")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = SubResource("GradientTexture2D_m7shn")
+
+[node name="Label" type="Label" parent="TextureRect"]
+modulate = Color(1, 0.584314, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -48.0
+offset_right = 336.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_51lns")
+text = "Turn Label"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../TextureRect/Label")
+libraries = {
+"": SubResource("AnimationLibrary_31kux")
+}

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=8 format=3 uid="uid://dw4xt7reuxe8w"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="1_4drws"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_8acs6"]
+[ext_resource type="Texture2D" uid="uid://bdmoktd0737x" path="res://resources/sprites/entities/door_new.png" id="3_i0j0d"]
+[ext_resource type="Resource" uid="uid://can7ubbmqhujh" path="res://resources/definitions/terrians/door_terrain.tres" id="4_bjaqx"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_k87vu"]
+
+[sub_resource type="Resource" id="Resource_lkrma"]
+script = ExtResource("1_4drws")
+name = "Door"
+interaction_type = 1
+position = Vector2i(0, 0)
+terrain = ExtResource("4_bjaqx")
+map_view = ExtResource("3_i0j0d")
+hp = 150
+defense = 10
+resistance = 7
+attack_speed = 5
+contents = Array[ExtResource("2_8acs6")]([])
+
+[sub_resource type="Resource" id="Resource_b1ne2"]
+script = ExtResource("1_4drws")
+name = "Door"
+interaction_type = 1
+position = Vector2i(1, 0)
+terrain = ExtResource("4_bjaqx")
+map_view = ExtResource("3_i0j0d")
+hp = 150
+defense = 10
+resistance = 8
+attack_speed = 5
+contents = Array[ExtResource("2_8acs6")]([])
+
+[resource]
+script = ExtResource("6_k87vu")
+entities = Array[ExtResource("1_4drws")]([SubResource("Resource_lkrma"), SubResource("Resource_b1ne2")])

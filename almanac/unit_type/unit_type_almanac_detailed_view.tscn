@@ -1,0 +1,200 @@
+[gd_scene load_steps=12 format=3 uid="uid://gdi76tkrump4"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_yw665"]
+[ext_resource type="Script" path="res://almanac/unit_type/unit_type_almanac_detailed_view.gd" id="2_0m8mb"]
+[ext_resource type="PackedScene" uid="uid://uu25grierx8r" path="res://almanac/unit_type/unit_type_full_stat_container.tscn" id="3_y0tt6"]
+[ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="4_geqfg"]
+[ext_resource type="PackedScene" uid="uid://bwojcenhgb8vy" path="res://almanac/unit_type/unit_type_almanac_weapon_types.tscn" id="5_2uyw7"]
+[ext_resource type="PackedScene" uid="uid://teqlfparxvi" path="res://almanac/unit_type/unit_type_trait_container.tscn" id="6_u40ig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew00q"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vjg3"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_7gfqx"]
+default_font = ExtResource("1_yw665")
+Panel/styles/panel = SubResource("StyleBoxFlat_ew00q")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6vjg3")
+
+[sub_resource type="Theme" id="Theme_w7fdy"]
+default_font_size = 28
+
+[sub_resource type="Theme" id="Theme_xokls"]
+default_font_size = 24
+
+[node name="UnitTypeAlmanacDetailedView" type="HBoxContainer"]
+custom_minimum_size = Vector2(335, 375)
+offset_right = 335.0
+offset_bottom = 375.0
+theme = SubResource("Theme_7gfqx")
+script = ExtResource("2_0m8mb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(355, 375)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Panel"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 334.0
+offset_bottom = 370.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="UnitType" type="Label" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/HeaderContainer"]
+layout_mode = 2
+theme = SubResource("Theme_w7fdy")
+text = "Lance Cavalry"
+
+[node name="MoveConContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="MoveContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer"]
+custom_minimum_size = Vector2(131, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Header" type="Label" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer/MoveContainer"]
+layout_mode = 2
+text = "Move"
+
+[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer/MoveContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "5"
+
+[node name="ConstitutionContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer"]
+custom_minimum_size = Vector2(131, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Header" type="Label" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer/ConstitutionContainer"]
+layout_mode = 2
+text = "Constitution"
+
+[node name="Value" type="Label" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/MoveConContainer/ConstitutionContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "10"
+
+[node name="UnitTypeFullStatContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer" instance=ExtResource("3_y0tt6")]
+layout_mode = 2
+
+[node name="UnitIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer/Panel"]
+layout_mode = 2
+offset_left = 241.0
+offset_top = 24.0
+offset_right = 305.0
+offset_bottom = 88.0
+texture = ExtResource("4_geqfg")
+
+[node name="UnitTypeAlmanacWeaponTypes" parent="VBoxContainer/HBoxContainer" instance=ExtResource("5_2uyw7")]
+layout_mode = 2
+
+[node name="UnitTypeTraitContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource("6_u40ig")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="FactionContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="FactionPanel" type="Panel" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+custom_minimum_size = Vector2(185, 60)
+layout_mode = 2
+
+[node name="FactionHeader" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer/FactionPanel"]
+custom_minimum_size = Vector2(185, 60)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 15.0
+theme = SubResource("Theme_xokls")
+text = "Faction"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mercenary" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Mercenary"
+horizontal_alignment = 1
+
+[node name="Kingdom" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Kingdom"
+horizontal_alignment = 1
+
+[node name="Theocracy" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Theocracy"
+horizontal_alignment = 1
+
+[node name="Lawbreakers" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Lawbreakers"
+horizontal_alignment = 1
+
+[node name="Cultist" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Cultist"
+horizontal_alignment = 1
+
+[node name="Skeletal" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Skeletal"
+horizontal_alignment = 1
+
+[node name="Monster" type="Label" parent="VBoxContainer/HBoxContainer/FactionContainer"]
+visible = false
+layout_mode = 2
+text = "Monster"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="UnitTypeDescription" type="Label" parent="VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(728, 45)
+layout_mode = 2
+text = "Unit Type Description Here"
+autowrap_mode = 3

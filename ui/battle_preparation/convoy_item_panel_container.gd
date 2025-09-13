@@ -42,14 +42,20 @@ func set_item_name_label(item_name):
 	item_name_label.text = item_name
 
 func set_uses_label(use_count):
-	uses_label.text = str(use_count)
+	if use_count > 0:
+		uses_label.text = str(use_count)
+	else:
+		uses_label.text = ""
 
 func update_by_item():
 	set_item_icon(item.icon)
 	update_item_type_icon_by_item()
 	set_item_name_label(item.name)
-	set_uses_label(item.uses)
-
+	if item.unbreakable:
+		set_uses_label(0)
+	else :
+		set_uses_label(item.uses)
+	
 func clear_item_type_icon_comtainer():
 	var children = left_container.get_children()
 	for child_index in children.size():

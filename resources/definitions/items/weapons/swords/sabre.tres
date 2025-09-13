@@ -1,11 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://co7l31ly5a5mj"]
 
-[ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_svkeg"]
+[ext_resource type="Texture2D" uid="uid://dh8ei2gv82mw3" path="res://resources/sprites/items/weapons/swords/sabre.png" id="1_6m0tg"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_7c4gx"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6cqys"]
-atlas = ExtResource("1_svkeg")
-region = Rect2(64, 32, 32, 32)
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_bixom"]
 
 [resource]
 script = ExtResource("2_7c4gx")
@@ -15,28 +12,27 @@ physical_weapon_triangle_type = 1
 magic_weapon_triangle_type = 0
 item_damage_type = 0
 item_scaling_type = 0
+item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([0])
 required_mastery = 0
 attack_range = Array[int]([1])
-damage = 7
-hit = 95
+damage = 9
+hit = 65
 critical_chance = 10
-weight = 5
+weight = 11
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = false
+status_ailment = 0
+specials = Array[int]([0])
 name = "Sabre"
 db_key = "sabre"
 equippable = true
 description = ""
 item_type = 0
+rarity = ExtResource("2_bixom")
 uses = 20
 max_uses = 20
-worth = 100
-icon = SubResource("AtlasTexture_6cqys")
+unbreakable = false
+worth = 1800
+icon = ExtResource("1_6m0tg")

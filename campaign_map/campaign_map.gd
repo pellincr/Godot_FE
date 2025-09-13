@@ -5,8 +5,10 @@ const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://campaign_map/campaign_map_room.tscn")
 const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
 const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
-const EVENT_SELECT = preload("res://events/event_selection.tscn")
-const PLACEHOLDER = preload("res://placeholder/place_holder_scene.tscn")
+const EVENT_SELECT = preload("res://campaign_map/events/event_selection.tscn")
+const TREASURE_SCENE = preload("res://campaign_map/treasure/treasure.tscn")
+const RECRUITMENT_SCENE = preload("res://campaign_map/recruitment/recruitment.tscn")
+const PLACEHOLDER = preload("res://campaign_map/placeholder/place_holder_scene.tscn")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
@@ -28,7 +30,8 @@ var camera_edge_y : float
 func _ready() -> void:
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
+	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		generate_new_map()
@@ -47,14 +50,9 @@ func _ready() -> void:
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 0:
 			#If it's the tutorial campaign, show the tutorial
 			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
-			tutorial_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			tutorial_panel.total_pages = 3
-			tutorial_panel.tutorial_page_text.append("This is the Campaign Map Screen. You will navigate this map full of battles and encounters to make your way to the boss at the end.")
-			tutorial_panel.tutorial_page_text.append("Each symbol shows a different type of encounter including battles, treasure, shops, events, and elites.")
-			tutorial_panel.tutorial_page_text.append("Choose your path wisely for once you start down the road you may only go to the spots connected to your selected event.")
+			tutorial_panel.current_state = TutorialPanel.TUTORIAL.CAMPAIGN_MAP
 			camera_2d.add_child(tutorial_panel)
 			tutorial_panel.tutorial_completed.connect(tutorial_completed)
-			tutorial_panel.grab_focus()
 
 
 func transition_in_animation():
@@ -76,7 +74,7 @@ func _input(event:InputEvent) ->void:
 		camera_2d.position.y -= SCROLL_SPEED
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
-	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y,0)
+	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
 
 func tutorial_completed():
 #	camera_2d.zoom = Vector2(3,3)
@@ -84,6 +82,7 @@ func tutorial_completed():
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
+	playerOverworldData.combat_maps_completed = 0
 	playerOverworldData.campaign_map_data = campaign_map_generator.generate_map()
 	create_map()
 
@@ -150,10 +149,9 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 	playerOverworldData.floors_climbed += 1
 	match  room.type:
 		CampaignRoom.TYPE.BATTLE:
-			if playerOverworldData.floors_climbed < playerOverworldData.current_campaign.tier_2_floor_start_number:
-				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_1_battle_levels.pick_random()
-			else:
-				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.tier_2_battle_levels.pick_random()
+			var battle_tier = playerOverworldData.combat_maps_completed
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has(playerOverworldData.combat_maps_completed):
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(playerOverworldData.combat_maps_completed).pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)
@@ -162,18 +160,23 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			transition_out_animation()
 			get_tree().change_scene_to_packed(EVENT_SELECT)
 		CampaignRoom.TYPE.BOSS:
-			playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.boss_levels.pick_random()
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has("BOSS") and not playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").is_empty():
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(BATTLE_PREP)
 		CampaignRoom.TYPE.TREASURE:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
-			get_tree().change_scene_to_packed(PLACEHOLDER)
+			get_tree().change_scene_to_packed(TREASURE_SCENE)
 		CampaignRoom.TYPE.SHOP:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
+		CampaignRoom.TYPE.RECRUITMENT:
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			get_tree().change_scene_to_packed(RECRUITMENT_SCENE)
 		CampaignRoom.TYPE.ELITE:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()

@@ -13,7 +13,7 @@ const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_dis
 signal register_combat(combat_node: Node)
 signal turn_advanced()
 signal combatant_added(combatant: CombatUnit)
-signal entity_added(cme:CombatMapEntity)
+#signal entity_added(cme:CombatEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_information(text: String)
 signal update_combatants(combatants: Array) #THIS IS OLD?
@@ -23,27 +23,29 @@ signal major_action_completed()
 signal minor_action_completed()
 signal trading_completed()
 signal shove_completed()
+signal pause_fsm()
+signal resume_fsm()
+signal entity_processing_completed()
+signal entity_processing()
 
-	
+signal spawn_reinforcement(reinforcement: CombatUnit)
+signal reinforcement_check_completed()
+
 var dead_units : Array[CombatUnit] = []
 var combatants : Array[CombatUnit] = []
 var units: Array[CombatUnit]
-var entities: Array[CombatMapEntity]
-var disabled_entities : Array[CombatMapEntity]
-var groups = [
+
+var groups = [ #TO BE UPDATED TO DICTIONARY
 	[], #players
 	[], #enemies
 	[], #FRIENDLY
 	[],  #NOMAD
 	[] #Terrain
 ]
-var unit_groups = [
-	[], #players
-	[] #enemies
-]
+	
 var current_combatant = 0
-var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
-
+@export var victory_condition : Constants.VICTORY_CONDITION = Constants.VICTORY_CONDITION.DEFEAT_ALL ##overwrite on _ready
+@export var turns_to_survive:= 0
 var combatExchange: CombatExchange
 
 
@@ -52,10 +54,21 @@ var _player_unit_alive : bool = true
 @export var game_ui : Control
 @export var controller : CController
 @export var combat_audio : AudioStreamPlayer
+
+## MANAGERS
+# UNIT MANAGERS
 @export var unit_experience_manager : UnitExperienceManager 
 @export var combat_unit_item_manager : CombatUnitItemManager
+
+# ENTITY MANAGER
+@export var entity_manager : CombatMapEntityManager
+
+# REINFORCEMENTS
 @export var mapReinforcementData : MapReinforcementData
-@export var mapEntityData: MapEntityGroupData
+@export var reinforcement_manager : CombatMapReinforcementManager
+
+# GAME GRID
+@export var game_grid : CombatMapGrid
 
 @export var ally_spawn_top_left : Vector2
 @export var ally_spawn_bottom_right: Vector2
@@ -63,28 +76,55 @@ var _player_unit_alive : bool = true
 @export var max_allowed_ally_units : int
 @export var base_win_gold_reward : int = 0
 @export var turn_reward_modifier : int = 0
+
+@export var is_key_campaign_level : bool = false
+@export var is_tutorial := false
+@export var tutorial_level : TutorialPanel.TUTORIAL
+#@export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var draft_amount_on_win : int
 #@export var battle_prep_on_win : bool = true
 @export var heal_on_win : bool = true
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+@onready var current_turn = 1
 
-const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 
 func _ready():
 	emit_signal("register_combat", self)
+	reinforcement_manager = CombatMapReinforcementManager.new()
+	await reinforcement_manager
 	combatExchange = $CombatExchange
 	combat_audio = $CombatAudio
 	unit_experience_manager = $UnitExperienceManager
+	entity_manager = $CombatMapEntityManager
+	#Connections CombatExchange 
 	combatExchange.connect("combat_exchange_finished", combatExchangeComplete)
 	combatExchange.connect("play_audio", play_audio)
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
+	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
+	#Connections Combat Unit Item Manager 
+	combat_unit_item_manager.connect("heal_unit", heal_unit)
+	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
+	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
+	#Connections Entity Manager
+	entity_manager.connect("entity_added", entity_added)
+	entity_manager.connect("give_items", give_curent_unit_items)
+	entity_manager.connect("entity_process_complete",_on_entity_processing_completed)
+	#Connections Reinforcement Manager
+	reinforcement_manager.game_grid = game_grid
+	reinforcement_manager.populate(mapReinforcementData)
+	reinforcement_manager.connect("spawn_reinforcement", _on_reinforcement_manager_spawn_reinforcement)
 	randomize()
 
+func set_game_grid(game_grid : CombatMapGrid):
+	self.game_grid = game_grid
+	reinforcement_manager.game_grid = game_grid
 
 func populate():
+	if is_tutorial:
+		set_player_tutorial_party()
 	var current_party_index = 0 
 	for i in range(ally_spawn_top_left.x,ally_spawn_bottom_right.x):
 		for j in range(ally_spawn_top_left.y,ally_spawn_bottom_right.y):
@@ -92,26 +132,96 @@ func populate():
 				add_combatant(create_combatant_unit(playerOverworldData.selected_party[current_party_index],0),Vector2i(i,j))
 				current_party_index+= 1
 	spawn_initial_units()
-	load_entities()
+	entity_manager.load_entities()
 
-func load_entities():
-	if mapEntityData != null:
-		for entity in mapEntityData.entities:
-			add_entity(entity)
-		
+func set_player_tutorial_party():
+	match tutorial_level:
+		TutorialPanel.TUTORIAL.HOW_TO_PLAY:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			var sword_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Sword", 2)
+			playerOverworldData.selected_party.append(sword_unit)
+			var axe_unit = Unit.create_generic_unit("fighter",[ItemDatabase.items["iron_axe"]], "Axe", 2)
+			playerOverworldData.selected_party.append(axe_unit)
+			var lance_unit = Unit.create_generic_unit("pikeman",[ItemDatabase.items["iron_lance"]], "Lance", 2)
+			playerOverworldData.selected_party.append(lance_unit)
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			var dark_unit = Unit.create_generic_unit("shaman",[ItemDatabase.items["evil_eye"]], "Dark", 2)
+			playerOverworldData.selected_party.append(dark_unit)
+			var nature_unit = Unit.create_generic_unit("mage",[ItemDatabase.items["fire_spell"]], "Nature", 2)
+			playerOverworldData.selected_party.append(nature_unit)
+			var light_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Light", 2)
+			playerOverworldData.selected_party.append(light_unit)
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			var mundane_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["iron_sword"]], "Mundane", 2)
+			playerOverworldData.selected_party.append(mundane_unit)
+			var magic_unit = Unit.create_generic_unit("bishop",[ItemDatabase.items["smite"]], "Magic", 2)
+			playerOverworldData.selected_party.append(magic_unit)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"]], "Nimble", 2)
+			playerOverworldData.selected_party.append(nimble_unit)
+			var defensive_unit = Unit.create_generic_unit("ward",[ItemDatabase.items["iron_shield"]], "Defensive", 2)
+			playerOverworldData.selected_party.append(defensive_unit)
+		TutorialPanel.TUTORIAL.WEAPON_EFFECTIVENESS:
+			var bow_unit = Unit.create_generic_unit("archer",[ItemDatabase.items["iron_bow"]],"Bow User",2)
+			playerOverworldData.selected_party.append(bow_unit)
+			var rapier_unit = Unit.create_generic_unit("sellsword",[ItemDatabase.items["rapier"]], "Rapier User", 2)
+			playerOverworldData.selected_party.append(rapier_unit)
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			pass
+		TutorialPanel.TUTORIAL.STAFFS:
+			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["heal_staff"]], "Staff", 2)
+			playerOverworldData.selected_party.append(healer)
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.BANNERS:
+			pass
+		TutorialPanel.TUTORIAL.TERRAIN:
+			var heavy = Unit.create_generic_unit("axe_armor",[ItemDatabase.items["iron_axe"]],"Heavy",2)
+			playerOverworldData.selected_party.append(heavy)
+			var nimble_unit = Unit.create_generic_unit("thief",[ItemDatabase.items["iron_dagger"],ItemDatabase.items["skeleton_key"]], "Nimble", 2)
+			playerOverworldData.selected_party.append(nimble_unit)
+			var flying = Unit.create_generic_unit("freewing",[ItemDatabase.items["iron_sword"]],"Flying",2)
+			playerOverworldData.selected_party.append(flying)
+		TutorialPanel.TUTORIAL.MAP_ENTITY:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.items["iron_sword"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",4)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
+			playerOverworldData.selected_party.append(commander)
 
-func spawn_reinforcements(turn_number : int):
-	if mapReinforcementData:
-		for group in mapReinforcementData.reinforcements: 
-			if(turn_number in group.turn):
-				for unit in group.units:
-					var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
-					add_combatant(reinforcement_unit, unit.map_position)
+
+func get_all_unit_positions_of_faction(faction : int) -> Array[Vector2i]:
+	var _arr : Array[Vector2i] = []
+	for unit_index in groups[faction]:
+		var unit_position : Vector2i = combatants[unit_index].map_position
+		_arr.append(unit_position)
+	return _arr
+
+func check_reinforcement_spawn(turn_number : int):
+	# get all the unit positions for friendly units
+	if mapReinforcementData != null:
+		var _unit_positon_array :Array[Vector2i] =  get_all_unit_positions_of_faction(Constants.FACTION.PLAYERS)
+		# call the manager to see if there are reinforcements to be spawned, and await its completion
+		await reinforcement_manager.check_reinforcement_spawn(turn_number, _unit_positon_array)
+	await get_tree().create_timer(0.5).timeout
+	reinforcement_check_completed.emit()
 
 func spawn_initial_units():
-	for unit in enemy_start_group.group:
-		var reinforcement_unit = create_combatant_unit(Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling), 1, unit.ai_type)
-		add_combatant(reinforcement_unit, unit.map_position)
+	for unit :CombatUnitData in enemy_start_group.group:
+		var enemy_unit : CombatUnit
+		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
+		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type,false, unit.is_boss)
+		add_combatant(enemy_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss)
@@ -130,26 +240,14 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 	groups[combat_unit.allegience].append(combatants.size() - 1)
 
 	var new_combatant_sprite = COMBAT_UNIT_DISPLAY.instantiate()
-	new_combatant_sprite.set_reference_unit(combat_unit)
-	$"../Terrain/TileMap".add_child(new_combatant_sprite)
-	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
-	new_combatant_sprite.z_index = 1
-	#if combat_unit.allegience != 0:
-	#	combat_unit.unit.initiative -= 1
-	combat_unit.map_display = new_combatant_sprite
 	combat_unit.stats.populate_unit_stats(combat_unit.unit)
 	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
+	new_combatant_sprite.set_reference_unit(combat_unit)
+	$"../Terrain/UnitLayer".add_child(new_combatant_sprite)
+	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
+	new_combatant_sprite.z_index = 1
+	combat_unit.map_display = new_combatant_sprite
 	emit_signal("combatant_added", combat_unit)
-	
-func add_entity(cme:CombatMapEntity):
-	entities.append(cme)
-	var new_entity_sprite : CombatMapEntityDisplay = COMBAT_MAP_ENTITY_DISPLAY.instantiate()
-	new_entity_sprite.set_reference_entity(cme)
-	$"../Terrain/TileMap".add_child(new_entity_sprite)
-	new_entity_sprite.position = Vector2((cme.position.x * 32.0) + 16,(cme.position.y * 32.0) + 16)
-	new_entity_sprite.z_index = 0
-	cme.display = new_entity_sprite
-	emit_signal("entity_added", cme)
 
 func get_current_combatant():
 	return combatants[current_combatant]
@@ -169,6 +267,23 @@ func perform_attack(attacker: CombatUnit, target: CombatUnit, data: UnitCombatEx
 	major_action_complete()
 	if attacker.allegience == Constants.FACTION.ENEMIES:
 		complete_unit_turn()
+
+func perform_attack_entity(attacker: CombatUnit, target: CombatEntity, data: UnitCombatExchangeData):
+	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
+	await combatExchange.enact_combat_exchange_entity(attacker, target, data)
+	major_action_complete()
+	if attacker.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
+
+func perform_support(supporter: CombatUnit, target: CombatUnit, data: UnitSupportExchangeData):
+	print("Entered Perform_attack in combat.gd")
+	_player_unit_alive = true
+	await combatExchange.enact_support_exchange(supporter, target, data)
+	major_action_complete()
+	if supporter.allegience == Constants.FACTION.ENEMIES:
+		complete_unit_turn()
+
 
 func perform_staff(user: CombatUnit, target: CombatUnit):
 	print("Entered Perform_attack in combat.gd")
@@ -200,23 +315,6 @@ func Trade(unit: CombatUnit, target: CombatUnit):
 	combat_unit_item_manager.free_current_node()
 	minor_action_complete(unit)
 	print("Exited Trade in Combat.gd")
-
-func Chest(unit: CombatUnit, key: ItemDefinition, chest:CombatMapChestEntity):
-	print("Entered Chest in Combat.gd")
-	if key:
-		key.use()
-	for item in chest.contents:
-		await combat_unit_item_manager.give_combat_unit_item(unit, item)
-	entity_disable(chest)
-	major_action_complete()
-	
-func Door(unit: CombatUnit, key: ItemDefinition, door:CombatMapDoorEntity):
-	print("Entered Door in Combat.gd")
-	key.use()
-	for posn in door.entity_position_group:
-		entity_disable(controller.get_entity_at_position(posn))
-	controller.update_points_weight()
-	major_action_complete()
 
 #Staff Action
 func Support(user: CombatUnit, target: CombatUnit):
@@ -253,8 +351,7 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 	complete_unit_turn()
 	major_action_complete()
 
-	
-	
+
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
 	
@@ -268,7 +365,10 @@ func advance_turn(faction: int):
 				combatants[entry].map_display.update_values()
 	#decrement the turn reward modifier
 	turn_reward_modifier -= .5
-
+	#advace the current turn count
+	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+		if check_win():
+			combat_win()
 
 func major_action_complete():
 	get_current_combatant().minor_action_taken = true
@@ -280,42 +380,8 @@ func major_action_complete():
 func combatExchangeComplete(friendly_unit_alive:bool):
 	_player_unit_alive = friendly_unit_alive
 	major_action_complete()
-	#WIN/LOSE CONDITION LOGIC
-	if(check_win()):
-		if heal_on_win:
-			heal_ally_units()
-		#playerOverworldData.next_level = win_go_to_scene
-		#playerOverworldData.current_level += 1
-		playerOverworldData.began_level = false
-		playerOverworldData.gold += calculate_reward_gold()
-		SelectedSaveFile.save(playerOverworldData)
-		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
-			#if not at the final level, go back to the campaign map
-			#if draft_amount_on_win > 0:
-				#if allowed to draft after level
-				#playerOverworldData.current_archetype_count = 0
-				#playerOverworldData.max_archetype = draft_amount_on_win
-				#SelectedSaveFile.save(playerOverworldData)
-				#get_tree().change_scene_to_packed(preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn"))
-			#else:
-				#if battle_prep_on_win:
-					#if allowed to go to battle prep on win
-				#	get_tree().change_scene_to_packed(preload("res://ui/battle_preparation/battle_preparation.tscn"))
-				#else:
-			playerOverworldData.began_level = false
-			playerOverworldData.current_level = null
-			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
-		else:
-			#reset the game back to the start screen after final level so that it can be played again
-			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
-			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
-			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
-			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
-			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-			reset_game_state()
-			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+	if check_win():
+		combat_win()
 	if(check_lose()):
 		reset_game_state()
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
@@ -326,35 +392,67 @@ func reset_game_state():
 	playerOverworldData.current_level = null
 	playerOverworldData.current_campaign = null
 	playerOverworldData.total_party = []
+	playerOverworldData.selected_party = []
 	playerOverworldData.dead_party_members = []
 	playerOverworldData.current_archetype_count = 0
 	playerOverworldData.archetype_allotments = []
 	playerOverworldData.campaign_map_data = []
+	playerOverworldData.floors_climbed = 0 
+	playerOverworldData.combat_maps_completed = 0
 
 func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
 		unit.hp = unit.stats.hp
 
+func refresh_commander_signature_weapon():
+	for unit : Unit in playerOverworldData.total_party:
+		if UnitTypeDatabase.get_commander_definition(unit.unit_type_key):
+			var signature_weapon = UnitTypeDatabase.get_commander_definition(unit.unit_type_key).signature_weapon.db_key
+			var items = unit.inventory.get_items()
+			for item in items:
+				if item and item.db_key == signature_weapon:
+					item.refresh_uses()
+
+func unlock_new_unit_types():
+	var unlocked_units = playerOverworldData.current_campaign.unit_unlock_rewards
+	for unlocked_unit in unlocked_units:
+		if UnitTypeDatabase.unit_types.has(unlocked_unit) and !playerOverworldData.unlock_manager.unit_types_unlocked[unlocked_unit]:
+			#If the unit database has the unlocked unit and it hasn't been unlocked yet
+			playerOverworldData.unlock_manager.unit_types_unlocked[unlocked_unit] = true
+			var unlock_panel : UnlockPanel= preload("res://ui/unlock_panel/unlock_panel.tscn").instantiate()
+			unlock_panel.unlocked_entity = UnitTypeDatabase.unit_types[unlocked_unit]
+			game_ui.add_child(unlock_panel)
+			await get_tree().create_timer(8).timeout
+			unlock_panel.queue_free()
+		elif UnitTypeDatabase.commander_types.has(unlocked_unit) and !playerOverworldData.unlock_manager.commander_types_unlocked[unlocked_unit]:
+			#If the commander database has the unlocked commander and it hasn't been unlocked yet
+			playerOverworldData.unlock_manager.commander_types_unlocked[unlocked_unit] = true
+			var unlock_panel : UnlockPanel= preload("res://ui/unlock_panel/unlock_panel.tscn").instantiate()
+			unlock_panel.unlocked_entity = UnitTypeDatabase.commander_types[unlocked_unit]
+			game_ui.add_child(unlock_panel)
+			await get_tree().create_timer(8).timeout
+			unlock_panel.queue_free()
+
 func combatant_die(combatant: CombatUnit):
-	var	comb_id = combatants.find(combatant)
+	var comb_id = combatants.find(combatant)
 	if comb_id != -1:
 		combatant.alive = false
 		groups[combatant.allegience].erase(comb_id)
 		if playerOverworldData.total_party.has(combatant.unit):
 			playerOverworldData.dead_party_members.append(combatant.unit)
 			playerOverworldData.total_party.erase(combatant.unit)
+			playerOverworldData.selected_party.erase(combatant.unit)
+		else:
+			if !playerOverworldData.game_stats_manager.enemy_types_killed.get(combatant.unit.unit_type_key):
+				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] = 1
+			else:
+				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] += 1
 		dead_units.append(combatant)
 		update_information.emit("[color=red]{0}[/color] died.\n".format([
 			combatant.unit.name
 		]
 	))
 	combatant_died.emit(combatant)
-	
-
-func entity_disable(e: CombatMapEntity):
-	e.active = false
-	disabled_entities.append(e)
-	e.display.queue_free()
 
 func sort_weight_array(a, b):
 	if a[0] > b[0]:
@@ -509,20 +607,130 @@ func play_audio(sound : AudioStream):
 	await combat_audio.finished
 	combatExchange.audio_player_ready()
 
+func entity_added(cme:CombatEntity):
+	controller.grid.set_entity(cme, cme.map_position)
 
 func check_win():
 	match victory_condition:
 		Constants.VICTORY_CONDITION.DEFEAT_ALL:
 			return check_group_clear(groups[1])
+		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
+			return check_all_bosses_killed()
+		Constants.VICTORY_CONDITION.CAPTURE_TILE:
+			pass
+		Constants.VICTORY_CONDITION.DEFEND_TILE:
+			pass
+		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+			return check_turns_survived()
 
 func check_group_clear(group):
 	if group.is_empty():
 		print("WIN!")
 		return true
 
+func check_all_bosses_killed():
+	var enemy_units = groups[1]
+	for enemy in enemy_units:
+		if combatants[enemy].is_boss:
+			return false
+	return true
+
+func check_turns_survived():
+	return turns_to_survive < current_turn
 
 func check_lose():
+	# Did we fail the objective?
+	
+	# Did our commander die?
+	
+	# Did all of our units die?
 	return check_group_clear(groups[0])
 
 func calculate_reward_gold():
 	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)
+
+func heal_unit(cu:CombatUnit, amount:int):
+	await combatExchange.heal_unit(cu, amount)
+
+func entity_destroyed_combat(ce : CombatEntity):
+	#entity_processing.emit()
+	await entity_manager.entity_destroyed(ce)
+	combatExchange._on_entity_destroyed_processing_completed()
+
+func give_curent_unit_items(items: Array[ItemDefinition], source: String):
+	for item in items:
+		await combat_unit_item_manager.give_combat_unit_item(get_current_combatant(), item)
+	if source == CombatMapConstants.COMBAT_ENTITY:
+		entity_manager._on_give_item_complete()
+
+func create_unit_item_discard_container(cu: CombatUnit, new_item: ItemDefinition):
+	# Create inventory slot data
+	var inventory_data : Array[UnitInventorySlotData] = combat_unit_item_manager.generate_combat_unit_inventory_data(cu)
+	# Create new item slot data
+	var new_item_data : UnitInventorySlotData = combat_unit_item_manager.generate_combat_unit_inventory_data_for_item(cu, new_item)
+	# Create UI Component
+	game_ui.create_combat_unit_discard_inventory(cu, inventory_data, new_item_data)
+
+func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
+	game_ui.destory_active_ui_node()
+	await combat_unit_item_manager.give_item_discard_result_complete(cu, discard_item)
+
+func create_item_obtained_pop_up(item:ItemDefinition):
+	await game_ui.create_item_obtained_pop_up(item)
+	combat_unit_item_manager._on_give_item_popup_completed()
+
+func entity_interact_use_item(unit: CombatUnit, use_item:ItemDefinition, entity:CombatEntity):
+	entity_processing.emit()
+	unit.unit.inventory.use_item(use_item)
+	await entity_manager.entity_interacted(entity)
+
+func entity_interact(unit: CombatUnit, entity:CombatEntity):
+	entity_processing.emit()
+	entity_manager.entity_interacted(entity)
+
+func _on_entity_processing_completed():
+	entity_processing_completed.emit()
+
+func _on_reinforcement_manager_spawn_reinforcement(cu: CombatUnit, position: Vector2i):
+	if controller.perform_reinforcement_camera_adjustment(position):
+		await get_tree().create_timer(1).timeout
+		add_combatant(cu, position)
+		await get_tree().create_timer(1).timeout
+		reinforcement_manager._on_reinforcement_spawn_completed()
+
+func combat_loss():
+	reset_game_state()
+	get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+
+func combat_win():
+	if heal_on_win:
+		heal_ally_units()
+	refresh_commander_signature_weapon()
+	#playerOverworldData.next_level = win_go_to_scene
+	#playerOverworldData.current_level += 1
+	playerOverworldData.began_level = false
+	playerOverworldData.gold += calculate_reward_gold()
+	if (is_key_campaign_level):
+		playerOverworldData.combat_maps_completed += 1
+	SelectedSaveFile.save(playerOverworldData)
+	if is_tutorial:
+		reset_game_state()
+		SelectedSaveFile.save(playerOverworldData)
+		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+	else:
+		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+			playerOverworldData.began_level = false
+			playerOverworldData.current_level = null
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+		else:
+			#reset the game back to the start screen after final level so that it can be played again
+			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
+			playerOverworldData.hall_of_heroes_manager.alive_winning_units[win_number] = playerOverworldData.total_party
+			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
+			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
+			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
+			unlock_new_unit_types()
+			reset_game_state()
+			SelectedSaveFile.save(playerOverworldData)
+			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")

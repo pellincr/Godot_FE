@@ -1,53 +1,98 @@
 extends Control
-const BLANK_TERRAIN = preload("res://resources/definitions/terrians/blank_terrain.tres")
 
-var x_coordinate : int
-var y_coordinate: int
+#Terrain Top Panel
+@onready var tile_index: Label = $TerrainInfoContainer/UpperTilePanel/Tile_Index
+@onready var terrain_name: Label = $TerrainInfoContainer/UpperTilePanel/UpperTileContainer/TerrainName
 
-var terrain : Terrain = BLANK_TERRAIN
-var terrain_icon: Texture2D
+#Terrain Bonuses
+@onready var terrain_bonus_avoid: Panel = $TerrainInfoContainer/TerrainBonusAvoid
+@onready var avoid_value: Label = $TerrainInfoContainer/TerrainBonusAvoid/LowerBonusContainer/HBoxContainer/Value
 
-func update_name() : 
-	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/Name.text = terrain.name
-	
-func update_avoid_bonus() : 
-	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Avoid.text = "AVO " +str(terrain.avoid)
-	
-func update_defense_bonus() : 
-	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Defense.text = "DEF " + str(terrain.defense)
+@onready var terrain_bonus_defense: Panel = $TerrainInfoContainer/TerrainBonusDefense
+@onready var defense_value: Label = $TerrainInfoContainer/TerrainBonusDefense/LowerBonusContainer/HBoxContainer/Value
 
-func update_magic_defense_bonus() : 
-	$VBoxContainer/LowerBonusPanel/LowerBonusContainer/BonusContainer/Special.text = "RES " + str(terrain.magic_defense)
+@onready var terrain_bonus_resistance: Panel = $TerrainInfoContainer/TerrainBonusResistance
+@onready var resistance_value: Label = $TerrainInfoContainer/TerrainBonusResistance/LowerBonusContainer/HBoxContainer/Value
 
-func set_x_coordinates(value: int) :
-	self.x_coordinate = value
-	set_coord_string()
-	
-func set_y_coordinate(value: int) :
-	self.y_coordinate = value
-	set_coord_string()
-	
-func set_xy_coordinate(x: int, y:int) :
-	self.x_coordinate = x
-	self.y_coordinate = y
-	set_coord_string()
+@onready var effect_prefix: Label = $TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer/Prefix
+@onready var terrain_bonus_effect: Panel = $TerrainInfoContainer/TerrainBonusEffect
+@onready var effect_value: Label = $TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer/Value
+@onready var effect_label: Label = $TerrainInfoContainer/TerrainBonusEffect/LowerBonusContainer/HBoxContainer/Label
 
-func update_terrain_icon() :
-	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon.texture = terrain.tile_texture
+# Entity
+@onready var entity_info_panel: Panel = $TerrainInfoContainer/EntityInfoPanel
+@onready var entity_hp: Label = $TerrainInfoContainer/EntityInfoPanel/EntityHP
+@onready var entity_name: Label = $TerrainInfoContainer/EntityInfoPanel/LowerBonusContainer/EntityName
 
-func set_coord_string() : 
-	$VBoxContainer/UpperTilePanel/UpperTileContainer/HBoxContainer/terrian_icon/Coordinates.text =  ("(" + str(x_coordinate) + "," + str(y_coordinate)+ ")")
-	
-func set_terrain(t: Terrain):
-	self.terrain = t
-	
-func set_all(t:Terrain, x: int, y:int) : ##texture:Texture2D,
-	set_xy_coordinate(x,y)
-	if t:
-		set_terrain(t)
-		update_name()
-		update_avoid_bonus()
-		update_defense_bonus()
-		update_magic_defense_bonus()
-		update_terrain_icon()
-	##set_terrain_icon(texture)
+
+@export var combat_map_tile : CombatMapTile
+
+
+func update_tile(new_tile: CombatMapTile):
+	self.combat_map_tile = new_tile
+	update_tile_index(combat_map_tile.position)
+	update_terrain_fields(combat_map_tile.terrain)
+	update_entity_display(combat_map_tile.entity)
+
+func update_terrain_fields(terrain : Terrain):
+	if terrain == null:
+		return
+	else: 
+		terrain_name.text = terrain.name
+		update_terrain_resistance_visuals(terrain.resistance)
+		update_terrain_avoid_visuals(terrain.avoid)
+		update_terrain_defense_visuals(terrain.defense)
+		update_terrain_special(terrain.effect, terrain.effect_scaling, terrain.effect_weight)
+
+func update_terrain_resistance_visuals(res:int):
+	if res == 0:
+		terrain_bonus_resistance.visible = false
+		return
+	else : 
+		terrain_bonus_resistance.visible = true
+		resistance_value.text = str(res)
+
+func update_terrain_avoid_visuals(avoid:int):
+	if avoid == 0:
+		terrain_bonus_avoid.visible = false
+		return
+	else : 
+		terrain_bonus_avoid.visible = true
+		avoid_value.text = str(avoid)
+
+func update_terrain_defense_visuals(def:int):
+	if def == 0:
+		terrain_bonus_defense.visible = false
+		return
+	else : 
+		terrain_bonus_defense.visible = true
+		defense_value.text = str(def)
+
+func update_terrain_special(effect : Terrain.TERRAIN_EFFECTS, effect_scaling : Terrain.EFFECT_SCALING, effect_weight :int):
+	match effect:
+		Terrain.TERRAIN_EFFECTS.NONE: 
+			terrain_bonus_effect.visible = false
+			return
+		Terrain.TERRAIN_EFFECTS.HEAL: 
+			terrain_bonus_effect.visible = true
+			effect_prefix.text = "+"
+		Terrain.TERRAIN_EFFECTS.DAMAGE: 
+			effect_prefix.text = "-"
+			terrain_bonus_effect.visible = true
+	match effect_scaling:
+		Terrain.EFFECT_SCALING.FLAT:
+			effect_value.text = str(effect_weight)
+		Terrain.EFFECT_SCALING.PERCENTAGE:
+			effect_value.text = "%" + str(effect_weight)
+
+func update_tile_index(grid_position : Vector2i):
+	tile_index.text = str(grid_position)
+
+func update_entity_display(entity : CombatEntity):
+	if entity == null:
+		entity_info_panel.visible = false
+		return
+	else :
+		entity_name.text = entity.name
+		entity_hp.text = str(entity.hp) + "HP"
+	pass

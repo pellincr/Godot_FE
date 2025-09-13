@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=3 format=3 uid="uid://5b1f8mg0j3te"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://5b1f8mg0j3te"]
 
-[ext_resource type="Texture2D" uid="uid://d2lf27h2x18p3" path="res://resources/sprites/items/staff3.png" id="1_no0c5"]
+[ext_resource type="Texture2D" uid="uid://b48v0uyoqb775" path="res://resources/sprites/items/weapons/staff/heal_staff.png" id="1_3mthl"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_eo7vp"]
 
 [resource]
 script = ExtResource("1_wwyp7")
@@ -11,6 +12,7 @@ physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
 item_damage_type = 3
 item_scaling_type = 2
+item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([1])
 required_mastery = 0
 attack_range = Array[int]([1])
@@ -21,18 +23,16 @@ weight = 5
 critical_multiplier = 3.0
 attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
-status_ailments = Array[String]([])
-is_wpn_triangle_effective = false
-crit_disabled = false
-is_brave = false
-is_vampyric = false
-negates_defense = true
+status_ailment = 2
+specials = Array[int]([])
 name = "Heal"
 db_key = "heal"
 equippable = true
-description = ""
+description = "Restores HP to allies in adjacent spaces, unbreakable."
 item_type = 1
-uses = 40
-max_uses = 40
-worth = 100
-icon = ExtResource("1_no0c5")
+rarity = ExtResource("2_eo7vp")
+uses = 1
+max_uses = 1
+unbreakable = true
+worth = 800
+icon = ExtResource("1_3mthl")

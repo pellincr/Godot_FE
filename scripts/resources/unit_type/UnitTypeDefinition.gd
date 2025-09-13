@@ -8,7 +8,7 @@ class_name UnitTypeDefinition
 @export_range(1, 2, 1, "or_greater") var initiative = 1 ## initative for AI to check on class move, OUTDATED CHANGE TO TIER
 @export var faction : Array[unitConstants.FACTION] = []
 @export var traits : Array[unitConstants.TRAITS] = []
-@export var unit_rarity : UnitRarity
+@export var unit_rarity : Rarity
 @export var movement_type : unitConstants.movement_type = 0
 @export_range(1, 5, 1, "or_greater") var tier = 2
 @export var promoted: bool ##OUTDATED TO BE REMOVED, USE TIER SYSTEM

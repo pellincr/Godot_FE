@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrqibh031py2" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.tscn" id="2_dbr8b"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="3_ohiay"]
 [ext_resource type="PackedScene" uid="uid://v518gv4vgx47" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow.tscn" id="4_door1"]
-[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
+[ext_resource type="Script" uid="uid://dsvp3rqrmflnx" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4evfg"]
 bg_color = Color(0, 0, 0, 0.588235)

@@ -16,6 +16,7 @@ const UNIT_COMBAT_WEAPON_SELECTION_PANEL_ENEMY_THEME = preload("res://ui/combat/
 @onready var panel: Panel = $Panel
 
 @export var unit : CombatUnit
+@export var entity : CombatEntity
 @export var weapon_swap_enabled : bool 
 
 func set_all(combatUnit: CombatUnit, weapon_swap:bool):
@@ -45,6 +46,20 @@ func update():
 	set_unit_name(unit.unit.name)
 	unit_type_trait_container.set_icon_visibility(unit.unit)
 	unit_combat_weapon.item = unit.get_equipped()
+	unit_combat_weapon.update_by_item()
+	set_toggle_button_visibility(weapon_swap_enabled)
+	update_theme()
+
+func set_all_ent(centity: CombatEntity, weapon_swap:bool):
+	self.entity = centity
+	self.weapon_swap_enabled = weapon_swap
+	update_entity()
+
+func update_entity():
+	set_unit_icon(entity.display.sprite)
+	set_unit_name(entity.name)
+	unit_type_trait_container.set_all_icons_invisible()
+	unit_combat_weapon.item = null
 	unit_combat_weapon.update_by_item()
 	set_toggle_button_visibility(weapon_swap_enabled)
 	update_theme()

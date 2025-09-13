@@ -4,6 +4,7 @@ class_name PlayerOverworldData
 
 @export var unlock_manager = UnlockManager.new()
 @export var hall_of_heroes_manager = HallOfHeroesManager.new()
+@export var game_stats_manager = GameStatsManager.new()
 
 @export var gold = 1000
 @export var total_party_capacity = 15 #number of units the player is allowed to own
@@ -925,8 +926,10 @@ class_name PlayerOverworldData
 @export var completed_drafting : bool = false
 @export var began_level : bool = false
 
+# Campaign Info
 @export var campaign_map_data : Array[Array]
 @export var floors_climbed: int
+@export var combat_maps_completed : int
 @export var last_room:CampaignRoom
 @export var current_level : PackedScene
 

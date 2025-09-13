@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://teqlfparxvi"]
+
+[ext_resource type="Script" path="res://almanac/unit_type/unit_type_trait_container.gd" id="1_b4h5b"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="1_x1dp7"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="2_4xp8n"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="3_mn3gy"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="4_86wwe"]
+
+[node name="unit_type_trait_container" type="VBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_b4h5b")
+
+[node name="ArmoredIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_x1dp7")
+expand_mode = 4
+
+[node name="MountedIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_4xp8n")
+expand_mode = 4
+
+[node name="FlierIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_86wwe")
+expand_mode = 4
+
+[node name="UndeadIcon" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_mn3gy")
+expand_mode = 4

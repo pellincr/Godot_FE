@@ -8,12 +8,15 @@ signal unit_experience_ended()
 @export var ui_map_audio : AudioStreamPlayer
 @export var ui_menu_audio : AudioStreamPlayer
 
-@export var active_ui_node : Node
+var ui_node_stack : Stack = Stack.new()
+#@export var active_ui_node : Node
 
 #Scene Imports
 #Menu
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
+# Detail Menu
+const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.tscn")
 
 #Combat Action
 const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
@@ -21,11 +24,24 @@ const UNIT_COMBAT_EXCHANGE_PREVIEW = preload("res://ui/combat/combat_exchange_pr
 
 #Support Action
 const SUPPORT_ACTION_INVENTORY = preload("res://ui/combat/support_action_inventory/support_action_inventory.tscn")
+const UNIT_SUPPORT_EXCHANGE_PREVIEW = preload("res://ui/combat/support_exchange_preview/unit_support_exchange_preview.tscn")
+
+#Inventory Action
+const COMBAT_UNIT_INVENTORY = preload("res://ui/combat/unit_inventory/combat_unit_inventory.tscn")
+const COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS = preload("res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.tscn")
 
 #Trade Action
-const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
+#const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
+
+#Item Discard & Popup
+const COMBAT_VIEW_POP_UP = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
+const DISCARD_ITEM_SELECTED = preload("res://ui/combat/discard_action_inventory_new/discard_item_selected.tscn")
+const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_inventory_new/discard_action_inventory.tscn")
+
+#Interact
+const COMBAT_UNIT_INTERACT_ACTION_INVENTORY = preload("res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.tscn")
 
 #Audio imports
 const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
@@ -35,16 +51,19 @@ const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 #transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAnimation.tscn")
+
+var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
+
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 func _ready():
 	transition_in_animation()
+	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
-	#combat.connect("update_combatants", update_combatants) ## THIS IS OLD?
-	#combat.connect("update_information", update_information) ##Old, was in use with the combat log
-	controller.connect("target_detailed_info", _target_detailed_info)
+
 
 #
 # Plays the transition animation on combat map begin
@@ -52,7 +71,12 @@ func _ready():
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
 	self.add_child(scene_transition)
-	scene_transition.set_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+	if playerOverworldData.current_campaign:
+		scene_transition.set_upper_label_text(playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.floors_climbed))
+		scene_transition.set_middle_label_text("Objective")
+		scene_transition.set_lower_label_text(get_objective_text(combat.victory_condition))
+	else:
+		show_tutorial_panel(scene_transition, playerOverworldData.current_level)
 	scene_transition.play_animation("level_fade_out")
 	await get_tree().create_timer(5).timeout
 	scene_transition.queue_free()
@@ -66,6 +90,66 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
+func get_objective_text(victory_condition:Constants.VICTORY_CONDITION) -> String:
+	var objective_text := ""
+	match victory_condition:
+		Constants.VICTORY_CONDITION.DEFEAT_ALL:
+			objective_text = "Defeat All Enemies"
+		Constants.VICTORY_CONDITION.DEFEAT_BOSS:
+			var boss_names = get_all_boss_names()
+			objective_text = "Defeat : " + boss_names
+		Constants.VICTORY_CONDITION.CAPTURE_TILE:
+			objective_text = "Capture the Landmark"
+		Constants.VICTORY_CONDITION.DEFEND_TILE:
+			objective_text = "Defend Tile"
+		Constants.VICTORY_CONDITION.SURVIVE_TURNS:
+			objective_text = "Survive " + str(combat.turns_to_survive) + " Turns"
+	return objective_text
+
+func get_all_boss_names():
+	var enemies = combat.groups[1]
+	var boss_names = ""
+	for enemy in enemies:
+		var enemy_unit : CombatUnit = combat.combatants[enemy]
+		if enemy_unit.is_boss:
+			boss_names =  boss_names + enemy_unit.unit.name + ", "
+	return boss_names
+
+func show_tutorial_panel(scene_transition, current_level:PackedScene):
+	match combat.tutorial_level:
+		TutorialPanel.TUTORIAL.MUNDANE_WEAPONS:
+			scene_transition.set_upper_label_text("Mundane Tutorial")
+		TutorialPanel.TUTORIAL.MAGIC_WEAPONS:
+			scene_transition.set_upper_label_text("Magic Tutorial")
+		TutorialPanel.TUTORIAL.WEAPON_CYCLE:
+			scene_transition.set_upper_label_text("Weapon Cycle Tutorial")
+		TutorialPanel.TUTORIAL.WEAPON_EFFECTIVENESS:
+			scene_transition.set_upper_label_text("Weapon Effectiveness Tutorial")
+		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
+			scene_transition.set_upper_label_text("Support Actions Tutorial")
+		TutorialPanel.TUTORIAL.STAFFS:
+			scene_transition.set_upper_label_text("Staffs Tutorial")
+		TutorialPanel.TUTORIAL.BANNERS:
+			scene_transition.set_upper_label_text("Banners Tutorial")
+		TutorialPanel.TUTORIAL.TERRAIN:
+			scene_transition.set_upper_label_text("Terrain Tutorial")
+		TutorialPanel.TUTORIAL.MAP_ENTITY:
+			scene_transition.set_upper_label_text("Map Entity Tutorial")
+		TutorialPanel.TUTORIAL.DEFEAT_ALL_ENEMIES:
+			scene_transition.set_upper_label_text("Defeat All Enemies Tutorial")
+		TutorialPanel.TUTORIAL.SIEZE_LANDMARK:
+			scene_transition.set_upper_label_text("Sieze Landmark Tutorial")
+		TutorialPanel.TUTORIAL.DEFEAT_BOSSES:
+			scene_transition.set_upper_label_text("Defeat Bosses Tutorial")
+		TutorialPanel.TUTORIAL.SURVIVE_TURNS:
+			scene_transition.set_upper_label_text("Survive Turns Tutorial")
+	tutorial_panel.current_state = combat.tutorial_level
+	add_child(tutorial_panel)
+	tutorial_panel.tutorial_completed.connect(tutorial_complete)
+
+func tutorial_complete():
+	print("Tutorial Complete")
+
 #
 # Creates the unit action container
 #
@@ -73,7 +157,7 @@ func create_unit_action_container(available_actions:Array[String]):
 	var unit_action_container = UnitActionContainer.instantiate()
 	unit_action_container.populate(available_actions, controller)
 	self.add_child(unit_action_container)
-	active_ui_node = unit_action_container
+	push_ui_node_stack(unit_action_container)
 	unit_action_container.grab_focus()
 
 #
@@ -85,14 +169,32 @@ func create_combat_map_game_menu():
 	self.add_child(game_menu)
 	game_menu.end_turn_btn.pressed.connect(func():controller.fsm_game_menu_end_turn())
 	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
-	active_ui_node = game_menu
+	push_ui_node_stack(game_menu)
 
 #
 # Frees the current node stored in the "active_ui_node" used in state transitions
 #
 func destory_active_ui_node():
-	if active_ui_node != null:
-		active_ui_node.queue_free()
+	if get_active_ui_node() != null:
+		var node_to_free = ui_node_stack.pop()
+		node_to_free.queue_free()
+
+#
+# Frees the current node stored in the "active_ui_node" used in state transitions
+#
+func destory_all_active_ui_nodes_in_stack():
+	while ui_node_stack.get_size() > 0:
+		var node_to_free = ui_node_stack.pop()
+		node_to_free.queue_free()
+
+func flush_stack():
+	ui_node_stack.flush()
+
+func push_ui_node_stack(new_node : Node):
+	ui_node_stack.push(new_node)
+
+func get_active_ui_node()-> Node:
+	return ui_node_stack.peek()
 
 ## OLD
 func target_selected(info: Dictionary):  ##OLD
@@ -125,7 +227,7 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
 	#TO BE CONNECTED CANCEL
 	attack_action_inventory.populate(inputCombatUnit, inventory)
-	active_ui_node = attack_action_inventory
+	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
 
 #
@@ -135,14 +237,12 @@ func create_support_action_inventory(inputCombatUnit : CombatUnit, inventory: Ar
 	var support_action_inventory = SUPPORT_ACTION_INVENTORY.instantiate()
 	self.add_child(support_action_inventory)
 	await support_action_inventory
-	support_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
-	support_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
+	support_action_inventory.item_selected.connect(controller.fsm_support_action_inventory_confirm.bind())
+	support_action_inventory.new_item_hovered.connect(controller.fsm_support_action_inventory_confirm_new_hover.bind())
 	#TO BE CONNECTED CANCEL
 	support_action_inventory.populate(inputCombatUnit, inventory)
-	active_ui_node = support_action_inventory
+	push_ui_node_stack(support_action_inventory)
 	support_action_inventory.grab_focus()
-
-
 
 #
 #
@@ -152,28 +252,94 @@ func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExcha
 	self.add_child(combat_exchange_preview)
 	await combat_exchange_preview
 	combat_exchange_preview.set_all(exchange_info,weapon_swap_visable)
-	active_ui_node = combat_exchange_preview
+	push_ui_node_stack(combat_exchange_preview)
 	combat_exchange_preview.grab_focus()
-	
+
+#
+#
+#
+func create_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity,weapon_swap_visable : bool = false):
+	var combat_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(combat_exchange_preview)
+	await combat_exchange_preview
+	combat_exchange_preview.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
+	push_ui_node_stack(combat_exchange_preview)
+	combat_exchange_preview.grab_focus()
+
 func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
-	if active_ui_node is UnitCombatExchangePreview:
+	var active_ui_node = ui_node_stack.peek()
+	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
+
+func update_weapon_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
+	var active_ui_node = ui_node_stack.peek()
+	if  active_ui_node is UnitCombatExchangePreview:
+		active_ui_node.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
+#
+#
+#
+func create_support_action_exchange_preview(exchange_info: UnitSupportExchangeData, weapon_swap_visable: bool = false):
+	var support_exchange_preview = UNIT_SUPPORT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(support_exchange_preview)
+	await support_exchange_preview
+	support_exchange_preview.set_all(exchange_info,weapon_swap_visable)
+	push_ui_node_stack(support_exchange_preview)
+	support_exchange_preview.grab_focus()
+
+func update_support_action_exchange_preview(exchange_info: UnitSupportExchangeData, weapon_swap_visable: bool = false):
+	var active_ui_node = ui_node_stack.peek()
+	if active_ui_node is UnitSupportExchangePreview:
+		active_ui_node.set_all(exchange_info,weapon_swap_visable)
+
+
+func create_unit_item_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var combat_unit_inventory = COMBAT_UNIT_INVENTORY.instantiate()
+	self.add_child(combat_unit_inventory)
+	await combat_unit_inventory
+	combat_unit_inventory.populate(inputCombatUnit, inventory)
+	combat_unit_inventory.item_data_selected.connect(controller.fsm_unit_inventory_item_selected.bind())
+	combat_unit_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
+	#TO BE CONNECTED CANCEL
+	
+	push_ui_node_stack(combat_unit_inventory)
+	combat_unit_inventory.grab_focus()
+
+func update_unit_item_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var active_ui_node = ui_node_stack.peek()
+	if active_ui_node is CombatUnitInventoryDisplay:
+		active_ui_node.populate(inputCombatUnit, inventory)
+		active_ui_node.re_grab_focus()
+
+func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData):
+	var inventory_options = COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS.instantiate()
+	self.add_child(inventory_options)
+	inventory_options.popualate(data.item, data.equipped, data.can_use, data.can_arrange)
+	await inventory_options
+	inventory_options.equip.connect(controller.fsm_unit_inventory_equip.bind())
+	inventory_options.use.connect(controller.fsm_unit_inventory_use.bind())
+	inventory_options.unequip.connect(controller.fsm_unit_inventory_un_equip.bind())
+	inventory_options.arrange.connect(controller.fsm_unit_inventory_arrange.bind())
+	inventory_options.discard.connect(controller.fsm_unit_inventory_discard.bind())
+	push_ui_node_stack(inventory_options)
+	inventory_options.grab_focus_btn()
+	
+
 #
 # Populates and displayes the detailed info for a combat unit
 #
-func _target_detailed_info(combat_unit: CombatUnit):
-	if combat_unit:
-		if not $UnitStatusDetailed.visible :
-			$UnitStatusDetailed.set_unit(combat_unit)
-			$UnitStatusDetailed.visible = true
-	else :
-		$UnitStatusDetailed.visible = false	
+func create_combat_unit_detail_panel(combat_unit: CombatUnit):
+	var unit_detailed_info_combat_map = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
+	self.add_child(unit_detailed_info_combat_map)
+	await unit_detailed_info_combat_map
+	unit_detailed_info_combat_map.unit = combat_unit
+	unit_detailed_info_combat_map.update_by_unit()
+	push_ui_node_stack(unit_detailed_info_combat_map)
 	
 #
 #
 #
 func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
-	$combat_tile_info.set_all(tile.terrain, tile.position.x,tile.position.y)
+	$combat_tile_info.update_tile(tile)
 	if(unit):
 		$UnitStatus.set_unit(tile.unit)
 		$UnitStatus.visible = true
@@ -232,172 +398,47 @@ func _on_unit_experience_bar_finished() -> void:
 	hide_unit_experience_bar()
 	emit_signal("unit_experience_ended")
 
-"""
-func set_inventory_list_support(unit: Unit): ## OLD
-	print("set_inventory_list_support")
-	var attack_action_inventory = $AttackActionInventory
-	attack_action_inventory.set_unit(unit)
-	attack_action_inventory.hide_equippable_item_info()
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			var weapon_list = unit.get_equippable_weapons()
-			if not weapon_list.is_empty():
-				
-				if weapon_list.size() > i:
-					var item = weapon_list[i]
-					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
-						var equipped = false
-						if i == 0: 
-							equipped = true
-						inventory_container_children[i].set_all(item, equipped)
-						inventory_container_children[i].visible = true
-						
-						item_btn.pressed.connect(func():
-							play_menu_confirm()
-							controller.set_selected_item(item)
-							
-							controller.action_item_selected()
-							)
-					else : 
-						inventory_container_children[i].visible = false
-						clear_action_button_connections(item_btn)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-	var test = inventory_container_children[0]
-	test.grab_button_focus()
+func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[UnitInventorySlotData], new_item:UnitInventorySlotData):
+	var discard_container = DISCARD_ACTION_INVENTORY.instantiate()
+	self.add_child(discard_container)
+	await discard_container
+	discard_container.item_selected.connect(combat.discard_item_selected.bind(unit))
+	discard_container.populate(unit, inventory, new_item)
+	push_ui_node_stack(discard_container)
+	discard_container.grab_focus_btn()
 
-##OLD
-func set_inventory_list_item_select(u: Unit, items: Array[ItemDefinition]):
-	print("set_inventory_list_support")
-	var  action_inv = $ActionInventory
+func create_item_obtained_pop_up(item:ItemDefinition):
+	var _pop_up = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.set_item(item)
+	_pop_up.visible = true
+	await get_tree().create_timer(1).timeout
+	_pop_up.queue_free()
+
+#
+# Creates the attack action inventory used to select the weapon to be used in the combat preview
+#
+func create_interact_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var interact_action_inventory = COMBAT_UNIT_INTERACT_ACTION_INVENTORY.instantiate()
+	self.add_child(interact_action_inventory)
+	await interact_action_inventory
+	interact_action_inventory.item_selected.connect(controller.fsm_interact_action_inventory_confirm.bind())
+	#TO BE CONNECTED CANCEL
+	interact_action_inventory.populate(inputCombatUnit, inventory)
+	push_ui_node_stack(interact_action_inventory)
+	interact_action_inventory.grab_focus()
 	
-	var inventory_container_children = action_inv.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			if not items.is_empty():
-				if items.size() > i:
-					var item = items[i]
-					inventory_container_children[i].set_all(item)
-					inventory_container_children[i].visible = true
-					item_btn.pressed.connect(func():
-						play_menu_confirm()
-						controller.set_selected_item(item)
-						controller.action_item_selected()
-						)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-	var test = inventory_container_children[0]
-	test.grab_button_focus()
-
-func set_inventory_list(unit: Unit):
-	print("@# set_inventory_list called")
-	var attack_action_inventory:  = $AttackActionInventory
-	attack_action_inventory.show_equippable_item_info()
-	attack_action_inventory.set_unit(unit)
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			clear_action_button_connections(item_btn)
-			var item_list = unit.inventory.items
-			if not item_list.is_empty():
-				if item_list.size() > i:
-					var item = item_list[i]
-					var equipped = false
-					if i == 0: 
-						equipped = true
-					inventory_container_children[i].set_all(item, equipped)
-					inventory_container_children[i].visible = true
-					item_btn.pressed.connect(func():
-						play_menu_confirm()
-						controller.set_selected_item(item)
-						controller.action_item_selected()
-						create_inventory_options_container(unit, item, attack_action_inventory)
-						)
-				else : 
-					inventory_container_children[i].visible = false
-					clear_action_button_connections(item_btn)
-
-func create_inventory_options_container(unit:Unit, item: ItemDefinition, parent: Node):
-	var inv_op_con = inventoryOptionsContainer.instantiate()
-	parent.add_child(inv_op_con)
-	inv_op_con.position = Vector2(0,0)
-	var btn_1 : Button = inv_op_con.get_button1()
-	var btn_2 : Button = inv_op_con.get_button2()
-	if item is WeaponDefinition:
-		btn_1.text = "Equip"
-		btn_1.disabled = not unit.can_equip(item)
-		btn_1.pressed.connect(func():
-			unit.set_equipped(item)
-			play_menu_confirm()
-			set_inventory_list(unit)
-			inv_op_con.queue_free())
-	if item is ConsumableItemDefinition:
-		btn_1.text = "Use"
-		btn_1.disabled = not unit.can_use_consumable_item(item)
-		btn_1.pressed.connect(func(): 
-			controller.set_unit_action(controller.use_action)
-			controller.use_action_selected()
-			#controller.combat.Use_Consumable_Item(item)
-			play_menu_confirm()
-			inv_op_con.queue_free())
-	btn_2.text = "Discard"
-	btn_2.pressed.connect(func():
-		unit.discard_item(item)
-		play_menu_confirm()
-		set_inventory_list(unit)
-		inv_op_con.queue_free())
-
-func remove_inventory_options_container():
-	var a_a_i = $AttackActionInventory
-	var children = a_a_i.get_children()
-	for child in children:
-		if child is IventoryOptionsContainer :
-			child.queue_free()
-	enable_inventory_list_butttons()
-
-func disable_inventory_list_butttons():
-	var attack_action_inventory = $AttackActionInventory
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = true
-			item_btn.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-func enable_inventory_list_butttons():
-	var attack_action_inventory = $AttackActionInventory
-	var inventory_container_children = attack_action_inventory.get_inventory_container_children()
-	for i in range(inventory_container_children.size()):
-		if inventory_container_children[i] is UnitInventorySlot:
-			var item_btn = inventory_container_children[i].get_button() as Button
-			item_btn.disabled = false
-			item_btn.mouse_filter = Control.MOUSE_FILTER_STOP
-
-
-
-func show_trade_container(ua,ub):
-	var tc : TradeContainer = tradeContainer.instantiate()
-	await tc
-	tc.set_unit_a(ua.unit)
-	tc.set_unit_b(ub.unit)
-	tc.update_trade_inventories()
-	self.add_child(tc)
-
-func destroy_trade_container():
-	var children = self.get_children()
-	for child in children:
-		if child is TradeContainer:
-			child.queue_free()
-			return
-"""
+func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
+	var turn_transition = turn_transition_scene.instantiate()
+	self.add_child(turn_transition)
+	match state:
+		CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN:
+			turn_transition.set_label("Player Turn")
+			turn_transition.set_texture_hue(Color.BLUE)
+		CombatMapConstants.COMBAT_MAP_STATE.AI_TURN:
+			turn_transition.set_label("Enemy Turn")
+			turn_transition.set_texture_hue(Color.RED)
+	turn_transition.play_animation("new_turn")
+	await turn_transition.animation_player.animation_finished
+	turn_transition.queue_free()

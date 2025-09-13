@@ -1,20 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://60ot2nfycymf"]
+[gd_scene load_steps=10 format=3 uid="uid://60ot2nfycymf"]
 
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_dljdk"]
-[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="2_b8pg3"]
 [ext_resource type="Script" path="res://unit drafting/Weapon Draft/weapon_draft_selector.gd" id="2_c38s6"]
-[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="3_27moc"]
-[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="4_2rr37"]
-[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="5_lbsd8"]
-[ext_resource type="Texture2D" uid="uid://cixqa2gkoy1ut" path="res://resources/sprites/icons/dagger_icon.png" id="6_i28ny"]
-[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="7_rj15r"]
-[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="8_jgsut"]
-[ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="9_4y8hf"]
-[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="10_cqonw"]
-[ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="11_hj6du"]
-[ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="12_w8tp0"]
-[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="13_nyu7y"]
-[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="14_bp13h"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_p2ep1"]
+[ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_preparation/item_detailed_info/weapon_stat_container.tscn" id="16_cgbyh"]
+[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="17_5674t"]
+[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="18_bxpbm"]
+
+[sub_resource type="Theme" id="Theme_3n7yt"]
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_kd6x8"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_2858y"]
+default_font_size = 12
 
 [node name="WeaponDraftSelector" type="Control"]
 layout_mode = 3
@@ -24,173 +24,91 @@ offset_bottom = 355.0
 mouse_filter = 2
 theme = ExtResource("1_dljdk")
 script = ExtResource("2_c38s6")
+weapon = ExtResource("3_p2ep1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(250, 355)
 layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
 offset_right = 250.0
-offset_bottom = 355.0
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+offset_bottom = 320.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="WeaponTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(225, 16)
-layout_mode = 2
-alignment = 1
-
-[node name="SwordIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-texture = ExtResource("2_b8pg3")
-expand_mode = 2
+theme = SubResource("Theme_3n7yt")
+text = "Item Name"
 
-[node name="AxeIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
+[node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
-texture = ExtResource("3_27moc")
-expand_mode = 2
+theme = SubResource("Theme_kd6x8")
 
-[node name="LanceIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
+[node name="ItemTypeHeader" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
-texture = ExtResource("4_2rr37")
-expand_mode = 2
+text = "Item Type"
 
-[node name="ShieldIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("5_lbsd8")
-expand_mode = 2
-
-[node name="DaggerIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("6_i28ny")
-expand_mode = 2
-
-[node name="FistIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("7_rj15r")
-expand_mode = 2
-
-[node name="BowIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("8_jgsut")
-expand_mode = 2
-
-[node name="BannerIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("9_4y8hf")
-expand_mode = 2
-
-[node name="StaffIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("10_cqonw")
-expand_mode = 2
-
-[node name="NatureIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("11_hj6du")
-expand_mode = 2
-
-[node name="LightIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("12_w8tp0")
-expand_mode = 2
-
-[node name="DarkIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("13_nyu7y")
-expand_mode = 2
-
-[node name="AnimalIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/WeaponTypeContainer"]
-visible = false
-layout_mode = 2
-texture = ExtResource("14_bp13h")
-expand_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="LabelHeaders" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="DamageLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Damage"
-
-[node name="ScalingLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Scaling"
-
-[node name="HitLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Hit"
-
-[node name="CriticalLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Critical"
-
-[node name="WeaightLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Weight"
-
-[node name="DurabilityLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Durability"
-
-[node name="RangeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Range"
-
-[node name="SpecialLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelHeaders"]
-layout_mode = 2
-text = "Special"
-
-[node name="LabelVaues" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="DamageValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "25"
-
-[node name="ScalingValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "Scaling"
-
-[node name="HitValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "80"
-
-[node name="CriticalValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "15"
-
-[node name="WeightValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "7"
-
-[node name="DurabilityValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "50"
-
-[node name="RangeValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
-layout_mode = 2
-text = "1-2"
-
-[node name="SpecialValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/LabelVaues"]
+[node name="-" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
 text = "-"
+
+[node name="ItemType" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "Item type"
+
+[node name="FullWeaponIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("17_5674t")]
+layout_mode = 2
+
+[node name="MundaneWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("17_5674t")]
+layout_mode = 2
+
+[node name="MagicWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("17_5674t")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(221, 72)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_2858y")
+text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
+autowrap_mode = 3
+
+[node name="WeaponStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("16_cgbyh")]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 162.0
+offset_top = 40.0
+offset_right = 226.0
+offset_bottom = 104.0
+texture = ExtResource("18_bxpbm")
+
+[node name="PriceLabel" type="Label" parent="ItemIcon"]
+modulate = Color(0.899619, 0.69149, 0, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+offset_right = 58.0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "50G"

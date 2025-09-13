@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://pmy8teg4tftq"]
+[gd_scene load_steps=10 format=3 uid="uid://pmy8teg4tftq"]
 
 [ext_resource type="Script" path="res://ui/combat/unit_level_up/level_up_attribute_container.gd" id="1_qrcrj"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="1_r2dw3"]
 [ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="2_1pa5r"]
-
+[ext_resource type="SpriteFrames" uid="uid://6goe3c8ex2ju" path="res://resources/sprites/level_up/level_up.tres" id="4_wevrl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6oo0h"]
 bg_color = Color(0.187176, 0.187176, 0.187176, 1)
@@ -12,6 +12,42 @@ border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_cwjc6"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_6oo0h")
+
+[sub_resource type="Animation" id="Animation_4mqb4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HSplitContainer/MarginContainer/HSplitContainer/LevelValue:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1d0n4"]
+resource_name = "level_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HSplitContainer/MarginContainer/HSplitContainer/LevelValue:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8v5t4"]
+_data = {
+"RESET": SubResource("Animation_4mqb4"),
+"level_up": SubResource("Animation_1d0n4")
+}
 
 [node name="Attribute Container" type="PanelContainer"]
 offset_right = 200.0
@@ -56,11 +92,11 @@ theme = ExtResource("1_r2dw3")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_1pa5r")
 theme_override_font_sizes/font_size = 21
-text = "18"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LevelValue" type="Label" parent="HSplitContainer/MarginContainer/HSplitContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -78,3 +114,13 @@ theme_override_font_sizes/font_size = 21
 text = "+ 1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8v5t4")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(200, 14)
+sprite_frames = ExtResource("4_wevrl")
+animation = &"level_up"

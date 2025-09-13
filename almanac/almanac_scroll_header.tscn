@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://b36cv6rktmlvl"]
+
+[ext_resource type="Script" path="res://almanac/almanac_scroll_header.gd" id="1_py6or"]
+[ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="2_l2ha6"]
+[ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://almanac/panel_container_focused.tres" id="3_ddvtm"]
+[ext_resource type="Theme" uid="uid://kdfakjl724jb" path="res://almanac/panel_container_not_focused.tres" id="4_b134o"]
+[ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_3mkh0"]
+
+[node name="AlmanacScrollHeader" type="HBoxContainer"]
+custom_minimum_size = Vector2(350, 60)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_py6or")
+
+[node name="LeftBumperIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_l2ha6")
+expand_mode = 3
+
+[node name="UnitTypesPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_ddvtm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UnitTypesPanel"]
+layout_mode = 2
+
+[node name="UnitTypesLabel" type="Label" parent="UnitTypesPanel/HBoxContainer"]
+layout_mode = 2
+text = "Unit Types"
+
+[node name="-" type="Label" parent="UnitTypesPanel/HBoxContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="UnitTypesPercent" type="Label" parent="UnitTypesPanel/HBoxContainer"]
+layout_mode = 2
+text = "100%"
+
+[node name="CommanderTypesPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_b134o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CommanderTypesPanel"]
+layout_mode = 2
+
+[node name="CommanderTypesLabel" type="Label" parent="CommanderTypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Commander Types"
+
+[node name="-" type="Label" parent="CommanderTypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "-"
+
+[node name="CommanderTypesPercent" type="Label" parent="CommanderTypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "100%"
+
+[node name="ArchetypesPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_b134o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ArchetypesPanel"]
+layout_mode = 2
+
+[node name="ArchetypesLabel" type="Label" parent="ArchetypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Archetypes"
+
+[node name="-" type="Label" parent="ArchetypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "-"
+
+[node name="ArchetypesPercent" type="Label" parent="ArchetypesPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "100%"
+
+[node name="ItemsPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_b134o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemsPanel"]
+layout_mode = 2
+
+[node name="ItemsLabel" type="Label" parent="ItemsPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Items"
+
+[node name="-" type="Label" parent="ItemsPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "-"
+
+[node name="ItemsPercent" type="Label" parent="ItemsPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "100%"
+
+[node name="RightBumperIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("5_3mkh0")
+expand_mode = 3

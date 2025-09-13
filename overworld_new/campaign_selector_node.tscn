@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bd2qvs1l5ippn"]
 
-[ext_resource type="Script" path="res://overworld_new/campaign_selector_node.gd" id="1_cdc2o"]
+[ext_resource type="Script" uid="uid://dqcvp7v2xoknu" path="res://overworld_new/campaign_selector_node.gd" id="1_cdc2o"]
 [ext_resource type="Theme" uid="uid://chd3ua7r6fcnb" path="res://overworld_new/campaign_selector_node_not_focused.tres" id="1_or1o7"]
 
 [node name="CampaignSelectorNode" type="Panel"]
@@ -13,8 +13,12 @@ script = ExtResource("1_cdc2o")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = -26.0
+offset_top = 40.0
+offset_right = 68.0
+offset_bottom = 63.0
+text = "PlaceHolder"
+horizontal_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

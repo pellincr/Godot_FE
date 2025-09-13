@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=8 format=3 uid="uid://cgw58mt7lbjfq"]
+
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_17j55"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_k2lsh"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_pkuuo"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_ed5qg"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_tkvn8"]
+
+[sub_resource type="Resource" id="Resource_tk0jd"]
+script = ExtResource("2_k2lsh")
+name = "Bandit"
+map_position = Vector2i(0, 13)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "vandal"
+inventory = Array[ExtResource("3_pkuuo")]([ExtResource("4_ed5qg")])
+ai_type = 0
+is_boss = false
+
+[sub_resource type="Resource" id="Resource_y30sa"]
+script = ExtResource("2_k2lsh")
+name = "Bandit"
+map_position = Vector2i(14, 0)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_pkuuo")]([ExtResource("5_tkvn8")])
+ai_type = 0
+is_boss = false
+
+[resource]
+script = ExtResource("1_17j55")
+trigger_type = 0
+turns = Array[int]([3, 4, 5, 6, 7])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa")])

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=8 format=3 uid="uid://di5up7gcum414"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_wg5b3"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_ehexf"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="3_fglpd"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_7qnqu"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="7_7sa52"]
+
+[sub_resource type="Resource" id="Resource_6aern"]
+script = ExtResource("1_wg5b3")
+name = "Flier"
+map_position = Vector2i(9, 3)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "freewing"
+inventory = Array[ExtResource("2_ehexf")]([ExtResource("3_fglpd")])
+ai_type = 2
+is_boss = false
+
+[sub_resource type="Resource" id="Resource_waqxt"]
+script = ExtResource("1_wg5b3")
+name = "Heavy"
+map_position = Vector2i(9, 5)
+level = 1
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_armor"
+inventory = Array[ExtResource("2_ehexf")]([ExtResource("4_7qnqu")])
+ai_type = 2
+is_boss = false
+
+[resource]
+script = ExtResource("7_7sa52")
+group = Array[ExtResource("1_wg5b3")]([SubResource("Resource_6aern"), SubResource("Resource_waqxt")])

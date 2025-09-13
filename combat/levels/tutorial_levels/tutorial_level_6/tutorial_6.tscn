@@ -1,0 +1,129 @@
+[gd_scene load_steps=26 format=3 uid="uid://djepuxf3q62ty"]
+
+[ext_resource type="PackedScene" uid="uid://dlheakqv6gkbu" path="res://combat/levels/tutorial_levels/tutorial_level_6/terrain.tscn" id="1_6twtl"]
+[ext_resource type="Script" path="res://combat/CController.gd" id="2_0beiv"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_0hwd6"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="4_nvohi"]
+[ext_resource type="Resource" uid="uid://cy0lvokipl27o" path="res://resources/definitions/enemy_groups/tutorial/tutorial_6_reinforcements.tres" id="5_hgrh0"]
+[ext_resource type="Resource" uid="uid://be3gfqaurbnss" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_6.tres" id="9_d3j33"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="10_a5mb4"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="10_hr5l4"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="11_ioyu7"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="12_7cf47"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="12_plpvk"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="13_s6j3y"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="13_tb8ob"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="14_1c38e"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="14_nd416"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="15_aqd3o"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="16_up7oc"]
+[ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="22_t486u"]
+
+[sub_resource type="Resource" id="Resource_2jyq0"]
+script = ExtResource("12_7cf47")
+position = Vector2i(4, 8)
+orientation = 1
+
+[sub_resource type="Resource" id="Resource_3mdda"]
+script = ExtResource("12_7cf47")
+position = Vector2i(4, 11)
+orientation = 1
+
+[sub_resource type="Resource" id="Resource_1b5ea"]
+script = ExtResource("12_7cf47")
+position = Vector2i(8, 7)
+orientation = 1
+
+[sub_resource type="Resource" id="Resource_2saub"]
+script = ExtResource("13_s6j3y")
+position = Vector2i(6, 11)
+contents = Array[ExtResource("10_a5mb4")]([ExtResource("22_t486u")])
+
+[sub_resource type="Resource" id="Resource_e2bxp"]
+script = ExtResource("14_nd416")
+positions = Array[Vector2i]([Vector2i(9, 5)])
+orientation = 0
+
+[sub_resource type="Resource" id="Resource_kg28s"]
+script = ExtResource("14_nd416")
+positions = Array[Vector2i]([Vector2i(6, 9)])
+orientation = 0
+
+[sub_resource type="Resource" id="Resource_02f22"]
+script = ExtResource("16_up7oc")
+entities = Array[ExtResource("15_aqd3o")]([])
+chests = Array[ExtResource("13_s6j3y")]([SubResource("Resource_2saub")])
+default_chest_hp = 25
+default_chest_defense = 10
+default_chest_resistance = 10
+doors = Array[ExtResource("14_nd416")]([SubResource("Resource_e2bxp"), SubResource("Resource_kg28s")])
+default_door_hp = 50
+default_door_defense = 20
+default_door_resistance = 20
+breakable_terrains = Array[ExtResource("12_7cf47")]([SubResource("Resource_2jyq0"), SubResource("Resource_3mdda"), SubResource("Resource_1b5ea")])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0
+
+[node name="Game" type="Node"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_6twtl")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+texture_filter = 1
+script = ExtResource("2_0beiv")
+combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_0hwd6")]
+top_level = true
+scale = Vector2(1, 1)
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
+script = ExtResource("4_nvohi")
+victory_condition = 1
+turns_to_survive = 8
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+combat_audio = NodePath("CombatAudio")
+unit_experience_manager = NodePath("UnitExperienceManager")
+combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
+mapReinforcementData = ExtResource("5_hgrh0")
+ally_spawn_top_left = Vector2(1, 7)
+ally_spawn_bottom_right = Vector2(3, 11)
+enemy_start_group = ExtResource("9_d3j33")
+max_allowed_ally_units = 8
+is_key_campaign_level = true
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("10_hr5l4")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("11_ioyu7")
+mapEntityData = SubResource("Resource_02f22")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("12_plpvk")
+
+[node name="CombatUnitItemManager" type="Node" parent="Combat"]
+script = ExtResource("13_tb8ob")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("14_1c38e")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+ui_map_audio = NodePath("UIMapAudio")
+ui_menu_audio = NodePath("UIMenuAudio")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

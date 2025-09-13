@@ -1,5 +1,8 @@
 extends Panel
 
+
+const WEAPON_DETAILED_INFO = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+
 signal set_trade_item(item,unit)
 
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel
@@ -21,6 +24,8 @@ signal set_trade_item(item,unit)
 @onready var unit_icon = $UnitIcon
 
 @onready var faction_banner = $FactionBanner
+
+@onready var item_info_container: CenterContainer = $ItemInfoContainer
 
 
 
@@ -62,6 +67,11 @@ func update_by_unit():
 	combat_stats_container.unit = unit
 	combat_stats_container.update_by_unit()
 
+func _on_unit_inventory_item_entered(item):
+	pass
+	
+func _on_unit_inventory_item_focus_exited():
+	pass
 
 func _on_unit_inventory_container_item_equipped(item):
 	combat_stats_container.unit = unit
@@ -70,8 +80,25 @@ func _on_unit_inventory_container_item_equipped(item):
 func _on_set_trade_item(item):
 	set_trade_item.emit(item, unit)
 	update_by_unit()
-
+	
 
 func _on_unit_inventory_container_item_used(item):
 	update_by_unit()
 	
+
+
+func clear_item_info_container():
+	var children = item_info_container.get_children()
+	for child_index in children.size():
+		if child_index != 0:
+			children[child_index].queue_free()
+
+func _on_unit_inventory_container_item_focused(item) -> void:
+	clear_item_info_container()
+	if item != null:
+		var weapon_detailed_info = WEAPON_DETAILED_INFO.instantiate()
+		weapon_detailed_info.item = item
+		item_info_container.add_child(weapon_detailed_info)
+		weapon_detailed_info.update_by_item()
+		weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		

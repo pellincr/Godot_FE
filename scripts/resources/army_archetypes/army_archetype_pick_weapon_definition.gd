@@ -9,3 +9,4 @@ class_name armyArchetypePickWeaponDefinition
 @export var weapon_type : Array[itemConstants.WEAPON_TYPE]
 @export var item_damage_type : Array[Constants.DAMAGE_TYPE]
 @export var item_scaling_type : Array[itemConstants.SCALING_TYPE]
+@export var item_rarity : Rarity

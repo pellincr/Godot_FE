@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://c8skxd6d5ns8q" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_growth_stats.tres" id="2_h5kmo"]
 [ext_resource type="Resource" uid="uid://deth5afjl2c4w" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_max_stats.tres" id="3_eso8f"]
 [ext_resource type="Texture2D" uid="uid://dtv3rkdbibbfa" path="res://resources/sprites/units/axe_armor.png" id="3_qnuew"]
-[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/unit_rarity/Common.tres" id="3_se7vg"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_se7vg"]
 
 [resource]
 script = ExtResource("1_o4h4l")

@@ -8,7 +8,7 @@ class_name CombatMapGrid
 signal tile_info_updated(tile : Dictionary)
 
 ##EXPORTS
-var terrain_tile_map : TileMap ##UPDATE THIS TO TILEMAPLAYER
+var terrain_tile_map : TileMapLayer
 
 const tiles_to_check = [
 	Vector2i.RIGHT,
@@ -39,7 +39,7 @@ func _ready():
 	#initialize_grid(terrain_tile_map) 
 	#populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
 
-func setup(tileMap : TileMap):
+func setup(tileMap : TileMapLayer):
 	terrain_tile_map = tileMap
 	initialize_grid(tileMap) 
 	populate_map_tiles_from_terrain_tile_map(tileMap)
@@ -48,8 +48,8 @@ func setup(tileMap : TileMap):
 # populates the combatMapGrid with appriopriate terrain values
 # @param tile_map : the target tile_map layer with terrian that will be used in the combat grid
 ##
-func populate_map_tiles_from_terrain_tile_map(tile_map: TileMap):
-	for tile in tile_map.get_used_cells(0):
+func populate_map_tiles_from_terrain_tile_map(tile_map: TileMapLayer):
+	for tile in tile_map.get_used_cells():
 		create_map_tile(tile)
 		populate_map_tile_terrain(tile)
 
@@ -62,16 +62,6 @@ func populate_game_map_units(unit_data: Array[CombatUnit]):
 	for unit in unit_data:
 		if game_map.has(str(unit.map_position)):
 			set_combat_unit(unit, unit.map_position)
-
-##
-# populates the combatMapGrid with Map Entities
-#
-# @param entity_data : a list of CombatUnits to be added to the combatMapGrid
-##
-func populate_game_map_entities(entity_data : MapEntityGroupData):
-	for entity : CombatMapEntity in entity_data.entities:
-		if game_map.has(str(entity.position)):
-			set_entity(entity, entity.position)
 
 func create_map_tile(tile_index: Vector2i):
 	if not game_map.has(str(tile_index)):
@@ -102,7 +92,7 @@ func populate_map_tile_terrain(tile: Vector2i):
 			#_mapTile.blocks_unit_movement = get_terrain_from_tile_map(tile).blocks
 		game_map[str(tile)] = _mapTile
 
-func initialize_grid(tile_map:TileMap):
+func initialize_grid(tile_map:TileMapLayer):
 	#configure _astargrid
 	_astargrid.region = tile_map.get_used_rect()
 	_astargrid.cell_size = Vector2i(32, 32)
@@ -118,20 +108,29 @@ func get_combat_unit(position: Vector2i) -> CombatUnit:
 			return entry.unit
 	return null
 
-func get_entity(position:Vector2i)-> CombatMapEntity:
+func get_entity(position:Vector2i)-> CombatEntity:
 	if game_map.has(str(position)):
 		var entry: CombatMapTile = game_map.get(str(position))
 		if entry.entity:
-			return entry.entity
+			if entry.entity.active:
+				return entry.entity
 	return null
 
-func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector2i):
+#
+# Updates combatUnit's position within the game grid map
+#
+func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector2i) -> bool:
 	if is_valid_tile(previous_map_positon) and is_valid_tile(new_map_position):
-		var previous_map_tile :CombatMapTile = get_map_tile(previous_map_positon)
-		var new_map_tile :CombatMapTile = get_map_tile(new_map_position)
-		if previous_map_tile.unit and !new_map_tile.unit:
-			new_map_tile.unit = previous_map_tile.unit
-			previous_map_tile.unit = null
+		if previous_map_positon != new_map_position:
+			if get_combat_unit(previous_map_positon) and not get_combat_unit(new_map_position):
+				var previous_map_tile :CombatMapTile = get_map_tile(previous_map_positon)
+				var new_map_tile :CombatMapTile = get_map_tile(new_map_position)
+				new_map_tile.unit = previous_map_tile.unit
+				previous_map_tile.unit = null
+				return true
+		else:
+			return true
+	return false
 
 func set_combat_unit(combatUnit: CombatUnit, position:Vector2i):
 	if game_map.has(str(position)):
@@ -149,9 +148,9 @@ func is_position_occupied(position:Vector2i) -> bool:
 	return false
 
 func is_position_occupied_by_friendly_faction(position:Vector2i, faction:int) -> bool:
-	if get_combat_unit(position):
-		var combat_unit = get_combat_unit(position)
-		if combat_unit.allegience == faction:
+	var target_tile_combat_unit = get_combat_unit(position)
+	if target_tile_combat_unit != null:
+		if target_tile_combat_unit.allegience == faction:
 			return true
 	return false
 
@@ -210,7 +209,9 @@ func get_tile_cost(tile:Vector2i, movement_class:int):
 		print("get_tile_cost called with out of bounds tile")
 	return INF
 
-##Use DFS to retrieve the available cells from an origin point
+#
+# Use DFS to retrieve the available cells from an origin point
+#
 func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 	var _return_array : PackedVector2Array
 	var tile_edge_dictionary : Dictionary
@@ -225,6 +226,9 @@ func get_edge_tiles(tiles :PackedVector2Array) -> PackedVector2Array:
 				_return_array.append(tile)
 	return _return_array
 
+#
+# uses depth first search to get the tiles in range, but calls the DFS from multitple points
+#
 func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type:int = 0, effected_by_terrain:bool = false, allegience: int = 99):
 	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
 	const DEFAULT_TILE_COST = 1
@@ -241,7 +245,7 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not (is_position_occupied_by_friendly_faction(target_tile,allegience)):
+						if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 							var target_tile_cost = get_tile_cost(target_tile, movement_type)
 							remaining_range = range - target_tile_cost 
 							if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -253,10 +257,10 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 										pass
 									else: 
 										visited[target_tile] = remaining_range
-										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited,allegience)
 								else: 
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 					else : 
 						remaining_range = range - DEFAULT_TILE_COST 
 						if (remaining_range >= 0) :
@@ -266,7 +270,9 @@ func get_range_multi_origin_DFS(range:int, tiles: Array[Vector2i], movement_type
 	_arr.append_array(visited.keys())
 	return _arr
 
-##Use DFS to retrieve the available cells from an origin point
+#
+# Performs a depth first search on the grid to get the tiles in range 
+#
 func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_by_terrain:bool = false, allegience : int = 99) -> Array[Vector2i]:
 	var visited : Dictionary #Dictionary with <k,v> = <Vector2 tile posn, Vector2i(highest_move_at_tile, distance)>
 	const DEFAULT_TILE_COST = 1
@@ -281,8 +287,8 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 			var target_tile = terrain_tile_map.get_neighbor_cell(origin, neighbors)
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
-					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					#should we even be considering this tile, does this matter wont it be blocked from the astar?
+					if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile,movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -294,10 +300,12 @@ func get_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, effected_
 									pass
 								else: 
 									visited[target_tile] = remaining_range
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 							else: 
 								visited.get_or_add(target_tile, remaining_range)
-								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
+					else :
+						pass
 				else : 
 					remaining_range = range - DEFAULT_TILE_COST 
 					if (remaining_range >= 0) :
@@ -323,7 +331,7 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 			if _astargrid.is_in_boundsv(target_tile):
 				if(effected_by_terrain) :
 					#should we even be considering this tile?
-					if not is_position_occupied_by_friendly_faction(target_tile,allegience):
+					if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 						var target_tile_cost = get_tile_cost(target_tile, movement_type)
 						remaining_range = range - target_tile_cost 
 						if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -336,10 +344,10 @@ func get_map_of_range_DFS(range:int, origin: Vector2i, movement_type:int = 0, ef
 								else: 
 									visited.erase(target_tile)
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 							else: 
 								visited.get_or_add(target_tile, remaining_range)
-								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+								DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 				else : 
 					remaining_range = range - DEFAULT_TILE_COST 
 					if (remaining_range >= 0) :
@@ -358,7 +366,7 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 				if _astargrid.is_in_boundsv(target_tile):
 					if(effected_by_terrain) :
 						#should we even be considering this tile?
-						if not is_position_occupied_by_friendly_faction(target_tile, allegience):
+						if is_position_occupied_by_friendly_faction(target_tile, allegience) or not is_position_occupied(target_tile):
 							var target_tile_cost = get_tile_cost(target_tile, movement_type)
 							remaining_range = range - target_tile_cost 
 							if remaining_range >= 0  and not is_unit_blocked(target_tile, movement_type):
@@ -369,12 +377,14 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 										# this is a dead end.. We have already reached this tile with a superior range
 										pass
 									else: 
-										visited.erase(target_tile)
-										visited.get_or_add(target_tile, remaining_range)
-										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+										visited[target_tile] = remaining_range
+										DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 								else: 
 									visited.get_or_add(target_tile, remaining_range)
-									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited)
+									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
+						else : 
+							print("This tile was not considered due to unit positions : " + str(target_tile))
+							print("LOGIC : " + str(is_position_occupied_by_friendly_faction(target_tile, allegience)))
 					else : 
 						remaining_range = range - DEFAULT_TILE_COST 
 						if (remaining_range >= 0) :
@@ -420,7 +430,7 @@ func get_effective_terrain(mapTile : CombatMapTile) -> Terrain:
 		return mapTile.terrain
 	return null
 
-func set_entity(cme :CombatMapEntity, position: Vector2i):
+func set_entity(cme :CombatEntity, position: Vector2i):
 	if game_map.has(str(position)):
 		var mapTile:CombatMapTile = game_map.get(str(position))
 		mapTile.entity = cme
@@ -428,7 +438,7 @@ func set_entity(cme :CombatMapEntity, position: Vector2i):
 
 func get_terrain_from_tile_map(position:Vector2) -> Terrain:
 	if _astargrid.is_in_boundsv(position):
-		var tile_data = terrain_tile_map.get_cell_tile_data(0, position)
+		var tile_data = terrain_tile_map.get_cell_tile_data(position)
 		if tile_data :
 			if tile_data.get_custom_data("Terrain") is Terrain:
 				return tile_data.get_custom_data("Terrain")
@@ -486,8 +496,9 @@ func get_id_path(from_id: Vector2i, to_id: Vector2i, allow_partial_path: bool = 
 	return _astargrid.get_id_path(from_id, to_id,allow_partial_path)
 
 func is_map_position_available_for_unit_move(position: Vector2i, unit_movement_class:int) -> bool:
-	if not is_unit_blocked(position, unit_movement_class) and not is_position_occupied(position) == null :
-		return true
+	if not is_unit_blocked(position, unit_movement_class):
+		if not is_position_occupied(position):
+			return true
 	return false
 
 func position_to_map(position: Vector2) -> Vector2i:

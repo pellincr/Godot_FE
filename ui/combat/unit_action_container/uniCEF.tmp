@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctj0kc2415oew"]
+
+[ext_resource type="Script" path="res://ui/combat/unit_action_container/unit_action_container.gd" id="1_a520w"]
+
+[node name="UnitActionContainer" type="VBoxContainer"]
+script = ExtResource("1_a520w")

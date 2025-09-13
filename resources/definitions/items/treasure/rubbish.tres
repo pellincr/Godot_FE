@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3 uid="uid://bc2ltja6ag1fu"]
+
+[ext_resource type="Texture2D" uid="uid://bgxe65kpeu0uo" path="res://resources/sprites/items/treasure/rubbish.png" id="1_cdofd"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="1_odr4r"]
+
+[resource]
+script = ExtResource("1_odr4r")
+name = "Rubbish"
+db_key = "rubbish"
+equippable = false
+description = "Some Trash"
+item_type = 3
+uses = 1
+max_uses = 1
+unbreakable = false
+worth = 100
+icon = ExtResource("1_cdofd")

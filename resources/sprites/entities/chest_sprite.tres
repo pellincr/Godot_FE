@@ -1,7 +1,7 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cn1om38csmyfa"]
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cue1laq76ryum"]
 
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/tiles.png" id="1_o1y24"]
+[ext_resource type="Texture2D" uid="uid://d111xsq5ds26q" path="res://resources/sprites/entities/chest_sprite_sheet.png" id="1_8ljmr"]
 
 [resource]
-atlas = ExtResource("1_o1y24")
-region = Rect2(0, 544, 32, 32)
+atlas = ExtResource("1_8ljmr")
+region = Rect2(0, 24, 24, 24)

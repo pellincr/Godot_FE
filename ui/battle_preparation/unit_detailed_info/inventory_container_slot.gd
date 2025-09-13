@@ -4,6 +4,7 @@ signal set_equippped(item)
 signal use_item(item)
 signal item_selected_for_trade(item)
 signal sell_item(item)
+signal item_focused(item)
 
 @onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
 @onready var item_name_label = $HBoxContainer/LeftContainer/ItemNameLabel
@@ -45,7 +46,10 @@ func update_by_item():
 		set_invetory_item_icon(item.icon)
 		set_item_name_label(item.name)
 		update_item_type_icon_by_item()
-		set_item_uses(item.uses)
+		if item.unbreakable:
+			set_item_uses(0)
+		else :
+			set_item_uses(item.uses)
 	else:
 		set_invetory_item_icon(null)
 		set_item_name_label("")
@@ -157,6 +161,7 @@ func update_item_type_icon_by_item():
 func _on_focus_entered():
 	var focus_theme = preload("res://ui/battle_preparation/inventory_focused.tres")
 	self.theme = focus_theme
+	item_focused.emit(item)
 
 
 func _on_focus_exited():

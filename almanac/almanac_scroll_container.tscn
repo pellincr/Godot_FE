@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://h1lmy7pu0hfk"]
+
+[ext_resource type="Script" path="res://almanac/almanac_scroll_container.gd" id="1_biyiu"]
+[ext_resource type="PackedScene" uid="uid://b36cv6rktmlvl" path="res://almanac/almanac_scroll_header.tscn" id="2_8xwna"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyh7k"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkqje"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_phsh8"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_jyh7k")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_gkqje")
+
+[node name="AlmanacScrollContainer" type="HBoxContainer"]
+offset_right = 457.0
+offset_bottom = 514.0
+script = ExtResource("1_biyiu")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlmanacScrollHeader" parent="MainContainer" instance=ExtResource("2_8xwna")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="DetailedViewSubContainer" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/DetailedViewSubContainer"]
+custom_minimum_size = Vector2(350, 450)
+layout_mode = 2
+theme = SubResource("Theme_phsh8")
+follow_focus = true
+
+[node name="MainScrollContainer" type="VBoxContainer" parent="MainContainer/DetailedViewSubContainer/ScrollContainer"]
+layout_mode = 2
+
+[connection signal="header_swapped" from="MainContainer/AlmanacScrollHeader" to="." method="_on_almanac_header_swapped"]

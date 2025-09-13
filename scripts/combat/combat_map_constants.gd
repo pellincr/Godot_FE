@@ -1,5 +1,8 @@
 extends Node
 
+const COMBAT_UNIT = "COMBAT_UNIT"
+const COMBAT_ENTITY = "COMBAT_ENTITY"
+
 enum FACTION
 {
 	PLAYERS, # Player faction
@@ -15,8 +18,11 @@ enum COMBAT_MAP_STATE
 	INITIALIZING,
 	PLAYER_TURN,
 	AI_TURN,
+	TURN_TRANSITION,
 	PAUSE,
+	PLAYER_DISCARD,
 	PROCESSING,
+	REINFORCEMENT,
 	VICTORY,
 	DEFEAT
 }
@@ -26,6 +32,7 @@ enum TURN_PHASE
 	INITIALIZING, # When game is initializing
 	IDLE, #Awaiting further input -- In Menu? ** Verify
 	BEGINNING_PHASE, #The phase before player input
+	BEGINNING_PHASE_PROCESS,
 	MAIN_PHASE, #Phase used for all player input
 	ENDING_PHASE #After player has ended, (end of turn effects)
 }
@@ -44,7 +51,9 @@ enum PLAYER_STATE
 	##ACTIONS
 	#Inventory
 	UNIT_INVENTORY,
-	UNIT_INVENTORY_USE,
+	UNIT_INVENTORY_ITEM_SELECTED,
+	UNIT_INVENTORY_ITEM_ACTION,
+	UNIT_INVENTORY_DISCARD_CONFIRMATION,
 	#Trade
 	UNIT_TRADE_ACTION_TARGETTING,
 	UNIT_TRADE_ACTION_INVENTORY,
@@ -62,8 +71,9 @@ enum PLAYER_STATE
 	UNIT_COMBAT_ACTION_TARGETTING,
 	UNIT_COMBAT_ACTION,
 	#Entity
-	UNIT_ENTITY_ACTION_INVENTORY, #chest
-	UNIT_ENTITY_ACTION #do the action itself sieze, lever, chest give, etc
+	UNIT_INTERACT_ACTION_TARGETTING,
+	UNIT_INTERACT_ACTION_INVENTORY, #chest
+	UNIT_INTERACT_ACTION #do the action itself sieze, lever, chest give, etc
 	#skill 
 	#TO BE IMPL
 }
@@ -89,4 +99,10 @@ enum UNIT_AI_TYPE {
 	DEFAULT, #Attack and Move
 	ATTACK_IN_RANGE, #Attack in move range
 	DEFEND_POINT #No Move, only attack in weapon attack range
+}
+
+enum REINFORCEMENT_TYPE {
+	TURN_COUNT,
+	MAP_ZONE_ENTERED,
+	BOSS_DEFEATED ## TO BE IMPL
 }
