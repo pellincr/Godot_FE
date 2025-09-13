@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bvidsga2gm1ux" path="res://resources/sprites/items/weapons/lance/slim_lance.png" id="1_qndv2"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_gvxbu"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_wlo1m"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_wlo1m"]
 
 [resource]
 script = ExtResource("3_wlo1m")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_gvxbu")
 uses = 30
 max_uses = 30
+unbreakable = false
 worth = 300
 icon = ExtResource("1_qndv2")

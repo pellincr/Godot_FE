@@ -12,5 +12,6 @@ description = "Some Trash"
 item_type = 3
 uses = 1
 max_uses = 1
+unbreakable = false
 worth = 100
 icon = ExtResource("1_cdofd")

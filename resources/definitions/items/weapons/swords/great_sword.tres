@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://oo2d2ui6ymeg"]
 
 [ext_resource type="Texture2D" uid="uid://bgf6yxgeu8pj4" path="res://resources/sprites/items/weapons/swords/great_sword.png" id="1_f7pgc"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_l5p3n"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_l5p3n"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_xrc3f"]
 
 [resource]
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_xrc3f")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 1500
 icon = ExtResource("1_f7pgc")

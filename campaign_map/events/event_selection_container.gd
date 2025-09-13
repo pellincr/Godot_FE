@@ -8,6 +8,7 @@ signal leave_selected()
 
 @onready var event_option_button_1 = $EventOptionButton1
 @onready var event_option_button_2 = $EventOptionButton2
+@onready var event_option_button_3 = $EventOptionButton3
 
 @onready var leave_button = $LeaveButton
 
@@ -29,6 +30,8 @@ func update_by_event():
 	event_option_button_1.update_by_event_option()
 	event_option_button_2.event_option = event.option2
 	event_option_button_2.update_by_event_option()
+	event_option_button_3.event_option = event.option3
+	event_option_button_3.update_by_event_option()
 
 func _on_event_option_selected(event_option):
 	event_option_selected.emit(event_option)

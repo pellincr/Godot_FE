@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_y6iis"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_p8t3m"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ycb2s"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ycb2s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kscmt"]
 atlas = ExtResource("1_y6iis")
@@ -37,5 +37,6 @@ item_type = 0
 rarity = ExtResource("2_p8t3m")
 uses = 18
 max_uses = 18
+unbreakable = false
 worth = 2000
 icon = SubResource("AtlasTexture_kscmt")

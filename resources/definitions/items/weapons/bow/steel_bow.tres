@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cehb2vtt72rlw" path="res://resources/sprites/items/weapons/bow/steel_bow.png" id="1_8ndqs"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_qvpk7"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_skxeh"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_skxeh"]
 
 [resource]
 script = ExtResource("2_skxeh")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_qvpk7")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 600
 icon = ExtResource("1_8ndqs")

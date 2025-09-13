@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="Event" load_steps=4 format=3 uid="uid://50mu3ki6kbrc"]
+[gd_resource type="Resource" script_class="Event" load_steps=6 format=3 uid="uid://50mu3ki6kbrc"]
 
 [ext_resource type="Resource" uid="uid://bwp4cv2bam7di" path="res://resources/definitions/events/event_options/Strength.tres" id="1_2gcg6"]
-[ext_resource type="Script" uid="uid://dvfv2w40x6t4e" path="res://scripts/resources/events/events.gd" id="1_4620u"]
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_4620u"]
 [ext_resource type="Resource" uid="uid://cf63fna1mhsdl" path="res://resources/definitions/events/event_options/Magic.tres" id="2_ei743"]
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_xwg6a"]
+
+[sub_resource type="Resource" id="Resource_jti1j"]
+script = ExtResource("3_xwg6a")
+description = "Flee"
+effect = 4
 
 [resource]
 script = ExtResource("1_4620u")
@@ -10,3 +16,4 @@ name = "Strength/Magic"
 description = "Pick one of the options below."
 option1 = ExtResource("1_2gcg6")
 option2 = ExtResource("2_ei743")
+option3 = SubResource("Resource_jti1j")

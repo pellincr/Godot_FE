@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cw6q0mysqnnp4" path="res://resources/sprites/items/weapons/lance/pilum.png" id="1_4k0w5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_0rheq"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_5mr4e"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_5mr4e"]
 
 [resource]
 script = ExtResource("3_5mr4e")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_0rheq")
 uses = 30
 max_uses = 30
+unbreakable = false
 worth = 500
 icon = ExtResource("1_4k0w5")

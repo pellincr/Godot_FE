@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Event" load_steps=4 format=3 uid="uid://40pjwy6iixer"]
+
+[ext_resource type="Resource" uid="uid://bu3sym1ibjgii" path="res://resources/definitions/events/event_options/RandomWeapon.tres" id="1_khpi6"]
+[ext_resource type="Resource" uid="uid://ddgwfyuel5m8g" path="res://resources/definitions/events/event_options/RandomConsumable.tres" id="2_ji63v"]
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="3_dmgr5"]
+
+[resource]
+script = ExtResource("3_dmgr5")
+name = "Bandit Tollgate"
+description = "Highway brigands demand payment."
+option1 = ExtResource("1_khpi6")
+option2 = ExtResource("2_ji63v")

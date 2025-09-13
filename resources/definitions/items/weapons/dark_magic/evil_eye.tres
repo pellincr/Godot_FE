@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://drlr53p524ouy"]
 
 [ext_resource type="Texture2D" uid="uid://d3qng8xkytu8f" path="res://resources/sprites/items/weapons/dark/evil_eye.png" id="1_r2fyg"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a4dsu"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_a4dsu"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_pcwr0"]
 
 [resource]
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_pcwr0")
 uses = 15
 max_uses = 15
+unbreakable = false
 worth = 2800
 icon = ExtResource("1_r2fyg")

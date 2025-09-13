@@ -237,6 +237,8 @@ func update_stats() :
 		stats.movement = calculate_stat(get_unit_type_definition().base_stats.movement, 0, level_stats.movement,get_unit_type_definition().maxuimum_stats.movement)
 		stats.constitution = calculate_stat(get_unit_type_definition().base_stats.constitution, 0, level_stats.constitution,get_unit_type_definition().maxuimum_stats.constitution)
 	###Combat stats
+	if hp > stats.hp:
+		hp = stats.hp
 	attack = calculate_attack()
 	attack_speed = calculate_attack_speed()
 	hit = calculate_hit()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu41o4d1sio4j"]
+[gd_scene load_steps=6 format=3 uid="uid://cu41o4d1sio4j"]
 
 [ext_resource type="Script" uid="uid://dfivis6c54qeg" path="res://combat/databases/event_database.gd" id="1_2voe4"]
-[ext_resource type="Script" uid="uid://dvfv2w40x6t4e" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
-[ext_resource type="Resource" uid="uid://50mu3ki6kbrc" path="res://resources/definitions/events/Strength_Magic.tres" id="3_u6cj8"]
-[ext_resource type="Resource" uid="uid://c4p52xollndqj" path="res://resources/definitions/events/RandomItem.tres" id="4_hltqb"]
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
+[ext_resource type="Resource" uid="uid://40pjwy6iixer" path="res://resources/definitions/events/bandit_tollgate.tres" id="5_0mph2"]
+[ext_resource type="Resource" uid="uid://dl1y82k76ck63" path="res://resources/definitions/events/grove_trial.tres" id="6_oc31k"]
+[ext_resource type="Resource" uid="uid://utt7f4pt1wde" path="res://resources/definitions/events/goblet.tres" id="7_mhukf"]
 
 [node name="EventDatabase" type="Node"]
 script = ExtResource("1_2voe4")
-events = Array[ExtResource("2_uknaf")]([ExtResource("4_hltqb"), ExtResource("3_u6cj8")])
+events = Array[ExtResource("2_uknaf")]([ExtResource("5_0mph2"), ExtResource("6_oc31k"), ExtResource("7_mhukf")])

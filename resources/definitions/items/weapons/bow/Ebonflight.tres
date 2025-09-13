@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_varur"]
 [ext_resource type="Texture2D" uid="uid://d06avbmkpr5wx" path="res://resources/sprites/items/weapons/bow/ebonflight.png" id="2_0282l"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_ytv8n"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cvf5w"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cvf5w"]
 
 [sub_resource type="Resource" id="Resource_ayymq"]
 script = ExtResource("1_varur")
@@ -48,5 +48,6 @@ item_type = 0
 rarity = ExtResource("3_ytv8n")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 15000
 icon = ExtResource("2_0282l")

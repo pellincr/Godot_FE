@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c3lsx2p03hwtc" path="res://resources/sprites/items/weapons/light/ray_tome.png" id="1_pjukn"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_eoyj3"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_2kvct"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_2kvct"]
 
 [resource]
 script = ExtResource("3_2kvct")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_eoyj3")
 uses = 25
 max_uses = 25
+unbreakable = false
 worth = 2400
 icon = ExtResource("1_pjukn")
