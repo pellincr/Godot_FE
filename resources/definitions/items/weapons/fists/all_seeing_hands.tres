@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_kf70b"]
 [ext_resource type="Texture2D" uid="uid://b7pddkj4jfix3" path="res://resources/sprites/items/weapons/fist/eye_fist.png" id="2_asetm"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_arxv5"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_vxxcn"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_vxxcn"]
 
 [sub_resource type="Resource" id="Resource_yiis1"]
 script = ExtResource("1_kf70b")
@@ -48,5 +48,6 @@ item_type = 0
 rarity = ExtResource("3_arxv5")
 uses = 45
 max_uses = 45
+unbreakable = false
 worth = 15000
 icon = ExtResource("2_asetm")

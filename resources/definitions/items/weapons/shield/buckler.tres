@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_8rg1s"]
 [ext_resource type="Texture2D" uid="uid://d2bynq7apdoay" path="res://resources/sprites/items/weapons/shield/buckler.png" id="1_ewuvi"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_522gm"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_522gm"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_tgg5h"]
 
 [sub_resource type="Resource" id="Resource_7reny"]
@@ -48,5 +48,6 @@ item_type = 0
 rarity = ExtResource("3_tgg5h")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 1200
 icon = ExtResource("1_ewuvi")

@@ -7,3 +7,4 @@ class_name Event
 @export var icon : Texture2D
 @export var option1 : EventOption
 @export var option2 : EventOption
+@export var option3 : EventOption

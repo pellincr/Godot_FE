@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bx1cchgpthd43" path="res://resources/sprites/items/weapons/axes/great_axe.png" id="1_gy2j7"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_ktiuf"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ou3xc"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ou3xc"]
 
 [resource]
 script = ExtResource("3_ou3xc")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_ktiuf")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 2250
 icon = ExtResource("1_gy2j7")

@@ -157,6 +157,8 @@ func update_army_convoy_container_state():
 				focused_detailed_view = unit_detailed_simple_info
 			var shop = shop_container_scene.instantiate()
 			shop.item_bought.connect(_on_item_bought)
+			if playerOverworldData.floors_climbed / playerOverworldData.current_campaign.max_floor_number > 0.5:
+				shop.expanded_shop = true
 			main_container.add_child(shop)
 
 func _on_army_convoy_container_unit_focused(unit):

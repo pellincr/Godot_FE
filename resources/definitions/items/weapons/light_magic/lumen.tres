@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://6mujpxab6tr3" path="res://resources/sprites/items/weapons/light/Lumen_tome.png" id="1_nmemp"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_v7atr"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_84gk6"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_84gk6"]
 
 [resource]
 script = ExtResource("3_84gk6")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_v7atr")
 uses = 12
 max_uses = 12
+unbreakable = false
 worth = 6000
 icon = ExtResource("1_nmemp")

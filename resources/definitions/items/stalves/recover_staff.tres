@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://du14vd0w32y7b" path="res://resources/sprites/items/weapons/staff/recover_staff.png" id="1_vsvjf"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_5p6gx"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mrvr5"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_mrvr5"]
 
 [resource]
 script = ExtResource("2_mrvr5")
@@ -33,5 +33,6 @@ item_type = 1
 rarity = ExtResource("2_5p6gx")
 uses = 40
 max_uses = 40
+unbreakable = false
 worth = 1600
 icon = ExtResource("1_vsvjf")

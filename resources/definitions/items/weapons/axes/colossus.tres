@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_a7cgr"]
 [ext_resource type="Texture2D" uid="uid://dvhspor166tsq" path="res://resources/sprites/items/weapons/axes/colossus.png" id="2_cm38f"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_i6pjt"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_i1cx8"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_i1cx8"]
 
 [sub_resource type="Resource" id="Resource_0tmbu"]
 script = ExtResource("1_a7cgr")
@@ -48,5 +48,6 @@ item_type = 0
 rarity = ExtResource("3_i6pjt")
 uses = 15
 max_uses = 15
+unbreakable = false
 worth = 120000
 icon = ExtResource("2_cm38f")

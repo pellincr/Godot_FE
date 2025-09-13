@@ -44,6 +44,7 @@ const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_det
 @onready var current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
 @onready var current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
 
+var expanded_shop = false
 var focused = false
 
 func _ready():
@@ -137,6 +138,8 @@ func filter_by_weapon_type(weapon_type : ItemConstants.WEAPON_TYPE):
 		var item = ItemDatabase.items[item_key]
 		if item is WeaponDefinition and item.weapon_type == weapon_type:
 			if item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
 				accum.append(item)
 	return accum
 

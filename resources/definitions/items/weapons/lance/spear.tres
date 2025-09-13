@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://433epex31pnv" path="res://resources/sprites/items/weapons/lance/spear.png" id="1_pwpwk"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_towr1"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_qp8cc"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_qp8cc"]
 
 [resource]
 script = ExtResource("3_qp8cc")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_towr1")
 uses = 20
 max_uses = 20
+unbreakable = false
 worth = 4000
 icon = ExtResource("1_pwpwk")

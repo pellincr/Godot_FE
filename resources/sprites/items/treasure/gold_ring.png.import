@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2k45s1ybrv47"
-path="res://.godot/imported/wine.png-ff6059271e0ed2d7d2d7c73d356e8f1f.ctex"
+uid="uid://btcttccc0r10g"
+path="res://.godot/imported/gold_ring.png-d062aa36a2abba98f98636865cc99703.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/consumables/wine.png"
-dest_files=["res://.godot/imported/wine.png-ff6059271e0ed2d7d2d7c73d356e8f1f.ctex"]
+source_file="res://resources/sprites/items/treasure/gold_ring.png"
+dest_files=["res://.godot/imported/gold_ring.png-d062aa36a2abba98f98636865cc99703.ctex"]
 
 [params]
 

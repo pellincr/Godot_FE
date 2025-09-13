@@ -51,33 +51,84 @@ func _on_event_option_selected(event_option: EventOption):
 			give_random_item(ItemConstants.ITEM_TYPE.WEAPON)
 		EventOption.EVENT_EFFECT.RANDOM_CONSUMABLE:
 			give_random_item(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
+		EventOption.EVENT_EFFECT.FLEE:
+			pass
+		EventOption.EVENT_EFFECT.BANDIT_BRIBE:
+			playerOverworldData.gold = clampi(playerOverworldData.gold - 400, 0, playerOverworldData.gold)
+		EventOption.EVENT_EFFECT.BANDIT_FIGHT:
+			for unit in playerOverworldData.total_party.size()/2:
+				var target_unit : Unit = playerOverworldData.total_party.pick_random()
+				target_unit.hp = clampi(target_unit.hp - 8, 1, target_unit.stats.hp)
+		EventOption.EVENT_EFFECT.BANDIT_INTIMIDATE:
+			var target_unit : Unit = playerOverworldData.total_party.pick_random()
+			var bonus = target_unit.stats.strength / 2
+			var intimidation_roll = randi_range(0, 20)
+			if intimidation_roll + bonus > 10:
+				playerOverworldData.gold = playerOverworldData.gold + 800
+			else:
+				for unit in playerOverworldData.total_party.size()/2:
+					var damage_unit : Unit = playerOverworldData.total_party.pick_random()
+					damage_unit.hp = clampi(target_unit.hp - 11, 1, target_unit.stats.hp)
+		EventOption.EVENT_EFFECT.TRIAL_MEDITATE:
+			for unit_choice in 2:
+				var target_unit : Unit = playerOverworldData.total_party.pick_random()
+				target_unit.unit_character.stats.resistance += 1
+				target_unit.update_stats()
+		EventOption.EVENT_EFFECT.TRIAL_CUT_PATH:
+			give_random_item(ItemConstants.ITEM_TYPE.WEAPON, "rare")
+		EventOption.EVENT_EFFECT.TRIAL_RUSH_THROUGH:
+			for unit_choice in 2:
+				var target_unit : Unit = playerOverworldData.total_party.pick_random()
+				target_unit.unit_character.stats.hp = target_unit.unit_character.stats.hp -3
+				#target_unit.hp = clampi(target_unit.unit_character.stats.hp -3, 1, 9999999)
+				target_unit.unit_character.stats.speed =  target_unit.unit_character.stats.speed +1
+				target_unit.update_stats()
+		EventOption.EVENT_EFFECT.GOBLET_DRINK:
+			for unit_choice in 2:
+				var target_unit : Unit = playerOverworldData.total_party.pick_random()
+				target_unit.unit_character.stats.luck =  target_unit.unit_character.stats.luck -4
+				target_unit.unit_character.stats.strength +=  1
+				target_unit.unit_character.stats.magic += 1
+				target_unit.update_stats()
+		EventOption.EVENT_EFFECT.GOBLET_SPILL:
+			for unit : Unit in playerOverworldData.total_party:
+				unit.unit_character.stats.luck += 1
+	
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	get_tree().change_scene_to_file("res://campaign_map/campaign_map.tscn")
 
 
 
-func give_random_item(item_type : ItemConstants.ITEM_TYPE):
+func give_random_item(item_type : ItemConstants.ITEM_TYPE, desired_rarity : String = ""):
 	var item_keys = ItemDatabase.items.keys()
 	var available_items = []
 	var chosen_item : ItemDefinition
 	for key in item_keys:
 		var item = ItemDatabase.items[key]
-		match item_type:
-			ItemConstants.ITEM_TYPE.WEAPON:
-				if item is WeaponDefinition:
-					available_items.append(item)
-			ItemConstants.ITEM_TYPE.USEABLE_ITEM:
-				if item is ConsumableItemDefinition:
-					available_items.append(item)
+		if desired_rarity != "":
+			if item.rarity == RarityDatabase.rarities[desired_rarity]:
+				match item_type:
+					ItemConstants.ITEM_TYPE.WEAPON:
+						if item is WeaponDefinition:
+							available_items.append(item)
+					ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+						if item is ConsumableItemDefinition:
+							available_items.append(item)
+		else :
+			match item_type:
+				ItemConstants.ITEM_TYPE.WEAPON:
+					if item is WeaponDefinition:
+						available_items.append(item)
+				ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+					if item is ConsumableItemDefinition:
+						available_items.append(item)
 	if !available_items.is_empty():
 		chosen_item = available_items.pick_random()
 	else:
 		chosen_item = ItemDatabase.items["iron_sword"]
 	playerOverworldData.convoy.append(chosen_item)
 	print("Item Recieved")
-
-
 
 func _on_event_selection_container_leave_selected():
 	transition_out_animation()

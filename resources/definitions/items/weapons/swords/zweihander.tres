@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_18y3t"]
 [ext_resource type="Texture2D" uid="uid://b20ryvdulj5ib" path="res://resources/sprites/items/weapons/swords/zweihander.png" id="2_2yq0j"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_b2fdk"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_h65wo"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_h65wo"]
 
 [sub_resource type="Resource" id="Resource_eba4i"]
 script = ExtResource("1_18y3t")
@@ -48,5 +48,6 @@ item_type = 0
 rarity = ExtResource("3_b2fdk")
 uses = 12
 max_uses = 12
+unbreakable = false
 worth = 11000
 icon = ExtResource("2_2yq0j")

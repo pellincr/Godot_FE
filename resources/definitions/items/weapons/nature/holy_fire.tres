@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bqp81xu7pxtkr" path="res://resources/sprites/items/weapons/nature/holy_fire_tome.png" id="1_w0s31"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_mf1sw"]
-[ext_resource type="Script" uid="uid://gi233fmdie4t" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_bsv1h"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_bsv1h"]
 
 [resource]
 script = ExtResource("3_bsv1h")
@@ -33,5 +33,6 @@ item_type = 0
 rarity = ExtResource("2_mf1sw")
 uses = 15
 max_uses = 15
+unbreakable = false
 worth = 4500
 icon = ExtResource("1_w0s31")

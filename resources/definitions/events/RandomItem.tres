@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="Event" load_steps=4 format=3 uid="uid://c4p52xollndqj"]
+[gd_resource type="Resource" script_class="Event" load_steps=6 format=3 uid="uid://c4p52xollndqj"]
 
-[ext_resource type="Script" uid="uid://dvfv2w40x6t4e" path="res://scripts/resources/events/events.gd" id="1_ko6eu"]
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_ko6eu"]
 [ext_resource type="Resource" uid="uid://bu3sym1ibjgii" path="res://resources/definitions/events/event_options/RandomWeapon.tres" id="1_ujs7d"]
 [ext_resource type="Resource" uid="uid://ddgwfyuel5m8g" path="res://resources/definitions/events/event_options/RandomConsumable.tres" id="2_jr4oj"]
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_0m408"]
+
+[sub_resource type="Resource" id="Resource_ms35h"]
+script = ExtResource("3_0m408")
+description = "Flee"
+effect = 4
 
 [resource]
 script = ExtResource("1_ko6eu")
@@ -10,3 +16,4 @@ name = "Random Item"
 description = "Choose 1 item types below"
 option1 = ExtResource("1_ujs7d")
 option2 = ExtResource("2_jr4oj")
+option3 = SubResource("Resource_ms35h")
