@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=22 format=3 uid="uid://be3gfqaurbnss"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=23 format=3 uid="uid://be3gfqaurbnss"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_nvnxa"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_wutmn"]
-[ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="3_ilqr6"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="3_j3s78"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="4_na5mc"]
+[ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="4_yi8n5"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="5_2j6rr"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="6_2rrga"]
 [ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="7_irine"]
@@ -18,10 +19,10 @@ script = ExtResource("1_nvnxa")
 name = "Graggle"
 map_position = Vector2i(13, 1)
 level = 9
-level_bonus = 0
+level_bonus = 2
 hard_mode_leveling = false
-unit_type_key = "fighter"
-inventory = Array[ExtResource("2_wutmn")]([ExtResource("3_ilqr6"), ExtResource("4_na5mc")])
+unit_type_key = "hakkapel"
+inventory = Array[ExtResource("2_wutmn")]([ExtResource("3_j3s78"), ExtResource("4_yi8n5")])
 ai_type = 2
 is_boss = true
 
@@ -29,7 +30,7 @@ is_boss = true
 script = ExtResource("1_nvnxa")
 name = "Bandit"
 map_position = Vector2i(14, 2)
-level = 0
+level = 7
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "sellsword"

@@ -29,7 +29,7 @@ volume = 1
 
 [resource]
 script = ExtResource("4_b821v")
-name = "Swords"
+name = "Swingin' Swords"
 db_key = "swords"
 rarity = ExtResource("4_epviq")
 archetype_picks = Array[ExtResource("1_jycsm")]([SubResource("Resource_nlecq"), SubResource("Resource_8l8jn")])

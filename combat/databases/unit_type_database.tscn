@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=44 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -42,6 +42,7 @@
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
 [ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
 [ext_resource type="Resource" uid="uid://d4kej3pq2am2g" path="res://resources/definitions/unit_types/commanders/drengr/drengr.tres" id="42_885oc"]
+[ext_resource type="Resource" uid="uid://bdmmxsjkp8bt0" path="res://resources/definitions/unit_types/units/magewing/magewing.tres" id="43_pxrnf"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -87,6 +88,7 @@ commander_types = {
 "drengr": ExtResource("42_885oc"),
 "iron_viper": ExtResource("34_w1y03"),
 "mage_knight": ExtResource("29_ycdqo"),
+"magewing": ExtResource("43_pxrnf"),
 "war_maiden": ExtResource("30_uy0ry"),
 "weapon_master": ExtResource("31_025il")
 }

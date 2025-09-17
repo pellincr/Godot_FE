@@ -49,7 +49,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection(playerOverworldData.combat_maps_completed +  1)
+	randomize_selection(playerOverworldData.combat_maps_completed)
 	update_information()
 	instantiate_unit_draft_selector()
 	

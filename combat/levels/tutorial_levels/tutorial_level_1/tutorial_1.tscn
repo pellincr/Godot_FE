@@ -1,13 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://blo7n0hudl834"]
+[gd_scene load_steps=23 format=3 uid="uid://blo7n0hudl834"]
 
 [ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/levels/tutorial_levels/tutorial_level_1/terrain.tscn" id="2_mkd81"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_r87ho"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_2sp8d"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="5_xwp5u"]
 [ext_resource type="Resource" uid="uid://bv0aejyu52m5r" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_1.tres" id="6_17qwn"]
+[ext_resource type="Resource" uid="uid://dw14apn2v7278" path="res://resources/definitions/enemy_groups/tutorial/tutorial_1_reinforcements.tres" id="6_djt5u"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="7_6ra67"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_nr24d"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="8_6vv1a"]
 [ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="8_lre1h"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_sjc1l"]
 [ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="9_0vi2i"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="9_nrsst"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
@@ -15,6 +19,19 @@
 [ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="12_cxe2k"]
 [ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="13_470a3"]
 [ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="14_lj31d"]
+
+[sub_resource type="Resource" id="Resource_12sve"]
+script = ExtResource("8_sjc1l")
+zone_id = "1"
+mapping_method = 0
+zone = Array[Vector2i]([])
+zone_bottom_left_vertex = Vector2i(0, 11)
+zone_top_right_vertex = Vector2i(5, 0)
+
+[sub_resource type="Resource" id="Resource_r40lg"]
+script = ExtResource("7_6ra67")
+reinforcements = Array[ExtResource("5_xwp5u")]([ExtResource("6_djt5u")])
+zones = Array[ExtResource("8_sjc1l")]([SubResource("Resource_12sve")])
 
 [sub_resource type="Resource" id="Resource_xhnku"]
 script = ExtResource("14_lj31d")
@@ -48,19 +65,25 @@ scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_2sp8d")
+victory_condition = null
+turns_to_survive = null
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
-ally_spawn_top_left = Vector2(11, 6)
-ally_spawn_bottom_right = Vector2(13, 8)
+mapReinforcementData = SubResource("Resource_r40lg")
+ally_spawn_top_left = Vector2(10, 9)
+ally_spawn_bottom_right = Vector2(12, 11)
 enemy_start_group = ExtResource("6_17qwn")
-max_allowed_ally_units = 2
-base_win_gold_reward = 100
-turn_reward_modifier = 6
+max_allowed_ally_units = 4
+base_win_gold_reward = 1000
+turn_reward_modifier = 8
 is_key_campaign_level = true
+is_tutorial = null
+tutorial_level = null
+heal_on_win = null
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("8_6vv1a")

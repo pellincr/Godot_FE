@@ -24,7 +24,7 @@ func check_reinforcement_spawn(turn_number : int, ally_unit_positions: Array[Vec
 			if reinforcement_zone_triggered[zone] == false:
 				# does the zone have a unit in it so it should be triggered
 				if zone_map.get(zone).has(position):
-					var zone_key = generate_reinforcement_unit_data_map_key(CombatMapConstants.REINFORCEMENT_TYPE.MAP_ZONE_ENTERED, zone)
+					var zone_key = generate_reinforcement_unit_data_map_key(CombatMapConstants.REINFORCEMENT_TYPE.MAP_ZONE_ENTERED,turn_number, zone)
 					_arr_reinforcement_unit_keys.append(zone_key)
 					reinforcement_zone_triggered[zone] = true
 	if not _arr_reinforcement_unit_keys.is_empty():
@@ -35,7 +35,7 @@ func populate_reinforcement_unit_data(input_reinforcement_unit_data: Array[Comba
 	if input_reinforcement_unit_data:
 		for group in input_reinforcement_unit_data: 
 			for turn in group.turns:
-				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, turn, group.zone_id)
+				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, -1, group.zone_id)
 				if reinforcement_unit_data.has(key):
 						reinforcement_unit_data[key].append_array(group.units)
 				else : 
@@ -75,7 +75,7 @@ func populate_zone_map(zone_data_list : Array[CombatMapReinforcementZoneData]):
 		var _zone_data_arr: Array[Vector2i] = []
 		if zone_data.mapping_method == zone_data.ZONE_MAPPING_METHODS.CORNER:
 			for x_cordinate in range(zone_data.zone_bottom_left_vertex.x, zone_data.zone_top_right_vertex.x):
-				for  y_cordinate in range(zone_data.zone_bottom_left_vertex.y, zone_data.zone_top_right_vertex.y):
+				for  y_cordinate in range( zone_data.zone_top_right_vertex.y, zone_data.zone_bottom_left_vertex.y):
 					var tile : Vector2i  = Vector2i(x_cordinate,y_cordinate)
 					_zone_data_arr.append(tile)
 		elif zone_data.mapping_method == zone_data.ZONE_MAPPING_METHODS.COORDINATE:

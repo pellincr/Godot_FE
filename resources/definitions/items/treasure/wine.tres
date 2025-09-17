@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("2_osq5l")
-use_effect = 4
+use_effect = 0
 power = 0
 status_effect = Array[ExtResource("3_ebuoa")]([])
 name = "Wine"

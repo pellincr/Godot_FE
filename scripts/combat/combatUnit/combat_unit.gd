@@ -87,6 +87,9 @@ func update_map_tile(cmt: CombatMapTile):
 func get_equipped() -> WeaponDefinition:
 	return self.unit.inventory.get_equipped_weapon()
 
+func update_unit_stats():
+	stats.populate_unit_stats(self.unit)
+
 func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)

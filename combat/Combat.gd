@@ -597,8 +597,8 @@ func minor_action_complete(unit: CombatUnit):
 	unit.update_display()
 	emit_signal("minor_action_completed")
 
-func unit_gain_experience(u: Unit, value: int):
-	await unit_experience_manager.process_experience_gain(u, value)
+func unit_gain_experience(cu: CombatUnit, value: int):
+	await unit_experience_manager.process_experience_gain(cu, value)
 	combatExchange.unit_gain_experience_complete()
 
 func play_audio(sound : AudioStream):

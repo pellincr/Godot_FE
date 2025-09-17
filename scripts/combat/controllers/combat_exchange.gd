@@ -17,7 +17,7 @@ signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
 signal play_audio(sound: AudioStream)
 signal play_audio_finished()
-signal gain_experience(u: Unit, new_value:int)
+signal gain_experience(u: CombatUnit, new_value:int)
 signal unit_gain_experience_finished()
 enum EXCHANGE_OUTCOME 
 {
@@ -106,7 +106,11 @@ func hit_missed(dodging_unt: CombatUnit):
 	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
-func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
+func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):
+	if player_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+		await heal_unit(player_unit, 3)
+	if enemy_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+		await heal_unit(enemy_unit, 3)
 	if ce_display != null:
 		ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
@@ -115,9 +119,9 @@ func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
-		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_hit(enemy_unit))
+		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_hit(enemy_unit.unit))
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
-		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_kill(enemy_unit))
+		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_kill(enemy_unit.unit))
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ALLY_SUPPORTED:
 		emit_signal("gain_experience", player_unit, 10)
 	await unit_gain_experience_finished
@@ -478,7 +482,7 @@ func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitS
 			await heal_unit(target, turn.effect_weight)
 			
 	if supporter.allegience == Constants.FACTION.PLAYERS:
-		await complete_combat_exchange(supporter.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :
 			pass
 	supporter.turn_taken = true
@@ -528,20 +532,20 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 				await perform_hit(attacker,defender,turn.hit,turn.critical)
 				if not defender.alive:
 					if player_unit == defender:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else : 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 					return
 			elif turn.owner == defender:
 				await perform_hit(defender,attacker,turn.hit,turn.critical)
 				if not attacker.alive: 
 					if attacker == player_unit: 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 					return
 	# Both units have survived the exchange
-	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+	await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
 		#get the allegience of the units
 
 #

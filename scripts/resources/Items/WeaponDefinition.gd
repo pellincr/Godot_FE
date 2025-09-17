@@ -9,7 +9,8 @@ enum WEAPON_SPECIALS
 	NEGATES_FOE_DEFENSE,
 	NEGATES_FOE_DEFENSE_ON_CRITICAL,
 	HEAL_10_PERCENT_ON_TURN_BEGIN,
-	CANNOT_RETALIATE
+	CANNOT_RETALIATE,
+	HEAL_ON_COMBAT_END
 }
 
 @export_subgroup("Weapon Type")
@@ -39,4 +40,4 @@ enum WEAPON_SPECIALS
 @export_group("Weapon Specials") 
 @export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
-@export var specials : Array[WEAPON_SPECIALS] = []
+@export var specials : Array[WEAPON_SPECIALS] = [] # Activated on weapon equipped

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=20 format=3 uid="uid://bba77rcw2g3tq"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=22 format=3 uid="uid://bba77rcw2g3tq"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_myack"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_dj2yu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_0bwsx"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_w3adp"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
+[ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/nature/wind.tres" id="10_fdehf"]
 
 [sub_resource type="Resource" id="Resource_4eexp"]
 script = ExtResource("1_myack")
@@ -119,6 +120,18 @@ inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 0
 is_boss = false
 
+[sub_resource type="Resource" id="Resource_2hdsw"]
+script = ExtResource("1_myack")
+name = "bandit"
+map_position = Vector2i(14, 9)
+level = 3
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_dj2yu")]([ExtResource("10_fdehf")])
+ai_type = 0
+is_boss = false
+
 [resource]
 script = ExtResource("9_5sp5b")
-group = Array[ExtResource("1_myack")]([SubResource("Resource_4eexp"), SubResource("Resource_1qe1q"), SubResource("Resource_rqair"), SubResource("Resource_hfkqk"), SubResource("Resource_fjuj7"), SubResource("Resource_mcmle"), SubResource("Resource_n0nna"), SubResource("Resource_b0gcg"), SubResource("Resource_566dr")])
+group = Array[ExtResource("1_myack")]([SubResource("Resource_4eexp"), SubResource("Resource_1qe1q"), SubResource("Resource_rqair"), SubResource("Resource_hfkqk"), SubResource("Resource_fjuj7"), SubResource("Resource_mcmle"), SubResource("Resource_n0nna"), SubResource("Resource_b0gcg"), SubResource("Resource_566dr"), SubResource("Resource_2hdsw")])
