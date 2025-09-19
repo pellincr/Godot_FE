@@ -23,6 +23,7 @@ unit_type_key = "archer"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_1qe1q"]
 script = ExtResource("1_myack")
@@ -35,6 +36,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_rqair"]
 script = ExtResource("1_myack")
@@ -47,6 +49,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_hfkqk"]
 script = ExtResource("1_myack")
@@ -59,6 +62,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("6_xu3pl")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_fjuj7"]
 script = ExtResource("1_myack")
@@ -71,6 +75,7 @@ unit_type_key = "archer"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_mcmle"]
 script = ExtResource("1_myack")
@@ -83,6 +88,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_n0nna"]
 script = ExtResource("1_myack")
@@ -95,6 +101,7 @@ unit_type_key = "brawler"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("7_uin6w")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_b0gcg"]
 script = ExtResource("1_myack")
@@ -107,6 +114,7 @@ unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("8_w3adp"), ExtResource("8_0bwsx")])
 ai_type = 2
 is_boss = true
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_566dr"]
 script = ExtResource("1_myack")
@@ -119,6 +127,7 @@ unit_type_key = "freewing"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_2hdsw"]
 script = ExtResource("1_myack")
@@ -131,6 +140,7 @@ unit_type_key = "mage"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("10_fdehf")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("9_5sp5b")

@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfk8uscbu36eu"]
+[gd_scene load_steps=13 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_unit_display/combat_unit_display.gd" id="1_sxmuu"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="2_a14u6"]
-[ext_resource type="Shader" uid="uid://hucqqdwnqvi8" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
+[ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
 [ext_resource type="Texture2D" uid="uid://dey104f4gkfl4" path="res://resources/sprites/icons/danger.png" id="4_l8kmn"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_uqo4k"]
 [ext_resource type="Script" uid="uid://b8ja4wxi56iq3" path="res://ui/healthbar.gd" id="6_13a20"]
+[ext_resource type="Texture2D" uid="uid://xb1okf8u8p5q" path="res://resources/sprites/icons/unit_action_icons/inventory_icon.png" id="7_u1d3e"]
 [ext_resource type="Texture2D" uid="uid://rdgquuhqygmo" path="res://resources/sprites/icons/boss_icon.png" id="7_uv63t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1h6c"]
@@ -60,7 +61,23 @@ position = Vector2(-11, -10)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_uqo4k")
 
+[node name="boss_indicator" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("7_uv63t")
+stretch_mode = 3
+
+[node name="drop_indicator" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -15.0
+offset_right = 1.0
+offset_bottom = 16.0
+texture = ExtResource("7_u1d3e")
+stretch_mode = 3
+
 [node name="Healthbar" type="ProgressBar" parent="."]
+visible = false
 layout_mode = 0
 offset_left = -16.0
 offset_top = 12.0
@@ -71,11 +88,3 @@ step = 1.0
 value = 55.0
 show_percentage = false
 script = ExtResource("6_13a20")
-
-[node name="boss_indicator" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 5.0
-offset_right = 18.0
-offset_bottom = 13.0
-texture = ExtResource("7_uv63t")

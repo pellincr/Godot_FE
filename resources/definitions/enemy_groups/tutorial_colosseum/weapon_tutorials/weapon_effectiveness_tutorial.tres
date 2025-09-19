@@ -17,6 +17,7 @@ unit_type_key = "freewing"
 inventory = Array[ExtResource("2_ehexf")]([ExtResource("3_fglpd")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_wg5b3")
@@ -29,6 +30,7 @@ unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_ehexf")]([ExtResource("4_7qnqu")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("7_7sa52")

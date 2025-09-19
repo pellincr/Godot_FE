@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://biqktpeoexx8"]
 
-[ext_resource type="Script" path="res://scripts/combat/controllers/cameraController.gd" id="1_0ohgj"]
+[ext_resource type="Script" uid="uid://chidc2s7hclg" path="res://scripts/combat/controllers/cameraController.gd" id="1_0ohgj"]
 [ext_resource type="PackedScene" uid="uid://bnehnessek60a" path="res://combat/levels/test_levels/justin_level/terrain.tscn" id="2_0r1md"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="4_pshjb"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="5_bkcf8"]
@@ -47,7 +47,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
 
-[connection signal="target_detailed_info" from="Controller" to="CanvasLayer/UI" method="_target_detailed_info"]
 [connection signal="combatant_added" from="Combat" to="Controller" method="combatant_added"]
 [connection signal="combatant_added" from="Combat" to="CanvasLayer/UI" method="add_combatant_status"]
 [connection signal="combatant_died" from="Combat" to="Controller" method="combatant_died"]
@@ -59,7 +58,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="turn_advanced" from="Combat" to="CanvasLayer/UI" method="show_combatant_status_main"]
 [connection signal="update_combatants" from="Combat" to="CanvasLayer/UI" method="update_combatants"]
 [connection signal="update_information" from="Combat" to="CanvasLayer/UI" method="update_information"]
-[connection signal="update_turn_queue" from="Combat" to="CanvasLayer/UI" method="update_turn_queue"]
 [connection signal="combat_exchange_finished" from="Combat/CombatExchange" to="Controller" method="_on_combat_exchange_combat_exchange_finished"]
 [connection signal="unit_defeated" from="Combat/CombatExchange" to="Combat" method="combatant_die"]
 [connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]

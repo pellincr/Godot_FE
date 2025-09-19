@@ -7,6 +7,7 @@ var alive : bool
 var allegience : Constants.FACTION
 var ai_type: Constants.UNIT_AI_TYPE
 var is_boss: bool = false
+var drops_item : bool = false
 #var drops_last_item : bool = false
 
 # Action Economy
@@ -35,7 +36,7 @@ var move_terrain : Terrain
 #display
 var map_display : CombatUnitDisplay
 
-static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> CombatUnit:
+static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false, drops_item: bool = false) -> CombatUnit:
 	var instance = CombatUnit.new()
 	instance.alive = true
 	instance.turn_taken = false
@@ -45,6 +46,7 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.allegience = team
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
+	instance.drops_item = drops_item
 	return instance
 
 func set_map_terrain(ter : Terrain) :

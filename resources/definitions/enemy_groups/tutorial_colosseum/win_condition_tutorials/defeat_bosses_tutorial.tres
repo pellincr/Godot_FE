@@ -19,6 +19,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_ieken")]([ExtResource("3_2mhbc")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_acyj1")
@@ -31,6 +32,7 @@ unit_type_key = "bishop"
 inventory = Array[ExtResource("2_ieken")]([ExtResource("4_1iuv1")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_acyj1")
@@ -43,6 +45,7 @@ unit_type_key = "theif"
 inventory = Array[ExtResource("2_ieken")]([ExtResource("5_10uw7")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_0d23b"]
 script = ExtResource("1_acyj1")
@@ -55,6 +58,7 @@ unit_type_key = "ward"
 inventory = Array[ExtResource("2_ieken")]([ExtResource("6_opinu")])
 ai_type = 2
 is_boss = true
+drops_item = false
 
 [resource]
 script = ExtResource("7_xsrch")

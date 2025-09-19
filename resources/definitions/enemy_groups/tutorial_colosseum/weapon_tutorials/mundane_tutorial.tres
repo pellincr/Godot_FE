@@ -18,6 +18,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("3_qhicn")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_tndsr")
@@ -30,6 +31,7 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("4_7ghh6")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_tndsr")
@@ -42,6 +44,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("5_crlqm")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("2_wcddr")

@@ -19,6 +19,8 @@ signal play_audio(sound: AudioStream)
 signal play_audio_finished()
 signal gain_experience(u: CombatUnit, new_value:int)
 signal unit_gain_experience_finished()
+signal give_items(items: Array[ItemDefinition], source: String, target: CombatUnit)
+signal give_items_complete()
 enum EXCHANGE_OUTCOME 
 {
 	DAMAGE_DEALT,
@@ -118,13 +120,21 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 		return
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
+		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
 		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_hit(enemy_unit.unit))
+		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
 		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_kill(enemy_unit.unit))
+		await unit_gain_experience_finished
+		if enemy_unit.drops_item:
+			var dropped_items : Array[ItemDefinition]
+			dropped_items.append(enemy_unit.unit.inventory.items.pop_back())
+			give_items.emit(dropped_items, CombatMapConstants.COMBAT_EXCHANGE, player_unit)
+			await give_items_complete
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ALLY_SUPPORTED:
 		emit_signal("gain_experience", player_unit, 10)
-	await unit_gain_experience_finished
+		await unit_gain_experience_finished
 	combat_exchange_finished.emit(true)
 
 func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
@@ -570,3 +580,6 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 func _on_entity_destroyed_processing_completed():
 	await get_tree().create_timer(.1).timeout
 	entity_destroyed_processing_completed.emit()
+	
+func _on_give_item_complete():
+	give_items_complete.emit()

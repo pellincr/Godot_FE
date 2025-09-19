@@ -23,6 +23,7 @@ unit_type_key = "thief"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("10_dexpx")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_m8py6"]
 script = ExtResource("1_os3lc")
@@ -35,6 +36,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("3_e5fug")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_s72wl"]
 script = ExtResource("1_os3lc")
@@ -47,6 +49,7 @@ unit_type_key = "marauder"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("5_wn53r")])
 ai_type = 2
 is_boss = true
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_wtumo"]
 script = ExtResource("1_os3lc")
@@ -59,6 +62,7 @@ unit_type_key = "lancer"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("6_c2648")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_j6cjx"]
 script = ExtResource("1_os3lc")
@@ -71,6 +75,7 @@ unit_type_key = "archer"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("7_67xpp")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_2e80e"]
 script = ExtResource("1_os3lc")
@@ -83,6 +88,7 @@ unit_type_key = "mage"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("8_vjho1")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_br8ld"]
 script = ExtResource("1_os3lc")
@@ -95,6 +101,7 @@ unit_type_key = "brawler"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("9_j8ivx")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_yc46x"]
 script = ExtResource("1_os3lc")
@@ -107,6 +114,7 @@ unit_type_key = "thief"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("10_dexpx")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_qd2iy"]
 script = ExtResource("1_os3lc")
@@ -119,6 +127,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_o74ob")]([ExtResource("4_88oro")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("2_c0qvc")

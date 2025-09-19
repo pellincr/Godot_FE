@@ -104,6 +104,7 @@ func _ready():
 	combatExchange.connect("gain_experience", unit_gain_experience)
 	combatExchange.connect("unit_defeated",combatant_die)
 	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
+	combatExchange.connect("give_items", give_curent_unit_items)
 	#Connections Combat Unit Item Manager 
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
@@ -220,11 +221,11 @@ func spawn_initial_units():
 	for unit :CombatUnitData in enemy_start_group.group:
 		var enemy_unit : CombatUnit
 		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
-		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type,false, unit.is_boss)
+		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type, unit.drops_item, unit.is_boss,)
 		add_combatant(enemy_unit, unit.map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
-	var comb = CombatUnit.create(unit, team, ai_type,is_boss)
+	var comb = CombatUnit.create(unit, team, ai_type,is_boss, has_droppable_item)
 	return comb
 
 func sort_turn_queue(a, b):
@@ -657,11 +658,16 @@ func entity_destroyed_combat(ce : CombatEntity):
 	await entity_manager.entity_destroyed(ce)
 	combatExchange._on_entity_destroyed_processing_completed()
 
-func give_curent_unit_items(items: Array[ItemDefinition], source: String):
+func give_curent_unit_items(items: Array[ItemDefinition], source: String, target: CombatUnit = null):
 	for item in items:
-		await combat_unit_item_manager.give_combat_unit_item(get_current_combatant(), item)
+		if target != null :
+			await combat_unit_item_manager.give_combat_unit_item(target, item)
+		else : 
+			await combat_unit_item_manager.give_combat_unit_item(get_current_combatant(), item)
 	if source == CombatMapConstants.COMBAT_ENTITY:
 		entity_manager._on_give_item_complete()
+	if source == CombatMapConstants.COMBAT_EXCHANGE:
+		combatExchange._on_give_item_complete()
 
 func create_unit_item_discard_container(cu: CombatUnit, new_item: ItemDefinition):
 	# Create inventory slot data

@@ -65,8 +65,6 @@ scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_2sp8d")
-victory_condition = null
-turns_to_survive = null
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
@@ -81,9 +79,6 @@ max_allowed_ally_units = 4
 base_win_gold_reward = 1000
 turn_reward_modifier = 8
 is_key_campaign_level = true
-is_tutorial = null
-tutorial_level = null
-heal_on_win = null
 
 [node name="CombatExchange" type="Node" parent="Combat"]
 script = ExtResource("8_6vv1a")

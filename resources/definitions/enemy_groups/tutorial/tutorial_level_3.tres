@@ -21,6 +21,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("3_aia3m")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_atl36"]
 script = ExtResource("1_ipdnw")
@@ -33,6 +34,7 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("4_b8su4")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_iq1ji"]
 script = ExtResource("1_ipdnw")
@@ -45,6 +47,7 @@ unit_type_key = "brawler"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("5_7l3wt")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_o80dc"]
 script = ExtResource("1_ipdnw")
@@ -57,6 +60,7 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("4_b8su4")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_dhpdn"]
 script = ExtResource("1_ipdnw")
@@ -69,6 +73,7 @@ unit_type_key = "archer"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("6_ivdtm")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_2b83t"]
 script = ExtResource("1_ipdnw")
@@ -81,6 +86,7 @@ unit_type_key = "marauder"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("7_4opyl")])
 ai_type = 2
 is_boss = true
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_skwkg"]
 script = ExtResource("1_ipdnw")
@@ -93,6 +99,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_2vw2u")]([ExtResource("6_idfh4")])
 ai_type = 1
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("6_yekb7")

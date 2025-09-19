@@ -16,6 +16,7 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_0g3k8")]([ExtResource("3_sm4b4")])
 ai_type = 2
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("4_2x8co")

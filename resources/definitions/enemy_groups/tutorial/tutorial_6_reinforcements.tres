@@ -21,6 +21,7 @@ unit_type_key = "hakkapel"
 inventory = Array[ExtResource("3_46cwq")]([ExtResource("4_td8jb"), ExtResource("5_vb1ja")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_gb1ql"]
 script = ExtResource("1_3nyrk")
@@ -41,6 +42,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("3_46cwq")]([ExtResource("5_tp3lf")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_b5x31"]
 script = ExtResource("1_3nyrk")
@@ -61,6 +63,7 @@ unit_type_key = "mage"
 inventory = Array[ExtResource("3_46cwq")]([ExtResource("7_jdp5o")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_lle20"]
 script = ExtResource("1_3nyrk")

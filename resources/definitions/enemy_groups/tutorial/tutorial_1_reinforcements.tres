@@ -18,6 +18,7 @@ unit_type_key = "marauder"
 inventory = Array[ExtResource("3_g2ajk")]([ExtResource("4_f3v1r")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_sqrjm"]
 script = ExtResource("2_flpnf")
@@ -30,6 +31,7 @@ unit_type_key = "lancer"
 inventory = Array[ExtResource("3_g2ajk")]([ExtResource("5_6ukkl")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_681r8"]
 script = ExtResource("2_flpnf")
@@ -42,6 +44,7 @@ unit_type_key = "sellsword"
 inventory = Array[ExtResource("3_g2ajk")]([ExtResource("6_hi65m")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("1_ytmb4")

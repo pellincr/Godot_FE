@@ -1,12 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://b5h3hchm8qs0x"]
+[gd_scene load_steps=22 format=3 uid="uid://b5h3hchm8qs0x"]
 
-[ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/terrain_2.png" id="1_8gwvc"]
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="2_8lpqq"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="3_w0h5n"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="4_wub5q"]
 [ext_resource type="Resource" uid="uid://2qq6yi3brlv0" path="res://resources/definitions/terrians/grass_terrain.tres" id="5_becfa"]
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="6_l88gi"]
-[ext_resource type="Resource" path="res://resources/definitions/terrians/bones_terrain.tres" id="7_xlsxc"]
 [ext_resource type="Resource" uid="uid://bdpax6msv6gx8" path="res://resources/definitions/terrians/forest_terrain.tres" id="8_1un70"]
 [ext_resource type="Resource" uid="uid://dgfpibxdiinha" path="res://resources/definitions/terrians/ruins_terrain.tres" id="9_ubmch"]
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="10_4sm5r"]
@@ -15,13 +13,9 @@
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="13_qjhc5"]
 [ext_resource type="Resource" uid="uid://052mcrbllxuw" path="res://resources/definitions/terrians/pillar_terrain.tres" id="14_00l0d"]
 [ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="15_l21ni"]
-[ext_resource type="Texture2D" path="res://resources/sprites/tilemaps/upscalemedia-transformed.png" id="16_ofn4a"]
 [ext_resource type="Texture2D" uid="uid://xkkeet22l731" path="res://resources/sprites/grid/Grid.png" id="17_lrbr1"]
 
-
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g18d7"]
-texture = ExtResource("1_8gwvc")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -168,11 +162,10 @@ texture_region_size = Vector2i(32, 32)
 4:5/0 = 0
 5:5/0 = 0
 6:1/0 = 0
-6:0/animation_columns = 3
-6:0/animation_frame_0/duration = 0.3
-6:0/animation_frame_1/duration = 0.3
-6:0/animation_frame_2/duration = 0.3
 6:0/0 = 0
+
+[sub_resource type="Resource" id="Resource_kursb"]
+metadata/__load_path__ = "res://resources/definitions/terrians/bones_terrain.tres"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bi1gy"]
 texture = ExtResource("15_l21ni")
@@ -243,7 +236,7 @@ texture_region_size = Vector2i(32, 32)
 3:10/0 = 0
 3:10/0/terrain_set = 0
 3:10/0/terrain = 0
-3:10/0/custom_data_0 = ExtResource("7_xlsxc")
+3:10/0/custom_data_0 = SubResource("Resource_kursb")
 0:11/0 = 0
 1:11/0 = 0
 2:11/0 = 0
@@ -386,7 +379,6 @@ texture_region_size = Vector2i(32, 32)
 5:14/0/custom_data_0 = ExtResource("11_h6twv")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q5u70"]
-texture = ExtResource("16_ofn4a")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
