@@ -8,10 +8,10 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hssry"]
@@ -24,7 +24,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
+border_color = Color(0.509804, 0.509804, 0.509804, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mypmb"]
 bg_color = Color(0, 0, 0, 1)
@@ -44,7 +44,12 @@ border_color = Color(1, 1, 1, 1)
 
 [resource]
 default_font = ExtResource("1_2065r")
+Button/colors/font_color = Color(0.509804, 0.509804, 0.509804, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 36
 Button/styles/focus = SubResource("StyleBoxFlat_s7uvd")
+Button/styles/hover = SubResource("StyleBoxFlat_s7uvd")
 Button/styles/normal = SubResource("StyleBoxFlat_hssry")
 Panel/styles/panel = SubResource("StyleBoxFlat_mypmb")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_f3bml")
