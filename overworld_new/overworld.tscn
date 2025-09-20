@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://j52qryrsnec7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
 [ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
 [ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
-[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://resources/definitions/campaigns/tutorial.tres" id="5_uugxs"]
+[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://combat/campaigns/bandit_bash/bandit_bash.tres" id="5_uugxs"]
 [ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
 [ext_resource type="Resource" uid="uid://cghxx7c2042ce" path="res://resources/definitions/campaigns/isle_of_woe.tres" id="6_ls3an"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsq0u"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="LevelPool" load_steps=4 format=3 uid="uid://hqthe3tnpex1"]
+
+[ext_resource type="PackedScene" uid="uid://p3yk5cxfw000" path="res://combat/campaigns/bandit_bash/bandit_bash_1/bandit_bash_1_a.tscn" id="1_u4xoo"]
+[ext_resource type="PackedScene" uid="uid://cofvc6bc7oc74" path="res://combat/campaigns/bandit_bash/bandit_bash_2/bandit_bash_2_a.tscn" id="2_o0p5b"]
+[ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="3_blc4s"]
+
+[resource]
+script = ExtResource("3_blc4s")
+tier_1_battle_levels = Array[PackedScene]([])
+tier_2_battle_levels = Array[PackedScene]([])
+boss_levels = Array[PackedScene]([])
+tier_thresholds = {}
+battle_levels = {
+0: [ExtResource("1_u4xoo")],
+1: [ExtResource("2_o0p5b")],
+2: [],
+"BOSS": [],
+"EXTRA": [],
+"MID_BOSS": []
+}

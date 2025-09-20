@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="Campaign" load_steps=3 format=3 uid="uid://dwy1wchlwt6dw"]
 
-[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_jr7w2"]
-[ext_resource type="Resource" uid="uid://bk3w501ol0jho" path="res://resources/definitions/level_pools/TutorialLevelPool.tres" id="1_obxiq"]
+[ext_resource type="Resource" uid="uid://hqthe3tnpex1" path="res://combat/campaigns/bandit_bash/bandit_bash_level_pool.tres" id="1_v5a5n"]
+[ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="4_mvgqg"]
 
 [resource]
-script = ExtResource("1_jr7w2")
+script = ExtResource("4_mvgqg")
 name = "Bandit Bash"
 commander_draft_limit = 1
 number_of_archetypes_drafted = 3
 max_floor_number = 14
 number_of_required_combat_maps = 7
-level_pool = ExtResource("1_obxiq")
+level_pool = ExtResource("1_v5a5n")
 difficulty = 4
 length = ""
 rewards = ""
