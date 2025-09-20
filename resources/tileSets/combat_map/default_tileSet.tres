@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="5_1bp4v"]
 [ext_resource type="Script" path="res://scripts/combat/terrain/Terrain.gd" id="6_l5175"]
 [ext_resource type="Resource" uid="uid://bdpax6msv6gx8" path="res://resources/definitions/terrians/forest_terrain.tres" id="7_82vvf"]
-[ext_resource type="Texture2D" uid="uid://bwutiqkkxqei6" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="7_ppspv"]
+[ext_resource type="Texture2D" uid="uid://bfj3ujnw7dar2" path="res://resources/sprites/tilemaps/combat_map/tiles_old.png" id="7_ppspv"]
 [ext_resource type="Resource" uid="uid://dgfpibxdiinha" path="res://resources/definitions/terrians/ruins_terrain.tres" id="8_f6m6q"]
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="9_h6cht"]
 [ext_resource type="Resource" uid="uid://bp7ibodvmd4sx" path="res://resources/definitions/terrians/house_terrain.tres" id="10_xs3rf"]
