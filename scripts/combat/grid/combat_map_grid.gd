@@ -8,7 +8,8 @@ class_name CombatMapGrid
 signal tile_info_updated(tile : Dictionary)
 
 ##EXPORTS
-var terrain_tile_map : TileMapLayer
+var terrain_tile_map : TileMapLayer # THIS IS THE BACKGROUND 
+var active_terrain_tile_map : TileMapLayer
 
 const tiles_to_check = [
 	Vector2i.RIGHT,
@@ -39,10 +40,11 @@ func _ready():
 	#initialize_grid(terrain_tile_map) 
 	#populate_map_tiles_from_terrain_tile_map(terrain_tile_map)
 
-func setup(tileMap : TileMapLayer):
-	terrain_tile_map = tileMap
-	initialize_grid(tileMap) 
-	populate_map_tiles_from_terrain_tile_map(tileMap)
+func setup(background_tiles : TileMapLayer, active_tiles: TileMapLayer):
+	terrain_tile_map = background_tiles
+	active_terrain_tile_map = active_tiles
+	initialize_grid(background_tiles) 
+	populate_map_tiles_from_terrain_tile_map(background_tiles)
 	
 ##
 # populates the combatMapGrid with appriopriate terrain values
@@ -438,7 +440,13 @@ func set_entity(cme :CombatEntity, position: Vector2i):
 
 func get_terrain_from_tile_map(position:Vector2) -> Terrain:
 	if _astargrid.is_in_boundsv(position):
-		var tile_data = terrain_tile_map.get_cell_tile_data(position)
+		var tile_data = active_terrain_tile_map.get_cell_tile_data(position)
+		#check active 1st
+		if tile_data :
+			if tile_data.get_custom_data("Terrain") is Terrain:
+				return tile_data.get_custom_data("Terrain")
+		#check background tiles
+		tile_data = terrain_tile_map.get_cell_tile_data(position)
 		if tile_data :
 			if tile_data.get_custom_data("Terrain") is Terrain:
 				return tile_data.get_custom_data("Terrain")

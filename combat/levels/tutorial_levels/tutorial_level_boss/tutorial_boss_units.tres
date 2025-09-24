@@ -15,7 +15,7 @@
 [ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="11_mylha"]
 [ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="12_a78av"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="13_ptqhi"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="15_2q81n"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="15_2q81n"]
 
 [sub_resource type="Resource" id="Resource_i02vg"]
 script = ExtResource("1_dfvn4")

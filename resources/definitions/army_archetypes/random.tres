@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_dpgjc"]
 [ext_resource type="Resource" uid="uid://duhko414x5s6l" path="res://campaign_map/recruitment/random_unit_selection.tres" id="2_um0nk"]
-[ext_resource type="Script" uid="uid://ddryvyc73ib0h" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_wlnvb"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_wlnvb"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_yd2sp"]
 
 [resource]

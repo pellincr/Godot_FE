@@ -32,7 +32,7 @@ func _ready():
 
 func init():
 	controller = get_node("../../Controller")
-	game_map = controller.tile_map
+	game_map = controller.background_tile_map
 	set_camera_limits()
 	initialized = true
 

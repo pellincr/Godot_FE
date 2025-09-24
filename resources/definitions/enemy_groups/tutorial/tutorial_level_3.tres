@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="5_7l3wt"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="6_idfh4"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_ivdtm"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_yekb7"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_yekb7"]
 [ext_resource type="Resource" uid="uid://vhnpwogicsnr" path="res://resources/definitions/items/weapons/axes/hatchet.tres" id="7_4opyl"]
 
 [sub_resource type="Resource" id="Resource_uinjt"]

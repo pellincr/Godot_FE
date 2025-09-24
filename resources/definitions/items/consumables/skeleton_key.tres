@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://ywngwx7ftaom"]
 
 [ext_resource type="Texture2D" uid="uid://b8dt01ypfassm" path="res://resources/sprites/sheets/Ironchests_RPG_items_pico8_transparentbg_v1.png" id="1_wyh6n"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_2ew3t"]
+[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_2ew3t"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_vyi4y"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_34ooh"]
 

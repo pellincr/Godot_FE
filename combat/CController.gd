@@ -41,7 +41,8 @@ var selected_unit_player_state_stack: Stack = Stack.new()
 ##Controller Main Variables
 @export var controlled_node : Control
 @export var combat: Combat 
-var tile_map : TileMapLayer
+var background_tile_map : TileMapLayer
+var active_tile_map : TileMapLayer
 var grid: CombatMapGrid
 var camera: CombatMapCamera
 
@@ -96,7 +97,8 @@ func _ready():
 	##Load Seed to ensure consistent runs
 	#seed(seed)
 	##Configure FSM States
-	tile_map = get_node("../Terrain/ActiveMapTerrain")
+	background_tile_map = get_node("../Terrain/BackgroundTiles")
+	active_tile_map = get_node("../Terrain/ActiveMapTerrain")
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
 	previous_game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
 	turn_phase = CombatMapConstants.TURN_PHASE.INITIALIZING
@@ -106,7 +108,7 @@ func _ready():
 	camera = CombatMapCamera.new()
 	grid = CombatMapGrid.new()
 	##Assign created variables to create place in the scene tree
-	grid.setup(tile_map)
+	grid.setup(background_tile_map, active_tile_map)
 	self.add_child(grid)
 	self.add_child(camera)
 	#Auto Wire combat signals for modularity
@@ -863,9 +865,12 @@ func fsm_unit_select_process(delta):
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
 		if selected_unit != null:
 			if selected_unit.alive:
+				combat.game_ui.display_unit_status()
 				populate_combatant_tile_ranges(selected_unit)
 				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
 			return
+	else :
+		combat.game_ui.hide_unit_status()
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
 			combat.game_ui.create_combat_map_game_menu()
@@ -1061,6 +1066,7 @@ func unit_action_selection_handler(action:String):
 			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
 			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
 			combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			combat.game_ui.hide_unit_status()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY)
 	match action:
 		"Support":
@@ -1074,6 +1080,7 @@ func unit_action_selection_handler(action:String):
 			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
 			_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
 			combat.game_ui.create_support_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			combat.game_ui.hide_unit_status()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
 	match action:
 		"Skill":
@@ -1129,6 +1136,7 @@ func fsm_support_action_inventory_process(delta):
 				combat.game_ui.destory_active_ui_node()
 				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
+				combat.game_ui.show_unit_status()
 				update_current_tile(move_tile)
 				revert_player_state()
 
@@ -1220,6 +1228,7 @@ func fsm_attack_action_inventory_process(delta):
 				combat.game_ui.destory_active_ui_node()
 				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
+				combat.game_ui.show_unit_status()
 				update_current_tile(move_tile)
 				revert_player_state()
 

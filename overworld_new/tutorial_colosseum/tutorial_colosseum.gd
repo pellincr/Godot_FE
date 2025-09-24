@@ -88,7 +88,7 @@ func _on_survive_turns_pressed():
 
 
 func _on_campaign_pressed():
-	var tutorial_campaign = preload("res://resources/definitions/campaigns/tutorial.tres")
+	var tutorial_campaign = preload("res://combat/campaigns/bandit_bash/bandit_bash.tres")
 	playerOverworldData.current_campaign = tutorial_campaign
 	playerOverworldData.max_archetype = tutorial_campaign.number_of_archetypes_drafted
 	SelectedSaveFile.save(playerOverworldData)

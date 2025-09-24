@@ -62,6 +62,7 @@ selector = NodePath("Selector")
 [node name="Selector" parent="Controller" instance=ExtResource("3_hj0us")]
 top_level = true
 scale = Vector2(1, 1)
+frame_progress = 0.0
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_2sp8d")

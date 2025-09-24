@@ -32,9 +32,10 @@ controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
-ally_spawn_top_left = Vector2(1, 6)
+ally_spawn_top_left = Vector2(1, 2)
+ally_spawn_bottom_right = Vector2(3, 4)
 enemy_start_group = ExtResource("5_c6b3l")
-max_allowed_ally_units = 3
+max_allowed_ally_units = 4
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]

@@ -1,0 +1,148 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=23 format=3 uid="uid://cha4i8vtpp64y"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_bcvlb"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_r74bv"]
+[ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="3_54kqk"]
+[ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="4_iw475"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="5_mii1i"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_fsgv6"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_6asiw"]
+[ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="8_8vsij"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="9_h23uc"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="10_fkkwh"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="11_eq627"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_78g6l"]
+
+[sub_resource type="Resource" id="Resource_nwa8l"]
+script = ExtResource("1_bcvlb")
+name = "Borgesa"
+map_position = Vector2i(2, 1)
+level = 10
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "shaman"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("3_54kqk")])
+ai_type = 2
+is_boss = true
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_tn6hx"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(1, 2)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_xmdvj"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(4, 4)
+level = 8
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "brawler"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("5_mii1i")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_sofpv"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(3, 7)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "archer"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("6_fsgv6")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_1mdp4"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(3, 12)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "duelist"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("7_6asiw")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_mq3u8"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(7, 8)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "ward"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("8_8vsij")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_x5qgs"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(10, 7)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_u4t8m"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(12, 9)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_8gi8d"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(14, 1)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("10_fkkwh")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_4igfj"]
+script = ExtResource("1_bcvlb")
+name = "Bandit"
+map_position = Vector2i(11, 2)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[resource]
+script = ExtResource("12_78g6l")
+group = Array[ExtResource("1_bcvlb")]([SubResource("Resource_nwa8l"), SubResource("Resource_tn6hx"), SubResource("Resource_xmdvj"), SubResource("Resource_sofpv"), SubResource("Resource_1mdp4"), SubResource("Resource_mq3u8"), SubResource("Resource_x5qgs"), SubResource("Resource_u4t8m"), SubResource("Resource_8gi8d"), SubResource("Resource_4igfj")])

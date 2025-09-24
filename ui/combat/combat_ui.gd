@@ -342,10 +342,16 @@ func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
 	$combat_tile_info.update_tile(tile)
 	if(unit):
 		$UnitStatus.set_unit(tile.unit)
-		$UnitStatus.visible = true
+		#$UnitStatus.visible = true
 	else:
-		$UnitStatus.visible = false
+		pass
+		#$UnitStatus.visible = false
 
+func display_unit_status():
+	$UnitStatus.visible = true
+
+func hide_unit_status():
+	$UnitStatus.visible = false
 
 func display_unit_experience_bar(u : Unit):
 	$unit_experience_bar.set_reference_unit(u)

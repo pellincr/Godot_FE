@@ -7,7 +7,6 @@ class_name UnitCombatExchangeArrow
 
 @onready var attack_direction_arrow = $AttackDirectionArrow
 
-
 @export var dmg :int
 @export var attack_quantity :int
 @export var damage_type:Constants.DAMAGE_TYPE
@@ -36,4 +35,3 @@ func populate(dmg: int, attack_quantity:int, damage_type:Constants.DAMAGE_TYPE =
 	self.damage_type = damage_type
 	self.flipped = flipped
 	update()
-	

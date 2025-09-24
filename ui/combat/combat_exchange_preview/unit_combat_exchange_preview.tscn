@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dsvp3rqrmflnx" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4evfg"]
-bg_color = Color(0, 0, 0, 0.588235)
+bg_color = Color(0, 0, 0, 0.313726)
 
 [sub_resource type="Theme" id="Theme_mwhw1"]
 Panel/styles/panel = SubResource("StyleBoxFlat_4evfg")
