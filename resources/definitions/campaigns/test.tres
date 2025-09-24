@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Campaign" load_steps=5 format=3 uid="uid://bufy43rodyy5x"]
 
 [ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_a80uw"]
-[ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/levels/tutorial_levels/tutorial_level_1/tutorial_1.tscn" id="1_mdtgd"]
+[ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/levels/tutorial_levels/tutorial_level_2/tutorial_1.tscn" id="1_mdtgd"]
 [ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="2_dvacv"]
 
 [sub_resource type="Resource" id="Resource_ae0ir"]

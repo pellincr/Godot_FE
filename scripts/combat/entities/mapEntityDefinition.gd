@@ -3,13 +3,15 @@ class_name mapEntityDefinition
 
 enum TYPE {
 	CHEST,
-	DOOR,
-	LEVER,
-	MOVEMENT,
-	CRATE,
+	DOOR, # Remove from targettable
+	LEVER, # Used to trigger a group
+	MOVEMENT, # TO BE IMPLEMENTED
+	CRATE, #TO BE REMOVED
 	BREAKABLE_TERRAIN,
+	DEBRIS,
 	VISITABLE, #Wall & SNAG
-	ON_GROUP_TRIGGER
+	ON_GROUP_TRIGGER,
+	SEARCH
 }
 
 @export_group("Metadata")

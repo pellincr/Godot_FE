@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cu70p0ec10s5t" path="res://resources/definitions/unit_types/units/runeblade/runeblade_growth_stats.tres" id="2_0mekc"]
 [ext_resource type="Texture2D" uid="uid://b10tjmy3uu15y" path="res://resources/sprites/units/runeblade.png" id="3_618j1"]
 [ext_resource type="Resource" uid="uid://drgg5w3s5uab5" path="res://resources/definitions/unit_types/units/runeblade/runeblade_max_stats.tres" id="4_18quh"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_qgypm"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_qgypm"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="6_cf2fi"]
 
 [resource]
