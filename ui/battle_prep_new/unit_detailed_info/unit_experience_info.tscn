@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg5gkgx21b8if"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_hxor5"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.gd" id="2_umtwl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beicu"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sn6ud"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_yd1ii"]
+default_font = ExtResource("1_hxor5")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_beicu")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_sn6ud")
+
+[sub_resource type="Theme" id="Theme_n2twe"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_he0js"]
+default_font_size = 12
+
+[node name="UnitExperienceInfo" type="VBoxContainer"]
+custom_minimum_size = Vector2(164, 45)
+offset_right = 164.0
+offset_bottom = 41.0
+theme = SubResource("Theme_yd1ii")
+script = ExtResource("2_umtwl")
+
+[node name="UpperHalhContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_n2twe")
+
+[node name="TopLeftContainer" type="HBoxContainer" parent="UpperHalhContainer"]
+layout_mode = 2
+
+[node name="UnitTypeLabel" type="Label" parent="UpperHalhContainer/TopLeftContainer"]
+layout_mode = 2
+text = "Unit Type"
+
+[node name="LevelNumberLabel" type="Label" parent="UpperHalhContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "lv 10"
+horizontal_alignment = 2
+
+[node name="ExperienceBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 3)
+layout_mode = 2
+value = 66.0
+show_percentage = false
+
+[node name="LowerHalfContainer" type="HBoxContainer" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_he0js")
+
+[node name="ExperienceHeaderLabel" type="Label" parent="LowerHalfContainer"]
+layout_mode = 2
+text = "EXP:"
+
+[node name="ExperienceValueLabel" type="Label" parent="LowerHalfContainer"]
+layout_mode = 2
+text = "66/100"

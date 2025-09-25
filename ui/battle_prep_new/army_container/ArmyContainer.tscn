@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkk1vhoxov7g2"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/army_container/army_container.gd" id="1_tm2vs"]
+
+[node name="ArmyContainer" type="HBoxContainer"]
+script = ExtResource("1_tm2vs")
+
+[node name="ArmyScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(315, 500)
+layout_mode = 2
+follow_focus = true
+
+[node name="MainScrollContainer" type="VBoxContainer" parent="ArmyScrollContainer"]
+layout_mode = 2

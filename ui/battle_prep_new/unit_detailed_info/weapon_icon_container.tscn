@@ -1,0 +1,127 @@
+[gd_scene load_steps=18 format=3 uid="uid://dfaqp8a7p4td4"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_lvo56"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.gd" id="2_383y0"]
+[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="3_iay41"]
+[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="4_fv801"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_xk3sx"]
+[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="6_l5a4u"]
+[ext_resource type="Texture2D" uid="uid://qf20t24ttbok" path="res://resources/sprites/icons/weapon_icons/dagger_icon.png" id="7_sjq5j"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="8_d2gtx"]
+[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="9_f440b"]
+[ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="10_72p05"]
+[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="11_68i5b"]
+[ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="12_2m7nh"]
+[ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="13_3cl3t"]
+[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="14_ulcjr"]
+[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="15_h3rc2"]
+
+[sub_resource type="Theme" id="Theme_0gbyd"]
+default_font = ExtResource("1_lvo56")
+
+[sub_resource type="Theme" id="Theme_ojs4k"]
+default_font_size = 12
+
+[node name="WeaponIconContainer" type="VBoxContainer"]
+theme = SubResource("Theme_0gbyd")
+script = ExtResource("2_383y0")
+
+[node name="WeaponsHeaderLabel" type="Label" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_ojs4k")
+text = "Weapons"
+
+[node name="WeaponTypeContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SwordIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("3_iay41")
+expand_mode = 2
+
+[node name="AxeIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_fv801")
+expand_mode = 2
+
+[node name="LanceIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_xk3sx")
+expand_mode = 2
+
+[node name="ShieldIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_l5a4u")
+expand_mode = 2
+
+[node name="DaggerIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_sjq5j")
+expand_mode = 2
+
+[node name="FistIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("8_d2gtx")
+expand_mode = 2
+
+[node name="BowIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("9_f440b")
+expand_mode = 2
+
+[node name="BannerIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("10_72p05")
+expand_mode = 2
+
+[node name="StaffIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("11_68i5b")
+expand_mode = 2
+
+[node name="NatureIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("12_2m7nh")
+expand_mode = 2
+
+[node name="LightIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("13_3cl3t")
+expand_mode = 2
+
+[node name="DarkIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("14_ulcjr")
+expand_mode = 2
+
+[node name="AnimalIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_h3rc2")
+expand_mode = 2

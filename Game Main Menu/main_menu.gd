@@ -50,7 +50,7 @@ func _on_continue_game_button_pressed():
 				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 			else:
 				#when the level has been selected but battle prep has not been completed
-				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
+				var battle_prep_scene = preload("res://ui/battle_prep_new/battle_prep.tscn")
 				get_tree().change_scene_to_packed(battle_prep_scene)
 		else:
 			#when the level has not been selected from the campaign map yet

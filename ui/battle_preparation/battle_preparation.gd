@@ -1,5 +1,5 @@
 extends Control
-
+"""
 var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 @onready var gold_counter = $MarginContainer/VBoxContainer/GoldCounter
@@ -10,11 +10,11 @@ var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSave
 @onready var controls = $MarginContainer/VBoxContainer/BattlePrepControls
 
 const unit_detailed_info_scene = preload("res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tscn")
-const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
+#const unit_detailed_info_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
 const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
 
-const shop_container_scene = preload("res://ui/battle_preparation/shop/shop_container.tscn")
+#const shop_container_scene = preload("res://ui/battle_preparation/shop/shop_container.tscn")
 
 const trade_container_scene = preload("res://ui/battle_preparation/trade_container/trade_container.tscn")
 
@@ -271,3 +271,4 @@ func sell_item_from_convoy(item:ItemDefinition):
 	army_convoy_container.clear_scroll_scontainer()
 	army_convoy_container.fill_convoy_scroll_container()
 	clear_sub_container()
+"""

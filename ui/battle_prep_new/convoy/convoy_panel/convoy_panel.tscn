@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dukbm08nt0oda"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/convoy/convoy_panel/convoy_panel.gd" id="1_8ywkn"]
+
+[node name="ConvoyPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 50)
+focus_mode = 2
+script = ExtResource("1_8ywkn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Convoy"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -6,7 +6,7 @@ signal unit_focused(detailed_view)
 @onready var army_convoy_subcontainer = $MainContainer/ArmyConvoySubContainer
 @onready var main_container = $MainContainer
 
-const unit_detailed_view_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
+#const unit_detailed_view_simple_scene = preload("res://ui/battle_preparation/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 
 
 
@@ -33,13 +33,13 @@ func clear_main_container():
 
 func _on_unit_focused(unit):
 	clear_main_container()
-	var unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
-	unit_detailed_view_simple.unit = unit
-	main_container.add_child(unit_detailed_view_simple)
-	unit_detailed_view_simple.set_trade_item.connect(_on_set_trade_item)
-	unit_detailed_view_simple.update_by_unit()
-	unit_detailed_view_simple.layout_direction = Control.LAYOUT_DIRECTION_LTR
-	unit_focused.emit(unit_detailed_view_simple)
+	#var unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
+	#unit_detailed_view_simple.unit = unit
+	#main_container.add_child(unit_detailed_view_simple)
+	#unit_detailed_view_simple.set_trade_item.connect(_on_set_trade_item)
+	#unit_detailed_view_simple.update_by_unit()
+	#unit_detailed_view_simple.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	#unit_focused.emit(unit_detailed_view_simple)
 
 func _on_set_trade_item(item,unit):
 	set_trade_item.emit(item,unit)

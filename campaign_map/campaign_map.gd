@@ -4,7 +4,9 @@ class_name CampaignMap
 const SCROLL_SPEED := 15
 const MAP_ROOM = preload("res://campaign_map/campaign_map_room.tscn")
 const MAP_LINE = preload("res://campaign_map/campaign_map_line.tscn")
-const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
+#const BATTLE_PREP = preload("res://ui/battle_preparation/battle_preparation.tscn")
+const BATTLE_PREP = preload("res://ui/battle_prep_new/battle_prep.tscn")
+
 const EVENT_SELECT = preload("res://campaign_map/events/event_selection.tscn")
 const TREASURE_SCENE = preload("res://campaign_map/treasure/treasure.tscn")
 const RECRUITMENT_SCENE = preload("res://campaign_map/recruitment/recruitment.tscn")

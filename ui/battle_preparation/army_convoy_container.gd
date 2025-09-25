@@ -1,5 +1,5 @@
 extends VBoxContainer
-
+"""
 signal unit_focused(unit)
 #signal unit_selected(unit)
 signal header_swapped()
@@ -29,7 +29,6 @@ enum CONTAINER_STATE{
 
 var current_container_state = CONTAINER_STATE.ARMY
 
-"""
 func _ready():
 	
 	if playerOverworldData == null:
@@ -40,7 +39,6 @@ func _ready():
 	army_convoy_header.set_units_left_value(current_selected_count,max_selected_count)
 	army_convoy_sub_container.fill_army_scroll_container()
 	army_convoy_sub_container.get_first_child_focus()
-"""
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -148,3 +146,4 @@ func sort_party_by_selected():
 	clear_scroll_scontainer()
 	fill_army_scroll_container()
 	
+"""

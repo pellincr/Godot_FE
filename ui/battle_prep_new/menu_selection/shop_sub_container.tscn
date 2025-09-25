@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://coluxgufibkv8"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/menu_selection/shop_sub_container.gd" id="1_ang55"]
+
+[node name="ShopSubContainer" type="MarginContainer"]
+custom_minimum_size = Vector2(100, 70)
+offset_right = 38.0
+offset_bottom = 66.0
+script = ExtResource("1_ang55")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="BuyButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Buy"
+
+[node name="SellButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sell"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
