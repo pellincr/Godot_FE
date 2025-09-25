@@ -6,10 +6,6 @@
 
 [resource]
 script = ExtResource("3_blc4s")
-tier_1_battle_levels = Array[PackedScene]([])
-tier_2_battle_levels = Array[PackedScene]([])
-boss_levels = Array[PackedScene]([])
-tier_thresholds = {}
 battle_levels = {
 0: [ExtResource("1_u4xoo")],
 1: [ExtResource("2_o0p5b")],

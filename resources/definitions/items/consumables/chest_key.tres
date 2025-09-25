@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://dc3w22d0undqt"]
+
+[ext_resource type="Texture2D" uid="uid://dayo2j0qq4l0o" path="res://resources/sprites/items/consumables/chest_key.png" id="1_qx1ti"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_egop1"]
+[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_ur67b"]
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_fgp2g"]
+
+[resource]
+script = ExtResource("3_ur67b")
+use_effect = 5
+power = 0
+status_effect = Array[ExtResource("4_fgp2g")]([])
+name = "Chest Key"
+db_key = "chest_key"
+equippable = false
+description = ""
+item_type = 2
+rarity = ExtResource("2_egop1")
+uses = 1
+max_uses = 1
+unbreakable = false
+worth = 300
+icon = ExtResource("1_qx1ti")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://blo7n0hudl834"]
+
+[ext_resource type="PackedScene" uid="uid://4jis3ieyjbh8" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2_terrain.tscn" id="1_8ioh6"]
+[ext_resource type="Script" path="res://combat/CController.gd" id="2_jkh84"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_wto12"]
+[ext_resource type="Script" path="res://combat/Combat.gd" id="4_jdx66"]
+[ext_resource type="Resource" uid="uid://b2fpevimsy0th" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2_reinforcements.tres" id="5_bk2ua"]
+[ext_resource type="Resource" uid="uid://bbhvuoesh4qv7" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2_entities.tres" id="9_ja16w"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="10_h0pf6"]
+[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="11_oawbt"]
+[ext_resource type="Resource" uid="uid://dcieuokdb2yfn" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2_enemy_units.tres" id="12_jo5gq"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="17_qboua"]
+[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="18_cvqmk"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="19_nv06u"]
+
+[node name="Game" type="Node"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_8ioh6")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+texture_filter = 1
+script = ExtResource("2_jkh84")
+combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_wto12")]
+top_level = true
+scale = Vector2(1, 1)
+frame_progress = 0.0
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
+script = ExtResource("4_jdx66")
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+combat_audio = NodePath("CombatAudio")
+unit_experience_manager = NodePath("UnitExperienceManager")
+combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
+mapReinforcementData = ExtResource("5_bk2ua")
+ally_spawn_top_left = Vector2(0, 1)
+ally_spawn_bottom_right = Vector2(4, 3)
+enemy_start_group = ExtResource("12_jo5gq")
+max_allowed_ally_units = 5
+base_win_gold_reward = 1000
+turn_reward_modifier = 8
+is_key_campaign_level = true
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("10_h0pf6")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("11_oawbt")
+mapEntityData = ExtResource("9_ja16w")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("17_qboua")
+
+[node name="CombatUnitItemManager" type="Node" parent="Combat"]
+script = ExtResource("18_cvqmk")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("19_nv06u")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+ui_map_audio = NodePath("UIMapAudio")
+ui_menu_audio = NodePath("UIMenuAudio")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

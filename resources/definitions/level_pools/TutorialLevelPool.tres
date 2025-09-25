@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="LevelPool" load_steps=10 format=3 uid="uid://bk3w501ol0jho"]
 
-[ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/levels/tutorial_levels/tutorial_level_2/tutorial_1.tscn" id="1_5lqjb"]
+[ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2.tscn" id="1_5lqjb"]
 [ext_resource type="PackedScene" uid="uid://bk8b7vmkl0wbh" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6.tscn" id="2_2b0u2"]
-[ext_resource type="PackedScene" uid="uid://bal5lnj6tj03f" path="res://combat/levels/tutorial_levels/tutorial_level_3/tutorial_3.tscn" id="3_vakfn"]
-[ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/levels/tutorial_levels/tutorial_level_4/tutorial_4.tscn" id="4_1r3a6"]
+[ext_resource type="PackedScene" uid="uid://bal5lnj6tj03f" path="res://combat/campaigns/tutorial/tutorial_3/tutorial_3.tscn" id="3_vakfn"]
+[ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4.tscn" id="4_1r3a6"]
 [ext_resource type="PackedScene" uid="uid://bwh2mplnd8dpq" path="res://combat/levels/tutorial_levels/tutorial_level_5/tutorial_5.tscn" id="5_i142n"]
 [ext_resource type="PackedScene" uid="uid://ca1v0oqv61d05" path="res://combat/levels/tutorial_levels/tutorial_level_boss/tutorial_boss.tscn" id="6_bw43b"]
 [ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="6_wh0xa"]
-[ext_resource type="PackedScene" uid="uid://djepuxf3q62ty" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5.tscn" id="7_3vtri"]
+[ext_resource type="PackedScene" uid="uid://djepuxf3q62ty" path="res://combat/databases/bandit_bash_5/bandit_bash_5.tscn" id="7_3vtri"]
 [ext_resource type="PackedScene" uid="uid://cgfc872q6ila3" path="res://combat/levels/tutorial_levels/tutorial_level_7/tutorial_7.tscn" id="8_7j23i"]
+
 
 
 [resource]

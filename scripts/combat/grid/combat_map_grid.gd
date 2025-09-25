@@ -450,7 +450,7 @@ func get_terrain_from_tile_map(position:Vector2) -> Terrain:
 		if tile_data :
 			if tile_data.get_custom_data("Terrain") is Terrain:
 				return tile_data.get_custom_data("Terrain")
-		print("Error Failed to get terrain from tile map, terrain data is null")
+		print("Error Failed to get terrain from tile map, terrain data is null @ : " + str(position))
 	else :
 		print("get_terrain called on tile not in terrain tile map")
 	return null

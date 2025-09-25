@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dfbmvufmnd18k"]
-
-[ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="1_tcf4n"]
-
-[resource]
-atlas = ExtResource("1_tcf4n")
-region = Rect2(0, 128, 32, 32)

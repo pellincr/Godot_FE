@@ -3,13 +3,12 @@ class_name mapEntityDefinition
 
 enum TYPE {
 	CHEST,
-	DOOR, # Remove from targettable
+	DOOR,
 	LEVER, # Used to trigger a group
 	MOVEMENT, # TO BE IMPLEMENTED
-	CRATE, #TO BE REMOVED
 	BREAKABLE_TERRAIN,
 	DEBRIS,
-	VISITABLE, #Wall & SNAG
+	VISITABLE, # REPLACED WITH SEARCH
 	ON_GROUP_TRIGGER,
 	SEARCH
 }
@@ -22,6 +21,7 @@ enum TYPE {
 @export var position: Vector2i 
 @export var terrain: Terrain = null
 @export var map_view : Texture2D
+@export var map_view_disabled : Texture2D
 
 @export_group("Combat Entity Stats")
 @export var hp = 0

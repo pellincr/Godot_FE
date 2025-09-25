@@ -421,7 +421,7 @@ func interact_action_available(cu:CombatUnit)-> bool:
 	var current_tile = cu.move_position
 	var current_tile_ent : CombatEntity = grid.get_entity(current_tile)
 	if current_tile_ent != null:
-		if current_tile_ent.interaction_type == CombatEntityConstants.ENTITY_TYPE.LEVER:
+		if current_tile_ent.interaction_type == CombatEntityConstants.ENTITY_TYPE.LEVER or current_tile_ent.interaction_type == CombatEntityConstants.ENTITY_TYPE.SEARCH:
 			return true
 		elif current_tile_ent.interaction_type == CombatEntityConstants.ENTITY_TYPE.CHEST:
 			if cu.unit.inventory.has_item_with_any_db_key(CombatEntityConstants.valid_chest_unlock_item_db_keys):
@@ -440,7 +440,7 @@ func get_interactable_entity_positions(cu:CombatUnit, targetable_entity_position
 	for entity_position in targetable_entity_positions:
 		var entity = grid.get_entity(entity_position)
 		if entity_position == cu.move_position:
-			if entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.LEVER:
+			if entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.LEVER or entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.SEARCH:
 				_arr.append(entity_position)
 			elif entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.CHEST:
 				if cu.unit.inventory.has_item_with_any_db_key(CombatEntityConstants.valid_chest_unlock_item_db_keys):
@@ -504,10 +504,11 @@ func process_weapon_effects():
 		if combat_unit not in combat.dead_units:
 			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
 				var cu_equipped_weapon = combat_unit.get_equipped()
-				if cu_equipped_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_10_PERCENT_ON_TURN_BEGIN): # changed to 10 in the code
-					if combat_unit.current_hp < combat_unit.get_max_hp():
-						print("ATTEMPTED WEAPON BASED HEAL")
-						await combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * 10/100))
+				if cu_equipped_weapon != null:
+					if cu_equipped_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_10_PERCENT_ON_TURN_BEGIN): # changed to 10 in the code
+						if combat_unit.current_hp < combat_unit.get_max_hp():
+							print("ATTEMPTED WEAPON BASED HEAL")
+							await combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * 10/100))
 
 func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)
@@ -1228,7 +1229,7 @@ func fsm_attack_action_inventory_process(delta):
 				combat.game_ui.destory_active_ui_node()
 				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
-				combat.game_ui.show_unit_status()
+				combat.game_ui.display_unit_status()
 				update_current_tile(move_tile)
 				revert_player_state()
 

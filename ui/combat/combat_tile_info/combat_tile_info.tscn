@@ -196,13 +196,13 @@ text = "Health"
 vertical_alignment = 1
 
 [node name="EntityInfoPanel" type="Panel" parent="TerrainInfoContainer"]
-visible = false
-custom_minimum_size = Vector2(250, 30)
+custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="EntityHP" type="Label" parent="TerrainInfoContainer/EntityInfoPanel"]
+visible = false
 layout_mode = 2
 offset_left = 209.0
 offset_top = 6.0
@@ -215,8 +215,8 @@ vertical_alignment = 2
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/EntityInfoPanel"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 250.0
+offset_bottom = 40.0
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -224,6 +224,8 @@ theme_override_constants/margin_bottom = 2
 
 [node name="EntityName" type="Label" parent="TerrainInfoContainer/EntityInfoPanel/LowerBonusContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xscgn")
+theme_override_font_sizes/font_size = 24
 text = "EntityName
 "
 vertical_alignment = 1
