@@ -48,9 +48,9 @@ func _on_event_option_selected(event_option: EventOption):
 			for unit : Unit in playerOverworldData.total_party:
 				unit.stats.magic += 1
 		EventOption.EVENT_EFFECT.RANDOM_WEAPON:
-			give_random_item(ItemConstants.ITEM_TYPE.WEAPON)
+			await give_random_item(ItemConstants.ITEM_TYPE.WEAPON)
 		EventOption.EVENT_EFFECT.RANDOM_CONSUMABLE:
-			give_random_item(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
+			await give_random_item(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 		EventOption.EVENT_EFFECT.FLEE:
 			pass
 		EventOption.EVENT_EFFECT.BANDIT_BRIBE:
@@ -59,6 +59,7 @@ func _on_event_option_selected(event_option: EventOption):
 			for unit in playerOverworldData.total_party.size()/2:
 				var target_unit : Unit = playerOverworldData.total_party.pick_random()
 				target_unit.hp = clampi(target_unit.hp - 8, 1, target_unit.stats.hp)
+				await create_event_popup(target_unit)
 		EventOption.EVENT_EFFECT.BANDIT_INTIMIDATE:
 			var target_unit : Unit = playerOverworldData.total_party.pick_random()
 			var bonus = target_unit.stats.strength / 2
@@ -69,11 +70,13 @@ func _on_event_option_selected(event_option: EventOption):
 				for unit in playerOverworldData.total_party.size()/2:
 					var damage_unit : Unit = playerOverworldData.total_party.pick_random()
 					damage_unit.hp = clampi(target_unit.hp - 11, 1, target_unit.stats.hp)
+					await create_event_popup(target_unit)
 		EventOption.EVENT_EFFECT.TRIAL_MEDITATE:
 			for unit_choice in 2:
 				var target_unit : Unit = playerOverworldData.total_party.pick_random()
 				target_unit.unit_character.stats.resistance += 1
 				target_unit.update_stats()
+				await create_event_popup(target_unit)
 		EventOption.EVENT_EFFECT.TRIAL_CUT_PATH:
 			give_random_item(ItemConstants.ITEM_TYPE.WEAPON, "rare")
 		EventOption.EVENT_EFFECT.TRIAL_RUSH_THROUGH:
@@ -83,6 +86,7 @@ func _on_event_option_selected(event_option: EventOption):
 				#target_unit.hp = clampi(target_unit.unit_character.stats.hp -3, 1, 9999999)
 				target_unit.unit_character.stats.speed =  target_unit.unit_character.stats.speed +1
 				target_unit.update_stats()
+				await create_event_popup(target_unit)
 		EventOption.EVENT_EFFECT.GOBLET_DRINK:
 			for unit_choice in 2:
 				var target_unit : Unit = playerOverworldData.total_party.pick_random()
@@ -90,6 +94,7 @@ func _on_event_option_selected(event_option: EventOption):
 				target_unit.unit_character.stats.strength +=  1
 				target_unit.unit_character.stats.magic += 1
 				target_unit.update_stats()
+				await create_event_popup(target_unit)
 		EventOption.EVENT_EFFECT.GOBLET_SPILL:
 			for unit : Unit in playerOverworldData.total_party:
 				unit.unit_character.stats.luck += 1
@@ -128,8 +133,16 @@ func give_random_item(item_type : ItemConstants.ITEM_TYPE, desired_rarity : Stri
 	else:
 		chosen_item = ItemDatabase.items["iron_sword"]
 	playerOverworldData.convoy.append(chosen_item)
+	await create_event_popup(chosen_item)
 	print("Item Recieved")
 
 func _on_event_selection_container_leave_selected():
 	transition_out_animation()
 	get_tree().change_scene_to_file("res://campaign_map/campaign_map.tscn")
+
+func create_event_popup(effect):
+	var event_popup = preload("res://ui/event_effect_popup/event_effect_popup.tscn").instantiate()
+	event_popup.effect = effect
+	add_child(event_popup)
+	await get_tree().create_timer(3).timeout
+	event_popup.queue_free()

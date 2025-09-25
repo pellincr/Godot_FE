@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu0cpg78e8pq3"]
+
+[ext_resource type="Theme" uid="uid://jimlxhugl2wg" path="res://ui/battle_prep_new/panel_option_not_focused.tres" id="1_v0b5j"]
+[ext_resource type="Script" path="res://ui/battle_prep_new/item_use_option.gd" id="2_ljgkq"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 100.0
+offset_bottom = 54.0
+theme = ExtResource("1_v0b5j")
+script = ExtResource("2_ljgkq")
+
+[node name="UsePanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+focus_mode = 2
+
+[node name="UseLabel" type="Label" parent="UsePanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Use"
+vertical_alignment = 1
+
+[node name="CancelPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+focus_mode = 2
+
+[node name="CancelLabel" type="Label" parent="CancelPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Cancel"
+vertical_alignment = 1
+
+[connection signal="focus_entered" from="UsePanel" to="." method="_on_use_panel_focus_entered"]
+[connection signal="focus_exited" from="UsePanel" to="." method="_on_use_panel_focus_exited"]
+[connection signal="mouse_entered" from="UsePanel" to="." method="_on_use_panel_mouse_entered"]
+[connection signal="mouse_entered" from="CancelPanel" to="." method="_on_cancel_panel_mouse_entered"]
+[connection signal="focus_entered" from="CancelPanel/CancelLabel" to="." method="_on_cancel_label_focus_entered"]
+[connection signal="focus_exited" from="CancelPanel/CancelLabel" to="." method="_on_cancel_label_focus_exited"]

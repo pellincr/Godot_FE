@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwe24m6b53kci"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
+
+[node name="BattlePrepMenuSelection" type="PanelContainer"]
+custom_minimum_size = Vector2(380, 500)
+size_flags_horizontal = 0
+script = ExtResource("1_ogtpg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="StartBattleButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Start Battle"
+
+[node name="UnitSelectionButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Unit Selection"
+
+[node name="SwapSpacesButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Swap Spaces"
+
+[node name="ShopButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Shop"
+
+[node name="InventoryButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Inventory"
+
+[connection signal="pressed" from="MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]

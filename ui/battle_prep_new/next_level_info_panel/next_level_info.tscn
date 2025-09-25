@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4n86agieo8sc"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/next_level_info_panel/next_level_info.gd" id="1_btgyg"]
+
+[node name="NextLevelInfo" type="PanelContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_btgyg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="EnemyInfoMainContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnemyUnitTypeScrollContainer" type="ScrollContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EnemyUnitTypeInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUnitTypeScrollContainer"]
+layout_mode = 2
+
+[node name="EnemyUnitTypeHeaderContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUnitTypeScrollContainer/EnemyUnitTypeInfoContainer"]
+layout_mode = 2
+
+[node name="EnemyUnitTypeInfoHeader" type="Label" parent="MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUnitTypeScrollContainer/EnemyUnitTypeInfoContainer/EnemyUnitTypeHeaderContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Upcoming Enemies:"
+
+[node name="EnemyUsableWeaponScrollContainer" type="ScrollContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EnemyUsableWeaponInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUsableWeaponScrollContainer"]
+layout_mode = 2
+
+[node name="EntityInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2

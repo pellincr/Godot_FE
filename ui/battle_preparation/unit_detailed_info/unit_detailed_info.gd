@@ -1,9 +1,10 @@
 extends Panel
 
 
-const WEAPON_DETAILED_INFO = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
 
 signal set_trade_item(item,unit)
+signal item_sold(item)
 
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel
 @onready var unit_experience_container = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitExperienceInfo
@@ -67,11 +68,6 @@ func update_by_unit():
 	combat_stats_container.unit = unit
 	combat_stats_container.update_by_unit()
 
-func _on_unit_inventory_item_entered(item):
-	pass
-	
-func _on_unit_inventory_item_focus_exited():
-	pass
 
 func _on_unit_inventory_container_item_equipped(item):
 	combat_stats_container.unit = unit
@@ -84,7 +80,7 @@ func _on_set_trade_item(item):
 
 func _on_unit_inventory_container_item_used(item):
 	update_by_unit()
-	
+
 
 
 func clear_item_info_container():
@@ -101,4 +97,11 @@ func _on_unit_inventory_container_item_focused(item) -> void:
 		item_info_container.add_child(weapon_detailed_info)
 		weapon_detailed_info.update_by_item()
 		weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
-		
+
+
+func set_inventory_container_state(state : InventoryContainer.INVENTORY_STATE):
+	unit_inventory_container.current_state = state
+
+
+func _on_unit_inventory_container_sell_item(item: Variant) -> void:
+	item_sold.emit(item)

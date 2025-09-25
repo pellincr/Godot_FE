@@ -1,0 +1,108 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfw00m8684j6u"]
+
+[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_fqj8m"]
+[ext_resource type="Script" path="res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.gd" id="2_dljta"]
+[ext_resource type="PackedScene" uid="uid://ducowi3wugv78" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.tscn" id="2_sanl5"]
+[ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="3_g2rpd"]
+[ext_resource type="PackedScene" uid="uid://bg7on5l6leqo0" path="res://ui/battle_preparation/unit_detailed_info/combat_stat_container.tscn" id="3_ym51l"]
+[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="4_c5wgh"]
+[ext_resource type="PackedScene" uid="uid://lyxn6uge7asw" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.tscn" id="4_l087p"]
+
+[sub_resource type="Theme" id="Theme_wtybk"]
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_cocls"]
+default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_cudkx"]
+default_font_size = 18
+
+[node name="UnitDetailedViewSimple" type="Panel"]
+custom_minimum_size = Vector2(315, 500)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_fqj8m")
+script = ExtResource("2_dljta")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(315, 500)
+layout_mode = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="UnitNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_wtybk")
+text = "Character"
+
+[node name="UnitExperienceInfo" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_sanl5")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_c5wgh")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cocls")
+
+[node name="HPHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "HP"
+
+[node name="CurrentHPValueLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "99 / 100"
+
+[node name="HPBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+value = 99.0
+show_percentage = false
+
+[node name="CombatStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ym51l")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="ConstitutionContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CombatStatContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_cudkx")
+
+[node name="ConstitutionHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/CombatStatContainer/ConstitutionContainer"]
+custom_minimum_size = Vector2(134, 18)
+layout_mode = 2
+text = "Constitution"
+
+[node name="ConstitutionValueLabel" type="Label" parent="MarginContainer/VBoxContainer/CombatStatContainer/ConstitutionContainer"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "17"
+horizontal_alignment = 2
+
+[node name="UnitInventoryContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_l087p")]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="UnitIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+offset_left = 200.0
+offset_top = 40.0
+offset_right = 296.0
+offset_bottom = 136.0
+texture = ExtResource("3_g2rpd")
+
+[connection signal="item_used" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
+[connection signal="sell_item" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_sell_item"]
+[connection signal="send_to_convoy" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_send_to_convoy"]
+[connection signal="set_trade_item" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

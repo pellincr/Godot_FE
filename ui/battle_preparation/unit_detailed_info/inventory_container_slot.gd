@@ -1,10 +1,12 @@
 extends Panel
 
-signal set_equippped(item)
-signal use_item(item)
-signal item_selected_for_trade(item)
-signal sell_item(item)
+
+#signal set_equippped(item)
+#signal use_item(item)
+#signal item_selected_for_trade(item)
+#signal sell_item(item)
 signal item_focused(item)
+signal inventory_slot_pressed(item)
 
 @onready var inventory_item_icon = $HBoxContainer/LeftContainer/InventoryItemIcon
 @onready var item_name_label = $HBoxContainer/LeftContainer/ItemNameLabel
@@ -13,12 +15,13 @@ signal item_focused(item)
 
 var set_for_trade = false
 var set_for_sale = false
+
 var item : ItemDefinition
 
 func _ready():
 	if item != null:
 		update_by_item()
-
+"""
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") and self.has_focus():
 		if !set_for_trade:
@@ -30,9 +33,9 @@ func _process(delta):
 			else:
 				sell_item.emit(item)
 		else:
-			self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
+			self.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
 			item_selected_for_trade.emit(item)
-
+"""
 func set_invetory_item_icon(icon:Texture2D):
 	inventory_item_icon.set_image(icon)
 
@@ -159,16 +162,21 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered():
-	var focus_theme = preload("res://ui/battle_preparation/inventory_focused.tres")
+	var focus_theme = preload("res://ui/battle_prep_new/inventory_focused.tres")
 	self.theme = focus_theme
 	item_focused.emit(item)
 
 
 func _on_focus_exited():
-	if theme != preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres"):
-		var un_focus_theme = preload("res://ui/battle_preparation/inventory_not_focused.tres")
+	if theme != preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres"):
+		var un_focus_theme = preload("res://ui/battle_prep_new/inventory_not_focused.tres")
 		self.theme = un_focus_theme
 
 
 func _on_mouse_entered():
 	grab_focus()
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
+		inventory_slot_pressed.emit(item)

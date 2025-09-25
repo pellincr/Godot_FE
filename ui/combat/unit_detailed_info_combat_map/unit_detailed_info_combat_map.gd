@@ -2,8 +2,8 @@ extends Panel
 
 signal set_trade_item(item,unit)
 
-const item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
-const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+const item_panel_container_scene = preload("res://ui/battle_prep_new/item_panel/item_panel_container.tscn")
+const weapon_detailed_info_scene = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
 
 
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel

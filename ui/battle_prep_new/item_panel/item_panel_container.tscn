@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://bixh7odyximcb"]
+
+[ext_resource type="Theme" uid="uid://jimlxhugl2wg" path="res://ui/battle_prep_new/panel_option_not_focused.tres" id="1_kr0qd"]
+[ext_resource type="Script" path="res://ui/battle_prep_new/item_panel/item_panel_container.gd" id="2_2qk5x"]
+[ext_resource type="Texture2D" uid="uid://dnckbxrnna2l1" path="res://resources/sprites/items/weapons/axes/hand_axe.png" id="3_xjkbn"]
+
+[sub_resource type="Theme" id="Theme_s1kxt"]
+default_font_size = 24
+
+[sub_resource type="Theme" id="Theme_w0oe3"]
+default_font_size = 24
+
+[node name="ItemPanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(300, 50)
+offset_right = 300.0
+offset_bottom = 50.0
+focus_mode = 2
+theme = ExtResource("1_kr0qd")
+script = ExtResource("2_2qk5x")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LeftContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ItemIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftContainer"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+texture = ExtResource("3_xjkbn")
+stretch_mode = 3
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftContainer"]
+layout_mode = 2
+theme = SubResource("Theme_s1kxt")
+text = "Hand Axe"
+
+[node name="UsesLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = SubResource("Theme_w0oe3")
+text = "35"
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
