@@ -55,10 +55,5 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [connection signal="event_option_selected" from="MarginContainer/VBoxContainer/HBoxContainer/EventSelectionContainer" to="." method="_on_event_option_selected"]
 [connection signal="leave_selected" from="MarginContainer/VBoxContainer/HBoxContainer/EventSelectionContainer" to="." method="_on_event_selection_container_leave_selected"]
