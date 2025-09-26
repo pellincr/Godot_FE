@@ -69,6 +69,8 @@ func update_by_state():
 			add_child(convoy)
 			convoy.fill_convoy_scroll_container()
 			convoy.item_panel_pressed.connect(_on_item_panel_pressed.bind(unit_detailed_view_simple,convoy))
+			if playerOverworldData.convoy.size() == 0:
+				unit_detailed_view_simple.grab_first_inventory_slot_focus()
 		INVENTORY_STATE.PICK_TRADE_UNIT:
 			var unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
 			unit_detailed_view_simple.unit = selected_unit
