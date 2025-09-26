@@ -29,6 +29,7 @@ frame_progress = 0.0
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_2sp8d")
+victory_condition = 1
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")

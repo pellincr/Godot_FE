@@ -91,6 +91,7 @@ scale = Vector2(1, 1)
 
 [node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
 script = ExtResource("5_ehpk1")
+victory_condition = 1
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
@@ -100,7 +101,7 @@ entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_top_left = Vector2(0, 3)
 ally_spawn_bottom_right = Vector2(2, 5)
 enemy_start_group = ExtResource("6_of0la")
-max_allowed_ally_units = 4
+max_allowed_ally_units = 5
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]
