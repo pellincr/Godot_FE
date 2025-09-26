@@ -89,7 +89,7 @@ func _on_convoy_panel_pressed():
 
 func _on_item_bought_to_unit(item:ItemDefinition,unit_detailed_view):
 	var inventory :Inventory = selected_buy_location.inventory
-	if !inventory.is_full() and playerOverworldData.gold >= item.price:
+	if !inventory.is_full() and playerOverworldData.gold >= item.worth:
 		inventory.give_item(item)
 		unit_detailed_view.update_by_unit()
 		playerOverworldData.gold -= item.worth
