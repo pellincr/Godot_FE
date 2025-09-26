@@ -26,12 +26,13 @@ var current_state := PREP_STATE.MENU
 
 func _ready() -> void:
 	transition_in_animation()
-	update_by_state()
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 		tutorial_panel.current_state = TutorialPanel.TUTORIAL.BATTLE_PREP
 		tutorial_panel.tutorial_completed.connect(tutorial_completed)
 		add_child(tutorial_panel)
+	else:
+		tutorial_completed()
 
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
@@ -47,7 +48,7 @@ func transition_out_animation():
 	await get_tree().create_timer(0.5).timeout
 
 func tutorial_completed():
-	pass
+	update_by_state()
 
 func update_by_state():
 	clear_existing_menus()

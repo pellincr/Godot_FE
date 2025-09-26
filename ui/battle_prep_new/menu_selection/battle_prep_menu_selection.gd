@@ -58,3 +58,6 @@ func enable_button_focus():
 
 func _on_start_battle_button_pressed() -> void:
 	start_game.emit()
+
+func grab_start_button_focus():
+	start_battle_button.grab_focus()
