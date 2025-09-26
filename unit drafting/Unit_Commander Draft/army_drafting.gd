@@ -166,18 +166,30 @@ func archetype_selected(archetype):
 
 
 func add_archetype_to_archetype_icon_container(archetype : ArmyArchetypeDefinition):
-	var picks = archetype.archetype_picks
+	var picks := archetype.archetype_picks
 	#var panel = Panel.new()
 	var hbox = HBoxContainer.new()
 	var panel = PanelContainer.new()
 	for pick in picks:
 		for i in pick.volume:
-			var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
-			var texture = TextureRect.new()
-			texture.texture = icon
-			hbox.add_child(texture)
-	panel.add_child(hbox)
-	archetype_icon_container.add_child(panel)
+			var icon
+			if pick is armyArchetypePickWeaponDefinition:
+				icon = preload("res://unit drafting/Archetype Draft/archetype_icons/item_archetype_icon.tscn").instantiate()
+				icon.item_archetype_pick = pick
+				hbox.add_child(icon)
+				panel.add_child(hbox)
+				archetype_icon_container.add_child(panel)
+				icon.update_by_archetype_pick()
+			else:
+				#icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+				#var texture = TextureRect.new()
+				#texture.texture = icon
+				icon = preload("res://unit drafting/Archetype Draft/archetype_icons/unit_archetype_icon.tscn").instantiate()
+				icon.unit_archetype_pick = pick
+				hbox.add_child(icon)
+				panel.add_child(hbox)
+				archetype_icon_container.add_child(panel)
+				icon.update_by_archetype_pick()
 
 func update_archetype_icon_container(unit):
 	#clear_archetype_icons()

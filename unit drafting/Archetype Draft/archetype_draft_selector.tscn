@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvcaei1ygosly"]
 
-[ext_resource type="Script" uid="uid://qinslu4d8u5e" path="res://unit drafting/Archetype Draft/archetype_draft_selector.gd" id="1_knpel"]
+[ext_resource type="Script" path="res://unit drafting/Archetype Draft/archetype_draft_selector.gd" id="1_knpel"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_pmami"]
 
 [sub_resource type="Theme" id="Theme_q4euw"]
