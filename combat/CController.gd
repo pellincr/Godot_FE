@@ -1443,11 +1443,11 @@ func fsm_interact_targetting(delta):
 				var target_entity :CombatEntity = grid.get_entity(target_tile)
 				if target_entity.interaction_type != CombatEntityConstants.ENTITY_TYPE.CHEST and target_entity.interaction_type != CombatEntityConstants.ENTITY_TYPE.DOOR:
 					fsm_do_target_entity_interaction()
-				elif target_entity.interaction_type != CombatEntityConstants.ENTITY_TYPE.CHEST: 
+				elif target_entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.CHEST: 
 					var action_menu_inventory : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_interaction_inventory_data(combat.get_current_combatant(), CombatEntityConstants.valid_chest_unlock_item_db_keys)
 					combat.game_ui.create_interact_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INTERACT_ACTION_INVENTORY)
-				elif target_entity.interaction_type != CombatEntityConstants.ENTITY_TYPE.DOOR:
+				elif target_entity.interaction_type == CombatEntityConstants.ENTITY_TYPE.DOOR:
 					var action_menu_inventory : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_interaction_inventory_data(combat.get_current_combatant(), CombatEntityConstants.valid_door_unlock_item_db_keys)
 					combat.game_ui.create_interact_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INTERACT_ACTION_INVENTORY)

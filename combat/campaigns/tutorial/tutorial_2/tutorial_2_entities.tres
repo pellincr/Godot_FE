@@ -13,7 +13,7 @@
 
 [sub_resource type="Resource" id="Resource_6i585"]
 script = ExtResource("2_h4ghy")
-position = Vector2i(16, 3)
+position = Vector2i(16, 1)
 loot_table = ExtResource("3_l8rs0")
 
 [sub_resource type="Resource" id="Resource_fooos"]
