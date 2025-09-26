@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=15 format=3 uid="uid://c2x4hfn1ufy7o"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_b4kmf"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_vdkhk"]
+[ext_resource type="Resource" uid="uid://bfagy3hog22to" path="res://resources/definitions/loot_tables/chest_loot_table.tres" id="3_quc6h"]
+[ext_resource type="Resource" uid="uid://cpo8i3uv32yd5" path="res://resources/definitions/loot_tables/chest_loot_table_high_tier.tres" id="4_5gq82"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="5_s3xvj"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="6_gd7ta"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="7_0jrcc"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="8_mpwib"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="9_e75mg"]
+
+[sub_resource type="Resource" id="Resource_sjftv"]
+script = ExtResource("2_vdkhk")
+position = Vector2i(4, 18)
+loot_table = ExtResource("3_quc6h")
+
+[sub_resource type="Resource" id="Resource_4lg8j"]
+script = ExtResource("2_vdkhk")
+position = Vector2i(4, 18)
+loot_table = ExtResource("3_quc6h")
+
+[sub_resource type="Resource" id="Resource_i8lnu"]
+script = ExtResource("2_vdkhk")
+position = Vector2i(16, 18)
+loot_table = ExtResource("4_5gq82")
+
+[sub_resource type="Resource" id="Resource_o2kfj"]
+script = ExtResource("6_gd7ta")
+positions = Array[Vector2i]([Vector2i(4, 10)])
+orientation = 0
+trigger_group = ""
+
+[sub_resource type="Resource" id="Resource_befkp"]
+script = ExtResource("6_gd7ta")
+positions = Array[Vector2i]([Vector2i(17, 16)])
+orientation = 0
+trigger_group = ""
+
+[resource]
+script = ExtResource("8_mpwib")
+entities = Array[ExtResource("7_0jrcc")]([])
+chests = Array[ExtResource("2_vdkhk")]([SubResource("Resource_sjftv"), SubResource("Resource_4lg8j"), SubResource("Resource_i8lnu")])
+searchs = Array[ExtResource("9_e75mg")]([])
+doors = Array[ExtResource("6_gd7ta")]([SubResource("Resource_o2kfj"), SubResource("Resource_befkp")])
+breakable_terrains = Array[ExtResource("1_b4kmf")]([])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0
+debris = Array[ExtResource("5_s3xvj")]([])
+wooden_debris_hp = 25
+default_wooden_debris_defense = 0
+default_wooden_debris_resistance = 0
+stone_debris_hp = 35
+default_stone_debris_defense = 5
+default_stone_debris_resistance = 5

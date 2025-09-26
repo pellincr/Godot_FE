@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="Campaign" load_steps=6 format=3 uid="uid://bufy43rodyy5x"]
 
+[ext_resource type="PackedScene" uid="uid://ca1v0oqv61d05" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss.tscn" id="1_816np"]
 [ext_resource type="Script" path="res://scripts/resources/campaigns/campaign.gd" id="1_a80uw"]
-[ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4.tscn" id="1_h3kho"]
 [ext_resource type="PackedScene" uid="uid://blo7n0hudl834" path="res://combat/campaigns/tutorial/tutorial_2/tutorial_2.tscn" id="1_mdtgd"]
 [ext_resource type="Script" path="res://scripts/resources/level_pool/LevelPool.gd" id="2_dvacv"]
 
 [sub_resource type="Resource" id="Resource_ae0ir"]
 script = ExtResource("2_dvacv")
 battle_levels = {
-0: [ExtResource("1_h3kho")],
+0: [ExtResource("1_816np")],
 1: [],
 "BOSS": [ExtResource("1_mdtgd")],
 "EXTRA": [],

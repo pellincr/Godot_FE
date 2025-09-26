@@ -39,6 +39,7 @@ func set_po_data(po_data):
 
 func update_by_shop_state():
 	clear_shop_screen()
+	gold_counter.set_gold_count(playerOverworldData.gold)
 	match current_state:
 		SHOP_STATE.LOCATION_SELECT:
 			var army_container = army_container_scene.instantiate()

@@ -1,0 +1,424 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=59 format=3 uid="uid://di3tvbcstp20l"]
+
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_qgbhp"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_1ldps"]
+[ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="3_mgepr"]
+[ext_resource type="Resource" uid="uid://cfr25jrickdoo" path="res://resources/definitions/items/weapons/lance/spear.tres" id="4_qjao7"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="5_4b86o"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="6_wrtp3"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_52lo5"]
+[ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_n24rd"]
+[ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="9_a7tns"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="10_8ukus"]
+[ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="11_gq5nt"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="12_komt6"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="13_6ab5s"]
+[ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="14_pm1d2"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="15_1vi2r"]
+[ext_resource type="Resource" uid="uid://co7l31ly5a5mj" path="res://resources/definitions/items/weapons/swords/sabre.tres" id="16_ytupx"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="17_xhcwb"]
+[ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="18_psacm"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="19_owcjo"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="20_rq5iu"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="21_bsdtp"]
+[ext_resource type="Resource" uid="uid://d3q4u334gvuu6" path="res://resources/definitions/items/weapons/bow/steel_bow.tres" id="22_vaqe6"]
+[ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="23_rqqcp"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="24_s4mci"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="25_2eywt"]
+[ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="25_xt6wu"]
+[ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="26_p158p"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="27_p8uvd"]
+
+[sub_resource type="Resource" id="Resource_86uro"]
+script = ExtResource("1_qgbhp")
+name = "Micah"
+map_position = Vector2i(13, 6)
+level = 10
+level_bonus = -3
+hard_mode_leveling = false
+unit_type_key = "line_breaker"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("3_mgepr"), ExtResource("4_qjao7"), ExtResource("5_4b86o")])
+ai_type = 2
+is_boss = true
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_ayude"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(1, 11)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("6_wrtp3")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_0iken"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(0, 10)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("7_52lo5")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_cgwdy"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(4, 11)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_armor"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("8_n24rd"), ExtResource("6_wrtp3"), ExtResource("9_a7tns")])
+ai_type = 2
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_dmf70"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(3, 7)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("10_8ukus"), ExtResource("11_gq5nt")])
+ai_type = 0
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_0yqk3"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(6, 7)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "brawler"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("12_komt6"), ExtResource("11_gq5nt")])
+ai_type = 0
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_bbnfw"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(1, 1)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "fighter"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("13_6ab5s")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_7xphf"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(0, 2)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "runeblade"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("14_pm1d2"), ExtResource("10_8ukus")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_pw6nw"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(8, 2)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sword_cavalier"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("15_1vi2r")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_l0ou2"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(12, 2)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "corsair"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("16_ytupx")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_u5p84"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(12, 3)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("7_52lo5")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_uhr2n"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(16, 2)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "axe_cavalier"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("17_xhcwb")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_7n52x"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(17, 3)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("18_psacm")])
+ai_type = 0
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_e0ys8"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(10, 6)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("10_8ukus")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_qr5uu"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(16, 6)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "shaman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("19_owcjo")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_q3vnm"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(15, 8)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("5_4b86o")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_tsmwh"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(11, 8)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "fighter"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("20_rq5iu")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_f04ut"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(13, 9)
+level = 8
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "axe_armor"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("21_bsdtp")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_4kqkr"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(8, 11)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("10_8ukus")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_4je7s"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(6, 15)
+level = 6
+level_bonus = -2
+hard_mode_leveling = false
+unit_type_key = "crossbowman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("22_vaqe6")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_8nwpd"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(13, 18)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "shaman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("19_owcjo")])
+ai_type = 1
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_4rc6a"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(13, 13)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "marauder"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("23_rqqcp")])
+ai_type = 0
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_klfib"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(11, 12)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "fighter"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("24_s4mci")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_eev5y"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(15, 12)
+level = 6
+level_bonus = 1
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("15_1vi2r")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_6i07u"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(18, 9)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("25_xt6wu")])
+ai_type = 1
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_7kjul"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(19, 14)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "fighter"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("26_p158p")])
+ai_type = 1
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_jcrqp"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(20, 8)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "crossbowman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("27_p8uvd")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_l7xjk"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(17, 15)
+level = 8
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sword_armor"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("15_1vi2r"), ExtResource("9_a7tns")])
+ai_type = 2
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_4eagm"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(18, 18)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("10_8ukus"), ExtResource("11_gq5nt")])
+ai_type = 0
+is_boss = false
+drops_item = true
+
+[sub_resource type="Resource" id="Resource_lvtov"]
+script = ExtResource("1_qgbhp")
+name = "Raider"
+map_position = Vector2i(10, 15)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "crossbowman"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("27_p8uvd")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[resource]
+script = ExtResource("25_2eywt")
+group = Array[ExtResource("1_qgbhp")]([SubResource("Resource_86uro"), SubResource("Resource_ayude"), SubResource("Resource_0iken"), SubResource("Resource_cgwdy"), SubResource("Resource_dmf70"), SubResource("Resource_0yqk3"), SubResource("Resource_bbnfw"), SubResource("Resource_7xphf"), SubResource("Resource_pw6nw"), SubResource("Resource_l0ou2"), SubResource("Resource_u5p84"), SubResource("Resource_uhr2n"), SubResource("Resource_7n52x"), SubResource("Resource_e0ys8"), SubResource("Resource_qr5uu"), SubResource("Resource_q3vnm"), SubResource("Resource_tsmwh"), SubResource("Resource_f04ut"), SubResource("Resource_4kqkr"), SubResource("Resource_4je7s"), SubResource("Resource_8nwpd"), SubResource("Resource_4rc6a"), SubResource("Resource_klfib"), SubResource("Resource_eev5y"), SubResource("Resource_6i07u"), SubResource("Resource_7kjul"), SubResource("Resource_jcrqp"), SubResource("Resource_l7xjk"), SubResource("Resource_4eagm"), SubResource("Resource_lvtov")])
