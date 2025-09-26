@@ -19,6 +19,8 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("3_ewswy")])
 ai_type = 0
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_sgsp2"]
 script = ExtResource("1_g887n")
@@ -30,6 +32,8 @@ hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("4_ghdcc")])
 ai_type = 0
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_qye1y"]
 script = ExtResource("1_g887n")
@@ -41,6 +45,8 @@ hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("4_ghdcc")])
 ai_type = 0
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_mrn32"]
 script = ExtResource("1_g887n")
@@ -52,6 +58,8 @@ hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("4_ghdcc")])
 ai_type = 2
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_hntl8"]
 script = ExtResource("1_g887n")
@@ -63,6 +71,8 @@ hard_mode_leveling = false
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("5_0rvi8")])
 ai_type = 0
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_vklb2"]
 script = ExtResource("1_g887n")
@@ -74,6 +84,8 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("6_1m2wv")])
 ai_type = 1
+is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_15qql"]
 script = ExtResource("1_g887n")
@@ -85,6 +97,8 @@ hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_yp4jr")]([ExtResource("7_1y6sp")])
 ai_type = 1
+is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("2_3kh8e")

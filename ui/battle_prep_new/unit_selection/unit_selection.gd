@@ -10,6 +10,11 @@ signal return_to_menu()
 var playerOverworldData : PlayerOverworldData
 
 func _ready() -> void:
+	var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
+	#print(str(campaign_level.get_children()))
+	var combat = campaign_level.get_child(2)
+	playerOverworldData.available_party_capacity = combat.max_allowed_ally_units
+	SelectedSaveFile.save(playerOverworldData)
 	army_container.unit_selection = true
 	army_container.set_po_data(playerOverworldData)
 	army_container.fill_army_scroll_container()
