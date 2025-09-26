@@ -11,6 +11,9 @@ signal unit_experience_ended()
 var ui_node_stack : Stack = Stack.new()
 #@export var active_ui_node : Node
 
+@onready var level_info_container: VBoxContainer = $LevelInfoContainer
+
+
 #Scene Imports
 #Menu
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
@@ -63,7 +66,9 @@ func _ready():
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
-
+	#set_level_info_container
+	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
+	level_info_container.set_turn_count_label(str(combat.current_turn))
 
 #
 # Plays the transition animation on combat map begin
@@ -448,3 +453,6 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 	turn_transition.play_animation("new_turn")
 	await turn_transition.animation_player.animation_finished
 	turn_transition.queue_free()
+
+func set_turn_count_label(turn_count):
+	level_info_container.set_turn_count_label(str(turn_count))

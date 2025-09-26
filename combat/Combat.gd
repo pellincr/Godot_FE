@@ -367,6 +367,9 @@ func advance_turn(faction: int):
 	#decrement the turn reward modifier
 	turn_reward_modifier -= .5
 	#advace the current turn count
+	current_turn += .5
+	if is_equal_approx(current_turn, roundf(current_turn)):
+		game_ui.set_turn_count_label(current_turn)
 	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
 		if check_win():
 			combat_win()
