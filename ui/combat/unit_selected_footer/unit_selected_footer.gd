@@ -37,8 +37,9 @@ func update():
 	#HP Panel
 	current_hp.text = str(unit.current_hp)
 	max_hp.text = str(unit.stats.max_hp.evaluate())
-	health_bar.value = unit.current_hp
 	health_bar.max_value = unit.stats.max_hp.evaluate()
+	health_bar.value = unit.current_hp
+	
 	
 	#Stat Grid
 	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
