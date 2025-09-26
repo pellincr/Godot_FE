@@ -97,3 +97,17 @@ func _on_unit_inventory_container_send_to_convoy(item: Variant) -> void:
 
 func grab_first_inventory_slot_focus():
 	unit_inventory_container.grab_first_slot_focus()
+
+func clear_item_detail_panel():
+	if get_child(2):
+		get_child(2).queue_free()
+
+
+func _on_unit_inventory_container_item_focused(item: Variant) -> void:
+	clear_item_detail_panel()
+	if item != null:
+		var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
+		weapon_detailed_info.item = item
+		add_child(weapon_detailed_info)
+		weapon_detailed_info.update_by_item()
+		weapon_detailed_info.set_position(Vector2(330,20))
