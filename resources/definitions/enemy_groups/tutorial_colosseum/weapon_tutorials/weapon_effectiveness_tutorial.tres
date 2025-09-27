@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_ehexf"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="3_fglpd"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_7qnqu"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="7_7sa52"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="7_7sa52"]
 
 [sub_resource type="Resource" id="Resource_6aern"]
 script = ExtResource("1_wg5b3")
