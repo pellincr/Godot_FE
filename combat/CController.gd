@@ -7,6 +7,10 @@ extends Node2D
 class_name CController
 
 ##CONST
+#Music
+
+const player_music = preload("res://resources/music/Menu_-_Noble_Kingdom.ogg")
+const enemy_music = preload("res://resources/music/Action_-_Knightly_Fighting.ogg")
 #Grid
 const GRID_TEXTURE = preload("res://resources/sprites/grid/grid_marker_2.png")
 const PATH_TEXTURE = preload("res://resources/sprites/grid/path_ellipse.png")
@@ -133,6 +137,9 @@ func _ready():
 	##Set the correct states to begin FSM flow
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	turn_owner = CombatMapConstants.FACTION.PLAYERS
+	##Start Music
+	AudioManager.set_music_player_song(player_music)
+	AudioManager.play()
 	
 #process called on frame
 func _process(delta):
@@ -265,9 +272,14 @@ func progress_turn_order():
 	if turn_owner in player_factions:
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
-	else : 
+		#PLAYER MUSIC
+		AudioManager.set_music_player_song(player_music)
+		AudioManager.play()
+	else: 
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
+		AudioManager.set_music_player_song(enemy_music)
+		AudioManager.play()
 
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)
