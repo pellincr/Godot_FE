@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://d0vxuepyv7a5d"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_74hft"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="1_pxkqr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnb3c"]
 bg_color = Color(0, 0, 0, 1)
@@ -13,6 +13,7 @@ border_width_bottom = 1
 bg_color = Color(1, 1, 1, 1)
 
 [resource]
-default_font = ExtResource("1_74hft")
+default_font = ExtResource("1_pxkqr")
+default_font_size = 18
 ProgressBar/styles/background = SubResource("StyleBoxFlat_wnb3c")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_gukal")

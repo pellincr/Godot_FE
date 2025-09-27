@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwh2mplnd8dpq"]
+[gd_scene load_steps=13 format=3 uid="uid://bwh2mplnd8dpq"]
 
 [ext_resource type="PackedScene" uid="uid://ci8416mnsxm8v" path="res://combat/campaigns/bandit_bash/bandit_bash_7/bandit_bash_7_terrain.tscn" id="1_rangr"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="2_dbq57"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hdo0a"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_5n4tr"]
 [ext_resource type="Resource" uid="uid://cyhg3x21fxw0k" path="res://combat/campaigns/bandit_bash/bandit_bash_7/bandit_bash_7_units.tres" id="5_c606a"]
+[ext_resource type="Resource" uid="uid://11ph01hwiiof" path="res://combat/campaigns/bandit_bash/bandit_bash_7/bandit_bash_7_reinforcement.tres" id="5_tc5xn"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_oqukl"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_rdor4"]
 [ext_resource type="Resource" uid="uid://curdlnsw0rxvu" path="res://combat/campaigns/bandit_bash/bandit_bash_7/bandit_bash_7_entities.tres" id="8_2ymnk"]
@@ -36,6 +37,7 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
+mapReinforcementData = ExtResource("5_tc5xn")
 ally_spawn_top_left = Vector2(6, 1)
 ally_spawn_bottom_right = Vector2(8, 4)
 enemy_start_group = ExtResource("5_c606a")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cx0jc1hx45ck5"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_6l6lx"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_4gro4"]
 
 [sub_resource type="Theme" id="Theme_wkm3o"]
-default_font = ExtResource("1_6l6lx")
+default_font = ExtResource("1_4gro4")
 default_font_size = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2n4jp"]

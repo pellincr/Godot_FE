@@ -172,7 +172,7 @@ func _process(delta):
 			pass
 		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION):
 			#All players have completed their turns, and order resets
-			if turn_order_index == 0:
+			if turn_order_index == turn_order.size() - 1:
 				combat.current_turn += 1
 			progress_turn_order()
 			update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE)

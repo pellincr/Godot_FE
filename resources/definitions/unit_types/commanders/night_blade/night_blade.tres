@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=7 format=3 uid="uid://dmycp4ajadd8"]
+
+[ext_resource type="Resource" uid="uid://do0hlwrt5fxgt" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade_base_combat_stats.tres" id="1_ool2q"]
+[ext_resource type="Resource" uid="uid://bncpoywu0oavv" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade_growth_stats.tres" id="2_7lb4n"]
+[ext_resource type="Texture2D" uid="uid://bq2fakulb6qoa" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade.png" id="3_ssgv4"]
+[ext_resource type="Resource" uid="uid://cpl2bcwqx1r3x" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade_max_stats.tres" id="4_tmlhy"]
+[ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_toive"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="6_xkn8j"]
+
+[resource]
+script = ExtResource("5_toive")
+boon = ""
+bane = ""
+unit_type_name = "Night Blade"
+db_key = "night_blade"
+description = ""
+initiative = 1
+faction = Array[int]([])
+traits = Array[int]([])
+unit_rarity = ExtResource("6_xkn8j")
+movement_type = 2
+tier = 2
+promoted = false
+unit_promoted_from_key = ""
+usable_weapon_types = Array[int]([13, 7])
+base_stats = ExtResource("1_ool2q")
+maxuimum_stats = ExtResource("4_tmlhy")
+growth_stats = ExtResource("2_7lb4n")
+icon = ExtResource("3_ssgv4")
+map_sprite = ExtResource("3_ssgv4")
+skills = Array[String]([])
+skilL_unlock_level = Array[int]([])

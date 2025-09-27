@@ -1,4 +1,5 @@
-extends VBoxContainer
+
+extends HBoxContainer
 
 
 @onready var objective_label: Label = $ObjectivePanel/ObjectiveContainer/ObjectiveLabel

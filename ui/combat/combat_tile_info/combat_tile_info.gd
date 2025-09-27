@@ -86,7 +86,7 @@ func update_terrain_special(effect : Terrain.TERRAIN_EFFECTS, effect_scaling : T
 			effect_value.text = "%" + str(effect_weight)
 
 func update_tile_index(grid_position : Vector2i):
-	tile_index.text = str(grid_position)
+	tile_index.text = str(grid_position.x) + " , " + str(grid_position.y)
 
 func update_entity_display(entity : CombatEntity):
 	if entity == null:

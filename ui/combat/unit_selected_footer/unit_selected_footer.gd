@@ -32,8 +32,8 @@ func update():
 	level_container.set_level_label(unit.unit.level)
 	level_container.set_xp_label(unit.unit.experience)
 	level_container.set_level_progress_value(unit.unit.experience)
-	current_move_value.text = str(unit.unit.movement)
-	total_move_value.text = str(unit.unit.movement)
+	current_move_value.text = str(unit.effective_move)
+	total_move_value.text = str(unit.effective_move)
 	#HP Panel
 	current_hp.text = str(unit.current_hp)
 	max_hp.text = str(unit.stats.max_hp.evaluate())

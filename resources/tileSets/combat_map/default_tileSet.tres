@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=37 format=3 uid="uid://1xc1hafct0nn"]
+[gd_resource type="TileSet" load_steps=38 format=3 uid="uid://1xc1hafct0nn"]
 
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="1_01w6u"]
 [ext_resource type="Texture2D" uid="uid://c88ffudcpcd2g" path="res://resources/sprites/tilemaps/combat_map/Overworld_Tileset.png" id="1_ibjt6"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://cv6q1g0m73cm" path="res://resources/definitions/terrians/thicket_terrain.tres" id="9_h6cht"]
 [ext_resource type="Resource" uid="uid://bp7ibodvmd4sx" path="res://resources/definitions/terrians/house_terrain.tres" id="10_xs3rf"]
 [ext_resource type="Resource" uid="uid://bjviwxsfhuxdv" path="res://resources/definitions/terrians/staircase_terrain.tres" id="11_16mmm"]
+[ext_resource type="Resource" uid="uid://rt427i7d1nh3" path="res://resources/definitions/terrians/water_fall_terrain.tres" id="11_cpfhx"]
 [ext_resource type="Resource" uid="uid://cfthr218hd6sv" path="res://resources/definitions/terrians/chest_terrain.tres" id="12_oydaj"]
 [ext_resource type="Resource" uid="uid://052mcrbllxuw" path="res://resources/definitions/terrians/pillar_terrain.tres" id="13_7japi"]
 [ext_resource type="Texture2D" uid="uid://d3f740khyufeh" path="res://resources/sprites/tilemaps/combat_map/tiles_dungeon_v1.1.png" id="16_6n2cu"]
@@ -104,6 +105,7 @@ texture_region_size = Vector2i(32, 32)
 36:0/animation_frame_2/duration = 0.25
 36:0/animation_frame_3/duration = 0.25
 36:0/0 = 0
+36:0/0/custom_data_0 = ExtResource("11_cpfhx")
 0:1/0 = 0
 0:1/0/custom_data_0 = ExtResource("1_01w6u")
 1:1/0 = 0
@@ -178,6 +180,7 @@ texture_region_size = Vector2i(32, 32)
 36:1/animation_frame_2/duration = 0.25
 36:1/animation_frame_3/duration = 0.25
 36:1/0 = 0
+36:1/0/custom_data_0 = ExtResource("11_cpfhx")
 0:2/0 = 0
 0:2/0/custom_data_0 = ExtResource("1_01w6u")
 1:2/0 = 0
@@ -931,6 +934,7 @@ texture_region_size = Vector2i(32, 32)
 23:13/animation_frame_2/duration = 0.25
 23:13/animation_frame_3/duration = 0.25
 23:13/0 = 0
+23:13/0/custom_data_0 = ExtResource("2_3mv6i")
 24:13/animation_columns = 4
 24:13/animation_separation = Vector2i(4, 0)
 24:13/animation_frame_0/duration = 0.25
@@ -1039,6 +1043,7 @@ texture_region_size = Vector2i(32, 32)
 23:15/animation_frame_2/duration = 0.25
 23:15/animation_frame_3/duration = 0.25
 23:15/0 = 0
+23:15/0/custom_data_0 = ExtResource("2_3mv6i")
 24:15/animation_columns = 4
 24:15/animation_separation = Vector2i(4, 0)
 24:15/animation_frame_0/duration = 0.25
@@ -1046,6 +1051,7 @@ texture_region_size = Vector2i(32, 32)
 24:15/animation_frame_2/duration = 0.25
 24:15/animation_frame_3/duration = 0.25
 24:15/0 = 0
+24:15/0/custom_data_0 = ExtResource("2_3mv6i")
 0:16/0 = 0
 1:16/0 = 0
 2:16/0 = 0

@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=12 format=3 uid="uid://bywx3s8w6tnq6"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_ysreq"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_uguf3"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_c4j53"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_jkhvh"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_p03fm"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_rd0u4"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_c2yq6"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="8_yj3j7"]
+
+[sub_resource type="Resource" id="Resource_gt2he"]
+script = ExtResource("7_c2yq6")
+type = 0
+position = Vector2i(3, 1)
+loot_table = ExtResource("8_yj3j7")
+
+[sub_resource type="Resource" id="Resource_1l4mh"]
+script = ExtResource("7_c2yq6")
+type = 0
+position = Vector2i(1, 9)
+loot_table = ExtResource("8_yj3j7")
+
+[sub_resource type="Resource" id="Resource_7agni"]
+script = ExtResource("7_c2yq6")
+type = 0
+position = Vector2i(13, 7)
+loot_table = ExtResource("8_yj3j7")
+
+[resource]
+script = ExtResource("6_rd0u4")
+entities = Array[ExtResource("5_p03fm")]([])
+chests = Array[ExtResource("2_uguf3")]([])
+searchs = Array[ExtResource("7_c2yq6")]([SubResource("Resource_gt2he"), SubResource("Resource_1l4mh"), SubResource("Resource_7agni")])
+doors = Array[ExtResource("4_jkhvh")]([])
+breakable_terrains = Array[ExtResource("1_ysreq")]([])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0
+debris = Array[ExtResource("3_c4j53")]([])
+wooden_debris_hp = 25
+default_wooden_debris_defense = 0
+default_wooden_debris_resistance = 0
+stone_debris_hp = 35
+default_stone_debris_defense = 5
+default_stone_debris_resistance = 5

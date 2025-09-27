@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=15 format=3 uid="uid://of4tm7q3iil"]
+
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_xtnq5"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_1scyu"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_naset"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_xpwab"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_o0mx6"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="6_4e4bh"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="7_udms8"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_tflve"]
+
+[sub_resource type="Resource" id="Resource_hyl33"]
+script = ExtResource("2_1scyu")
+name = "Thogun's Thug"
+map_position = Vector2i(1, 25)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "axe_cavalier"
+inventory = Array[ExtResource("3_naset")]([ExtResource("4_xpwab")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_ayb26"]
+script = ExtResource("2_1scyu")
+name = "Thogun's Thug"
+map_position = Vector2i(0, 24)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sword_cavalier"
+inventory = Array[ExtResource("3_naset")]([ExtResource("5_o0mx6")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_j0baa"]
+script = ExtResource("1_xtnq5")
+trigger_type = 0
+turns = Array[int]([7, 8, 9, 10])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_1scyu")]([SubResource("Resource_hyl33"), SubResource("Resource_ayb26")])
+
+[sub_resource type="Resource" id="Resource_peenx"]
+script = ExtResource("2_1scyu")
+name = "Brask's Brigade"
+map_position = Vector2i(5, 0)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_naset")]([ExtResource("6_4e4bh")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_rfa17"]
+script = ExtResource("2_1scyu")
+name = "Brask's Brigade"
+map_position = Vector2i(18, 0)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_naset")]([ExtResource("6_4e4bh")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_63oai"]
+script = ExtResource("1_xtnq5")
+trigger_type = 0
+turns = Array[int]([2, 4])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_1scyu")]([SubResource("Resource_peenx"), SubResource("Resource_rfa17")])
+
+[resource]
+script = ExtResource("7_udms8")
+reinforcements = Array[ExtResource("1_xtnq5")]([SubResource("Resource_j0baa"), SubResource("Resource_63oai")])
+zones = Array[ExtResource("8_tflve")]([])

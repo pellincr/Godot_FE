@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cgfc872q6ila3"]
 
-[ext_resource type="PackedScene" uid="uid://bxflk0le5xhj7" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_terrain.tscn" id="1_0vqb5"]
+[ext_resource type="PackedScene" uid="uid://bxflk0le5xhj7" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6_terrain.tscn" id="1_0vqb5"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="2_qf15x"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_xx5bk"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_km76j"]

@@ -1,8 +1,7 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://beqlgf0u7r378"]
 
 [sub_resource type="Gradient" id="Gradient_wxicb"]
-offsets = PackedFloat32Array(0, 0.630682, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.00227273, 0.0227273, 0.109091, 1, 0.00392157, 0.0392157, 0.188235, 1)
+colors = PackedColorArray(0.0313726, 0.0156863, 0, 1, 0.0440485, 0.205734, 0.614443, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yqona"]
 gradient = SubResource("Gradient_wxicb")

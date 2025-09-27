@@ -1,0 +1,166 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=24 format=3 uid="uid://dlh7a46ws0xsn"]
+
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_ne2bx"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_sxi6j"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_ytee8"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="4_rsaok"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="5_3sylb"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="6_5wo0j"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="7_lnkiu"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="8_otaie"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="9_c527s"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="10_yb5wa"]
+
+[sub_resource type="Resource" id="Resource_o7083"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(15, 11)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("4_rsaok")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_62xe4"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(16, 9)
+level = 7
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "axe_armor"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("5_3sylb")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_khug3"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(16, 7)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("6_5wo0j")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_7ccen"]
+script = ExtResource("1_ne2bx")
+trigger_type = 0
+turns = Array[int]([2, 5])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_sxi6j")]([SubResource("Resource_o7083"), SubResource("Resource_62xe4"), SubResource("Resource_khug3")])
+
+[sub_resource type="Resource" id="Resource_niq5k"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(2, 0)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("7_lnkiu")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_xmoom"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(2, 1)
+level = 0
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("8_otaie")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_isxn5"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(0, 0)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("8_otaie")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_nmf3r"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(0, 1)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "corsair"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("6_5wo0j")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_5kksg"]
+script = ExtResource("1_ne2bx")
+trigger_type = 1
+turns = Array[int]([])
+zone_id = "zone_1"
+faction = 1
+units = Array[ExtResource("2_sxi6j")]([SubResource("Resource_niq5k"), SubResource("Resource_xmoom"), SubResource("Resource_isxn5"), SubResource("Resource_nmf3r")])
+
+[sub_resource type="Resource" id="Resource_ia8rn"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(15, 0)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "freewing"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("4_rsaok")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_oifki"]
+script = ExtResource("2_sxi6j")
+name = "Roc's Rabble"
+map_position = Vector2i(16, 1)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "freewing"
+inventory = Array[ExtResource("3_ytee8")]([ExtResource("6_5wo0j")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_upxk4"]
+script = ExtResource("1_ne2bx")
+trigger_type = 0
+turns = Array[int]([5, 8])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_sxi6j")]([SubResource("Resource_ia8rn"), SubResource("Resource_oifki")])
+
+[sub_resource type="Resource" id="Resource_yiww6"]
+script = ExtResource("10_yb5wa")
+zone_id = "zone_1"
+mapping_method = 0
+zone = Array[Vector2i]([])
+zone_bottom_left_vertex = Vector2i(0, 16)
+zone_top_right_vertex = Vector2i(16, 10)
+
+[resource]
+script = ExtResource("9_c527s")
+reinforcements = Array[ExtResource("1_ne2bx")]([SubResource("Resource_7ccen"), SubResource("Resource_5kksg"), SubResource("Resource_upxk4")])
+zones = Array[ExtResource("10_yb5wa")]([SubResource("Resource_yiww6")])

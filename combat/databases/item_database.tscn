@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=100 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -98,6 +98,7 @@
 [ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="94_xlfug"]
 [ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="95_midyp"]
 [ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="96_q47d5"]
+[ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -199,6 +200,7 @@ items = {
 "zweihander": ExtResource("91_khgvj")
 }
 commander_weapons = {
+"ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
 "vipers_bite": ExtResource("62_xe68h")
 }

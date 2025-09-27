@@ -11,7 +11,7 @@ signal unit_experience_ended()
 var ui_node_stack : Stack = Stack.new()
 #@export var active_ui_node : Node
 
-@onready var level_info_container: VBoxContainer = $LevelInfoContainer
+@onready var level_info_container: HBoxContainer = $LevelInfoContainer
 
 
 #Scene Imports
@@ -117,7 +117,10 @@ func get_all_boss_names():
 	for enemy in enemies:
 		var enemy_unit : CombatUnit = combat.combatants[enemy]
 		if enemy_unit.is_boss:
-			boss_names =  boss_names + enemy_unit.unit.name + ", "
+			if boss_names.length() > 0:
+				boss_names =  boss_names + ", " + enemy_unit.unit.name
+			else :
+				boss_names =  boss_names + enemy_unit.unit.name
 	return boss_names
 
 func show_tutorial_panel(scene_transition, current_level:PackedScene):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=46 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -40,10 +40,11 @@
 [ext_resource type="Resource" uid="uid://1v4f5kpeul8x" path="res://resources/definitions/unit_types/units/troubadour/troubadour.tres" id="35_45nux"]
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
+[ext_resource type="Resource" uid="uid://inc8avad666v" path="res://resources/definitions/unit_types/units/skypoint/skypoint.tres" id="36_o7m45"]
 [ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
 [ext_resource type="Resource" uid="uid://d4kej3pq2am2g" path="res://resources/definitions/unit_types/commanders/drengr/drengr.tres" id="42_885oc"]
-[ext_resource type="Resource" uid="uid://bdmmxsjkp8bt0" path="res://resources/definitions/unit_types/units/magewing/magewing.tres" id="43_pxrnf"]
 [ext_resource type="Resource" uid="uid://ckwa7dx3bcicr" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker.tres" id="44_n5a4x"]
+[ext_resource type="Resource" uid="uid://dmycp4ajadd8" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade.tres" id="45_a26rd"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -76,6 +77,7 @@ unit_types = {
 "sea_witch": ExtResource("25_fxnlp"),
 "sellsword": ExtResource("10_ntklw"),
 "shaman": ExtResource("33_b6uy8"),
+"skypoint": ExtResource("36_o7m45"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
@@ -90,7 +92,7 @@ commander_types = {
 "iron_viper": ExtResource("34_w1y03"),
 "line_breaker": ExtResource("44_n5a4x"),
 "mage_knight": ExtResource("29_ycdqo"),
-"magewing": ExtResource("43_pxrnf"),
+"night_blade": ExtResource("45_a26rd"),
 "war_maiden": ExtResource("30_uy0ry"),
 "weapon_master": ExtResource("31_025il")
 }

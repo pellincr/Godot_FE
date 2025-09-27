@@ -1,14 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://cpxlx5n7dxw7u"]
 
+[ext_resource type="Theme" uid="uid://1y2gauj0n4a3" path="res://ui/combat/combat_tile_info/tile_info_theme.tres" id="1_6c4dr"]
 [ext_resource type="Script" path="res://ui/combat/level_info_container/level_info_container.gd" id="1_8awr5"]
-[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_rfrby"]
 
-[node name="LevelInfoContainer" type="VBoxContainer"]
-theme = ExtResource("1_rfrby")
+[node name="LevelInfoContainer" type="HBoxContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -404.0
+offset_bottom = 30.0
+grow_horizontal = 0
+theme = ExtResource("1_6c4dr")
 script = ExtResource("1_8awr5")
 
 [node name="ObjectivePanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
 [node name="ObjectiveContainer" type="HBoxContainer" parent="ObjectivePanel"]
@@ -22,7 +28,7 @@ text = "Objective: "
 layout_mode = 2
 
 [node name="TurnCountPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 
 [node name="TurnCountContainer" type="HBoxContainer" parent="TurnCountPanel"]
@@ -30,7 +36,7 @@ layout_mode = 2
 
 [node name="TurnCountHeaderLabel" type="Label" parent="TurnCountPanel/TurnCountContainer"]
 layout_mode = 2
-text = "Turn Count: "
+text = "Turn : "
 
 [node name="TurnCountLabel" type="Label" parent="TurnCountPanel/TurnCountContainer"]
 layout_mode = 2

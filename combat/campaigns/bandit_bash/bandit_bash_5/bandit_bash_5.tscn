@@ -1,27 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://n01dyp4shrgf"]
+[gd_scene load_steps=13 format=3 uid="uid://bk8b7vmkl0wbh"]
 
-[ext_resource type="PackedScene" uid="uid://bxflk0le5xhj7" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_terrain.tscn" id="1_i4t7g"]
+[ext_resource type="PackedScene" uid="uid://clvl0h558xy0f" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_terrain.tscn" id="1_72j8p"]
 [ext_resource type="Script" path="res://combat/CController.gd" id="2_mqh7j"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_fwtwa"]
 [ext_resource type="Script" path="res://combat/Combat.gd" id="4_0o04g"]
+[ext_resource type="Resource" uid="uid://c5wb4ye30sbmf" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_starting_enemy.tres" id="5_8f4iq"]
+[ext_resource type="Resource" uid="uid://cffasxguhlpap" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_reionforcements.tres" id="5_ope6x"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_033o6"]
 [ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="8_a6fyg"]
+[ext_resource type="Resource" uid="uid://b4idmgwstjsed" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5_entity.tres" id="8_o07im"]
 [ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="10_pj05y"]
 [ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="11_x1t26"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="12_5arbh"]
 
-[sub_resource type="Resource" id="Resource_bu871"]
-metadata/__load_path__ = "res://combat/levels/tutorial_levels/tutorial_level_7/tutorial_7_reinforcements.tres"
-
-[sub_resource type="Resource" id="Resource_wny0w"]
-metadata/__load_path__ = "res://combat/levels/tutorial_levels/tutorial_level_7/tutorial_7_enemy_group.tres"
-
-[sub_resource type="Resource" id="Resource_tw0op"]
-metadata/__load_path__ = "res://combat/levels/tutorial_levels/tutorial_level_7/tutorial_7_entities.tres"
-
 [node name="Game" type="Node"]
 
-[node name="Terrain" parent="." instance=ExtResource("1_i4t7g")]
+[node name="Terrain" parent="." instance=ExtResource("1_72j8p")]
 
 [node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
 texture_filter = 1
@@ -33,20 +27,17 @@ selector = NodePath("Selector")
 top_level = true
 scale = Vector2(1, 1)
 
-[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
 script = ExtResource("4_0o04g")
-victory_condition = 1
-turns_to_survive = 8
 game_ui = NodePath("../CanvasLayer/UI")
 controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
-entity_manager = NodePath("CombatMapEntityManager")
-mapReinforcementData = SubResource("Resource_bu871")
-ally_spawn_top_left = Vector2(10, 13)
-ally_spawn_bottom_right = Vector2(14, 16)
-enemy_start_group = SubResource("Resource_wny0w")
+mapReinforcementData = ExtResource("5_ope6x")
+ally_spawn_top_left = Vector2(1, 6)
+ally_spawn_bottom_right = Vector2(2, 9)
+enemy_start_group = ExtResource("5_8f4iq")
 max_allowed_ally_units = 8
 is_key_campaign_level = true
 
@@ -55,7 +46,7 @@ script = ExtResource("7_033o6")
 
 [node name="CombatMapEntityManager" type="Node" parent="Combat"]
 script = ExtResource("8_a6fyg")
-mapEntityData = SubResource("Resource_tw0op")
+mapEntityData = ExtResource("8_o07im")
 
 [node name="UnitExperienceManager" type="Node" parent="Combat"]
 script = ExtResource("10_pj05y")

@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=18 format=3 uid="uid://cffasxguhlpap"]
+
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_7n84e"]
+[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_52wou"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_blh8r"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_wl35l"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_4mymv"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_y2bwe"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="7_wofiq"]
+[ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="8_aru7e"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="9_x2ul6"]
+[ext_resource type="Script" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="10_mu4sv"]
+
+[sub_resource type="Resource" id="Resource_kd7g8"]
+script = ExtResource("2_52wou")
+name = "Raider"
+map_position = Vector2i(8, 15)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_blh8r")]([ExtResource("4_wl35l")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_xitv5"]
+script = ExtResource("1_7n84e")
+trigger_type = 0
+turns = Array[int]([2, 4])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_52wou")]([SubResource("Resource_kd7g8")])
+
+[sub_resource type="Resource" id="Resource_6r32s"]
+script = ExtResource("2_52wou")
+name = "Raider"
+map_position = Vector2i(11, 16)
+level = 6
+level_bonus = 2
+hard_mode_leveling = false
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_blh8r")]([ExtResource("5_4mymv")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_pl7ev"]
+script = ExtResource("2_52wou")
+name = "Raider"
+map_position = Vector2i(12, 16)
+level = 5
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "archer"
+inventory = Array[ExtResource("3_blh8r")]([ExtResource("6_y2bwe")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_pouqq"]
+script = ExtResource("1_7n84e")
+trigger_type = 0
+turns = Array[int]([5, 6])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_52wou")]([SubResource("Resource_6r32s"), SubResource("Resource_pl7ev")])
+
+[sub_resource type="Resource" id="Resource_dd0rr"]
+script = ExtResource("2_52wou")
+name = "Raider"
+map_position = Vector2i(0, 14)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "hakkapel"
+inventory = Array[ExtResource("3_blh8r")]([ExtResource("7_wofiq"), ExtResource("8_aru7e")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_y5ltu"]
+script = ExtResource("1_7n84e")
+trigger_type = 0
+turns = Array[int]([6, 8])
+zone_id = ""
+faction = 1
+units = Array[ExtResource("2_52wou")]([SubResource("Resource_dd0rr")])
+
+[resource]
+script = ExtResource("9_x2ul6")
+reinforcements = Array[ExtResource("1_7n84e")]([SubResource("Resource_xitv5"), SubResource("Resource_pouqq"), SubResource("Resource_y5ltu")])
+zones = Array[ExtResource("10_mu4sv")]([])

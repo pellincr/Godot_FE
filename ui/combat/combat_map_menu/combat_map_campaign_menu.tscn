@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0cfiv3p7isp2"]
 
 [ext_resource type="Theme" uid="uid://dbr5o8fwlduvb" path="res://resources/themes/combat/combat_map_menu.tres" id="1_yw12a"]
-[ext_resource type="Script" path="res://ui/combat/combat_map_menu/combat_map_campaign_menu.gd" id="2_gcmfb"]
+[ext_resource type="Script" uid="uid://crcg2pyv50bkn" path="res://ui/combat/combat_map_menu/combat_map_campaign_menu.gd" id="2_gcmfb"]
 
 [node name="CombatMapMenu" type="MarginContainer"]
 custom_minimum_size = Vector2(210, 50)

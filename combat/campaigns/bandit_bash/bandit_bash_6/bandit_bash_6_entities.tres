@@ -1,0 +1,141 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=32 format=3 uid="uid://bvgp0bom0l1ny"]
+
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_beklm"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_rok6j"]
+[ext_resource type="Resource" uid="uid://bfagy3hog22to" path="res://resources/definitions/loot_tables/chest_loot_table.tres" id="3_d0i5e"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="4_v5028"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="5_r3evt"]
+[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_lbyjp"]
+[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="7_u11e1"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="8_nb7fq"]
+[ext_resource type="Resource" uid="uid://c7cdaq7ty5bfl" path="res://resources/definitions/loot_tables/weapon_rack_loot_table.tres" id="9_7neq0"]
+[ext_resource type="Resource" uid="uid://buetf0jofki1r" path="res://resources/definitions/loot_tables/bookshelf_loot_table.tres" id="10_fahg4"]
+
+[sub_resource type="Resource" id="Resource_x8flg"]
+script = ExtResource("2_rok6j")
+position = Vector2i(17, 17)
+loot_table = ExtResource("3_d0i5e")
+
+[sub_resource type="Resource" id="Resource_t1ml6"]
+script = ExtResource("2_rok6j")
+position = Vector2i(3, 9)
+loot_table = ExtResource("3_d0i5e")
+
+[sub_resource type="Resource" id="Resource_ocetn"]
+script = ExtResource("4_v5028")
+position = Vector2i(3, 11)
+type = 1
+
+[sub_resource type="Resource" id="Resource_mli7q"]
+script = ExtResource("4_v5028")
+position = Vector2i(8, 8)
+type = 1
+
+[sub_resource type="Resource" id="Resource_cg37j"]
+script = ExtResource("4_v5028")
+position = Vector2i(9, 21)
+type = 0
+
+[sub_resource type="Resource" id="Resource_aadgr"]
+script = ExtResource("4_v5028")
+position = Vector2i(16, 13)
+type = 1
+
+[sub_resource type="Resource" id="Resource_mev56"]
+script = ExtResource("4_v5028")
+position = Vector2i(18, 11)
+type = 1
+
+[sub_resource type="Resource" id="Resource_uh8if"]
+script = ExtResource("4_v5028")
+position = Vector2i(16, 7)
+type = 1
+
+[sub_resource type="Resource" id="Resource_cc70a"]
+script = ExtResource("4_v5028")
+position = Vector2i(1, 14)
+type = 1
+
+[sub_resource type="Resource" id="Resource_rtvvs"]
+script = ExtResource("4_v5028")
+position = Vector2i(6, 15)
+type = 1
+
+[sub_resource type="Resource" id="Resource_gfk7g"]
+script = ExtResource("4_v5028")
+position = Vector2i(7, 16)
+type = 1
+
+[sub_resource type="Resource" id="Resource_v7gfo"]
+script = ExtResource("4_v5028")
+position = Vector2i(17, 7)
+type = 1
+
+[sub_resource type="Resource" id="Resource_u2hxm"]
+script = ExtResource("4_v5028")
+position = Vector2i(16, 11)
+type = 1
+
+[sub_resource type="Resource" id="Resource_5q4xp"]
+script = ExtResource("4_v5028")
+position = Vector2i(13, 8)
+type = 1
+
+[sub_resource type="Resource" id="Resource_unmfe"]
+script = ExtResource("4_v5028")
+position = Vector2i(14, 3)
+type = 0
+
+[sub_resource type="Resource" id="Resource_j3vrs"]
+script = ExtResource("5_r3evt")
+positions = Array[Vector2i]([Vector2i(2, 3)])
+orientation = 0
+trigger_group = ""
+
+[sub_resource type="Resource" id="Resource_twvvu"]
+script = ExtResource("5_r3evt")
+positions = Array[Vector2i]([Vector2i(15, 17)])
+orientation = 1
+trigger_group = ""
+
+[sub_resource type="Resource" id="Resource_425dc"]
+script = ExtResource("5_r3evt")
+positions = Array[Vector2i]([Vector2i(3, 5)])
+orientation = 0
+trigger_group = ""
+
+[sub_resource type="Resource" id="Resource_gst4a"]
+script = ExtResource("8_nb7fq")
+type = 3
+position = Vector2i(14, 13)
+loot_table = ExtResource("9_7neq0")
+
+[sub_resource type="Resource" id="Resource_fm2mx"]
+script = ExtResource("8_nb7fq")
+type = 3
+position = Vector2i(11, 7)
+loot_table = ExtResource("9_7neq0")
+
+[sub_resource type="Resource" id="Resource_txidp"]
+script = ExtResource("8_nb7fq")
+type = 2
+position = Vector2i(9, 7)
+loot_table = ExtResource("10_fahg4")
+
+[resource]
+script = ExtResource("7_u11e1")
+entities = Array[ExtResource("6_lbyjp")]([])
+chests = Array[ExtResource("2_rok6j")]([SubResource("Resource_x8flg"), SubResource("Resource_t1ml6")])
+searchs = Array[ExtResource("8_nb7fq")]([SubResource("Resource_gst4a"), SubResource("Resource_fm2mx"), SubResource("Resource_txidp")])
+doors = Array[ExtResource("5_r3evt")]([SubResource("Resource_j3vrs"), SubResource("Resource_twvvu"), SubResource("Resource_425dc")])
+breakable_terrains = Array[ExtResource("1_beklm")]([])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0
+debris = Array[ExtResource("4_v5028")]([SubResource("Resource_ocetn"), SubResource("Resource_mli7q"), SubResource("Resource_cg37j"), SubResource("Resource_aadgr"), SubResource("Resource_mev56"), SubResource("Resource_uh8if"), SubResource("Resource_cc70a"), SubResource("Resource_rtvvs"), SubResource("Resource_gfk7g"), SubResource("Resource_v7gfo"), SubResource("Resource_u2hxm"), SubResource("Resource_5q4xp"), SubResource("Resource_unmfe")])
+wooden_debris_hp = 25
+default_wooden_debris_defense = 0
+default_wooden_debris_resistance = 0
+stone_debris_hp = 35
+default_stone_debris_defense = 5
+default_stone_debris_resistance = 5
