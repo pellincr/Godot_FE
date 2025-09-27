@@ -9,6 +9,7 @@ class_name ConsumableItemDefinition
 
 @export_subgroup("Stat Boost")
 @export var boost_stat : UnitStat
+@export var boost_growth : UnitStat
 
 @export_subgroup("Status Effect")
 @export var status_effect : Array[CombatUnitStatusEffect]

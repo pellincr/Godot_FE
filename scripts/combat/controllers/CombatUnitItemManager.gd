@@ -85,7 +85,12 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 			ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
 				heal_unit.emit(user, item.power)
 			ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
-				user.unit.unit_character.stats = CustomUtilityLibrary.add_unit_stat(user.unit.unit_character.stats, item.boost_stat)
+				if item.boost_stat != null:
+					user.unit.unit_character.stats = CustomUtilityLibrary.add_unit_stat(user.unit.unit_character.stats, item.boost_stat)
+					user.unit.update_stats()
+				if item.boost_growth != null:
+					user.unit.unit_character.growths = CustomUtilityLibrary.add_unit_stat(user.unit.unit_character.growths, item.boost_growth)
+					user.unit.update_growths()
 				user.stats.populate_unit_stats(user.unit)
 			ItemConstants.CONSUMABLE_USE_EFFECT.STATUS_EFFECT:
 				pass

@@ -76,10 +76,10 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.faction = unit_type.faction
 	
 	update_usable_weapon_types(new_unit)
-	update_growths(new_unit)
 	create_inventory(new_unit, _inventory)
 	update_visuals(new_unit)
 	new_unit.update_stats()
+	new_unit.update_growths()
 	for levelup in simulated_levels:
 		var level_up_stats : UnitStat = new_unit.get_level_up_value()
 		new_unit.apply_level_up_value(level_up_stats)
@@ -107,12 +107,12 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
 	
 	update_usable_weapon_types(new_unit)
-	update_growths(new_unit)
+	new_unit.update_growths()
 	create_inventory(new_unit, _inventory)
 	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode)
 	update_visuals(new_unit)
-
 	new_unit.update_stats()
+
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
 
@@ -359,26 +359,26 @@ static func update_usable_weapon_types(u: Unit):
 		if weapon not in u.usable_weapon_types:
 			u.usable_weapon_types.append(weapon)
 
-static func update_growths(u :Unit):
+func update_growths():
 	#var unit_type_growths : UnitStat = u.get_unit_type_definition().growth_stats
-	if u.unit_character:
-		u.growths.hp = clampi(u.unit_character.growths.hp + u.get_unit_type_definition().growth_stats.hp, 0,200)
-		u.growths.strength = clampi(u.unit_character.growths.strength + u.get_unit_type_definition().growth_stats.strength, 0,200)
-		u.growths.magic = clampi(u.unit_character.growths.magic + u.get_unit_type_definition().growth_stats.magic, 0,200)
-		u.growths.skill = clampi(u.unit_character.growths.skill + u.get_unit_type_definition().growth_stats.skill, 0,200)
-		u.growths.speed = clampi(u.unit_character.growths.speed + u.get_unit_type_definition().growth_stats.speed, 0,200)
-		u.growths.luck = clampi(u.unit_character.growths.luck + u.get_unit_type_definition().growth_stats.luck, 0,200)
-		u.growths.defense = clampi(u.unit_character.growths.defense + u.get_unit_type_definition().growth_stats.defense, 0,200)
-		u.growths.resistance = clampi(u.unit_character.growths.resistance + u.get_unit_type_definition().growth_stats.resistance, 0,200)
+	if self.unit_character:
+		self.growths.hp = clampi(self.unit_character.growths.hp + self.get_unit_type_definition().growth_stats.hp, 0,200)
+		self.growths.strength = clampi(self.unit_character.growths.strength + self.get_unit_type_definition().growth_stats.strength, 0,200)
+		self.growths.magic = clampi(self.unit_character.growths.magic + self.get_unit_type_definition().growth_stats.magic, 0,200)
+		self.growths.skill = clampi(self.unit_character.growths.skill + self.get_unit_type_definition().growth_stats.skill, 0,200)
+		self.growths.speed = clampi(self.unit_character.growths.speed + self.get_unit_type_definition().growth_stats.speed, 0,200)
+		self.growths.luck = clampi(self.unit_character.growths.luck + self.get_unit_type_definition().growth_stats.luck, 0,200)
+		self.growths.defense = clampi(self.unit_character.growths.defense + self.get_unit_type_definition().growth_stats.defense, 0,200)
+		self.growths.resistance = clampi(self.unit_character.growths.resistance + self.get_unit_type_definition().growth_stats.resistance, 0,200)
 	else :
-		u.growths.hp = u.get_unit_type_definition().growth_stats.hp
-		u.growths.strength = u.get_unit_type_definition().growth_stats.strength
-		u.growths.magic = u.get_unit_type_definition().growth_stats.magic
-		u.growths.skill = u.get_unit_type_definition().growth_stats.skill
-		u.growths.speed = u.get_unit_type_definition().growth_stats.speed
-		u.growths.luck = u.get_unit_type_definition().growth_stats.luck
-		u.growths.defense = u.get_unit_type_definition().growth_stats.defense
-		u.growths.resistance = u.get_unit_type_definition().growth_stats.resistance
+		self.growths.hp = self.get_unit_type_definition().growth_stats.hp
+		self.growths.strength = self.get_unit_type_definition().growth_stats.strength
+		self.growths.magic = self.get_unit_type_definition().growth_stats.magic
+		self.growths.skill = self.get_unit_type_definition().growth_stats.skill
+		self.growths.speed = self.get_unit_type_definition().growth_stats.speed
+		self.growths.luck = self.get_unit_type_definition().growth_stats.luck
+		self.growths.defense = self.get_unit_type_definition().growth_stats.defense
+		self.growths.resistance = self.get_unit_type_definition().growth_stats.resistance
 
 ##Inventory Methods
 func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
