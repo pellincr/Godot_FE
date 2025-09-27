@@ -9,6 +9,10 @@ class_name Combat
 const COMBAT_UNIT_DISPLAY = preload("res://ui/combat/combat_unit_display/combat_unit_display.tscn")
 const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_display/combat_map_entity_display.tscn")
 
+#Music
+const player_music = preload("res://resources/music/Menu_-_Noble_Kingdom.ogg")
+const enemy_music = preload("res://resources/music/Action_-_Knightly_Fighting.ogg")
+
 ##Signals
 signal register_combat(combat_node: Node)
 signal turn_advanced()
@@ -91,6 +95,8 @@ var _player_unit_alive : bool = true
 
 
 func _ready():
+	AudioManager.set_music_player_song(player_music)
+	AudioManager.play()
 	emit_signal("register_combat", self)
 	reinforcement_manager = CombatMapReinforcementManager.new()
 	await reinforcement_manager
@@ -370,6 +376,11 @@ func advance_turn(faction: int):
 	current_turn += .5
 	if is_equal_approx(current_turn, roundf(current_turn)):
 		game_ui.set_turn_count_label(current_turn)
+		AudioManager.set_music_player_song(player_music)
+		AudioManager.play()
+	else:
+		AudioManager.set_music_player_song(enemy_music)
+		AudioManager.play()
 	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
 		if check_win():
 			combat_win()

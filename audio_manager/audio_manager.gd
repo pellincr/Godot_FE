@@ -20,3 +20,10 @@ func set_music_player_song(song):
 
 func set_sound_effect_sound(sound):
 	sound_effect_player.stream = sound
+
+func set_from_position(n : float):
+	from_position = n
+
+
+func get_from_position() -> float:
+	return from_position
