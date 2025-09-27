@@ -77,10 +77,10 @@ func fill_enemy_usable_weapon_info_container():
 		weapon_type_label.add_theme_font_size_override("font_size",24)
 
 func create_enemy_weapon_type_map() -> Dictionary:
-	var enemy_map = create_enemy_map()
+	var enemies := upcoming_enemies.group
 	var usable_weapon_map := {}
-	for enemy_type_key in enemy_map:
-		var unit_type := UnitTypeDatabase.get_definition(enemy_type_key)
+	for enemy in enemies:
+		var unit_type := UnitTypeDatabase.get_definition(enemy.unit_type_key)
 		var usable_weapon_types = unit_type.usable_weapon_types
 		for usable_weapon_type in usable_weapon_types:
 			if usable_weapon_map.get(usable_weapon_type):
@@ -100,9 +100,8 @@ func create_enemy_map() -> Dictionary:
 	var enemies := upcoming_enemies.group
 	var enemy_map := {}
 	for enemy in enemies:
-		if enemy_map.find_key(enemy.unit_type_key):
-			var enemy_count = enemy_map.get(enemy.unit_type_key)
-			enemy_map[enemy.unit_type_key] = enemy_count+1
+		if enemy_map.get(enemy.unit_type_key):
+			enemy_map[enemy.unit_type_key] += 1
 		else:
 			enemy_map[enemy.unit_type_key] = 1
 	return enemy_map

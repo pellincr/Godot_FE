@@ -70,7 +70,7 @@ func get_random_rarity():
 
 # list-of-dictionaries -> null
 #purpose: to use the given list of archetypes to fill in the selector card container
-func fill_archetype_list_container(archetype_picks):
+func fill_archetype_list_container(archetype_picks : Array[armyArchetypePickDefinition]):
 	for pick:armyArchetypePickDefinition in archetype_picks:
 		var archetype_label: Label = Label.new()
 		var volume = pick.volume
@@ -78,15 +78,26 @@ func fill_archetype_list_container(archetype_picks):
 		archetype_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		archetype_list_container.add_child(archetype_label)
 		while(volume > 0):
-			add_to_archetype_icon_container() #THIS WILL BE CHANGED WHEN PICKS GET THEIR ICONS
+			add_to_archetype_icon_container(pick) #THIS WILL BE CHANGED WHEN PICKS GET THEIR ICONS
 			volume-= 1
 
 
-func add_to_archetype_icon_container():
-	var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
-	var texture = TextureRect.new()
-	texture.texture = icon
-	archetype_icon_container.add_child(texture)
+func add_to_archetype_icon_container(pick):
+	#var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+	#var texture = TextureRect.new()
+	#texture.texture = icon
+	#archetype_icon_container.add_child(texture)
+	var icon
+	if pick is armyArchetypePickWeaponDefinition:
+		icon = preload("res://unit drafting/Archetype Draft/archetype_icons/item_archetype_icon.tscn").instantiate()
+		icon.item_archetype_pick = pick
+		archetype_icon_container.add_child(icon)
+		icon.update_by_archetype_pick()
+	else:
+		icon = preload("res://unit drafting/Archetype Draft/archetype_icons/unit_archetype_icon.tscn").instantiate()
+		icon.unit_archetype_pick = pick
+		archetype_icon_container.add_child(icon)
+		icon.update_by_archetype_pick()
 
 func clear_archetype_icon_container():
 	var children = archetype_icon_container.get_children()
