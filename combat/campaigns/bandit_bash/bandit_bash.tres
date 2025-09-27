@@ -7,11 +7,11 @@
 script = ExtResource("4_mvgqg")
 name = "Bandit Bash"
 commander_draft_limit = 1
-number_of_archetypes_drafted = 3
-max_floor_number = 14
+number_of_archetypes_drafted = 5
+max_floor_number = 16
 number_of_required_combat_maps = 7
 level_pool = ExtResource("1_v5a5n")
 difficulty = 4
 length = ""
 rewards = ""
-unit_unlock_rewards = Array[String](["drengr"])
+unit_unlock_rewards = Array[String](["drengr", "night_blade"])
