@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://c5qmyhlq5gf7"]
+
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_0ran7"]
+[ext_resource type="Texture2D" uid="uid://cbgnqmyv20orf" path="res://resources/sprites/items/consumables/titan_trout.png" id="2_jfbkc"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_ptk85"]
+[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_e2yx2"]
+[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_xmnkp"]
+
+[sub_resource type="Resource" id="Resource_lydlf"]
+script = ExtResource("1_0ran7")
+hp = 7
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
+
+[resource]
+script = ExtResource("4_e2yx2")
+use_effect = 3
+power = 0
+boost_stat = SubResource("Resource_lydlf")
+status_effect = Array[ExtResource("5_xmnkp")]([])
+name = "Titan Trout"
+db_key = "titna_trout"
+equippable = false
+description = "This power fish gives the user +7 HP when consumed."
+item_type = 2
+rarity = ExtResource("3_ptk85")
+uses = 1
+max_uses = 1
+unbreakable = false
+worth = 4000
+icon = ExtResource("2_jfbkc")

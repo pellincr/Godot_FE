@@ -92,14 +92,14 @@ func _on_convoy_panel_pressed():
 func _on_item_bought_to_unit(item:ItemDefinition,unit_detailed_view):
 	var inventory :Inventory = selected_buy_location.inventory
 	if !inventory.is_full() and playerOverworldData.gold >= item.worth:
-		inventory.give_item(item)
+		inventory.give_item(item.duplicate())
 		unit_detailed_view.update_by_unit()
 		playerOverworldData.gold -= item.worth
 		gold_counter.set_gold_count(playerOverworldData.gold)
 
 func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 	if playerOverworldData.gold >= item.worth:
-		playerOverworldData.convoy.append(item)
+		playerOverworldData.convoy.append(item.duplicate())
 		playerOverworldData.gold -= item.worth
 		gold_counter.set_gold_count(playerOverworldData.gold)
 		convoy_container.reset_convoy_container()

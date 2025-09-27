@@ -120,6 +120,7 @@ class_name UnlockManager
 	"lumen" : true,
 	"mage_blade" : true,
 	"mandate" : true,
+	"minor_heal": true,
 	"pilum" : true,
 	"potion" : true,
 	"ray" : true,

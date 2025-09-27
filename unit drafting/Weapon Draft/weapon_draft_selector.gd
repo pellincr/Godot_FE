@@ -1,6 +1,6 @@
 extends Control
 
-const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff","shade","smite", "fire_spell","iron_shield","iron_dagger"]
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","minor_heal","shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
 @onready var item_name_label = $MarginContainer/VBoxContainer/ItemNameLabel
 

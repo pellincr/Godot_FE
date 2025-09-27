@@ -361,7 +361,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
 		inventory.append(ItemDatabase.items["iron_fist"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
-		inventory.append(ItemDatabase.items["heal_staff"])
+		inventory.append(ItemDatabase.items["minor_heal"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
 		inventory.append(ItemDatabase.items["shade"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):

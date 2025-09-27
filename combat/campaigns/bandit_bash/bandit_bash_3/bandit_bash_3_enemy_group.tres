@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="6_a1m6i"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="7_8ehhj"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="8_hxv73"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="8_prcn1"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="8_prcn1"]
 [ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="9_ywx08"]
 [ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="10_3khac"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="11_t8t2t"]

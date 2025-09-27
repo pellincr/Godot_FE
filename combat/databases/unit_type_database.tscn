@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=47 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -41,6 +41,7 @@
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
 [ext_resource type="Resource" uid="uid://inc8avad666v" path="res://resources/definitions/unit_types/units/skypoint/skypoint.tres" id="36_o7m45"]
+[ext_resource type="Resource" uid="uid://bdmmxsjkp8bt0" path="res://resources/definitions/unit_types/units/magewing/magewing.tres" id="37_yg62d"]
 [ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
 [ext_resource type="Resource" uid="uid://d4kej3pq2am2g" path="res://resources/definitions/unit_types/commanders/drengr/drengr.tres" id="42_885oc"]
 [ext_resource type="Resource" uid="uid://ckwa7dx3bcicr" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker.tres" id="44_n5a4x"]
@@ -68,6 +69,7 @@ unit_types = {
 "lance_cavalier": ExtResource("8_b047a"),
 "lancer": ExtResource("28_vkfaj"),
 "mage": ExtResource("32_um71q"),
+"magewing": ExtResource("37_yg62d"),
 "marauder": ExtResource("24_jj4js"),
 "monk": ExtResource("18_bpik5"),
 "penitent": ExtResource("36_lgvds"),

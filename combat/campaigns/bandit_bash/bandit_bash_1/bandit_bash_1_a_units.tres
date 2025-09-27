@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=24 format=3 uid="uid://jmyt1cheo7t7"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=22 format=3 uid="uid://jmyt1cheo7t7"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_k4dgs"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_ia5yq"]
@@ -9,9 +9,8 @@
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="7_ocm8h"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="8_x2hfg"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="9_xonk6"]
-[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="10_egyf2"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="11_2s6dk"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_opxq6"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_opxq6"]
 
 [sub_resource type="Resource" id="Resource_1mtsu"]
 script = ExtResource("1_k4dgs")
@@ -117,19 +116,6 @@ ai_type = 1
 is_boss = false
 drops_item = false
 
-[sub_resource type="Resource" id="Resource_usbib"]
-script = ExtResource("1_k4dgs")
-name = "Bandit"
-map_position = Vector2i(15, 5)
-level = 1
-level_bonus = 0
-hard_mode_leveling = false
-unit_type_key = "gunner"
-inventory = Array[ExtResource("2_ia5yq")]([ExtResource("10_egyf2")])
-ai_type = 1
-is_boss = false
-drops_item = false
-
 [sub_resource type="Resource" id="Resource_8yck1"]
 script = ExtResource("1_k4dgs")
 name = "Bandit"
@@ -158,4 +144,4 @@ drops_item = false
 
 [resource]
 script = ExtResource("12_opxq6")
-group = Array[ExtResource("1_k4dgs")]([SubResource("Resource_1mtsu"), SubResource("Resource_rurjg"), SubResource("Resource_x2qdo"), SubResource("Resource_2kmac"), SubResource("Resource_aefhn"), SubResource("Resource_7wuj3"), SubResource("Resource_4hw3s"), SubResource("Resource_t1kih"), SubResource("Resource_usbib"), SubResource("Resource_8yck1"), SubResource("Resource_rldxo")])
+group = Array[ExtResource("1_k4dgs")]([SubResource("Resource_1mtsu"), SubResource("Resource_rurjg"), SubResource("Resource_x2qdo"), SubResource("Resource_2kmac"), SubResource("Resource_aefhn"), SubResource("Resource_7wuj3"), SubResource("Resource_4hw3s"), SubResource("Resource_t1kih"), SubResource("Resource_8yck1"), SubResource("Resource_rldxo")])

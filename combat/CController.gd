@@ -399,6 +399,7 @@ func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Vec
 					response.append(tile)
 	return response
 
+## MAKE A NEW METHOD FOR TRADE
 func get_potential_support_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
 	var range_list :Array[int] = []
 	if range.is_empty():
@@ -417,7 +418,27 @@ func get_potential_support_targets(cu : CombatUnit, range: Array[int] = []) -> A
 			if(grid.get_combat_unit(tile).allegience == cu.allegience and grid.get_combat_unit(tile) != cu) :
 				response.append(grid.get_combat_unit(tile))
 	return response
-	
+
+
+func get_potential_trade_targets(cu : CombatUnit, range: Array[int] = []) -> Array[CombatUnit]:
+	var range_list :Array[int] = []
+	if range.is_empty():
+		range_list = cu.unit.inventory.get_available_support_ranges()
+	else:
+		range_list = range.duplicate()
+	var tradeable_tiles : Array[Vector2i]
+	var response : Array[CombatUnit]
+	if range_list.is_empty() : ##There is no range
+		return response
+	tradeable_tiles = get_attackable_tiles(range_list, cu)
+	print(str(tradeable_tiles))
+	_action_tiles = tradeable_tiles.duplicate()
+	for tile in tradeable_tiles :
+		if grid.get_combat_unit(tile) :
+			if(grid.get_combat_unit(tile).allegience == cu.allegience and grid.get_combat_unit(tile) != cu) :
+				response.append(grid.get_combat_unit(tile))
+	return response
+
 func get_potential_shove_targets(cu: CombatUnit) -> Array[CombatUnit]:
 	var pushable_targets : Array[CombatUnit]
 	for tile in grid.get_target_tile_neighbors(cu.move_position):
@@ -537,7 +558,7 @@ func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPT
 			action_array.push_front("Shove")
 		if interact_action_available(cu):
 			action_array.push_front("Interact")
-		if not get_potential_support_targets(cu).is_empty():
+		if not get_potential_support_targets(cu).is_empty() and cu.unit.usable_weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF): # THIS NEEDS TO BE UPDATED TO ACCOUNT FOR ALL SUPPORT WEAPONS
 			action_array.push_front("Support")
 		if not get_potential_targets(cu).is_empty():
 			action_array.push_front("Attack")
@@ -1149,7 +1170,7 @@ func fsm_support_action_inventory_process(delta):
 				combat.game_ui.destory_active_ui_node()
 				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
-				combat.game_ui.show_unit_status()
+				combat.game_ui.display_unit_status()
 				update_current_tile(move_tile)
 				revert_player_state()
 
@@ -1218,7 +1239,7 @@ func fsm_support_action_targetting(delta):
 				update_current_tile(target_tile)
 				camera.set_focus_target(grid.map_to_position(target_tile))
 				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
-				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+				combat.game_ui.update_support_action_exchange_preview(support_exchange_info, true)
 		if Input.is_action_just_pressed("ui_right"):
 			if targetting_resource._available_targets_with_method.size() > 1:
 				targetting_resource.next_target()
@@ -1226,7 +1247,7 @@ func fsm_support_action_targetting(delta):
 				update_current_tile(target_tile)
 				camera.set_focus_target(grid.map_to_position(target_tile))
 				support_exchange_info = combat.combatExchange.generate_support_exchange_data(combat.get_current_combatant(), grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
-				combat.game_ui.update_weapon_attack_action_combat_exchange_preview(exchange_info, true)
+				combat.game_ui.update_support_action_exchange_preview(support_exchange_info, true)
 
 func fsm_support_action_inventory_confirm_new_hover(item:ItemDefinition):
 	_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)

@@ -173,7 +173,7 @@ func set_player_tutorial_party():
 		TutorialPanel.TUTORIAL.SUPPORT_ACTIONS:
 			pass
 		TutorialPanel.TUTORIAL.STAFFS:
-			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["heal_staff"]], "Staff", 2)
+			var healer = Unit.create_generic_unit("healer",[ItemDatabase.items["minor_heal"]], "Staff", 2)
 			playerOverworldData.selected_party.append(healer)
 			var commander = Unit.create_generic_unit("iron_viper",[ItemDatabase.commander_weapons["vipers_bite"]],"Commander",2)
 			playerOverworldData.selected_party.append(commander)

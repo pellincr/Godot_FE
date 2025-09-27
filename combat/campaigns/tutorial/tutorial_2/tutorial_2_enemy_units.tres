@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://b6l1kx4yenl1j" path="res://resources/definitions/items/weapons/lance/slim_lance.tres" id="11_n2em1"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="12_x2xus"]
 [ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="13_nr20q"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="14_1cux6"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="14_1cux6"]
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="14_fwtlf"]
 
 [sub_resource type="Resource" id="Resource_iqjgc"]

@@ -35,7 +35,7 @@ func populate_reinforcement_unit_data(input_reinforcement_unit_data: Array[Comba
 	if input_reinforcement_unit_data:
 		for group in input_reinforcement_unit_data: 
 			for turn in group.turns:
-				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, -1, group.zone_id)
+				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, turn, group.zone_id)
 				if reinforcement_unit_data.has(key):
 						reinforcement_unit_data[key].append_array(group.units)
 				else : 

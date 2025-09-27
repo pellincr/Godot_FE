@@ -191,7 +191,11 @@ func add_debris_entity(mded : MapDebrisEntityDefinition, hp:int, def:int, res: i
 	emit_signal("entity_added", combat_entity)
 
 func disable_entity_group_by_entity(combat_entity : CombatEntity):
-	await disable_entity_group_by_index(combat_entity.group)
+	var entity_group = combat_entity.group
+	if entity_groups.has(entity_group): # check if the entity is part of group, if not we just disable the ent itself
+		await disable_entity_group_by_index(combat_entity.group)
+	else:
+		await disable_entity(combat_entity)
 
 func disable_entity_group_by_index(index: int):
 	if entity_groups.has(index):

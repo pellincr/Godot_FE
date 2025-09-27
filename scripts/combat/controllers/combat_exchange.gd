@@ -109,9 +109,9 @@ func hit_missed(dodging_unt: CombatUnit):
 	await DamageNumbers.complete
 
 func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):
-	if player_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+	if player_unit.get_equipped() != null and player_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
 		await heal_unit(player_unit, 3)
-	if enemy_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+	if enemy_unit.get_equipped() != null and enemy_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
 		await heal_unit(enemy_unit, 3)
 	if ce_display != null:
 		ce_display.queue_free()
