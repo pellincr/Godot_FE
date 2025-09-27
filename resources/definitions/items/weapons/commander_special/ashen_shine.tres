@@ -1,7 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bu2mr2rk4kr7h"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
-[ext_resource type="Texture2D" uid="uid://ct6y08p6cq2lv" path="res://resources/sprites/items/weapons/commander_specific/ashen_shine.png" id="2_8fjv5"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_vkdbr"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cppig"]
 
@@ -17,6 +16,9 @@ defense = 0
 resistance = 0
 movement = 0
 constitution = 0
+
+[sub_resource type="Resource" id="Resource_1pj8c"]
+metadata/__load_path__ = "res://resources/sprites/items/weapons/commander_specific/ashen_shine.png"
 
 [resource]
 script = ExtResource("4_cppig")
@@ -50,4 +52,4 @@ uses = 6
 max_uses = 6
 unbreakable = false
 worth = 0
-icon = ExtResource("2_8fjv5")
+icon = SubResource("Resource_1pj8c")

@@ -3,6 +3,7 @@ extends PanelContainer
 @onready var enemy_unit_type_info_container: VBoxContainer = $MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUnitTypeScrollContainer/EnemyUnitTypeInfoContainer
 @onready var enemy_unit_type_header_container: HBoxContainer = $MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUnitTypeScrollContainer/EnemyUnitTypeInfoContainer/EnemyUnitTypeHeaderContainer
 @onready var enemy_usable_weapon_info_container: VBoxContainer = $MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUsableWeaponScrollContainer/EnemyUsableWeaponInfoContainer
+@onready var yes_button: Button = $MarginContainer/ConfirmSubContainer/YesButton
 
 
 @onready var entity_info_container: VBoxContainer = $MarginContainer/MainContainer/EntityInfoContainer
@@ -94,6 +95,7 @@ func create_enemy_weapon_type_map() -> Dictionary:
 func fill_enitiy_info_container():
 	create_chest_info_label()
 	create_door_info_label()
+	create_search_entity_weapon_labels()
 
 
 func create_enemy_map() -> Dictionary:
@@ -112,23 +114,50 @@ func get_total_map_values(map:Dictionary):
 		accum += map[item]
 	return accum
 
-func create_chest_info_label():
-	var chests := 0
+
+
+func create_entity_info_label(entity_array, entity_name):
+	var entity_count := 0
 	if upcoming_entities:
-		chests = upcoming_entities.chests.size()
+		entity_count = entity_array.size()
 	var label := Label.new()
-	label.text = "Chests: " + str(chests)
+	label.text = entity_name + str(entity_count)
 	entity_info_container.add_child(label)
 	label.add_theme_font_size_override("font_size",24)
 
+func create_chest_info_label():
+	create_entity_info_label(upcoming_entities.chests,"Chests: ")
+
 func create_door_info_label():
-	var doors := 0
-	if upcoming_entities:
-		doors = upcoming_entities.doors.size()
+	create_entity_info_label(upcoming_entities.doors, "Doors: ")
+
+func create_search_entity_info_label(entity_name,entity_count):
 	var label := Label.new()
-	label.text = "Doors: " + str(doors)
+	label.text = entity_name + str(entity_count)
 	entity_info_container.add_child(label)
 	label.add_theme_font_size_override("font_size",24)
+
+func create_search_entity_weapon_labels():
+	if upcoming_entities:
+		var search_entities := upcoming_entities.searchs
+		var houses := 0
+		var food_shelves := 0
+		var book_shelves := 0
+		var weapon_racks := 0
+		for entity:MapSearchEntityDefinition in search_entities:
+			match entity.type:
+				MapSearchEntityDefinition.TYPE.HOUSE:
+					houses += 1
+				MapSearchEntityDefinition.TYPE.FOOD_SHELF:
+					food_shelves += 1
+				MapSearchEntityDefinition.TYPE.BOOK_SHELF:
+					book_shelves += 1
+				MapSearchEntityDefinition.TYPE.WEAPON_RACK:
+					weapon_racks += 1
+		create_search_entity_info_label("Houses: ", houses)
+		create_search_entity_info_label("Food Shelves: ",food_shelves)
+		create_search_entity_info_label("Book Shelves: ",book_shelves)
+		create_search_entity_info_label("Weapon Racks: ",weapon_racks)
 
 func usable_weapon_type_to_string(weapon_type : ItemConstants.WEAPON_TYPE):
 	var str = ""
