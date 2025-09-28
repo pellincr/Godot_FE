@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_0ran7"]
 [ext_resource type="Texture2D" uid="uid://cbgnqmyv20orf" path="res://resources/sprites/items/consumables/titan_trout.png" id="2_jfbkc"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_ptk85"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_e2yx2"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_e2yx2"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_xmnkp"]
 
 [sub_resource type="Resource" id="Resource_lydlf"]

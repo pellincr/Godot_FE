@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2k45s1ybrv47" path="res://resources/sprites/items/treasure/wine.png" id="1_6tgta"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_5fvjy"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_ebuoa"]
 
 [resource]

@@ -122,10 +122,10 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 		emit_signal("gain_experience", player_unit, 1)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
-		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_hit(enemy_unit.unit))
+		emit_signal("gain_experience", player_unit, calculate_experience_gain_hit(player_unit, enemy_unit))
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
-		emit_signal("gain_experience", player_unit, player_unit.unit.calculate_experience_gain_kill(enemy_unit.unit))
+		emit_signal("gain_experience", player_unit, calculate_experience_gain_kill(player_unit, enemy_unit))
 		await unit_gain_experience_finished
 		if enemy_unit.drops_item:
 			var dropped_items : Array[ItemDefinition]
@@ -519,7 +519,7 @@ func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALIN
 #
 func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchange_data: UnitCombatExchangeData):
 	var player_unit: CombatUnit
-	var enemy_unit: CombatUnit
+	var enemy_unit: CombatUnit 
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		player_unit = attacker
@@ -527,6 +527,7 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	else : 
 		player_unit = defender
 		enemy_unit = attacker
+	var enemy_unit_starting_hp : int = enemy_unit.current_hp
 	# Create the Display
 	ce_display = combat_exchange_display.instantiate()
 	await ce_display
@@ -555,7 +556,10 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 					return
 	# Both units have survived the exchange
-	await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+	if enemy_unit.current_hp < enemy_unit_starting_hp:
+		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+	else :
+		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.NO_DAMAGE)
 		#get the allegience of the units
 
 #
@@ -583,3 +587,36 @@ func _on_entity_destroyed_processing_completed():
 	
 func _on_give_item_complete():
 	give_items_complete.emit()
+
+
+func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
+	var experience_gain = 0
+	var player_unit_value = 0
+	var enemy_unit_value = 0
+	if(player_unit.unit.get_unit_type_definition().promoted):
+		player_unit_value = 20
+	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+		enemy_unit_value = 20
+	
+	var unit_value_difference = ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value))
+	#Experience Formula
+	experience_gain = clamp(((2* unit_value_difference) +31)  / 3, 1, 25)
+	#print ("calculate_experience_gain_hit = " + str(experience_gain))
+	return experience_gain
+
+func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
+	var experience_gain = 0
+	var player_unit_value = 0
+	var enemy_unit_value = 0
+	var base_experience_gain = calculate_experience_gain_hit(player_unit, enemy_unit)
+	var boss_bonus = 0
+
+	if(player_unit.unit.get_unit_type_definition().promoted):
+		player_unit_value = 60
+	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+		enemy_unit_value = 60
+	if enemy_unit.is_boss:
+		boss_bonus = 40
+	#Experience Formula
+	experience_gain = clampi(base_experience_gain + ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value)) + 20 + boss_bonus, 2, 100)
+	return experience_gain

@@ -126,10 +126,12 @@ func create_entity_info_label(entity_array, entity_name):
 	label.add_theme_font_size_override("font_size",24)
 
 func create_chest_info_label():
-	create_entity_info_label(upcoming_entities.chests,"Chests: ")
+	if upcoming_entities:
+		create_entity_info_label(upcoming_entities.chests,"Chests: ")
 
 func create_door_info_label():
-	create_entity_info_label(upcoming_entities.doors, "Doors: ")
+	if upcoming_entities:
+		create_entity_info_label(upcoming_entities.doors, "Doors: ")
 
 func create_search_entity_info_label(entity_name,entity_count):
 	var label := Label.new()

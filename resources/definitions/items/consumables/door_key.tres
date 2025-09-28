@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b1hja0mir6isq" path="res://resources/sprites/items/consumables/door_key.png" id="1_vvlwd"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_kpm0h"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_fbdj1"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_fbdj1"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_rfj82"]
 
 [resource]

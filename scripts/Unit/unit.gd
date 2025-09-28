@@ -308,40 +308,6 @@ func calculate_attack(weapon: WeaponDefinition = null) -> int:
 				attack_value = stats.magic  + inventory.get_equipped_weapon().damage
 	return attack_value
 
-func calculate_experience_gain_hit(hit_unit:Unit) -> int:
-	print ("Entered calculate_experience_gain_hit")
-	var experience_gain = 0
-	var target_unit_value = 0
-	var my_unit_value = 0
-	var hit_unit_type = UnitTypeDatabase.get_definition(hit_unit.unit_type_key)
-	if(hit_unit_type.promoted) :
-		target_unit_value = 20
-	var self_unit_type = UnitTypeDatabase.get_definition(self.unit_type_key)
-	if (self_unit_type.promoted) :
-		my_unit_value = 20
-	experience_gain = clamp((((hit_unit.level + target_unit_value) - (level + my_unit_value)*1.25) + 31)  / get_unit_type_definition().tier, 0, 100)
-	print ("calculate_experience_gain_hit = " + str(experience_gain))
-	return experience_gain
-
-func calculate_experience_gain_kill(killed_unit:Unit) -> int:
-	print ("Entered calculate_experience_gain_kill")
-	var experience_gain = 0
-	var target_unit_value = 0
-	var my_unit_value = 0
-	experience_gain = calculate_experience_gain_hit(killed_unit)
-	
-	var killed_unit_type = UnitTypeDatabase.get_definition(killed_unit.unit_type_key)
-	if(killed_unit_type.promoted) :
-		target_unit_value = 60
-	
-	var self_unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	if (self_unit_type.promoted) :
-		my_unit_value = 60
-	experience_gain = clampi(experience_gain + (((killed_unit.level + target_unit_value) - (level + my_unit_value)*1.25)+ killed_unit.xp_worth + 20), 0, 100)
-		#(killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
-	print ("calculate_experience_gain_kill = " + str(experience_gain))
-	return experience_gain
-
 func heal(value: int) :
 	self.hp  =  clamp(self.hp + value, 0, self.stats.hp)
 
