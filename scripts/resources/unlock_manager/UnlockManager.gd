@@ -28,7 +28,7 @@ class_name UnlockManager
 	"destroyer" : false,
 	"drengr" : false,
 	"iron_viper" : true,
-	"line_breaker" : false,
+	"line_breaker" : true,
 	"mage_knight" : false,
 	"war_maiden" : false,
 	"weapon_master": false
