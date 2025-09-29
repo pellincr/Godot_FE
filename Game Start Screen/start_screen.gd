@@ -57,7 +57,7 @@ func _ready():
 		set_delete_visibility(save_3_delete_button,true)
 	var menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 	AudioManager.set_music_player_song(menu_music)
-	AudioManager.play()
+	AudioManager.play_music()
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)

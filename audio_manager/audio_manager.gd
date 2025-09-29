@@ -9,7 +9,7 @@ extends Node
 
 var from_position := 0.0
 
-func play(from_position:float = 0.0, skip_restart : bool = false) -> void:
+func play_music(from_position:float = 0.0, skip_restart : bool = false) -> void:
 	#active_music_stream = clips.get_node(audio_name)
 	if skip_restart:
 		return
@@ -21,9 +21,6 @@ func set_music_player_song(song):
 func set_sound_effect_sound(sound):
 	sound_effect_player.stream = sound
 
-func set_from_position(n : float):
-	from_position = n
 
-
-func get_from_position() -> float:
-	return from_position
+func get_music_stream():
+	return music_player.stream

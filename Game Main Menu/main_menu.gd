@@ -10,12 +10,17 @@ const ALMANAC_SCENE = preload("res://almanac/almanac.tscn")
 const TUTORIAL_PAGE_SCENE = preload("res://tutorials/tutorial_page.tscn")
 const HALL_OF_HEROES_SCENE = preload("res://hall_of_heroes/hall_of_heroes.tscn")
 
+const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
+
 @onready var new_game_button = $VBoxContainer/NewGameButton
 
 @onready var continue_game_button = $VBoxContainer/ContinueGameButton
 
 
 func _ready():
+	if AudioManager.get_music_stream() != menu_music:
+		AudioManager.set_music_player_song(menu_music)
+		AudioManager.play_music()
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()

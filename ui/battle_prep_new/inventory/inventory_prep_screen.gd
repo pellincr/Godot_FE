@@ -67,6 +67,7 @@ func update_by_state():
 			unit_detailed_view_simple.send_item_to_convoy.connect(_on_send_item_to_convoy.bind(convoy))
 			convoy.set_po_data(playerOverworldData)
 			add_child(convoy)
+			convoy.size_flags_horizontal = Control.SIZE_EXPAND
 			convoy.fill_convoy_scroll_container()
 			convoy.item_panel_pressed.connect(_on_item_panel_pressed.bind(unit_detailed_view_simple,convoy))
 			if playerOverworldData.convoy.size() == 0:

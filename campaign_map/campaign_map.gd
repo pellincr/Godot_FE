@@ -22,6 +22,7 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var visuals :Node2D = $Visuals
 @onready var camera_2d : Camera2D = $Camera2D
 
+const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 
 #var map_data:Array[Array]
 #var floors_climbed:int
@@ -30,6 +31,9 @@ var camera_edge_y : float
 
 
 func _ready() -> void:
+	if AudioManager.get_music_stream() != menu_music:
+		AudioManager.set_music_player_song(menu_music)
+		AudioManager.play_music()
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
