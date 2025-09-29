@@ -19,6 +19,7 @@ signal item_bought(item)
 @onready var dagger_tab_icon: PanelContainer = $HBoxContainer/VBoxContainer/TabScrollContainer/HBoxContainer/DaggerTabIcon
 @onready var banner_tab_icon: PanelContainer = $HBoxContainer/VBoxContainer/TabScrollContainer/HBoxContainer/BannerTabIcon
 
+#var tab_list = [sword_tab_icon,axe_tab_icon,lance_tab_icon,bow_tab_icon,fist_tab_icon,staff_tab_icon,dark_tab_icon,light_tab_icon,nature_tab_icon,animal_tab_icon,monster_tab_icon,shield_tab_icon,dagger_tab_icon,banner_tab_icon,item_tab_icon]
 
 @onready var main_shop_inventory_container: VBoxContainer = $HBoxContainer/VBoxContainer/MarginContainer/ShopScrollContainer/MainShopInventoryContainer
 @onready var main_container = $HBoxContainer
@@ -96,7 +97,11 @@ func _ready():
 	item_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 	fill_current_tab_view()
 
-
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("right_bumper"):
+		next_shop_screen()
+	if Input.is_action_just_pressed("left_bumper"):
+		previous_shop_screen()
 
 func fill_current_tab_view():
 	var items_list
@@ -183,3 +188,137 @@ func on_item_panel_focused(item):
 
 func _on_item_bought(item):
 	item_bought.emit(item)
+
+func next_shop_screen():
+	if current_tab_theme == ItemConstants.ITEM_TYPE.WEAPON:
+		match current_tab_subtheme:
+			ItemConstants.WEAPON_TYPE.SWORD:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.AXE
+				update_shop_items()
+				axe_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.AXE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.LANCE
+				update_shop_items()
+				lance_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.LANCE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.BOW
+				update_shop_items()
+				bow_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.BOW:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.FIST
+				update_shop_items()
+				fist_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.FIST:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.STAFF
+				update_shop_items()
+				staff_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.STAFF:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.DARK
+				update_shop_items()
+				dark_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.DARK:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.LIGHT
+				update_shop_items()
+				light_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.LIGHT:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.NATURE
+				update_shop_items()
+				nature_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.NATURE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.ANIMAL
+				update_shop_items()
+				animal_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.ANIMAL:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.MONSTER
+				update_shop_items()
+				monster_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.MONSTER:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.SHIELD
+				update_shop_items()
+				shield_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.SHIELD:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.DAGGER
+				update_shop_items()
+				dagger_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.DAGGER:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.BANNER
+				update_shop_items()
+				banner_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.BANNER:
+				current_tab_theme = ItemConstants.ITEM_TYPE.USEABLE_ITEM
+				current_tab_subtheme = null
+				update_shop_items()
+				item_tab_icon.on_tab_view = true
+				
+	else:
+		current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
+		current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
+		update_shop_items()
+		sword_tab_icon.on_tab_view = true
+
+func previous_shop_screen():
+	if current_tab_theme == ItemConstants.ITEM_TYPE.WEAPON:
+		match current_tab_subtheme:
+			ItemConstants.WEAPON_TYPE.SWORD:
+				current_tab_theme = ItemConstants.ITEM_TYPE.USEABLE_ITEM
+				current_tab_subtheme = null
+				update_shop_items()
+				item_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.AXE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
+				update_shop_items()
+				sword_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.LANCE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.AXE
+				update_shop_items()
+				axe_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.BOW:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.LANCE
+				update_shop_items()
+				lance_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.FIST:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.BOW
+				update_shop_items()
+				bow_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.STAFF:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.FIST
+				update_shop_items()
+				fist_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.DARK:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.STAFF
+				update_shop_items()
+				staff_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.LIGHT:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.DARK
+				update_shop_items()
+				dark_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.NATURE:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.LIGHT
+				update_shop_items()
+				light_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.ANIMAL:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.NATURE
+				update_shop_items()
+				nature_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.MONSTER:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.ANIMAL
+				update_shop_items()
+				animal_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.SHIELD:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.MONSTER
+				update_shop_items()
+				monster_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.DAGGER:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.SHIELD
+				update_shop_items()
+				shield_tab_icon.on_tab_view = true
+			ItemConstants.WEAPON_TYPE.BANNER:
+				current_tab_subtheme = ItemConstants.WEAPON_TYPE.DAGGER
+				update_shop_items()
+				dagger_tab_icon.on_tab_view = true
+				
+	else:
+		current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
+		current_tab_subtheme = ItemConstants.WEAPON_TYPE.BANNER
+		update_shop_items()
+		banner_tab_icon.on_tab_view = true

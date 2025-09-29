@@ -62,10 +62,12 @@ func _on_gui_input(event):
 		unit_selected.emit(unit)
 	if event.is_action_pressed("right_bumper"):
 		#show_next_screen()
-		next_screen.emit()
+		if unit is Unit:
+			next_screen.emit()
 	if event.is_action_pressed("left_bumper"):
 		#show_previous_screen()
-		previous_screen.emit()
+		if unit is Unit:
+			previous_screen.emit()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
