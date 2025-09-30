@@ -35,6 +35,9 @@ func update_by_event():
 
 func _on_event_option_selected(event_option):
 	event_option_selected.emit(event_option)
+	event_option_button_1.focus_mode = FOCUS_NONE
+	event_option_button_2.focus_mode = FOCUS_NONE
+	event_option_button_3.focus_mode = FOCUS_NONE
 
 func _leave_selected():
 	leave_selected.emit()
