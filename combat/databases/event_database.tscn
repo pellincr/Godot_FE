@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cu41o4d1sio4j"]
 
-[ext_resource type="Script" path="res://combat/databases/event_database.gd" id="1_2voe4"]
+[ext_resource type="Script" uid="uid://dfivis6c54qeg" path="res://combat/databases/event_database.gd" id="1_2voe4"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
 [ext_resource type="Resource" uid="uid://40pjwy6iixer" path="res://resources/definitions/events/bandit_tollgate.tres" id="5_0mph2"]
 [ext_resource type="Resource" uid="uid://dl1y82k76ck63" path="res://resources/definitions/events/grove_trial.tres" id="6_oc31k"]

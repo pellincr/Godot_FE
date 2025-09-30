@@ -7,16 +7,19 @@
 script = ExtResource("1_gdb3o")
 description = "Meditate  : two random units +2 Resistance"
 effect = 8
+gold_change = 0
 
 [sub_resource type="Resource" id="Resource_37l2w"]
 script = ExtResource("1_gdb3o")
 description = "Cut a path : 1 random Rare Weapon"
 effect = 9
+gold_change = 0
 
 [sub_resource type="Resource" id="Resource_v8s5k"]
 script = ExtResource("1_gdb3o")
 description = "Rush Through : two random units -3 max hp + 1 speed"
 effect = 10
+gold_change = 0
 
 [resource]
 script = ExtResource("3_iv5nk")

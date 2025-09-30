@@ -51,6 +51,13 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
 				else:
 					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
+					var backfire_chance : int = 31 - attacker.get_luck()
+					var roll = randi_range(0,100)
+					if roll <= backfire_chance: 
+						await do_damage(attacker,damage_dealt, true)
+					else: 
+						await do_damage(target,damage_dealt, true)
 				await do_damage(target,damage_dealt, true)
 			else : 
 				#emit generic damage
@@ -370,10 +377,17 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 
 func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
 	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
-	var net_turn_count = int(net_attack_speed / floor(4))
-	if net_turn_count > 0:
+	var additional_turn_threshold = 4
+	var net_turn_count = 0
+	var _nas = abs(net_attack_speed)
+	while _nas - additional_turn_threshold > 0:
+		net_turn_count = net_turn_count + 1
+		_nas = _nas - additional_turn_threshold
+		additional_turn_threshold = additional_turn_threshold + 2
+	#var net_turn_count = int(net_attack_speed / floor(4))
+	if net_attack_speed > 0:
 		attacker_turns = attacker_turns + abs(net_turn_count)
-	elif net_turn_count < 0: 
+	elif net_attack_speed < 0: 
 		defender_turns = defender_turns + abs(net_turn_count)
 	return Vector2i(attacker_turns, defender_turns)
 

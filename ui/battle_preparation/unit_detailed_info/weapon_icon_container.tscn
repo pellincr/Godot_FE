@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvigt8uh757tm"]
+[gd_scene load_steps=21 format=3 uid="uid://cvigt8uh757tm"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_41dgy"]
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="2_b5bnw"]
-[ext_resource type="Script" uid="uid://b811xhh6sqeo" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.gd" id="2_vgsq0"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.gd" id="2_vgsq0"]
 [ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="3_cmj5p"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="4_mee5p"]
 [ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="5_wjx4i"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="12_5ep1w"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="13_2ni6d"]
 [ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="14_0wlcx"]
+[ext_resource type="Texture2D" uid="uid://bvcesanalw154" path="res://resources/sprites/icons/item_icons/consumable_icon.png" id="16_ascqk"]
+[ext_resource type="Texture2D" uid="uid://d1ac55ixfm31n" path="res://resources/sprites/icons/item_icons/equipment_icon2.png" id="17_x7qrh"]
+[ext_resource type="Texture2D" uid="uid://dmiyk53kpvbxu" path="res://resources/sprites/icons/item_icons/treasure_icon.png" id="18_jn510"]
 
 [sub_resource type="Theme" id="Theme_0gbyd"]
 default_font = ExtResource("1_41dgy")
@@ -124,4 +127,25 @@ visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("14_0wlcx")
+expand_mode = 2
+
+[node name="ConsumableIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("16_ascqk")
+expand_mode = 2
+
+[node name="EquipmentIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("17_x7qrh")
+expand_mode = 2
+
+[node name="TreasureIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("18_jn510")
 expand_mode = 2

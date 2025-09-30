@@ -7,16 +7,19 @@
 script = ExtResource("1_0o5ib")
 description = "Drink the Goblet : random unit +1 str, mag - 4 luck"
 effect = 11
+gold_change = 0
 
 [sub_resource type="Resource" id="Resource_kqwmr"]
 script = ExtResource("1_0o5ib")
 description = "Spill the Goblet : +1 luck for army, You feel a presence watching you"
 effect = 12
+gold_change = 0
 
 [sub_resource type="Resource" id="Resource_3jgpx"]
 script = ExtResource("1_0o5ib")
 description = "Flee"
 effect = 4
+gold_change = 0
 
 [resource]
 script = ExtResource("3_y8fe4")

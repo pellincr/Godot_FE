@@ -47,6 +47,7 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false, drops_i
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
 	instance.drops_item = drops_item
+	instance.update_inventory_stats()
 	return instance
 
 func set_map_terrain(ter : Terrain) :
@@ -96,6 +97,9 @@ func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)
 		stats.populate_weapon_stats(self, wpn)
+
+func update_inventory_stats():
+	stats.populate_inventory_stats(self)
 
 func un_equip_current_weapon():
 	if get_equipped != null:

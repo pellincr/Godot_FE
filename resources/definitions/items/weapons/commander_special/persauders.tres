@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://gui2f0se83ub"]
+
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_ixg20"]
+[ext_resource type="Texture2D" uid="uid://c6fxujt7hj730" path="res://resources/sprites/items/weapons/commander_specific/persuaders.png" id="2_ifu23"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_60jq6"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_4pi35"]
+
+[sub_resource type="Resource" id="Resource_4auxk"]
+script = ExtResource("1_ixg20")
+hp = 0
+strength = 2
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
+
+[resource]
+script = ExtResource("4_4pi35")
+weapon_type = 5
+alignment = 0
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+item_damage_type = 0
+item_scaling_type = 0
+item_scaling_multiplier = 1.2
+item_target_faction = Array[int]([0])
+required_mastery = 0
+attack_range = Array[int]([1])
+damage = 3
+hit = 100
+critical_chance = 15
+weight = 10
+critical_multiplier = 4.0
+attacks_per_combat_turn = 2
+bonus_stat = SubResource("Resource_4auxk")
+weapon_effectiveness = Array[int]([])
+status_ailment = 0
+specials = Array[int]([])
+name = "Persauders"
+db_key = "persauders"
+equippable = true
+description = "Heavy gauntlets of tempered steel that make any squeal."
+item_type = 0
+rarity = ExtResource("3_60jq6")
+uses = 6
+max_uses = 6
+unbreakable = false
+worth = 0
+icon = ExtResource("2_ifu23")

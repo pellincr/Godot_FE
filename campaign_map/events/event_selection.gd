@@ -38,7 +38,34 @@ func transition_out_animation():
 
 
 func _on_event_option_selected(event_option: EventOption):
+	playerOverworldData.gold = playerOverworldData.gold + event_option.gold_change
 	match event_option.effect:
+		EventOption.EVENT_EFFECT.CHANGE_RANDOM_UNIT_STATS:
+			var target_unit : Unit = playerOverworldData.total_party.pick_random()
+			if event_option.unit_stat_change != null:
+				target_unit.unit_character.update_stats(event_option.unit_stat_change)
+				await create_event_popup(target_unit)
+			if event_option.unit_growth_change != null:
+				target_unit.unit_character.update_growths(event_option.unit_growth_change)
+				await create_event_popup(target_unit)
+		EventOption.EVENT_EFFECT.CHANGE_TARGET_UNIT_STATS:
+			##Create the unit picker ui
+			pass
+		EventOption.EVENT_EFFECT.CHANGE_ALL_UNIT_STATS:
+			for target_unit : Unit in playerOverworldData.total_party:
+				if event_option.unit_stat_change != null:
+					target_unit.unit_character.update_stats(event_option.unit_stat_change)
+					await create_event_popup(target_unit)
+				if event_option.unit_growth_change != null:
+					target_unit.unit_character.update_growths(event_option.unit_growth_change)
+					await create_event_popup(target_unit)
+		EventOption.EVENT_EFFECT.CHANGE_COMMANDER_UNIT_STATS:
+			
+			pass
+		EventOption.EVENT_EFFECT.CHANGE_RANDOM_WEAPON_STATS:
+			## Create the weapon list
+			pass
+		##OLD
 		EventOption.EVENT_EFFECT.STRENGTH_ALL:
 			#Give All Units +1 Strength
 			for unit : Unit in playerOverworldData.total_party:

@@ -9,6 +9,7 @@
 script = ExtResource("3_lh5od")
 description = "Flee"
 effect = 4
+gold_change = 0
 
 [resource]
 script = ExtResource("3_dmgr5")

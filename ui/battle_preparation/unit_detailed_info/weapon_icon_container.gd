@@ -15,7 +15,9 @@ extends VBoxContainer
 @onready var light_icon = $WeaponTypeContainer/LightIcon
 @onready var dark_icon = $WeaponTypeContainer/DarkIcon
 @onready var animal_icon = $WeaponTypeContainer/AnimalIcon
-
+@onready var consumable_icon: TextureRect = $WeaponTypeContainer/ConsumableIcon
+@onready var equipment_icon: TextureRect = $WeaponTypeContainer/EquipmentIcon
+@onready var treasure_icon: TextureRect = $WeaponTypeContainer/TreasureIcon
 
 var unit : Unit
 
@@ -25,6 +27,7 @@ func set_header_visibility(vis):
 	weapons_header_label.visible = vis
 
 func set_icon_visibility_unit():
+	reset_icon_visibility()
 	var usable_weapons = unit.usable_weapon_types
 	var traits = unit.traits
 	#Weapons
@@ -57,6 +60,7 @@ func set_icon_visibility_unit():
 
 
 func set_icon_visibility_item():
+	reset_icon_visibility()
 	if item is WeaponDefinition:
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:
 			sword_icon.visible = true
@@ -84,7 +88,13 @@ func set_icon_visibility_item():
 			dark_icon.visible = true
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.ANIMAL:
 			animal_icon.visible = true
-
+	if item.item_type == ItemDefinition.ITEM_TYPE.USEABLE_ITEM:
+		consumable_icon.visible = true
+	if item.item_type == ItemDefinition.ITEM_TYPE.EQUIPMENT:
+		equipment_icon.visible = true
+	if item.item_type == ItemDefinition.ITEM_TYPE.TREASURE:
+		treasure_icon.visible = true
+		
 func set_magic_triangle_icon_visibilty():
 	if item is WeaponDefinition:
 		match item.magic_weapon_triangle_type:
@@ -126,3 +136,21 @@ func set_mundane_triangle_icon_visibility():
 					pass
 				else:
 					lance_icon.visible = true
+
+func reset_icon_visibility():
+	sword_icon.visible = false
+	axe_icon.visible = false
+	lance_icon.visible = false
+	shield_icon.visible = false
+	dagger_icon.visible = false
+	fist_icon.visible = false
+	bow_icon.visible = false
+	banner_icon.visible = false
+	staff_icon.visible = false
+	nature_icon.visible = false
+	light_icon.visible = false
+	dark_icon.visible = false
+	animal_icon.visible = false
+	consumable_icon.visible = false
+	equipment_icon.visible = false
+	treasure_icon.visible = false

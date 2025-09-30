@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
 [ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_vi1f8"]
 
-
 [sub_resource type="Theme" id="Theme_eqxhd"]
 default_font = ExtResource("1_uy2uf")
 

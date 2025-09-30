@@ -68,7 +68,9 @@ func update():
 					self.texture = SWORD_ICON
 				itemConstants.WEAPON_TYPE.NONE:
 					self.texture = null
-		itemConstants.ITEM_TYPE.EQUIPMENT_LOOT:
+		itemConstants.ITEM_TYPE.EQUIPMENT:
+			self.texture = null
+		itemConstants.ITEM_TYPE.TREASURE:
 			self.texture = null
 		itemConstants.ITEM_TYPE.USEABLE_ITEM:
 			self.texture = null

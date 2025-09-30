@@ -49,7 +49,7 @@ func load_entities():
 					entity_group_index += 1
 				elif target_debris.type == MapDebrisEntityDefinition.TYPE.STONE_1:
 					add_debris_entity(target_debris, mapEntityData.stone_debris_hp, mapEntityData.default_stone_debris_defense, mapEntityData.default_stone_debris_resistance, entity_group_index)
-				entity_group_index += 1
+					entity_group_index += 1
 
 func add_entity(cme:mapEntityDefinition, group_index: int):
 	#create the combatEntity
@@ -97,7 +97,7 @@ func add_search_entity(msed : MapSearchEntityDefinition, group_index:int):
 	#create the combatEntity
 	var combat_entity : CombatEntity = CombatEntity.new()
 	combat_entity.populate_search(msed)
-	#combat_entity.set_entity_group(group_index)
+	combat_entity.set_entity_group(group_index)
 	#create the display
 	var cme_display : CombatEntityDisplay = COMBAT_MAP_ENTITY_DISPLAY.instantiate()
 	var map_view = msed.get_active_map_view()

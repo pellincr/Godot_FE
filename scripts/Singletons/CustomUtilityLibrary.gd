@@ -45,6 +45,28 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 	result.constitution = a.constitution + b.constitution
 	return result
 
+func add_combat_unit_stat(a : CombatUnitStat, b : CombatUnitStat) -> CombatUnitStat:
+	var result : CombatUnitStat = CombatUnitStat.new()
+	result.hp = a.hp + b.hp
+	result.strength = a.strength + b.strength
+	result.magic = a.magic + b.magic
+	result.skill = a.skill + b.skill
+	result.speed = a.speed + b.speed
+	result.luck = a.luck + b.luck
+	result.defense = a.defense + b.defense
+	result.resistance = a.resistance + b.resistance
+	result.movement = a.movement + b.movement
+	result.constitution = a.constitution + b.constitution
+	result.current_hp = a.current_hp + b.current_hp
+	result.damage = a.damage + b.damage
+	result.hit = a.hit + b.hit
+	result.avoid = a.avoid + b.avoid
+	result.attack_speed = a.attack_speed + b.attack_speed
+	result.critical_chance = a.critical_chance + b.critical_chance
+	result.critical_multiplier = a.critical_multiplier + b.critical_multiplier
+	result.critical_avoid = a.critical_avoid + b.critical_avoid
+	return result
+
 func reverse_dictionary(dict: Dictionary) -> Dictionary:
 	var reverse_dict = {}
 	for key in dict.keys():

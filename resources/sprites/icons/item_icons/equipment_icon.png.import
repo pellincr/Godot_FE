@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpo4kl1ryhceg"
-path="res://.godot/imported/classic_dungeons_sewer_details.png-0aa7fcc442c509f2bfba90d99cb5182f.ctex"
+uid="uid://5kxt6mos2ptr"
+path="res://.godot/imported/equipment_icon.png-f18e5783c0fde544bf076de51d88e38f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_sewer_details.png"
-dest_files=["res://.godot/imported/classic_dungeons_sewer_details.png-0aa7fcc442c509f2bfba90d99cb5182f.ctex"]
+source_file="res://resources/sprites/icons/item_icons/equipment_icon.png"
+dest_files=["res://.godot/imported/equipment_icon.png-f18e5783c0fde544bf076de51d88e38f.ctex"]
 
 [params]
 

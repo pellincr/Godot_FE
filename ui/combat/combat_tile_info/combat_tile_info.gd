@@ -93,7 +93,8 @@ func update_entity_display(entity : CombatEntity):
 		entity_info_panel.visible = false
 		return
 	else :
-		entity_info_panel.visible = true
-		entity_name.text = entity.name
-		entity_hp.text = str(entity.hp) + "HP"
+		if entity.active:
+			entity_info_panel.visible = true
+			entity_name.text = entity.name
+			entity_hp.text = str(entity.hp) + "HP"
 	pass

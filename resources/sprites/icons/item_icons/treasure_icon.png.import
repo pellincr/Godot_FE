@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba6xcejwdlkak"
-path="res://.godot/imported/classic_dungeons_doors.png-3e6a85155aa5de41f7f7b491403d88b2.ctex"
+uid="uid://dmiyk53kpvbxu"
+path="res://.godot/imported/treasure_icon.png-8bd65128f17ee48e65725e0311e333f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/tilemaps/combat_map/classic_dungeons_doors.png"
-dest_files=["res://.godot/imported/classic_dungeons_doors.png-3e6a85155aa5de41f7f7b491403d88b2.ctex"]
+source_file="res://resources/sprites/icons/item_icons/treasure_icon.png"
+dest_files=["res://.godot/imported/treasure_icon.png-8bd65128f17ee48e65725e0311e333f6.ctex"]
 
 [params]
 

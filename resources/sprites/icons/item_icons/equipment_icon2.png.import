@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyt3j7oedbf3h"
-path="res://.godot/imported/crown_icon.png-33bf78bf62eb3c0abf9e99dc1ed21c30.ctex"
+uid="uid://d1ac55ixfm31n"
+path="res://.godot/imported/equipment_icon2.png-1fe1ab31f5ef7ef9ca47c8926d9579bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/icons/crown_icon.png"
-dest_files=["res://.godot/imported/crown_icon.png-33bf78bf62eb3c0abf9e99dc1ed21c30.ctex"]
+source_file="res://resources/sprites/icons/item_icons/equipment_icon2.png"
+dest_files=["res://.godot/imported/equipment_icon2.png-1fe1ab31f5ef7ef9ca47c8926d9579bf.ctex"]
 
 [params]
 

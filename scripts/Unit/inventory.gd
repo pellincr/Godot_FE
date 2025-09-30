@@ -308,3 +308,10 @@ func has_item_with_any_db_key(db_keys : Array[String]):
 			if item.db_key == db_key:
 				return true
 	return false
+
+func total_item_held_bonus_stats() -> CombatUnitStat:
+	var _net_stat = CombatUnitStat.new()
+	for item in items:
+		if item.inventory_bonus_stats != null:
+			_net_stat = CustomUtilityLibrary.add_combat_unit_stat(_net_stat, item.inventory_bonus_stats)
+	return _net_stat

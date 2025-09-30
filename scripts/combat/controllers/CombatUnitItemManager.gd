@@ -28,8 +28,10 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 			await discard_selection_complete
 			if give_item_required:
 				cu.unit.inventory.give_item(item)
+				cu.update_inventory_stats()
 		else:
 			cu.unit.inventory.give_item(item)
+			cu.update_inventory_stats()
 
 func trade(cu1: CombatUnit, cu2:CombatUnit):
 	pass
@@ -95,12 +97,15 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 			ItemConstants.CONSUMABLE_USE_EFFECT.STATUS_EFFECT:
 				pass
 		user.unit.inventory.use_item(item)
+		user.update_inventory_stats()
 
 func discard_item(owner: CombatUnit, item: ItemDefinition):
 	owner.unit.inventory.discard_item(item)
+	owner.update_inventory_stats()
 
 func discard_item_at_index(owner: CombatUnit, index: int):
 	owner.unit.inventory.discard_at_index(index)
+	owner.update_inventory_stats()
 
 func _on_give_item_popup_completed():
 	give_item_popup_completed.emit()

@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="5_4kelt"]
 
-
 [sub_resource type="Theme" id="Theme_trk22"]
 default_font_size = 36
 

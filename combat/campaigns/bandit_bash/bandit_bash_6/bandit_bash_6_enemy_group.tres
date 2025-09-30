@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="10_fkkwh"]
 [ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="10_uib33"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="11_eq627"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_78g6l"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_78g6l"]
 [ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="13_vf5np"]
 [ext_resource type="Resource" uid="uid://j2uu2bvu8yli" path="res://resources/definitions/items/consumables/elixir.tres" id="14_cndwi"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="15_p3do1"]

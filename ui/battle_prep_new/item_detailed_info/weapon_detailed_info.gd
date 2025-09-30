@@ -26,8 +26,16 @@ func set_item_rarity_header(rarity : Rarity):
 	item_rarity_header.text = rarity.rarity_name
 	item_rarity_header.self_modulate = rarity.ui_color
 
-func set_item_type_header(item_type):
-	item_type_header.text = item_type
+func set_item_type_header(item: ItemDefinition):
+	match item.item_type:
+		ItemDefinition.ITEM_TYPE.WEAPON:
+			item_type_header.text = "Weapon"
+		ItemDefinition.ITEM_TYPE.USEABLE_ITEM:
+			item_type_header.text = "Consumable"
+		ItemDefinition.ITEM_TYPE.EQUIPMENT:
+			item_type_header.text = "Equipment"
+		ItemDefinition.ITEM_TYPE.TREASURE:
+			item_type_header.text = "Treasure"
 
 func set_item_name(name):
 	item_name_label.text = name
@@ -56,6 +64,7 @@ func update_by_item():
 	magic_weapon_icon_container.set_header_visibility(false)
 	magic_weapon_icon_container.item = item
 	magic_weapon_icon_container.set_magic_triangle_icon_visibilty()
+	set_item_type_header(item)
 	set_item_description(item.description)
 	weapon_stat_container.item = item
 	weapon_stat_container.update_by_item()

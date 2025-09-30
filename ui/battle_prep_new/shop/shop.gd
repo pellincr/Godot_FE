@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 			selected_buy_location = null
 		elif current_state == SHOP_STATE.SHOP_MENU:
 			current_state = SHOP_STATE.LOCATION_SELECT
+			selected_buy_location = null
 			update_by_shop_state()
 
 func set_po_data(po_data):
