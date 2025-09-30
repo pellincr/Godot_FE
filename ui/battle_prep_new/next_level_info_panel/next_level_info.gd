@@ -115,25 +115,19 @@ func get_total_map_values(map:Dictionary):
 	return accum
 
 
-
-func create_entity_info_label(entity_array, entity_name):
-	var entity_count := 0
-	if upcoming_entities:
-		entity_count = entity_array.size()
-	var label := Label.new()
-	label.text = entity_name + str(entity_count)
-	entity_info_container.add_child(label)
-	label.add_theme_font_size_override("font_size",24)
-
 func create_chest_info_label():
+	var chest_count := 0
 	if upcoming_entities:
-		create_entity_info_label(upcoming_entities.chests,"Chests: ")
+		chest_count = upcoming_entities.chests.size()
+	create_entity_info_label("Chests: ", chest_count)
 
 func create_door_info_label():
+	var door_count := 0
 	if upcoming_entities:
-		create_entity_info_label(upcoming_entities.doors, "Doors: ")
+		door_count = upcoming_entities.doors.size()
+	create_entity_info_label("Doors: ", door_count)
 
-func create_search_entity_info_label(entity_name,entity_count):
+func create_entity_info_label(entity_name,entity_count):
 	var label := Label.new()
 	label.text = entity_name + str(entity_count)
 	entity_info_container.add_child(label)
@@ -156,10 +150,10 @@ func create_search_entity_weapon_labels():
 					book_shelves += 1
 				MapSearchEntityDefinition.TYPE.WEAPON_RACK:
 					weapon_racks += 1
-		create_search_entity_info_label("Houses: ", houses)
-		create_search_entity_info_label("Food Shelves: ",food_shelves)
-		create_search_entity_info_label("Book Shelves: ",book_shelves)
-		create_search_entity_info_label("Weapon Racks: ",weapon_racks)
+		create_entity_info_label("Houses: ", houses)
+		create_entity_info_label("Food Shelves: ",food_shelves)
+		create_entity_info_label("Book Shelves: ",book_shelves)
+		create_entity_info_label("Weapon Racks: ",weapon_racks)
 
 func usable_weapon_type_to_string(weapon_type : ItemConstants.WEAPON_TYPE):
 	var str = ""

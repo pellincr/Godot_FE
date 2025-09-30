@@ -146,15 +146,15 @@ func _setup_room_types() -> void:
 	#first floor is always a battle
 	for room : CampaignRoom in map_data[0]:
 		if room.next_rooms.size() > 0:
-			room.type = CampaignRoom.TYPE.EVENT
+			room.type = CampaignRoom.TYPE.BATTLE
 	for room: CampaignRoom in map_data[FLOORS/2]:
 		if room.next_rooms.size() > 0:
 			room.type = CampaignRoom.TYPE.TREASURE
 	var key_combat_room_index = int(FLOORS / NUMBER_OF_REQUIRED_COMBAT_MAPS)
-	#for required_combat_map_index in NUMBER_OF_REQUIRED_COMBAT_MAPS:
-	#	for room: CampaignRoom in map_data[key_combat_room_index * required_combat_map_index]:
-	#		if room.next_rooms.size() > 0:
-	#			room.type = CampaignRoom.TYPE.BATTLE
+	for required_combat_map_index in NUMBER_OF_REQUIRED_COMBAT_MAPS:
+		for room: CampaignRoom in map_data[key_combat_room_index * required_combat_map_index]:
+			if room.next_rooms.size() > 0:
+				room.type = CampaignRoom.TYPE.BATTLE
 	#OMITTING THE RULE THAT LAST FLOOR BEFORE BOSS IS CAMPFIRE
 	for current_floor in map_data:
 		for room : CampaignRoom in current_floor:
