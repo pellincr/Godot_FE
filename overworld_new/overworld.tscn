@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cei3lp41phd8n"]
 
 [ext_resource type="PackedScene" uid="uid://73uf76y6romg" path="res://overworld_new/overworld_map.tscn" id="1_538l4"]
-[ext_resource type="Script" uid="uid://j52qryrsnec7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
+[ext_resource type="Script" path="res://overworld_new/overworld.gd" id="2_okeuv"]
 [ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
 [ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
 [ext_resource type="Resource" uid="uid://dupcjl6ugp2d4" path="res://combat/campaigns/tutorial/tutorial_campaign.tres" id="5_6wia4"]

@@ -8,7 +8,7 @@ class_name BattlePrep
 @onready var header_lower_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
-
+const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
 var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
@@ -23,6 +23,7 @@ enum PREP_STATE{
 }
 
 var current_state := PREP_STATE.MENU
+var pause_menu_open = false
 
 func _ready() -> void:
 	transition_in_animation()
@@ -33,6 +34,18 @@ func _ready() -> void:
 		add_child(tutorial_panel)
 	else:
 		tutorial_completed()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if !pause_menu_open:
+			var main_pause_menu = main_pause_menu_scene.instantiate()
+			add_child(main_pause_menu)
+			main_pause_menu.menu_closed.connect(_on_menu_closed)
+			#disable_button_focus()
+			pause_menu_open = true
+		else:
+			get_child(-1).queue_free()
+			_on_menu_closed()
 
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
@@ -132,3 +145,19 @@ func _on_start_game():
 		SelectedSaveFile.save(playerOverworldData)
 		transition_out_animation()
 		get_tree().change_scene_to_packed(playerOverworldData.current_level)
+
+func _on_menu_closed():
+	pause_menu_open = false
+	var open_screen = main_container.get_child(-1)
+	match current_state:
+		PREP_STATE.MENU:
+			var prep_menu = open_screen.get_child(0)
+			prep_menu.grab_start_button_focus()
+		PREP_STATE.UNIT_SELECTION:
+			open_screen.grab_first_army_panel_focus()
+		PREP_STATE.SWAP_SPACES:
+			pass
+		PREP_STATE.SHOP:
+			open_screen.update_by_shop_state()
+		PREP_STATE.INVENTORY:
+			open_screen.update_by_state()

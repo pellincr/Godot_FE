@@ -23,12 +23,12 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var camera_2d : Camera2D = $Camera2D
 
 const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
-
+const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 #var map_data:Array[Array]
 #var floors_climbed:int
 #var last_room:CampaignRoom
 var camera_edge_y : float
-
+var pause_menu_open = false
 
 func _ready() -> void:
 	if AudioManager.get_music_stream() != menu_music:
@@ -81,6 +81,16 @@ func _input(event:InputEvent) ->void:
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
+	if event.is_action_pressed("ui_cancel"):
+		if !pause_menu_open:
+			var main_pause_menu = main_pause_menu_scene.instantiate()
+			camera_2d.add_child(main_pause_menu)
+			main_pause_menu.menu_closed.connect(_on_menu_closed)
+			disable_available_map_room_focus()
+			pause_menu_open = true
+		else:
+			camera_2d.get_child(-1).queue_free()
+			_on_menu_closed()
 
 func tutorial_completed():
 #	camera_2d.zoom = Vector2(3,3)
@@ -212,3 +222,19 @@ func _get_available_map_rooms() -> Array[CampaignMapRoom]:
 		if map_room.available:
 			available_rooms.append(map_room)
 	return available_rooms
+
+func set_available_map_room_focus(focus):
+	var available_map_rooms := _get_available_map_rooms()
+	for map_room in available_map_rooms:
+		map_room.focus_mode = focus
+
+func disable_available_map_room_focus():
+	set_available_map_room_focus(Control.FOCUS_NONE)
+
+func enable_available_map_room_focus():
+	set_available_map_room_focus(Control.FOCUS_ALL)
+
+func _on_menu_closed():
+	enable_available_map_room_focus()
+	_get_available_map_rooms()[0].grab_focus()
+	pause_menu_open = false

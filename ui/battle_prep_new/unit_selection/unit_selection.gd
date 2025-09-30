@@ -61,3 +61,6 @@ func _on_army_scroll_container_unit_panel_pressed(unit: Unit) -> void:
 			playerOverworldData.selected_party.append(unit)
 			army_container.set_unit_panel_selected(unit)
 	set_units_left_value(playerOverworldData.selected_party.size(),playerOverworldData.available_party_capacity)
+
+func grab_first_army_panel_focus():
+	army_container.grab_first_army_panel_focus()

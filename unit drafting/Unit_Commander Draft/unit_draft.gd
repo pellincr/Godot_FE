@@ -90,3 +90,13 @@ func update_unit_selectors():
 
 func get_first_selector():
 	return main_container.get_child(0)
+
+func set_selectors_focus(focus):
+	for child in main_container.get_children():
+		child.focus_mode = focus
+
+func enable_selector_focus():
+	set_selectors_focus(FOCUS_ALL)
+
+func disable_selector_focus():
+	set_selectors_focus(FOCUS_NONE)

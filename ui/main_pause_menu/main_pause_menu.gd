@@ -10,7 +10,7 @@ signal quit_game_selected()
 @onready var yes_button: Button = $MarginContainer/ConfirmSubContainer/YesButton
 
 
-const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
+const main_menu_scene = "res://Game Main Menu/main_menu.tscn"
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
@@ -53,7 +53,7 @@ func _on_yes_button_pressed() -> void:
 		CONFIRM_STATE.MAIN_MENU:
 			main_menu_selected.emit()
 			transition_out_animation()
-			get_tree().change_scene_to_packed(main_menu_scene)
+			get_tree().change_scene_to_file(main_menu_scene)
 		CONFIRM_STATE.QUIT:
 			get_tree().quit()
 

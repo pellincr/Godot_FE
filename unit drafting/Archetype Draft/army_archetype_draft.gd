@@ -79,3 +79,16 @@ func create_archetype_list(archetype_picks):
 			accum.append(pick)
 			volume -= 1
 	return accum
+
+func get_first_selector():
+	return main_container.get_child(0)
+
+func set_selectors_focus(focus):
+	for child in main_container.get_children():
+		child.focus_mode = focus
+
+func enable_selector_focus():
+	set_selectors_focus(FOCUS_ALL)
+
+func disable_selector_focus():
+	set_selectors_focus(FOCUS_NONE)
