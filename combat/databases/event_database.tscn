@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu41o4d1sio4j"]
+[gd_scene load_steps=7 format=3 uid="uid://cu41o4d1sio4j"]
 
 [ext_resource type="Script" uid="uid://dfivis6c54qeg" path="res://combat/databases/event_database.gd" id="1_2voe4"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
-[ext_resource type="Resource" uid="uid://40pjwy6iixer" path="res://resources/definitions/events/bandit_tollgate.tres" id="5_0mph2"]
+[ext_resource type="Resource" uid="uid://cjr1xltk4vvo4" path="res://resources/definitions/events/whispering_oak.tres" id="3_pmen2"]
+[ext_resource type="Resource" uid="uid://dqgb8uc1ysvh7" path="res://resources/definitions/events/moonlit_armory.tres" id="4_n0sft"]
+[ext_resource type="Resource" uid="uid://2ebb2awaycit" path="res://resources/definitions/events/borken_shrine_of_valor.tres" id="5_bx0jl"]
 [ext_resource type="Resource" uid="uid://dl1y82k76ck63" path="res://resources/definitions/events/grove_trial.tres" id="6_oc31k"]
-[ext_resource type="Resource" uid="uid://utt7f4pt1wde" path="res://resources/definitions/events/goblet.tres" id="7_mhukf"]
 
 [node name="EventDatabase" type="Node"]
 script = ExtResource("1_2voe4")
-events = Array[ExtResource("2_uknaf")]([ExtResource("5_0mph2"), ExtResource("6_oc31k"), ExtResource("7_mhukf")])
+events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_n0sft"), ExtResource("5_bx0jl"), ExtResource("6_oc31k")])

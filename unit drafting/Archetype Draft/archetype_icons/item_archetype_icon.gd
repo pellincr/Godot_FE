@@ -52,40 +52,40 @@ func update_by_archetype_pick():
 func set_icon(texture_rect, texture):
 	texture_rect.texture = texture
 
-func update_by_weapon_types(weapon_types:Array[itemConstants.WEAPON_TYPE]):
+func update_by_weapon_types(weapon_types:Array[ItemConstants.WEAPON_TYPE]):
 	for weapon_type in weapon_types:
 		set_icon(sub_icon_list[current_index],get_weapon_type_icon(weapon_type))
 		current_index += 1
 
-func get_weapon_type_icon(weapon_type : itemConstants.WEAPON_TYPE):
+func get_weapon_type_icon(weapon_type : ItemConstants.WEAPON_TYPE):
 	match weapon_type:
-		itemConstants.WEAPON_TYPE.SWORD:
+		ItemConstants.WEAPON_TYPE.SWORD:
 			return sword_icon_texture
-		itemConstants.WEAPON_TYPE.AXE:
+		ItemConstants.WEAPON_TYPE.AXE:
 			return axe_icon_texture
-		itemConstants.WEAPON_TYPE.LANCE:
+		ItemConstants.WEAPON_TYPE.LANCE:
 			return lance_icon_texture
-		itemConstants.WEAPON_TYPE.BOW:
+		ItemConstants.WEAPON_TYPE.BOW:
 			return bow_icon_texture
-		itemConstants.WEAPON_TYPE.FIST:
+		ItemConstants.WEAPON_TYPE.FIST:
 			return fist_icon_texture
-		itemConstants.WEAPON_TYPE.STAFF:
+		ItemConstants.WEAPON_TYPE.STAFF:
 			return staff_icon_texture
-		itemConstants.WEAPON_TYPE.DARK:
+		ItemConstants.WEAPON_TYPE.DARK:
 			return dark_icon_texture
-		itemConstants.WEAPON_TYPE.LIGHT:
+		ItemConstants.WEAPON_TYPE.LIGHT:
 			return light_icon_texture
-		itemConstants.WEAPON_TYPE.NATURE:
+		ItemConstants.WEAPON_TYPE.NATURE:
 			return nature_icon_texture
-		itemConstants.WEAPON_TYPE.ANIMAL:
+		ItemConstants.WEAPON_TYPE.ANIMAL:
 			return animal_icon_texture
-		itemConstants.WEAPON_TYPE.MONSTER:
+		ItemConstants.WEAPON_TYPE.MONSTER:
 			return monster_icon_texture
-		itemConstants.WEAPON_TYPE.SHIELD:
+		ItemConstants.WEAPON_TYPE.SHIELD:
 			return shield_icon_texture
-		itemConstants.WEAPON_TYPE.DAGGER:
+		ItemConstants.WEAPON_TYPE.DAGGER:
 			return dagger_icon_texture
-		itemConstants.WEAPON_TYPE.BANNER:
+		ItemConstants.WEAPON_TYPE.BANNER:
 			return banner_icon_texture
 
 func update_by_damage_types(item_damage_types : Array[Constants.DAMAGE_TYPE]):
@@ -105,7 +105,7 @@ func get_damage_type_icon(damage_type : Constants.DAMAGE_TYPE):
 func update_by_item_rarity(item_rarity:Rarity):
 	modulate = item_rarity.ui_color
 
-func update_by_scaling_types(item_scaling_types : Array[itemConstants.SCALING_TYPE]):
+func update_by_scaling_types(item_scaling_types : Array[ItemConstants.SCALING_TYPE]):
 	pass
 
 func hide_remaining_sub_icons():

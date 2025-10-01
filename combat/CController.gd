@@ -1216,6 +1216,7 @@ func fsm_support_action_targetting(delta):
 				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
 				combat.game_ui.create_support_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 				revert_player_state()
+				camera.set_mode(camera.CAMERA_MODE.FOLLOW)
 				update_current_tile(move_tile)
 		if Input.is_action_just_pressed("right_bumper"):
 			if targetting_resource._available_methods_at_target.size() > 1:
@@ -1320,6 +1321,7 @@ func fsm_unit_combat_action_targetting(delta):
 				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
 				combat.game_ui.create_attack_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 				revert_player_state()
+				camera.set_mode(camera.CAMERA_MODE.FOLLOW)
 				update_current_tile(move_tile)
 		if Input.is_action_just_pressed("right_bumper"):
 			if targetting_resource._available_methods_at_target.size() > 1:
@@ -1492,6 +1494,7 @@ func fsm_interact_targetting(delta):
 					combat.game_ui.create_unit_action_container(actions)
 					update_current_tile(move_tile)
 					revert_player_state()
+					camera.set_mode(camera.CAMERA_MODE.FOLLOW)
 			if Input.is_action_just_pressed("ui_left"):
 				if targetting_resource._available_targets_with_method.size() > 1:
 					targetting_resource.previous_target_no_new_methods()

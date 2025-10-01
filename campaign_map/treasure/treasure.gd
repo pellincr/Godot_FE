@@ -52,7 +52,7 @@ func randomize_item_selection() -> ItemDefinition:
 	for item_key in ItemDatabase.items.keys():
 		if item_key not in treasure_blacklist:
 			var roll = randi_range(0, 100)
-			if roll < 3:
+			if roll < 1:
 				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
 					valid_treasure_items.append(item_key)
 			elif roll < 10:

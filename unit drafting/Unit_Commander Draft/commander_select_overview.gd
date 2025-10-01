@@ -56,6 +56,8 @@ func set_special_value(special_label, weapon_special: WeaponDefinition.WEAPON_SP
 			str = "10% Hp Regen"
 		WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE:
 			str = "Cannot Retaliate"
+		WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL:
+			str = "Devil Reversal"
 	special_label.text = str
 
 func set_bonus_value(special_label :Label, weapon_bonus_stats:UnitStat):

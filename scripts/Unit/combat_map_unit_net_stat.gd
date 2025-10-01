@@ -26,7 +26,7 @@ var critical_multiplier : StatModifierList = StatModifierList.new()
 #var damage_type : Constants.DAMAGE_TYPE = 0
 #var attack_range : Array[int] = []
 #var weapon_effectiveness : Array[unitConstants.TRAITS] = []
-#var required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
+#var required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 func clear():
 	max_hp.clear()

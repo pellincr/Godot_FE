@@ -7,6 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_3jgpx"]
 script = ExtResource("3_lh5od")
+title = ""
 description = "Flee"
 effect = 4
 gold_change = 0

@@ -142,21 +142,21 @@ func set_durability_value(uses):
 func set_weight_value(wgt):
 	weight_value_label.text = str(wgt)
 
-func set_requirements_container(requirement: itemConstants.MASTERY_REQUIREMENT):
+func set_requirements_container(requirement: ItemConstants.MASTERY_REQUIREMENT):
 	var str = ""
 	var label = Label.new()
 	match requirement:
-		itemConstants.MASTERY_REQUIREMENT.E:
+		ItemConstants.MASTERY_REQUIREMENT.E:
 			str = "E"
-		itemConstants.MASTERY_REQUIREMENT.D:
+		ItemConstants.MASTERY_REQUIREMENT.D:
 			str = "D"
-		itemConstants.MASTERY_REQUIREMENT.C:
+		ItemConstants.MASTERY_REQUIREMENT.C:
 			str = "C"
-		itemConstants.MASTERY_REQUIREMENT.B:
+		ItemConstants.MASTERY_REQUIREMENT.B:
 			str = "B"
-		itemConstants.MASTERY_REQUIREMENT.A:
+		ItemConstants.MASTERY_REQUIREMENT.A:
 			str = "A"
-		itemConstants.MASTERY_REQUIREMENT.S:
+		ItemConstants.MASTERY_REQUIREMENT.S:
 			str = "S"
 	label.text = str
 	requirements_container.add_child(label)

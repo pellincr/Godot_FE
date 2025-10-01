@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://uij42thge1m2"]
+[gd_scene load_steps=10 format=3 uid="uid://uij42thge1m2"]
 
 [ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
 [ext_resource type="Script" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
 [ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_644mu"]
 [ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="5_4kelt"]
 
 [sub_resource type="Theme" id="Theme_trk22"]
@@ -17,8 +18,9 @@ default_font_size = 14
 
 [node name="WeaponDetailedInfo" type="Panel"]
 custom_minimum_size = Vector2(250, 460)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 1.0
+offset_right = 250.0
+offset_bottom = 461.0
 theme = ExtResource("1_ccack")
 script = ExtResource("2_0w8q6")
 
@@ -43,7 +45,6 @@ theme = SubResource("Theme_trk22")
 text = "Item Name"
 
 [node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_wgwh4")
 
@@ -81,6 +82,8 @@ custom_minimum_size = Vector2(221, 72)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_6j0ny")
+theme_override_fonts/font = ExtResource("4_644mu")
+theme_override_font_sizes/font_size = 16
 text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
 autowrap_mode = 3
 clip_text = true

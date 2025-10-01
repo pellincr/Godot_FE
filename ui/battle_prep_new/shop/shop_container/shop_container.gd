@@ -143,7 +143,9 @@ func filter_by_weapon_type(weapon_type : ItemConstants.WEAPON_TYPE):
 	for item_key in all_items:
 		var item = ItemDatabase.items[item_key]
 		if item is WeaponDefinition and item.weapon_type == weapon_type:
-			if item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
+			if item.rarity == RarityDatabase.rarities.get("standard"):
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
 				accum.append(item)
@@ -153,9 +155,15 @@ func filter_by_useable_item():
 	var all_items = ItemDatabase.items.keys()
 	var accum = []
 	for item_key in all_items:
-		var item = ItemDatabase.items[item_key]
+		var item : ItemDefinition = ItemDatabase.items[item_key]
+		#if item.item_type != ItemConstants.ITEM_TYPE.WEAPON:
 		if item is ConsumableItemDefinition:
-			accum.append(item)
+			if item.rarity == RarityDatabase.rarities.get("standard"):
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
+				accum.append(item)
 	return accum
 
 

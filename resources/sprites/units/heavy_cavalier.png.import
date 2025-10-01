@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4cgbwpvgycdj"
-path="res://.godot/imported/everbloom.png-3e774290594d6574e130e83c82b446a9.ctex"
+uid="uid://rpx8jky5j53h"
+path="res://.godot/imported/heavy_cavalier.png-3d0c7f187d6159341df7a6f0032a4a00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/weapons/staff/everbloom.png"
-dest_files=["res://.godot/imported/everbloom.png-3e774290594d6574e130e83c82b446a9.ctex"]
+source_file="res://resources/sprites/units/heavy_cavalier.png"
+dest_files=["res://.godot/imported/heavy_cavalier.png-3d0c7f187d6159341df7a6f0032a4a00.ctex"]
 
 [params]
 

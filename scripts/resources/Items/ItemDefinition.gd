@@ -1,20 +1,12 @@
 extends Resource
 class_name ItemDefinition
 
-enum ITEM_TYPE { ## THIS SHOULD ONLY BE IN 1 PLACE
-	WEAPON,
-	STAFF,
-	USEABLE_ITEM,
-	EQUIPMENT,
-	TREASURE
-}
-
 @export_group("Item Info")
 @export var name = ""
 @export var db_key = ""
 @export var equippable = false
 @export var description : String
-@export_enum("Weapon", "Staff", "Usable Item", "Equipment or Loot" ) var item_type :int = 0
+@export var item_type :ItemConstants.ITEM_TYPE = 0
 
 @export var rarity : Rarity
 

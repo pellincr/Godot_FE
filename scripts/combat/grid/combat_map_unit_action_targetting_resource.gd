@@ -37,7 +37,7 @@ func create_target_methods_weapon(unit:Unit) -> Dictionary:
 			if item is WeaponDefinition:
 				if unit.can_equip(item):
 					for attack_range in item.attack_range:
-						if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 							if attack_range_map.has(attack_range):
 								attack_range_map.get(attack_range).append(item)
 							else:
@@ -50,7 +50,7 @@ func create_target_methods_support(unit:Unit) -> Dictionary:
 	for item in unit.inventory.get_items():
 			if item is WeaponDefinition:
 				if unit.can_equip(item):
-					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
+					if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ALLY):
 						for attack_range in item.attack_range:
 							if attack_range_map.has(attack_range):
 								attack_range_map.get(attack_range).append(item)

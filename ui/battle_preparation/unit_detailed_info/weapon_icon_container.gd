@@ -88,11 +88,11 @@ func set_icon_visibility_item():
 			dark_icon.visible = true
 		if item.weapon_type == ItemConstants.WEAPON_TYPE.ANIMAL:
 			animal_icon.visible = true
-	if item.item_type == ItemDefinition.ITEM_TYPE.USEABLE_ITEM:
+	if item.item_type == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 		consumable_icon.visible = true
-	if item.item_type == ItemDefinition.ITEM_TYPE.EQUIPMENT:
+	if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
 		equipment_icon.visible = true
-	if item.item_type == ItemDefinition.ITEM_TYPE.TREASURE:
+	if item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
 		treasure_icon.visible = true
 		
 func set_magic_triangle_icon_visibilty():

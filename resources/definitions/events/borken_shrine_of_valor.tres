@@ -1,0 +1,121 @@
+[gd_resource type="Resource" script_class="Event" load_steps=17 format=3 uid="uid://2ebb2awaycit"]
+
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gjdrf"]
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_hon6e"]
+[ext_resource type="Texture2D" uid="uid://br2u23ch0s2vp" path="res://resources/sprites/events/broken_shrine_of_valor.png" id="1_rgb4c"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="2_rcrjr"]
+[ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="3_1p5hj"]
+[ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_okf23"]
+[ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_nuwek"]
+
+[sub_resource type="Resource" id="Resource_ke52e"]
+script = ExtResource("2_rcrjr")
+hp = 15
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
+
+[sub_resource type="Resource" id="Resource_aol43"]
+script = ExtResource("2_rcrjr")
+hp = 0
+strength = 1
+magic = 0
+skill = 0
+speed = 0
+luck = 0
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
+
+[sub_resource type="Resource" id="Resource_sgp1u"]
+script = ExtResource("1_gjdrf")
+title = "Rebuild the Statue"
+description = "Spend 1000 Gold, selected unit gains [color=#FAFA82]1[/color] Strength and [color=#FAFA82]15%[/color] Health growth."
+effect = 2
+gold_change = 0
+unit_stat_change = SubResource("Resource_aol43")
+unit_growth_change = SubResource("Resource_ke52e")
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_ep0ib"]
+script = ExtResource("4_okf23")
+probability = 0.0
+item_db_key = ""
+item_rarity_whitelist = Array[String](["Standard"])
+item_type_whitelist = Array[int]([])
+weapon_type_whitelist = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_ie7tl"]
+script = ExtResource("5_nuwek")
+entries = Array[ExtResource("4_okf23")]([SubResource("Resource_ep0ib")])
+
+[sub_resource type="Resource" id="Resource_70bis"]
+script = ExtResource("3_1p5hj")
+change_damage_type = false
+item_new_damage_type = 0
+change_scaling_type = false
+item_new_scaling_type = 0
+item_scaling_multiplier_change = 0.0
+attack_range = Array[int]([])
+damage = 0
+hit = 5
+critical_chance = 10
+weight = 0
+critical_multiplier = 0.0
+attacks_per_combat_turn = 0
+weapon_effectiveness = Array[int]([])
+specials = Array[int]([])
+max_uses = 0
+percent_durability = 1.0
+ubreakable = false
+
+[sub_resource type="Resource" id="Resource_jgwae"]
+script = ExtResource("1_gjdrf")
+title = "Scavenge the Rubble"
+description = "Gain a Standard Iron weapon with bonus [color=#FAFA82]5[/color]hit and [color=#FAFA82]10[/color]critical chance."
+effect = 0
+gold_change = 0
+wpn_stat_change = SubResource("Resource_70bis")
+loot_table = SubResource("Resource_ie7tl")
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_qsym6"]
+script = ExtResource("2_rcrjr")
+hp = 1
+strength = 1
+magic = 1
+skill = 1
+speed = 1
+luck = 1
+defense = 1
+resistance = 1
+movement = 0
+constitution = 0
+
+[sub_resource type="Resource" id="Resource_fowvt"]
+script = ExtResource("1_gjdrf")
+title = "Offer a Prayer"
+description = "Entire Army gains [color=#FAFA82]1%[/color] growth in all stats."
+effect = 3
+gold_change = 0
+unit_growth_change = SubResource("Resource_qsym6")
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[resource]
+script = ExtResource("1_hon6e")
+name = "Broken Shrine of Valor"
+description = "A ruined statue of a forgotten hero lies scattered."
+background = ExtResource("1_rgb4c")
+option1 = SubResource("Resource_sgp1u")
+option2 = SubResource("Resource_jgwae")
+option3 = SubResource("Resource_fowvt")

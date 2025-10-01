@@ -1,25 +1,47 @@
 extends Control
 
-
-@onready var icon = $MarginContainer/VBoxContainer/HBoxContainer/EventIconPanelContainer/Icon
-@onready var event_selection_container = $MarginContainer/VBoxContainer/HBoxContainer/EventSelectionContainer
+@onready var background: TextureRect = $background
+@onready var event_selection_container: VBoxContainer = $MarginContainer2/EventSelectionContainer
 
 @onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 
+enum STATE {
+	INIT,
+	OPTION_SELECTION,
+	OPTION_UNIT_SELECTION,
+	OPTION_UNIT_SELECTION_PREVIEW,
+	OPTION_ITEM_SELECTION,
+	OPTION_ITEM_SELECTION_PREVIEW,
+	PROCESS
+}
+
+var state = STATE.INIT
+var current_event : Event
+var selected_event_option : EventOption
+
 func _ready():
 	transition_in_animation()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
+	select_event()
+
+func select_event():
+	#get all events
 	var events = EventDatabase.events
+	
+	#Do some filtering based on params here
 	var chosen_event : Event = events.pick_random()
-	#set_event_icon(chosen_event.icon)
+	
+	#Update the display
+	set_event_background(chosen_event.background)
 	event_selection_container.event = chosen_event
 	event_selection_container.update_by_event()
 
-func set_event_icon(texture):
-	icon.texture = texture
+
+func set_event_background(texture):
+	background.texture = texture
 
 func transition_in_animation():
 	var scene_transition = scene_transition_scene.instantiate()
@@ -33,9 +55,6 @@ func transition_out_animation():
 	self.add_child(scene_transition)
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
-
-
-
 
 func _on_event_option_selected(event_option: EventOption):
 	playerOverworldData.gold = playerOverworldData.gold + event_option.gold_change
@@ -59,11 +78,59 @@ func _on_event_option_selected(event_option: EventOption):
 				if event_option.unit_growth_change != null:
 					target_unit.unit_character.update_growths(event_option.unit_growth_change)
 					await create_event_popup(target_unit)
-		EventOption.EVENT_EFFECT.CHANGE_COMMANDER_UNIT_STATS:
-			
+		EventOption.EVENT_EFFECT.CHANGE_COMMANDER_UNIT_STATS: #TO BE IMPL
 			pass
-		EventOption.EVENT_EFFECT.CHANGE_RANDOM_WEAPON_STATS:
-			## Create the weapon list
+		EventOption.EVENT_EFFECT.CHANGE_RANDOM_WEAPON_STATS: 
+			if event_option.wpn_stat_change != null:
+				var _wpn_array : Array[WeaponDefinition] = []
+				# check convoy
+				for item in playerOverworldData.convoy:
+					if item is WeaponDefinition: 
+						_wpn_array.append(item)
+				# check all units
+				for player_unit: Unit in playerOverworldData.total_party:
+					for item in player_unit.inventory.items:
+						if item is WeaponDefinition: 
+							_wpn_array.append(item)
+				var target_item = _wpn_array.pick_random()
+				event_option.wpn_stat_change.apply_weapon_stats(target_item)
+				await create_event_popup(target_item)
+		EventOption.EVENT_EFFECT.CHANGE_TARGET_WEAPON_STATS:
+			pass
+		EventOption.EVENT_EFFECT.CHANGE_COMMANDER_WEAPON_STATS:
+			if event_option.wpn_stat_change != null:
+				var target_item : WeaponDefinition = null
+				# check convoy
+				for item :ItemDefinition in playerOverworldData.convoy:
+					if ItemDatabase.is_commander_weapon(item.db_key):
+						if item is WeaponDefinition:
+							target_item = item 
+							break
+				# check all units
+				if target_item == null:
+					for player_unit: Unit in playerOverworldData.total_party:
+						for item in player_unit.inventory.items:
+							if ItemDatabase.is_commander_weapon(item.db_key):
+								if item is WeaponDefinition:
+									target_item = item 
+									break
+				event_option.wpn_stat_change.apply_weapon_stats(target_item)
+		EventOption.EVENT_EFFECT.GIVE_ITEM:
+			var target_item : ItemDefinition = null
+			#Get the item to give 
+			if event_option.target_item != null: #is it a direct call?
+				target_item = event_option.target_item.duplicate()
+			elif event_option.loot_table != null: #get it from a loot table
+				target_item = event_option.loot_table.get_loot()
+			else : # This is the catch case
+				target_item = ItemDatabase.items["iron_sword"]
+			#Lets augment this given item if it has those changes
+			if event_option.wpn_stat_change != null and target_item != null:
+				if target_item is WeaponDefinition:
+					event_option.wpn_stat_change.apply_weapon_stats(target_item)
+			playerOverworldData.convoy.append(target_item)
+			await create_event_popup(target_item)
+		EventOption.EVENT_EFFECT.GIVE_EXPERIENCE:
 			pass
 		##OLD
 		EventOption.EVENT_EFFECT.STRENGTH_ALL:
@@ -129,8 +196,6 @@ func _on_event_option_selected(event_option: EventOption):
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	get_tree().change_scene_to_file("res://campaign_map/campaign_map.tscn")
-
-
 
 func give_random_item(item_type : ItemConstants.ITEM_TYPE, desired_rarity : String = ""):
 	var item_keys = ItemDatabase.items.keys()

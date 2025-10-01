@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=105 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -100,7 +100,9 @@
 [ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="96_q47d5"]
 [ext_resource type="Resource" uid="uid://c5qmyhlq5gf7" path="res://resources/definitions/items/consumables/titan_trout.tres" id="97_41x7d"]
 [ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="98_5vscg"]
+[ext_resource type="Resource" uid="uid://cbq718k1dr5kq" path="res://resources/definitions/items/weapons/bow/reinforced_bow.tres" id="99_5bd5o"]
 [ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
+[ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
 [ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
 
 [node name="ItemDatabase" type="Node"]
@@ -161,11 +163,13 @@ items = {
 "mage_blade": ExtResource("53_1g7xb"),
 "mandate": ExtResource("46_jmx6f"),
 "minor_heal": ExtResource("98_5vscg"),
+"oak_wood_charm": ExtResource("100_2u5qe"),
 "pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
+"reinforced_bow": ExtResource("99_5bd5o"),
 "rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
 "sanguis": ExtResource("71_i5lad"),

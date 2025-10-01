@@ -21,7 +21,7 @@ func calculate_loot() -> LootTableEntry:
 #
 #@export var item_rarity_whitelist : Array[String]
 #@export var item_type_whitelist : Array[ItemDefinition.ITEM_TYPE]
-#@export var weapon_type_whitelist : Array[itemConstants.WEAPON_TYPE] #ONLY USED IF WHITELIST HAS WEAPON
+#@export var weapon_type_whitelist : Array[ItemConstants.WEAPON_TYPE] #ONLY USED IF WHITELIST HAS WEAPON
 #
 func pick_item(entry : LootTableEntry) -> ItemDefinition:
 	if entry.item_db_key.length() > 0:

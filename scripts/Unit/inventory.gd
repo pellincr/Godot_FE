@@ -97,7 +97,7 @@ func get_available_support_ranges()-> Array[int]:
 			if item.equippable:
 				if item is WeaponDefinition:
 					if not item.attack_range.is_empty():
-						if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
+						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ALLY):
 							for attack_range in item.attack_range:
 								if not ranges.has(attack_range):
 									ranges.append(attack_range)

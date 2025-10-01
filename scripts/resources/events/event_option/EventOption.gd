@@ -13,7 +13,8 @@ enum EVENT_EFFECT{
 	CHANGE_COMMANDER_WEAPON_STATS,
 	GIVE_ITEM,
 	GIVE_EXPERIENCE,
-	MINOR_BATTLE,
+	RECRUIT_UNIT, # TO BE IMPL
+	MINOR_BATTLE, # TO BE IMPL
 	##OLD SPECIFIC OR SPECIAL
 	STRENGTH_ALL,
 	MAGIC_ALL,
@@ -29,7 +30,7 @@ enum EVENT_EFFECT{
 	GOBLET_DRINK,
 	GOBLET_SPILL,
 }
-
+@export var title : String
 @export var description : String
 @export var effect : EVENT_EFFECT
 @export var gold_change = 0
@@ -42,3 +43,9 @@ enum EVENT_EFFECT{
 @export_group("Give Item Data")
 @export var loot_table : LootTable = null
 @export var target_item : ItemDefinition
+
+@export_group("Event Option Requirements")
+@export var gold_requirement = 0
+@export var required_item : ItemDefinition = null
+@export var required_item_type : Array[ItemConstants.ITEM_TYPE]  = []
+@export var required_unit_stat : UnitStat = null

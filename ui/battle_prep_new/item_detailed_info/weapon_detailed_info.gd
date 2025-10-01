@@ -28,13 +28,15 @@ func set_item_rarity_header(rarity : Rarity):
 
 func set_item_type_header(item: ItemDefinition):
 	match item.item_type:
-		ItemDefinition.ITEM_TYPE.WEAPON:
+		ItemConstants.ITEM_TYPE.WEAPON:
 			item_type_header.text = "Weapon"
-		ItemDefinition.ITEM_TYPE.USEABLE_ITEM:
+		ItemConstants.ITEM_TYPE.STAFF:
+			item_type_header.text = "Staff"
+		ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 			item_type_header.text = "Consumable"
-		ItemDefinition.ITEM_TYPE.EQUIPMENT:
+		ItemConstants.ITEM_TYPE.EQUIPMENT:
 			item_type_header.text = "Equipment"
-		ItemDefinition.ITEM_TYPE.TREASURE:
+		ItemConstants.ITEM_TYPE.TREASURE:
 			item_type_header.text = "Treasure"
 
 func set_item_name(name):

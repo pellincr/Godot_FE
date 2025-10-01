@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_jycsm"]
 [ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_i6xoj"]
-[ext_resource type="Script" uid="uid://dknhr7fi1hh48" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_tti6g"]
+[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_tti6g"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="4_b821v"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="4_epviq"]
 

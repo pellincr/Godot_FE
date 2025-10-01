@@ -31,12 +31,6 @@ enum EXCHANGE_OUTCOME
 	ALLY_SUPPORTED
 }
 
-enum DOUBLE_ATTACKER 
-{
-	NONE,
-	ATTACKER,
-	DEFENDER
-}
 var audio_player_busy: bool = false
 var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
@@ -140,7 +134,7 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 			give_items.emit(dropped_items, CombatMapConstants.COMBAT_EXCHANGE, player_unit)
 			await give_items_complete
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ALLY_SUPPORTED:
-		emit_signal("gain_experience", player_unit, 10)
+		emit_signal("gain_experience", player_unit, 20)
 		await unit_gain_experience_finished
 	combat_exchange_finished.emit(true)
 
@@ -235,7 +229,7 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker_weapon is WeaponDefinition:
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 		if attacker_weapon.attack_range.has(distance):
-			if attacker_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+			if attacker_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 				return true
 	return false
 
@@ -245,7 +239,7 @@ func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int
 		if not defender_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE):
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 			if defender_weapon.attack_range.has(distance):
-				if defender_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+				if defender_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 					return true
 	return false
 
@@ -400,57 +394,57 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 		unit_b_weapon = unit_b.inventory.get_equipped_weapon()
 	if unit_b_weapon and unit_a_weapon:
 		match unit_a_weapon.alignment:
-			itemConstants.ALIGNMENT.MUNDANE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
+			ItemConstants.ALIGNMENT.MUNDANE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.NIMBLE:
 					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.DEFENSIVE:
 					return unit_b
 				match unit_a_weapon.physical_weapon_triangle_type:
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return unit_b
 						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
 							return unit_a
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
 							return unit_b
 						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 							return unit_a
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
 						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 							return unit_b
 						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return unit_a
-			itemConstants.ALIGNMENT.NIMBLE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
+			ItemConstants.ALIGNMENT.NIMBLE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MAGIC:
 					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MUNDANE:
 					return unit_b
-			itemConstants.ALIGNMENT.MAGIC:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
+			ItemConstants.ALIGNMENT.MAGIC:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.NIMBLE:
 					return unit_b
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.DEFENSIVE:
 					return unit_a
 				match unit_a_weapon.magic_weapon_triangle_type:
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
 						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 							return unit_b
 						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
 							return unit_a
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
 							return unit_b
 						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
 							return unit_a
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
 						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
 							return unit_b
 						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 							return unit_a
-			itemConstants.ALIGNMENT.DEFENSIVE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
+			ItemConstants.ALIGNMENT.DEFENSIVE:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MUNDANE:
 					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
+				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MAGIC:
 					return unit_b
 	return null
 

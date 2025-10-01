@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Event" load_steps=10 format=3 uid="uid://cjr1xltk4vvo4"]
+[gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://cjr1xltk4vvo4"]
 
+[ext_resource type="Texture2D" uid="uid://ctswlrc0cwxfb" path="res://resources/sprites/events/whispering_oak_background.png" id="1_wptm5"]
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="2_w5343"]
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_6vm0y"]
-[ext_resource type="Resource" uid="uid://c80ngyb0m4o8y" path="res://resources/definitions/items/treasure/gold_ring.tres" id="3_y8etc"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="4_itpt4"]
+[ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="4_nejqm"]
 
 [sub_resource type="Resource" id="Resource_yu8m2"]
 script = ExtResource("2_w5343")
@@ -33,29 +34,39 @@ constitution = 0
 
 [sub_resource type="Resource" id="Resource_yqp4x"]
 script = ExtResource("3_6vm0y")
-description = "Drink the Sap – One chosen unit gains +15% Magic growth but suffers –2 HP permanent."
+title = "Drink the Sap"
+description = "One chosen unit gains [color=#FAFA82]15%[/color] Magic growth but loses [color=#AC3232]2[/color] Max HP."
 effect = 1
-money_change = 0
+gold_change = 0
 unit_stat_change = SubResource("Resource_o22uv")
 unit_growth_change = SubResource("Resource_yu8m2")
+gold_requirement = 0
+required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_3dt8v"]
 script = ExtResource("3_6vm0y")
-description = "Carve a Token – Receive a Rare “Oakwood Charm” (Grants +10 Avoid)."
+title = "Carve a Token "
+description = "Receive equipment [color=#689aff]Oakwood Charm[/color] (Grants +10 Avoid when held in inventory)."
 effect = 8
-money_change = 0
-target_item = ExtResource("3_y8etc")
+gold_change = 0
+target_item = ExtResource("4_nejqm")
+gold_requirement = 0
+required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_pn0y1"]
 script = ExtResource("3_6vm0y")
-description = "Bow in Reverence – +500 Gold from fallen leaves with rare herbs to sell."
+title = "Bow in Reverence"
+description = "Gain [color=#FFA800]1500G[/color] from fallen leaves with rare herbs to sell."
 effect = 0
-money_change = 500
+gold_change = 1500
+gold_requirement = 0
+required_item_type = Array[int]([])
 
 [resource]
 script = ExtResource("4_itpt4")
 name = "The Whispering Oak"
 description = "A lone ancient tree hums with faint song."
+background = ExtResource("1_wptm5")
 option1 = SubResource("Resource_yqp4x")
 option2 = SubResource("Resource_3dt8v")
 option3 = SubResource("Resource_pn0y1")

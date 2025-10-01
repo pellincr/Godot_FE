@@ -67,19 +67,16 @@ func randomize_weapon() -> WeaponDefinition:
 		if item_key not in treasure_blacklist:
 			if ItemDatabase.items.get(item_key) is WeaponDefinition:
 				var roll = randi_range(0, 100)
-				if roll < 1:
-					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
-						all_weapon_types.append(ItemDatabase.items.get(item_key))
-				elif roll < 10:
+				#if roll < 1:
+					#if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
+					#	all_weapon_types.append(ItemDatabase.items.get(item_key))
+				if roll < 5:
 					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["mythical"]:
 						all_weapon_types.append(ItemDatabase.items.get(item_key))
-				elif roll < 25:
+				elif roll < 14:
 					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
 						all_weapon_types.append(ItemDatabase.items.get(item_key))
-				elif roll < 40:
-					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["rare"]:
-						all_weapon_types.append(ItemDatabase.items.get(item_key))
-				elif roll < 65:
+				elif roll < 50:
 					if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["uncommon"]:
 						all_weapon_types.append(ItemDatabase.items.get(item_key))
 				else :

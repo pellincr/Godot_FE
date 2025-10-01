@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl5nivv36v1hr"
-path="res://.godot/imported/destroy.png-ebf6d0a5928294a9812415ec7a1fc571.ctex"
+uid="uid://f6rk8d0qam1j"
+path="res://.godot/imported/whispering_oak.png-931a1586ba53a0cda4a6abfad1327469.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/weapons/staff/destroy.png"
-dest_files=["res://.godot/imported/destroy.png-ebf6d0a5928294a9812415ec7a1fc571.ctex"]
+source_file="res://resources/sprites/events/whispering_oak.png"
+dest_files=["res://.godot/imported/whispering_oak.png-931a1586ba53a0cda4a6abfad1327469.ctex"]
 
 [params]
 

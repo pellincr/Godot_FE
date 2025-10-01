@@ -1,7 +1,5 @@
 extends Node
 
-class_name itemConstants
-
 enum ITEM_TYPE {
 	WEAPON,
 	STAFF,

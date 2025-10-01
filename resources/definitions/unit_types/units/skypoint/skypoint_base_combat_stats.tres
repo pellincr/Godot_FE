@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_jp8kv")
-hp = 14
-strength = 5
+hp = 15
+strength = 4
 magic = 0
-skill = 4
+skill = 5
 speed = 5
 luck = 0
-defense = 2
+defense = 3
 resistance = 2
 movement = 7
-constitution = 8
+constitution = 7

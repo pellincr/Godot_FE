@@ -23,13 +23,13 @@ var current_equipped_stat: CombatMapUnitNetStat
 var current_damage_type : Constants.DAMAGE_TYPE = 0
 var current_attack_range : Array[int] = []
 var current_weapon_effectiveness : Array[unitConstants.TRAITS] = []
-var current_required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
+var current_required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 @export var hover_stat : CombatMapUnitNetStat = CombatMapUnitNetStat.new() 
 var hover_damage_type : Constants.DAMAGE_TYPE = 0
 var hover_attack_range : Array[int] = []
 var hover_weapon_effectiveness : Array[unitConstants.TRAITS] = []
-var hover_required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
+var hover_required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 @export var hovering_new_item : bool = false
 

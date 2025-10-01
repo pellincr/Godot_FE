@@ -16,14 +16,14 @@ const SHIELD_ICON = preload("res://resources/sprites/icons/weapon_icons/shield_i
 const STAFF_ICON = preload("res://resources/sprites/icons/weapon_icons/staff_icon.png")
 const SWORD_ICON = preload("res://resources/sprites/icons/weapon_icons/sword_icon.png")
 
-@export var type: itemConstants.ITEM_TYPE
-@export var weapon_type : itemConstants.WEAPON_TYPE
+@export var type: ItemConstants.ITEM_TYPE
+@export var weapon_type : ItemConstants.WEAPON_TYPE
 
 
-func set_types(new_type:  itemConstants.ITEM_TYPE, new_weapon_type: itemConstants.WEAPON_TYPE = itemConstants.WEAPON_TYPE.NONE):
+func set_types(new_type:  ItemConstants.ITEM_TYPE, new_weapon_type: ItemConstants.WEAPON_TYPE = ItemConstants.WEAPON_TYPE.NONE):
 	self.type = new_type
-	if type == itemConstants.ITEM_TYPE.WEAPON:
-		if new_weapon_type != itemConstants.WEAPON_TYPE.NONE:
+	if type == ItemConstants.ITEM_TYPE.WEAPON:
+		if new_weapon_type != ItemConstants.WEAPON_TYPE.NONE:
 			self.weapon_type = new_weapon_type
 	self.update()
 
@@ -33,44 +33,44 @@ func set_types_from_item(input_item: ItemDefinition):
 		if input_item is WeaponDefinition:
 			self.weapon_type = input_item.weapon_type
 		else:
-			self.weapon_type = itemConstants.WEAPON_TYPE.NONE
+			self.weapon_type = ItemConstants.WEAPON_TYPE.NONE
 		update()
 	else :
 		self.texture = null
 
 func update():
 	match type:
-		itemConstants.ITEM_TYPE.WEAPON:
+		ItemConstants.ITEM_TYPE.WEAPON:
 			match weapon_type:
-				itemConstants.WEAPON_TYPE.AXE:
+				ItemConstants.WEAPON_TYPE.AXE:
 					self.texture = AXE_ICON
-				itemConstants.WEAPON_TYPE.BOW:
+				ItemConstants.WEAPON_TYPE.BOW:
 					self.texture = BOW_ICON
-				itemConstants.WEAPON_TYPE.BANNER:
+				ItemConstants.WEAPON_TYPE.BANNER:
 					self.texture = BANNER_ICON
-				itemConstants.WEAPON_TYPE.DAGGER:
+				ItemConstants.WEAPON_TYPE.DAGGER:
 					self.texture = DAGGER_ICON
-				itemConstants.WEAPON_TYPE.DARK:
+				ItemConstants.WEAPON_TYPE.DARK:
 					self.texture = DARK_ICON
-				itemConstants.WEAPON_TYPE.FIST:
+				ItemConstants.WEAPON_TYPE.FIST:
 					self.texture = FIST_ICON
-				itemConstants.WEAPON_TYPE.LANCE:
+				ItemConstants.WEAPON_TYPE.LANCE:
 					self.texture = LANCE_ICON
-				itemConstants.WEAPON_TYPE.LIGHT:
+				ItemConstants.WEAPON_TYPE.LIGHT:
 					self.texture = LIGHT_ICON
-				itemConstants.WEAPON_TYPE.NATURE:
+				ItemConstants.WEAPON_TYPE.NATURE:
 					self.texture = NATURE_ICON
-				itemConstants.WEAPON_TYPE.SHIELD:
+				ItemConstants.WEAPON_TYPE.SHIELD:
 					self.texture = SHIELD_ICON
-				itemConstants.WEAPON_TYPE.STAFF:
+				ItemConstants.WEAPON_TYPE.STAFF:
 					self.texture = STAFF_ICON
-				itemConstants.WEAPON_TYPE.SWORD:
+				ItemConstants.WEAPON_TYPE.SWORD:
 					self.texture = SWORD_ICON
-				itemConstants.WEAPON_TYPE.NONE:
+				ItemConstants.WEAPON_TYPE.NONE:
 					self.texture = null
-		itemConstants.ITEM_TYPE.EQUIPMENT:
+		ItemConstants.ITEM_TYPE.EQUIPMENT:
 			self.texture = null
-		itemConstants.ITEM_TYPE.TREASURE:
+		ItemConstants.ITEM_TYPE.TREASURE:
 			self.texture = null
-		itemConstants.ITEM_TYPE.USEABLE_ITEM:
+		ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 			self.texture = null
