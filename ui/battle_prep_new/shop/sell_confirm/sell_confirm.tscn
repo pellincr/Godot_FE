@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfuynw3helect"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/shop/sell_confirm/sell_confirm.gd" id="1_3tn6v"]
+[ext_resource type="Script" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="2_md6u7"]
+
+[node name="SellConfirm" type="PanelContainer"]
+z_index = 5
+size_flags_vertical = 4
+script = ExtResource("1_3tn6v")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="SellButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../CancelButton")
+focus_neighbor_top = NodePath("../CancelButton")
+focus_neighbor_right = NodePath("../CancelButton")
+focus_neighbor_bottom = NodePath("../CancelButton")
+text = "Sell"
+script = ExtResource("2_md6u7")
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../SellButton")
+focus_neighbor_top = NodePath("../SellButton")
+focus_neighbor_right = NodePath("../SellButton")
+focus_neighbor_bottom = NodePath("../SellButton")
+text = "Cancel"
+script = ExtResource("2_md6u7")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

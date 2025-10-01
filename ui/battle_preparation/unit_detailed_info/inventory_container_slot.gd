@@ -13,9 +13,6 @@ signal inventory_slot_pressed(item)
 @onready var item_uses_label = $HBoxContainer/UsesLabel
 @onready var left_container = $HBoxContainer/LeftContainer
 
-var set_for_trade = false
-var set_for_sale = false
-
 var item : ItemDefinition
 
 func _ready():
