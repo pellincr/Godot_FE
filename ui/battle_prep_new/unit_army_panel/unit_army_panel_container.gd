@@ -74,3 +74,7 @@ func _on_gui_input(event):
 
 func set_checkbox_visibility(vis: bool):
 	check_box.visible = vis
+
+
+func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")

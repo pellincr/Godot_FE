@@ -14,21 +14,17 @@ func _ready() -> void:
 
 
 func _on_unit_selection_button_pressed() -> void:
-	AudioManager.play_sound_effect("menu_confirm")
 	state_selected.emit(BattlePrep.PREP_STATE.UNIT_SELECTION)
 
 
 func _on_swap_spaces_button_pressed() -> void:
-	AudioManager.play_sound_effect("menu_confirm")
 	state_selected.emit(BattlePrep.PREP_STATE.SWAP_SPACES)
 
 
 func _on_shop_button_pressed() -> void:
-	AudioManager.play_sound_effect("menu_confirm")
 	state_selected.emit(BattlePrep.PREP_STATE.SHOP)
 
 func _on_inventory_button_pressed() -> void:
-	AudioManager.play_sound_effect("menu_confirm")
 	state_selected.emit(BattlePrep.PREP_STATE.INVENTORY)
 
 func set_button_focus(focus_bool:bool):
@@ -50,7 +46,6 @@ func enable_button_focus():
 
 
 func _on_start_battle_button_pressed() -> void:
-	AudioManager.play_sound_effect("menu_confirm")
 	start_game.emit()
 
 func grab_start_button_focus():

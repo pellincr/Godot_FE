@@ -141,6 +141,7 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")
 	item_name_label.self_modulate = "FFFFFF"
 	self.theme = preload("res://ui/battle_prep_new/panel_option_focused.tres")
 

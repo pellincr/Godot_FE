@@ -145,6 +145,7 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered():
+	AudioManager.play_sound_effect("menu_cursor")
 	var focus_theme = preload("res://ui/battle_prep_new/inventory_focused.tres")
 	self.theme = focus_theme
 	item_focused.emit(item)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://baqnvhynm7ixj"]
+[gd_scene load_steps=3 format=3 uid="uid://baqnvhynm7ixj"]
 
 [ext_resource type="Script" path="res://ui/battle_prep_new/inventory/inventory_option_selection.gd" id="1_sxuvh"]
+[ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_7sobi"]
 
 [node name="InventoryOptionSelection" type="PanelContainer"]
 custom_minimum_size = Vector2(205, 210)
@@ -17,15 +18,15 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="ManageItemsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ManageItemsButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_7sobi")]
 layout_mode = 2
 text = "Manage Items"
 
-[node name="TradeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="TradeButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_7sobi")]
 layout_mode = 2
 text = "Trade"
 
-[node name="StoreAllButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="StoreAllButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_7sobi")]
 layout_mode = 2
 text = "Store All"
 
