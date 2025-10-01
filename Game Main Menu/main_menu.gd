@@ -18,9 +18,7 @@ const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 
 
 func _ready():
-	if AudioManager.get_music_stream() != menu_music:
-		AudioManager.set_music_player_song(menu_music)
-		AudioManager.play_music()
+	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
@@ -99,7 +97,7 @@ func _on_hall_of_heroes_button_pressed():
 	get_tree().change_scene_to_packed(HALL_OF_HEROES_SCENE)
 
 
-func _on_tutorials_pressed():
+func _on_tutorials_button_pressed():
 	transition_out_animation()
 	get_tree().change_scene_to_packed(TUTORIAL_PAGE_SCENE)
 

@@ -21,21 +21,7 @@ var item : ItemDefinition
 func _ready():
 	if item != null:
 		update_by_item()
-"""
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") and self.has_focus():
-		if !set_for_trade:
-			if !set_for_sale:
-				if item is WeaponDefinition:
-					set_equippped.emit(item)
-				else:
-					use_item.emit(item)
-			else:
-				sell_item.emit(item)
-		else:
-			self.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
-			item_selected_for_trade.emit(item)
-"""
+
 func set_invetory_item_icon(icon:Texture2D):
 	inventory_item_icon.set_image(icon)
 
@@ -179,4 +165,5 @@ func _on_mouse_entered():
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
+		AudioManager.play_sound_effect("menu_confirm")
 		inventory_slot_pressed.emit(item)

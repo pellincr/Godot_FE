@@ -138,8 +138,7 @@ func _ready():
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	turn_owner = CombatMapConstants.FACTION.PLAYERS
 	##Start Music
-	AudioManager.set_music_player_song(player_music)
-	AudioManager.play_music()
+	AudioManager.play_music("player_theme")
 	
 #process called on frame
 func _process(delta):
@@ -273,13 +272,11 @@ func progress_turn_order():
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 		#PLAYER MUSIC
-		AudioManager.set_music_player_song(player_music)
-		AudioManager.play_music()
+		AudioManager.play_music("player_theme")
 	else: 
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
-		AudioManager.set_music_player_song(enemy_music)
-		AudioManager.play_music()
+		AudioManager.play_music("enemy_theme")
 
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)

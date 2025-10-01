@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1hyqburlsxxg"]
+[gd_scene load_steps=4 format=3 uid="uid://c1hyqburlsxxg"]
 
 [ext_resource type="Script" path="res://Game Main Menu/main_menu.gd" id="1_64ruv"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_iw8r2"]
+[ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="3_4jnco"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -29,34 +30,34 @@ offset_bottom = 477.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ContinueGameButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueGameButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 visible = false
 layout_mode = 2
 text = "Continue Game"
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer"]
+[node name="NewGameButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 layout_mode = 2
 text = "Start New Campaign"
 
-[node name="HallOfHeroesButton" type="Button" parent="VBoxContainer"]
+[node name="HallOfHeroesButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 layout_mode = 2
 text = "Hall of Heroes"
 
-[node name="AlmanacButton" type="Button" parent="VBoxContainer"]
+[node name="AlmanacButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 layout_mode = 2
 text = "Almanac"
 
-[node name="Tutorials" type="Button" parent="VBoxContainer"]
+[node name="TutorialsButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 layout_mode = 2
 text = "Tutorials"
 
-[node name="ReturnToStartButton" type="Button" parent="VBoxContainer"]
+[node name="ReturnToStartButton" parent="VBoxContainer" instance=ExtResource("3_4jnco")]
 layout_mode = 2
-text = "Return To Start"
+text = "Return to Start"
 
 [connection signal="pressed" from="VBoxContainer/ContinueGameButton" to="." method="_on_continue_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HallOfHeroesButton" to="." method="_on_hall_of_heroes_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/AlmanacButton" to="." method="_on_almanac_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Tutorials" to="." method="_on_tutorials_pressed"]
+[connection signal="pressed" from="VBoxContainer/TutorialsButton" to="." method="_on_tutorials_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ReturnToStartButton" to="." method="_on_return_to_start_button_pressed"]

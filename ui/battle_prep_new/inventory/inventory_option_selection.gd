@@ -15,14 +15,17 @@ func _process(delta: float) -> void:
 
 
 func _on_manage_items_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	inventory_option_state_selected.emit(InventoryPrepScreen.INVENTORY_STATE.MANAGE_ITEMS)
 
 
 func _on_trade_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	inventory_option_state_selected.emit(InventoryPrepScreen.INVENTORY_STATE.PICK_TRADE_UNIT)
 
 
 func _on_store_all_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	store_all.emit()
 
 func manage_items_button_grab_focus():

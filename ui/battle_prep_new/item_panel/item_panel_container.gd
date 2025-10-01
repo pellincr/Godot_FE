@@ -152,4 +152,5 @@ func _on_focus_exited() -> void:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
+		AudioManager.play_sound_effect("menu_confirm")
 		item_panel_pressed.emit(item)

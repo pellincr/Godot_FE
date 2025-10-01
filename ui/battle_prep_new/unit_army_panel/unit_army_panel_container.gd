@@ -69,6 +69,7 @@ func update_by_unit():
 
 func _on_gui_input(event):
 	if has_focus() and event.is_action_pressed("ui_accept"):
+		AudioManager.play_sound_effect("menu_confirm")
 		unit_panel_pressed.emit(unit)
 
 func set_checkbox_visibility(vis: bool):

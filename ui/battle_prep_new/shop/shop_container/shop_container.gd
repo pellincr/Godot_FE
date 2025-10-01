@@ -190,6 +190,7 @@ func _on_item_bought(item):
 	item_bought.emit(item)
 
 func next_shop_screen():
+	AudioManager.play_sound_effect("menu_confirm")
 	if current_tab_theme == ItemConstants.ITEM_TYPE.WEAPON:
 		match current_tab_subtheme:
 			ItemConstants.WEAPON_TYPE.SWORD:
@@ -257,6 +258,7 @@ func next_shop_screen():
 		sword_tab_icon.on_tab_view = true
 
 func previous_shop_screen():
+	AudioManager.play_sound_effect("menu_confirm")
 	if current_tab_theme == ItemConstants.ITEM_TYPE.WEAPON:
 		match current_tab_subtheme:
 			ItemConstants.WEAPON_TYPE.SWORD:

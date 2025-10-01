@@ -1,14 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6rplvxamqvwc"]
+[gd_scene load_steps=5 format=3 uid="uid://c6rplvxamqvwc"]
 
 [ext_resource type="Script" path="res://audio_manager/audio_manager.gd" id="1_8e4mr"]
+[ext_resource type="Resource" uid="uid://liipv0fn60jj" path="res://resources/definitions/audio_libraries/music_library.tres" id="2_f3pd2"]
+[ext_resource type="Resource" uid="uid://b1ubk6fkwuowd" path="res://resources/definitions/audio_libraries/sound_effect_library.tres" id="3_d3co4"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_x875l"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
 script = ExtResource("1_8e4mr")
+main_music_library = ExtResource("2_f3pd2")
+main_sound_effect_library = ExtResource("3_d3co4")
 
-[node name="Clips" type="Node" parent="."]
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="Clips"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -15.0
 
-[node name="SoundEffectPlayer" type="AudioStreamPlayer" parent="Clips"]
+[node name="SoundEffectPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_x875l")

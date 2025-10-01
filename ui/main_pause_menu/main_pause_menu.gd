@@ -22,6 +22,7 @@ enum CONFIRM_STATE{
 var confirm_state = CONFIRM_STATE.MAIN_MENU
 
 func _ready():
+	AudioManager.play_sound_effect("menu_back")
 	close_menu_button.grab_focus()
 
 func transition_out_animation():
@@ -31,6 +32,7 @@ func transition_out_animation():
 	await get_tree().create_timer(0.5).timeout
 
 func _on_close_menu_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	queue_free()
 	menu_closed.emit()
 
@@ -41,14 +43,17 @@ func update_confirm_container(state : CONFIRM_STATE):
 	yes_button.grab_focus()
 
 func _on_main_menu_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	update_confirm_container(CONFIRM_STATE.MAIN_MENU)
 
 
 func _on_quit_game_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	update_confirm_container(CONFIRM_STATE.QUIT)
 
 
 func _on_yes_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	match confirm_state:
 		CONFIRM_STATE.MAIN_MENU:
 			main_menu_selected.emit()
@@ -59,6 +64,7 @@ func _on_yes_button_pressed() -> void:
 
 
 func _on_no_button_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	confirm_sub_container.visible = false
 	main_container.visible = true
 	close_menu_button.grab_focus()
