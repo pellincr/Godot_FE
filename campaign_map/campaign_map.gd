@@ -31,9 +31,7 @@ var camera_edge_y : float
 var pause_menu_open = false
 
 func _ready() -> void:
-	if AudioManager.get_music_stream() != menu_music:
-		AudioManager.set_music_player_song(menu_music)
-		AudioManager.play_music()
+	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps

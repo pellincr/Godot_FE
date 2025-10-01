@@ -13,29 +13,12 @@ signal inventory_slot_pressed(item)
 @onready var item_uses_label = $HBoxContainer/UsesLabel
 @onready var left_container = $HBoxContainer/LeftContainer
 
-var set_for_trade = false
-var set_for_sale = false
-
 var item : ItemDefinition
 
 func _ready():
 	if item != null:
 		update_by_item()
-"""
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") and self.has_focus():
-		if !set_for_trade:
-			if !set_for_sale:
-				if item is WeaponDefinition:
-					set_equippped.emit(item)
-				else:
-					use_item.emit(item)
-			else:
-				sell_item.emit(item)
-		else:
-			self.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
-			item_selected_for_trade.emit(item)
-"""
+
 func set_invetory_item_icon(icon:Texture2D):
 	inventory_item_icon.set_image(icon)
 
@@ -162,6 +145,7 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered():
+	AudioManager.play_sound_effect("menu_cursor")
 	var focus_theme = preload("res://ui/battle_prep_new/inventory_focused.tres")
 	self.theme = focus_theme
 	item_focused.emit(item)
@@ -179,4 +163,5 @@ func _on_mouse_entered():
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
+		AudioManager.play_sound_effect("menu_confirm")
 		inventory_slot_pressed.emit(item)

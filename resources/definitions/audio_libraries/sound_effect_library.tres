@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=5 format=3 uid="uid://b1ubk6fkwuowd"]
+
+[ext_resource type="Script" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
+[ext_resource type="AudioStream" uid="uid://dvlfsttmv1f2p" path="res://resources/sounds/ui/menu_confirm.wav" id="2_1rw36"]
+[ext_resource type="AudioStream" uid="uid://b8vuovpghejpv" path="res://resources/sounds/ui/menu_back.wav" id="3_wiycp"]
+[ext_resource type="AudioStream" uid="uid://catkywwwl2laj" path="res://resources/sounds/ui/menu_cursor.wav" id="4_qrst8"]
+
+[resource]
+script = ExtResource("1_v3pn6")
+sounds = {
+"menu_back": ExtResource("3_wiycp"),
+"menu_confirm": ExtResource("2_1rw36"),
+"menu_cursor": ExtResource("4_qrst8")
+}

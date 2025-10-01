@@ -49,6 +49,7 @@ func clear_slot(inventory_slot):
 	inventory_slot.set_item_name_label("")
 	inventory_slot.set_item_uses(-1)
 	inventory_slot.set_invetory_item_icon(null)
+	inventory_slot.item = null
 
 func set_inventory_slot(item:ItemDefinition, slot):
 	slot.item = item
@@ -111,11 +112,15 @@ func _on_inventory_slot_pressed(item):
 					item_use_option.unit = unit
 		INVENTORY_STATE.SELL:
 			#emit the signal so that the players gold can be increased
-			sell_item.emit(item)
+			#sell_item.emit(item)
 			#remove the item from the inventory
-			unit.inventory.discard_item(item)
+			#unit.inventory.discard_item(item)
 			#update the inventory to match the item has now been discarded
-			update_by_unit()
+			#update_by_unit()
+			var sell_confirm_menu = preload("res://ui/battle_prep_new/shop/sell_confirm/sell_confirm.tscn").instantiate()
+			add_child(sell_confirm_menu)
+			sell_confirm_menu.sell_item.connect(_on_sell_confirm.bind(item))
+			sell_confirm_menu.menu_closed.connect(_on_sell_confirm_close)
 		INVENTORY_STATE.CONVOY:
 			send_to_convoy.emit(item)
 			unit.inventory.discard_item(item)
@@ -134,6 +139,18 @@ func _on_item_confirmed(item):
 	item_used.emit(item)
 
 func grab_first_slot_focus():
+	inventory_slot_1.grab_focus()
+
+func _on_sell_confirm(item):
+	#emit the signal so that the players gold can be increased
+	sell_item.emit(item)
+	#remove the item from the inventory
+	unit.inventory.discard_item(item)
+	#update the inventory to match the item has now been discarded
+	update_by_unit()
+	inventory_slot_1.grab_focus()
+
+func _on_sell_confirm_close():
 	inventory_slot_1.grab_focus()
 
 """

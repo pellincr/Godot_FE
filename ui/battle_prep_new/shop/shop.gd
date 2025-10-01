@@ -108,8 +108,9 @@ func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 
 
 func _on_item_sold(item:ItemDefinition):
-	playerOverworldData.gold += item.worth/2
-	gold_counter.set_gold_count(playerOverworldData.gold)
+	if item:
+		playerOverworldData.gold += item.worth/2
+		gold_counter.set_gold_count(playerOverworldData.gold)
 
 func _on_item_panel_pressed(item:ItemDefinition, convoy_container):
 	_on_item_sold(item)

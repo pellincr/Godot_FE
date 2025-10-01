@@ -52,5 +52,6 @@ mouse_filter = 1
 theme_override_icons/checked = ExtResource("4_bftfq")
 theme_override_icons/unchecked = ExtResource("5_m2x72")
 
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

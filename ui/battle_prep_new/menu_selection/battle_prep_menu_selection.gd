@@ -22,18 +22,7 @@ func _on_swap_spaces_button_pressed() -> void:
 
 
 func _on_shop_button_pressed() -> void:
-	#set_prep_state(BattlePrep.PREP_STATE.SHOP)
 	state_selected.emit(BattlePrep.PREP_STATE.SHOP)
-	#var shop_sub_container = preload("res://ui/battle_prep_new/menu_selection/shop_sub_container.tscn").instantiate()
-	#add_child(shop_sub_container)
-	#shop_sub_container.position = Vector2(395,135)
-	#shop_sub_container.menu_closed.connect(shop_menu_close)
-	#shop_sub_container.shop_entered.connect(shop_entered)
-	#disable_button_focus()
-
-#func shop_menu_close():
-#	enable_button_focus()
-#	shop_button.grab_focus()
 
 func _on_inventory_button_pressed() -> void:
 	state_selected.emit(BattlePrep.PREP_STATE.INVENTORY)
