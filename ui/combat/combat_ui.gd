@@ -176,6 +176,7 @@ func create_combat_map_game_menu():
 	await game_menu
 	self.add_child(game_menu)
 	game_menu.end_turn_btn.pressed.connect(func():controller.fsm_game_menu_end_turn())
+	game_menu.main_menu_btn.pressed.connect(func (): controller.fsm_game_menu_main_menu())
 	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
 	push_ui_node_stack(game_menu)
 
