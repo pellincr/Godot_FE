@@ -49,7 +49,7 @@ required_item_type = Array[int]([])
 script = ExtResource("4_okf23")
 probability = 0.0
 item_db_key = ""
-item_rarity_whitelist = Array[String](["Standard"])
+item_rarity_whitelist = Array[String](["Common"])
 item_type_whitelist = Array[int]([])
 weapon_type_whitelist = Array[int]([])
 

@@ -25,6 +25,7 @@ attacks_per_combat_turn = 2
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Sanguis"
 db_key = "sanguis"
 equippable = true

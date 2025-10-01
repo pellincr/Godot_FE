@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bulr5308i3tpv"]
 
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_8rg1s"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_8rg1s"]
 [ext_resource type="Texture2D" uid="uid://d2bynq7apdoay" path="res://resources/sprites/items/weapons/shield/buckler.png" id="1_ewuvi"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_522gm"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_tgg5h"]
@@ -40,6 +40,7 @@ bonus_stat = SubResource("Resource_7reny")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Buckler"
 db_key = "buckler"
 equippable = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dh66mgbsodlwe" path="res://resources/sprites/items/weapons/commander_specific/viper_bite.png" id="1_2ri4r"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_ci076"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_ci076"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="2_wnyqi"]
 
 [sub_resource type="Resource" id="Resource_xq0mb"]
@@ -40,6 +40,7 @@ bonus_stat = SubResource("Resource_xq0mb")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([4])
+augmented = false
 name = "Viper's Bite"
 db_key = "vipers_bite"
 equippable = true

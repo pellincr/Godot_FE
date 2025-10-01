@@ -29,6 +29,7 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([1])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Halberd"
 db_key = "halberd"
 equippable = true

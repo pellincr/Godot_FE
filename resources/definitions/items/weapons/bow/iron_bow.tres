@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://db355gw1lvem7"]
 
 [ext_resource type="Texture2D" uid="uid://ur8a5sfpp10h" path="res://resources/sprites/items/weapons/bow/iron_bow.png" id="1_0k084"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_joxu0"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_oslr7"]
-[ext_resource type="Resource" uid="uid://cpv0wg3lugprn" path="res://resources/definitions/rarity/Standard.tres" id="2_u5be8"]
 
 [resource]
 script = ExtResource("2_oslr7")
@@ -25,12 +25,13 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([2])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Iron Bow"
 db_key = "iron_bow"
 equippable = true
 description = "A standard Bow, unbreakable."
 item_type = 0
-rarity = ExtResource("2_u5be8")
+rarity = ExtResource("2_joxu0")
 uses = 1
 max_uses = 1
 unbreakable = true

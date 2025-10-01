@@ -25,6 +25,7 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 3
 specials = Array[int]([])
+augmented = false
 name = "Imbue"
 db_key = "imbue_staff"
 equippable = true

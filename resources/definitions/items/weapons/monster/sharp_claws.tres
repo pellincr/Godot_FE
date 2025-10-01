@@ -24,6 +24,7 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Sharp Claws"
 db_key = "sharp_claws"
 equippable = true

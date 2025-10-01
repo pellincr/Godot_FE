@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cm2ddi8728iye" path="res://resources/sprites/items/weapons/swords/iron_sword.tres" id="1_swu3m"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_bptae"]
-[ext_resource type="Resource" uid="uid://cpv0wg3lugprn" path="res://resources/definitions/rarity/Standard.tres" id="2_hxomj"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_sor6g"]
 
 [resource]
 script = ExtResource("2_bptae")
@@ -25,12 +25,13 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Iron Sword"
 db_key = "iron_sword"
 equippable = true
 description = "A standard Sword, unbreakable."
 item_type = 0
-rarity = ExtResource("2_hxomj")
+rarity = ExtResource("2_sor6g")
 uses = 1
 max_uses = 1
 unbreakable = true

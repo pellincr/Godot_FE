@@ -25,6 +25,7 @@ attacks_per_combat_turn = 1
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Fiend Fire"
 db_key = "fiend_fire"
 equippable = true
