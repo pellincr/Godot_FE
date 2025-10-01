@@ -49,6 +49,7 @@ func clear_slot(inventory_slot):
 	inventory_slot.set_item_name_label("")
 	inventory_slot.set_item_uses(-1)
 	inventory_slot.set_invetory_item_icon(null)
+	inventory_slot.item = null
 
 func set_inventory_slot(item:ItemDefinition, slot):
 	slot.item = item

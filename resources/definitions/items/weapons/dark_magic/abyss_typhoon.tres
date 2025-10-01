@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://q5auo22bnw4a"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_c8fli"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_c8fli"]
 [ext_resource type="Texture2D" uid="uid://cax026tjx8qnu" path="res://resources/sprites/items/weapons/dark/abyss_typhoon.png" id="1_cxc8y"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="2_661of"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_sng6e"]

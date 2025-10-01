@@ -44,5 +44,28 @@ size_flags_horizontal = 3
 [node name="EnemyUsableWeaponInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/EnemyInfoMainContainer/EnemyUsableWeaponScrollContainer"]
 layout_mode = 2
 
+[node name="ReinforcementInfoMainContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="ReinforcementUnitTypeScrollContainer" type="ScrollContainer" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ReinforcementUnitTypeInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer/ReinforcementUnitTypeScrollContainer"]
+layout_mode = 2
+
+[node name="ReinforcementUnitTypeHeaderContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer/ReinforcementUnitTypeScrollContainer/ReinforcementUnitTypeInfoContainer"]
+layout_mode = 2
+
+[node name="ReinforcementUnitTypeInfoHeader" type="Label" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer/ReinforcementUnitTypeScrollContainer/ReinforcementUnitTypeInfoContainer/ReinforcementUnitTypeHeaderContainer"]
+layout_mode = 2
+text = "Upcoming Reinforcements: "
+
+[node name="ReinforcementUsableWeaponTypeScrollContainer" type="ScrollContainer" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer"]
+layout_mode = 2
+
+[node name="ReinforcementUsableWeaponInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/ReinforcementInfoMainContainer/ReinforcementUsableWeaponTypeScrollContainer"]
+layout_mode = 2
+
 [node name="EntityInfoContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2

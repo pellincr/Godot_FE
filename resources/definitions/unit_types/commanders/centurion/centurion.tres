@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CommanderDefinition" load_steps=6 format=3 uid="uid://b6wt7bx06b8pq"]
 
 [ext_resource type="Resource" uid="uid://dd565cs7pmke8" path="res://resources/definitions/unit_types/commanders/centurion/centurion_base_combat_stats.tres" id="1_0hsiw"]
-[ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_1bfru"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_1bfru"]
 [ext_resource type="Resource" uid="uid://32ucve7o6g3y" path="res://resources/definitions/unit_types/commanders/centurion/centurion_growth_stats.tres" id="2_j38xx"]
 [ext_resource type="Texture2D" uid="uid://dxvba0xhdyq2k" path="res://resources/sprites/units/Centurion.png" id="3_2nrkr"]
 [ext_resource type="Resource" uid="uid://dhcd7csj6n51v" path="res://resources/definitions/unit_types/commanders/centurion/centurion_max_stats.tres" id="4_usves"]
