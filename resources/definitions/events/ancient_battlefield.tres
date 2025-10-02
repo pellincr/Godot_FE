@@ -1,0 +1,109 @@
+[gd_resource type="Resource" script_class="Event" load_steps=17 format=3 uid="uid://5sst4s666qpw"]
+
+[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
+[ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
+[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_cc62d"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
+[ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_ptpeo"]
+[ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
+[ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]
+
+[sub_resource type="Resource" id="Resource_e71i3"]
+script = ExtResource("3_ymgno")
+hp = 0
+strength = 0
+magic = 0
+skill = 0
+speed = 0
+luck = 2
+defense = 0
+resistance = 0
+movement = 0
+constitution = 0
+
+[sub_resource type="Resource" id="Resource_31c6h"]
+script = ExtResource("2_cc62d")
+title = "Honor the Fallen"
+description = "All units gain [color=#FAFA82]2[/color] Luck."
+effect = 3
+gold_change = 0
+unit_stat_change = SubResource("Resource_e71i3")
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_j76ay"]
+script = ExtResource("4_ptpeo")
+probability = 3.0
+item_db_key = ""
+item_rarity_whitelist = Array[String]([])
+item_type_whitelist = Array[int]([0])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
+
+[sub_resource type="Resource" id="Resource_t21cu"]
+script = ExtResource("4_ptpeo")
+probability = 1.5
+item_db_key = ""
+item_rarity_whitelist = Array[String]([])
+item_type_whitelist = Array[int]([0])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 12, 13])
+
+[sub_resource type="Resource" id="Resource_ecy2r"]
+script = ExtResource("4_ptpeo")
+probability = 0.1
+item_db_key = ""
+item_rarity_whitelist = Array[String]([])
+item_type_whitelist = Array[int]([])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
+
+[sub_resource type="Resource" id="Resource_jlbjb"]
+script = ExtResource("5_k8up4")
+entries = Array[ExtResource("4_ptpeo")]([SubResource("Resource_j76ay"), SubResource("Resource_t21cu"), SubResource("Resource_ecy2r")])
+
+[sub_resource type="Resource" id="Resource_p7vwh"]
+script = ExtResource("5_oppgp")
+change_damage_type = false
+item_new_damage_type = 0
+change_scaling_type = false
+item_new_scaling_type = 0
+item_scaling_multiplier_change = 0.0
+attack_range = Array[int]([])
+damage = 4
+hit = 0
+critical_chance = 0
+weight = 0
+critical_multiplier = 0.0
+attacks_per_combat_turn = 0
+weapon_effectiveness = Array[int]([])
+specials = Array[int]([8])
+max_uses = 0
+percent_durability = 1.0
+ubreakable = false
+
+[sub_resource type="Resource" id="Resource_556ly"]
+script = ExtResource("2_cc62d")
+title = "Claim the Relic"
+description = "Gain a Random weapon with [color=#FAFA82]4[/color] extra damage and has the [color=#FAFA82]Devil Reversal[/color]special tag."
+effect = 8
+gold_change = 0
+wpn_stat_change = SubResource("Resource_p7vwh")
+loot_table = SubResource("Resource_jlbjb")
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[sub_resource type="Resource" id="Resource_rlnpb"]
+script = ExtResource("2_cc62d")
+title = "Search for Gold"
+description = "Scavenge the battle field for treasures, collect [color=#FFA800]1000 Gold[/color]."
+effect = 0
+gold_change = 1000
+gold_requirement = 0
+required_item_type = Array[int]([])
+
+[resource]
+script = ExtResource("1_3o1ck")
+name = "Ancient Battlefield"
+description = "Mists curl around rusted weapons and forgotten banners. A large weapon lays in the center."
+background = ExtResource("1_dwhhw")
+option1 = SubResource("Resource_31c6h")
+option2 = SubResource("Resource_556ly")
+option3 = SubResource("Resource_rlnpb")

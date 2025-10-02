@@ -21,7 +21,7 @@ var price : int = calculate_price()
 
 @export_group("Bonus Stats From Held in Inventory")
 @export var inventory_bonus_stats : CombatUnitStat = null
-
+@export var inventory_growth_bonus_stats : UnitStat = null
 @export_group("Visuals")
 @export var icon: Texture2D
 

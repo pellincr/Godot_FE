@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://btr7xm3kfbfvl"]
 
 [ext_resource type="Theme" uid="uid://c8s6g11sgxtnp" path="res://almanac/loading_screen.tres" id="1_sw4dj"]
-[ext_resource type="Script" path="res://load_screen/loading_screen.gd" id="2_v33nu"]
+[ext_resource type="Script" uid="uid://165ld8eo8uvp" path="res://load_screen/loading_screen.gd" id="2_v33nu"]
 
 [node name="LoadingScreen" type="Control"]
 custom_minimum_size = Vector2(1280, 720)

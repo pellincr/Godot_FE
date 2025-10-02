@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f6rk8d0qam1j"
-path="res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"
+uid="uid://br2u23ch0s2vp"
+path="res://.godot/imported/broken_shrine_of_valor_background.png-79824993192c7843de94ee2d589c6686.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/whispering_oak_background.png"
-dest_files=["res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"]
+source_file="res://resources/sprites/events/broken_shrine_of_valor_background.png"
+dest_files=["res://.godot/imported/broken_shrine_of_valor_background.png-79824993192c7843de94ee2d589c6686.ctex"]
 
 [params]
 

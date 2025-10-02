@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8rpcmnh30k3s"
-path="res://.godot/imported/silent_choir.png-0c360bdf879d62f3c61b8ccd7599d5bf.ctex"
+uid="uid://s5fp6kgiyjdi"
+path="res://.godot/imported/bridge_support.png-15adc2dae0eee4088ddca74c45df5780.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/silent_choir.png"
-dest_files=["res://.godot/imported/silent_choir.png-0c360bdf879d62f3c61b8ccd7599d5bf.ctex"]
+source_file="res://resources/sprites/items/equipment/bridge_support.png"
+dest_files=["res://.godot/imported/bridge_support.png-15adc2dae0eee4088ddca74c45df5780.ctex"]
 
 [params]
 

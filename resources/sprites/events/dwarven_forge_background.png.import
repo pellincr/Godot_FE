@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br2u23ch0s2vp"
-path="res://.godot/imported/broken_shrine_of_valor.png-bf74f71713d69f4548313b8084ec57e2.ctex"
+uid="uid://bgvss1ojtqr0g"
+path="res://.godot/imported/dwarven_forge_background.png-6271ecb1fae2590c299ec9f69e831421.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/broken_shrine_of_valor.png"
-dest_files=["res://.godot/imported/broken_shrine_of_valor.png-bf74f71713d69f4548313b8084ec57e2.ctex"]
+source_file="res://resources/sprites/events/dwarven_forge_background.png"
+dest_files=["res://.godot/imported/dwarven_forge_background.png-6271ecb1fae2590c299ec9f69e831421.ctex"]
 
 [params]
 

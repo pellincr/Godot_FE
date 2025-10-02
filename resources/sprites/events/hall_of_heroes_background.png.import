@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f6rk8d0qam1j"
-path="res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"
+uid="uid://ck8p2e71scb6y"
+path="res://.godot/imported/hall_of_heroes_background.png-8af1d2766aa4a55e69adc9e4b4494eb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/whispering_oak_background.png"
-dest_files=["res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"]
+source_file="res://resources/sprites/events/hall_of_heroes_background.png"
+dest_files=["res://.godot/imported/hall_of_heroes_background.png-8af1d2766aa4a55e69adc9e4b4494eb1.ctex"]
 
 [params]
 

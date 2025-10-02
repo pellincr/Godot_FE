@@ -186,18 +186,19 @@ func level_up_stat_roll(growth_rate : int) -> int:
 # @param growth_rate : target stat's growth rate (%)
 ##
 func get_level_up_value(unit: Unit = self) -> UnitStat:
-	var level : UnitStat = UnitStat.new()
+	var level_stats : UnitStat = UnitStat.new()
+	var bonus_growths : UnitStat = unit.inventory.total_item_held_bonus_growths()
 	
-	level.hp += level_up_stat_roll(unit.growths.hp)
-	level.strength += level_up_stat_roll(unit.growths.strength)
-	level.magic += level_up_stat_roll(unit.growths.magic)
-	level.skill += level_up_stat_roll(unit.growths.skill)
-	level.speed += level_up_stat_roll(unit.growths.speed)
-	level.luck += level_up_stat_roll(unit.growths.luck)
-	level.defense += level_up_stat_roll(unit.growths.defense)
-	level.resistance += level_up_stat_roll(unit.growths.resistance)
+	level_stats.hp += level_up_stat_roll(unit.growths.hp + bonus_growths.hp)
+	level_stats.strength += level_up_stat_roll(unit.growths.strength+ bonus_growths.strength)
+	level_stats.magic += level_up_stat_roll(unit.growths.magic + bonus_growths.magic)
+	level_stats.skill += level_up_stat_roll(unit.growths.skill + bonus_growths.skill)
+	level_stats.speed += level_up_stat_roll(unit.growths.speed + bonus_growths.speed)
+	level_stats.luck += level_up_stat_roll(unit.growths.luck + bonus_growths.luck)
+	level_stats.defense += level_up_stat_roll(unit.growths.defense + bonus_growths.defense)
+	level_stats.resistance += level_up_stat_roll(unit.growths.resistance + bonus_growths.resistance)
 	#unit.update_stats()
-	return level
+	return level_stats
 
 ##
 # level_up_stat_roll : performs calculation to see if a stat point is awarded during level up

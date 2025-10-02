@@ -32,7 +32,7 @@ ubreakable = false
 script = ExtResource("2_3buo3")
 title = "Empower"
 description = "Target Weapon recieves [color=#FAFA82]1[/color] Damage,[color=#FAFA82]15[/color] Hit, and loses [color=#AC3232]2[/color] Uses."
-effect = 5
+effect = 6
 gold_change = 0
 wpn_stat_change = SubResource("Resource_0rwxa")
 gold_requirement = 0

@@ -44,7 +44,7 @@ func apply_weapon_stats(weapon: WeaponDefinition):
 	if change_scaling_type:
 		weapon.item_scaling_type = item_new_scaling_type
 	weapon.item_scaling_multiplier = weapon.item_scaling_multiplier + item_scaling_multiplier_change
-	weapon.attack_range.append(attack_range)
+	weapon.attack_range.append_array(attack_range)
 	weapon.damage = weapon.damage + damage
 	weapon.hit = weapon.hit + hit
 	weapon.critical_chance = weapon.critical_chance + critical_chance
@@ -57,7 +57,7 @@ func apply_weapon_stats(weapon: WeaponDefinition):
 		else :
 			weapon.bonus_stat = bonus_stat.duplicate()
 	if not weapon_effectiveness.is_empty():
-		weapon.weapon_effectiveness.append(weapon_effectiveness)
+		weapon.weapon_effectiveness.append_array(weapon_effectiveness)
 	if not specials.is_empty():
-		weapon.weapon_effectiveness.append(specials)
+		weapon.specials.append_array(specials)
 	

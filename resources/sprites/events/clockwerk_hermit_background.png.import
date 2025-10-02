@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ct7ypxj5w20qh"
-path="res://.godot/imported/cavern_of_echoing_steel.png-6f71e3b2362cf4e29307898aa680fc4a.ctex"
+uid="uid://biwt8l6p0or0i"
+path="res://.godot/imported/clockwerk_hermit_background.png-ed7c73a3c335a44a30778e0f7db5560b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/cavern_of_echoing_steel.png"
-dest_files=["res://.godot/imported/cavern_of_echoing_steel.png-6f71e3b2362cf4e29307898aa680fc4a.ctex"]
+source_file="res://resources/sprites/events/clockwerk_hermit_background.png"
+dest_files=["res://.godot/imported/clockwerk_hermit_background.png-ed7c73a3c335a44a30778e0f7db5560b.ctex"]
 
 [params]
 

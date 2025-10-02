@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f6rk8d0qam1j"
-path="res://.godot/imported/whispering_oak.png-931a1586ba53a0cda4a6abfad1327469.ctex"
+uid="uid://bdkjydwab1ulu"
+path="res://.godot/imported/festival_of_embers_background.png-fda61495a9eefe1f94fc20680aaba1c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/whispering_oak.png"
-dest_files=["res://.godot/imported/whispering_oak.png-931a1586ba53a0cda4a6abfad1327469.ctex"]
+source_file="res://resources/sprites/events/festival_of_embers_background.png"
+dest_files=["res://.godot/imported/festival_of_embers_background.png-fda61495a9eefe1f94fc20680aaba1c2.ctex"]
 
 [params]
 

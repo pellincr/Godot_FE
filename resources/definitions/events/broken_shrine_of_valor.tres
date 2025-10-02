@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gjdrf"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_hon6e"]
-[ext_resource type="Texture2D" uid="uid://br2u23ch0s2vp" path="res://resources/sprites/events/broken_shrine_of_valor.png" id="1_rgb4c"]
+[ext_resource type="Texture2D" uid="uid://br2u23ch0s2vp" path="res://resources/sprites/events/broken_shrine_of_valor_background.png" id="1_pqwyy"]
 [ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="2_rcrjr"]
 [ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="3_1p5hj"]
 [ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_okf23"]
@@ -80,7 +80,7 @@ ubreakable = false
 [sub_resource type="Resource" id="Resource_jgwae"]
 script = ExtResource("1_gjdrf")
 title = "Scavenge the Rubble"
-description = "Gain a Standard Iron weapon with bonus [color=#FAFA82]5[/color]hit and [color=#FAFA82]10[/color]critical chance."
+description = "Gain a Standard Iron weapon with bonus [color=#FAFA82]5[/color] hit and [color=#FAFA82]10[/color] Critical Chance."
 effect = 0
 gold_change = 0
 wpn_stat_change = SubResource("Resource_70bis")
@@ -115,7 +115,7 @@ required_item_type = Array[int]([])
 script = ExtResource("1_hon6e")
 name = "Broken Shrine of Valor"
 description = "A ruined statue of a forgotten hero lies scattered."
-background = ExtResource("1_rgb4c")
+background = ExtResource("1_pqwyy")
 option1 = SubResource("Resource_sgp1u")
 option2 = SubResource("Resource_jgwae")
 option3 = SubResource("Resource_fowvt")

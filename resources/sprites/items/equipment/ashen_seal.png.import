@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f6rk8d0qam1j"
-path="res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"
+uid="uid://dr11yhureq0di"
+path="res://.godot/imported/ashen_seal.png-094f69bdc51403b9fee1004770e17c4c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/whispering_oak_background.png"
-dest_files=["res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"]
+source_file="res://resources/sprites/items/equipment/ashen_seal.png"
+dest_files=["res://.godot/imported/ashen_seal.png-094f69bdc51403b9fee1004770e17c4c.ctex"]
 
 [params]
 

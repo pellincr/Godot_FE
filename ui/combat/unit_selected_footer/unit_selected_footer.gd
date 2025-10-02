@@ -42,12 +42,12 @@ func update():
 	
 	
 	#Stat Grid
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.unit.hit)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.unit.avoid)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.unit.attack_speed)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.stats.resistance)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.stats.defense)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.get_damage())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.get_hit())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.get_avoid())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.get_attack_speed())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.get_resistance())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.get_defense())
 	update_background()
 
 func update_background():

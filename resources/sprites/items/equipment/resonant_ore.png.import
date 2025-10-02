@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f6rk8d0qam1j"
-path="res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"
+uid="uid://066nbg24yf68"
+path="res://.godot/imported/resonant_ore.png-934dcede2c13a56ac6217e4aaef4e318.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/events/whispering_oak_background.png"
-dest_files=["res://.godot/imported/whispering_oak_background.png-fd812ebece28cc6d48baa8d783f9165e.ctex"]
+source_file="res://resources/sprites/items/equipment/resonant_ore.png"
+dest_files=["res://.godot/imported/resonant_ore.png-934dcede2c13a56ac6217e4aaef4e318.ctex"]
 
 [params]
 

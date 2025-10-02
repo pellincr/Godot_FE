@@ -35,7 +35,7 @@ constitution = 0
 script = ExtResource("1_gdb3o")
 title = "Face the Test"
 description = "Selected unit gains [color=#FAFA82]1[/color] Strength and 1 Defense but loses [color=#AC3232]1[/color] Speed and [color=#AC3232]10%[/color] Speed growth."
-effect = 1
+effect = 2
 gold_change = 0
 unit_stat_change = SubResource("Resource_4dw2y")
 unit_growth_change = SubResource("Resource_acy4k")
@@ -59,7 +59,7 @@ constitution = 0
 script = ExtResource("1_gdb3o")
 title = "Harness The Spirit"
 description = "Selected unit gains [color=#FAFA82]15%[/color] Magic growth."
-effect = 1
+effect = 2
 gold_change = 0
 unit_growth_change = SubResource("Resource_ll0aw")
 gold_requirement = 0
@@ -82,7 +82,7 @@ constitution = 0
 script = ExtResource("1_gdb3o")
 title = "Flee the Forest"
 description = "Selected unit gains [color=#FAFA82]1[/color] Speed but loses [color=#AC3232]4[/color] Max Health."
-effect = 1
+effect = 2
 gold_change = 0
 unit_stat_change = SubResource("Resource_vkiqa")
 gold_requirement = 0

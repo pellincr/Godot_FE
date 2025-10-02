@@ -4,7 +4,7 @@ class_name LootTable
 @export var entries : Array[LootTableEntry] 
 
 func get_loot() -> ItemDefinition:
-	return self.pick_item(self.calculate_loot())
+	return self.pick_item(self.calculate_loot()).duplicate()
 
 func calculate_loot() -> LootTableEntry:
 	var max : float = 0
