@@ -93,7 +93,7 @@ func _setup_connection(row:int,col:int) -> int:
 	var current_room := map_data[row][col] as CampaignRoom
 	
 	while not next_room or _would_cross_existing_path(row,col,next_room):
-		var random_col := clampi(randi_range(col-1,col+1),0,MAP_WIDTH-1) #gets the next random column number that is either diagonal left, straight, or diagonal right fro, current
+		var random_col := clampi(randi_range(col-1,col+1),0,MAP_WIDTH-1) #gets the next random column number that is either diagonal left, straight, or diagonal right from, current
 		next_room = map_data[row+1][random_col]
 	current_room.next_rooms.append(next_room)
 	return next_room.column
@@ -102,22 +102,22 @@ func _would_cross_existing_path(row:int,col:int,room:CampaignRoom) -> bool:
 	var left_neighbor : CampaignRoom
 	var right_neighbor : CampaignRoom
 	
-	#if col == 0, there is no left neighbor
+	#if col == 0, there is no left neighbor. Only needs to be set if col > 0
 	if col > 0:
 		left_neighbor = map_data[row][col-1]
-	#if col == MAP_WIDTH -1, there is no right neighbor
+	#if col == MAP_WIDTH -1, there is no right neighbor. Only needs to be set if col < MAP_WIDTH - 1
 	if col < MAP_WIDTH - 1:
 		right_neighbor = map_data[row][col+1]
 	
 	#can't cross in the right dir if right neighbor goes to left
-	if right_neighbor and room.column > col:
-		for next_room : CampaignRoom in right_neighbor.next_rooms:
-			if next_room.column < room.column:
+	if right_neighbor and room.column > col: #check if right neighbor exists and if the desired room is heading in the right direction
+		for neighbor_next_room : CampaignRoom in right_neighbor.next_rooms: 
+			if neighbor_next_room.column < room.column:
 				return true
 	#can't cross in the left dir if the neft neightbor goes to the right
 	if left_neighbor and room.column < col:
 		for next_room : CampaignRoom in left_neighbor.next_rooms:
-			if next_room.column < room.column:
+			if next_room.column > room.column:
 				return true
 	return false
 
