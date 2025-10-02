@@ -804,6 +804,7 @@ func move_cursor(position: Vector2i):
 	camera.centerCameraCenter(grid.map_to_position(position))
 	selector.position = grid.map_to_position(position)
 
+
 #
 # Updates the selected tile to a new position, but ensures it is within the grid
 #
@@ -1017,6 +1018,10 @@ func fsm_game_menu_cancel():
 func fsm_game_menu_end_turn():
 	combat.game_ui.destory_active_ui_node()
 	advance_turn()
+
+func fsm_game_menu_main_menu():
+	var main_menu = "res://Game Main Menu/main_menu.tscn"
+	get_tree().change_scene_to_file(main_menu)
 
 #
 # Main part of the FSM 

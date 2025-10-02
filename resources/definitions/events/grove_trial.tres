@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://dl1y82k76ck63"]
 
-[ext_resource type="Texture2D" uid="uid://24osm25o854k" path="res://resources/sprites/events/grove_trial_background.png" id="1_86221"]
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gdb3o"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="3_iv5nk"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
+
+[sub_resource type="Resource" id="Resource_r5tnl"]
+metadata/__load_path__ = "res://resources/sprites/events/grove_trial_background.png"
 
 [sub_resource type="Resource" id="Resource_acy4k"]
 script = ExtResource("3_rfpjw")
@@ -92,7 +94,7 @@ required_item_type = Array[int]([])
 script = ExtResource("3_iv5nk")
 name = "Sacred Grove Trial"
 description = "A forest spirit challenges your worth."
-background = ExtResource("1_86221")
+background = SubResource("Resource_r5tnl")
 option1 = SubResource("Resource_6m46o")
 option2 = SubResource("Resource_cf6vk")
 option3 = SubResource("Resource_v8s5k")

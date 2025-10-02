@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://fqmflxnp4yqn" path="res://resources/definitions/unit_types/units/archer/archer_growth_stats.tres" id="2_n1wy3"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="3_syh0e"]
 [ext_resource type="Resource" uid="uid://d08kvfs4un87q" path="res://resources/definitions/unit_types/units/archer/archer_max_stats.tres" id="4_tanwq"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_cu06h"]
+[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_cu06h"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_oh3wl"]
 
 [resource]
