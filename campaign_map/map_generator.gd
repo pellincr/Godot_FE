@@ -9,21 +9,22 @@ var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
 var NUMBER_OF_REQUIRED_COMBAT_MAPS : int = 0
 const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
-const BATTLE_ROOM_WEIGHT := 0.0
-const EVENT_ROOM_WEIGHT := 2.5
-const TREASURE_ROOM_WEIGHT := 1.0
-const ELITE_ROOM_WEIGHT := 1.5
-const SHOP_ROOM_WEIGHT := 2.0
-const RECRUITMENT_ROOM_WEIGHT := 1.0
+const BATTLE_ROOM_WEIGHT := 0.0 #0
+const EVENT_ROOM_WEIGHT := 4.0 #2.5
+const TREASURE_ROOM_WEIGHT := 1.0 #1
+const ELITE_ROOM_WEIGHT := 0.0 #1.5
+const SHOP_ROOM_WEIGHT := 0.0 #2.0
+const RECRUITMENT_ROOM_WEIGHT := 3.0 #1.0
+const KEY_BATTLE_ROOM_WEIGHT := 0.0
 
 var random_room_type_weights = {
 	CampaignRoom.TYPE.BATTLE : 0.0,
 	CampaignRoom.TYPE.KEY_BATTLE : 0.0,
-	CampaignRoom.TYPE.EVENT : 6.0,
-	CampaignRoom.TYPE.TREASURE : 6.0,
+	CampaignRoom.TYPE.EVENT : 0.0, #6
+	CampaignRoom.TYPE.TREASURE : 0.0, #6
 	CampaignRoom.TYPE.ELITE : 0.0,
 	CampaignRoom.TYPE.SHOP : 0.0,
-	CampaignRoom.TYPE.RECRUITMENT : 6.0
+	CampaignRoom.TYPE.RECRUITMENT : 0.0#6
 }
 
 var random_room_type_total_weight := 0
@@ -135,12 +136,15 @@ func _setup_boss_room() -> void:
 
 func _setup_random_room_weights() -> void:
 	random_room_type_weights[CampaignRoom.TYPE.BATTLE] = BATTLE_ROOM_WEIGHT
-	random_room_type_weights[CampaignRoom.TYPE.EVENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
-	random_room_type_weights[CampaignRoom.TYPE.SHOP] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
-	random_room_type_weights[CampaignRoom.TYPE.ELITE] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT
-	random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT] = BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT + RECRUITMENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.KEY_BATTLE] = KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.EVENT] = KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.TREASURE] = KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.ELITE] = ELITE_ROOM_WEIGHT + KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.SHOP] = SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT + KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT] = SHOP_ROOM_WEIGHT + ELITE_ROOM_WEIGHT + KEY_BATTLE_ROOM_WEIGHT + BATTLE_ROOM_WEIGHT + RECRUITMENT_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT + EVENT_ROOM_WEIGHT
+	var total_room_weight = random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT]
 	
-	random_room_type_total_weight = random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT]
+	random_room_type_total_weight = total_room_weight#random_room_type_weights[CampaignRoom.TYPE.RECRUITMENT]
 
 func _setup_room_types() -> void:
 	#first floor is always a battle

@@ -4,7 +4,7 @@ var initial_value : int
 var desired_value : int
 var displayed_value : int
 var overflow_value = 0
-var tween = null
+var tween : Tween = null
 
 signal finished()
 
@@ -15,6 +15,7 @@ func _ready():
 func _process(delta: float) -> void:
 	if tween:
 		update_xp_label($Panel/ProgressBar.value)
+		
 
 func set_value(amount: int):
 	self.displayed_value = amount
@@ -26,9 +27,12 @@ func set_initial_value(experience_amount: int):
 	update_xp_label(self.initial_value)
 
 func activate_tween():
+	#AudioManager.play_sound_effect("experience_bar")
+	#AudioManager.tween_sound_effect_pitch(2,generate_bar_time())
 	tween = get_tree().create_tween()
 	tween.tween_property($Panel/ProgressBar, "value", desired_value, generate_bar_time()).set_delay(.2)
 	tween.connect("finished", tween_done)
+	
 
 func update_xp_label(f: float):
 	$Panel/xpValue.text = str(int(f)) 
@@ -45,5 +49,6 @@ func generate_bar_time() -> float:
 
 
 func tween_done():
+	#AudioManager.stop_sound_effect()
 	await get_tree().create_timer(0.3).timeout
 	emit_signal("finished")
