@@ -210,6 +210,22 @@ func get_all_unit_positions_of_faction(faction : int) -> Array[Vector2i]:
 		_arr.append(unit_position)
 	return _arr
 
+func get_next_unit(cu: CombatUnit = null, forwards: bool = true) -> CombatUnit:
+	if cu != null: 
+		var current_unit_index = combatants.find(cu)
+		# get the unit positon in the 2D faction array
+		var faction_index = groups[cu.allegience].find(current_unit_index)
+		var next_unit_index = 0 
+		if forwards:
+			next_unit_index = CustomUtilityLibrary.array_next_index_with_loop(groups[cu.allegience], faction_index)
+			return combatants[groups[cu.allegience][next_unit_index]]
+		else : 
+			next_unit_index = CustomUtilityLibrary.array_previous_index_with_loop(groups[cu.allegience], faction_index) 
+			return combatants[groups[cu.allegience][next_unit_index]]
+	else: 
+		return combatants[groups[0].front()]
+	
+
 func check_reinforcement_spawn(turn_number : int):
 	# get all the unit positions for friendly units
 	if mapReinforcementData != null:

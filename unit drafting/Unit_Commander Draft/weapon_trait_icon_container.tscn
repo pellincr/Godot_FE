@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://di7v11sroksay"]
+[gd_scene load_steps=20 format=3 uid="uid://di7v11sroksay"]
 
 [ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.gd" id="1_adn3t"]
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="1_xmg1x"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="13_sqant"]
 [ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="14_33de1"]
 [ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="14_qg37k"]
+[ext_resource type="Texture2D" uid="uid://5kg6twx176sf" path="res://resources/sprites/icons/unit_trait_icons/light_move_icon.png" id="19_lw8ty"]
 
 [node name="WeaponTraitIconContainer" type="VBoxContainer"]
 script = ExtResource("1_adn3t")
@@ -129,4 +130,10 @@ expand_mode = 2
 visible = false
 layout_mode = 2
 texture = ExtResource("13_sqant")
+expand_mode = 2
+
+[node name="LightMoveIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("19_lw8ty")
 expand_mode = 2

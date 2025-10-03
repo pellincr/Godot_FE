@@ -31,6 +31,7 @@ const armored_icon = preload("res://resources/sprites/icons/unit_trait_icons/arm
 const flyer_icon = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
 const mounted_icon = preload("res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png")
 const undead_icon = preload("res://resources/sprites/icons/unit_trait_icons/undead_icon.png")
+const mobile_icon = preload("res://resources/sprites/icons/unit_trait_icons/light_move_icon.png")
 
 var unit_archetype_pick : armyArchetypePickUnitDefinition
 
@@ -113,8 +114,8 @@ func get_trait_icon(unit_trait : unitConstants.TRAITS):
 			return flyer_icon
 		unitConstants.TRAITS.LOCKPICK:
 			pass
-		unitConstants.TRAITS.MASSIVE:
-			pass
+		unitConstants.TRAITS.MOBILE:
+			return mobile_icon
 
 
 func update_by_rarity(rarity:Rarity):

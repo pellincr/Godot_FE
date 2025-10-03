@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.gd" id="2_xilpg"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_e5b4r"]
 
-
 [sub_resource type="Theme" id="Theme_if1ym"]
 default_font_size = 24
 

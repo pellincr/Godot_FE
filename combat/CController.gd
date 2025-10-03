@@ -924,6 +924,9 @@ func fsm_unit_select_process(delta):
 		elif Input.is_action_just_pressed("combat_map_down"):
 			update_current_tile(current_tile + Vector2i.DOWN)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+		elif Input.is_action_just_pressed("left_bumper") or Input.is_action_just_pressed("right_bumper"):
+			update_current_tile(combat.get_next_unit().map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		camera.SimpleFollow(delta)
 
 func fsm_unit_select_hover_process(delta):
@@ -954,11 +957,13 @@ func fsm_unit_select_hover_process(delta):
 			#create a faction unit traversal list
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DETAILS_SCREEN)
 		elif Input.is_action_just_pressed("right_bumper"):
-			# To be implemented : allow the game to jump between units on the same faction
-			pass 
+			# allow the game to jump between units on the same faction
+			update_current_tile(combat.get_next_unit(selected_unit, true).map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("left_bumper"):
-			# To be implemented : allow the game to jump between units on the same faction
-			pass 
+			# allow the game to jump between units on the same
+			update_current_tile(combat.get_next_unit(selected_unit, false).map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("start_button"):
 			# To be implemented : combat map main menu
 			pass
@@ -982,12 +987,16 @@ func fsm_unit_details_screen_process(delta):
 			combat.game_ui.destory_active_ui_node()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("right_bumper"):
-			# To be implemented
-			# get next unit from faction
+			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), true)
+			update_current_tile(next_unit.map_position)
+			combat.game_ui.update_combat_unit_detail_panel(next_unit)
 			# update current tile position to match unit positon
 			pass 
 		elif Input.is_action_just_pressed("left_bumper"):
-			# To be implemented : allow the game to jump between units on the same faction
+			# allow the game to jump between units on the same faction
+			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), false)
+			update_current_tile(next_unit.map_position)
+			combat.game_ui.update_combat_unit_detail_panel(next_unit)
 			# get prev unit from faction
 			# update current tile position to match unit positon
 			pass

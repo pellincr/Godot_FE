@@ -41,8 +41,9 @@ func set_hp_value(hp):
 	current_hp_label.text = str(hp) + "/" + str(unit.get_max_hp())
 
 func set_hp_bar(hp):
-	hp_bar.value = hp
 	hp_bar.max_value = unit.get_max_hp()
+	hp_bar.value = hp
+	
 
 func update_unit_icon(icon):
 	unit_icon.texture = icon

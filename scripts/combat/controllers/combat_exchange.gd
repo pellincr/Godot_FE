@@ -498,7 +498,7 @@ func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitS
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
 			await heal_unit(target, turn.effect_weight)
-			
+			# ADD THE USE ITEM HERE
 	if supporter.allegience == Constants.FACTION.PLAYERS:
 		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :

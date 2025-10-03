@@ -50,9 +50,13 @@ script = ExtResource("1_sxmuu")
 material = SubResource("ShaderMaterial_p1h6c")
 texture = ExtResource("2_a14u6")
 
-[node name="WarningIndicator" type="Sprite2D" parent="."]
+[node name="WarningIndicator" type="TextureRect" parent="."]
 visible = false
-position = Vector2(12, -12)
+layout_mode = 0
+offset_left = 12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = -12.0
 texture = ExtResource("4_l8kmn")
 
 [node name="weapon_icon" type="Sprite2D" parent="."]

@@ -345,6 +345,14 @@ func create_combat_unit_detail_panel(combat_unit: CombatUnit):
 	push_ui_node_stack(unit_detailed_info_combat_map)
 	
 #
+# Populates and displayes the detailed info for a combat unit
+#
+func update_combat_unit_detail_panel(combat_unit: CombatUnit):
+	var active_ui_node = ui_node_stack.peek()
+	active_ui_node.unit = combat_unit
+	active_ui_node.update_by_unit()
+	
+#
 #
 #
 func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
