@@ -17,8 +17,9 @@ func update():
 
 func update_equipped():
 	if inventory.equipped: 
-		$UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer/EquippedItemName.text = inventory.get_equipped_weapon().name
-		$UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer/InventoryItemIcon.set_item(inventory.get_equipped_weapon())
+		if inventory.get_equipped_weapon() != null:
+			$UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer/EquippedItemName.text = inventory.get_equipped_weapon().name
+			$UnitInventoryContainer/InventoryPanelBack/InventoryContainer/MarginContainer/SelectedItemContainer/InventoryItemIcon.set_item(inventory.get_equipped_weapon())
 
 func update_slot2():
 	if inventory.get_item(1):

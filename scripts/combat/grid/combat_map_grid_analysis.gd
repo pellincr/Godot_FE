@@ -19,12 +19,12 @@ func get_allegience_unit_indexes(allegience:int) -> Array[Vector2i]:
 
 func get_all_targetables(targetable_allegiences:Array[int]) -> Array[Vector2i]:
 	var _arr :Array[Vector2i] = []
+	for entity_position in targetable_entity_indexes:
+			_arr.append(entity_position)
 	for allegience in targetable_allegiences:
 		if unit_indexes.has(allegience):
 			for unit_index in unit_indexes.get(allegience):
 				_arr.append(unit_index)
-	for entity_position in targetable_entity_indexes:
-			_arr.append(entity_position)
 	return _arr
 
 func get_targetable_entities()-> Array[Vector2i]:

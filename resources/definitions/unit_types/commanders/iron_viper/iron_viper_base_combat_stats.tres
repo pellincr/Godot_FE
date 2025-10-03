@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_c4exy")
-hp = 900
+hp = 19
 strength = 4
 magic = 2
 skill = 7
@@ -12,5 +12,5 @@ speed = 9
 luck = 6
 defense = 2
 resistance = 1
-movement = 100
+movement = 5
 constitution = 6
