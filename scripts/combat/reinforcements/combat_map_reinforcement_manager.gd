@@ -30,19 +30,27 @@ func check_reinforcement_spawn(turn_number : int, ally_unit_positions: Array[Vec
 	if not _arr_reinforcement_unit_keys.is_empty():
 		await spawn_reinforcement_groups(_arr_reinforcement_unit_keys)
 
-
 func populate_reinforcement_unit_data(input_reinforcement_unit_data: Array[CombatUnitGroupReinforcementData]):
 	if input_reinforcement_unit_data:
 		for group in input_reinforcement_unit_data: 
-			for turn in group.turns:
-				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, turn, group.zone_id)
+			if group.trigger_type == CombatMapConstants.REINFORCEMENT_TYPE.TURN_COUNT:
+				for turn in group.turns:
+					var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, turn, group.zone_id)
+					if reinforcement_unit_data.has(key):
+							reinforcement_unit_data[key].append_array(group.units)
+					else : 
+						var unit_data_array : Array[CombatUnitData] = []
+						unit_data_array.append_array(group.units)
+						reinforcement_unit_data[key] = unit_data_array
+			elif group.trigger_type == CombatMapConstants.REINFORCEMENT_TYPE.MAP_ZONE_ENTERED:
+				var key : String = generate_reinforcement_unit_data_map_key(group.trigger_type, -1, group.zone_id)
 				if reinforcement_unit_data.has(key):
 						reinforcement_unit_data[key].append_array(group.units)
 				else : 
 					var unit_data_array : Array[CombatUnitData] = []
 					unit_data_array.append_array(group.units)
 					reinforcement_unit_data[key] = unit_data_array
-
+				
 func generate_reinforcement_unit_data_map_key(method: CombatMapConstants.REINFORCEMENT_TYPE, turn_count : int = -1, zone_id : String = "") -> String:
 	match method:
 		CombatMapConstants.REINFORCEMENT_TYPE.TURN_COUNT:
@@ -91,6 +99,7 @@ func populate(map_reinforcement_data: MapReinforcementData):
 	if map_reinforcement_data != null:
 		populate_zone_map(map_reinforcement_data.zones)
 		populate_reinforcement_unit_data(map_reinforcement_data.reinforcements)
+		print("reinforcement groups created")
 
 func _on_reinforcement_spawn_completed():
 	print("reinforcement_unit spawned successfully")

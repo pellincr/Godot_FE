@@ -25,7 +25,7 @@ func popualate(selected_item : ItemDefinition, equipped : bool = false, can_use 
 	update_buttons()
 
 func update_buttons():
-	if selected_item is WeaponDefinition:
+	if selected_item is WeaponDefinition and selected_item.item_type == ItemConstants.ITEM_TYPE.WEAPON:
 		use_button.disabled = true
 		use_button.visible = false
 		if equipped:
@@ -44,7 +44,7 @@ func update_buttons():
 				un_equip_button.visible = false
 				un_equip_button.disabled = true
 				equip_button.disabled = true
-	elif selected_item is ConsumableItemDefinition:
+	elif selected_item is ConsumableItemDefinition and selected_item.item_type == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 		equip_button.visible = false
 		un_equip_button.visible = false
 		un_equip_button.disabled = true
@@ -52,6 +52,15 @@ func update_buttons():
 		if can_use:
 			use_button.visible = true
 			equip_button.grab_focus()
+	elif selected_item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT or selected_item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
+		use_button.disabled = true
+		use_button.visible = false
+		un_equip_button.disabled = true
+		un_equip_button.visible = false
+		equip_button.disabled = true
+		equip_button.visible = false
+		use_button.disabled = true
+		use_button.visible = false
 	if can_arrange:
 		arrange_button.visible = true
 	else : 
