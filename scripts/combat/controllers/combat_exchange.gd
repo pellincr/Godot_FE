@@ -251,7 +251,7 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	return_object.defender = defender
 	
 	var turn_order :Array[String] = []
-	
+	var wpn_triangle = check_weapon_triangle(attacker.unit, defender.unit)
 	var defender_can_attack: bool = false
 	
 	var attacker_hit_chance : int = 0
@@ -305,11 +305,14 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 			turn_data.critical = defender_critical_chance
 			turn_data.hit = defender_hit_chance
 		return_object.exchange_data.append(turn_data)
-		
+	
 	return_object.attacker_critical = attacker_critical_chance
 	return_object.attacker_hit = attacker_hit_chance
+	return_object.attacker_effective = attacker_effective
 	return_object.defender_critical= defender_critical_chance
 	return_object.defender_hit = defender_hit_chance
+	return_object.defender_effective = defender_effective
+	return_object.weapon_triange = wpn_triangle
 	return_object.populate()
 	return return_object
 

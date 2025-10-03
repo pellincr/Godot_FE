@@ -5,13 +5,17 @@ extends HBoxContainer
 @onready var weapon_type: ItemTypeIcon = $WeaponType
 
 @export var item : ItemDefinition
+@export var effective : bool
 
 func _ready():
 	if item:
 		update_by_item()
 
 func set_item_name_label(name):
-	item_name_label.text = name
+	if effective:
+		item_name_label.text = "[shake][pulse][color=#57fc00]" + name + "[/color][/pulse][shake]"
+	else:
+		item_name_label.text = name
 
 func update_by_item():
 	if item != null:

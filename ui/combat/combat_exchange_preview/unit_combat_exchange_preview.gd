@@ -33,9 +33,19 @@ func set_all(ei:UnitCombatExchangeData, wse:bool):
 	update_children()
 
 func update_children():
-	attacking_unit_header.set_all(exchange_info.attacker, weapon_swap_enabled)
+	var wpn_triangle_attacker : String
+	var wpn_triangle_defender : String
+	if exchange_info.weapon_triange == exchange_info.attacker.unit:
+		wpn_triangle_attacker = "ADVANTAGE"
+		wpn_triangle_defender = "DISADVANTAGE"
+	elif exchange_info.weapon_triange == exchange_info.defender.unit:
+		wpn_triangle_attacker = "DISADVANTAGE"
+		wpn_triangle_defender = "ADVANTAGE"
+	else:
+		pass
+	attacking_unit_header.set_all(exchange_info.attacker, weapon_swap_enabled, wpn_triangle_attacker, exchange_info.attacker_effective)
 	attacking_unit_stats.set_all(exchange_info.attacker.get_max_hp(), exchange_info.attacker.current_hp, exchange_info.attacker_predicted_hp, exchange_info.attacker_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.attacker_hit, exchange_info.attacker_critical)
-	defending_unit_header.set_all(exchange_info.defender, false)
+	defending_unit_header.set_all(exchange_info.defender, false, wpn_triangle_defender, exchange_info.defender_effective)
 	defending_unit_stats.set_all(exchange_info.defender.get_max_hp(), exchange_info.defender.current_hp, exchange_info.defender_predicted_hp, exchange_info.defender_net_damage, Constants.DAMAGE_TYPE.NONE, exchange_info.defender_hit, exchange_info.defender_critical)
 	arrow_container.populate_combat(exchange_info.attacker, exchange_info.defender, exchange_info.exchange_data)
 
