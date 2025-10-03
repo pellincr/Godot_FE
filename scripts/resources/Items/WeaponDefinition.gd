@@ -14,11 +14,17 @@ enum WEAPON_SPECIALS
 	DEVIL_REVERSAL
 }
 
+enum SUPPORT_TYPES{
+	NONE,
+	HEAL
+}
+
 @export_subgroup("Weapon Type")
 @export var weapon_type : ItemConstants.WEAPON_TYPE
 @export var alignment : ItemConstants.ALIGNMENT
 @export var physical_weapon_triangle_type : ItemConstants.MUNDANE_WEAPON_TRIANGLE
 @export var magic_weapon_triangle_type : ItemConstants.MAGICAL_WEAPON_TRIANGLE
+@export var support_type : SUPPORT_TYPES = SUPPORT_TYPES.NONE
 @export var item_damage_type : Constants.DAMAGE_TYPE = 0
 @export var item_scaling_type : ItemConstants.SCALING_TYPE = 0
 @export var item_scaling_multiplier : float = 1

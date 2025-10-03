@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gdb3o"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="3_iv5nk"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
 
 [sub_resource type="Resource" id="Resource_r5tnl"]
 metadata/__load_path__ = "res://resources/sprites/events/grove_trial_background.png"

@@ -38,7 +38,7 @@ constitution = 0
 script = ExtResource("3_6vm0y")
 title = "Drink the Sap"
 description = "One chosen unit gains [color=#FAFA82]15%[/color] Magic growth but loses [color=#AC3232]2[/color] Max HP."
-effect = 1
+effect = 2
 gold_change = 0
 unit_stat_change = SubResource("Resource_o22uv")
 unit_growth_change = SubResource("Resource_yu8m2")

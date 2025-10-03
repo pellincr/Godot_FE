@@ -96,3 +96,10 @@ func array_previous_index_with_loop(array: Array, index: int):
 
 func get_distance(point1: Vector2i, point2: Vector2i):
 	return absi(point1.x - point2.x) + absi(point1.y - point2.y)
+
+#Adds arr2 to arr1 if entyr in unique
+func append_array_unique(arr1: Array, arr2:Array):
+	for entry in arr2:
+		if not arr1.has(entry):
+			arr1.append(entry)
+	

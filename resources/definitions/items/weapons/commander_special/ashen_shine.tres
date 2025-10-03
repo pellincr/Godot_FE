@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bu2mr2rk4kr7h"]
 
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_vkdbr"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cppig"]
 
