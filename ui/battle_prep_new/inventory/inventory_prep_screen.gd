@@ -66,8 +66,10 @@ func update_by_state():
 			unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.CONVOY)
 			unit_detailed_view_simple.send_item_to_convoy.connect(_on_send_item_to_convoy.bind(convoy))
 			convoy.set_po_data(playerOverworldData)
+			#convoy.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN | Control.SIZE_EXPAND 
+			convoy.layout_direction = Control.LAYOUT_DIRECTION_RTL
 			add_child(convoy)
-			convoy.size_flags_horizontal = Control.SIZE_EXPAND
+			
 			convoy.fill_convoy_scroll_container()
 			convoy.item_panel_pressed.connect(_on_item_panel_pressed.bind(unit_detailed_view_simple,convoy))
 			if playerOverworldData.convoy.size() == 0:

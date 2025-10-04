@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://cpajlj7mngeuj"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
+[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
 [ext_resource type="Texture2D" uid="uid://7b0ave7e2trh" path="res://resources/sprites/items/weapons/swords/dawnbreak.png" id="2_jwpn6"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_wyt6w"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_yxnf8"]
@@ -24,6 +24,7 @@ weapon_type = 1
 alignment = 0
 physical_weapon_triangle_type = 1
 magic_weapon_triangle_type = 0
+support_type = 0
 item_damage_type = 0
 item_scaling_type = 0
 item_scaling_multiplier = 1.0

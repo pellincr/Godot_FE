@@ -62,6 +62,7 @@ func update_by_shop_state():
 				var convoy_container = preload("res://ui/battle_prep_new/convoy/convoy_container/convoy_container.tscn").instantiate()
 				convoy_container.set_po_data(playerOverworldData)
 				main_container.add_child(convoy_container)
+				convoy_container.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 				convoy_container.focused = true
 				convoy_container.fill_convoy_scroll_container()
 				convoy_container.item_panel_pressed.connect(_on_item_panel_pressed.bind(convoy_container))
