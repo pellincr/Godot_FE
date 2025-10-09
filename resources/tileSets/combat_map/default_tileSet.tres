@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://bkttoao5i5xvk" path="res://resources/definitions/terrians/plain_terrain.tres" id="1_01w6u"]
 [ext_resource type="Texture2D" uid="uid://c88ffudcpcd2g" path="res://resources/sprites/tilemaps/combat_map/Overworld_Tileset.png" id="1_ibjt6"]
-[ext_resource type="Resource" path="res://resources/definitions/terrians/cliff_terrain.tres" id="2_3mv6i"]
+[ext_resource type="Resource" uid="uid://f7wll4nst8fc" path="res://resources/definitions/terrians/cliff_terrain.tres" id="2_3mv6i"]
 [ext_resource type="Resource" uid="uid://335btf4puav" path="res://resources/definitions/terrians/stone_wall_terrain.tres" id="2_054w4"]
 [ext_resource type="Resource" uid="uid://s8ulhy8iwrso" path="res://resources/definitions/terrians/floor_terrain.tres" id="3_x6mis"]
 [ext_resource type="Resource" uid="uid://psk2h1mn514a" path="res://resources/definitions/terrians/throne_terrain.tres" id="5_1bp4v"]
@@ -25,7 +25,7 @@
 [ext_resource type="Resource" uid="uid://cdhq11mn67ycd" path="res://resources/definitions/terrians/peak_terrain.tres" id="21_q6b55"]
 [ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="27_1kq38"]
 [ext_resource type="Resource" uid="uid://ljmq5r4awn0i" path="res://resources/definitions/terrians/broken_wall_terrain.tres" id="27_a156t"]
-[ext_resource type="Resource" path="res://resources/definitions/terrians/barrel_terrain.tres" id="29_oemim"]
+[ext_resource type="Resource" uid="uid://btfqa5wsg367g" path="res://resources/definitions/terrians/barrel_terrain.tres" id="29_oemim"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gqlbo"]
 texture = ExtResource("1_ibjt6")
