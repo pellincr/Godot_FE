@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://cw7f748svawtu"]
 
-[ext_resource type="Texture2D" uid="uid://cfbublp5o1fve" path="res://resources/sprites/items/equipment/oak_wood_charm.png" id="1_htygw"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="1_pa6i4"]
 [ext_resource type="Script" path="res://scripts/Unit/combat_unit_stat.gd" id="2_wo2eg"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_4qcwu"]
+
+[sub_resource type="Resource" id="Resource_20iqd"]
+metadata/__load_path__ = "res://resources/sprites/items/equipment/oak_wood_charm.png"
 
 [sub_resource type="Resource" id="Resource_nlglf"]
 script = ExtResource("2_wo2eg")
@@ -39,4 +41,4 @@ max_uses = 1
 unbreakable = false
 worth = 100
 inventory_bonus_stats = SubResource("Resource_nlglf")
-icon = ExtResource("1_htygw")
+icon = SubResource("Resource_20iqd")

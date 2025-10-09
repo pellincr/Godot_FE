@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu41o4d1sio4j"]
+[gd_scene load_steps=10 format=3 uid="uid://cu41o4d1sio4j"]
 
-[ext_resource type="Script" uid="uid://dfivis6c54qeg" path="res://combat/databases/event_database.gd" id="1_2voe4"]
+[ext_resource type="Script" path="res://combat/databases/event_database.gd" id="1_2voe4"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
 [ext_resource type="Resource" uid="uid://cjr1xltk4vvo4" path="res://resources/definitions/events/whispering_oak.tres" id="3_pmen2"]
+[ext_resource type="Resource" uid="uid://5sst4s666qpw" path="res://resources/definitions/events/ancient_battlefield.tres" id="4_7hyrf"]
+[ext_resource type="Resource" uid="uid://2ebb2awaycit" path="res://resources/definitions/events/broken_shrine_of_valor.tres" id="5_6nst4"]
+[ext_resource type="Resource" uid="uid://dyamcqi44qvp" path="res://resources/definitions/events/cavern_of_echoing_steel.tres" id="6_qfkqe"]
+[ext_resource type="Resource" uid="uid://dl1y82k76ck63" path="res://resources/definitions/events/grove_trial.tres" id="7_q55w0"]
+[ext_resource type="Resource" uid="uid://dqgb8uc1ysvh7" path="res://resources/definitions/events/moonlit_armory.tres" id="8_inkul"]
+[ext_resource type="Resource" uid="uid://utt7f4pt1wde" path="res://resources/definitions/events/dark_goblet.tres" id="9_g48k5"]
 
 [node name="EventDatabase" type="Node"]
 script = ExtResource("1_2voe4")
-events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2")])
+events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_7hyrf"), ExtResource("5_6nst4"), ExtResource("6_qfkqe"), ExtResource("7_q55w0"), ExtResource("8_inkul"), ExtResource("3_pmen2"), ExtResource("9_g48k5")])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=106 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -103,6 +103,7 @@
 [ext_resource type="Resource" uid="uid://cbq718k1dr5kq" path="res://resources/definitions/items/weapons/bow/reinforced_bow.tres" id="99_5bd5o"]
 [ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
+[ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="101_7bcyb"]
 [ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
 
 [node name="ItemDatabase" type="Node"]
@@ -170,6 +171,7 @@ items = {
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
 "reinforced_bow": ExtResource("99_5bd5o"),
+"resonant_ore": ExtResource("101_7bcyb"),
 "rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
 "sanguis": ExtResource("71_i5lad"),
