@@ -28,7 +28,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_1hqls")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]Some sizeably long event description will go here, this is DEBUG text if you are seeing this something has gone wrong :)![/center]"
+text = "[center]Deep within a cluttered workshop, an eccentric hermit tinkers with gears that [tornado]hum[/tornado] and [pulse]spark[/pulse] with unnatural precision. Mechanical creations clatter and whirl around him as he beckons you closer, eager for a willing subject to test his latest invention.[/center]"
 
 [node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2

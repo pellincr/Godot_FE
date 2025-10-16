@@ -10,6 +10,7 @@ weapon_type = 8
 alignment = 2
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 2
+support_type = 0
 item_damage_type = 1
 item_scaling_type = 2
 item_scaling_multiplier = 1.0

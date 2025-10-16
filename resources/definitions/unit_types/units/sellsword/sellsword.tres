@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://bg5poewlr3i7e"]
 
 [ext_resource type="Resource" uid="uid://demf1101syuws" path="res://resources/definitions/unit_types/units/sellsword/sellsword_base_stats.tres" id="1_bw08a"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_yn2ql"]
+[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_yn2ql"]
 [ext_resource type="Resource" uid="uid://bgyophxs1utir" path="res://resources/definitions/unit_types/units/sellsword/sellsword_growth_stats.tres" id="2_innqf"]
 [ext_resource type="Texture2D" uid="uid://3bixfbriyvty" path="res://resources/sprites/units/sellsword.png" id="3_s2lo5"]
 [ext_resource type="Resource" uid="uid://ilotp7a55ix4" path="res://resources/definitions/unit_types/units/sellsword/sellsword_max_stats.tres" id="4_4pvi0"]

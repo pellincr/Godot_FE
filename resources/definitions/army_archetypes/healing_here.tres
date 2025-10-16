@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=7 format=3 uid="uid://bergei0ceod75"]
 
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_bdtwl"]
-[ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_xpmr6"]
+[ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_bdtwl"]
+[ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_xpmr6"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_7pbof"]
 [ext_resource type="Script" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_w0y3i"]
 

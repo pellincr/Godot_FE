@@ -135,11 +135,11 @@ func _ready():
 		await combat.game_ui.tutorial_panel.tutorial_completed
 	autoCursor()
 	##Set the correct states to begin FSM flow
-	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
-	turn_owner = CombatMapConstants.FACTION.PLAYERS
+	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
 	##Start Music
-	AudioManager.play_music("player_theme")
-	
+	AudioManager.play_music("player_theme") ## CHANGE TO PREP THEME
+	begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
+
 #process called on frame
 func _process(delta):
 	if not paused:
@@ -208,7 +208,13 @@ func beginning_phase_processing():
 		await focus_player_camera_on_current_tile()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 	update_turn_phase(CombatMapConstants.TURN_PHASE.MAIN_PHASE)
-	
+
+# used for to close the prep screen and start the map
+func begin_battle():
+	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
+	turn_owner = CombatMapConstants.FACTION.PLAYERS
+	##Start Music
+	AudioManager.play_music("player_theme")
 
 func clean_up():
 	selected_unit_player_state_stack.flush()
@@ -1544,3 +1550,99 @@ func await_entity_resolution():
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.PROCESSING
 	await combat.entity_processing_completed
 	game_state = previous_state
+
+# Battle Prep unit select FSM
+func fsm_prep_unit_select(delta):
+	#Does the current grid position have a unit?
+	if null != grid.get_combat_unit(current_tile):
+		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
+		if selected_unit != null:
+			if selected_unit.alive:
+				combat.game_ui.display_unit_status()
+				populate_combatant_tile_ranges(selected_unit)
+				update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER)
+			return
+	else :
+		combat.game_ui.hide_unit_status()
+	if Input:
+		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
+			pass
+			#combat.game_ui.create_combat_map_game_menu() ## **CRAIG** CHANGE TO PREP MAP MENU
+			#update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU) 
+		elif Input.is_action_just_pressed("combat_map_up"):
+			update_current_tile(current_tile + Vector2i.UP)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("combat_map_left"):
+			update_current_tile(current_tile + Vector2i.LEFT)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("combat_map_right"):
+			update_current_tile(current_tile + Vector2i.RIGHT)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("combat_map_down"):
+			update_current_tile(current_tile + Vector2i.DOWN)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("left_bumper") or Input.is_action_just_pressed("right_bumper"):
+			update_current_tile(combat.get_next_unit().map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		camera.SimpleFollow(delta)
+
+# Battle Prerp Unit Hover FSM, only active when a unit is in the current tile
+func fsm_prep_unit_select_hover_process(delta):
+	#ensure there is a unit in the tile
+	if grid.get_combat_unit(current_tile) == null:
+		update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		return
+	if Input:
+		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
+		if Input.is_action_just_pressed("ui_confirm"):
+			combat.game_ui.play_menu_confirm()
+			if selected_unit.allegience == Constants.FACTION.PLAYERS:
+				## ADD LOGIC FOR UNIT SWAP HERE
+				pass
+		elif Input.is_action_just_pressed("details"):
+			if selected_unit != null and selected_unit.alive:
+				combat.game_ui.create_combat_unit_detail_panel(selected_unit)
+				update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_DETAILS_SCREEN)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_DETAILS_SCREEN)
+		elif Input.is_action_just_pressed("right_bumper"):
+			# allow the game to jump between units on the same faction
+			update_current_tile(combat.get_next_unit(selected_unit, true).map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("left_bumper"):
+			# allow the game to jump between units on the same
+			update_current_tile(combat.get_next_unit(selected_unit, false).map_position)
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("start_button"):
+			# To be implemented : combat map main menu
+			pass
+		elif Input.is_action_just_pressed("combat_map_up"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+			update_current_tile(current_tile + Vector2i.UP)
+		elif Input.is_action_just_pressed("combat_map_left"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+			update_current_tile(current_tile + Vector2i.LEFT)
+		elif Input.is_action_just_pressed("combat_map_right"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+			update_current_tile(current_tile + Vector2i.RIGHT)
+		elif Input.is_action_just_pressed("combat_map_down"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+			update_current_tile(current_tile + Vector2i.DOWN)
+		camera.SimpleFollow(delta)
+
+# Battle Prep Unit details screen FSM
+func fsm_prep_unit_details_screen_process(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_cancel"):
+			#Close the menu and progress the state
+			combat.game_ui.destory_active_ui_node()
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+		elif Input.is_action_just_pressed("right_bumper"):
+			#Progress the menu to the next unit
+			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), true)
+			update_current_tile(next_unit.map_position)
+			combat.game_ui.update_combat_unit_detail_panel(next_unit)
+		elif Input.is_action_just_pressed("left_bumper"):
+			#Progress the menu to the previous unit
+			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), false)
+			update_current_tile(next_unit.map_position)
+			combat.game_ui.update_combat_unit_detail_panel(next_unit)

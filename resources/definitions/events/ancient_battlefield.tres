@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
 [ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_cc62d"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
 [ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_ptpeo"]
 [ext_resource type="Script" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
 [ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]

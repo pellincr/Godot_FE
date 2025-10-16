@@ -25,7 +25,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_75m1n")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "[color=#FAFA82]Example Header[/color][p]Example Body That is long and causes many problems for formatted cause its sucks[/p]"
+text = "A selected unit gains [color=#FAFA82]2[/color] Strength and [color=#FAFA82]2[/color] Magic, but loses [color=#AC3232]4[/color] max Health."
 scroll_active = false
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

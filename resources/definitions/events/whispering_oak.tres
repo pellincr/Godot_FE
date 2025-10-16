@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://cjr1xltk4vvo4"]
 
-[ext_resource type="Script" path="res://scripts/Unit/unit_stat.gd" id="2_w5343"]
+[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="2_w5343"]
 [ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_6vm0y"]
 [ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="4_itpt4"]
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="4_nejqm"]
