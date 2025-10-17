@@ -53,7 +53,11 @@ func update():
 
 func update_unit_fields():
 	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.unit.name
-	$Unit/UnitIcon.texture = unit.unit.icon
+	var texture = AtlasTexture.new()
+	texture.atlas = unit.unit.icon
+	texture.set_region(Rect2(0,0,32,16))
+	$Unit/UnitIcon.texture = texture
+	#$Unit/UnitIcon.texture.atlas = unit.unit.icon
 	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.get_attack_speed())
 
 func update_weapon():

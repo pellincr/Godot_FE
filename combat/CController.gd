@@ -132,12 +132,12 @@ func _ready():
 		await combat.game_ui.tutorial_panel.tutorial_completed
 	#autoCursor()
 	##Set the correct states to begin FSM flow
+	update_current_tile(combat.ally_spawn_tiles.front())
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
 	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 	#Show Prep Screen
-	
 	##Start Music
-	AudioManager.play_music("player_theme") ## CHANGE TO PREP THEME
+	AudioManager.play_music("battle_prep_theme") ## CHANGE TO PREP THEME
 	#begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
 
 #process called on frame
@@ -200,6 +200,12 @@ func _draw():
 			drawSelectedpath()
 		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY):
 			draw_attack_range(_weapon_attackable_tiles)
+	elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION):
+		#Draw the tiles for the player spaces
+		for tile in combat.ally_spawn_tiles:
+			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color.DARK_BLUE)
+		if(player_state == CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER):
+			draw_hover_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
 
 func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
@@ -215,11 +221,13 @@ func beginning_phase_processing():
 
 # used for to close the prep screen and start the map
 func begin_battle():
+	AudioManager.play_music("player_theme")
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	turn_owner = CombatMapConstants.FACTION.PLAYERS
-	##Start Music
-	AudioManager.play_music("player_theme")
+	combat.game_ui.transition_in_animation()
 	autoCursor()
+	##Start Music
+	
 
 func clean_up():
 	selected_unit_player_state_stack.flush()

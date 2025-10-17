@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmvyp8giilart"]
 
-[ext_resource type="Script" path="res://combat/databases/entity_type_database.gd" id="1_qms5v"]
+[ext_resource type="Script" uid="uid://dgomhg551wahv" path="res://combat/databases/entity_type_database.gd" id="1_qms5v"]
 
 [node name="EntityTypeDatabase" type="Node"]
 script = ExtResource("1_qms5v")

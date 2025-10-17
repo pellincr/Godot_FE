@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctdkeej0r0x4a"]
 
-[ext_resource type="Script" path="res://campaign_map/events/event_option_button.gd" id="1_v2lm8"]
+[ext_resource type="Script" uid="uid://ch1cqxacj7kwd" path="res://campaign_map/events/event_option_button.gd" id="1_v2lm8"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_75m1n"]
 
 [node name="EventOptionButton" type="Button"]
@@ -24,8 +24,9 @@ theme_override_constants/margin_bottom = 2
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_75m1n")
 theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 1
 bbcode_enabled = true
-text = "A selected unit gains [color=#FAFA82]2[/color] Strength and [color=#FAFA82]2[/color] Magic, but loses [color=#AC3232]4[/color] max Health."
+text = "Selected unit gains [color=#8EE15F]2[/color] Magic and loses [color=#AC3232]2[/color] Max Health."
 scroll_active = false
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

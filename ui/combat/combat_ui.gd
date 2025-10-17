@@ -64,7 +64,7 @@ var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiat
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")#.duplicate(true)
 
 func _ready():
-	transition_in_animation()
+	#transition_in_animation()
 	#battle_prep.set_po_data(playerOverworldData)
 	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio

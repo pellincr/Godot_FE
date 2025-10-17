@@ -44,7 +44,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 
 [node name="LevelInfoContainer" parent="." instance=ExtResource("7_vjb5m")]
-visible = false
 layout_mode = 1
 
 [node name="BattlePrep" parent="." instance=ExtResource("7_f845f")]

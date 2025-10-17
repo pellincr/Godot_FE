@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://d038xrv8o2iwr"]
 
-[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_4mkbt"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_l6jxr"]
 
 [resource]
-default_font = ExtResource("1_4mkbt")
+default_font = ExtResource("1_l6jxr")
 default_font_size = 32

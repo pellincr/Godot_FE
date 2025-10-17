@@ -11,7 +11,7 @@ signal swap_spaces()
 @onready var main_container: VBoxContainer = $MarginContainer/MainContainer
 
 @onready var battle_prep_header: PanelContainer = $MarginContainer/MainContainer/BattlePrepHeader
-@onready var header_upper_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
+@onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
 @onready var header_lower_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")

@@ -1,10 +1,15 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c7e7h8p587j8u"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c7e7h8p587j8u"]
 
-[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_a64ih"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="1_ej4kb"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="2_ej4kb"]
 
 [resource]
-default_font = ExtResource("1_a64ih")
+default_font = ExtResource("2_ej4kb")
 default_font_size = 32
 Label/colors/font_color = Color(1, 1, 1, 1)
-Label/font_sizes/font_size = 16
-Label/fonts/font = ExtResource("1_a64ih")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_ej4kb")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/constants/outline_size = 3
+RichTextLabel/font_sizes/normal_font_size = 18
+RichTextLabel/fonts/normal_font = ExtResource("1_ej4kb")

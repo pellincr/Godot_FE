@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2ed4bicvkhwj"]
+[gd_scene load_steps=6 format=3 uid="uid://c2ed4bicvkhwj"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_experience_bar/unit_experience_bar.gd" id="1_qrr7v"]
+[ext_resource type="Script" uid="uid://dtmitt8m5rqil" path="res://ui/combat/unit_experience_bar/unit_experience_bar.gd" id="1_qrr7v"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_t670g"]
 [ext_resource type="Theme" uid="uid://k4mc6dlljs72" path="res://resources/themes/Experience_bar.tres" id="3_ln63o"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="4_f8sle"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="4_xqlnf"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="5_f72jl"]
 
 [node name="unit_experience_bar" type="Control"]
 layout_mode = 3
@@ -57,7 +58,7 @@ offset_top = -26.0
 offset_right = 74.0
 offset_bottom = 26.0
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_f8sle")
+theme_override_fonts/font = ExtResource("4_xqlnf")
 theme_override_font_sizes/font_size = 36
 text = "XP"
 horizontal_alignment = 1
@@ -75,8 +76,8 @@ offset_top = -26.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_f8sle")
-theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("5_f72jl")
+theme_override_font_sizes/font_size = 32
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
