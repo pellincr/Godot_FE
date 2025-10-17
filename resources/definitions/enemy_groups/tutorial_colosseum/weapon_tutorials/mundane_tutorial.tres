@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=10 format=3 uid="uid://djrgm16mi5xuq"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_tndsr"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_gm1ec"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_wcddr"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_tndsr"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_gm1ec"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_wcddr"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_qhicn"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_7ghh6"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_crlqm"]
@@ -12,39 +12,27 @@ script = ExtResource("1_tndsr")
 name = "Axeman"
 map_position = Vector2i(9, 3)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("3_qhicn")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_tndsr")
 name = "Lanceman"
 map_position = Vector2i(9, 5)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("4_7ghh6")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_tndsr")
 name = "Swordman"
 map_position = Vector2i(9, 7)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_gm1ec")]([ExtResource("5_crlqm")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [resource]
 script = ExtResource("2_wcddr")

@@ -1,16 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://c622nlhdyyq6a"]
+[gd_scene load_steps=14 format=3 uid="uid://c622nlhdyyq6a"]
 
 [ext_resource type="PackedScene" uid="uid://nupde2vji18" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1_terrain.tscn" id="2_mkd81"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_hj0us"]
-[ext_resource type="Script" path="res://combat/CController.gd" id="4_r87ho"]
-[ext_resource type="Script" path="res://combat/Combat.gd" id="5_2sp8d"]
+[ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="4_r87ho"]
+[ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="5_2sp8d"]
 [ext_resource type="Resource" uid="uid://dcq64qn3t78d7" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1_unit_group.tres" id="5_vsoas"]
-[ext_resource type="Script" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_nr24d"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/combat_exchange.gd" id="8_6vv1a"]
+[ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_k148h"]
+[ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_nr24d"]
+[ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="8_6vv1a"]
 [ext_resource type="Resource" uid="uid://d1078th83kq2r" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1_entity_group.tres" id="8_frnnj"]
-[ext_resource type="Script" path="res://scripts/Unit/unit_experience_manager.gd" id="9_nrsst"]
-[ext_resource type="Script" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
+[ext_resource type="Script" uid="uid://kx442wv8dfsa" path="res://scripts/Unit/unit_experience_manager.gd" id="9_nrsst"]
+[ext_resource type="Script" uid="uid://dcdbof5kh78wm" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="10_xl4ai"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="11_8otve"]
+
+[sub_resource type="Resource" id="Resource_f2k3b"]
+script = ExtResource("6_k148h")
+par_turns = 11
+base_gold = 1000
+base_bonus_exp = 50
+metadata/_custom_type_script = "uid://clhuknqhyfx8e"
 
 [node name="Game" type="Node"]
 
@@ -36,12 +44,9 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
-ally_spawn_top_left = Vector2(15, 10)
-ally_spawn_bottom_right = Vector2(18, 12)
+ally_spawn_tiles = Array[Vector2i]([Vector2i(16, 9), Vector2i(17, 9), Vector2i(16, 10), Vector2i(17, 10)])
 enemy_start_group = ExtResource("5_vsoas")
-max_allowed_ally_units = 4
-base_win_gold_reward = 1000
-turn_reward_modifier = 8
+level_reward = SubResource("Resource_f2k3b")
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]

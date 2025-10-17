@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://b6bof28m5atar"]
 
 [ext_resource type="Texture2D" uid="uid://d0vvrij6lu4a5" path="res://resources/sprites/items/weapons/lance/javelin.png" id="1_icm1x"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_irhin"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_irhin"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_srtbm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_thphj"]
@@ -11,34 +11,16 @@ region = Rect2(0, 0, 32, 32)
 [resource]
 script = ExtResource("2_irhin")
 weapon_type = 3
-alignment = 0
 physical_weapon_triangle_type = 3
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
 attack_range = Array[int]([1, 2])
 damage = 6
 hit = 65
-critical_chance = 0
 weight = 11
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
 name = "Javelin"
 db_key = "javelin"
 equippable = true
-description = ""
-item_type = 0
 rarity = ExtResource("2_srtbm")
 uses = 20
 max_uses = 20
-unbreakable = false
 worth = 600
 icon = SubResource("AtlasTexture_thphj")

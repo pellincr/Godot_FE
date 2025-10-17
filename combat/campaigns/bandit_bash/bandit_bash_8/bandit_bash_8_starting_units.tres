@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=51 format=3 uid="uid://rqchc33dh2es"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_7puvk"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_ps3u0"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_7puvk"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_ps3u0"]
 [ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="3_pkp1v"]
 [ext_resource type="Resource" uid="uid://da02m5ekvhj2r" path="res://resources/definitions/items/weapons/axes/tomahawk.tres" id="4_xhtjm"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_3h4dc"]
@@ -22,7 +22,7 @@
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="20_8guq0"]
 [ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="21_mm0dp"]
 [ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="22_nm5j1"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="23_qu08v"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="23_qu08v"]
 
 [sub_resource type="Resource" id="Resource_lx62c"]
 script = ExtResource("1_7puvk")
@@ -30,89 +30,61 @@ name = "Derke"
 map_position = Vector2i(10, 1)
 level = 14
 level_bonus = 3
-hard_mode_leveling = false
 unit_type_key = "drengr"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("3_pkp1v"), ExtResource("4_xhtjm"), ExtResource("5_3h4dc")])
 ai_type = 2
 is_boss = true
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ks24h"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(5, 3)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("6_apkj5")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_uo6ow"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(15, 2)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("6_apkj5")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_huekp"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(18, 3)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("7_ajpbn")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_wit0p"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(17, 4)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("8_p1bkk"), ExtResource("9_lnplu")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_avwc0"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(21, 4)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("8_p1bkk"), ExtResource("9_lnplu")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_t3ouc"]
 script = ExtResource("1_7puvk")
 name = "Bandit Captain"
 map_position = Vector2i(19, 5)
 level = 13
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("3_pkp1v")])
 ai_type = 1
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_i1h7l"]
@@ -120,13 +92,8 @@ script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(20, 3)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("10_6o0bb")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_h5p8a"]
 script = ExtResource("1_7puvk")
@@ -134,12 +101,9 @@ name = "Bandit"
 map_position = Vector2i(10, 5)
 level = 11
 level_bonus = 2
-hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("9_lnplu")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_cnwda"]
 script = ExtResource("1_7puvk")
@@ -147,142 +111,91 @@ name = "Bandit"
 map_position = Vector2i(11, 5)
 level = 10
 level_bonus = 4
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("11_p31a7")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_n42i0"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(9, 5)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("12_xv37u")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_33mc2"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(16, 10)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("13_suamd")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_1qv5p"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(1, 6)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("9_lnplu")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ds15r"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(3, 7)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("14_vcvup")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_31ah4"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(1, 8)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("15_ah7kh")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_rwp1h"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(2, 10)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("13_suamd")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_j6qpr"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(0, 10)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("11_p31a7")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_34hhg"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(0, 15)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("9_lnplu")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_iwx0u"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(9, 15)
 level = 9
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("16_5qjmy")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_etjws"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(10, 6)
 level = 9
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("17_6s4y6"), ExtResource("8_p1bkk")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_feyle"]
 script = ExtResource("1_7puvk")
@@ -290,11 +203,9 @@ name = "Bandit"
 map_position = Vector2i(13, 20)
 level = 12
 level_bonus = 3
-hard_mode_leveling = false
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("10_6o0bb"), ExtResource("18_aacta")])
 ai_type = 2
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_1lnuo"]
@@ -302,78 +213,51 @@ script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(11, 19)
 level = 9
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("17_6s4y6")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_lkpgp"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(20, 10)
 level = 12
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("19_301nl")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_qng7b"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(20, 13)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("11_p31a7")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_s5104"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(19, 13)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("20_8guq0")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_by2nb"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(13, 14)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("21_mm0dp"), ExtResource("22_nm5j1")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ckgwu"]
 script = ExtResource("1_7puvk")
 name = "Bandit"
 map_position = Vector2i(14, 15)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("6_apkj5")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [resource]
 script = ExtResource("23_qu08v")

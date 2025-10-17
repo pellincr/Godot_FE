@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=30 format=3 uid="uid://dopo5slwjnmpy"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_2hxme"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_gj1ec"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_2hxme"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_gj1ec"]
 [ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="3_m8d0j"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_4itlx"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="4_ggxr3"]
@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="8_hugls"]
 [ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="9_iimbs"]
 [ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/nature/wind.tres" id="10_0ddav"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="11_18n2a"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="11_18n2a"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="11_ytdt3"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="12_2i1q2"]
 [ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="13_plnrr"]
@@ -21,52 +21,34 @@ script = ExtResource("1_2hxme")
 name = "Roc"
 map_position = Vector2i(15, 15)
 level = 9
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("3_m8d0j"), ExtResource("4_ggxr3"), ExtResource("4_4itlx")])
 ai_type = 1
 is_boss = true
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_mydy3"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(0, 6)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "marauder"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("4_4itlx")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_aqh1p"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(2, 9)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("6_gjqyj")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_pr4di"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(13, 3)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "brawler"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("9_iimbs")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_f6i1l"]
 script = ExtResource("1_2hxme")
@@ -74,24 +56,16 @@ name = "Roc's Rabble"
 map_position = Vector2i(15, 8)
 level = 6
 level_bonus = 2
-hard_mode_leveling = false
 unit_type_key = "magewing"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("8_hugls")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_q4gci"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(14, 9)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "freewing"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("6_gjqyj")])
-ai_type = 0
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_nam8f"]
@@ -99,52 +73,34 @@ script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(15, 13)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "magewing"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("10_0ddav")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_wc3vc"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(12, 16)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("11_ytdt3")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_2ykke"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(9, 16)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("12_2i1q2")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_mvgog"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(7, 15)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("8_hugls")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_rfaib"]
 script = ExtResource("1_2hxme")
@@ -152,11 +108,9 @@ name = "Roc's Rabble"
 map_position = Vector2i(2, 15)
 level = 6
 level_bonus = 1
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("6_gjqyj"), ExtResource("13_plnrr")])
 ai_type = 1
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_00jvn"]
@@ -164,39 +118,25 @@ script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(3, 12)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("12_2i1q2")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_5nfi1"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(9, 11)
 level = 4
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "brawler"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("14_sge3j")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_dj12d"]
 script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(12, 14)
 level = 4
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("15_fi6f1")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [resource]
 script = ExtResource("11_18n2a")

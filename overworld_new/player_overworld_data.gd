@@ -7,6 +7,7 @@ class_name PlayerOverworldData
 @export var game_stats_manager = GameStatsManager.new()
 
 @export var gold = 1000
+@export var bonus_experience := 0
 @export var total_party_capacity = 15 #number of units the player is allowed to own
 @export var available_party_capacity = 4 #number of units the player is allowed to use in dungeon
 @export var total_recruits_available = 3 #number of units the player is able to purchase

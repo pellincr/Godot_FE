@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://cw7f748svawtu"]
 
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="1_pa6i4"]
-[ext_resource type="Script" path="res://scripts/Unit/combat_unit_stat.gd" id="2_wo2eg"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="1_pa6i4"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_wo2eg"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_4qcwu"]
 
 [sub_resource type="Resource" id="Resource_20iqd"]
@@ -9,36 +9,14 @@ metadata/__load_path__ = "res://resources/sprites/items/equipment/oak_wood_charm
 
 [sub_resource type="Resource" id="Resource_nlglf"]
 script = ExtResource("2_wo2eg")
-current_hp = 0
-damage = 0
-hit = 0
 avoid = 10
-attack_speed = 0
-critical_chance = 0
-critical_multiplier = 0
-critical_avoid = 0
-hp = 0
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [resource]
 script = ExtResource("1_pa6i4")
 name = "Oak Wood Charm"
 db_key = "oak_wood_charm"
-equippable = false
 description = "A charm carved from a mighty oak tree, grant 10 avoid when held."
 item_type = 3
 rarity = ExtResource("3_4qcwu")
-uses = 1
-max_uses = 1
-unbreakable = false
-worth = 100
 inventory_bonus_stats = SubResource("Resource_nlglf")
 icon = SubResource("Resource_20iqd")

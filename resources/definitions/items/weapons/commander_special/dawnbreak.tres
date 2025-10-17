@@ -1,55 +1,31 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://cpajlj7mngeuj"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
 [ext_resource type="Texture2D" uid="uid://7b0ave7e2trh" path="res://resources/sprites/items/weapons/swords/dawnbreak.png" id="2_jwpn6"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_wyt6w"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_wyt6w"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_yxnf8"]
 
 [sub_resource type="Resource" id="Resource_x076x"]
 script = ExtResource("1_w6w4y")
 hp = 5
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-resistance = 0
 movement = 1
-constitution = 0
 
 [resource]
 script = ExtResource("2_wyt6w")
 weapon_type = 1
-alignment = 0
 physical_weapon_triangle_type = 1
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1])
 damage = 11
 hit = 85
-critical_chance = 0
 weight = 15
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
 bonus_stat = SubResource("Resource_x076x")
 weapon_effectiveness = Array[int]([3])
-status_ailment = 0
 specials = Array[int]([7])
-augmented = false
 name = "Dawnbreak"
 db_key = "dawnbreak"
 equippable = true
 description = "A radiant blade that gleams like sunrise, it contains a sustaining warmth and is said to pierce even the darkest curses. + 5 Hp, Regenerate 5% on turn begin"
-item_type = 0
 rarity = ExtResource("3_yxnf8")
 uses = 8
 max_uses = 8
-unbreakable = false
 worth = 0
 icon = ExtResource("2_jwpn6")

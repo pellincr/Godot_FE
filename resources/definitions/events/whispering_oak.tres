@@ -1,67 +1,40 @@
 [gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://cjr1xltk4vvo4"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="2_w5343"]
-[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_6vm0y"]
-[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="4_itpt4"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_w5343"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_6vm0y"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="4_itpt4"]
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="4_nejqm"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6lep"]
 
 [sub_resource type="Resource" id="Resource_yu8m2"]
 script = ExtResource("2_w5343")
-hp = 0
-strength = 0
 magic = 15
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_o22uv"]
 script = ExtResource("2_w5343")
 hp = -2
-strength = 0
-magic = 0
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_yqp4x"]
 script = ExtResource("3_6vm0y")
 title = "Drink the Sap"
 description = "One chosen unit gains [color=#FAFA82]15%[/color] Magic growth but loses [color=#AC3232]2[/color] Max HP."
 effect = 2
-gold_change = 0
 unit_stat_change = SubResource("Resource_o22uv")
 unit_growth_change = SubResource("Resource_yu8m2")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_3dt8v"]
 script = ExtResource("3_6vm0y")
 title = "Carve a Token "
 description = "Receive equipment [color=#689aff]Oakwood Charm[/color] (Grants +10 Avoid when held in inventory)."
 effect = 8
-gold_change = 0
 target_item = ExtResource("4_nejqm")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_pn0y1"]
 script = ExtResource("3_6vm0y")
 title = "Bow in Reverence"
 description = "Gain [color=#FFA800]1500G[/color] from fallen leaves with rare herbs to sell."
-effect = 0
 gold_change = 1500
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [resource]
 script = ExtResource("4_itpt4")

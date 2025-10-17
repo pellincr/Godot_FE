@@ -1,21 +1,12 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bu2mr2rk4kr7h"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_vkdbr"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cppig"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cppig"]
 
 [sub_resource type="Resource" id="Resource_xq0mb"]
 script = ExtResource("1_10kj5")
-hp = 0
-strength = 0
-magic = 0
-skill = 0
-speed = 0
 luck = 10
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_1pj8c"]
 metadata/__load_path__ = "res://resources/sprites/items/weapons/commander_specific/ashen_shine.png"
@@ -23,35 +14,18 @@ metadata/__load_path__ = "res://resources/sprites/items/weapons/commander_specif
 [resource]
 script = ExtResource("4_cppig")
 weapon_type = 13
-alignment = 0
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
 item_scaling_type = 2
 item_scaling_multiplier = 1.5
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1])
 damage = 5
 hit = 85
 critical_chance = 25
-weight = 5
 critical_multiplier = 4.5
-attacks_per_combat_turn = 1
 bonus_stat = SubResource("Resource_xq0mb")
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
 name = "Ashen Shine"
 db_key = "ashen_shine"
 equippable = true
-description = ""
-item_type = 0
 rarity = ExtResource("3_vkdbr")
 uses = 6
 max_uses = 6
-unbreakable = false
 worth = 0
 icon = SubResource("Resource_1pj8c")

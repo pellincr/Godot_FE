@@ -1,76 +1,34 @@
 [gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://utt7f4pt1wde"]
 
 [ext_resource type="Texture2D" uid="uid://tt6kdfoktesj" path="res://resources/sprites/events/dark_goblet_background.png" id="1_fkt3n"]
-[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_s7r1p"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="3_ajhi4"]
-[ext_resource type="Script" path="res://scripts/Unit/combat_unit_stat.gd" id="4_le0gf"]
-[ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="5_8n685"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_s7r1p"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_ajhi4"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="4_le0gf"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_8n685"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="6_61p61"]
-[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="7_rnsjk"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="7_rnsjk"]
 
 [sub_resource type="Resource" id="Resource_7h7gb"]
 script = ExtResource("3_ajhi4")
 hp = -4
 strength = 2
 magic = 2
-skill = 0
-speed = 0
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_k8v68"]
 script = ExtResource("2_s7r1p")
 title = "Drink Deep"
 description = "A selected unit gains [color=#FAFA82]2[/color] Strength and [color=#FAFA82]2[/color] Magic, but loses [color=#AC3232]4[/color] max Health."
 effect = 2
-gold_change = 0
 unit_stat_change = SubResource("Resource_7h7gb")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_w60hl"]
 script = ExtResource("4_le0gf")
-current_hp = 0
-damage = 0
-hit = 0
-avoid = 0
-attack_speed = 0
-critical_chance = 0
-critical_multiplier = 0
-critical_avoid = 0
-hp = 0
-strength = 0
-magic = 0
-skill = 0
-speed = 0
 luck = -5
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_4md6r"]
 script = ExtResource("5_8n685")
-change_damage_type = false
-item_new_damage_type = 0
-change_scaling_type = false
-item_new_scaling_type = 0
-item_scaling_multiplier_change = 0.0
-attack_range = Array[int]([])
-damage = 0
-hit = 0
-critical_chance = 0
 weight = 2
-critical_multiplier = 0.0
-attacks_per_combat_turn = 0
-weapon_effectiveness = Array[int]([])
 specials = Array[int]([2])
-max_uses = 0
-percent_durability = 1.0
-ubreakable = false
 inventory_bonus_stats = SubResource("Resource_w60hl")
 
 [sub_resource type="Resource" id="Resource_kqwmr"]
@@ -78,20 +36,14 @@ script = ExtResource("2_s7r1p")
 title = "Infuse"
 description = "A selected weapon gains [color=#FAFA82]Vampyric[/color]but gains [color=#AC3232]2[/color] weight and the equip penalty negative [color=#AC3232]5[/color] Luck."
 effect = 6
-gold_change = 0
 wpn_stat_change = SubResource("Resource_4md6r")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_3jgpx"]
 script = ExtResource("2_s7r1p")
 title = "Pour it Away"
 description = "Obtain a [color=#d200b0]Chalice[/color]."
 effect = 8
-gold_change = 0
 target_item = ExtResource("6_61p61")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [resource]
 script = ExtResource("7_rnsjk")

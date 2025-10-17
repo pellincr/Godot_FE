@@ -1,74 +1,43 @@
 [gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://dyamcqi44qvp"]
 
 [ext_resource type="Texture2D" uid="uid://ct7ypxj5w20qh" path="res://resources/sprites/events/cavern_of_echoing_steel_background.png" id="1_dkqh7"]
-[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="1_s3k1t"]
-[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_pmall"]
-[ext_resource type="Script" path="res://scripts/resources/Items/weapon_stats.gd" id="3_i4u4i"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="4_4613s"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_s3k1t"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_pmall"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_i4u4i"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="4_4613s"]
 [ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="5_c0r4r"]
 
 [sub_resource type="Resource" id="Resource_6a03d"]
 script = ExtResource("3_i4u4i")
-change_damage_type = false
-item_new_damage_type = 0
-change_scaling_type = false
-item_new_scaling_type = 0
-item_scaling_multiplier_change = 0.0
-attack_range = Array[int]([])
-damage = 0
-hit = 0
-critical_chance = 0
 weight = 2
-critical_multiplier = 0.0
 attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-specials = Array[int]([])
-max_uses = 0
 percent_durability = 0.8
-ubreakable = false
 
 [sub_resource type="Resource" id="Resource_pp0kq"]
 script = ExtResource("2_pmall")
 title = "Forge Resonance"
 description = "One weapon gains [color=#FAFA82]1[/color] Attack X and [color=#AC3232]2[/color] weight, but loses [color=#AC3232]20%[/color] durability."
 effect = 6
-gold_change = 0
 wpn_stat_change = SubResource("Resource_6a03d")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_hmjav"]
 script = ExtResource("4_4613s")
-hp = 0
-strength = 0
-magic = 0
 skill = 10
 speed = 10
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [sub_resource type="Resource" id="Resource_28bdl"]
 script = ExtResource("2_pmall")
 title = "Listen Carefully"
 description = "A selected unit gains [color=#FAFA82]10%[/color] Skill growth and [color=#FAFA82]10%[/color] Speed growth."
 effect = 2
-gold_change = 0
 unit_growth_change = SubResource("Resource_hmjav")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [sub_resource type="Resource" id="Resource_xg0dn"]
 script = ExtResource("2_pmall")
 title = "Harvest Ore"
 description = "Gain a [color=#deda00]Resonant Ore[/color] (Grants 5% growths in all stats, but decreases speed by 2 when held)."
 effect = 8
-gold_change = 0
 target_item = ExtResource("5_c0r4r")
-gold_requirement = 0
-required_item_type = Array[int]([])
 
 [resource]
 script = ExtResource("1_s3k1t")

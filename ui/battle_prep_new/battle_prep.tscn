@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cak05utx7a6gb"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_wevyk"]
-[ext_resource type="Script" path="res://ui/battle_prep_new/battle_prep.gd" id="2_qwaoi"]
+[ext_resource type="Script" uid="uid://xi4hebfdnsqd" path="res://ui/battle_prep_new/battle_prep.gd" id="2_qwaoi"]
 
 [sub_resource type="Theme" id="Theme_kptq3"]
 default_font_size = 48

@@ -1,57 +1,39 @@
 [gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=14 format=3 uid="uid://b4idmgwstjsed"]
 
-[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_onwkv"]
-[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_ghdfw"]
-[ext_resource type="Script" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_woqpd"]
-[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_0cgqp"]
-[ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_cjk4a"]
-[ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_1ifs3"]
-[ext_resource type="Script" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_wb4lr"]
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_onwkv"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_ghdfw"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_woqpd"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_0cgqp"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_cjk4a"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_1ifs3"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_wb4lr"]
 [ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="8_6crke"]
 
 [sub_resource type="Resource" id="Resource_0lldd"]
 script = ExtResource("3_woqpd")
 position = Vector2i(6, 2)
-type = 0
 
 [sub_resource type="Resource" id="Resource_x2qix"]
 script = ExtResource("7_wb4lr")
-type = 0
 position = Vector2i(11, 8)
 loot_table = ExtResource("8_6crke")
 
 [sub_resource type="Resource" id="Resource_wd7hp"]
 script = ExtResource("7_wb4lr")
-type = 0
 position = Vector2i(4, 6)
 loot_table = ExtResource("8_6crke")
 
 [sub_resource type="Resource" id="Resource_cj2li"]
 script = ExtResource("7_wb4lr")
-type = 0
 position = Vector2i(4, 3)
 loot_table = ExtResource("8_6crke")
 
 [sub_resource type="Resource" id="Resource_jpyjd"]
 script = ExtResource("7_wb4lr")
-type = 0
 position = Vector2i(3, 1)
 loot_table = ExtResource("8_6crke")
 
 [resource]
 script = ExtResource("6_1ifs3")
-entities = Array[ExtResource("5_cjk4a")]([])
-chests = Array[ExtResource("2_ghdfw")]([])
 searchs = Array[ExtResource("7_wb4lr")]([SubResource("Resource_x2qix"), SubResource("Resource_wd7hp"), SubResource("Resource_cj2li"), SubResource("Resource_jpyjd")])
-doors = Array[ExtResource("4_0cgqp")]([])
-breakable_terrains = Array[ExtResource("1_onwkv")]([])
-default_breakable_terrain_hp = 25
-default_breakable_terrain_defense = 0
-default_breakable_terrain_resistance = 0
 debris = Array[ExtResource("3_woqpd")]([SubResource("Resource_0lldd")])
-wooden_debris_hp = 25
-default_wooden_debris_defense = 0
-default_wooden_debris_resistance = 0
-stone_debris_hp = 35
-default_stone_debris_defense = 5
-default_stone_debris_resistance = 5

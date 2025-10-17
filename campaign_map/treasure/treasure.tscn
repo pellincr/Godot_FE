@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgbnvnw0m1bo3"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_2gx3n"]
-[ext_resource type="Script" path="res://campaign_map/treasure/treasure.gd" id="1_fdq6l"]
+[ext_resource type="Script" uid="uid://b3dnb74rnrcq0" path="res://campaign_map/treasure/treasure.gd" id="1_fdq6l"]
 [ext_resource type="PackedScene" uid="uid://uij42thge1m2" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn" id="3_5hjdw"]
-
 
 [sub_resource type="Theme" id="Theme_pju5f"]
 default_font_size = 36

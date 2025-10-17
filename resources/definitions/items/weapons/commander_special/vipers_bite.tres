@@ -1,55 +1,30 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bf8ot2t215k2q"]
 
 [ext_resource type="Texture2D" uid="uid://dh66mgbsodlwe" path="res://resources/sprites/items/weapons/commander_specific/viper_bite.png" id="1_2ri4r"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_ci076"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_ci076"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="2_wnyqi"]
 
 [sub_resource type="Resource" id="Resource_xq0mb"]
 script = ExtResource("1_ci076")
-hp = 0
-strength = 0
-magic = 0
-skill = 0
 speed = 2
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [resource]
 script = ExtResource("1_3xc2q")
 weapon_type = 1
-alignment = 0
 physical_weapon_triangle_type = 1
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
 item_scaling_type = 1
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1])
 damage = 8
-hit = 100
 critical_chance = 15
-weight = 5
 critical_multiplier = 3.5
-attacks_per_combat_turn = 1
 bonus_stat = SubResource("Resource_xq0mb")
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
 specials = Array[int]([4])
-augmented = false
 name = "Viper's Bite"
 db_key = "vipers_bite"
 equippable = true
 description = "A slender, jagged katana whose edge ripples like a serpent’s fang. Its lethality scales with the wielder’s finesse rather than brute force, striking with precise, cuts with heighten critical damage. + 2 speed, critical strikes negate foe defenses"
-item_type = 0
 rarity = ExtResource("2_wnyqi")
 uses = 6
 max_uses = 6
-unbreakable = false
 worth = 0
 icon = ExtResource("1_2ri4r")

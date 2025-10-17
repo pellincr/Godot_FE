@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=49 format=3 uid="uid://cha4i8vtpp64y"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_bcvlb"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_r74bv"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_bcvlb"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_r74bv"]
 [ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="4_bxknx"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="4_iw475"]
 [ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="5_mii1i"]
@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="10_fkkwh"]
 [ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="10_uib33"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="11_eq627"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_78g6l"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_78g6l"]
 [ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="13_vf5np"]
 [ext_resource type="Resource" uid="uid://j2uu2bvu8yli" path="res://resources/definitions/items/consumables/elixir.tres" id="14_cndwi"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="15_p3do1"]
@@ -29,50 +29,36 @@ name = "Thogun"
 map_position = Vector2i(2, 1)
 level = 13
 level_bonus = 2
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_bxknx"), ExtResource("7_6asiw")])
 ai_type = 2
 is_boss = true
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_tn6hx"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thumb"
 map_position = Vector2i(1, 2)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475"), ExtResource("10_fkkwh"), ExtResource("18_p5d48")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_xmdvj"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(4, 4)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "brawler"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("5_mii1i")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_sofpv"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(3, 7)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("6_fsgv6"), ExtResource("8_6citu")])
 ai_type = 1
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_1mdp4"]
@@ -80,38 +66,26 @@ script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(3, 12)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475"), ExtResource("10_fkkwh")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_mq3u8"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(4, 18)
 level = 8
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "ward"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("10_uib33")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_x5qgs"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(10, 7)
 level = 5
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc"), ExtResource("18_p5d48")])
-ai_type = 0
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_u4t8m"]
@@ -119,77 +93,49 @@ script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(12, 9)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_8gi8d"]
 script = ExtResource("1_bcvlb")
 name = "Brask's Brigade"
 map_position = Vector2i(5, 0)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("10_fkkwh")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_4igfj"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(11, 2)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_nlmn2"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(7, 11)
 level = 10
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("13_vf5np")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_br1sf"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(5, 19)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "duelist"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("7_6asiw")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_8lel7"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(3, 19)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627"), ExtResource("14_cndwi")])
-ai_type = 0
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_8vsi4"]
@@ -197,38 +143,26 @@ script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(13, 21)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_fbgc2"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(11, 19)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("6_fsgv6")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_x7xxf"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(18, 17)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("15_p3do1"), ExtResource("8_6citu")])
 ai_type = 1
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_vincb"]
@@ -236,38 +170,26 @@ script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(16, 6)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("7_6asiw")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ad1dr"]
 script = ExtResource("1_bcvlb")
 name = "Brask"
 map_position = Vector2i(18, 0)
 level = 11
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_bxknx"), ExtResource("16_jaeon"), ExtResource("16_rmndk")])
-ai_type = 0
 is_boss = true
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ul0ni"]
 script = ExtResource("1_bcvlb")
 name = "Brask's Brigade"
 map_position = Vector2i(17, 0)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("17_7xfc8"), ExtResource("18_p5d48")])
-ai_type = 0
-is_boss = false
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_vtd33"]
@@ -275,91 +197,59 @@ script = ExtResource("1_bcvlb")
 name = "Brask's Brigade"
 map_position = Vector2i(18, 1)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sword_cavalier"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_5kbg4"]
 script = ExtResource("1_bcvlb")
 name = "Brask's Brigade"
 map_position = Vector2i(18, 6)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "axe_cavalier"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("20_kynr8")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_ryepe"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(4, 15)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("6_fsgv6")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_vtnm0"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(11, 14)
 level = 7
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "brawler"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("5_mii1i")])
-ai_type = 0
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_cuwgd"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(14, 9)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("21_bwufa")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_6jtds"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(15, 13)
 level = 6
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_apext"]
 script = ExtResource("1_bcvlb")
 name = "Thogun's Thug"
 map_position = Vector2i(8, 2)
 level = 8
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc")])
 ai_type = 1
-is_boss = false
-drops_item = false
 
 [resource]
 script = ExtResource("12_78g6l")

@@ -7,10 +7,6 @@ extends Node2D
 class_name CController
 
 ##CONST
-#Music
-
-const player_music = preload("res://resources/music/Menu_-_Noble_Kingdom.ogg")
-const enemy_music = preload("res://resources/music/Action_-_Knightly_Fighting.ogg")
 #Grid
 const GRID_TEXTURE = preload("res://resources/sprites/grid/grid_marker_2.png")
 const PATH_TEXTURE = preload("res://resources/sprites/grid/path_ellipse.png")
@@ -51,7 +47,7 @@ var grid: CombatMapGrid
 var camera: CombatMapCamera
 
 var current_tile : Vector2i # Where the cursor currently is
-var selected_tile : Vector2i # What we first selected (Most likely the tile containing the unit we have selected)
+var selected_tile := Vector2i(-1,-1) # What we first selected (Most likely the tile containing the unit we have selected)
 var target_tile : Vector2i # Our First Target
 var move_tile : Vector2i # the tile we moved to
 
@@ -60,6 +56,7 @@ var move_tile : Vector2i # the tile we moved to
 
 ##Player Interaction Variables
 var paused = false
+
 
 #Movement Variables
 var _arrived = true
@@ -133,12 +130,15 @@ func _ready():
 	await combat.game_ui.ready
 	if combat.is_tutorial:
 		await combat.game_ui.tutorial_panel.tutorial_completed
-	autoCursor()
+	#autoCursor()
 	##Set the correct states to begin FSM flow
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
+	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
+	#Show Prep Screen
+	
 	##Start Music
 	AudioManager.play_music("player_theme") ## CHANGE TO PREP THEME
-	begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
+	#begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
 
 #process called on frame
 func _process(delta):
@@ -174,6 +174,8 @@ func _process(delta):
 					_enemy_units_turn_taken = false
 					print("Triggered Reinforcements")
 					trigger_reinforcements()
+		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION):
+			player_prep_process(delta)
 		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.REINFORCEMENT):
 			pass
 		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION):
@@ -185,6 +187,8 @@ func _process(delta):
 		elif game_state == CombatMapConstants.COMBAT_MAP_STATE.PROCESSING:
 			if _arrived == false:
 				process_unit_move(delta)
+		elif (game_state == CombatMapConstants.COMBAT_MAP_STATE.VICTORY):
+			pass
 
 #draw the area
 func _draw():
@@ -215,6 +219,7 @@ func begin_battle():
 	turn_owner = CombatMapConstants.FACTION.PLAYERS
 	##Start Music
 	AudioManager.play_music("player_theme")
+	autoCursor()
 
 func clean_up():
 	selected_unit_player_state_stack.flush()
@@ -1565,8 +1570,12 @@ func fsm_prep_unit_select(delta):
 	else :
 		combat.game_ui.hide_unit_status()
 	if Input:
-		if Input.is_action_just_pressed("ui_confirm") or Input.is_action_just_pressed("start_button"):
-			pass
+		if Input.is_action_just_pressed("start_button"):
+			if combat.ally_spawn_tiles.has(current_tile):
+				swap_units(current_tile)
+		elif Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_back"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
+			combat.game_ui.return_to_battle_prep_screen()
 			#combat.game_ui.create_combat_map_game_menu() ## **CRAIG** CHANGE TO PREP MAP MENU
 			#update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU) 
 		elif Input.is_action_just_pressed("combat_map_up"):
@@ -1598,7 +1607,7 @@ func fsm_prep_unit_select_hover_process(delta):
 			combat.game_ui.play_menu_confirm()
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				## ADD LOGIC FOR UNIT SWAP HERE
-				pass
+				swap_units(current_tile)
 		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
 				combat.game_ui.create_combat_unit_detail_panel(selected_unit)
@@ -1646,3 +1655,42 @@ func fsm_prep_unit_details_screen_process(delta):
 			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), false)
 			update_current_tile(next_unit.map_position)
 			combat.game_ui.update_combat_unit_detail_panel(next_unit)
+
+
+func _on_swap_unit_spaces() -> void:
+	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
+	#if needed check to see if selected party is larger than 0
+	#autoCursor()
+
+func player_prep_process(delta):
+	match player_state:
+		CombatMapConstants.PLAYER_STATE.PREP_MENU:
+			pass
+		CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT:
+			fsm_prep_unit_select(delta)
+		CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER:
+			fsm_prep_unit_select_hover_process(delta)
+		CombatMapConstants.PLAYER_STATE.PREP_UNIT_DETAILS_SCREEN:
+			fsm_prep_unit_details_screen_process(delta)
+
+
+func _on_battle_prep_start_battle():
+	begin_battle()
+
+
+func swap_units(selected_position:Vector2i):
+	if selected_tile == Vector2i(-1,-1) or current_tile == selected_tile:
+		selected_tile = selected_position
+	else:
+		var combatant1 := grid.get_combat_unit(selected_tile)
+		var combatant2 := grid.get_combat_unit(selected_position)
+		if combatant1:
+			combat.remove_friendly_combatant(combatant1.unit)
+		if combatant2:
+			combat.remove_friendly_combatant(combatant2.unit)
+		if combatant1:
+			combat.add_combatant(combatant1,selected_position)
+		if combatant2:
+			combat.add_combatant(combatant2,selected_tile)
+		selected_tile = Vector2i(-1,-1)
+		#Don't worry it works lol

@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_knt25"]
 [ext_resource type="PackedScene" uid="uid://6leg2pgnfdjg" path="res://campaign_map/events/event_selection_container.tscn" id="2_5kxem"]
-[ext_resource type="Script" path="res://campaign_map/events/event_selection.gd" id="2_tmuj8"]
+[ext_resource type="Script" uid="uid://cks77666ws3cr" path="res://campaign_map/events/event_selection.gd" id="2_tmuj8"]
 
 [sub_resource type="Theme" id="Theme_q5c1h"]
 default_font_size = 36
@@ -45,7 +45,7 @@ size_flags_vertical = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(1280, 720)
-layout_mode = 2
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 80.0
 theme_override_constants/margin_left = 10

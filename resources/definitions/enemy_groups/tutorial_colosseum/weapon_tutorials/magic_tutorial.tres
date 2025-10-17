@@ -1,50 +1,38 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=10 format=3 uid="uid://d0v68jx7s16wt"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_tassk"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_jg2d7"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_tassk"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_jg2d7"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="3_sg40a"]
 [ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="4_yhj3x"]
 [ext_resource type="Resource" uid="uid://d34qpam5lxbd8" path="res://resources/definitions/items/weapons/dark_magic/dark_pulse.tres" id="5_8o0wc"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_bm2ur"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_bm2ur"]
 
 [sub_resource type="Resource" id="Resource_6aern"]
 script = ExtResource("1_tassk")
 name = "Natureman"
 map_position = Vector2i(9, 3)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_jg2d7")]([ExtResource("3_sg40a")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_tassk")
 name = "Lightman"
 map_position = Vector2i(9, 5)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "bishop"
 inventory = Array[ExtResource("2_jg2d7")]([ExtResource("4_yhj3x")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_tassk")
 name = "Darkman"
 map_position = Vector2i(9, 7)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_jg2d7")]([ExtResource("5_8o0wc")])
 ai_type = 2
-is_boss = false
-drops_item = false
 
 [resource]
 script = ExtResource("6_bm2ur")
