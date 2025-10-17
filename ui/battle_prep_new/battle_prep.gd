@@ -17,7 +17,7 @@ signal swap_spaces()
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
-var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name)#.duplicate(true)
+var playerOverworldData : PlayerOverworldData #= ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name)#.duplicate(true)
 
 var tutorial_complete := true
 

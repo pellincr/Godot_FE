@@ -53,6 +53,7 @@ func transition_out_animation():
 	scene_transition.play_animation("fade_in")
 	await get_tree().create_timer(0.5).timeout
 
+
 func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 	playerOverworldData.current_campaign = campaign
 	playerOverworldData.max_archetype = campaign.number_of_archetypes_drafted

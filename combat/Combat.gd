@@ -95,7 +95,7 @@ var _player_unit_alive : bool = true
 
 @onready var current_turn = 1
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate()
 
 
 func _ready():

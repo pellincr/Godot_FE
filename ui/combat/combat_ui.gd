@@ -14,10 +14,12 @@ var ui_node_stack : Stack = Stack.new()
 @onready var combat_tile_info: VBoxContainer = $combat_tile_info
 
 @onready var level_info_container: HBoxContainer = $LevelInfoContainer
-@onready var battle_prep: BattlePrep = $BattlePrep
+#@onready var battle_prep: BattlePrep = $BattlePrep
 
 
 #Scene Imports
+#Prep Menu
+const BATTLE_PREP_MENU = preload("res://ui/battle_prep_new/battle_prep.tscn")
 #Menu
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
@@ -61,7 +63,7 @@ const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAni
 
 var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")#.duplicate(true)
+@onready var playerOverworldData:PlayerOverworldData = combat.playerOverworldData#ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")#.duplicate(true)
 
 func _ready():
 	#transition_in_animation()
@@ -73,6 +75,13 @@ func _ready():
 	#set_level_info_container
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
 	level_info_container.set_turn_count_label(str(combat.current_turn))
+	var battle_prep = BATTLE_PREP_MENU.instantiate()
+	battle_prep.set_po_data(playerOverworldData)
+	add_child(battle_prep)
+	battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
+	battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
+	battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
+	battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -485,6 +494,7 @@ func _on_battle_prep_swap_spaces() -> void:
 func return_to_battle_prep_screen():
 	combat_tile_info.visible = false
 	level_info_container.visible = false
+	var battle_prep = get_child(-1)
 	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
 	battle_prep.update_by_state()
 
