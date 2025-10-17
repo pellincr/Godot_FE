@@ -10,8 +10,11 @@ signal unit_experience_ended()
 
 var ui_node_stack : Stack = Stack.new()
 #@export var active_ui_node : Node
+@onready var unit_status: UnitSelectedFooterUI = $UnitStatus
+@onready var combat_tile_info: VBoxContainer = $combat_tile_info
 
 @onready var level_info_container: HBoxContainer = $LevelInfoContainer
+@onready var battle_prep: BattlePrep = $BattlePrep
 
 
 #Scene Imports
@@ -58,10 +61,11 @@ const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAni
 
 var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")#.duplicate(true)
 
 func _ready():
 	transition_in_animation()
+	#battle_prep.set_po_data(playerOverworldData)
 	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
@@ -70,6 +74,8 @@ func _ready():
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
 	level_info_container.set_turn_count_label(str(combat.current_turn))
 
+func set_po_data(po_data):
+	playerOverworldData = po_data
 #
 # Plays the transition animation on combat map begin
 #
@@ -468,3 +474,30 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 
 func set_turn_count_label(turn_count):
 	level_info_container.set_turn_count_label(str(turn_count))
+
+
+func _on_battle_prep_swap_spaces() -> void:
+	combat_tile_info.visible = true
+	level_info_container.visible = true
+	controller._on_swap_unit_spaces()
+	#swap_unit_spaces.emit(
+
+func return_to_battle_prep_screen():
+	combat_tile_info.visible = false
+	level_info_container.visible = false
+	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
+	battle_prep.update_by_state()
+
+
+func _on_battle_prep_begin_battle() -> void:
+	controller._on_battle_prep_start_battle()
+	combat_tile_info.visible = true
+	level_info_container.visible = true
+
+
+func _on_battle_prep_unit_deselected(unit: Unit) -> void:
+	combat.remove_friendly_combatant(unit)
+
+
+func _on_battle_prep_unit_selected(unit: Unit) -> void:
+	combat.add_combatant(combat.create_combatant_unit(unit,0),combat.get_first_available_unit_spawn_tile())
