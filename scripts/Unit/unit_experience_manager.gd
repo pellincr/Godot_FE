@@ -2,6 +2,8 @@ extends Node
 
 class_name UnitExperienceManager
 
+signal experience_finished()
+
 const EXPERIENCE_BAR_COMPONENT = preload("res://ui/combat/unit_experience_bar/unit_experience_bar.tscn")
 const LEVEL_UP_COMPONENT = preload("res://ui/combat/unit_level_up/unit_level_up.tscn")
 
@@ -41,6 +43,7 @@ func process_experience_gain(unit:CombatUnit, experience_amount: int):
 		await experience_bar.finished
 		experience_bar.queue_free()
 		unit.unit.experience = experience_excess
+		experience_finished.emit()
 	else :
 		var experience_bar = EXPERIENCE_BAR_COMPONENT.instantiate()
 		await experience_bar
@@ -51,6 +54,8 @@ func process_experience_gain(unit:CombatUnit, experience_amount: int):
 		experience_bar.visible = true
 		experience_bar.activate_tween()
 		await experience_bar.finished
+		
 		experience_bar.queue_free()
 		unit.unit.experience = unit.unit.experience + experience_amount
+		experience_finished.emit()
 	print ("Exit process_experience_gain")

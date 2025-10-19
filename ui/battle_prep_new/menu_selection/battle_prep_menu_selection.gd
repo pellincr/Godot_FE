@@ -50,3 +50,7 @@ func _on_start_battle_button_pressed() -> void:
 
 func grab_start_button_focus():
 	start_battle_button.grab_focus()
+
+
+func _on_training_grounds_button_pressed() -> void:
+	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)

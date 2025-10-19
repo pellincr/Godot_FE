@@ -77,6 +77,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
 
+[connection signal="experience_finished" from="Combat/UnitExperienceManager" to="CanvasLayer/UI" method="_on_unit_experience_manager_experience_finished"]
 [connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
 [connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
 [connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

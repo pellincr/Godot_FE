@@ -82,6 +82,7 @@ func _ready():
 	battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
 	battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
 	battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
+	battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -511,3 +512,16 @@ func _on_battle_prep_unit_deselected(unit: Unit) -> void:
 
 func _on_battle_prep_unit_selected(unit: Unit) -> void:
 	combat.add_combatant(combat.create_combatant_unit(unit,0),combat.get_first_available_unit_spawn_tile())
+
+func _on_battle_prep_award_bonus_exp(unit:CombatUnit,xp:int):
+	combat.unit_gain_experience(unit,xp)
+	
+
+
+func _on_unit_experience_manager_experience_finished() -> void:
+	var battle_prep
+	for child in get_children():
+		if child is BattlePrep:
+			battle_prep = child
+			battle_prep.update_training_grounds_stats()
+			break

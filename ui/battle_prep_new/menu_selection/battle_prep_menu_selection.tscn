@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwe24m6b53kci"]
 
-[ext_resource type="Script" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
+[ext_resource type="Script" uid="uid://da8n6k0e4gt7x" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
 [ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_p50n5"]
 
 [node name="BattlePrepMenuSelection" type="PanelContainer"]
@@ -38,8 +38,13 @@ text = "Shop"
 layout_mode = 2
 text = "Inventory"
 
+[node name="TrainingGroundsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+text = "Training Grounds"
+
 [connection signal="pressed" from="MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]

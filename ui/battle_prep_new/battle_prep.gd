@@ -6,7 +6,7 @@ signal begin_battle()
 signal unit_selected(unit:Unit)
 signal unit_deselected(unit:Unit)
 signal swap_spaces()
-
+signal award_bonus_exp(unit:CombatUnit,xp:int)
 
 @onready var main_container: VBoxContainer = $MarginContainer/MainContainer
 
@@ -27,7 +27,8 @@ enum PREP_STATE{
 	UNIT_SELECTION,
 	SWAP_SPACES,
 	SHOP,
-	INVENTORY
+	INVENTORY,
+	TRAINING_GROUNDS
 }
 
 var current_state := PREP_STATE.MENU
@@ -116,19 +117,14 @@ func update_by_state():
 			inventory_prep_screen.set_po_data(playerOverworldData)
 			inventory_prep_screen.return_to_menu.connect(_on_return_to_menu)
 			main_container.add_child(inventory_prep_screen)
+		PREP_STATE.TRAINING_GROUNDS:
+			var training_ground = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
+			training_ground.set_po_data(playerOverworldData)
+			main_container.add_child(training_ground)
+			training_ground.return_to_menu.connect(_on_return_to_menu)
+			training_ground.award_exp.connect(_on_award_exp)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
-	"""
-	match state:
-		PREP_STATE.UNIT_SELECTION:
-			current_state = PREP_STATE.UNIT_SELECTION
-		PREP_STATE.SWAP_SPACES:
-			current_state = PREP_STATE.SWAP_SPACES
-		PREP_STATE.SHOP:
-			current_state = PREP_STATE.SHOP
-		PREP_STATE.INVENTORY:
-			current_state = PREP_STATE.INVENTORY
-	"""
 	current_state = state
 	update_by_state()
 
@@ -150,6 +146,9 @@ func set_header_labels(state : PREP_STATE) -> void:
 		PREP_STATE.INVENTORY:
 			upper_label_text = "Inventory"
 			lower_label_text = "Select An Inventory to Update"
+		PREP_STATE.TRAINING_GROUNDS:
+			upper_label_text = "Training Grounds"
+			lower_label_text= "Choose a Unit to Train"
 	header_upper_label.text = upper_label_text
 	header_lower_label.text = lower_label_text
 
@@ -193,3 +192,15 @@ func _on_unit_selected(unit:Unit):
 
 func _on_unit_deselected(unit:Unit):
 	unit_deselected.emit(unit)
+
+func _on_award_exp(unit:CombatUnit, xp:int):
+	award_bonus_exp.emit(unit,xp)
+
+func update_training_grounds_stats():
+	if current_state == PREP_STATE.TRAINING_GROUNDS:
+		var training_grounds = main_container.get_child(1)
+		var unit_level_info = training_grounds.get_child(0)
+		unit_level_info.unit.hp = unit_level_info.unit.stats.hp
+		unit_level_info.update_by_unit()
+		var bonus_exp_spend = training_grounds.get_child(1)
+		bonus_exp_spend.update_by_unit()
