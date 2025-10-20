@@ -22,18 +22,21 @@ unit_stat_change = SubResource("Resource_e71i3")
 [sub_resource type="Resource" id="Resource_j76ay"]
 script = ExtResource("4_ptpeo")
 probability = 3.0
+item_rarity_whitelist = Array[String](["Uncommon", "Common"])
 item_type_whitelist = Array[int]([0])
 weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
 
 [sub_resource type="Resource" id="Resource_t21cu"]
 script = ExtResource("4_ptpeo")
 probability = 1.5
+item_rarity_whitelist = Array[String](["Rare"])
 item_type_whitelist = Array[int]([0])
 weapon_type_whitelist = Array[int]([1, 2, 3, 4, 12, 13])
 
 [sub_resource type="Resource" id="Resource_ecy2r"]
 script = ExtResource("4_ptpeo")
 probability = 0.1
+item_rarity_whitelist = Array[String](["Mythical"])
 weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
 
 [sub_resource type="Resource" id="Resource_jlbjb"]
