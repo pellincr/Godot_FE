@@ -40,14 +40,17 @@ func grade_string(grade:GRADE) -> String:
 
 
 func calculate_turn_grade():
-	if turns_survived <= par_turns * .8:
-		turn_grade = GRADE.A
-	elif turns_survived <= par_turns:
-		turn_grade = GRADE.B
-	elif turns_survived <= par_turns * 1.2:
-		turn_grade = GRADE.C
-	elif turns_survived > par_turns * 1.5:
-		turn_grade = GRADE.D
+	if par_turns == -1:
+		turn_grade = GRADE.NA
+	else:
+		if turns_survived <= par_turns * .8:
+			turn_grade = GRADE.A
+		elif turns_survived <= par_turns:
+			turn_grade = GRADE.B
+		elif turns_survived <= par_turns * 1.2:
+			turn_grade = GRADE.C
+		elif turns_survived > par_turns * 1.5:
+			turn_grade = GRADE.D
 
 func calculate_survival_grade():
 	var p_loss := float(units_lost)/units_allowed * 100

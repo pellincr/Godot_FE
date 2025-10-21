@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://cymrbyixh0afj"]
+
+[ext_resource type="Texture2D" uid="uid://c710uuu3jys46" path="res://resources/sprites/events/Wind_Carved_Archway_background.png" id="1_4vm1v"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_bd0qe"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_epgqw"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_7l8u1"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="4_3jxrr"]
+
+[sub_resource type="Resource" id="Resource_h6ohp"]
+script = ExtResource("3_7l8u1")
+movement = 1
+constitution = -3
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_n36su"]
+script = ExtResource("2_epgqw")
+title = "Harness the Wind"
+description = "Selected unit gains [color=#8EE15F]1[/color] Move but loses [color=#AC3232]3[/color] Constitution."
+effect = 2
+unit_stat_change = SubResource("Resource_h6ohp")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_on7ws"]
+script = ExtResource("3_7l8u1")
+speed = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_1r21n"]
+script = ExtResource("2_epgqw")
+title = "Meditate in the Breeze"
+description = "Selected unit gains [color=#FAFA82]2[/color] Speed."
+effect = 2
+unit_stat_change = SubResource("Resource_on7ws")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_o58bh"]
+script = ExtResource("4_3jxrr")
+critical_chance = 15
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_2tugs"]
+script = ExtResource("2_epgqw")
+title = "Gust Sharpen"
+description = "A selected weapon gains [color=#8EE15F]15[/color] Critical Chance and loses [color=#8EE15F]4[/color] weight."
+effect = 6
+wpn_stat_change = SubResource("Resource_o58bh")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_bd0qe")
+name = "Wind Carved Archway"
+description = "An airy cliffside gate sings with the gale."
+background = ExtResource("1_4vm1v")
+option1 = SubResource("Resource_n36su")
+option2 = SubResource("Resource_1r21n")
+option3 = SubResource("Resource_2tugs")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

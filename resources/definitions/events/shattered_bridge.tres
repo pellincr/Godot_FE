@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="Event" load_steps=9 format=3 uid="uid://bygyn87w0aaoj"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_38dhm"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_eydhi"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_jnp23"]
+
+[sub_resource type="Resource" id="Resource_gt050"]
+script = ExtResource("2_jnp23")
+speed = -1
+defense = 1
+constitution = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_qtoqr"]
+script = ExtResource("1_eydhi")
+title = "Reinforce the Stones"
+description = "The commander unit gains [color=#8EE15F]1[/color] Defense and [color=#8EE15F]1[/color] Constitution, but loses [color=#AC3232]1[/color] Speed."
+effect = 4
+unit_stat_change = SubResource("Resource_gt050")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_usmag"]
+script = ExtResource("2_jnp23")
+luck = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_iwpl3"]
+script = ExtResource("1_eydhi")
+title = "Rally the Builders"
+description = "All units gain [color=#8EE15F]1[/color] Luck."
+effect = 3
+unit_stat_change = SubResource("Resource_usmag")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_ep4ti"]
+script = ExtResource("1_eydhi")
+title = "Collect the Masonry"
+description = "Obtain [color=#deda00]Bridge Mortar[/color] (Grants [color=#8EE15F]2[/color] Constitution when held). "
+effect = 8
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_38dhm")
+name = "Shattered Bridges"
+description = "The once-mighty bridge lies in ruin, its arches fractured and stones strewn across the chasm. Each step echoes through the gorge, reminding you of the craftsmanship—and pride—that built it."
+option1 = SubResource("Resource_qtoqr")
+option2 = SubResource("Resource_iwpl3")
+option3 = SubResource("Resource_ep4ti")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

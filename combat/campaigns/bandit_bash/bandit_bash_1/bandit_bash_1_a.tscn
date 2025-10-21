@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://p3yk5cxfw000"]
+[gd_scene load_steps=25 format=3 uid="uid://p3yk5cxfw000"]
 
 [ext_resource type="PackedScene" uid="uid://cixp52kxl7up5" path="res://combat/campaigns/bandit_bash/bandit_bash_1/bandit_bash_1_terrain.tscn" id="1_02iwm"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_t24gx"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_0mq8t"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_bao5h"]
 [ext_resource type="Resource" uid="uid://jmyt1cheo7t7" path="res://combat/campaigns/bandit_bash/bandit_bash_1/bandit_bash_1_a_units.tres" id="5_c6b3l"]
+[ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_s2j2v"]
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="8_pynpu"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="9_mftdg"]
 [ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="10_dfp7r"]
@@ -18,6 +19,13 @@
 [ext_resource type="Script" uid="uid://kx442wv8dfsa" path="res://scripts/Unit/unit_experience_manager.gd" id="19_6idwc"]
 [ext_resource type="Script" uid="uid://dcdbof5kh78wm" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="20_0gdpy"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="21_oqc8p"]
+
+[sub_resource type="Resource" id="Resource_l4ya0"]
+script = ExtResource("6_s2j2v")
+par_turns = 10
+base_gold = 1000
+base_bonus_exp = 50
+metadata/_custom_type_script = "uid://clhuknqhyfx8e"
 
 [sub_resource type="Resource" id="Resource_gt2he"]
 script = ExtResource("14_x14vu")
@@ -61,8 +69,9 @@ controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
-ally_spawn_tiles = null
+ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 2), Vector2i(3, 2), Vector2i(2, 3), Vector2i(2, 1)])
 enemy_start_group = ExtResource("5_c6b3l")
+level_reward = SubResource("Resource_l4ya0")
 is_key_campaign_level = true
 is_tutorial = null
 tutorial_level = null

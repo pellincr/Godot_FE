@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="Event" load_steps=10 format=3 uid="uid://bsdgfsf2trs2d"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_8uou2"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_pdwf2"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="2_i6fy4"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_kxjdk"]
+
+[sub_resource type="Resource" id="Resource_5iu4k"]
+script = ExtResource("2_i6fy4")
+weight = 1
+critical_multiplier = 0.25
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_w3m56"]
+script = ExtResource("1_pdwf2")
+title = "Bathe a Weapon"
+description = "One weapon gains [color=#8EE15F]25%[/color] CriticalX but also [color=#AC3232]1[/color] Weight."
+effect = 6
+wpn_stat_change = SubResource("Resource_5iu4k")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_08km7"]
+script = ExtResource("3_kxjdk")
+resistance = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_jhj4v"]
+script = ExtResource("1_pdwf2")
+title = "Absorb the Heat"
+description = "Selected unit gains [color=#8EE15F]2[/color] Resistance."
+effect = 2
+unit_stat_change = SubResource("Resource_08km7")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_5c2j4"]
+script = ExtResource("1_pdwf2")
+title = "Seal the Well"
+description = "Gain a Equipment [color=#UNIQUE]Ashen Seal[/color] (Grants 1 in all stats except Luck and subtracts 10 Luck when held). effects once)."
+effect = 8
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_8uou2")
+name = "Fountaint of Queit Flame"
+description = "Blue fire dances atop an old well."
+option1 = SubResource("Resource_w3m56")
+option2 = SubResource("Resource_jhj4v")
+option3 = SubResource("Resource_5c2j4")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

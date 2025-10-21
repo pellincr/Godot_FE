@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://b0vgpmdla6bsr"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_dy2hx"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_u2eaq"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_0cjq0"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_81sf1"]
+
+[sub_resource type="Resource" id="Resource_uxiua"]
+script = ExtResource("2_0cjq0")
+speed = -1
+defense = 1
+resistance = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_r6y1y"]
+script = ExtResource("1_u2eaq")
+title = "Bow Before the Ancestors"
+description = "The Commander unit gains [color=#FAFA82]1[/color] Defense and  [color=#FAFA82]1[/color] Resistance but loses [color=#FAFA82]1[/color] Speed."
+effect = 4
+unit_stat_change = SubResource("Resource_uxiua")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_8bogn"]
+script = ExtResource("2_0cjq0")
+luck = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_i2opt"]
+script = ExtResource("1_u2eaq")
+title = "Inherit Their Will"
+description = "All units gain [color=#8EE15F]2[/color] Luck."
+effect = 3
+unit_stat_change = SubResource("Resource_8bogn")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_k2i1n"]
+script = ExtResource("3_81sf1")
+damage = 2
+hit = 5
+weight = 1
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_urw2n"]
+script = ExtResource("1_u2eaq")
+title = "Infuse Weapon"
+description = "Commander weapon gains [color=#8EE15F]2 [/color]Damage and [color=#8EE15F]5[/color] Hit, but its weight increases by [color=#AC3232]1[/color]. "
+effect = 4
+wpn_stat_change = SubResource("Resource_k2i1n")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_dy2hx")
+name = "Hall of Ancestry"
+description = "Your footsteps echo through the vast stone hall, each statue watching as if weighing your worth. The firelight flickers across ancient faces, casting long shadows that almost seem to breathe. "
+option1 = SubResource("Resource_r6y1y")
+option2 = SubResource("Resource_i2opt")
+option3 = SubResource("Resource_urw2n")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"
