@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 			INVENTORY_STATE.UNIT_SELECT:
 				if !sub_menu_open:
 					return_to_menu.emit()
+					queue_free()
 			INVENTORY_STATE.MANAGE_ITEMS:
 				current_state = INVENTORY_STATE.UNIT_SELECT
 				sub_menu_open = false
