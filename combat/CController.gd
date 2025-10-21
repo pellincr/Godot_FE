@@ -1520,6 +1520,7 @@ func wait_action(cu: CombatUnit):
 	if combat.get_current_combatant().alive:
 		combat.get_current_combatant().map_display.update_values()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+	selector.set_mode(selector.MODE.DEFAULT)
 
 #Interact
 func fsm_interact_targetting(delta):
