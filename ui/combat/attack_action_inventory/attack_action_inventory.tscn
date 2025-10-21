@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c7q7e586v7bpx"]
 
-[ext_resource type="Script" path="res://ui/combat/attack_action_inventory/attack_action_inventory.gd" id="1_sbh7l"]
+[ext_resource type="Script" uid="uid://ci4jw5b2u753x" path="res://ui/combat/attack_action_inventory/attack_action_inventory.gd" id="1_sbh7l"]
 [ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat/equippable_item_information/equippable_item_information.tscn" id="2_1pmif"]
 [ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="2_njhv8"]
 [ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="3_bdaoj"]

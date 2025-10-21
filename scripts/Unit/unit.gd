@@ -393,12 +393,18 @@ func can_equip(item:ItemDefinition) -> bool:
 	else :
 		print("Tried to equip a non-weapon")
 	return can_equip_item
-	
+
+func attempt_to_equip_front_item():
+	if can_equip(inventory.items.front()):
+		inventory.set_equipped(inventory.items.front())
+	else: 
+		inventory.unequip()
+	update_stats()
+
 func set_equipped(item : ItemDefinition):
 	if can_equip(item):
 		inventory.set_equipped(item)
 		update_stats()
-		print(self.name + " equipped : " + item.name)
 
 func get_equippable_weapons() ->  Array[WeaponDefinition]:
 	var equippable_weapons : Array[WeaponDefinition]

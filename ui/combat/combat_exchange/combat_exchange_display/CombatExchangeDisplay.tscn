@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfmvtergmya12"]
 
-[ext_resource type="Script" uid="uid://dvisg7q0v7efe" path="res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.gd" id="1_nb1t3"]
+[ext_resource type="Script" uid="uid://doh76r25gnl8j" path="res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.gd" id="1_nb1t3"]
 [ext_resource type="Shader" uid="uid://deeb01tfxlv17" path="res://resources/shaders/BlurShader.gdshader" id="2_gd6mb"]
 [ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="3_tguvc"]
 [ext_resource type="PackedScene" uid="uid://5nnlh8ovljap" path="res://ui/combat/combat_exchange/combat_exchange_display/combat_exchange_display_unit_info/combat_exchange_unit_info_display.tscn" id="4_0ap02"]

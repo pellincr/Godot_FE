@@ -42,6 +42,8 @@ const COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS = preload("res://ui/combat/uni
 #const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
+const TRADE_ACTION_CONTAINER = preload("res://ui/combat/trade_action_inventory/trade_container.tscn")
+#const TRADE_ACTION_PREVIEW = preload()
 
 #Item Discard & Popup
 const COMBAT_VIEW_POP_UP = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
@@ -254,6 +256,19 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
+
+#
+# Creates the trade action inventory used to select the weapon to be used in the combat preview
+#
+func create_trade_action_inventory(origin_unit : CombatUnit, target_unit: CombatUnit):
+	var trade_action_container = TRADE_ACTION_CONTAINER.instantiate()
+	self.add_child(trade_action_container)
+	await trade_action_container
+	#TO BE CONNECTED CANCEL
+	trade_action_container.external_trade_completed.connect(controller.unit_completed_external_trade.bind())
+	trade_action_container.populate(origin_unit, target_unit)
+	push_ui_node_stack(trade_action_container)
+	trade_action_container.grab_focus_unit_a()
 
 #
 # Creates the attack action inventory used to select the weapon to be used in the combat preview

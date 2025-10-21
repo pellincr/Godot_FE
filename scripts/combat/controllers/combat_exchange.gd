@@ -21,6 +21,7 @@ signal gain_experience(u: CombatUnit, new_value:int)
 signal unit_gain_experience_finished()
 signal give_items(items: Array[ItemDefinition], source: String, target: CombatUnit)
 signal give_items_complete()
+
 enum EXCHANGE_OUTCOME 
 {
 	DAMAGE_DEALT,
@@ -545,7 +546,7 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	$"../../CanvasLayer/UI".add_child(ce_display) 
 	ce_display.visible = true
 	ce_display.set_all(attacker, defender, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
-		false, false, check_weapon_triangle(attacker.unit,defender.unit))
+		false, false, exchange_data.weapon_triange)
 	attacker.turn_taken = true
 	#Do the actual calcs
 	for turn in exchange_data.exchange_data:

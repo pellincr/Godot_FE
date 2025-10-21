@@ -1,80 +1,57 @@
-[gd_scene load_steps=8 format=3 uid="uid://1f3vadqgcqf3"]
+[gd_scene load_steps=5 format=3 uid="uid://1f3vadqgcqf3"]
 
-[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="1_6gc0d"]
-[ext_resource type="Script" path="res://ui/combat/trade_action_inventory/trade_unit_inventory.gd" id="1_pv2fu"]
+[ext_resource type="Script" uid="uid://dpuugwrdilecr" path="res://ui/combat/trade_action_inventory/trade_unit_inventory.gd" id="1_pv2fu"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="2_jr2hg"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="2_wle3t"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="3_w2fve"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2q03x"]
-bg_color = Color(0, 0, 0, 0.0666667)
-
-[sub_resource type="Theme" id="Theme_enuf2"]
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_2q03x")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_djf31"]
-atlas = ExtResource("1_6gc0d")
-region = Rect2(128, 130, 32, 16)
-
 [node name="TradeUnitInventory" type="Control"]
-custom_minimum_size = Vector2(300, 275)
+custom_minimum_size = Vector2(310, 310)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 298.0
-offset_bottom = 269.0
+offset_right = 300.0
+offset_bottom = 315.0
 script = ExtResource("1_pv2fu")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
-offset_right = 300.0
-offset_bottom = 275.0
-theme = SubResource("Theme_enuf2")
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 310.0
+theme = ExtResource("2_jr2hg")
 
-[node name="Background" type="Panel" parent="PanelContainer"]
+[node name="MarginContainer" type="CenterContainer" parent="Background"]
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 310.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="CenterContainer" parent="PanelContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="HeaderPanel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
+[node name="HeaderPanel" type="CenterContainer" parent="Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UnitIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HeaderPanel"]
-layout_mode = 0
-offset_left = 16.0
-offset_right = 48.0
-offset_bottom = 16.0
-scale = Vector2(4, 4)
-texture = SubResource("AtlasTexture_djf31")
-
-[node name="UnitName" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HeaderPanel"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 249.0
-offset_bottom = 67.0
+[node name="UnitName" type="Label" parent="Background/MarginContainer/VBoxContainer/HeaderPanel"]
+layout_mode = 2
 theme = ExtResource("2_wle3t")
 theme_override_constants/outline_size = 4
 text = "Zombah St. Rah"
 horizontal_alignment = 1
-vertical_alignment = 2
+vertical_alignment = 1
 
-[node name="Inventory" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Inventory" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="UnitInventorySlot" parent="PanelContainer/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
+[node name="UnitInventorySlot" parent="Background/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="UnitInventorySlot2" parent="PanelContainer/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
+[node name="UnitInventorySlot2" parent="Background/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
 layout_mode = 2
 
-[node name="UnitInventorySlot3" parent="PanelContainer/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
+[node name="UnitInventorySlot3" parent="Background/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
 layout_mode = 2
 
-[node name="UnitInventorySlot4" parent="PanelContainer/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
+[node name="UnitInventorySlot4" parent="Background/MarginContainer/VBoxContainer/Inventory" instance=ExtResource("3_w2fve")]
 layout_mode = 2

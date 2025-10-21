@@ -50,37 +50,36 @@ func display_number(value:int, position:Vector2, is_critical: bool = false):
 	complete.emit()
 
 func display_text(value:String, position:Vector2, text_color:Color, outline_color:Color, text_size: int) :
-	var display_text_object = Label.new()
-	display_text_object.global_position = position
-	display_text_object.z_index = 5
-	display_text_object.theme = theme
-	display_text_object.text = value
-	#display_text.theme.set_font(font)
-	display_text_object.label_settings = LabelSettings.new()
-	display_text_object.label_settings.font_color = text_color
-	display_text_object.label_settings.font_size = text_size
-	display_text_object.label_settings.outline_color = outline_color
-	display_text_object.label_settings.outline_size = 3
+	var text = RichTextLabel.new()
+	text.global_position = position
+	text.z_index = 10
+	text.z_as_relative = false
+	text.scroll_active = false
+	text.fit_content = true
+	text.clip_contents = false
+	text.autowrap_mode = TextServer.AUTOWRAP_OFF
+	text.bbcode_enabled = true
+	text.theme = theme
+	text.text = "[font_size={" + str(text_size) + "}][color=" + str(text_color)+ "#B22]" +str(value) +"[/color][/font_size]"
+	call_deferred("add_child", text)
 	
-	call_deferred("add_child", display_text_object)
-	
-	await display_text_object.resized
-	display_text_object.pivot_offset = Vector2(display_text_object.size / 2)
+	await text.resized
+	text.pivot_offset = Vector2(text.size / 2)
 	
 	var tween = get_tree().create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(
-		display_text_object, "position:y", display_text_object.position.y -24, 0.25
+		text, "position:y", text.position.y -24, 0.25
 	).set_ease(Tween.EASE_OUT)
 	tween.tween_property(
-		display_text_object, "position:y", display_text_object.position.y -24, 0.25
+		text, "position:y", text.position.y -24, 0.25
 	).set_ease(Tween.EASE_IN).set_delay(0.25)
 	tween.tween_property(
-		display_text_object, "scale", Vector2.ZERO, 0.25
+		text, "scale", Vector2.ZERO, 0.25
 	).set_ease(Tween.EASE_IN).set_delay(0.5)
 	
 	await tween.finished
-	display_text_object.queue_free()
+	text.queue_free()
 	complete.emit()
 
 func no_damage(position:Vector2):
