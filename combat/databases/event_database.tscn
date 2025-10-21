@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu41o4d1sio4j"]
+[gd_scene load_steps=17 format=3 uid="uid://cu41o4d1sio4j"]
 
-[ext_resource type="Script" uid="uid://dfivis6c54qeg" path="res://combat/databases/event_database.gd" id="1_2voe4"]
-[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
+[ext_resource type="Script" uid="uid://dien87smpmwh" path="res://combat/databases/event_database.gd" id="1_2voe4"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="2_uknaf"]
 [ext_resource type="Resource" uid="uid://cjr1xltk4vvo4" path="res://resources/definitions/events/whispering_oak.tres" id="3_pmen2"]
 [ext_resource type="Resource" uid="uid://5sst4s666qpw" path="res://resources/definitions/events/ancient_battlefield.tres" id="4_7hyrf"]
 [ext_resource type="Resource" uid="uid://2ebb2awaycit" path="res://resources/definitions/events/broken_shrine_of_valor.tres" id="5_6nst4"]
@@ -9,7 +9,14 @@
 [ext_resource type="Resource" uid="uid://dl1y82k76ck63" path="res://resources/definitions/events/grove_trial.tres" id="7_q55w0"]
 [ext_resource type="Resource" uid="uid://dqgb8uc1ysvh7" path="res://resources/definitions/events/moonlit_armory.tres" id="8_inkul"]
 [ext_resource type="Resource" uid="uid://utt7f4pt1wde" path="res://resources/definitions/events/dark_goblet.tres" id="9_g48k5"]
+[ext_resource type="Resource" uid="uid://corcejfovracv" path="res://resources/definitions/events/clockwork_hermit.tres" id="10_8hxh8"]
+[ext_resource type="Resource" uid="uid://cgf4qxdx7oau1" path="res://resources/definitions/events/shadowed_passage.tres" id="11_gqx22"]
+[ext_resource type="Resource" uid="uid://b0vgpmdla6bsr" path="res://resources/definitions/events/hall_of_ancestry.tres" id="12_gqx22"]
+[ext_resource type="Resource" uid="uid://iowm3ipdn3b4" path="res://resources/definitions/events/ghastly_library.tres" id="13_wcfob"]
+[ext_resource type="Resource" uid="uid://2ir81eqrmk7t" path="res://resources/definitions/events/stormbound_keep.tres" id="14_nqcp3"]
+[ext_resource type="Resource" uid="uid://cymrbyixh0afj" path="res://resources/definitions/events/wind_carved_archway.tres" id="15_m6cja"]
+[ext_resource type="Resource" uid="uid://d2rwfvtcf2de2" path="res://resources/definitions/events/frozen_armory.tres" id="16_trtkf"]
 
 [node name="EventDatabase" type="Node"]
 script = ExtResource("1_2voe4")
-events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_7hyrf"), ExtResource("5_6nst4"), ExtResource("6_qfkqe"), ExtResource("7_q55w0"), ExtResource("8_inkul"), ExtResource("3_pmen2"), ExtResource("9_g48k5")])
+events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_7hyrf"), ExtResource("5_6nst4"), ExtResource("6_qfkqe"), ExtResource("7_q55w0"), ExtResource("8_inkul"), ExtResource("3_pmen2"), ExtResource("9_g48k5"), ExtResource("10_8hxh8"), ExtResource("11_gqx22"), ExtResource("12_gqx22"), ExtResource("13_wcfob"), ExtResource("14_nqcp3"), ExtResource("15_m6cja"), ExtResource("16_trtkf")])

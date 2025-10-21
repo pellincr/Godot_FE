@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://cgf4qxdx7oau1"]
+
+[ext_resource type="Texture2D" uid="uid://cfy1c2o0bwt7o" path="res://resources/sprites/events/dark_passage_background.png" id="1_rae7c"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_wctxo"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_12fyy"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_3olr0"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="4_waeh5"]
+
+[sub_resource type="Resource" id="Resource_28227"]
+script = ExtResource("3_3olr0")
+strength = -1
+speed = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_mjswj"]
+script = ExtResource("2_12fyy")
+title = "Slip Past"
+description = "The commander unit gains [color=#8EE15F]2[/color] Speed, but loses [color=#AC3232]1[/color] Strength. "
+effect = 4
+unit_stat_change = SubResource("Resource_28227")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_7nf5n"]
+script = ExtResource("3_3olr0")
+strength = 1
+defense = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_wf87q"]
+script = ExtResource("2_12fyy")
+title = "Confront Head-On"
+description = "The commander unit gains [color=#8EE15F]1[/color] Strength and [color=#AC3232]1[/color] Defense."
+effect = 4
+unit_stat_change = SubResource("Resource_7nf5n")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_dovi6"]
+script = ExtResource("4_waeh5")
+hit = 15
+critical_chance = 15
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_upkwp"]
+script = ExtResource("2_12fyy")
+title = "Silent Kill"
+description = "The commander weapon gains [color=#8EE15F]15[/color] hit and [color=#8EE15F]15[/color] Critical Chance."
+effect = 7
+wpn_stat_change = SubResource("Resource_dovi6")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_wctxo")
+name = "Shadowed Passage"
+description = "Assassins lurk in the dark as your commander scouts alone. "
+background = ExtResource("1_rae7c")
+option1 = SubResource("Resource_mjswj")
+option2 = SubResource("Resource_wf87q")
+option3 = SubResource("Resource_upkwp")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"
