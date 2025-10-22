@@ -1,29 +1,41 @@
 extends Resource
 
 class_name PlayerOverworldData
-
+@export_group("Main Save Data")
 @export var unlock_manager = UnlockManager.new()
 @export var hall_of_heroes_manager = HallOfHeroesManager.new()
 @export var game_stats_manager = GameStatsManager.new()
 
+@export_group("Campaign Data")
+@export var current_campaign : Campaign
+@export var capmaign_seed : int
+@export var campaign_map_data : Array[Array]
+@export var floors_climbed: int
+@export var combat_maps_completed : int
+@export var last_room:CampaignRoom
+@export var completed_drafting : bool = false
 @export var gold = 1000
 @export var bonus_experience := 0
+@export var shop_level = 1 #level of shop associated with what upgrades are availalble for purchase
+@export var total_recruits_available = 3 #number of units the player is able to purchase
+@export var current_archetype_count = 0
+@export var archetype_allotments = []
+@export var convoy_size = 100
+@export var convoy = []
+
+
+@export_group("Level Data")
+@export var current_level : PackedScene
+@export var began_level : bool = false
 @export var total_party_capacity = 15 #number of units the player is allowed to own
 @export var available_party_capacity = 4 #number of units the player is allowed to use in dungeon
-@export var total_recruits_available = 3 #number of units the player is able to purchase
-@export var shop_level = 1 #level of shop associated with what upgrades are availalble for purchase
 @export var max_archetype = 4
-@export var current_archetype_count = 0
-
-@export var archetype_allotments = []
-
 @export var total_party = []
 @export var dead_party_members = []
 @export var selected_party = []
 
 
-
-
+#THIS CAN BE MOVE ELSEWHERE LATER
 @export var new_recruits = []
 @export var temp_name_list = ["Craig",
  "Devin",
@@ -918,21 +930,7 @@ class_name PlayerOverworldData
 "Liaro"
 ]
 
-@export var convoy_size = 100
-@export var convoy = []
 
-
-@export var current_campaign : Campaign
-#@export var current_level : int = 0
-@export var completed_drafting : bool = false
-@export var began_level : bool = false
-
-# Campaign Info
-@export var campaign_map_data : Array[Array]
-@export var floors_climbed: int
-@export var combat_maps_completed : int
-@export var last_room:CampaignRoom
-@export var current_level : PackedScene
 
 #Array value -> array
 #Appends the given value onto the given array

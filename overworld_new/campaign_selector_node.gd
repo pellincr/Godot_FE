@@ -13,8 +13,8 @@ func _process(delta):
 		campaign_selected.emit(campaign)
 
 
-func set_campaign_name_label(name):
-	campaign_name_label.text = name
+func set_campaign_name_label(c_name):
+	campaign_name_label.text = c_name
 
 
 func _on_mouse_entered():

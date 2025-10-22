@@ -25,7 +25,7 @@ func _input(event: InputEvent) -> void:
 			var main_pause_menu = main_pause_menu_scene.instantiate()
 			add_child(main_pause_menu)
 			main_pause_menu.menu_closed.connect(_on_menu_closed)
-			#disable_screen_focus()
+			disable_screen_focus()
 			pause_menu_open = true
 		else:
 			get_child(-1).queue_free()
@@ -57,11 +57,15 @@ func transition_out_animation():
 func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 	playerOverworldData.current_campaign = campaign
 	playerOverworldData.max_archetype = campaign.number_of_archetypes_drafted
-	SelectedSaveFile.save(playerOverworldData)
-	transition_out_animation()
-	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
-	get_tree().change_scene_to_packed(army_draft)
-	
+	#SelectedSaveFile.save(playerOverworldData)
+	#transition_out_animation()
+	#var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+	#get_tree().change_scene_to_packed(army_draft)
+	var set_seed = preload("res://overworld_new/set_seed/set_seed.tscn").instantiate()
+	disable_screen_focus()
+	add_child(set_seed)
+	set_seed.set_seed.connect(_on_set_seed)
+	set_seed.menu_closed.connect(_on_menu_closed)
 
 
 func _on_return_button_pressed():
@@ -76,7 +80,7 @@ func _on_colosseum_button_pressed():
 
 func set_screen_focus(focus):
 	for child in self.get_children():
-		if child is Panel:
+		if child is Panel or child is Button:
 			child.focus_mode = focus
 
 func enable_screen_focus():
@@ -86,6 +90,13 @@ func disable_screen_focus():
 	set_screen_focus(FOCUS_NONE)
 
 func _on_menu_closed():
-	#enable_screen_focus()
+	enable_screen_focus()
 	pause_menu_open = false
 	tutorial_campaign_selecter.grab_focus()
+
+func _on_set_seed(campaign_seed : int):
+	playerOverworldData.capmaign_seed = campaign_seed
+	SelectedSaveFile.save(playerOverworldData)
+	transition_out_animation()
+	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
+	get_tree().change_scene_to_packed(army_draft)
