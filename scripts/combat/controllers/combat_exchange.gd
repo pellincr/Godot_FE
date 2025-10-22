@@ -111,7 +111,7 @@ func heal_unit(unit: CombatUnit, amount: int):
 
 func hit_missed(dodging_unit: CombatUnit):
 	#await use_audio_player(miss_sound)
-	AudioManager.play_sound_effect_pitch_randomized("unit_miss")
+	await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
 	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 

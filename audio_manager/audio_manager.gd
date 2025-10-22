@@ -34,12 +34,12 @@ func play_sound_effect(key:String, pitch := 1.0)-> void:
 func play_sound_effect_pitch_randomized(key:String) -> void:
 	#var og_pitch = sound_effect_player.pitch_scale
 	randomize()
-	var randomized_pitch = randf_range(0.5,1.5)
+	var randomized_pitch = randf_range(0.75,1.25)
 	sound_effect_player.pitch_scale = randomized_pitch
 	#var pitch_effect := AudioEffectPitchShift.new()
 	#pitch_effect.pitch_scale = randomized_pitch
 	#AudioServer.add_bus_effect(AudioServer.get_bus_index(sound_effect_player.bus),pitch_effect)
-	play_sound_effect(key,randomized_pitch)
+	await play_sound_effect(key,randomized_pitch)
 	
 	#sound_effect_player.pitch_scale = og_pitch
 
