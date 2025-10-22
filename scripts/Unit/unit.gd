@@ -291,7 +291,6 @@ func calculate_avoid(weapon: WeaponDefinition = null, terrain : Terrain = null) 
 		avoid_value = (2 * calculate_attack_speed()) + stats.luck
 	if terrain:
 		avoid_value += terrain.avoid
-	print("Avoid Val : " + str(avoid_value))
 	return avoid_value
 
 func calculate_attack(weapon: WeaponDefinition = null) -> int: 

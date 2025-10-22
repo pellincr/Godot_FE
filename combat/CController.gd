@@ -300,9 +300,11 @@ func progress_turn_order():
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)
 	
-func combatant_died(combatant):
+func combatant_died(combatant: CombatUnit):
 	if combatant.map_display:
 		combatant.map_display.queue_free()
+	if grid.get_combat_unit(combatant.map_position):
+		grid.combat_unit_died(combatant.map_position)
 
 func find_path(goal_tile:Vector2i, origin_tile: Vector2i = Vector2i(-999,-999)):
 	_path.clear()
