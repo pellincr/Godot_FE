@@ -88,6 +88,7 @@ func update_by_state():
 			var battle_prep_menu = preload("res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.tscn").instantiate()
 			var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
 			battle_prep_menu.state_selected.connect(_on_battle_prep_menu_selection_state_selected)
+			battle_prep_menu.save_game.connect(_on_save_game)
 			battle_prep_menu.start_game.connect(_on_start_game)
 			var current_level = playerOverworldData.current_level.instantiate()
 			var combat = current_level.get_child(2)
@@ -204,3 +205,6 @@ func update_training_grounds_stats():
 		unit_level_info.update_by_unit()
 		var bonus_exp_spend = training_grounds.get_child(1)
 		bonus_exp_spend.update_by_unit()
+
+func _on_save_game():
+	SelectedSaveFile.save(playerOverworldData)

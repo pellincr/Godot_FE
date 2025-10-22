@@ -42,9 +42,14 @@ text = "Inventory"
 layout_mode = 2
 text = "Training Grounds"
 
+[node name="SavePreparationsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+text = "Save Preparations"
+
 [connection signal="pressed" from="MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
