@@ -33,7 +33,7 @@ var pause_menu_open = false
 var tutorial_complete := true
 
 func _ready() -> void:
-	seed(playerOverworldData.capmaign_seed)
+	
 	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
@@ -41,6 +41,7 @@ func _ready() -> void:
 	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
+		seed(playerOverworldData.capmaign_seed)
 		generate_new_map()
 		unlock_floor(0)
 	else:
