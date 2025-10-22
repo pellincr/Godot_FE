@@ -2,6 +2,7 @@ extends PanelContainer
 
 signal start_game()
 signal state_selected(state:BattlePrep.PREP_STATE)
+signal save_game()
 
 
 @onready var start_battle_button: Button = $MarginContainer/ButtonContainer/StartBattleButton
@@ -54,3 +55,7 @@ func grab_start_button_focus():
 
 func _on_training_grounds_button_pressed() -> void:
 	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)
+
+
+func _on_save_preparations_button_pressed() -> void:
+	save_game.emit()
