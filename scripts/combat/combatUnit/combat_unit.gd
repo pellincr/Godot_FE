@@ -153,10 +153,10 @@ func get_attack_speed() -> int:
 	return stats.attack_speed.evaluate() + stats.speed.evaluate()
 
 func get_critical_chance() -> int:
-	return clampi(stats.critical_chance.evaluate() + (stats.skill.evaluate()/2), 0, 99999)
+	return clampi(stats.critical_chance.evaluate() + (stats.skill.evaluate()/2) + stats.luck.evaluate()/4, 0, 99999)
 
 func get_critical_avoid() -> int:
-	return clampi(stats.critical_avoid.evaluate(), 0, 99999)
+	return stats.critical_avoid.evaluate() + stats.luck.evaluate()
 
 func get_critical_multiplier() -> int:
 	return clampi(stats.critical_multiplier.evaluate(), 1, 99999)

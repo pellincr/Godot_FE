@@ -19,7 +19,7 @@ var hit : StatModifierList = StatModifierList.new()
 var avoid :  StatModifierList = StatModifierList.new()
 var attack_speed :  StatModifierList = StatModifierList.new()
 var critical_chance : StatModifierList = StatModifierList.new()
-var critical_avoid : StatModifierList = StatModifierList.new() ##NEED TO IMPL
+var critical_avoid : StatModifierList = StatModifierList.new()
 
 #This comes straight from weapon --> update this when skills are added?
 var critical_multiplier : StatModifierList = StatModifierList.new()
@@ -71,7 +71,7 @@ func populate_unit_stats(unit : Unit):
 	#self.hit.append(StatModifier.create(int(2 * self.skill.evaluate() +self.luck.evaluate()/2), "Unit"))
 	#self.avoid.append(StatModifier.create(int(self.luck.evaluate() + 2 * self.speed.evaluate()), "Unit"))
 
-	self.critical_chance.append(StatModifier.create(int(self.skill.evaluate()/2), "Unit"))
+	self.critical_chance.append(StatModifier.create(0, "Unit"))
 	self.critical_multiplier.append(StatModifier.create(0, "Unit"))
 
 func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr5gv3nhxomby"]
+[gd_scene load_steps=14 format=3 uid="uid://dr5gv3nhxomby"]
 
 [ext_resource type="Script" uid="uid://cfv7xjrq8xbkc" path="res://ui/combat/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="1_3jusj"]
@@ -7,7 +7,6 @@
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_7xwk1"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="3_85s4i"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="3_lh7o5"]
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="4_qcc2n"]
 [ext_resource type="SpriteFrames" uid="uid://6goe3c8ex2ju" path="res://resources/sprites/level_up/level_up.tres" id="9_aw2vt"]
 [ext_resource type="AudioStream" uid="uid://bxk8dac544l7q" path="res://resources/sounds/ui/level_up.mp3" id="10_v8fyt"]
 
@@ -166,11 +165,9 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("4_qcc2n")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 text = "+ 1"
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
