@@ -45,6 +45,7 @@ func set_button_text(button,text):
 
 
 func _on_continue_game_button_pressed():
+	seed(playerOverworldData.capmaign_seed)
 	if playerOverworldData.completed_drafting:
 		if playerOverworldData.current_level:
 			if playerOverworldData.began_level:
