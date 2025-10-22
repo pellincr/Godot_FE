@@ -79,9 +79,9 @@ func transition_out_animation():
 
 
 func _input(event:InputEvent) ->void:
-	if event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up"):
+	if !pause_menu_open and (event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up")):
 		camera_2d.position.y -= SCROLL_SPEED
-	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
+	if !pause_menu_open and (event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down")):
 		camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
 	if event.is_action_pressed("ui_cancel"):
@@ -92,8 +92,9 @@ func _input(event:InputEvent) ->void:
 			disable_available_map_room_focus()
 			pause_menu_open = true
 		else:
-			camera_2d.get_child(-1).queue_free()
-			_on_menu_closed()
+			if tutorial_complete:
+				camera_2d.get_child(-1).queue_free()
+				_on_menu_closed()
 
 func tutorial_completed():
 #	camera_2d.zoom = Vector2(3,3)
