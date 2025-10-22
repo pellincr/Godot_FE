@@ -136,10 +136,10 @@ func set_game_grid(game_grid : CombatMapGrid):
 func populate():
 	if is_tutorial:
 		set_player_tutorial_party()
+	spawn_initial_units()
 	for tile_index in ally_spawn_tiles.size():
 		if !(tile_index >= playerOverworldData.selected_party.size()):
 			add_combatant(create_combatant_unit(playerOverworldData.selected_party[tile_index],0),ally_spawn_tiles[tile_index])
-	spawn_initial_units()
 	entity_manager.load_entities()
 
 
