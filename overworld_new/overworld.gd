@@ -30,6 +30,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			get_child(-1).queue_free()
 			_on_menu_closed()
+			enable_screen_focus()
 
 
 func set_po_data(po_data):
@@ -55,6 +56,7 @@ func transition_out_animation():
 
 
 func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
+	pause_menu_open = true
 	playerOverworldData.current_campaign = campaign
 	playerOverworldData.max_archetype = campaign.number_of_archetypes_drafted
 	#SelectedSaveFile.save(playerOverworldData)

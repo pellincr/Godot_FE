@@ -30,6 +30,10 @@ script = ExtResource("2_okeuv")
 
 [node name="TextureRect" parent="." index="0"]
 layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 4096.0
+offset_bottom = 3072.0
 
 [node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
