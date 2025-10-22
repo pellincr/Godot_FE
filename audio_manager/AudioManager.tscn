@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://liipv0fn60jj" path="res://resources/definitions/audio_libraries/music_library.tres" id="2_f3pd2"]
 [ext_resource type="Resource" uid="uid://b1ubk6fkwuowd" path="res://resources/definitions/audio_libraries/sound_effect_library.tres" id="3_d3co4"]
 
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_x875l"]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_a3w2e"]
 
 [node name="AudioManager" type="Node"]
 process_mode = 3
@@ -16,4 +16,4 @@ main_sound_effect_library = ExtResource("3_d3co4")
 volume_db = -15.0
 
 [node name="SoundEffectPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamPolyphonic_x875l")
+stream = SubResource("AudioStreamPolyphonic_a3w2e")

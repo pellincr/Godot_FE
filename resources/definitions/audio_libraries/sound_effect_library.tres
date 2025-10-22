@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=6 format=3 uid="uid://b1ubk6fkwuowd"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=11 format=3 uid="uid://b1ubk6fkwuowd"]
 
-[ext_resource type="Script" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
+[ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
 [ext_resource type="AudioStream" uid="uid://dvlfsttmv1f2p" path="res://resources/sounds/ui/menu_confirm.wav" id="2_1rw36"]
 [ext_resource type="AudioStream" uid="uid://b8vuovpghejpv" path="res://resources/sounds/ui/menu_back.wav" id="3_wiycp"]
 [ext_resource type="AudioStream" uid="uid://catkywwwl2laj" path="res://resources/sounds/ui/menu_cursor.wav" id="4_qrst8"]
 [ext_resource type="AudioStream" uid="uid://dgmxha3wn01tl" path="res://resources/sounds/ui/experience_bar_sound.mp3" id="5_qy2gu"]
+[ext_resource type="AudioStream" uid="uid://pjqb8vj66esu" path="res://resources/sounds/combat/hit.wav" id="6_tryjc"]
+[ext_resource type="AudioStream" uid="uid://c3beq1poqa8of" path="res://resources/sounds/combat/Crit.wav" id="7_np7bv"]
+[ext_resource type="AudioStream" uid="uid://bahem7757jlqu" path="res://resources/sounds/combat/no_damage.wav" id="8_y8hrx"]
+[ext_resource type="AudioStream" uid="uid://v3m2jj3vbh22" path="res://resources/sounds/combat/miss.wav" id="9_8xtpo"]
+[ext_resource type="AudioStream" uid="uid://deqg3bd6nj55d" path="res://resources/sounds/combat/heal.wav" id="10_4gilo"]
 
 [resource]
 script = ExtResource("1_v3pn6")
@@ -12,5 +17,10 @@ sounds = {
 "experience_bar": ExtResource("5_qy2gu"),
 "menu_back": ExtResource("3_wiycp"),
 "menu_confirm": ExtResource("2_1rw36"),
-"menu_cursor": ExtResource("4_qrst8")
+"menu_cursor": ExtResource("4_qrst8"),
+"unit_crit": ExtResource("7_np7bv"),
+"unit_heal": ExtResource("10_4gilo"),
+"unit_hit": ExtResource("6_tryjc"),
+"unit_miss": ExtResource("9_8xtpo"),
+"unit_no_damage": ExtResource("8_y8hrx")
 }

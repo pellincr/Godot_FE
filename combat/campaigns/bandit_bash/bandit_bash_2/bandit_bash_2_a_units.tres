@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="8_c7yp8"]
 [ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="9_ateot"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="10_x0bge"]
-[ext_resource type="Script" uid="uid://ds6mbcitqhjim" path="res://scripts/resources/enemy_group/enemy_group.gd" id="11_4bttf"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="11_4bttf"]
 
 [sub_resource type="Resource" id="Resource_kbx8i"]
 script = ExtResource("1_vgvgr")
