@@ -24,6 +24,7 @@ func set_seed_value_label(val):
 	seed_value_label.text = val
 
 func _on_random_seed_button_pressed() -> void:
+	randomize()
 	var campaign_seed := randi()
 	seed(campaign_seed)
 	print("Seed set to: " + str(campaign_seed))

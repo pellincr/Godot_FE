@@ -15,7 +15,7 @@ class_name PlayerOverworldData
 @export var last_room:CampaignRoom
 @export var completed_drafting : bool = false
 @export var gold = 1000
-@export var bonus_experience := 0
+@export var bonus_experience := 10000
 @export var shop_level = 1 #level of shop associated with what upgrades are availalble for purchase
 @export var total_recruits_available = 3 #number of units the player is able to purchase
 @export var current_archetype_count = 0
