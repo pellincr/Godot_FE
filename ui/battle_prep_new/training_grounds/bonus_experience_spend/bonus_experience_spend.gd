@@ -1,6 +1,6 @@
 extends PanelContainer
 
-signal award_exp(unit:Unit, xp:int)
+signal award_exp(unit:Unit, xp:int, bxp:int)
 
 @onready var bonus_experience_value_label: Label = $MarginContainer/VBoxContainer/BonusExperienceContainer/BonusExperienceValueLabel
 
@@ -58,7 +58,7 @@ func bonus_experience_to_experience(bxp,lv):
 func _on_experience_gained_panel_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		if experience_gained > 0:
-			award_exp.emit(unit, experience_gained)
+			award_exp.emit(unit, experience_gained, available_bonus_exp)
 			spend_bonus_exp()
 	if event.is_action_pressed("ui_up"):
 		increase_exp_gain_one()

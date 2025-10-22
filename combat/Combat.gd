@@ -127,7 +127,7 @@ func _ready():
 	reinforcement_manager.game_grid = game_grid
 	reinforcement_manager.populate(mapReinforcementData)
 	reinforcement_manager.connect("spawn_reinforcement", _on_reinforcement_manager_spawn_reinforcement)
-	randomize()
+	#randomize()
 
 func set_game_grid(game_grid : CombatMapGrid):
 	self.game_grid = game_grid

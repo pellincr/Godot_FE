@@ -59,7 +59,8 @@ func _on_unit_panel_pressed(unit:Unit):
 	chosen_unit = unit
 	update_by_state()
 
-func _on_award_xp(unit:Unit, xp:int, level_info_screen):
+func _on_award_xp(unit:Unit, xp:int, bxp:int, level_info_screen):
 	var comb = CombatUnit.create(unit, 0, 0,false,false)
+	playerOverworldData.bonus_experience = bxp
 	award_exp.emit(comb,xp)
 	level_info_screen.update_by_unit()
