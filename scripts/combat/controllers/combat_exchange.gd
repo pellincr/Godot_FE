@@ -105,9 +105,9 @@ func heal_unit(unit: CombatUnit, amount: int):
 		await ce_display.update_unit_hp(unit, unit.current_hp)
 	#await unit.map_display.update_complete
 
-func hit_missed(dodging_unt: CombatUnit):
+func hit_missed(dodging_unit: CombatUnit):
 	await use_audio_player(miss_sound)
-	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
+	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
 func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):

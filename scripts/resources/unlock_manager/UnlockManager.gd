@@ -31,7 +31,8 @@ class_name UnlockManager
 	"line_breaker" : true,
 	"mage_knight" : false,
 	"war_maiden" : false,
-	"weapon_master": false
+	"weapon_master": false,
+	"night_blade" : false
 }
 
 @export var unit_types_unlocked : Dictionary = {

@@ -16,7 +16,7 @@ func display_number(value:int, position:Vector2, is_critical: bool = false):
 	number.bbcode_enabled = true
 	number.theme = theme
 	if is_critical:
-		number.text = "[font_size={24}][color=#B22][shake]" +str(value) +"![/shake][/color][/font_size]"
+		number.text = "[font_size={32}][color=#B22][shake]" +str(value) +"![/shake][/color][/font_size]"
 	else:
 		number.text = str(value)
 	#var color = "#FFF"
@@ -60,7 +60,7 @@ func display_text(value:String, position:Vector2, text_color:Color, outline_colo
 	text.autowrap_mode = TextServer.AUTOWRAP_OFF
 	text.bbcode_enabled = true
 	text.theme = theme
-	text.text = "[font_size={" + str(text_size) + "}][color=" + str(text_color)+ "#B22]" +str(value) +"[/color][/font_size]"
+	text.text = "[font_size={" + str(text_size) + "}][color=#" + str(text_color.to_html(false))+ "]" +str(value) +"[/color][/font_size]"
 	call_deferred("add_child", text)
 	
 	await text.resized
@@ -86,7 +86,7 @@ func no_damage(position:Vector2):
 	display_text("No Damage", position, Color.WHITE, Color.BLACK, 18)
 
 func miss(position:Vector2):
-	display_text("Miss", position, Color.WHITE, Color.BLACK, 18)
+	display_text("[wave amp=100.0 freq=2.0 connected=1]Miss[/wave]", position, Color.WHITE, Color.BLACK, 18)
 
 func heal(position:Vector2, value: int):
 	display_text(str(value), position, Color.GREEN, Color.WEB_GREEN, 18)
