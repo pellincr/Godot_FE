@@ -72,7 +72,7 @@ func get_value_grade(value:float) -> GRADE:
 	elif value <= 3.0:
 		grade = GRADE.B
 	elif value <= 4.0:
-		grade = GRADE.D
+		grade = GRADE.A
 	return grade
 
 func get_grade_value(grade:GRADE) -> float:

@@ -21,9 +21,9 @@ func _ready() -> void:
 	#reward.base_bonus_exp = 100
 	#reward.base_gold = 100
 	#reward.par_turns = 8
-	#reward.turns_survived = 7
+	#reward.turns_survived = 8
 	#reward.units_allowed = 4
-	#reward.units_lost = 2
+	#reward.units_lost = 0
 	#reward.calculate_turn_grade()
 	#reward.calculate_survival_grade()
 	#reward.calculate_overall_grade()
