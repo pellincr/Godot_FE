@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cdcmk38330ekx"]
 
-[ext_resource type="Script" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
-[ext_resource type="Script" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
+[ext_resource type="Script" uid="uid://clnq80g36qfs7" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
+[ext_resource type="Script" uid="uid://stypawclkv3q" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
 [ext_resource type="PackedScene" uid="uid://dujcntmufuji2" path="res://campaign_map/campaign_map_controls.tscn" id="2_m0mgj"]
 
 [sub_resource type="Gradient" id="Gradient_j1yjd"]

@@ -27,6 +27,8 @@ var random_room_type_weights = {
 	CampaignRoom.TYPE.RECRUITMENT : 0.0#6
 }
 
+
+
 var random_room_type_total_weight := 0
 var test := 0
 var map_data : Array[Array]

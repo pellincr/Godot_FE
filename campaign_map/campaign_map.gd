@@ -33,6 +33,7 @@ var pause_menu_open = false
 var tutorial_complete := true
 
 func _ready() -> void:
+	seed(playerOverworldData.capmaign_seed)
 	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
