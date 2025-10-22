@@ -948,7 +948,7 @@ func fsm_unit_select_process(delta):
 			update_current_tile(current_tile + Vector2i.DOWN)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("left_bumper") or Input.is_action_just_pressed("right_bumper"):
-			update_current_tile(combat.get_next_unit().map_position)
+			update_current_tile(combat.get_first_available_unit().map_position)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		camera.SimpleFollow(delta)
 
@@ -1543,7 +1543,6 @@ func fsm_interact_targetting(delta):
 			if Input.is_action_just_pressed("ui_cancel"):
 				var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 				if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
-					combat.game_ui.destory_active_ui_node()
 					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_current_tile(move_tile)

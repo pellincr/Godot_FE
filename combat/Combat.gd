@@ -236,6 +236,15 @@ func get_next_unit(cu: CombatUnit = null, forwards: bool = true) -> CombatUnit:
 	else: 
 		return combatants[groups[0].front()]
 	
+func get_first_available_unit() ->CombatUnit:
+	#assume player
+	var faction_index = 0
+	for index in groups[faction_index]:
+		if combatants[index].turn_taken == false:
+			return combatants[index]
+	# everyone is used up, go to the first guy
+	return combatants[groups[faction_index].front()]
+	
 
 func check_reinforcement_spawn(turn_number : int):
 	# get all the unit positions for friendly units
