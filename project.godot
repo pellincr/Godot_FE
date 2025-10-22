@@ -51,6 +51,12 @@ export/convert_text_resources_to_binary=false
 
 theme/default_font_multichannel_signed_distance_field=true
 
+[importer_defaults]
+
+wav={
+&"compress/mode": 0
+}
+
 [input]
 
 ui_cancel={

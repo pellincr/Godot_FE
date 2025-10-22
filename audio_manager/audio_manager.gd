@@ -18,24 +18,40 @@ func get_music_library_song(key:String):
 func get_sound_effect_library_sound(key:String):
 	return main_sound_effect_library.sounds.get(key)
 
-func play_sound_effect(key:String)-> void:
-	if key:
-		var sound_effect_stream = get_sound_effect_library_sound(key)
-		if !sound_effect_player.playing: sound_effect_player.play()
-		
-		var polyphonic_stream_playback := sound_effect_player.get_stream_playback()
-		polyphonic_stream_playback.play_stream(sound_effect_stream)
-	else:
-		printerr("no tag provided, cannot play sound effect")
+func play_sound_effect(key:String, pitch := 1.0)-> void:
+	var sound_effect_stream = get_sound_effect_library_sound(key)
+	if !sound_effect_stream:
+		printerr("Sound effect not found for key:" + key)
+		return
+	if !sound_effect_player.playing: 
+		sound_effect_player.play()
+	var polyphonic_stream_playback := sound_effect_player.get_stream_playback()
+	if polyphonic_stream_playback:
+		var stream_id = polyphonic_stream_playback.play_stream(sound_effect_stream)
+		if pitch != 1.0:
+			polyphonic_stream_playback.set_stream_pitch_scale(stream_id,pitch)
+
+func play_sound_effect_pitch_randomized(key:String) -> void:
+	#var og_pitch = sound_effect_player.pitch_scale
+	randomize()
+	var randomized_pitch = randf_range(0.5,1.5)
+	sound_effect_player.pitch_scale = randomized_pitch
+	#var pitch_effect := AudioEffectPitchShift.new()
+	#pitch_effect.pitch_scale = randomized_pitch
+	#AudioServer.add_bus_effect(AudioServer.get_bus_index(sound_effect_player.bus),pitch_effect)
+	play_sound_effect(key,randomized_pitch)
+	
+	#sound_effect_player.pitch_scale = og_pitch
 
 func stop_sound_effect() -> void:
 	sound_effect_player.stop()
-
+"""
 func tween_sound_effect_pitch(final_val, duration, delay_time:int = 0):
 	var tween : Tween = create_tween()
 	var og_pitch = sound_effect_player.pitch_scale
 	tween.tween_property(sound_effect_player,"pitch_scale",final_val,duration).set_delay(delay_time)
 	sound_effect_player.pitch_scale = og_pitch
+"""
 
 func play_music(key:String)-> void:
 	if key:

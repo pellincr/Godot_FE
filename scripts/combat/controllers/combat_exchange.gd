@@ -2,11 +2,11 @@ extends Node
 
 class_name CombatExchange
 
-const crit_sound = preload("res://resources/sounds/combat/Crit.wav")
-const hit_sound = preload("res://resources/sounds/combat/hit.wav")
-const heal_sound = preload("res://resources/sounds/combat/heal.wav")
-const miss_sound = preload("res://resources/sounds/combat/miss.wav")
-const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
+#const crit_sound = preload("res://resources/sounds/combat/Crit.wav")
+#const hit_sound = preload("res://resources/sounds/combat/hit.wav")
+#const heal_sound = preload("res://resources/sounds/combat/heal.wav")
+#const miss_sound = preload("res://resources/sounds/combat/miss.wav")
+#const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.tscn")
 
 signal unit_defeated(unit: CombatUnit)
@@ -73,12 +73,14 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		await use_audio_player(no_damage_sound)
+		#await use_audio_player(no_damage_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
-		await use_audio_player(hit_sound)
+		#await use_audio_player(hit_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_hit")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
 		if target.hp <= 0:
@@ -90,14 +92,16 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
 		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
 		attacker.unit.inventory.get_equipped_weapon().use()
-		await use_audio_player(heal_sound)
+		#await use_audio_player(heal_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_heal")
 		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
 		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
-	await use_audio_player(heal_sound)
+	#await use_audio_player(heal_sound)
+	AudioManager.play_sound_effect_pitch_randomized("unit_heal")
 	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.get_max_hp())
 	DamageNumbers.heal((32* unit.move_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
@@ -106,7 +110,8 @@ func heal_unit(unit: CombatUnit, amount: int):
 	#await unit.map_display.update_complete
 
 func hit_missed(dodging_unit: CombatUnit):
-	await use_audio_player(miss_sound)
+	#await use_audio_player(miss_sound)
+	AudioManager.play_sound_effect_pitch_randomized("unit_miss")
 	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
@@ -144,7 +149,8 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	#var outcome : int
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		await use_audio_player(no_damage_sound)
+		#await use_audio_player(no_damage_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
@@ -152,10 +158,12 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		target.current_hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
-			await use_audio_player(crit_sound)
+			#await use_audio_player(crit_sound)
+			AudioManager.play_sound_effect_pitch_randomized("unit_crit")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
-			await use_audio_player(hit_sound)
+			#await use_audio_player(hit_sound)
+			AudioManager.play_sound_effect_pitch_randomized("unit_hit")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete

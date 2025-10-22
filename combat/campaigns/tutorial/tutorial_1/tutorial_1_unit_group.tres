@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="9_dw7ll"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="10_m0uca"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="11_7g8vt"]
-[ext_resource type="Script" uid="uid://ds6mbcitqhjim" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_axvrh"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="12_axvrh"]
 
 [sub_resource type="Resource" id="Resource_qua6o"]
 script = ExtResource("1_2jm0c")
