@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://bal5lnj6tj03f"]
+[gd_scene load_steps=29 format=3 uid="uid://bal5lnj6tj03f"]
 
 [ext_resource type="PackedScene" uid="uid://cjfpjli0n0wh8" path="res://combat/campaigns/tutorial/tutorial_3/terrain.tscn" id="2_a3hd1"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="4_6ngc8"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_h18eo"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="5_ehpk1"]
+[ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_ihnrh"]
 [ext_resource type="Resource" uid="uid://das3nby4hielm" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_3.tres" id="6_of0la"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_gys8t"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_ufgyw"]
@@ -18,6 +19,13 @@
 [ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="11_ua6ew"]
 [ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="14_oegey"]
 [ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="15_lex8e"]
+
+[sub_resource type="Resource" id="Resource_rallc"]
+script = ExtResource("6_ihnrh")
+par_turns = 10
+base_gold = 1000
+base_bonus_exp = 50
+metadata/_custom_type_script = "uid://clhuknqhyfx8e"
 
 [sub_resource type="Resource" id="Resource_pdji7"]
 script = ExtResource("9_yhk72")
@@ -83,6 +91,7 @@ combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(3, 6), Vector2i(3, 3), Vector2i(0, 5), Vector2i(1, 3), Vector2i(2, 5)])
 enemy_start_group = ExtResource("6_of0la")
+level_reward = SubResource("Resource_rallc")
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]

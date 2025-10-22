@@ -53,8 +53,9 @@ name = "Bandit"
 map_position = Vector2i(16, 10)
 level = 2
 unit_type_key = "fighter"
-inventory = Array[ExtResource("2_pcatr")]([ExtResource("9_owmay")])
+inventory = Array[ExtResource("2_pcatr")]([ExtResource("9_owmay"), ExtResource("8_0b8eg")])
 ai_type = 1
+drops_item = true
 
 [sub_resource type="Resource" id="Resource_1san0"]
 script = ExtResource("1_uvdst")

@@ -2,22 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://b1hja0mir6isq" path="res://resources/sprites/items/consumables/door_key.png" id="1_vvlwd"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_kpm0h"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_fbdj1"]
-[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_rfj82"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_fbdj1"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_rfj82"]
 
 [resource]
 script = ExtResource("3_fbdj1")
 use_effect = 5
-power = 0
-status_effect = Array[ExtResource("4_rfj82")]([])
 name = "Door Key"
 db_key = "door_key"
-equippable = false
-description = ""
 item_type = 2
 rarity = ExtResource("2_kpm0h")
-uses = 1
-max_uses = 1
-unbreakable = false
 worth = 300
 icon = ExtResource("1_vvlwd")
