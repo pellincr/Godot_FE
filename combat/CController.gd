@@ -919,6 +919,9 @@ func fsm_unit_action_cancel(delta = null):
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT)
 
 func fsm_unit_select_process(delta):
+	if combat.get_available_units().is_empty():
+		advance_turn()
+		return
 	if null != grid.get_combat_unit(current_tile):
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
 		if selected_unit != null:
