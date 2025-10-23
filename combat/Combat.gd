@@ -817,7 +817,8 @@ func _on_rewards_complete():
 			playerOverworldData.hall_of_heroes_manager.dead_winning_units[win_number] = playerOverworldData.dead_party_members
 			playerOverworldData.hall_of_heroes_manager.winning_campaigns[win_number] = playerOverworldData.current_campaign
 			playerOverworldData.hall_of_heroes_manager.latest_win_number += 1
-			unlock_new_unit_types()
+			await unlock_new_unit_types()
 			reset_game_state()
 			SelectedSaveFile.save(playerOverworldData)
+			#await get_tree().create_timer(8).timeout
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")

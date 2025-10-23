@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dgs47aqih1cij"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_k2jdo"]
-[ext_resource type="Script" path="res://ui/unlock_panel/unlock_panel.gd" id="2_m2k0e"]
-[ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/fighter.tres" id="2_nbxk4"]
+[ext_resource type="Script" uid="uid://p6kk67xpqm7p" path="res://ui/unlock_panel/unlock_panel.gd" id="2_m2k0e"]
+[ext_resource type="Texture2D" uid="uid://dlivolgu18lx3" path="res://resources/sprites/units/Vandal.tres" id="2_nbxk4"]
 [ext_resource type="SpriteFrames" uid="uid://c06qw6h7pe8f" path="res://ui/unlock_panel/unlock_entity.tres" id="3_r7gm7"]
 
 [node name="UnlockPanel" type="PanelContainer"]
