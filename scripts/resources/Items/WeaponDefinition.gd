@@ -13,7 +13,6 @@ enum WEAPON_SPECIALS
 	HEAL_ON_COMBAT_END,
 	DEVIL_REVERSAL
 }
-
 enum SUPPORT_TYPES{
 	NONE,
 	HEAL
@@ -44,8 +43,12 @@ enum SUPPORT_TYPES{
 @export_group("Bonus Stats")
 @export var bonus_stat : UnitStat = UnitStat.new()
 
+@export_group("Weapon Effectiveness") 
+#@export var weapon_effectiveness : Array[unitConstants.TRAITS] = [] #TRAIT (OLD)
+@export var weapon_effectiveness_trait : Array[unitConstants.TRAITS] = [] #TRAIT
+@export var weapon_effectiveness_weapon_type : Array[ItemConstants.WEAPON_TYPE] = []
 @export_group("Weapon Specials") 
-@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
+
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
 @export var specials : Array[WEAPON_SPECIALS] = [] # Activated on weapon equipped
 @export var augmented: bool = false

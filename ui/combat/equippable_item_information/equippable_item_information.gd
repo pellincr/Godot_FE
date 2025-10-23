@@ -19,16 +19,37 @@ var increase_color : Color = Color(0, 0.826, 0.946)
 @onready var crit_mult_value: Label = $HBoxContainer/CritMultiplierContainer/CritMultValue
 @onready var range_value: Label = $HBoxContainer/RangeContainer/RangeValue
 
+@onready var armored_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/ArmoredIcon
+@onready var mounted_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/MountedIcon
+@onready var flier_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/FlierIcon
+@onready var undead_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/UndeadIcon
+@onready var sword_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/SwordIcon
+@onready var axe_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/AxeIcon
+@onready var lance_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/LanceIcon
+@onready var shield_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/ShieldIcon
+@onready var dagger_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/DaggerIcon
+@onready var fist_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/FistIcon
+@onready var bow_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/BowIcon
+@onready var banner_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/BannerIcon
+@onready var staff_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/StaffIcon
+@onready var nature_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/NatureIcon
+@onready var light_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/LightIcon
+@onready var dark_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/DarkIcon
+@onready var animal_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/AnimalIcon
+
 var current_equipped_stat: CombatMapUnitNetStat 
 var current_damage_type : Constants.DAMAGE_TYPE = 0
 var current_attack_range : Array[int] = []
-var current_weapon_effectiveness : Array[unitConstants.TRAITS] = []
+var current_weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
+var current_weapon_effectiveness_wpn_type : Array[ItemConstants.WEAPON_TYPE] = []
 var current_required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 @export var hover_stat : CombatMapUnitNetStat = CombatMapUnitNetStat.new() 
 var hover_damage_type : Constants.DAMAGE_TYPE = 0
 var hover_attack_range : Array[int] = []
-var hover_weapon_effectiveness : Array[unitConstants.TRAITS] = []
+var hover_weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
+var hover_weapon_effectiveness_wpn_type : Array[ItemConstants.WEAPON_TYPE] = []
+
 var hover_required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 @export var hovering_new_item : bool = false
@@ -44,7 +65,8 @@ func populate_equipped_stats(current_stats: CombatMapUnitNetStat, current_weapon
 	if current_weapon != null:
 		self.current_damage_type = current_weapon.item_damage_type
 		self.current_attack_range = current_weapon.attack_range
-		self.current_weapon_effectiveness = current_weapon.weapon_effectiveness
+		self.current_weapon_effectiveness_trait = current_weapon.weapon_effectiveness_trait
+		self.current_weapon_effectiveness_wpn_type = current_weapon.weapon_effectiveness_weapon_type
 		self.current_required_mastery = current_weapon.required_mastery
 	update_fields()
 
@@ -53,7 +75,8 @@ func update_hover_stats(combat_unit: CombatUnit, item: ItemDefinition):
 		calculate_hover_stats(combat_unit, item)
 		self.hover_damage_type = item.item_damage_type
 		self.hover_attack_range = item.attack_range
-		self.hover_weapon_effectiveness = item.weapon_effectiveness
+		self.hover_weapon_effectiveness_trait = item.weapon_effectiveness_trait
+		self.hover_weapon_effectiveness_wpn_type = item.weapon_effectiveness_weapon_type
 		self.hover_required_mastery = item.required_mastery
 		update_fields()
 	else: 
@@ -77,6 +100,7 @@ func update_fields():
 			avoid_value.text = str(current_equipped_stat.avoid.evaluate())
 			crit_mult_value.set("theme_override_colors/font_color", base_color)
 			crit_mult_value.text = str(current_equipped_stat.critical_multiplier.evaluate())
+			set_effective_trait_visibility(current_weapon_effectiveness_trait, current_weapon_effectiveness_wpn_type)
 	else:
 		if current_equipped_stat != null:
 			do_number_styling(damage_value,current_equipped_stat.damage.evaluate(),hover_stat.damage.evaluate())
@@ -86,6 +110,7 @@ func update_fields():
 			do_number_styling(attack_speed_value,current_equipped_stat.attack_speed.evaluate(),hover_stat.attack_speed.evaluate())
 			do_number_styling(avoid_value,current_equipped_stat.avoid.evaluate(),hover_stat.avoid.evaluate())
 			do_number_styling(crit_mult_value,current_equipped_stat.critical_multiplier.evaluate(),hover_stat.critical_multiplier.evaluate())
+			set_effective_trait_visibility(hover_weapon_effectiveness_trait, hover_weapon_effectiveness_wpn_type)
 		
 
 func update_fields_consumable():
@@ -102,12 +127,14 @@ func update_fields_consumable():
 	avoid_value.text = "--"
 	crit_mult_value.set("theme_override_colors/font_color", base_color)
 	crit_mult_value.text = "--"
+	set_effective_trait_visibility([],[])
 
 func populate_hover_stats(hover_stats: CombatMapUnitNetStat, hover_weapon: WeaponDefinition):
 	self.hover_stat = hover_stats
 	self.hover_damage_type = hover_weapon.item_damage_type
 	self.hover_attack_range = hover_weapon.attack_range
-	self.hover_weapon_effectiveness = hover_weapon.weapon_effectiveness
+	self.hover_weapon_effectiveness_trait = hover_weapon.weapon_effectiveness_trait
+	self.hover_weapon_effectiveness_wpn_type = hover_weapon.weapon_effectiveness_weapon_type
 	self.hover_required_mastery = hover_weapon.required_mastery
 
 func do_number_styling(target:Label, equip_value:int, hover_value:int):
@@ -117,3 +144,42 @@ func do_number_styling(target:Label, equip_value:int, hover_value:int):
 		target.set("theme_override_colors/font_color", decrease_color)
 	elif equip_value < hover_value:
 		target.set("theme_override_colors/font_color", increase_color)
+
+
+func set_effective_trait_visibility(effective_traits, effective_weapon_types):
+	for child in $HBoxContainer/EffectivenessContainer/Value.get_children():
+		child.visible = false
+	#DO TRATIS
+	if effective_traits.has(unitConstants.TRAITS.ARMORED):
+		armored_icon.visible = true
+	if effective_traits.has(unitConstants.TRAITS.MOUNTED):
+		mounted_icon.visible = true
+	if effective_traits.has(unitConstants.TRAITS.FLIER):
+		flier_icon.visible = true
+	if effective_traits.has(unitConstants.TRAITS.UNDEAD):
+		undead_icon.visible = true
+	#Weapon Types
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
+		axe_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.LANCE):
+		lance_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
+		shield_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
+		dagger_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
+		fist_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.BOW):
+		bow_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):
+		banner_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
+		staff_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
+		nature_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):
+		light_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
+		dark_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.ANIMAL):
+		animal_icon.visible = true	

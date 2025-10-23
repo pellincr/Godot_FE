@@ -42,7 +42,11 @@ func set_unit_sprite(texture: Texture2D) :
 	
 func update_boss_icon():
 	$BossIndicator.visible = is_boss
-	
+
+func set_is_effective(active: bool):
+	self.is_effective = active
+	update_warning_icon()
+
 func update_warning_icon():
 	$WarningIndicator.visible = is_effective
 

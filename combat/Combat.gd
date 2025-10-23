@@ -507,6 +507,24 @@ func sort_weight_array(a, b):
 	else:
 		return false
 
+func update_effective_combat_displays(combatant: CombatUnit):
+	#get all units not in current unit faction
+	for group_index in range(groups.size()):
+		if group_index != combatant.allegience:
+			#in future this data can be cached to speed up operations
+			for combatant_index in groups[group_index]:
+				if combatants[combatant_index].alive:
+					if combatExchange.check_unit_can_do_effective_damage(combatants[combatant_index].unit, combatant.unit):
+						combatants[combatant_index].map_display.set_is_effective(true)
+					else :
+						combatants[combatant_index].map_display.set_is_effective(false)
+
+
+func reset_all_effective_indicators():
+	for combatant in combatants:
+		if combatant.alive:
+			combatant.map_display.set_is_effective(false)
+
 ##AI MEHTODS
 #Process does the legwork for targetting for AI
 func ai_process(comb : CombatUnit):
@@ -550,7 +568,7 @@ func ai_process_new(comb : CombatUnit):
 	if action != null:
 		if action.action_type == "ATTACK":
 			print("@ EQUIPPING BEST WEAPON")
-			comb.unit.set_equipped(comb.unit.get_equippable_weapons()[action.item_index])
+			comb.unit.set_equipped(action.selected_Weapon)
 			print("@ CALLED ATTACK")
 			await perform_attack(comb, action.target, action.combat_action_data)
 			print("@ FINISHED WAITING FOR ATTACK")
@@ -602,7 +620,8 @@ func ai_get_best_attack_action(ai_unit: CombatUnit, distance: int, target:Combat
 			var data: UnitCombatExchangeData = combatExchange.generate_combat_exchange_data(ai_unit, target, distance)
 			var combat_exchange_outcome : UnitCombatActionExpectedOutcome = calc_expected_combat_exchange(ai_unit, target, data)
 			action.generate_attack_action_rating(terrain.avoid/100,combat_exchange_outcome.attacker_hit_chance, combat_exchange_outcome.expected_damage, target.unit.stats.hp, combat_exchange_outcome.can_lethal)
-			action.item_index = i
+			#action.item_index = i
+			action.selected_Weapon = usable_weapons[i]
 			action.target = target
 			action.action_type = "ATTACK"
 			action.combat_action_data = data

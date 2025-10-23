@@ -5,7 +5,8 @@ var action_position : Vector2
 var target_position : Vector2
 var target: CombatUnit
 var rating : float = 0
-var item_index: int
+var item_index: int #
+var selected_Weapon : WeaponDefinition
 var action_type : String ##ADD TO CONSTANTS?
 var combat_action_data: UnitCombatExchangeData
 

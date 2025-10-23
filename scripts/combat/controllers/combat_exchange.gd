@@ -398,68 +398,64 @@ func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_tu
 	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
+	# get weapons for analysis
+	var _victor : Unit = null
 	var unit_a_weapon: WeaponDefinition
 	var unit_b_weapon: WeaponDefinition
 	if unit_a.inventory.get_equipped_weapon(): 
 		unit_a_weapon = unit_a.inventory.get_equipped_weapon()
 	if unit_b.inventory.get_equipped_weapon(): 
 		unit_b_weapon = unit_b.inventory.get_equipped_weapon()
+	# logic block for weapons
 	if unit_b_weapon and unit_a_weapon:
-		match unit_a_weapon.alignment:
-			ItemConstants.ALIGNMENT.MUNDANE:
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.NIMBLE:
-					return unit_a
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.DEFENSIVE:
-					return unit_b
-				match unit_a_weapon.physical_weapon_triangle_type:
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return unit_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return unit_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return unit_a
-			ItemConstants.ALIGNMENT.NIMBLE:
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MAGIC:
-					return unit_a
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MUNDANE:
-					return unit_b
-			ItemConstants.ALIGNMENT.MAGIC:
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.NIMBLE:
-					return unit_b
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.DEFENSIVE:
-					return unit_a
-				match unit_a_weapon.magic_weapon_triangle_type:
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return unit_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return unit_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return unit_a
-			ItemConstants.ALIGNMENT.DEFENSIVE:
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MUNDANE:
-					return unit_a
-				if unit_b_weapon.alignment == ItemConstants.ALIGNMENT.MAGIC:
-					return unit_b
-	return null
+		var _winning_weapon = check_wepon_triangle_wpn(unit_a_weapon, unit_b_weapon)
+		match _winning_weapon:
+			unit_a_weapon:
+				_victor = unit_a
+			unit_b_weapon:
+				_victor = unit_b
+	# skill augments etc. here #TO BE ADDED 
+	return _victor
 
+func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) -> WeaponDefinition:
+	if wpn_a and wpn_b:
+		match wpn_a.alignment:
+			ItemConstants.ALIGNMENT.MUNDANE:
+				match wpn_a.physical_weapon_triangle_type:
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return wpn_a
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return wpn_a
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return wpn_a
+			ItemConstants.ALIGNMENT.MAGIC:
+				match wpn_a.magic_weapon_triangle_type:
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return wpn_a
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return wpn_a
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return wpn_a
+	return null
+	
 func use_audio_player(sound:AudioStream):
 	if  audio_player_busy:
 		await play_audio_finished
@@ -470,17 +466,40 @@ func use_audio_player(sound:AudioStream):
 		audio_player_busy = true
 
 func check_effective(attacker: Unit, target:Unit) -> bool:
-	var _is_effective = false
-	if not attacker.inventory.get_equipped_weapon().weapon_effectiveness.is_empty() :
-		for effective_type in attacker.inventory.get_equipped_weapon().weapon_effectiveness: 
-			var unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
-			if effective_type in unit_type.traits :
-				_is_effective = true
-	var weapon_triangle_victor = check_weapon_triangle(attacker, target)
-	if (weapon_triangle_victor == attacker): 
-		if attacker.inventory.get_equipped_weapon().specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
-			_is_effective = true
-	return _is_effective
+	#check weapon effectiveness
+	var _effectiveness = false
+	_effectiveness = check_weapon_effective(attacker.inventory.get_equipped_weapon(), target)
+	# TO BE IMPL SKILLS & ETC that force effectiveness
+	return _effectiveness
+	
+func check_weapon_effective(weapon: WeaponDefinition, target: Unit) -> bool:
+	#var _outcome = false
+	var _target_unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
+	#TRAITS
+	if not weapon.weapon_effectiveness_trait.is_empty():
+		var _target_unit_traits : Array[unitConstants.TRAITS] = _target_unit_type.traits.duplicate()
+		# do subtraction of traits if target has something that negates effectiveness here
+		if not _target_unit_traits.is_empty():
+			for effective_trait in weapon.weapon_effectiveness_trait:
+				if effective_trait in _target_unit_traits:
+					return true
+	#WEAPON_TYPE
+	if target.inventory.get_equipped_weapon() != null:
+		if target.inventory.get_equipped_weapon().weapon_type in weapon.weapon_effectiveness_weapon_type:
+			return true
+	#SPECIALS
+	if not weapon.specials.is_empty():
+		if weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
+			if  target.inventory.get_equipped_weapon() != null:
+				if check_wepon_triangle_wpn(weapon, target.inventory.get_equipped_weapon()) == weapon:
+					return true
+	return false
+
+func check_unit_can_do_effective_damage(attacker: Unit, target: Unit) -> bool:
+	for weapon in attacker.get_equippable_weapons():
+		if check_weapon_effective(weapon, target):
+			return true
+	return false
 
 func audio_player_ready():
 	emit_signal("play_audio_finished")

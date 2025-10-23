@@ -900,6 +900,7 @@ func fsm_unit_move_confirm(delta):
 #
 func fsm_unit_move_cancel(delta):
 	_action_tiles.clear()
+	combat.reset_all_effective_indicators()
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 
 #
@@ -929,9 +930,11 @@ func fsm_unit_select_process(delta):
 				combat.game_ui.display_unit_status()
 				camera.set_footer_open(true)
 				populate_combatant_tile_ranges(selected_unit)
+				combat.update_effective_combat_displays(selected_unit)
 				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER)
 			return
 	else :
+		combat.reset_all_effective_indicators()
 		combat.game_ui.hide_unit_status()
 		camera.set_footer_open(false)
 	if Input:
@@ -1033,9 +1036,10 @@ func fsm_unit_selected_process(delta):
 			fsm_unit_move_confirm(delta)
 		if Input.is_action_just_pressed("ui_cancel"):
 			_action_tiles.clear()
+			combat.reset_all_effective_indicators()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 	#draw the units current move path and ranges
-	find_path(current_tile)
+	find_path(current_tile) 
 
 func fsm_unit_action_select_process(delta):
 	if Input:

@@ -1,40 +1,22 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b4jgumo2ycuyf"]
 
 [ext_resource type="Texture2D" uid="uid://b4abgw60ik855" path="res://resources/sprites/items/weapons/bow/silver_bow.png" id="1_hukon"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_gu6vb"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_gu6vb"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_qy3qp"]
 
 [resource]
 script = ExtResource("2_gu6vb")
 weapon_type = 4
-alignment = 0
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
 attack_range = Array[int]([2])
 damage = 15
 hit = 85
-critical_chance = 0
 weight = 6
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([2])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
 name = "Silver Bow"
 db_key = "silver_bow"
 equippable = true
 description = "A strong, but expensive bow."
-item_type = 0
 rarity = ExtResource("2_qy3qp")
 uses = 8
 max_uses = 8
-unbreakable = false
 worth = 1500
 icon = ExtResource("1_hukon")

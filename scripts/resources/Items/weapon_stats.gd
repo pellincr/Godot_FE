@@ -20,7 +20,9 @@ class_name WeaponStats
 @export var bonus_stat : UnitStat = null
 
 @export_group("Weapon Specials") 
-@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
+#@export var weapon_effectiveness : Array[unitConstants.TRAITS] = []
+@export var weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
+@export var weapon_effectiveness_weapon_type : Array[ItemConstants.WEAPON_TYPE] = []
 @export var specials : Array[WeaponDefinition.WEAPON_SPECIALS] = [] # Activated on weapon equipped
 
 
@@ -56,8 +58,10 @@ func apply_weapon_stats(weapon: WeaponDefinition):
 			weapon.bonus_stat = CustomUtilityLibrary.add_unit_stat(weapon.bonus_stat, bonus_stat)
 		else :
 			weapon.bonus_stat = bonus_stat.duplicate()
-	if not weapon_effectiveness.is_empty():
-		weapon.weapon_effectiveness.append_array(weapon_effectiveness)
+	if not weapon_effectiveness_trait.is_empty():
+		weapon.weapon_effectiveness_trait.append_array(weapon_effectiveness_trait)
+	if not weapon_effectiveness_weapon_type.is_empty():
+		weapon.weapon_effectiveness_weapon_type.append_array(weapon_effectiveness_weapon_type)
 	if not specials.is_empty():
 		weapon.specials.append_array(specials)
 	

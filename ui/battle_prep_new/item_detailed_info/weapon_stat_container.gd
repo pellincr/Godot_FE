@@ -117,6 +117,21 @@ func set_special_values(bonus_stats:UnitStat, specials:Array[WeaponDefinition.WE
 @onready var mounted_icon = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/MountedIcon
 @onready var flier_icon = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/FlierIcon
 @onready var undead_icon = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/UndeadIcon
+@onready var axe_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/AxeIcon
+@onready var lance_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/LanceIcon
+@onready var shield_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/ShieldIcon
+@onready var dagger_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/DaggerIcon
+@onready var fist_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/FistIcon
+@onready var bow_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/BowIcon
+@onready var banner_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/BannerIcon
+@onready var staff_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/StaffIcon
+@onready var nature_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/NatureIcon
+@onready var light_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/LightIcon
+@onready var dark_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/DarkIcon
+@onready var animal_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/AnimalIcon
+@onready var consumable_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/ConsumableIcon
+@onready var equipment_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/EquipmentIcon
+@onready var treasure_icon: TextureRect = $RightContainer/EffectiveContainer/EffectiveTraitIconContainer/TreasureIcon
 
 
 
@@ -162,7 +177,8 @@ func set_requirements_container(requirement: ItemConstants.MASTERY_REQUIREMENT):
 	requirements_container.add_child(label)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
-func set_effective_trait_visibility(effective_traits):
+func set_effective_trait_visibility(effective_traits, effective_weapon_types):
+	#DO TRATIS
 	if effective_traits.has(unitConstants.TRAITS.ARMORED):
 		armored_icon.visible = true
 	if effective_traits.has(unitConstants.TRAITS.MOUNTED):
@@ -171,13 +187,31 @@ func set_effective_trait_visibility(effective_traits):
 		flier_icon.visible = true
 	if effective_traits.has(unitConstants.TRAITS.UNDEAD):
 		undead_icon.visible = true
-
-
-
-
-
-
-
+	#Weapon Types
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
+		axe_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.LANCE):
+		lance_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.SHIELD):
+		shield_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.DAGGER):
+		dagger_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
+		fist_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.BOW):
+		bow_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.BANNER):
+		banner_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
+		staff_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.NATURE):
+		nature_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):
+		light_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
+		dark_icon.visible = true
+	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.ANIMAL):
+		animal_icon.visible = true	
 
 func update_by_item():
 	if item is WeaponDefinition:
@@ -196,5 +230,5 @@ func update_by_item():
 		set_durability_value(item.uses)
 		set_weight_value(item.weight)
 		set_requirements_container(item.required_mastery)
-		set_effective_trait_visibility(item.weapon_effectiveness)
+		set_effective_trait_visibility(item.weapon_effectiveness_trait, item.weapon_effectiveness_weapon_type)
 		
