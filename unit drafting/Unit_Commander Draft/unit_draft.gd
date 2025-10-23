@@ -30,6 +30,7 @@ func set_control_node(c_node):
 #This section will have all the methods for recruiting new units to the party
 var unit_selectors = []
 var randomized_commander_types = []
+
 #Creates the initial amount of buttons needed in the Recruit Units menu
 func instantiate_unit_selectors():
 	if current_state == Constants.DRAFT_STATE.COMMANDER:

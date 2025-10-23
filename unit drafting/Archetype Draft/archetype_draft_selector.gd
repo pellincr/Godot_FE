@@ -17,6 +17,8 @@ var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 @onready var archetype:ArmyArchetypeDefinition = null
 
+var selected_archetypes := []
+
 var possible_rarities = {
 	"common" : 60,
 	"uncommon" : 25,
@@ -134,7 +136,8 @@ func randomize_archetype():
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var unlocked_army_archetypes = filter_archetypes_by_unlocked(army_archetypes)
 	var chosen_rarity_archetypes = filter_archetypes_by_rarity(unlocked_army_archetypes,rarity)
-	var chosen_archetype_key = chosen_rarity_archetypes.pick_random()
+	var non_duplicate_archettypes = filter_archetypes_by_duplicate(chosen_rarity_archetypes)
+	var chosen_archetype_key = non_duplicate_archettypes.pick_random()
 	archetype =  ArmyArchetypeDatabase.army_archetypes.get(chosen_archetype_key)
 
 
@@ -156,6 +159,13 @@ func filter_archetypes_by_rarity(archetype_keys:Array, rarity:Rarity):
 		return archetype_keys
 	else:
 		return accum
+
+func filter_archetypes_by_duplicate(archetype_keys:Array) -> Array:
+	var accum = []
+	for key in archetype_keys:
+		if !selected_archetypes.has(key):
+			accum.append(key)
+	return accum
 
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_confirm") and has_focus():
