@@ -84,6 +84,7 @@ func update_unit_selectors():
 		var selector: unitDraftSelector = unit_selectors[i]
 		selector.randomize_selection()
 		selector.update_information()
+		selector.current_state = unitDraftSelector.SELECTOR_STATE.OVERVIEW
 		var last_child = selector.main_container.get_children()[-1]
 		last_child.queue_free()
 		selector.instantiate_unit_draft_selector()

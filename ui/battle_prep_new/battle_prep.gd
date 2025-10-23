@@ -47,6 +47,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if current_state == PREP_STATE.MENU:
+		if event.is_action_pressed("right_bumper"):
+			main_container.get_child(-1).get_child(-1).visible = !main_container.get_child(-1).get_child(-1).visible
 	if event.is_action_pressed("ui_cancel"):
 		if !pause_menu_open and tutorial_complete and current_state != PREP_STATE.SWAP_SPACES:
 			var main_pause_menu = main_pause_menu_scene.instantiate()
@@ -99,6 +102,7 @@ func update_by_state():
 			hbox_container.add_child(next_level_info)
 			main_container.add_child(hbox_container)
 			next_level_info.fill_all_containers()
+			next_level_info.visible = false
 		PREP_STATE.UNIT_SELECTION:
 			var unit_selection = preload("res://ui/battle_prep_new/unit_selection/UnitSelection.tscn").instantiate()
 			unit_selection.set_po_data(playerOverworldData)
