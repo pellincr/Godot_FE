@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://ca1v0oqv61d05"]
+[gd_scene load_steps=15 format=3 uid="uid://ca1v0oqv61d05"]
 
 [ext_resource type="PackedScene" uid="uid://c10vjt6hjl60s" path="res://combat/campaigns/tutorial/tutorial_level_boss/terrain.tscn" id="1_b7hda"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_1yd47"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_7kwnf"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_g0ph7"]
 [ext_resource type="Resource" uid="uid://di3tvbcstp20l" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss_starting_units.tres" id="5_a0c7k"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="5_vtrco"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_krj0r"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_8w12g"]
 [ext_resource type="Resource" uid="uid://c2x4hfn1ufy7o" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss_entities.tres" id="8_3pnw7"]
@@ -45,7 +46,7 @@ unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 17), Vector2i(0, 18), Vector2i(3, 17), Vector2i(0, 16), Vector2i(2, 18), Vector2i(2, 15)])
-enemy_start_group = ExtResource("5_a0c7k")
+enemy_start_group_options = Array[ExtResource("5_vtrco")]([ExtResource("5_a0c7k")])
 level_reward = SubResource("Resource_vtrco")
 is_key_campaign_level = true
 

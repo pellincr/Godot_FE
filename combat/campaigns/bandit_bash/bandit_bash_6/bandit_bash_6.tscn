@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://n01dyp4shrgf"]
+[gd_scene load_steps=16 format=3 uid="uid://n01dyp4shrgf"]
 
 [ext_resource type="PackedScene" uid="uid://bxflk0le5xhj7" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6_terrain.tscn" id="1_7n5tj"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_8owl8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cha4i8vtpp64y" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6_enemy_group.tres" id="5_8lut3"]
 [ext_resource type="Resource" uid="uid://of4tm7q3iil" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6_reinforcements.tres" id="5_meqyd"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="6_n5nka"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_u4jor"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="7_d7h6n"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_tgpgh"]
 [ext_resource type="Resource" uid="uid://bvgp0bom0l1ny" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6_entities.tres" id="8_42mas"]
@@ -47,7 +48,7 @@ combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
 mapReinforcementData = ExtResource("5_meqyd")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 22), Vector2i(3, 22), Vector2i(5, 22), Vector2i(2, 23), Vector2i(4, 23), Vector2i(6, 23)])
-enemy_start_group = ExtResource("5_8lut3")
+enemy_start_group_options = Array[ExtResource("6_u4jor")]([ExtResource("5_8lut3")])
 level_reward = SubResource("Resource_u4jor")
 is_key_campaign_level = true
 

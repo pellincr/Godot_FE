@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_iv0on"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_op2mx"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="3_tenxg"]
-[ext_resource type="Script" uid="uid://ds6mbcitqhjim" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_2he4t"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_2he4t"]
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_iv0on")

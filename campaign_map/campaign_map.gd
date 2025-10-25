@@ -170,9 +170,17 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 	playerOverworldData.floors_climbed += 1
 	match  room.type:
 		CampaignRoom.TYPE.BATTLE:
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has("EXTRA"):
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("EXTRA").pick_random()
+			SelectedSaveFile.save(playerOverworldData)
+			transition_out_animation()
+			#get_tree().change_scene_to_packed(BATTLE_PREP)
+			playerOverworldData.began_level = true
+			get_tree().change_scene_to_packed(playerOverworldData.current_level)
+		CampaignRoom.TYPE.KEY_BATTLE:
 			var battle_tier = playerOverworldData.combat_maps_completed
-			if playerOverworldData.current_campaign.level_pool.battle_levels.has(playerOverworldData.combat_maps_completed):
-				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(playerOverworldData.combat_maps_completed).pick_random()
+			if playerOverworldData.current_campaign.level_pool.battle_levels.has(battle_tier):
+				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(battle_tier).pick_random()
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)

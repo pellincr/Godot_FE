@@ -38,14 +38,16 @@ func set_upcoming_entities(entity_group : MapEntityGroupData):
 	upcoming_entities = entity_group
 
 func fill_all_containers():
-	fill_enemy_unit_type_header_container()
-	fill_enemy_unit_type_info_container()
-	fill_enemy_usable_weapon_info_container()
+	if upcoming_enemies:
+		fill_enemy_unit_type_header_container()
+		fill_enemy_unit_type_info_container()
+		fill_enemy_usable_weapon_info_container()
 	if upcoming_reinforcements:
 		fill_reinforcement_unit_type_header_container()
 		fill_reinforcement_unit_type_info_container()
 		fill_reinforcement_usable_weapon_info_container()
-	fill_enitiy_info_container()
+	if upcoming_entities:
+		fill_enitiy_info_container()
 
 
 

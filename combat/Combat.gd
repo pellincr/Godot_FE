@@ -73,16 +73,12 @@ var _player_unit_alive : bool = true
 # GAME GRID
 @export var game_grid : CombatMapGrid
 
-#@export var ally_spawn_top_left : Vector2
-#@export var ally_spawn_bottom_right: Vector2
 @export var ally_spawn_tiles : Array[Vector2i] = []
 
-@export var enemy_start_group : EnemyGroup
+@export var enemy_start_group_options : Array[EnemyGroup]
+@onready var enemy_start_group : EnemyGroup = enemy_start_group_options.pick_random()
 
-#@onready var max_allowed_ally_units : int
 
-#@export var base_win_gold_reward : int = 0
-#@export var par_turn_count : int = 0
 @export var level_reward : CombatReward
 
 @export var is_key_campaign_level : bool = false

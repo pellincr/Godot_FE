@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=10 format=3 uid="uid://dupcjl6ugp2d4"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=11 format=3 uid="uid://dupcjl6ugp2d4"]
 
 [ext_resource type="PackedScene" uid="uid://c622nlhdyyq6a" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1.tscn" id="1_6q7ee"]
 [ext_resource type="Script" uid="uid://ktkgeds6abeh" path="res://scripts/resources/level_pool/LevelPool.gd" id="1_au7wh"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ca1v0oqv61d05" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss.tscn" id="3_73ni1"]
 [ext_resource type="PackedScene" uid="uid://bal5lnj6tj03f" path="res://combat/campaigns/tutorial/tutorial_3/tutorial_3.tscn" id="4_gsdgd"]
 [ext_resource type="PackedScene" uid="uid://cbai5r4nou80q" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4.tscn" id="5_wsgfa"]
+[ext_resource type="PackedScene" uid="uid://qqbr2yx8qmg4" path="res://combat/campaigns/minor_combat/minor_combat_1.tscn" id="7_1ukt3"]
 
 [sub_resource type="Resource" id="Resource_bnrb4"]
 script = ExtResource("1_au7wh")
@@ -17,7 +18,7 @@ battle_levels = {
 2: [ExtResource("4_gsdgd")],
 3: [ExtResource("5_wsgfa")],
 "BOSS": [ExtResource("3_73ni1")],
-"EXTRA": [],
+"EXTRA": [ExtResource("7_1ukt3")],
 "MID_BOSS": []
 }
 

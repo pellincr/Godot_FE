@@ -35,7 +35,7 @@ class_name PlayerOverworldData
 @export var selected_party = []
 
 
-#THIS CAN BE MOVE ELSEWHERE LATER
+#THIS CAN BE MOVE ELSEWHERE
 @export var new_recruits = []
 @export var temp_name_list = ["Craig",
  "Devin",

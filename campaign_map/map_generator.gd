@@ -9,7 +9,9 @@ var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
 var NUMBER_OF_REQUIRED_COMBAT_MAPS : int = 0
 const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
-const BATTLE_ROOM_WEIGHT := 0.0 #0
+
+
+const BATTLE_ROOM_WEIGHT := 5.0 #0
 const EVENT_ROOM_WEIGHT := 4.0 #2.5
 const TREASURE_ROOM_WEIGHT := 1.0 #1
 const ELITE_ROOM_WEIGHT := 0.0 #1.5
@@ -95,6 +97,7 @@ func _setup_connection(row:int,col:int) -> int:
 	var next_room : CampaignRoom
 	var current_room := map_data[row][col] as CampaignRoom
 	
+	@warning_ignore("unassigned_variable")
 	while not next_room or _would_cross_existing_path(row,col,next_room):
 		var random_col := clampi(randi_range(col-1,col+1),0,MAP_WIDTH-1) #gets the next random column number that is either diagonal left, straight, or diagonal right from, current
 		next_room = map_data[row+1][random_col]
@@ -150,17 +153,18 @@ func _setup_random_room_weights() -> void:
 
 func _setup_room_types() -> void:
 	#first floor is always a battle
-	for room : CampaignRoom in map_data[0]:
-		if room.next_rooms.size() > 0:
-			room.type = CampaignRoom.TYPE.BATTLE
-	for room: CampaignRoom in map_data[FLOORS/2]:
-		if room.next_rooms.size() > 0:
-			room.type = CampaignRoom.TYPE.TREASURE
+	#for room : CampaignRoom in map_data[0]:
+	#	if room.next_rooms.size() > 0:
+	#		room.type = CampaignRoom.TYPE.BATTLE
+	#for room: CampaignRoom in map_data[FLOORS/2]:
+	#	if room.next_rooms.size() > 0:
+	#		room.type = CampaignRoom.TYPE.TREASURE
+	@warning_ignore("integer_division")
 	var key_combat_room_index = int(FLOORS / NUMBER_OF_REQUIRED_COMBAT_MAPS)
 	for required_combat_map_index in NUMBER_OF_REQUIRED_COMBAT_MAPS:
 		for room: CampaignRoom in map_data[key_combat_room_index * required_combat_map_index]:
 			if room.next_rooms.size() > 0:
-				room.type = CampaignRoom.TYPE.BATTLE
+				room.type = CampaignRoom.TYPE.KEY_BATTLE
 	#OMITTING THE RULE THAT LAST FLOOR BEFORE BOSS IS CAMPFIRE
 	for current_floor in map_data:
 		for room : CampaignRoom in current_floor:
@@ -169,7 +173,7 @@ func _setup_room_types() -> void:
 					_set_room_randomly(next_room)
 	#for room : CampaignRoom in map_data[0]:
 	#	if room.next_rooms.size() > 0:
-	#		room.type = CampaignRoom.TYPE.EVENT
+	#		room.type = CampaignRoom.TYPE.BATTLE
 
 func _set_room_randomly(room_to_set : CampaignRoom) -> void:
 	#OMITTING NO CAMPFIRES BEFORE FLOOR 4 RULE
