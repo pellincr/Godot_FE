@@ -5,14 +5,11 @@ const ALLY_THEME = preload("res://resources/themes/combat/ally_ui_theme.tres")
 const ENEMY_THEME = preload("res://resources/themes/combat/enemy_ui_theme.tres")
 const GENERIC_THEME = preload("res://resources/themes/combat/default_ui_theme.tres")
 
-
 enum wpn_triange {
 	NONE, 
 	WIN,
 	LOSS
 }
-const down_arrow_char = "↓"
-const up_arrow_char = "↑"
 
 var tween_complete :bool = true
 var tween_active : bool = false
@@ -36,8 +33,8 @@ func set_all(cu : CombatUnit, hc: int, dmg: int, crit_chance: int, wpn_eff: bool
 	update()
 
 func update_hp_bar():
-	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.current_hp)
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_max_value(unit.get_max_hp())
+	$Unit/MarginContainer/VBoxContainer/HealthBar.set_initial_value(unit.current_hp)
 
 func hp_bar_tween(value:int): 
 	$Unit/MarginContainer/VBoxContainer/HealthBar.set_desired_value(value)
@@ -53,7 +50,11 @@ func update():
 
 func update_unit_fields():
 	$Unit/MarginContainer/VBoxContainer/HBoxContainer/UnitName.text = unit.unit.name
-	$Unit/UnitIcon.texture = unit.unit.icon
+	var texture = AtlasTexture.new()
+	texture.atlas = unit.unit.icon
+	texture.set_region(Rect2(0,0,32,16))
+	$Unit/UnitIcon.texture = texture
+	#$Unit/UnitIcon.texture.atlas = unit.unit.icon
 	$Unit/MarginContainer/VBoxContainer/StatsGrid/AttackSpeedValue.text = str(unit.get_attack_speed())
 
 func update_weapon():

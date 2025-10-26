@@ -54,8 +54,3 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
-
-[connection signal="header_swapped" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_header_swapped"]
-[connection signal="item_focused" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_item_focused"]
-[connection signal="item_sold" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="sell_item_from_convoy"]
-[connection signal="unit_focused" from="MarginContainer/VBoxContainer/MainContainer/ArmyConvoyContainer" to="." method="_on_army_convoy_container_unit_focused"]

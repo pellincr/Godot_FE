@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="Event" load_steps=10 format=3 uid="uid://d4ghoyem5lv6p"]
+
+[ext_resource type="Texture2D" uid="uid://0uigni72ku0h" path="res://resources/sprites/events/mirror_of_doubt_background.png" id="1_cfne8"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_ytmj4"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_qoouv"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_f05ns"]
+
+[sub_resource type="Resource" id="Resource_dyn5o"]
+script = ExtResource("3_f05ns")
+magic = 2
+skill = 2
+luck = -2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_2cpc0"]
+script = ExtResource("2_qoouv")
+title = "Face Yourself"
+description = "A selected unit gains [color=#8EE15F]2[/color] Magic and [color=#8EE15F]2[/color] Skill, but loses [color=#AC3232]2[/color] Luck. "
+effect = 2
+unit_stat_change = SubResource("Resource_dyn5o")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_ai5h1"]
+script = ExtResource("2_qoouv")
+title = "Shatter the Mirror"
+description = "Gain [color=#d200b0]Shard of Reflection[/color] (Grants [color=#8EE15F]5[/color] Avoid and luck% chance to reflect damage when held)."
+effect = 8
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_7ocau"]
+script = ExtResource("3_f05ns")
+hp = 2
+strength = 2
+magic = 2
+skill = 2
+speed = 2
+luck = 2
+defense = 2
+resistance = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_qwfxa"]
+script = ExtResource("2_qoouv")
+title = "Walk Away"
+description = "All units gain [color=#8EE15F]2%[/color] to all Growth rates."
+effect = 3
+unit_growth_change = SubResource("Resource_7ocau")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_ytmj4")
+name = "Mirror of Doubt"
+description = "A tall silver mirror shows [wave][shake]distorted[/shake] reflections[/wave]. "
+background = ExtResource("1_cfne8")
+option1 = SubResource("Resource_2cpc0")
+option2 = SubResource("Resource_ai5h1")
+option3 = SubResource("Resource_qwfxa")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

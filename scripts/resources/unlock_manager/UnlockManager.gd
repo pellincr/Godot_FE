@@ -28,9 +28,11 @@ class_name UnlockManager
 	"destroyer" : false,
 	"drengr" : true,
 	"iron_viper" : true,
+	"line_breaker" : true,
 	"mage_knight" : false,
 	"war_maiden" : false,
-	"weapon_master": false
+	"weapon_master": false,
+	"night_blade" : true
 }
 
 @export var unit_types_unlocked : Dictionary = {
@@ -53,6 +55,7 @@ class_name UnlockManager
 	"lance_cavalier" : true,
 	"lancer" : true,
 	"mage" : true,
+	"magewing" :true,
 	"marauder" : true,
 	"monk" : true,
 	"penitent": true,
@@ -118,6 +121,7 @@ class_name UnlockManager
 	"lumen" : true,
 	"mage_blade" : true,
 	"mandate" : true,
+	"minor_heal": true,
 	"pilum" : true,
 	"potion" : true,
 	"ray" : true,
@@ -129,6 +133,7 @@ class_name UnlockManager
 	"sharp_claws" : true,
 	"short_axe" : true,
 	"short_bow" : true,
+	"short_sword" : true,	
 	"silver_axe" : true,
 	"silver_bow" : true,
 	"silver_dagger" : true,

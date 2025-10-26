@@ -1,53 +1,36 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bula1g6niv7bf"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_2pn20"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_2pn20"]
 [ext_resource type="Texture2D" uid="uid://dy4rkn8cprnaa" path="res://resources/sprites/items/weapons/lance/titans_will.png" id="2_sdtnt"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_2dyab"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_5ivm6"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_5ivm6"]
 
 [sub_resource type="Resource" id="Resource_mqrh0"]
 script = ExtResource("1_2pn20")
 hp = 17
 strength = 5
-magic = 0
 skill = 4
 speed = 9
-luck = 0
 defense = 4
 resistance = 14
-movement = 0
-constitution = 0
 
 [resource]
 script = ExtResource("4_5ivm6")
 weapon_type = 3
-alignment = 0
 physical_weapon_triangle_type = 3
-magic_weapon_triangle_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
 required_mastery = 5
 attack_range = Array[int]([1, 2])
 damage = 12
 hit = 80
 critical_chance = 5
 weight = 20
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
 bonus_stat = SubResource("Resource_mqrh0")
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
 name = "Titan's Will"
 db_key = "titans_will"
 equippable = true
 description = "A colossal spear etched in runes of gold, it bolsters stamina and raw might, making its wielder feel unstoppable."
-item_type = 0
 rarity = ExtResource("3_2dyab")
 uses = 12
 max_uses = 12
-unbreakable = false
 worth = 17500
 icon = ExtResource("2_sdtnt")

@@ -1,31 +1,175 @@
-[gd_scene load_steps=3 format=3 uid="uid://cy2uj4lwelppk"]
+[gd_scene load_steps=13 format=3 uid="uid://cy2uj4lwelppk"]
 
-[ext_resource type="Script" path="res://ui/combat/trade_action_inventory/trade_container.gd" id="1_jj83a"]
+[ext_resource type="Script" uid="uid://1wytxdng3wwk" path="res://ui/combat/trade_action_inventory/trade_container.gd" id="1_jj83a"]
 [ext_resource type="PackedScene" uid="uid://1f3vadqgcqf3" path="res://ui/combat/trade_action_inventory/trade_unit_inventory.tscn" id="1_n474w"]
+[ext_resource type="Texture2D" uid="uid://xtxy4bjl1od7" path="res://resources/sprites/units/shaman.png" id="2_3jcri"]
+[ext_resource type="Shader" uid="uid://deeb01tfxlv17" path="res://resources/shaders/BlurShader.gdshader" id="2_16q8g"]
+[ext_resource type="Texture2D" uid="uid://dsg6qn21jkbt7" path="res://resources/sprites/units/Hakkapel.png" id="3_1yqi5"]
+[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="4_i35fw"]
+[ext_resource type="Theme" uid="uid://basxgfcidqdr7" path="res://resources/themes/combat/default_ui_theme.tres" id="5_mwe6a"]
+[ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="6_lgo4s"]
+[ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="7_16q8g"]
+[ext_resource type="PackedScene" uid="uid://6nq6c3ygsuni" path="res://ui/combat/equippable_item_information/equippable_item_information.tscn" id="8_mwe6a"]
+[ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="9_eevbm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwe6a"]
+shader = ExtResource("2_16q8g")
+shader_parameter/lod = 1.0000000475
 
 [node name="TradeContainer" type="Control"]
 custom_minimum_size = Vector2(610, 275)
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jj83a")
+
+[node name="Background" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_mwe6a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Background"]
+modulate = Color(0, 0, 0, 0.5411765)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnitIconHboxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnitAIcon" type="TextureRect" parent="UnitIconHboxContainer"]
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_3jcri")
+expand_mode = 3
+
+[node name="SpacingContainer" type="Container" parent="UnitIconHboxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UnitBIcon" type="TextureRect" parent="UnitIconHboxContainer"]
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_1yqi5")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme = ExtResource("5_mwe6a")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_i35fw")
+bbcode_enabled = true
+text = "[center][font_size={32}]Trade[/font_size][/center]"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="TradeUnitInventoryHboxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -305.0
-offset_top = -137.5
-offset_right = 305.0
-offset_bottom = 137.5
+offset_left = -435.0
+offset_top = -210.0
+offset_right = 435.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_jj83a")
+theme_override_constants/separation = 250
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 610.0
-offset_bottom = 275.0
-
-[node name="TradeUnitInventorya" parent="HBoxContainer" instance=ExtResource("1_n474w")]
+[node name="TradeUnitInventorya" parent="TradeUnitInventoryHboxContainer" instance=ExtResource("1_n474w")]
 layout_mode = 2
 
-[node name="TradeUnitInventoryb" parent="HBoxContainer" instance=ExtResource("1_n474w")]
+[node name="TradeUnitInventoryb" parent="TradeUnitInventoryHboxContainer" instance=ExtResource("1_n474w")]
 layout_mode = 2
+
+[node name="ItemInfoBackgroundPanel" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 225)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -225.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ItemInfoContainer" type="VBoxContainer" parent="ItemInfoBackgroundPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoLabel" type="Label" parent="ItemInfoBackgroundPanel/ItemInfoContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("6_lgo4s")
+text = "Info"
+
+[node name="Divider2" type="Panel" parent="ItemInfoBackgroundPanel/ItemInfoContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("7_16q8g")
+
+[node name="Equippable_item_information" parent="ItemInfoBackgroundPanel/ItemInfoContainer" instance=ExtResource("8_mwe6a")]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="DescriptionLabel" type="Label" parent="ItemInfoBackgroundPanel/ItemInfoContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("6_lgo4s")
+text = "Description"
+
+[node name="Divider3" type="Panel" parent="ItemInfoBackgroundPanel/ItemInfoContainer"]
+custom_minimum_size = Vector2(290, 1)
+layout_mode = 2
+theme = ExtResource("7_16q8g")
+
+[node name="DescriptionBody" type="Label" parent="ItemInfoBackgroundPanel/ItemInfoContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme = ExtResource("9_eevbm")
+text = "Debug_text"

@@ -1,38 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://6leg2pgnfdjg"]
+[gd_scene load_steps=6 format=3 uid="uid://6leg2pgnfdjg"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_o6dpi"]
-[ext_resource type="Script" path="res://campaign_map/events/event_selection_container.gd" id="2_kacqx"]
+[ext_resource type="Script" uid="uid://b8hwlqpqs6qeg" path="res://campaign_map/events/event_selection_container.gd" id="2_kacqx"]
 [ext_resource type="PackedScene" uid="uid://ctdkeej0r0x4a" path="res://campaign_map/events/event_option_button.tscn" id="3_7q0in"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_cxy0x"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_1hqls"]
 
 [node name="EventSelectionContainer" type="VBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(560, 500)
+offset_top = -1.0
+offset_right = 560.0
+offset_bottom = 499.0
 theme = ExtResource("1_o6dpi")
 script = ExtResource("2_kacqx")
 
-[node name="EventNameLabel" type="Label" parent="."]
+[node name="EventNameLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
-text = "Event Name"
+theme_override_fonts/normal_font = ExtResource("3_cxy0x")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][color=#FAFA82]Event Name[/color][/center]"
+fit_content = true
 
-[node name="EventDescriptionPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(560, 250)
-layout_mode = 2
-
-[node name="EventDescription" type="Label" parent="EventDescriptionPanel"]
+[node name="EventDescription" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(558, 248)
 layout_mode = 2
-size_flags_vertical = 1
-text = "Event Description Goes Here"
-autowrap_mode = 3
+theme_override_fonts/normal_font = ExtResource("4_1hqls")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Deep within a cluttered workshop, an eccentric hermit tinkers with gears that [wave]hum[/wave] with unnatural precision. Mechanical creations [shake]clatter[/shake] and [tornado] whirl[/tornado] around him as he beckons you closer, eager for a willing subject to test his latest invention.[/center]"
 
 [node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 
 [node name="EventOptionButton2" parent="." instance=ExtResource("3_7q0in")]
+visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
 
 [node name="EventOptionButton3" parent="." instance=ExtResource("3_7q0in")]
+visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="EventOptionButton4" parent="." instance=ExtResource("3_7q0in")]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 
 [node name="LeaveButton" type="Button" parent="."]
 visible = false
@@ -43,4 +58,5 @@ text = "Leave"
 [connection signal="event_option_selected" from="EventOptionButton1" to="." method="_on_event_option_selected"]
 [connection signal="event_option_selected" from="EventOptionButton2" to="." method="_on_event_option_selected"]
 [connection signal="event_option_selected" from="EventOptionButton3" to="." method="_on_event_option_selected"]
+[connection signal="event_option_selected" from="EventOptionButton4" to="." method="_on_event_option_selected"]
 [connection signal="pressed" from="LeaveButton" to="." method="_leave_selected"]

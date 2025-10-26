@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://rutpjdu02rph"]
 
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_jn6tx"]
-[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_select_overview.gd" id="2_j5hyn"]
+[ext_resource type="Script" uid="uid://cvnyuiu6o60q3" path="res://unit drafting/Unit_Commander Draft/unit_select_overview.gd" id="2_j5hyn"]
 [ext_resource type="PackedScene" uid="uid://di7v11sroksay" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.tscn" id="3_741w1"]
 
 [sub_resource type="Theme" id="Theme_2a7jc"]

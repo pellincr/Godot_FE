@@ -10,8 +10,16 @@ signal unit_experience_ended()
 
 var ui_node_stack : Stack = Stack.new()
 #@export var active_ui_node : Node
+@onready var unit_status: UnitSelectedFooterUI = $UnitStatus
+@onready var combat_tile_info: VBoxContainer = $combat_tile_info
+
+@onready var level_info_container: HBoxContainer = $LevelInfoContainer
+#@onready var battle_prep: BattlePrep = $BattlePrep
+
 
 #Scene Imports
+#Prep Menu
+const BATTLE_PREP_MENU = preload("res://ui/battle_prep_new/battle_prep.tscn")
 #Menu
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
@@ -34,6 +42,8 @@ const COMBAT_UNIT_INVENTORY_SELECTED_ITEM_OPTIONS = preload("res://ui/combat/uni
 #const tradeContainer = preload("res://ui/combat/unit_trade/trade_container.tscn")
 const inventoryOptionsContainer = preload("res://ui/combat/option_container/inventory_options_container.tscn")
 const UnitActionContainer = preload("res://ui/combat/unit_action_container/unit_action_container.tscn")
+const TRADE_ACTION_CONTAINER = preload("res://ui/combat/trade_action_inventory/trade_container.tscn")
+#const TRADE_ACTION_PREVIEW = preload()
 
 #Item Discard & Popup
 const COMBAT_VIEW_POP_UP = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
@@ -55,16 +65,29 @@ const turn_transition_scene = preload("res://scene_transitions/TurnTransitionAni
 
 var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 
-@onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
+@onready var playerOverworldData:PlayerOverworldData = combat.playerOverworldData#ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres")#.duplicate(true)
 
 func _ready():
-	transition_in_animation()
+	#transition_in_animation()
+	#battle_prep.set_po_data(playerOverworldData)
 	#display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	ui_map_audio = $UIMapAudio
 	ui_menu_audio = $UIMenuAudio
 	#signal wiring
+	#set_level_info_container
+	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
+	level_info_container.set_turn_count_label(str(combat.current_turn))
+	var battle_prep = BATTLE_PREP_MENU.instantiate()
+	battle_prep.set_po_data(playerOverworldData)
+	add_child(battle_prep)
+	battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
+	battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
+	battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
+	battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
+	battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
 
-
+func set_po_data(po_data):
+	playerOverworldData = po_data
 #
 # Plays the transition animation on combat map begin
 #
@@ -112,7 +135,10 @@ func get_all_boss_names():
 	for enemy in enemies:
 		var enemy_unit : CombatUnit = combat.combatants[enemy]
 		if enemy_unit.is_boss:
-			boss_names =  boss_names + enemy_unit.unit.name + ", "
+			if boss_names.length() > 0:
+				boss_names =  boss_names + ", " + enemy_unit.unit.name
+			else :
+				boss_names =  boss_names + enemy_unit.unit.name
 	return boss_names
 
 func show_tutorial_panel(scene_transition, current_level:PackedScene):
@@ -168,6 +194,7 @@ func create_combat_map_game_menu():
 	await game_menu
 	self.add_child(game_menu)
 	game_menu.end_turn_btn.pressed.connect(func():controller.fsm_game_menu_end_turn())
+	game_menu.main_menu_btn.pressed.connect(func (): controller.fsm_game_menu_main_menu())
 	game_menu.cancel_btn.pressed.connect(func():controller.fsm_game_menu_cancel())
 	push_ui_node_stack(game_menu)
 
@@ -229,6 +256,19 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
+
+#
+# Creates the trade action inventory used to select the weapon to be used in the combat preview
+#
+func create_trade_action_inventory(origin_unit : CombatUnit, target_unit: CombatUnit):
+	var trade_action_container = TRADE_ACTION_CONTAINER.instantiate()
+	self.add_child(trade_action_container)
+	await trade_action_container
+	#TO BE CONNECTED CANCEL
+	trade_action_container.external_trade_completed.connect(controller.unit_completed_external_trade.bind())
+	trade_action_container.populate(origin_unit, target_unit)
+	push_ui_node_stack(trade_action_container)
+	trade_action_container.grab_focus_unit_a()
 
 #
 # Creates the attack action inventory used to select the weapon to be used in the combat preview
@@ -336,16 +376,30 @@ func create_combat_unit_detail_panel(combat_unit: CombatUnit):
 	push_ui_node_stack(unit_detailed_info_combat_map)
 	
 #
+# Populates and displayes the detailed info for a combat unit
+#
+func update_combat_unit_detail_panel(combat_unit: CombatUnit):
+	var active_ui_node = ui_node_stack.peek()
+	active_ui_node.unit = combat_unit
+	active_ui_node.update_by_unit()
+	
+#
 #
 #
 func _set_tile_info(tile : CombatMapTile, unit:CombatUnit) :
 	$combat_tile_info.update_tile(tile)
 	if(unit):
 		$UnitStatus.set_unit(tile.unit)
-		$UnitStatus.visible = true
+		#$UnitStatus.visible = true
 	else:
-		$UnitStatus.visible = false
+		pass
+		#$UnitStatus.visible = false
 
+func display_unit_status():
+	$UnitStatus.visible = true
+
+func hide_unit_status():
+	$UnitStatus.visible = false
 
 func display_unit_experience_bar(u : Unit):
 	$unit_experience_bar.set_reference_unit(u)
@@ -442,3 +496,47 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 	turn_transition.play_animation("new_turn")
 	await turn_transition.animation_player.animation_finished
 	turn_transition.queue_free()
+
+func set_turn_count_label(turn_count):
+	level_info_container.set_turn_count_label(str(turn_count))
+
+
+func _on_battle_prep_swap_spaces() -> void:
+	combat_tile_info.visible = true
+	level_info_container.visible = true
+	controller._on_swap_unit_spaces()
+	#swap_unit_spaces.emit(
+
+func return_to_battle_prep_screen():
+	combat_tile_info.visible = false
+	level_info_container.visible = false
+	var battle_prep = get_child(-1)
+	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
+	battle_prep.update_by_state()
+
+
+func _on_battle_prep_begin_battle() -> void:
+	controller._on_battle_prep_start_battle()
+	combat_tile_info.visible = true
+	level_info_container.visible = true
+
+
+func _on_battle_prep_unit_deselected(unit: Unit) -> void:
+	combat.remove_friendly_combatant(unit)
+
+
+func _on_battle_prep_unit_selected(unit: Unit) -> void:
+	combat.add_combatant(combat.create_combatant_unit(unit,0),combat.get_first_available_unit_spawn_tile())
+
+func _on_battle_prep_award_bonus_exp(unit:CombatUnit,xp:int):
+	combat.unit_gain_experience(unit,xp)
+	
+
+
+func _on_unit_experience_manager_experience_finished() -> void:
+	var battle_prep
+	for child in get_children():
+		if child is BattlePrep:
+			battle_prep = child
+			battle_prep.update_training_grounds_stats()
+			break

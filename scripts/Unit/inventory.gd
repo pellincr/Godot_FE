@@ -75,9 +75,10 @@ func get_available_attack_ranges()-> Array[int]:
 			if item.equippable:
 				if item is WeaponDefinition:
 					if not item.attack_range.is_empty():
-						for attack_range in item.attack_range:
-							if not ranges.has(attack_range):
-								ranges.append(attack_range)
+						if  item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
+							for attack_range in item.attack_range:
+								if not ranges.has(attack_range):
+									ranges.append(attack_range)
 	return ranges
 
 #
@@ -89,19 +90,39 @@ func get_max_attack_range() -> int:
 	else:
 		return 0
 
+#
+# Returns the maximum attack range of the items contained in the inventory
+#
+func get_max_support_range() -> int:
+	var max = 0
+	var support_range_dictionary = get_available_support_ranges()
+	for entry in support_range_dictionary:
+		if support_range_dictionary[entry] is Array[int]:
+			if support_range_dictionary[entry].max():
+				if support_range_dictionary[entry].max() > max:
+					max = support_range_dictionary[entry].max()
+	return max
 
-func get_available_support_ranges()-> Array[int]:
+## CHANGE THIS TO MAP IN FUTURE
+func get_available_support_ranges()-> Dictionary: #Dictionary<support_type : WeaponDefinition.SUPPORT_TYPES.HEAL , ranges: Array[int]>
+	var range_map : Dictionary = {}
+	range_map[WeaponDefinition.SUPPORT_TYPES.HEAL] = get_available_support_ranges_healing()
+	return range_map
+
+func get_available_support_ranges_healing()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:
 		if (item != null) :
 			if item.equippable:
 				if item is WeaponDefinition:
 					if not item.attack_range.is_empty():
-						if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
-							for attack_range in item.attack_range:
-								if not ranges.has(attack_range):
-									ranges.append(attack_range)
+						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ALLY):
+							if item.support_type == WeaponDefinition.SUPPORT_TYPES.HEAL:
+								for attack_range in item.attack_range:
+									if not ranges.has(attack_range):
+										ranges.append(attack_range)
 	return ranges
+
 
 func get_available_weapons_at_attack_range(attack_range: int) -> Array[ItemDefinition]:
 	var available_weapons : Array[ItemDefinition]
@@ -308,3 +329,19 @@ func has_item_with_any_db_key(db_keys : Array[String]):
 			if item.db_key == db_key:
 				return true
 	return false
+
+func total_item_held_bonus_stats() -> CombatUnitStat:
+	var _net_stat = CombatUnitStat.new()
+	for item in items:
+		if item != null:
+			if item.inventory_bonus_stats != null:
+				_net_stat = CustomUtilityLibrary.add_combat_unit_stat(_net_stat, item.inventory_bonus_stats)
+	return _net_stat
+	
+func total_item_held_bonus_growths() -> UnitStat:
+	var _net_stat = UnitStat.new()
+	for item in items:
+		if item != null:
+			if item.inventory_growth_bonus_stats != null:
+				_net_stat = CustomUtilityLibrary.add_unit_stat(_net_stat, item.inventory_growth_bonus_stats)
+	return _net_stat

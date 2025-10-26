@@ -1,13 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://dr5gv3nhxomby"]
+[gd_scene load_steps=14 format=3 uid="uid://dr5gv3nhxomby"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
+[ext_resource type="Script" uid="uid://cfv7xjrq8xbkc" path="res://ui/combat/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="1_3jusj"]
 [ext_resource type="PackedScene" uid="uid://pmy8teg4tftq" path="res://ui/combat/unit_level_up/level_up_attribute_container.tscn" id="1_obgw1"]
 [ext_resource type="Theme" uid="uid://ddtfysfh2th3t" path="res://ui/shared/combatUnitPanel/CombatUnitPanelFriendly.tres" id="2_odfum"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="3_7xwk1"]
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="3_85s4i"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="3_lh7o5"]
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="4_qcc2n"]
 [ext_resource type="SpriteFrames" uid="uid://6goe3c8ex2ju" path="res://resources/sprites/level_up/level_up.tres" id="9_aw2vt"]
 [ext_resource type="AudioStream" uid="uid://bxk8dac544l7q" path="res://resources/sounds/ui/level_up.mp3" id="10_v8fyt"]
 
@@ -59,8 +58,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_twv0m"]
 _data = {
-"RESET": SubResource("Animation_edgbt"),
-"level_up": SubResource("Animation_ni88v")
+&"RESET": SubResource("Animation_edgbt"),
+&"level_up": SubResource("Animation_ni88v")
 }
 
 [node name="UnitLevelUp" type="Control"]
@@ -116,8 +115,7 @@ layout_mode = 2
 
 [node name="UnitTypeLabel" type="Label" parent="Panel/VBoxContainer/Panel/HBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
-text = "Archer
-"
+text = "Archer"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -144,8 +142,7 @@ layout_mode = 2
 [node name="LevelLabel" type="Label" parent="Panel/VBoxContainer/Panel/HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Level
-"
+text = "Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -168,11 +165,9 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("4_qcc2n")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 text = "+ 1"
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -241,7 +236,7 @@ texture = ExtResource("3_85s4i")
 modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
+layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 134.0
@@ -251,7 +246,7 @@ texture = ExtResource("3_85s4i")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Panel/VBoxContainer/MarginContainer/HBoxContainer/UnitSprite")
 libraries = {
-"": SubResource("AnimationLibrary_twv0m")
+&"": SubResource("AnimationLibrary_twv0m")
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

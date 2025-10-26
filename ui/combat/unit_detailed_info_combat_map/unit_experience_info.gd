@@ -48,8 +48,8 @@ func set_unit_type_icon(unit_type: UnitTypeDefinition):
 		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		top_left_container.add_child(icon)
-	if unit_type.traits.has(unitConstants.TRAITS.MASSIVE):
-		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
+	if unit_type.traits.has(unitConstants.TRAITS.MOBILE):
+		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/light_move_icon.png")
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		top_left_container.add_child(icon)
 	if unit_type.traits.has(unitConstants.TRAITS.FLIER):

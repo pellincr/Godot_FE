@@ -1,16 +1,21 @@
 extends Control
 
 
-@onready var treasure_button_1 = $MarginContainer/VBoxContainer/TreasureButtonContainer/TreasureButton1
-@onready var treasure_button_2 = $MarginContainer/VBoxContainer/TreasureButtonContainer/TreasureButton2
-@onready var treasure_button_3 = $MarginContainer/VBoxContainer/TreasureButtonContainer/TreasureButton3
+@onready var treasure_button_1 = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer/TreasureButton1
+@onready var weapon_detailed_info_1: Panel = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer/WeaponDetailedInfo
+
+@onready var treasure_button_2 = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer2/TreasureButton2
+@onready var weapon_detailed_info_2: Panel = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer2/WeaponDetailedInfo
+
+@onready var treasure_button_3 = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer3/TreasureButton3
+@onready var weapon_detailed_info_3: Panel = $MarginContainer/VBoxContainer/TreasureButtonContainer/VBoxContainer3/WeaponDetailedInfo
 
 @onready var leave_button = $LeaveButton
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
-const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","heal_staff", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
+const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","minor_heal", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
 
 func _ready():
 	transition_in_animation()
@@ -47,7 +52,7 @@ func randomize_item_selection() -> ItemDefinition:
 	for item_key in ItemDatabase.items.keys():
 		if item_key not in treasure_blacklist:
 			var roll = randi_range(0, 100)
-			if roll < 3:
+			if roll < 1:
 				if ItemDatabase.items[item_key].rarity == RarityDatabase.rarities["legendary"]:
 					valid_treasure_items.append(item_key)
 			elif roll < 10:
@@ -72,16 +77,22 @@ func randomize_item_selection() -> ItemDefinition:
 
 func set_all_buttons():
 	var item1 = randomize_item_selection()
-	set_button_text(treasure_button_1,item1.name)
-	set_button_icon(treasure_button_1,item1.icon)
+	#set_button_text(treasure_button_1,item1.name)
+	weapon_detailed_info_1.item = item1
+	weapon_detailed_info_1.update_by_item()
+	#set_button_icon(treasure_button_1,item1.icon)
 	treasure_button_1.pressed.connect(_on_treasure_selected.bind(item1))
 	var item2 = randomize_item_selection()
-	set_button_text(treasure_button_2,item2.name)
-	set_button_icon(treasure_button_2,item2.icon)
+	weapon_detailed_info_2.item = item2
+	weapon_detailed_info_2.update_by_item()
+	#set_button_text(treasure_button_2,item2.name)
+	#set_button_icon(treasure_button_2,item2.icon)
 	treasure_button_2.pressed.connect(_on_treasure_selected.bind(item2))
 	var item3 = randomize_item_selection()
-	set_button_text(treasure_button_3,item3.name)
-	set_button_icon(treasure_button_3,item3.icon)
+	#set_button_text(treasure_button_3,item3.name)
+	#set_button_icon(treasure_button_3,item3.icon)
+	weapon_detailed_info_3.item = item3
+	weapon_detailed_info_3.update_by_item()
 	treasure_button_3.pressed.connect(_on_treasure_selected.bind(item3))
 
 func _on_treasure_selected(item):

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvv87jeh4wtwh"]
+
+[ext_resource type="Script" uid="uid://dupi01m8177ob" path="res://ui/battle_prep_new/training_grounds/training_grounds.gd" id="1_v7khi"]
+
+[node name="TrainingGrounds" type="HBoxContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_v7khi")

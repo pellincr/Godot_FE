@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://d2gcae0fe52md"]
 
 [ext_resource type="Texture2D" uid="uid://fwfeeawehvv0" path="res://resources/sprites/items/weapons/fist/brassknuckles.png" id="1_clx2x"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_kdk2w"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_7lpw7"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_v7554"]
 
 [resource]
@@ -10,6 +10,7 @@ weapon_type = 5
 alignment = 0
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
+support_type = 0
 item_damage_type = 0
 item_scaling_type = 0
 item_scaling_multiplier = 1.0
@@ -18,19 +19,20 @@ required_mastery = 0
 attack_range = Array[int]([1])
 damage = 1
 hit = 120
-critical_chance = 10
+critical_chance = 15
 weight = 1
 critical_multiplier = 3.0
-attacks_per_combat_turn = 3
+attacks_per_combat_turn = 2
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
 specials = Array[int]([])
+augmented = false
 name = "Brass Knuckles"
 db_key = "brass_knuckles"
 equippable = true
 description = ""
 item_type = 0
-rarity = ExtResource("2_kdk2w")
+rarity = ExtResource("2_7lpw7")
 uses = 40
 max_uses = 40
 unbreakable = false

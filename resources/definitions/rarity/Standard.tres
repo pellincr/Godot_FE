@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rarity" load_steps=2 format=3 uid="uid://cpv0wg3lugprn"]
+
+[ext_resource type="Script" uid="uid://dhrpqkobtc1ng" path="res://scripts/resources/rarity/RarityDefinition.gd" id="1_x0a4r"]
+
+[resource]
+script = ExtResource("1_x0a4r")
+rarity_name = "Standard"
+ui_color = Color(0.501407, 0.501406, 0.501406, 1)
+shadow_size = 1

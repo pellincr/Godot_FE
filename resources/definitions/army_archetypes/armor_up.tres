@@ -1,30 +1,21 @@
 [gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=7 format=3 uid="uid://bk1uubqw28gd3"]
 
-[ext_resource type="Script" uid="uid://dtpauiu0ns2k0" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_c30fr"]
-[ext_resource type="Script" uid="uid://cvtbb6gi4a4c" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_85yfu"]
-[ext_resource type="Script" uid="uid://ddryvyc73ib0h" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_n3pqk"]
+[ext_resource type="Script" uid="uid://dddcksmavxgay" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_c30fr"]
+[ext_resource type="Script" uid="uid://c8sor36dvpx8s" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_85yfu"]
+[ext_resource type="Script" uid="uid://ck3vg2oq3ex0s" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="3_n3pqk"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_nvfvi"]
 
 [sub_resource type="Resource" id="Resource_xl07a"]
 script = ExtResource("2_85yfu")
-factions = Array[int]([])
-traits = Array[int]([])
 weapon_types = Array[int]([12])
-unit_type = ""
 name = "Shield Unit"
-type = 0
 response_filter = 1
 volume = 1
 
 [sub_resource type="Resource" id="Resource_2qsfq"]
 script = ExtResource("2_85yfu")
-factions = Array[int]([])
 traits = Array[int]([0])
-weapon_types = Array[int]([])
-unit_type = ""
 name = "Armored Unit"
-type = 0
-response_filter = 0
 volume = 1
 
 [resource]

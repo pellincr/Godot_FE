@@ -49,7 +49,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection(playerOverworldData.combat_maps_completed +  1)
+	randomize_selection(playerOverworldData.combat_maps_completed)
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -62,10 +62,12 @@ func _on_gui_input(event):
 		unit_selected.emit(unit)
 	if event.is_action_pressed("right_bumper"):
 		#show_next_screen()
-		next_screen.emit()
+		if unit is Unit:
+			next_screen.emit()
 	if event.is_action_pressed("left_bumper"):
 		#show_previous_screen()
-		previous_screen.emit()
+		if unit is Unit:
+			previous_screen.emit()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -349,7 +351,6 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if unit_type is CommanderDefinition:
 		inventory.append(unit_type.signature_weapon)
 		inventory.append(ItemDatabase.items["potion"])
-	
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
@@ -361,7 +362,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
 		inventory.append(ItemDatabase.items["iron_fist"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
-		inventory.append(ItemDatabase.items["heal_staff"])
+		inventory.append(ItemDatabase.items["minor_heal"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
 		inventory.append(ItemDatabase.items["shade"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):

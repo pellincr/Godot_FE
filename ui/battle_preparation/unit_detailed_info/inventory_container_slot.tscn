@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://om16g0kfxkyu"]
 
-[ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_preparation/inventory_not_focused.tres" id="1_1xojm"]
+[ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_prep_new/inventory_not_focused.tres" id="1_1xojm"]
 [ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.gd" id="2_jq5k8"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_kdenh"]
 
@@ -47,4 +47,5 @@ text = "30"
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

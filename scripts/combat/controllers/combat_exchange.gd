@@ -2,11 +2,11 @@ extends Node
 
 class_name CombatExchange
 
-const crit_sound = preload("res://resources/sounds/combat/Crit.wav")
-const hit_sound = preload("res://resources/sounds/combat/hit.wav")
-const heal_sound = preload("res://resources/sounds/combat/heal.wav")
-const miss_sound = preload("res://resources/sounds/combat/miss.wav")
-const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
+#const crit_sound = preload("res://resources/sounds/combat/Crit.wav")
+#const hit_sound = preload("res://resources/sounds/combat/hit.wav")
+#const heal_sound = preload("res://resources/sounds/combat/heal.wav")
+#const miss_sound = preload("res://resources/sounds/combat/miss.wav")
+#const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.tscn")
 
 signal unit_defeated(unit: CombatUnit)
@@ -17,8 +17,11 @@ signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
 signal play_audio(sound: AudioStream)
 signal play_audio_finished()
-signal gain_experience(u: Unit, new_value:int)
+signal gain_experience(u: CombatUnit, new_value:int)
 signal unit_gain_experience_finished()
+signal give_items(items: Array[ItemDefinition], source: String, target: CombatUnit)
+signal give_items_complete()
+
 enum EXCHANGE_OUTCOME 
 {
 	DAMAGE_DEALT,
@@ -29,12 +32,6 @@ enum EXCHANGE_OUTCOME
 	ALLY_SUPPORTED
 }
 
-enum DOUBLE_ATTACKER 
-{
-	NONE,
-	ATTACKER,
-	DEFENDER
-}
 var audio_player_busy: bool = false
 var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
@@ -49,6 +46,13 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
 				else:
 					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
+					var backfire_chance : int = 31 - attacker.get_luck()
+					var roll = randi_range(0,100)
+					if roll <= backfire_chance: 
+						await do_damage(attacker,damage_dealt, true)
+					else: 
+						await do_damage(target,damage_dealt, true)
 				await do_damage(target,damage_dealt, true)
 			else : 
 				#emit generic damage
@@ -69,12 +73,14 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		await use_audio_player(no_damage_sound)
+		#await use_audio_player(no_damage_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
-		await use_audio_player(hit_sound)
+		#await use_audio_player(hit_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_hit")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
 		if target.hp <= 0:
@@ -86,14 +92,16 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
 		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
 		attacker.unit.inventory.get_equipped_weapon().use()
-		await use_audio_player(heal_sound)
+		#await use_audio_player(heal_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_heal")
 		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
 		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
 func heal_unit(unit: CombatUnit, amount: int):
-	await use_audio_player(heal_sound)
+	#await use_audio_player(heal_sound)
+	AudioManager.play_sound_effect_pitch_randomized("unit_heal")
 	unit.current_hp = clampi(amount + unit.current_hp, unit.current_hp, unit.get_max_hp())
 	DamageNumbers.heal((32* unit.move_position + Vector2i(16,16)), amount)
 	unit.map_display.update_values()
@@ -101,12 +109,17 @@ func heal_unit(unit: CombatUnit, amount: int):
 		await ce_display.update_unit_hp(unit, unit.current_hp)
 	#await unit.map_display.update_complete
 
-func hit_missed(dodging_unt: CombatUnit):
-	await use_audio_player(miss_sound)
-	DamageNumbers.miss(32* dodging_unt.map_position + Vector2i(16,16))
+func hit_missed(dodging_unit: CombatUnit):
+	#await use_audio_player(miss_sound)
+	await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
+	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
-func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange_outcome: EXCHANGE_OUTCOME):
+func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):
+	if player_unit.get_equipped() != null and player_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+		await heal_unit(player_unit, 3)
+	if enemy_unit.get_equipped() != null and enemy_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
+		await heal_unit(enemy_unit, 3)
 	if ce_display != null:
 		ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
@@ -114,13 +127,21 @@ func complete_combat_exchange(player_unit:Unit, enemy_unit:Unit, combat_exchange
 		return
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
+		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
-		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_hit(enemy_unit))
+		emit_signal("gain_experience", player_unit, calculate_experience_gain_hit(player_unit, enemy_unit))
+		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
-		emit_signal("gain_experience", player_unit, player_unit.calculate_experience_gain_kill(enemy_unit))
+		emit_signal("gain_experience", player_unit, calculate_experience_gain_kill(player_unit, enemy_unit))
+		await unit_gain_experience_finished
+		if enemy_unit.drops_item:
+			var dropped_items : Array[ItemDefinition]
+			dropped_items.append(enemy_unit.unit.inventory.items.pop_back())
+			give_items.emit(dropped_items, CombatMapConstants.COMBAT_EXCHANGE, player_unit)
+			await give_items_complete
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ALLY_SUPPORTED:
-		emit_signal("gain_experience", player_unit, 10)
-	await unit_gain_experience_finished
+		emit_signal("gain_experience", player_unit, 20)
+		await unit_gain_experience_finished
 	combat_exchange_finished.emit(true)
 
 func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
@@ -128,7 +149,8 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	#var outcome : int
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		await use_audio_player(no_damage_sound)
+		#await use_audio_player(no_damage_sound)
+		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
@@ -136,10 +158,12 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		target.current_hp -= damage
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
-			await use_audio_player(crit_sound)
+			#await use_audio_player(crit_sound)
+			AudioManager.play_sound_effect_pitch_randomized("unit_crit")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
-			await use_audio_player(hit_sound)
+			#await use_audio_player(hit_sound)
+			AudioManager.play_sound_effect_pitch_randomized("unit_hit")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete
@@ -214,7 +238,7 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 	if attacker_weapon is WeaponDefinition:
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 		if attacker_weapon.attack_range.has(distance):
-			if attacker_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+			if attacker_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 				return true
 	return false
 
@@ -224,7 +248,7 @@ func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int
 		if not defender_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE):
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 			if defender_weapon.attack_range.has(distance):
-				if defender_weapon.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+				if defender_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 					return true
 	return false
 
@@ -236,7 +260,7 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 	return_object.defender = defender
 	
 	var turn_order :Array[String] = []
-	
+	var wpn_triangle = check_weapon_triangle(attacker.unit, defender.unit)
 	var defender_can_attack: bool = false
 	
 	var attacker_hit_chance : int = 0
@@ -290,11 +314,14 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 			turn_data.critical = defender_critical_chance
 			turn_data.hit = defender_hit_chance
 		return_object.exchange_data.append(turn_data)
-		
+	
 	return_object.attacker_critical = attacker_critical_chance
 	return_object.attacker_hit = attacker_hit_chance
+	return_object.attacker_effective = attacker_effective
 	return_object.defender_critical= defender_critical_chance
 	return_object.defender_hit = defender_hit_chance
+	return_object.defender_effective = defender_effective
+	return_object.weapon_triange = wpn_triangle
 	return_object.populate()
 	return return_object
 
@@ -356,76 +383,79 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 
 func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
 	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
-	var net_turn_count = int(net_attack_speed / floor(4))
-	if net_turn_count > 0:
+	var additional_turn_threshold = 4
+	var net_turn_count = 0
+	var _nas = abs(net_attack_speed)
+	while _nas - additional_turn_threshold > 0:
+		net_turn_count = net_turn_count + 1
+		_nas = _nas - additional_turn_threshold
+		additional_turn_threshold = additional_turn_threshold + 2
+	#var net_turn_count = int(net_attack_speed / floor(4))
+	if net_attack_speed > 0:
 		attacker_turns = attacker_turns + abs(net_turn_count)
-	elif net_turn_count < 0: 
+	elif net_attack_speed < 0: 
 		defender_turns = defender_turns + abs(net_turn_count)
 	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
+	# get weapons for analysis
+	var _victor : Unit = null
 	var unit_a_weapon: WeaponDefinition
 	var unit_b_weapon: WeaponDefinition
 	if unit_a.inventory.get_equipped_weapon(): 
 		unit_a_weapon = unit_a.inventory.get_equipped_weapon()
 	if unit_b.inventory.get_equipped_weapon(): 
 		unit_b_weapon = unit_b.inventory.get_equipped_weapon()
+	# logic block for weapons
 	if unit_b_weapon and unit_a_weapon:
-		match unit_a_weapon.alignment:
-			itemConstants.ALIGNMENT.MUNDANE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
-					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
-					return unit_b
-				match unit_a_weapon.physical_weapon_triangle_type:
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return unit_a
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return unit_a
-					itemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-						if unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return unit_b
-						elif unit_b_weapon.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return unit_a
-			itemConstants.ALIGNMENT.NIMBLE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
-					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
-					return unit_b
-			itemConstants.ALIGNMENT.MAGIC:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.NIMBLE:
-					return unit_b
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.DEFENSIVE:
-					return unit_a
-				match unit_a_weapon.magic_weapon_triangle_type:
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return unit_a
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return unit_a
-					itemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-						if unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return unit_b
-						elif unit_b_weapon.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return unit_a
-			itemConstants.ALIGNMENT.DEFENSIVE:
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MUNDANE:
-					return unit_a
-				if unit_b_weapon.alignment == itemConstants.ALIGNMENT.MAGIC:
-					return unit_b
-	return null
+		var _winning_weapon = check_wepon_triangle_wpn(unit_a_weapon, unit_b_weapon)
+		match _winning_weapon:
+			unit_a_weapon:
+				_victor = unit_a
+			unit_b_weapon:
+				_victor = unit_b
+	# skill augments etc. here #TO BE ADDED 
+	return _victor
 
+func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) -> WeaponDefinition:
+	if wpn_a and wpn_b:
+		match wpn_a.alignment:
+			ItemConstants.ALIGNMENT.MUNDANE:
+				match wpn_a.physical_weapon_triangle_type:
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return wpn_a
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return wpn_a
+					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+							return wpn_b
+						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+							return wpn_a
+			ItemConstants.ALIGNMENT.MAGIC:
+				match wpn_a.magic_weapon_triangle_type:
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return wpn_a
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return wpn_a
+					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+							return wpn_b
+						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+							return wpn_a
+	return null
+	
 func use_audio_player(sound:AudioStream):
 	if  audio_player_busy:
 		await play_audio_finished
@@ -436,17 +466,40 @@ func use_audio_player(sound:AudioStream):
 		audio_player_busy = true
 
 func check_effective(attacker: Unit, target:Unit) -> bool:
-	var _is_effective = false
-	if not attacker.inventory.get_equipped_weapon().weapon_effectiveness.is_empty() :
-		for effective_type in attacker.inventory.get_equipped_weapon().weapon_effectiveness: 
-			var unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
-			if effective_type in unit_type.traits :
-				_is_effective = true
-	var weapon_triangle_victor = check_weapon_triangle(attacker, target)
-	if (weapon_triangle_victor == attacker): 
-		if attacker.inventory.get_equipped_weapon().specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
-			_is_effective = true
-	return _is_effective
+	#check weapon effectiveness
+	var _effectiveness = false
+	_effectiveness = check_weapon_effective(attacker.inventory.get_equipped_weapon(), target)
+	# TO BE IMPL SKILLS & ETC that force effectiveness
+	return _effectiveness
+	
+func check_weapon_effective(weapon: WeaponDefinition, target: Unit) -> bool:
+	#var _outcome = false
+	var _target_unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
+	#TRAITS
+	if not weapon.weapon_effectiveness_trait.is_empty():
+		var _target_unit_traits : Array[unitConstants.TRAITS] = _target_unit_type.traits.duplicate()
+		# do subtraction of traits if target has something that negates effectiveness here
+		if not _target_unit_traits.is_empty():
+			for effective_trait in weapon.weapon_effectiveness_trait:
+				if effective_trait in _target_unit_traits:
+					return true
+	#WEAPON_TYPE
+	if target.inventory.get_equipped_weapon() != null:
+		if target.inventory.get_equipped_weapon().weapon_type in weapon.weapon_effectiveness_weapon_type:
+			return true
+	#SPECIALS
+	if not weapon.specials.is_empty():
+		if weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
+			if  target.inventory.get_equipped_weapon() != null:
+				if check_wepon_triangle_wpn(weapon, target.inventory.get_equipped_weapon()) == weapon:
+					return true
+	return false
+
+func check_unit_can_do_effective_damage(attacker: Unit, target: Unit) -> bool:
+	for weapon in attacker.get_equippable_weapons():
+		if check_weapon_effective(weapon, target):
+			return true
+	return false
 
 func audio_player_ready():
 	emit_signal("play_audio_finished")
@@ -476,9 +529,9 @@ func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitS
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
 			await heal_unit(target, turn.effect_weight)
-			
+			# ADD THE USE ITEM HERE
 	if supporter.allegience == Constants.FACTION.PLAYERS:
-		await complete_combat_exchange(supporter.unit, target.unit, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
+		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :
 			pass
 	supporter.turn_taken = true
@@ -505,7 +558,7 @@ func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALIN
 #
 func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchange_data: UnitCombatExchangeData):
 	var player_unit: CombatUnit
-	var enemy_unit: CombatUnit
+	var enemy_unit: CombatUnit 
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
 	if attacker.allegience == Constants.FACTION.PLAYERS:
 		player_unit = attacker
@@ -513,13 +566,14 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	else : 
 		player_unit = defender
 		enemy_unit = attacker
+	var enemy_unit_starting_hp : int = enemy_unit.current_hp
 	# Create the Display
 	ce_display = combat_exchange_display.instantiate()
 	await ce_display
 	$"../../CanvasLayer/UI".add_child(ce_display) 
 	ce_display.visible = true
 	ce_display.set_all(attacker, defender, exchange_data.attacker_hit, exchange_data.defender_hit,exchange_data.attacker_net_damage, exchange_data.defender_net_damage, exchange_data.attacker_critical, exchange_data.defender_critical,
-		false, false, check_weapon_triangle(attacker.unit,defender.unit))
+		false, false, exchange_data.weapon_triange)
 	attacker.turn_taken = true
 	#Do the actual calcs
 	for turn in exchange_data.exchange_data:
@@ -528,20 +582,23 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 				await perform_hit(attacker,defender,turn.hit,turn.critical)
 				if not defender.alive:
 					if player_unit == defender:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else : 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 					return
 			elif turn.owner == defender:
 				await perform_hit(defender,attacker,turn.hit,turn.critical)
 				if not attacker.alive: 
 					if attacker == player_unit: 
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
 					else:
-						await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
 					return
 	# Both units have survived the exchange
-	await complete_combat_exchange(player_unit.unit, enemy_unit.unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+	if enemy_unit.current_hp < enemy_unit_starting_hp:
+		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
+	else :
+		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.NO_DAMAGE)
 		#get the allegience of the units
 
 #
@@ -566,3 +623,39 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 func _on_entity_destroyed_processing_completed():
 	await get_tree().create_timer(.1).timeout
 	entity_destroyed_processing_completed.emit()
+	
+func _on_give_item_complete():
+	give_items_complete.emit()
+
+
+func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
+	var experience_gain = 0
+	var player_unit_value = 0
+	var enemy_unit_value = 0
+	if(player_unit.unit.get_unit_type_definition().promoted):
+		player_unit_value = 20
+	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+		enemy_unit_value = 20
+	
+	var unit_value_difference = ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value))
+	#Experience Formula
+	experience_gain = clamp(((2* unit_value_difference) +31)  / 3, 1, 25)
+	#print ("calculate_experience_gain_hit = " + str(experience_gain))
+	return experience_gain
+
+func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
+	var experience_gain = 0
+	var player_unit_value = 0
+	var enemy_unit_value = 0
+	var base_experience_gain = calculate_experience_gain_hit(player_unit, enemy_unit)
+	var boss_bonus = 0
+
+	if(player_unit.unit.get_unit_type_definition().promoted):
+		player_unit_value = 60
+	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+		enemy_unit_value = 60
+	if enemy_unit.is_boss:
+		boss_bonus = 40
+	#Experience Formula
+	experience_gain = clampi(base_experience_gain + ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value)) + 20 + boss_bonus, 2, 100)
+	return experience_gain

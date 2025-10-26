@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bxnwtk5ejhud1"]
 
-[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/unit_draft.gd" id="1_jbmw7"]
+[ext_resource type="Script" uid="uid://bfwuhn7u8h0fg" path="res://unit drafting/Unit_Commander Draft/unit_draft.gd" id="1_jbmw7"]
 
 [node name="UnitDraft" type="CenterContainer"]
 anchors_preset = 8

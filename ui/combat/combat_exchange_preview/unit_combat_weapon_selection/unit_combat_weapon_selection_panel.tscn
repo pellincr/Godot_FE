@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqtdhgq4k72n0"]
+[gd_scene load_steps=17 format=3 uid="uid://cqtdhgq4k72n0"]
 
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.gd" id="1_4555u"]
 [ext_resource type="Theme" uid="uid://datpqsugt3tvl" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel_enemy_theme.tres" id="2_bv4vu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="4_ii5um"]
 [ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_54ah4"]
 [ext_resource type="PackedScene" uid="uid://d5hp8wf80ymg" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.tscn" id="5_blbaf"]
+[ext_resource type="Texture2D" uid="uid://3jnelkfkws46" path="res://resources/sprites/icons/arrow_up.png" id="7_1ww3r"]
 [ext_resource type="PackedScene" uid="uid://cx0jc1hx45ck5" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_compat_weapon_special_containter.tscn" id="7_u2hsc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odhkg"]
@@ -18,6 +19,42 @@ border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_sgtdx"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_odhkg")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v6yh"]
+atlas = ExtResource("7_1ww3r")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_defot"]
+atlas = ExtResource("7_1ww3r")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y2vk"]
+atlas = ExtResource("7_1ww3r")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smh5q"]
+atlas = ExtResource("7_1ww3r")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5eygx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v6yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_defot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y2vk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smh5q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="UnitCombatWeaponSelectionPanel" type="PanelContainer"]
 offset_right = 40.0
@@ -76,8 +113,30 @@ texture = ExtResource("4_ii5um")
 expand_mode = 5
 stretch_mode = 4
 
-[node name="UnitCombatWeapon" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer" instance=ExtResource("5_blbaf")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
 layout_mode = 2
+
+[node name="UnitCombatWeapon" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/HBoxContainer" instance=ExtResource("5_blbaf")]
+layout_mode = 2
+
+[node name="AdvantageArrow" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/HBoxContainer"]
+visible = false
+modulate = Color(0, 0.824259, 0.364842, 1)
+position = Vector2(24, 31)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5eygx")
+autoplay = "default"
+frame_progress = 0.754205
+
+[node name="DisadvantageArrow" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/HBoxContainer"]
+visible = false
+modulate = Color(1, 0.260006, 0.200835, 1)
+position = Vector2(24, 31)
+rotation = 3.14159
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5eygx")
+autoplay = "default"
+frame_progress = 0.626169
 
 [node name="ToggleRightIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer"]
 visible = false

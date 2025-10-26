@@ -1,60 +1,48 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=12 format=3 uid="uid://cyyvd5psgi4cl"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_dc34t"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_tnpys"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_dc34t"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_tnpys"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="3_s0kwg"]
 [ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="4_jspxu"]
 [ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="5_skebq"]
 [ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="6_lpyhi"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="7_3pf0i"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="7_3pf0i"]
 
 [sub_resource type="Resource" id="Resource_6aern"]
 script = ExtResource("1_dc34t")
 name = "Mundaneman"
 map_position = Vector2i(9, 3)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_tnpys")]([ExtResource("3_s0kwg")])
 ai_type = 2
-is_boss = false
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_dc34t")
 name = "Magicman"
 map_position = Vector2i(9, 5)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "bishop"
 inventory = Array[ExtResource("2_tnpys")]([ExtResource("4_jspxu")])
 ai_type = 2
-is_boss = false
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_dc34t")
 name = "Nimbleman"
 map_position = Vector2i(9, 7)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "theif"
 inventory = Array[ExtResource("2_tnpys")]([ExtResource("5_skebq")])
 ai_type = 2
-is_boss = false
 
 [sub_resource type="Resource" id="Resource_0d23b"]
 script = ExtResource("1_dc34t")
 name = "Defenseman"
 map_position = Vector2i(9, 8)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
 unit_type_key = "ward"
 inventory = Array[ExtResource("2_tnpys")]([ExtResource("6_lpyhi")])
 ai_type = 2
-is_boss = false
 
 [resource]
 script = ExtResource("7_3pf0i")

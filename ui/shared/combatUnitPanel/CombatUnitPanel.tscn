@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://7v6c3rjvvx7v"]
 
 [ext_resource type="Theme" uid="uid://beqlgf0u7r378" path="res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres" id="1_4wl0s"]
-[ext_resource type="Script" path="res://ui/shared/combatUnitPanel/combat_unit_panel.gd" id="1_wkq0j"]
+[ext_resource type="Script" uid="uid://bfc0l8cx8opte" path="res://ui/shared/combatUnitPanel/combat_unit_panel.gd" id="1_wkq0j"]
 [ext_resource type="Shader" path="res://resources/shaders/StrokeShader.gdshader" id="3_n1d0n"]
 [ext_resource type="Texture2D" uid="uid://dhjpwrse1w5lq" path="res://resources/sprites/units/knight_icon.tres" id="4_unxlk"]
 [ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="5_41m1w"]

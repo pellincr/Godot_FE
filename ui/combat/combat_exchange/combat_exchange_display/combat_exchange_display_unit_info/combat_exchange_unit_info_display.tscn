@@ -1,16 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://5nnlh8ovljap"]
+[gd_scene load_steps=14 format=3 uid="uid://5nnlh8ovljap"]
 
-[ext_resource type="Script" path="res://ui/combat/combat_exchange/combat_exchange_display/combat_exchange_display_unit_info/combat_exchange_unit_info_display.gd" id="1_tnf71"]
-[ext_resource type="Texture2D" uid="uid://dwy4qn8sv3hid" path="res://resources/sprites/sheets/monsters.png" id="2_v2im8"]
+[ext_resource type="Script" uid="uid://ckwlu0xfu3id4" path="res://ui/combat/combat_exchange/combat_exchange_display/combat_exchange_display_unit_info/combat_exchange_unit_info_display.gd" id="1_tnf71"]
+[ext_resource type="Texture2D" uid="uid://xtxy4bjl1od7" path="res://resources/sprites/units/shaman.png" id="2_0stiv"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_s6ves"]
 [ext_resource type="Texture2D" uid="uid://8cxdskj6ti44" path="res://resources/sprites/items/weapons/dagger/enchanted_shotel.png" id="4_k76vi"]
+[ext_resource type="SpriteFrames" uid="uid://d05mox7u2lilc" path="res://resources/sprites/icons/animated_arrow_up.tres" id="5_ey624"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="6_0stiv"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="7_emlac"]
-[ext_resource type="Script" path="res://ui/shared/progressBarTween/progressBarTween.gd" id="7_vy4ah"]
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="8_w3q6r"]
+[ext_resource type="Script" uid="uid://dp04vxdyqnq8e" path="res://ui/shared/progressBarTween/progressBarTween.gd" id="7_vy4ah"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="8_ey624"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5hbku"]
-atlas = ExtResource("2_v2im8")
-region = Rect2(128, 130, 32, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0stiv"]
+atlas = ExtResource("2_0stiv")
+region = Rect2(0, 0, 32, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yp1e"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -43,16 +45,15 @@ offset_bottom = 159.0
 
 [node name="UnitIcon" type="TextureRect" parent="Unit"]
 layout_mode = 0
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 81.0
-offset_bottom = 25.0
+offset_top = -38.000008
+offset_right = 96.0
+offset_bottom = 9.999992
 scale = Vector2(1.5, 1.5)
-texture = SubResource("AtlasTexture_5hbku")
+texture = SubResource("AtlasTexture_0stiv")
 
 [node name="MarginContainer" type="MarginContainer" parent="Unit"]
 custom_minimum_size = Vector2(300, 160)
-layout_mode = 2
+layout_mode = 0
 offset_right = 261.0
 offset_bottom = 160.0
 theme_override_constants/margin_left = 15
@@ -80,23 +81,24 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("4_k76vi")
 
-[node name="wpn_triangle_win" type="Label" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
-layout_mode = 2
-offset_left = 27.0
-offset_top = 17.0
-offset_right = 32.0
-offset_bottom = 33.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "↑"
+[node name="wpn_triangle_win" type="AnimatedSprite2D" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+visible = false
+modulate = Color(0, 0.8235294, 0.3647059, 1)
+position = Vector2(30, 25)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("5_ey624")
+autoplay = "default"
+frame_progress = 0.3453448
 
-[node name="wpn_triangle_loss" type="Label" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
-layout_mode = 0
-offset_left = 27.0
-offset_top = 17.0
-offset_right = 33.0
-offset_bottom = 33.0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "↓"
+[node name="wpn_triangle_loss" type="AnimatedSprite2D" parent="Unit/MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+visible = false
+modulate = Color(1, 0.25882354, 0.2, 1)
+position = Vector2(30, 25)
+rotation = 3.1415927
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("5_ey624")
+autoplay = "default"
+frame_progress = 0.6855252
 
 [node name="HealthBar" type="Control" parent="Unit/MarginContainer/VBoxContainer" node_paths=PackedStringArray("progressBar", "value_label")]
 custom_minimum_size = Vector2(250, 40)
@@ -115,25 +117,26 @@ custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 
 [node name="Value" type="Label" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(42, 40)
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("3_s6ves")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 24
-text = "242
-"
-horizontal_alignment = 2
+theme_override_fonts/font = ExtResource("6_0stiv")
+theme_override_font_sizes/font_size = 36
+text = "242"
 vertical_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="Bar" type="ProgressBar" parent="Unit/MarginContainer/VBoxContainer/HealthBar/MarginContainer/HBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(200, 18)
+custom_minimum_size = Vector2(200, 24)
 layout_mode = 2
 theme = SubResource("Theme_ujilv")
-value = 42.0
+max_value = 1.0
+step = 1.0
 rounded = true
 show_percentage = false
 
@@ -153,8 +156,7 @@ tooltip_text = "The percentage chance of a unit landing a hit in battle"
 mouse_filter = 1
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 18
 text = "HIT"
 vertical_alignment = 1
 
@@ -165,8 +167,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("8_ey624")
+theme_override_font_sizes/font_size = 32
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -178,8 +180,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 18
 text = "DMG"
 vertical_alignment = 1
 
@@ -190,8 +191,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("8_ey624")
+theme_override_font_sizes/font_size = 32
 text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -203,10 +204,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
-text = "CRIT
-"
+theme_override_font_sizes/font_size = 18
+text = "CRIT"
 vertical_alignment = 1
 
 [node name="CriticalValue" type="Label" parent="Unit/MarginContainer/VBoxContainer/StatsGrid"]
@@ -216,8 +215,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("8_ey624")
+theme_override_font_sizes/font_size = 32
 text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -229,8 +228,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 18
 text = "AS"
 vertical_alignment = 1
 
@@ -241,8 +239,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("7_emlac")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("8_w3q6r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("8_ey624")
+theme_override_font_sizes/font_size = 32
 text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1

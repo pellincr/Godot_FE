@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://dbr5o8fwlduvb"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_k6wny"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_c27r1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkfyl"]
 content_margin_left = 18.0
@@ -41,8 +41,8 @@ Button/colors/icon_hover_color = Color(0.803922, 0.745098, 0.67451, 1)
 Button/colors/icon_normal_color = Color(0.482353, 0.490196, 0.415686, 1)
 Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 10
-Button/font_sizes/font_size = 24
-Button/fonts/font = ExtResource("1_k6wny")
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_c27r1")
 Button/styles/focus = SubResource("StyleBoxFlat_nkfyl")
 Button/styles/hover = SubResource("StyleBoxFlat_nkfyl")
 Button/styles/normal = SubResource("StyleBoxFlat_7qr7p")

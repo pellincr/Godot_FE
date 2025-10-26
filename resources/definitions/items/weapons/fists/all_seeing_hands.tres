@@ -1,22 +1,8 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://cxnl7fkokgtrr"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cxnl7fkokgtrr"]
 
-[ext_resource type="Script" uid="uid://d17jm4ed5o33l" path="res://scripts/Unit/unit_stat.gd" id="1_kf70b"]
 [ext_resource type="Texture2D" uid="uid://b7pddkj4jfix3" path="res://resources/sprites/items/weapons/fist/eye_fist.png" id="2_asetm"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_arxv5"]
 [ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_vxxcn"]
-
-[sub_resource type="Resource" id="Resource_yiis1"]
-script = ExtResource("1_kf70b")
-hp = 5
-strength = 0
-magic = 0
-skill = 0
-speed = 3
-luck = 0
-defense = 0
-resistance = 0
-movement = 0
-constitution = 0
 
 [resource]
 script = ExtResource("3_vxxcn")
@@ -24,6 +10,7 @@ weapon_type = 5
 alignment = 0
 physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 0
+support_type = 0
 item_damage_type = 0
 item_scaling_type = 0
 item_scaling_multiplier = 1.0
@@ -32,22 +19,22 @@ required_mastery = 5
 attack_range = Array[int]([1])
 damage = 4
 hit = 100
-critical_chance = 25
+critical_chance = 0
 weight = 6
 critical_multiplier = 3.0
 attacks_per_combat_turn = 5
-bonus_stat = SubResource("Resource_yiis1")
 weapon_effectiveness = Array[int]([])
 status_ailment = 0
-specials = Array[int]([2])
+specials = Array[int]([])
+augmented = false
 name = "All Seeing Hands"
 db_key = "all_seeing_hands"
 equippable = true
 description = ""
 item_type = 0
 rarity = ExtResource("3_arxv5")
-uses = 45
-max_uses = 45
+uses = 25
+max_uses = 25
 unbreakable = false
-worth = 15000
+worth = 12000
 icon = ExtResource("2_asetm")

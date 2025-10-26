@@ -10,12 +10,15 @@ const ALMANAC_SCENE = preload("res://almanac/almanac.tscn")
 const TUTORIAL_PAGE_SCENE = preload("res://tutorials/tutorial_page.tscn")
 const HALL_OF_HEROES_SCENE = preload("res://hall_of_heroes/hall_of_heroes.tscn")
 
+const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
+
 @onready var new_game_button = $VBoxContainer/NewGameButton
 
 @onready var continue_game_button = $VBoxContainer/ContinueGameButton
 
 
 func _ready():
+	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
@@ -42,6 +45,7 @@ func set_button_text(button,text):
 
 
 func _on_continue_game_button_pressed():
+	seed(playerOverworldData.capmaign_seed)
 	if playerOverworldData.completed_drafting:
 		if playerOverworldData.current_level:
 			if playerOverworldData.began_level:
@@ -49,9 +53,9 @@ func _on_continue_game_button_pressed():
 				transition_out_animation()
 				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 			else:
-				#when the level has been selected but battle prep has not been completed
-				var battle_prep_scene = preload("res://ui/battle_preparation/battle_preparation.tscn")
-				get_tree().change_scene_to_packed(battle_prep_scene)
+				#when the level has been selected
+				transition_out_animation()
+				get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		else:
 			#when the level has not been selected from the campaign map yet
 			var campaign_map = preload("res://campaign_map/campaign_map.tscn")
@@ -94,7 +98,7 @@ func _on_hall_of_heroes_button_pressed():
 	get_tree().change_scene_to_packed(HALL_OF_HEROES_SCENE)
 
 
-func _on_tutorials_pressed():
+func _on_tutorials_button_pressed():
 	transition_out_animation()
 	get_tree().change_scene_to_packed(TUTORIAL_PAGE_SCENE)
 
@@ -102,6 +106,7 @@ func _on_tutorials_pressed():
 func _on_new_game_button_pressed():
 	var overworld = preload(overworld_scene)
 	playerOverworldData.current_campaign = null
+	playerOverworldData.campaign_map_data.clear()
 	playerOverworldData.completed_drafting = false
 	playerOverworldData.current_level = null
 	playerOverworldData.began_level = false

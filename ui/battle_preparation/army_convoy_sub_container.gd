@@ -11,8 +11,8 @@ signal item_sold(item)
 
 @onready var main_scroll_container = $ScrollContainer/MainScrollContainer
 
-const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
-const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
+#const unit_army_panel_container_scene = preload("res://ui/battle_preparation/unit_army_panel_container.tscn")
+#const convoy_item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
 
 var playerOverworldData : PlayerOverworldData
 
@@ -28,33 +28,33 @@ func _ready():
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
-func fill_army_scroll_container():
-	for unit in playerOverworldData.total_party:
-		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
-		unit_army_panel_container.unit = unit
-		unit_army_panel_container.set_po_data(playerOverworldData)
-		main_scroll_container.add_child(unit_army_panel_container)
-		if !focused:
-			unit_army_panel_container.grab_focus.call_deferred()
-			focused = true
-		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
-		unit_army_panel_container.unit_selected.connect(_on_unit_selected)
-		unit_army_panel_container.unit_deselected.connect(_on_unit_deselected)
+#func fill_army_scroll_container():
+#	for unit in playerOverworldData.total_party:
+		#var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
+		#unit_army_panel_container.unit = unit
+		#unit_army_panel_container.set_po_data(playerOverworldData)
+		#main_scroll_container.add_child(unit_army_panel_container)
+#		if !focused:
+#			unit_army_panel_container.grab_focus.call_deferred()
+#			focused = true
+#		unit_army_panel_container.focus_entered.connect(unit_focus_entered.bind(unit))
+#		unit_army_panel_container.unit_selected.connect(_on_unit_selected)
+#		unit_army_panel_container.unit_deselected.connect(_on_unit_deselected)
 
 
 
-func fill_convoy_scroll_container():
-	for item in playerOverworldData.convoy:
-		if item:
-			var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
-			convoy_item_panel_container.item = item
-			main_scroll_container.add_child(convoy_item_panel_container)
-			if !focused:
-				convoy_item_panel_container.grab_focus.call_deferred()
-				focused = true
-			convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
-			convoy_item_panel_container.item_sent_to_unit.connect(_on_item_sent_to_unit)
-			convoy_item_panel_container.item_sold.connect(_on_item_sold)
+#func fill_convoy_scroll_container():
+#	for item in playerOverworldData.convoy:
+#		if item:
+#			var convoy_item_panel_container = convoy_item_panel_container_scene.instantiate()
+#			convoy_item_panel_container.item = item
+#			main_scroll_container.add_child(convoy_item_panel_container)
+#			if !focused:
+#				convoy_item_panel_container.grab_focus.call_deferred()
+#				focused = true
+#			convoy_item_panel_container.focus_entered.connect(item_focus_entered.bind(convoy_item_panel_container.item))
+#			convoy_item_panel_container.item_sent_to_unit.connect(_on_item_sent_to_unit)
+#			convoy_item_panel_container.item_sold.connect(_on_item_sold)
 
 
 #func get_first_child_focus():

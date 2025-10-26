@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://1c3aprfp8an2"]
 
-[ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_preparation/inventory_not_focused.tres" id="1_2tmqy"]
-[ext_resource type="Script" uid="uid://d3xeilkvut31c" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.gd" id="2_xilpg"]
+[ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_prep_new/inventory_not_focused.tres" id="1_2tmqy"]
+[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/inventory_container_slot.gd" id="2_xilpg"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_e5b4r"]
 
 [sub_resource type="Theme" id="Theme_if1ym"]

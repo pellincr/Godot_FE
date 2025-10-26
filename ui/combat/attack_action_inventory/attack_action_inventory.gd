@@ -46,10 +46,11 @@ func update_display():
 func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
 	target.disabled = !valid
 	target.set_fields(item, equipped)
-	if valid and focus_grabbed == false:
-		target.grab_focus()
-		focus_grabbed = true
-		update_hover_item(item)
+	if valid:
+		if focus_grabbed == false:
+			target.grab_focus()
+			focus_grabbed = true
+			update_hover_item(item)
 
 func update_hover_item(item: ItemDefinition):
 	if item is WeaponDefinition:

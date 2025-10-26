@@ -1,27 +1,56 @@
-[gd_resource type="Resource" script_class="Event" load_steps=6 format=3 uid="uid://dl1y82k76ck63"]
+[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://dl1y82k76ck63"]
 
-[ext_resource type="Script" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gdb3o"]
-[ext_resource type="Script" path="res://scripts/resources/events/events.gd" id="3_iv5nk"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gdb3o"]
+[ext_resource type="Texture2D" uid="uid://24osm25o854k" path="res://resources/sprites/events/grove_trial_background.png" id="1_ncqdf"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="3_iv5nk"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
+
+[sub_resource type="Resource" id="Resource_acy4k"]
+script = ExtResource("3_rfpjw")
+speed = -10
+
+[sub_resource type="Resource" id="Resource_4dw2y"]
+script = ExtResource("3_rfpjw")
+strength = 1
+speed = -1
+defense = 1
 
 [sub_resource type="Resource" id="Resource_6m46o"]
 script = ExtResource("1_gdb3o")
-description = "Meditate  : two random units +2 Resistance"
-effect = 8
+title = "Face the Test"
+description = "Selected unit gains [color=#FAFA82]1[/color] Strength and 1 Defense but loses [color=#AC3232]1[/color] Speed and [color=#AC3232]10%[/color] Speed growth."
+effect = 2
+unit_stat_change = SubResource("Resource_4dw2y")
+unit_growth_change = SubResource("Resource_acy4k")
 
-[sub_resource type="Resource" id="Resource_37l2w"]
+[sub_resource type="Resource" id="Resource_ll0aw"]
+script = ExtResource("3_rfpjw")
+magic = 15
+
+[sub_resource type="Resource" id="Resource_cf6vk"]
 script = ExtResource("1_gdb3o")
-description = "Cut a path : 1 random Rare Weapon"
-effect = 9
+title = "Harness The Spirit"
+description = "Selected unit gains [color=#FAFA82]15%[/color] Magic growth."
+effect = 2
+unit_growth_change = SubResource("Resource_ll0aw")
+
+[sub_resource type="Resource" id="Resource_vkiqa"]
+script = ExtResource("3_rfpjw")
+hp = -4
+speed = 1
 
 [sub_resource type="Resource" id="Resource_v8s5k"]
 script = ExtResource("1_gdb3o")
-description = "Rush Through : two random units -3 max hp + 1 speed"
-effect = 10
+title = "Flee the Forest"
+description = "Selected unit gains [color=#FAFA82]1[/color] Speed but loses [color=#AC3232]4[/color] Max Health."
+effect = 2
+unit_stat_change = SubResource("Resource_vkiqa")
 
 [resource]
 script = ExtResource("3_iv5nk")
 name = "Sacred Grove Trial"
 description = "A forest spirit challenges your worth."
+background = ExtResource("1_ncqdf")
 option1 = SubResource("Resource_6m46o")
-option2 = SubResource("Resource_37l2w")
+option2 = SubResource("Resource_cf6vk")
 option3 = SubResource("Resource_v8s5k")

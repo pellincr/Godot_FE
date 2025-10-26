@@ -76,10 +76,10 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.faction = unit_type.faction
 	
 	update_usable_weapon_types(new_unit)
-	update_growths(new_unit)
 	create_inventory(new_unit, _inventory)
 	update_visuals(new_unit)
 	new_unit.update_stats()
+	new_unit.update_growths()
 	for levelup in simulated_levels:
 		var level_up_stats : UnitStat = new_unit.get_level_up_value()
 		new_unit.apply_level_up_value(level_up_stats)
@@ -107,12 +107,12 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
 	
 	update_usable_weapon_types(new_unit)
-	update_growths(new_unit)
+	new_unit.update_growths()
 	create_inventory(new_unit, _inventory)
 	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode)
 	update_visuals(new_unit)
-
 	new_unit.update_stats()
+
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
 
@@ -186,18 +186,19 @@ func level_up_stat_roll(growth_rate : int) -> int:
 # @param growth_rate : target stat's growth rate (%)
 ##
 func get_level_up_value(unit: Unit = self) -> UnitStat:
-	var level : UnitStat = UnitStat.new()
+	var level_stats : UnitStat = UnitStat.new()
+	var bonus_growths : UnitStat = unit.inventory.total_item_held_bonus_growths()
 	
-	level.hp += level_up_stat_roll(unit.growths.hp)
-	level.strength += level_up_stat_roll(unit.growths.strength)
-	level.magic += level_up_stat_roll(unit.growths.magic)
-	level.skill += level_up_stat_roll(unit.growths.skill)
-	level.speed += level_up_stat_roll(unit.growths.speed)
-	level.luck += level_up_stat_roll(unit.growths.luck)
-	level.defense += level_up_stat_roll(unit.growths.defense)
-	level.resistance += level_up_stat_roll(unit.growths.resistance)
+	level_stats.hp += level_up_stat_roll(unit.growths.hp + bonus_growths.hp)
+	level_stats.strength += level_up_stat_roll(unit.growths.strength+ bonus_growths.strength)
+	level_stats.magic += level_up_stat_roll(unit.growths.magic + bonus_growths.magic)
+	level_stats.skill += level_up_stat_roll(unit.growths.skill + bonus_growths.skill)
+	level_stats.speed += level_up_stat_roll(unit.growths.speed + bonus_growths.speed)
+	level_stats.luck += level_up_stat_roll(unit.growths.luck + bonus_growths.luck)
+	level_stats.defense += level_up_stat_roll(unit.growths.defense + bonus_growths.defense)
+	level_stats.resistance += level_up_stat_roll(unit.growths.resistance + bonus_growths.resistance)
 	#unit.update_stats()
-	return level
+	return level_stats
 
 ##
 # level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
@@ -290,7 +291,6 @@ func calculate_avoid(weapon: WeaponDefinition = null, terrain : Terrain = null) 
 		avoid_value = (2 * calculate_attack_speed()) + stats.luck
 	if terrain:
 		avoid_value += terrain.avoid
-	print("Avoid Val : " + str(avoid_value))
 	return avoid_value
 
 func calculate_attack(weapon: WeaponDefinition = null) -> int: 
@@ -307,40 +307,6 @@ func calculate_attack(weapon: WeaponDefinition = null) -> int:
 			else :
 				attack_value = stats.magic  + inventory.get_equipped_weapon().damage
 	return attack_value
-
-func calculate_experience_gain_hit(hit_unit:Unit) -> int:
-	print ("Entered calculate_experience_gain_hit")
-	var experience_gain = 0
-	var target_unit_value = 0
-	var my_unit_value = 0
-	var hit_unit_type = UnitTypeDatabase.get_definition(hit_unit.unit_type_key)
-	if(hit_unit_type.promoted) :
-		target_unit_value = 20
-	var self_unit_type = UnitTypeDatabase.get_definition(self.unit_type_key)
-	if (self_unit_type.promoted) :
-		my_unit_value = 20
-	experience_gain = clamp((((hit_unit.level + target_unit_value) - (level + my_unit_value)*1.25) + 31)  / get_unit_type_definition().tier, 0, 100)
-	print ("calculate_experience_gain_hit = " + str(experience_gain))
-	return experience_gain
-
-func calculate_experience_gain_kill(killed_unit:Unit) -> int:
-	print ("Entered calculate_experience_gain_kill")
-	var experience_gain = 0
-	var target_unit_value = 0
-	var my_unit_value = 0
-	experience_gain = calculate_experience_gain_hit(killed_unit)
-	
-	var killed_unit_type = UnitTypeDatabase.get_definition(killed_unit.unit_type_key)
-	if(killed_unit_type.promoted) :
-		target_unit_value = 60
-	
-	var self_unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	if (self_unit_type.promoted) :
-		my_unit_value = 60
-	experience_gain = clampi(experience_gain + (((killed_unit.level + target_unit_value) - (level + my_unit_value)*1.25)+ killed_unit.xp_worth + 20), 0, 100)
-		#(killed_unit.level + target_unit_value + killed_unit.xp_worth) - (level + my_unit_value + get_unit_type_definition().tier)) + 20, 0, 100)
-	print ("calculate_experience_gain_kill = " + str(experience_gain))
-	return experience_gain
 
 func heal(value: int) :
 	self.hp  =  clamp(self.hp + value, 0, self.stats.hp)
@@ -359,26 +325,26 @@ static func update_usable_weapon_types(u: Unit):
 		if weapon not in u.usable_weapon_types:
 			u.usable_weapon_types.append(weapon)
 
-static func update_growths(u :Unit):
+func update_growths():
 	#var unit_type_growths : UnitStat = u.get_unit_type_definition().growth_stats
-	if u.unit_character:
-		u.growths.hp = clampi(u.unit_character.growths.hp + u.get_unit_type_definition().growth_stats.hp, 0,200)
-		u.growths.strength = clampi(u.unit_character.growths.strength + u.get_unit_type_definition().growth_stats.strength, 0,200)
-		u.growths.magic = clampi(u.unit_character.growths.magic + u.get_unit_type_definition().growth_stats.magic, 0,200)
-		u.growths.skill = clampi(u.unit_character.growths.skill + u.get_unit_type_definition().growth_stats.skill, 0,200)
-		u.growths.speed = clampi(u.unit_character.growths.speed + u.get_unit_type_definition().growth_stats.speed, 0,200)
-		u.growths.luck = clampi(u.unit_character.growths.luck + u.get_unit_type_definition().growth_stats.luck, 0,200)
-		u.growths.defense = clampi(u.unit_character.growths.defense + u.get_unit_type_definition().growth_stats.defense, 0,200)
-		u.growths.resistance = clampi(u.unit_character.growths.resistance + u.get_unit_type_definition().growth_stats.resistance, 0,200)
+	if self.unit_character:
+		self.growths.hp = clampi(self.unit_character.growths.hp + self.get_unit_type_definition().growth_stats.hp, 0,200)
+		self.growths.strength = clampi(self.unit_character.growths.strength + self.get_unit_type_definition().growth_stats.strength, 0,200)
+		self.growths.magic = clampi(self.unit_character.growths.magic + self.get_unit_type_definition().growth_stats.magic, 0,200)
+		self.growths.skill = clampi(self.unit_character.growths.skill + self.get_unit_type_definition().growth_stats.skill, 0,200)
+		self.growths.speed = clampi(self.unit_character.growths.speed + self.get_unit_type_definition().growth_stats.speed, 0,200)
+		self.growths.luck = clampi(self.unit_character.growths.luck + self.get_unit_type_definition().growth_stats.luck, 0,200)
+		self.growths.defense = clampi(self.unit_character.growths.defense + self.get_unit_type_definition().growth_stats.defense, 0,200)
+		self.growths.resistance = clampi(self.unit_character.growths.resistance + self.get_unit_type_definition().growth_stats.resistance, 0,200)
 	else :
-		u.growths.hp = u.get_unit_type_definition().growth_stats.hp
-		u.growths.strength = u.get_unit_type_definition().growth_stats.strength
-		u.growths.magic = u.get_unit_type_definition().growth_stats.magic
-		u.growths.skill = u.get_unit_type_definition().growth_stats.skill
-		u.growths.speed = u.get_unit_type_definition().growth_stats.speed
-		u.growths.luck = u.get_unit_type_definition().growth_stats.luck
-		u.growths.defense = u.get_unit_type_definition().growth_stats.defense
-		u.growths.resistance = u.get_unit_type_definition().growth_stats.resistance
+		self.growths.hp = self.get_unit_type_definition().growth_stats.hp
+		self.growths.strength = self.get_unit_type_definition().growth_stats.strength
+		self.growths.magic = self.get_unit_type_definition().growth_stats.magic
+		self.growths.skill = self.get_unit_type_definition().growth_stats.skill
+		self.growths.speed = self.get_unit_type_definition().growth_stats.speed
+		self.growths.luck = self.get_unit_type_definition().growth_stats.luck
+		self.growths.defense = self.get_unit_type_definition().growth_stats.defense
+		self.growths.resistance = self.get_unit_type_definition().growth_stats.resistance
 
 ##Inventory Methods
 func get_usable_weapons_at_range(distance: int) -> Array[WeaponDefinition]:
@@ -426,12 +392,18 @@ func can_equip(item:ItemDefinition) -> bool:
 	else :
 		print("Tried to equip a non-weapon")
 	return can_equip_item
-	
+
+func attempt_to_equip_front_item():
+	if can_equip(inventory.items.front()):
+		inventory.set_equipped(inventory.items.front())
+	else: 
+		inventory.unequip()
+	update_stats()
+
 func set_equipped(item : ItemDefinition):
 	if can_equip(item):
 		inventory.set_equipped(item)
 		update_stats()
-		print(self.name + " equipped : " + item.name)
 
 func get_equippable_weapons() ->  Array[WeaponDefinition]:
 	var equippable_weapons : Array[WeaponDefinition]

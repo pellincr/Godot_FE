@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=14 format=3 uid="uid://curdlnsw0rxvu"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_d2eeg"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_p6nqc"]
+[ext_resource type="Resource" uid="uid://bfagy3hog22to" path="res://resources/definitions/loot_tables/chest_loot_table.tres" id="3_j38f2"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="4_t0f1r"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="5_afc4f"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_whcuo"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="7_0jthu"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="8_w3xbb"]
+
+[sub_resource type="Resource" id="Resource_ql0y8"]
+script = ExtResource("2_p6nqc")
+position = Vector2i(2, 14)
+loot_table = ExtResource("3_j38f2")
+
+[sub_resource type="Resource" id="Resource_by2s0"]
+script = ExtResource("2_p6nqc")
+position = Vector2i(4, 14)
+loot_table = ExtResource("3_j38f2")
+
+[sub_resource type="Resource" id="Resource_tdwda"]
+script = ExtResource("4_t0f1r")
+position = Vector2i(2, 3)
+type = 1
+
+[sub_resource type="Resource" id="Resource_m06mr"]
+script = ExtResource("4_t0f1r")
+position = Vector2i(9, 4)
+type = 1
+
+[sub_resource type="Resource" id="Resource_jbgt7"]
+script = ExtResource("5_afc4f")
+positions = Array[Vector2i]([Vector2i(1, 11)])
+
+[resource]
+script = ExtResource("7_0jthu")
+chests = Array[ExtResource("2_p6nqc")]([SubResource("Resource_ql0y8"), SubResource("Resource_by2s0")])
+doors = Array[ExtResource("5_afc4f")]([SubResource("Resource_jbgt7")])
+debris = Array[ExtResource("4_t0f1r")]([SubResource("Resource_tdwda"), SubResource("Resource_m06mr")])
+stone_debris_hp = 65

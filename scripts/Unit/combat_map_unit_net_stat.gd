@@ -19,14 +19,14 @@ var hit : StatModifierList = StatModifierList.new()
 var avoid :  StatModifierList = StatModifierList.new()
 var attack_speed :  StatModifierList = StatModifierList.new()
 var critical_chance : StatModifierList = StatModifierList.new()
-var critical_avoid : StatModifierList = StatModifierList.new() ##NEED TO IMPL
+var critical_avoid : StatModifierList = StatModifierList.new()
 
 #This comes straight from weapon --> update this when skills are added?
 var critical_multiplier : StatModifierList = StatModifierList.new()
 #var damage_type : Constants.DAMAGE_TYPE = 0
 #var attack_range : Array[int] = []
 #var weapon_effectiveness : Array[unitConstants.TRAITS] = []
-#var required_mastery : itemConstants.MASTERY_REQUIREMENT = itemConstants.MASTERY_REQUIREMENT.E
+#var required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
 func clear():
 	max_hp.clear()
@@ -71,7 +71,7 @@ func populate_unit_stats(unit : Unit):
 	#self.hit.append(StatModifier.create(int(2 * self.skill.evaluate() +self.luck.evaluate()/2), "Unit"))
 	#self.avoid.append(StatModifier.create(int(self.luck.evaluate() + 2 * self.speed.evaluate()), "Unit"))
 
-	self.critical_chance.append(StatModifier.create(int(self.skill.evaluate()/2), "Unit"))
+	self.critical_chance.append(StatModifier.create(0, "Unit"))
 	self.critical_multiplier.append(StatModifier.create(0, "Unit"))
 
 func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
@@ -139,3 +139,25 @@ func populate_terrain_stats(terrain:Terrain):
 	self.avoid.append(StatModifier.create(terrain.avoid, "Terrain"))
 	self.defense.append(StatModifier.create(terrain.defense, "Terrain"))
 	self.resistance.append(StatModifier.create(terrain.resistance, "Terrain"))
+
+func populate_inventory_stats(cu: CombatUnit):
+	var inventory_bonuses : CombatUnitStat = cu.unit.inventory.total_item_held_bonus_stats()
+	self.max_hp.append(StatModifier.create(inventory_bonuses.hp, "Inventory"))
+	self.strength.append(StatModifier.create(inventory_bonuses.strength, "Inventory"))
+	self.magic.append(StatModifier.create(inventory_bonuses.magic, "Inventory"))
+	self.skill.append(StatModifier.create(inventory_bonuses.skill, "Inventory"))
+	self.speed.append(StatModifier.create(inventory_bonuses.speed, "Inventory"))
+	self.luck.append(StatModifier.create(inventory_bonuses.luck, "Inventory"))
+	
+	self.defense.append(StatModifier.create(inventory_bonuses.defense, "Inventory"))
+	self.resistance.append(StatModifier.create(inventory_bonuses.resistance, "Inventory"))
+	self.movement.append(StatModifier.create(inventory_bonuses.movement, "Inventory"))
+	self.constitution.append(StatModifier.create(inventory_bonuses.constitution, "Inventory"))
+	self.speed.append(StatModifier.create(inventory_bonuses.speed, "Inventory"))
+	self.damage.append(StatModifier.create(inventory_bonuses.damage, "Inventory"))
+	self.hit.append(StatModifier.create(inventory_bonuses.hit, "Inventory"))
+	self.avoid.append(StatModifier.create(inventory_bonuses.avoid, "Inventory"))
+	self.attack_speed.append(StatModifier.create(inventory_bonuses.attack_speed, "Inventory"))
+	self.critical_chance.append(StatModifier.create(inventory_bonuses.critical_chance, "Inventory"))
+	self.critical_multiplier.append(StatModifier.create(inventory_bonuses.critical_multiplier, "Inventory"))
+	self.critical_avoid.append(StatModifier.create(inventory_bonuses.critical_avoid, "Inventory"))

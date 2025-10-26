@@ -2,19 +2,22 @@ extends Resource
 class_name UnitCombatExchangeData
 
 @export var exchange_data : Array[UnitCombatExchangeTurnData] =[]
-@export var weapon_triange : String #"NONE", "ATTACKER", "DEFENDER"
+@export var weapon_triange : Unit #"NONE", "ATTACKER", "DEFENDER"
+@export var effective : Array[Unit] = []
 
 @export var attacker : CombatUnit
 @export var attacker_predicted_hp : int
 @export var attacker_net_damage : int
 @export var attacker_hit : int
 @export var attacker_critical : int
+@export var attacker_effective : bool
 
 @export var defender : CombatUnit
 @export var defender_predicted_hp : int
 @export var defender_net_damage : int
 @export var defender_hit : int
 @export var defender_critical : int
+@export var defender_effective : bool
 
 func calc_net_damage():
 	attacker_net_damage = 0

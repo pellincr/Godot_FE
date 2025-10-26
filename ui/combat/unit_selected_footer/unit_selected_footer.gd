@@ -32,21 +32,22 @@ func update():
 	level_container.set_level_label(unit.unit.level)
 	level_container.set_xp_label(unit.unit.experience)
 	level_container.set_level_progress_value(unit.unit.experience)
-	current_move_value.text = str(unit.unit.movement)
-	total_move_value.text = str(unit.unit.movement)
+	current_move_value.text = str(unit.effective_move)
+	total_move_value.text = str(unit.effective_move)
 	#HP Panel
 	current_hp.text = str(unit.current_hp)
 	max_hp.text = str(unit.stats.max_hp.evaluate())
-	health_bar.value = unit.current_hp
 	health_bar.max_value = unit.stats.max_hp.evaluate()
+	health_bar.value = unit.current_hp
+	
 	
 	#Stat Grid
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.unit.attack)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.unit.hit)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.unit.avoid)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.unit.attack_speed)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.unit.stats.resistance)
-	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.unit.stats.defense)
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Attack/Value.text = str(unit.get_damage())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Hit/Value.text = str(unit.get_hit())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Avoid/Value.text = str(unit.get_avoid())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Speed/Value.text = str(unit.get_attack_speed())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Res/Value.text = str(unit.get_resistance())
+	$VBoxContainer/BackPanel/MarginContainer/HBoxContainer/StatsGridMargin/CenterContainer/StatsGrid/Def/Value.text = str(unit.get_defense())
 	update_background()
 
 func update_background():

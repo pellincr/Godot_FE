@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://ca5sf13370j7n"]
+
+[ext_resource type="Texture2D" uid="uid://dtp4mkchm3mrg" path="res://resources/sprites/items/weapons/staff/minor_heal.png" id="1_b4g1s"]
+[ext_resource type="Resource" uid="uid://cpv0wg3lugprn" path="res://resources/definitions/rarity/Standard.tres" id="2_35gft"]
+[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_gqge4"]
+
+[resource]
+script = ExtResource("3_gqge4")
+weapon_type = 6
+alignment = 0
+physical_weapon_triangle_type = 0
+magic_weapon_triangle_type = 0
+support_type = 1
+item_damage_type = 3
+item_scaling_type = 2
+item_scaling_multiplier = 1.0
+item_target_faction = Array[int]([1])
+required_mastery = 0
+attack_range = Array[int]([1])
+damage = 5
+hit = 100
+critical_chance = 0
+weight = 5
+critical_multiplier = 3.0
+attacks_per_combat_turn = 1
+weapon_effectiveness = Array[int]([])
+status_ailment = 2
+specials = Array[int]([])
+augmented = false
+name = "Minor Heal"
+db_key = "minor_heal"
+equippable = true
+description = "Restores a minor amount of HP to allies in adjacent spaces, unbreakable."
+item_type = 1
+rarity = ExtResource("2_35gft")
+uses = 1
+max_uses = 1
+unbreakable = true
+worth = 400
+icon = ExtResource("1_b4g1s")

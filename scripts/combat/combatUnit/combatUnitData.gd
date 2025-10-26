@@ -9,4 +9,5 @@ class_name CombatUnitData
 @export var unit_type_key: String#UnitTypeDefinition
 @export var inventory: Array[ItemDefinition]
 @export_enum( "DEFAULT", "ATTACK_IN_RANGE", "DEFEND_POINT") var ai_type: int 
-@export var is_boss := false
+@export var is_boss : bool = false
+@export var drops_item : bool = false

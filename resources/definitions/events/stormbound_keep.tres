@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://2ir81eqrmk7t"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_15irv"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_s6r8v"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_nu7vh"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_w1iia"]
+
+[sub_resource type="Resource" id="Resource_lxtie"]
+script = ExtResource("2_nu7vh")
+hp = -2
+magic = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_4b4rn"]
+script = ExtResource("1_s6r8v")
+title = "Channel the Storm"
+description = "Selected unit gains [color=#8EE15F]2[/color] Magic but loses [color=#AC3232]2[/color] Max Health."
+effect = 2
+unit_stat_change = SubResource("Resource_lxtie")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_4y2rl"]
+script = ExtResource("2_nu7vh")
+defense = 1
+resistance = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_ibqu3"]
+script = ExtResource("1_s6r8v")
+title = "Endure the Tempest"
+description = "Selected unit gains [color=#8EE15F]1[/color] Defense and [color=#8EE15F]1[/color] Resistance."
+effect = 2
+unit_stat_change = SubResource("Resource_4y2rl")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_v2oi6"]
+script = ExtResource("3_w1iia")
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_t7ax6"]
+script = ExtResource("1_s6r8v")
+title = "Infuse the Blade"
+description = "A selected weapon gains [color=#8EE15F]effective damage[/color] against flying foes."
+effect = 6
+wpn_stat_change = SubResource("Resource_v2oi6")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_15irv")
+name = "Stormbound Keep"
+description = "Lightning dances along ancient battlements."
+option1 = SubResource("Resource_4b4rn")
+option2 = SubResource("Resource_ibqu3")
+option3 = SubResource("Resource_t7ax6")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

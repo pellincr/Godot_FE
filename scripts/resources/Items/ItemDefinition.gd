@@ -1,19 +1,12 @@
 extends Resource
 class_name ItemDefinition
 
-enum ITEM_TYPE {
-	WEAPON,
-	STAFF,
-	USEABLE_ITEM,
-	EQUIPMENT_LOOT
-}
-
 @export_group("Item Info")
 @export var name = ""
 @export var db_key = ""
 @export var equippable = false
 @export var description : String
-@export_enum("Weapon", "Staff", "Usable Item", "Equipment or Loot" ) var item_type :int = 0
+@export var item_type :ItemConstants.ITEM_TYPE = 0
 
 @export var rarity : Rarity
 
@@ -21,10 +14,14 @@ enum ITEM_TYPE {
 @export_range(-1, 100, 1, "or_greater") var uses = 1
 @export_range(1, 2, 1, "or_greater") var max_uses = 1
 @export var unbreakable = false
-
 @export_range(0,1000,1, "or_greater") var worth = 100
 var price : int = calculate_price()
 
+
+
+@export_group("Bonus Stats From Held in Inventory")
+@export var inventory_bonus_stats : CombatUnitStat = null
+@export var inventory_growth_bonus_stats : UnitStat = null
 @export_group("Visuals")
 @export var icon: Texture2D
 

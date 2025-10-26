@@ -1,0 +1,91 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=26 format=3 uid="uid://dqtnkut51hgal"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_1q36f"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_2rh85"]
+[ext_resource type="Resource" uid="uid://bfagy3hog22to" path="res://resources/definitions/loot_tables/chest_loot_table.tres" id="3_j0vyd"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="4_0aqgn"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="5_272tv"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_8ujoo"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="7_3kjwg"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="8_pvk22"]
+
+[sub_resource type="Resource" id="Resource_vscu6"]
+script = ExtResource("2_2rh85")
+position = Vector2i(10, 10)
+loot_table = ExtResource("3_j0vyd")
+
+[sub_resource type="Resource" id="Resource_y823m"]
+script = ExtResource("2_2rh85")
+position = Vector2i(15, 5)
+loot_table = ExtResource("3_j0vyd")
+
+[sub_resource type="Resource" id="Resource_p5hid"]
+script = ExtResource("2_2rh85")
+position = Vector2i(13, 2)
+loot_table = ExtResource("3_j0vyd")
+
+[sub_resource type="Resource" id="Resource_mpx3f"]
+script = ExtResource("2_2rh85")
+position = Vector2i(15, 2)
+loot_table = ExtResource("3_j0vyd")
+
+[sub_resource type="Resource" id="Resource_w5m7s"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(3, 6)
+type = 1
+
+[sub_resource type="Resource" id="Resource_uwsm4"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(9, 7)
+type = 1
+
+[sub_resource type="Resource" id="Resource_t5qxx"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(13, 8)
+
+[sub_resource type="Resource" id="Resource_4cye4"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(6, 3)
+
+[sub_resource type="Resource" id="Resource_ma2dt"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(3, 4)
+
+[sub_resource type="Resource" id="Resource_rm254"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(14, 11)
+
+[sub_resource type="Resource" id="Resource_7ex5k"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(14, 2)
+
+[sub_resource type="Resource" id="Resource_a32v8"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(15, 10)
+
+[sub_resource type="Resource" id="Resource_s25di"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(3, 3)
+
+[sub_resource type="Resource" id="Resource_4qfs6"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(11, 1)
+
+[sub_resource type="Resource" id="Resource_ir3n7"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(14, 12)
+
+[sub_resource type="Resource" id="Resource_nbd0b"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(15, 11)
+
+[sub_resource type="Resource" id="Resource_lyi6b"]
+script = ExtResource("5_272tv")
+positions = Array[Vector2i]([Vector2i(14, 4)])
+
+[resource]
+script = ExtResource("7_3kjwg")
+chests = Array[ExtResource("2_2rh85")]([SubResource("Resource_vscu6"), SubResource("Resource_y823m"), SubResource("Resource_p5hid"), SubResource("Resource_mpx3f")])
+doors = Array[ExtResource("5_272tv")]([SubResource("Resource_lyi6b")])
+debris = Array[ExtResource("4_0aqgn")]([SubResource("Resource_w5m7s"), SubResource("Resource_uwsm4"), SubResource("Resource_t5qxx"), SubResource("Resource_4cye4"), SubResource("Resource_ma2dt"), SubResource("Resource_rm254"), SubResource("Resource_7ex5k"), SubResource("Resource_a32v8"), SubResource("Resource_s25di"), SubResource("Resource_4qfs6"), SubResource("Resource_ir3n7"), SubResource("Resource_nbd0b")])
+wooden_debris_hp = 15

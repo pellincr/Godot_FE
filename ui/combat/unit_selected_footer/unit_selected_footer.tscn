@@ -1,18 +1,19 @@
 [gd_scene load_steps=16 format=3 uid="uid://ckrpuok3owxp1"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_selected_footer/unit_selected_footer.gd" id="1_4e511"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_a2sxk"]
+[ext_resource type="Script" uid="uid://swe3obi6qsh3" path="res://ui/combat/unit_selected_footer/unit_selected_footer.gd" id="1_4e511"]
 [ext_resource type="PackedScene" uid="uid://7v6c3rjvvx7v" path="res://ui/shared/combatUnitPanel/CombatUnitPanel.tscn" id="1_mwkog"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="1_tyvqx"]
 [ext_resource type="Theme" uid="uid://beqlgf0u7r378" path="res://ui/combat/unit_selected_footer/UnitSelectedFooter_Ally.tres" id="2_2nctm"]
 [ext_resource type="PackedScene" uid="uid://h72bu6iftir2" path="res://ui/combat/unit_selected_footer/UnitFooterInventoryContainer/UnitFooterInventoryContainer.tscn" id="3_gx5ht"]
 [ext_resource type="PackedScene" uid="uid://dpu617pjpuyok" path="res://ui/combat/unit_level_container/level_container.tscn" id="4_81g0a"]
 [ext_resource type="Theme" uid="uid://d0vxuepyv7a5d" path="res://resources/themes/progress_bar.tres" id="7_1giwn"]
 
 [sub_resource type="Theme" id="Theme_gar81"]
-default_font = ExtResource("1_a2sxk")
+default_font = ExtResource("1_tyvqx")
+default_font_size = 18
 
 [sub_resource type="Theme" id="Theme_8tqep"]
-default_font_size = 16
+default_font_size = 18
 
 [sub_resource type="Theme" id="Theme_pomve"]
 default_font_size = 32
@@ -90,8 +91,7 @@ layout_mode = 2
 [node name="UnitTypeLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Lance Armor
-"
+text = "Lance Armor"
 
 [node name="UnitTypeIconLabels" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer"]
 layout_mode = 2
@@ -107,19 +107,16 @@ size_flags_horizontal = 2
 [node name="MoveLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Move
-"
+text = "Move"
 
 [node name="CurrentMoveValue" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
 layout_mode = 2
-text = "5
-"
+text = "5"
 
 [node name="TotalMoveValue" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
-text = "5
-"
+text = "5"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -142,8 +139,9 @@ theme_override_constants/margin_right = 25
 layout_mode = 2
 
 [node name="Health" type="HBoxContainer" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer"]
-custom_minimum_size = Vector2(175, 55)
+custom_minimum_size = Vector2(175, 25)
 layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="HealthLabel" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
@@ -157,19 +155,17 @@ size_flags_vertical = 8
 
 [node name="CurrentHP" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "56
-"
+theme_override_font_sizes/font_size = 54
+text = "56"
 
 [node name="divider" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "/
-"
+theme_override_font_sizes/font_size = 54
+text = "/"
 
 [node name="MaxHP" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer/Health/HPValueContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 54
 text = "60"
 
 [node name="HealthBar" type="ProgressBar" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/HealthMarginContainer/HealthContainer"]

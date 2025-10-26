@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot_FE"
 run/main_scene="res://Game Start Screen/start_screen.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.png"
 
 [autoload]
@@ -33,6 +33,7 @@ EventDatabase="*res://combat/databases/event_database.tscn"
 CombatMapConstants="*res://scripts/combat/combat_map_constants.gd"
 EffectConstants="*res://scripts/Constants/EffectConstants.gd"
 EffectTypeDatabase="*res://combat/databases/effect_type_database.tscn"
+AudioManager="*res://audio_manager/AudioManager.tscn"
 
 [display]
 
@@ -49,6 +50,12 @@ export/convert_text_resources_to_binary=false
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
+
+[importer_defaults]
+
+wav={
+&"compress/mode": 0
+}
 
 [input]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cdlfag250l6jk" path="res://resources/sprites/items/consumables/elixir.png" id="1_n7frl"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_30ffo"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_a2fum"]
+[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_a2fum"]
 [ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_46pf7"]
 
 [resource]

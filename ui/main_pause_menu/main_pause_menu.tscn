@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://i8pbnogb3qa2"]
+
+[ext_resource type="Script" path="res://ui/main_pause_menu/main_pause_menu.gd" id="1_bm7y1"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ipguu"]
+
+[node name="MainPauseMenu" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -86.0
+offset_right = 114.5
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ipguu")
+script = ExtResource("1_bm7y1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CloseMenuButton" type="Button" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../QuitGameButton")
+focus_neighbor_top = NodePath("../QuitGameButton")
+focus_neighbor_right = NodePath("../MainMenuButton")
+text = "Close Menu"
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../CloseMenuButton")
+focus_neighbor_right = NodePath("../QuitGameButton")
+text = "Main Menu"
+
+[node name="QuitGameButton" type="Button" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../MainMenuButton")
+focus_neighbor_right = NodePath("../CloseMenuButton")
+focus_neighbor_bottom = NodePath("../CloseMenuButton")
+text = "Quit Game"
+
+[node name="ConfirmSubContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ConfirmSubContainer"]
+layout_mode = 2
+text = "Are You Sure?"
+
+[node name="YesButton" type="Button" parent="MarginContainer/ConfirmSubContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../NoButton")
+focus_neighbor_top = NodePath("../NoButton")
+focus_neighbor_right = NodePath("../NoButton")
+focus_neighbor_bottom = NodePath("../NoButton")
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="MarginContainer/ConfirmSubContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../YesButton")
+focus_neighbor_top = NodePath("../YesButton")
+focus_neighbor_right = NodePath("../YesButton")
+focus_neighbor_bottom = NodePath("../YesButton")
+text = "No"
+
+[connection signal="pressed" from="MarginContainer/MainContainer/CloseMenuButton" to="." method="_on_close_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ConfirmSubContainer/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ConfirmSubContainer/NoButton" to="." method="_on_no_button_pressed"]

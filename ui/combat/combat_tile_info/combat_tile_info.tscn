@@ -1,41 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://8y216guxyi22"]
+[gd_scene load_steps=3 format=3 uid="uid://8y216guxyi22"]
 
+[ext_resource type="Theme" uid="uid://1y2gauj0n4a3" path="res://ui/combat/combat_tile_info/tile_info_theme.tres" id="1_ryv44"]
 [ext_resource type="Script" path="res://ui/combat/combat_tile_info/combat_tile_info.gd" id="2_qy013"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="2_xscgn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oymho"]
-bg_color = Color(0.027451, 0, 0, 1)
-border_width_top = 1
-border_width_bottom = 1
-border_color = Color(0.913725, 0.898039, 0.756863, 1)
-
-[sub_resource type="Theme" id="Theme_qjwpb"]
-Label/colors/font_color = Color(0.913725, 0.898039, 0.756863, 1)
-Label/fonts/font = ExtResource("2_xscgn")
-Panel/styles/panel = SubResource("StyleBoxFlat_oymho")
-
-[sub_resource type="Theme" id="Theme_scibi"]
-default_font = ExtResource("2_xscgn")
-default_font_size = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_amq6s"]
-bg_color = Color(0.027451, 0, 0, 1)
-border_width_bottom = 1
-border_color = Color(0.913725, 0.898039, 0.756863, 1)
 
 [node name="combat_tile_info" type="VBoxContainer"]
 custom_minimum_size = Vector2(250, 80)
 offset_right = 250.0
 offset_bottom = 80.0
 mouse_filter = 2
-theme = SubResource("Theme_qjwpb")
+theme = ExtResource("1_ryv44")
 theme_override_constants/separation = 0
 script = ExtResource("2_qy013")
 
 [node name="TerrainInfoContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 1
 
 [node name="UpperTilePanel" type="Panel" parent="TerrainInfoContainer"]
 custom_minimum_size = Vector2(250, 40)
@@ -49,28 +29,26 @@ offset_left = 193.0
 offset_top = 20.0
 offset_right = 248.0
 offset_bottom = 36.0
-theme = SubResource("Theme_scibi")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "1,2"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="UpperTileContainer" type="MarginContainer" parent="TerrainInfoContainer/UpperTilePanel"]
 layout_mode = 2
-offset_right = 172.0
+offset_right = 182.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 11
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 6
 
 [node name="TerrainName" type="Label" parent="TerrainInfoContainer/UpperTilePanel/UpperTileContainer"]
 custom_minimum_size = Vector2(150, 24)
 layout_mode = 2
-theme = SubResource("Theme_scibi")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Terrain Name"
 vertical_alignment = 1
 
@@ -79,12 +57,11 @@ visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusAvoid"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 150.0
+offset_bottom = 30.0
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -108,12 +85,11 @@ visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusDefense"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 150.0
+offset_bottom = 30.0
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -137,12 +113,11 @@ visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusResistance"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 150.0
+offset_bottom = 30.0
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -166,12 +141,11 @@ visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/TerrainBonusEffect"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 150.0
+offset_bottom = 30.0
 theme_override_constants/margin_left = 11
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
@@ -196,13 +170,12 @@ text = "Health"
 vertical_alignment = 1
 
 [node name="EntityInfoPanel" type="Panel" parent="TerrainInfoContainer"]
-visible = false
-custom_minimum_size = Vector2(250, 30)
+custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_amq6s")
 
 [node name="EntityHP" type="Label" parent="TerrainInfoContainer/EntityInfoPanel"]
+visible = false
 layout_mode = 2
 offset_left = 209.0
 offset_top = 6.0
@@ -215,15 +188,16 @@ vertical_alignment = 2
 
 [node name="LowerBonusContainer" type="MarginContainer" parent="TerrainInfoContainer/EntityInfoPanel"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 27.0
+offset_right = 250.0
+offset_bottom = 40.0
 theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 2
+theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+theme_override_constants/margin_bottom = 6
 
 [node name="EntityName" type="Label" parent="TerrainInfoContainer/EntityInfoPanel/LowerBonusContainer"]
 layout_mode = 2
-text = "EntityName
+theme_override_font_sizes/font_size = 32
+text = "Entity Name
 "
 vertical_alignment = 1

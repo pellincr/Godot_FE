@@ -11,6 +11,8 @@ var control_node : Node
 
 @onready var main_container = $HBoxContainer
 
+var selected_archetypes = []
+
 var army_archetype_names = ArmyArchetypeDatabase.army_archetypes.keys()
 
 func _ready():
@@ -36,7 +38,9 @@ func create_archetype_selector_list(selector_count: int, selector_container):
 	for i in range(selector_count):
 		var archetype_selector : archetypeDraftSelector = archetype_selector_scene.instantiate()
 		archetype_selector.set_po_data(playerOverworldData)
+		archetype_selector.selected_archetypes = selected_archetypes
 		selector_container.add_child(archetype_selector)
+		selected_archetypes.append(archetype_selector.archetype.db_key)
 		archetype_selector.connect("archetype_selected",on_archetype_selected)
 		accum.append(archetype_selector)
 	accum[0].grab_focus()
@@ -49,9 +53,12 @@ func instantiate_archetype_buttons():
 	#update_archetype_buttons()
 
 func update_archetype_selectors():
+	selected_archetypes = []
 	for i in archetype_selectors.size():
 		var selector = archetype_selectors[i]
+		selector.selected_archetypes = selected_archetypes
 		selector.randomize_archetype()
+		selected_archetypes.append(selector.archetype.db_key)
 		selector.update_all()
 
 
@@ -79,3 +86,16 @@ func create_archetype_list(archetype_picks):
 			accum.append(pick)
 			volume -= 1
 	return accum
+
+func get_first_selector():
+	return main_container.get_child(0)
+
+func set_selectors_focus(focus):
+	for child in main_container.get_children():
+		child.focus_mode = focus
+
+func enable_selector_focus():
+	set_selectors_focus(FOCUS_ALL)
+
+func disable_selector_focus():
+	set_selectors_focus(FOCUS_NONE)

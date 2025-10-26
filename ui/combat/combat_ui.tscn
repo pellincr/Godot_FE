@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddgx1hll377nx"]
 
-[ext_resource type="Script" path="res://ui/combat/combat_ui.gd" id="1_cy8ae"]
+[ext_resource type="Script" uid="uid://dab1vbydkq737" path="res://ui/combat/combat_ui.gd" id="1_cy8ae"]
 [ext_resource type="PackedScene" uid="uid://ckrpuok3owxp1" path="res://ui/combat/unit_selected_footer/unit_selected_footer.tscn" id="2_aaxjh"]
 [ext_resource type="PackedScene" uid="uid://8y216guxyi22" path="res://ui/combat/combat_tile_info/combat_tile_info.tscn" id="3_ha77v"]
+[ext_resource type="PackedScene" uid="uid://cpxlx5n7dxw7u" path="res://ui/combat/level_info_container/level_info_container.tscn" id="7_vjb5m"]
 [ext_resource type="PackedScene" uid="uid://yyhqghprxfs0" path="res://ui/combat/combat_header/header_ui.tscn" id="11_m0dmj"]
 [ext_resource type="PackedScene" uid="uid://c2ed4bicvkhwj" path="res://ui/combat/unit_experience_bar/unit_experience_bar.tscn" id="11_xgqke"]
-[ext_resource type="PackedScene" uid="uid://c1mja0j0own6p" path="res://ui/combat/unit_status_detailed/unit_status_detailed.tscn" id="14_snhky"]
 
 [node name="UI" type="Control"]
 texture_filter = 1
@@ -19,9 +19,11 @@ mouse_filter = 1
 script = ExtResource("1_cy8ae")
 
 [node name="UnitStatus" parent="." instance=ExtResource("2_aaxjh")]
+visible = false
 layout_mode = 1
 
 [node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
+visible = false
 layout_mode = 1
 offset_top = 43.0
 offset_bottom = -518.0
@@ -31,14 +33,6 @@ visible = false
 layout_mode = 1
 offset_bottom = 45.0
 
-[node name="UnitStatusDetailed" parent="." instance=ExtResource("14_snhky")]
-visible = false
-layout_mode = 1
-offset_left = 298.0
-offset_top = 125.0
-offset_right = -356.0
-offset_bottom = -122.0
-
 [node name="unit_experience_bar" parent="." instance=ExtResource("11_xgqke")]
 visible = false
 layout_mode = 1
@@ -47,5 +41,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+
+[node name="LevelInfoContainer" parent="." instance=ExtResource("7_vjb5m")]
+layout_mode = 1
 
 [connection signal="finished" from="unit_experience_bar" to="." method="_on_unit_experience_bar_finished"]

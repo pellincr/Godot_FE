@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=8 format=3 uid="uid://cgw58mt7lbjfq"]
+[gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=15 format=3 uid="uid://cgw58mt7lbjfq"]
 
 [ext_resource type="Script" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_17j55"]
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_k2lsh"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_pkuuo"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_ed5qg"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_tkvn8"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="6_eejgo"]
+[ext_resource type="Resource" uid="uid://bm5sgovgm4u6r" path="res://resources/definitions/items/weapons/lance/pilum.tres" id="7_mdetk"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="8_v8427"]
+[ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="9_y74kd"]
 
 [sub_resource type="Resource" id="Resource_tk0jd"]
 script = ExtResource("2_k2lsh")
@@ -17,23 +21,64 @@ unit_type_key = "vandal"
 inventory = Array[ExtResource("3_pkuuo")]([ExtResource("4_ed5qg")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_y30sa"]
 script = ExtResource("2_k2lsh")
 name = "Bandit"
 map_position = Vector2i(14, 0)
 level = 4
-level_bonus = 0
+level_bonus = 1
 hard_mode_leveling = false
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("3_pkuuo")]([ExtResource("5_tkvn8")])
 ai_type = 0
 is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_rsmfh"]
+script = ExtResource("2_k2lsh")
+name = "Bandit"
+map_position = Vector2i(2, 13)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "mage"
+inventory = Array[ExtResource("3_pkuuo")]([ExtResource("6_eejgo")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_wo5xt"]
+script = ExtResource("2_k2lsh")
+name = "Bandit"
+map_position = Vector2i(13, 0)
+level = 4
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_pkuuo")]([ExtResource("7_mdetk")])
+ai_type = 0
+is_boss = false
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_ya317"]
+script = ExtResource("2_k2lsh")
+name = "Bandit"
+map_position = Vector2i(14, 12)
+level = 0
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "gunner"
+inventory = Array[ExtResource("3_pkuuo")]([ExtResource("8_v8427"), ExtResource("9_y74kd")])
+ai_type = 0
+is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("1_17j55")
 trigger_type = 0
-turns = Array[int]([3, 4, 5, 6, 7])
+turns = Array[int]([3, 5, 7])
 zone_id = ""
 faction = 1
-units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa")])
+units = Array[ExtResource("2_k2lsh")]([SubResource("Resource_tk0jd"), SubResource("Resource_y30sa"), SubResource("Resource_rsmfh"), SubResource("Resource_wo5xt"), SubResource("Resource_ya317")])

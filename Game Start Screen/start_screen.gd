@@ -55,6 +55,7 @@ func _ready():
 	if verify_save_path(save_path_3):
 		set_save_button_text(save_3_button,"Slot 3 - LOAD")
 		set_delete_visibility(save_3_delete_button,true)
+	AudioManager.play_music("menu_theme")
 
 func load_data():
 	playerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
@@ -108,6 +109,7 @@ func _on_start_button_pressed():
 	main_container.visible = false
 	save_container.visible = true
 	save_1_button.grab_focus()
+	AudioManager.play_sound_effect("menu_confirm")
 
 
 func on_save_button_delete(save_path, button):
@@ -125,10 +127,12 @@ func _on_save_button_pressed(save_path):
 func _on_delete_save_button_pressed(save_path, save_button, delete_button):
 	on_save_button_delete(save_path,save_button)
 	delete_button.visible = false
+	AudioManager.play_sound_effect("menu_confirm")
 
 
 #Navigates to the Overworld for Save Slot 1. If it doesn't exist it will be created.
 func _on_save_button_1_pressed():
+	AudioManager.play_sound_effect("menu_confirm")
 	enter_game(save_path_1)
 
 #Deletes the Save Slot 1 File
@@ -137,6 +141,7 @@ func _on_save_slot_1_delete_button_pressed():
 
 #Navigates to the Overworld for Save Slot 2. If it doesn't exist it will be created.
 func _on_save_button_2_pressed():
+	AudioManager.play_sound_effect("menu_confirm")
 	enter_game(save_path_2)
 
 #Deletes the Save Slot 2 File
@@ -145,6 +150,7 @@ func _on_save_slot_2_delete_button_pressed():
 
 #Navigates to the Overworld for Save Slot 2. If it doesn't exist it will be created.
 func _on_save_button_3_pressed():
+	AudioManager.play_sound_effect("menu_confirm")
 	enter_game(save_path_3)
 
 #Deletes the Save Slot 3 File

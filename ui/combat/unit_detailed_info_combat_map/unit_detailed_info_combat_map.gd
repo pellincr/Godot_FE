@@ -2,8 +2,8 @@ extends Panel
 
 signal set_trade_item(item,unit)
 
-const item_panel_container_scene = preload("res://ui/battle_preparation/convoy_item_panel_container.tscn")
-const weapon_detailed_info_scene = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+const item_panel_container_scene = preload("res://ui/battle_prep_new/item_panel/item_panel_container.tscn")
+const weapon_detailed_info_scene = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
 
 
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel
@@ -41,8 +41,9 @@ func set_hp_value(hp):
 	current_hp_label.text = str(hp) + "/" + str(unit.get_max_hp())
 
 func set_hp_bar(hp):
-	hp_bar.value = hp
 	hp_bar.max_value = unit.get_max_hp()
+	hp_bar.value = hp
+	
 
 func update_unit_icon(icon):
 	unit_icon.texture = icon

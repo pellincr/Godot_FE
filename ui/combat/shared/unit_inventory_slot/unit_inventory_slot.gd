@@ -42,7 +42,10 @@ func update_item_type_icon():
 
 func update_uses_label():
 	if item != null:
-		uses_label.text = str(item.uses)
+		if item.unbreakable:
+			uses_label.text = ""
+		else :
+			uses_label.text = str(item.uses)
 	else :
 		uses_label.text = ""
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=106 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -95,6 +95,16 @@
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="92_gsk0d"]
 [ext_resource type="Resource" uid="uid://j2uu2bvu8yli" path="res://resources/definitions/items/consumables/elixir.tres" id="93_1d4v0"]
 [ext_resource type="Resource" uid="uid://cpajlj7mngeuj" path="res://resources/definitions/items/weapons/commander_special/dawnbreak.tres" id="94_f0nre"]
+[ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="94_xlfug"]
+[ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="95_midyp"]
+[ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="96_q47d5"]
+[ext_resource type="Resource" uid="uid://c5qmyhlq5gf7" path="res://resources/definitions/items/consumables/titan_trout.tres" id="97_41x7d"]
+[ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="98_5vscg"]
+[ext_resource type="Resource" uid="uid://cbq718k1dr5kq" path="res://resources/definitions/items/weapons/bow/reinforced_bow.tres" id="99_5bd5o"]
+[ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
+[ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
+[ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="101_7bcyb"]
+[ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -106,11 +116,13 @@ items = {
 "boost_bread": ExtResource("61_af6n4"),
 "brass_knuckles": ExtResource("38_ysglg"),
 "buckler": ExtResource("42_bjlri"),
+"chest_key": ExtResource("96_q47d5"),
 "colossus": ExtResource("85_6fek0"),
 "dark_pulse": ExtResource("29_sc5t6"),
 "dark_sword": ExtResource("25_rrx52"),
 "deliverance": ExtResource("86_ogapb"),
 "devil_knuckles": ExtResource("39_kby4g"),
+"door_key": ExtResource("95_midyp"),
 "earth_split": ExtResource("88_p6flx"),
 "ebonflight": ExtResource("70_s8rv5"),
 "elixir": ExtResource("93_1d4v0"),
@@ -151,11 +163,15 @@ items = {
 "lumen": ExtResource("87_gcqt1"),
 "mage_blade": ExtResource("53_1g7xb"),
 "mandate": ExtResource("46_jmx6f"),
+"minor_heal": ExtResource("98_5vscg"),
+"oak_wood_charm": ExtResource("100_2u5qe"),
 "pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
+"reinforced_bow": ExtResource("99_5bd5o"),
+"resonant_ore": ExtResource("101_7bcyb"),
 "rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
 "sanguis": ExtResource("71_i5lad"),
@@ -163,6 +179,7 @@ items = {
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_axe": ExtResource("67_dh53s"),
 "short_bow": ExtResource("7_x6uf5"),
+"short_sword": ExtResource("94_xlfug"),
 "silver_axe": ExtResource("23_7wv7v"),
 "silver_bow": ExtResource("55_n8hyn"),
 "silver_dagger": ExtResource("56_gbxts"),
@@ -184,6 +201,7 @@ items = {
 "steel_shield": ExtResource("52_x6n6j"),
 "steel_sword": ExtResource("8_l7lwn"),
 "sword_reaver": ExtResource("14_dv5o2"),
+"titan_trout": ExtResource("97_41x7d"),
 "titans_will": ExtResource("85_qfgim"),
 "tomahawk": ExtResource("69_q45qp"),
 "torrent": ExtResource("90_n7mel"),
@@ -193,6 +211,8 @@ items = {
 "zweihander": ExtResource("91_khgvj")
 }
 commander_weapons = {
+"ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
+"persuaders": ExtResource("102_khegi"),
 "vipers_bite": ExtResource("62_xe68h")
 }

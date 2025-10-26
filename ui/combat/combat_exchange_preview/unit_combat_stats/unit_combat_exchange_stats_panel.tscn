@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkrqibh031py2"]
 
 [ext_resource type="PackedScene" uid="uid://b26kxlm2q45nj" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_health_bar/unit_health_bar_container.tscn" id="1_2kyu6"]
-[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.gd" id="1_gyffb"]
+[ext_resource type="Script" uid="uid://bpbe2d6favyb6" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.gd" id="1_gyffb"]
 [ext_resource type="PackedScene" uid="uid://dvu1wufqkwj1i" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_stat_container.tscn" id="2_3wu8b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k30e1"]

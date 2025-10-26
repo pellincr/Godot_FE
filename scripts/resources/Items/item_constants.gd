@@ -1,12 +1,11 @@
 extends Node
 
-class_name itemConstants
-
 enum ITEM_TYPE {
 	WEAPON,
 	STAFF,
 	USEABLE_ITEM,
-	EQUIPMENT_LOOT
+	EQUIPMENT,
+	TREASURE
 }
 
 enum WEAPON_TYPE {
