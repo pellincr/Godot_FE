@@ -44,14 +44,19 @@ func _on_backspace_button_pressed() -> void:
 	set_seed_value_label(seed_value_label.text.left(seed_value_label.text.length() - 1))
 
 func _on_easy_mode_button_pressed() -> void:
-	current_difficulty = DIFFICULTY.EASY
-	hard_mode_button.button_pressed = false
+	if current_difficulty != DIFFICULTY.EASY:
+		current_difficulty = DIFFICULTY.EASY
+		hard_mode_button.button_pressed = false
+	else:
+		easy_mode_button.button_pressed = true
 
 
 func _on_hard_mode_button_pressed() -> void:
-	current_difficulty = DIFFICULTY.HARD
-	easy_mode_button.button_pressed = false
-
+	if current_difficulty != DIFFICULTY.HARD:
+		current_difficulty = DIFFICULTY.HARD
+		easy_mode_button.button_pressed = false
+	else:
+		hard_mode_button.button_pressed = true
 
 
 func _on_custom_mode_button_pressed() -> void:
