@@ -12,6 +12,7 @@ signal convoy_panel_pressed()
 var unit_army_panel_container_scene = preload("res://ui/battle_prep_new/unit_army_panel/unit_army_panel_container.tscn")
 
 var playerOverworldData : PlayerOverworldData
+var units_list : Array
 
 var focused := false
 
@@ -21,9 +22,11 @@ var unit_panels = []
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
+func set_units_list(u_list):
+	units_list = u_list
 
 func fill_army_scroll_container(add_convoy:=false):
-	for unit in playerOverworldData.total_party:
+	for unit in units_list:
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
 		unit_army_panel_container.unit = unit
 		#unit_army_panel_container.set_po_data(playerOverworldData)

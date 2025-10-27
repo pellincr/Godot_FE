@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwe24m6b53kci"]
+[gd_scene load_steps=4 format=3 uid="uid://cwe24m6b53kci"]
 
 [ext_resource type="Script" uid="uid://da8n6k0e4gt7x" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
 [ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_p50n5"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_homp3"]
 
 [node name="BattlePrepMenuSelection" type="PanelContainer"]
 custom_minimum_size = Vector2(380, 500)
@@ -42,6 +43,12 @@ text = "Inventory"
 layout_mode = 2
 text = "Training Grounds"
 
+[node name="GraveyardButton" type="Button" parent="MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Graveyard"
+script = ExtResource("3_homp3")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
 [node name="SavePreparationsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Save Preparations"
@@ -52,4 +59,7 @@ text = "Save Preparations"
 [connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/ButtonContainer/GraveyardButton" to="MarginContainer/ButtonContainer/GraveyardButton" method="_on_focus_entered"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonContainer/GraveyardButton" to="MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]

@@ -28,6 +28,12 @@ func _on_shop_button_pressed() -> void:
 func _on_inventory_button_pressed() -> void:
 	state_selected.emit(BattlePrep.PREP_STATE.INVENTORY)
 
+func _on_training_grounds_button_pressed() -> void:
+	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)
+
+func _on_graveyard_button_pressed() -> void:
+	state_selected.emit(BattlePrep.PREP_STATE.GRAVEYARD)
+
 func set_button_focus(focus_bool:bool):
 	var buttons = button_container.get_children()
 	for button in buttons:
@@ -53,8 +59,7 @@ func grab_start_button_focus():
 	start_battle_button.grab_focus()
 
 
-func _on_training_grounds_button_pressed() -> void:
-	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)
+
 
 
 func _on_save_preparations_button_pressed() -> void:

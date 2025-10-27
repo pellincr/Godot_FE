@@ -28,7 +28,8 @@ enum PREP_STATE{
 	SWAP_SPACES,
 	SHOP,
 	INVENTORY,
-	TRAINING_GROUNDS
+	TRAINING_GROUNDS,
+	GRAVEYARD
 }
 
 var current_state := PREP_STATE.MENU
@@ -128,6 +129,11 @@ func update_by_state():
 			main_container.add_child(training_ground)
 			training_ground.return_to_menu.connect(_on_return_to_menu)
 			training_ground.award_exp.connect(_on_award_exp)
+		PREP_STATE.GRAVEYARD:
+			var graveyard = preload("res://ui/battle_prep_new/graveyard/graveyard.tscn").instantiate()
+			graveyard.set_po_data(playerOverworldData)
+			main_container.add_child(graveyard)
+			graveyard.return_to_menu.connect(_on_return_to_menu)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
 	current_state = state
@@ -153,7 +159,10 @@ func set_header_labels(state : PREP_STATE) -> void:
 			lower_label_text = "Select An Inventory to Update"
 		PREP_STATE.TRAINING_GROUNDS:
 			upper_label_text = "Training Grounds"
-			lower_label_text= "Choose a Unit to Train"
+			lower_label_text = "Choose a Unit to Train"
+		PREP_STATE.GRAVEYARD:
+			upper_label_text = "Graveyard"
+			lower_label_text = "Choose a Unit to Revive"
 	header_upper_label.text = upper_label_text
 	header_lower_label.text = lower_label_text
 

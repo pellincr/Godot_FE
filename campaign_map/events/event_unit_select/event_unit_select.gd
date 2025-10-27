@@ -17,6 +17,7 @@ func _ready() -> void:
 	#SelectedSaveFile.save(playerOverworldData)
 	army_container.unit_selection = true
 	army_container.set_po_data(playerOverworldData)
+	army_container.set_units_list(playerOverworldData.total_party)
 	army_container.fill_army_scroll_container()
 	army_container.connect("unit_panel_pressed",_on_army_scroll_container_unit_panel_pressed)
 	selection_effect.text = description

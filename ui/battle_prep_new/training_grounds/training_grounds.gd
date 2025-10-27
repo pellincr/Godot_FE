@@ -37,6 +37,7 @@ func update_by_state():
 		TRAINING_STATE.CHOOSE_UNIT:
 			var army_container = preload("res://ui/battle_prep_new/army_container/ArmyContainer.tscn").instantiate()
 			army_container.set_po_data(playerOverworldData)
+			army_container.set_units_list(playerOverworldData.total_party)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
 			add_child(army_container)
 			army_container.fill_army_scroll_container()

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccbukuelncitv"]
+
+[ext_resource type="Script" uid="uid://cri76drqw125f" path="res://ui/battle_prep_new/graveyard/graveyard.gd" id="1_0a1nd"]
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_10nv8"]
+
+[node name="Graveyard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0a1nd")
+
+[node name="GoldCounter" parent="." instance=ExtResource("2_10nv8")]
+layout_mode = 0
+anchors_preset = 0

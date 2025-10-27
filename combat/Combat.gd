@@ -485,6 +485,7 @@ func combatant_die(combatant: CombatUnit):
 			playerOverworldData.total_party.erase(combatant.unit)
 			playerOverworldData.selected_party.erase(combatant.unit)
 			level_reward.units_lost += 1
+			combatant.unit.death_count += 1
 		else:
 			if !playerOverworldData.game_stats_manager.enemy_types_killed.get(combatant.unit.unit_type_key):
 				playerOverworldData.game_stats_manager.enemy_types_killed[combatant.unit.unit_type_key] = 1
@@ -824,7 +825,7 @@ func _on_rewards_complete():
 		SelectedSaveFile.save(playerOverworldData)
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	else:
-		if playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
+		if playerOverworldData.last_room.type == CampaignRoom.TYPE.KEY_BATTLE or playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
 			playerOverworldData.began_level = false
 			playerOverworldData.current_level = null
 			SelectedSaveFile.save(playerOverworldData)

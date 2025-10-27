@@ -52,6 +52,8 @@ class_name Unit
 @export var critical_hit : int
 @export var critical_avoid : int
 
+@export var death_count := 0
+
 ## STATIC FUNCTIONS USED IN CONSTRUCTORS
 
 # create_unit_unit_character : constructor to generate a Unit using a unitCharacter

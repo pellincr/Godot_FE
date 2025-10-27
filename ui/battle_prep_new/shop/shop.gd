@@ -45,6 +45,7 @@ func update_by_shop_state():
 		SHOP_STATE.LOCATION_SELECT:
 			var army_container = army_container_scene.instantiate()
 			army_container.set_po_data(playerOverworldData)
+			army_container.set_units_list(playerOverworldData.total_party)
 			main_container.add_child(army_container)
 			army_container.fill_army_scroll_container(true)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)

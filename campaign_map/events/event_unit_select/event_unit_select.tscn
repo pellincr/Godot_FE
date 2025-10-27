@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://7yicggufrcxm"]
 
-[ext_resource type="Script" path="res://campaign_map/events/event_unit_select/event_unit_select.gd" id="1_14ge7"]
+[ext_resource type="Script" uid="uid://dact8crbxi8df" path="res://campaign_map/events/event_unit_select/event_unit_select.gd" id="1_14ge7"]
 [ext_resource type="PackedScene" uid="uid://dkk1vhoxov7g2" path="res://ui/battle_prep_new/army_container/ArmyContainer.tscn" id="1_s3arc"]
 
 [node name="EventUnitSelect" type="Control"]
