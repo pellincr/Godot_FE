@@ -63,11 +63,14 @@ func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 	#transition_out_animation()
 	#var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	#get_tree().change_scene_to_packed(army_draft)
-	var set_seed = preload("res://overworld_new/set_seed/set_seed.tscn").instantiate()
+	#var set_seed = preload("res://overworld_new/set_seed/set_seed.tscn").instantiate()
+	var campaign_modifier = preload("res://overworld_new/campaign_modifier/campaign_modifier.tscn").instantiate()
 	disable_screen_focus()
-	add_child(set_seed)
-	set_seed.set_seed.connect(_on_set_seed)
-	set_seed.menu_closed.connect(_on_menu_closed)
+	add_child(campaign_modifier)
+	#set_seed.set_seed.connect(_on_set_seed)
+	#set_seed.menu_closed.connect(_on_menu_closed)
+	campaign_modifier.start_game.connect(_on_start_game)
+	campaign_modifier.menu_closed.connect(_on_menu_closed)
 
 
 func _on_return_button_pressed():
@@ -96,8 +99,11 @@ func _on_menu_closed():
 	pause_menu_open = false
 	tutorial_campaign_selecter.grab_focus()
 
-func _on_set_seed(campaign_seed : int):
+func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY):
+	seed(campaign_seed)
+	playerOverworldData.campaign_seed_preset = seeded
 	playerOverworldData.capmaign_seed = campaign_seed
+	playerOverworldData.campaign_difficulty = difficulty
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")

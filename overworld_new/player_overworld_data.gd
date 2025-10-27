@@ -8,7 +8,9 @@ class_name PlayerOverworldData
 
 @export_group("Campaign Data")
 @export var current_campaign : Campaign
+@export var campaign_seed_preset : bool
 @export var capmaign_seed : int
+@export var campaign_difficulty : CampaignModifier.DIFFICULTY
 @export var campaign_map_data : Array[Array]
 @export var floors_climbed: int
 @export var combat_maps_completed : int
