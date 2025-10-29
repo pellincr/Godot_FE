@@ -35,6 +35,7 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_v2oi6"]
 script = ExtResource("3_w1iia")
+weapon_effectiveness_trait = Array[int]([2])
 metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 
 [sub_resource type="Resource" id="Resource_t7ax6"]
