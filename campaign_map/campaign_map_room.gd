@@ -7,8 +7,8 @@ signal selected(room:CampaignRoom)
 const ICONS:={
 	#Stores the Icon and the Scale it should be placed with
 	CampaignRoom.TYPE.NOT_ASSIGNED : [null,Vector2.ONE],
-	CampaignRoom.TYPE.BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/minor_combat_campaign_map_icon.png"), Vector2.ONE],
-	CampaignRoom.TYPE.KEY_BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/key_combat_icon_new_2.png"), Vector2.ONE], # TO BE IMPLEMENTED
+	CampaignRoom.TYPE.BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/major_combat_campaign_map_icon.png"), Vector2.ONE],
+	CampaignRoom.TYPE.KEY_BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/major_combat_new_2.png"), Vector2.ONE], # TO BE IMPLEMENTED
 	CampaignRoom.TYPE.EVENT : [preload("res://resources/sprites/icons/campaign_map_icons/icon_event.png"),Vector2.ONE],
 	CampaignRoom.TYPE.SHOP : [preload("res://resources/sprites/icons/campaign_map_icons/icon_coin.png"),Vector2.ONE],
 	CampaignRoom.TYPE.ELITE : [preload("res://resources/sprites/icons/UnitArchetype.png"),Vector2.ONE],
