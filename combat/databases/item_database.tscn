@@ -1,6 +1,6 @@
-[gd_scene load_steps=106 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=109 format=3 uid="uid://cm5gan74bnf37"]
 
-[ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_o8mgg"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="5_ge5kc"]
@@ -59,9 +59,9 @@
 [ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="57_yomul"]
 [ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/ray.tres" id="58_7gmx0"]
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="59_jqcuj"]
-[ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/treasure/wine.tres" id="60_inhro"]
+[ext_resource type="Resource" uid="uid://dxdxaw1qqj2na" path="res://resources/definitions/items/treasure/wine.tres" id="60_inhro"]
 [ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
-[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/rubbish.tres" id="62_2aj2t"]
+[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/gold_coins_small.tres" id="62_2aj2t"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="62_xe68h"]
 [ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="63_bw6kg"]
 [ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="64_g2m76"]
@@ -104,7 +104,10 @@
 [ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
 [ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="101_7bcyb"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="101_7w3tq"]
 [ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="102_q80qu"]
+[ext_resource type="Resource" uid="uid://btbls8ing2pq0" path="res://resources/definitions/items/weapons/bow/long_bow.tres" id="104_q80qu"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -132,6 +135,9 @@ items = {
 "eye_greatshield": ExtResource("43_v0y5j"),
 "fiend_fire": ExtResource("28_hv28m"),
 "fire_spell": ExtResource("19_q1d18"),
+"gold_coins_large": ExtResource("101_7w3tq"),
+"gold_coins_medium": ExtResource("102_q80qu"),
+"gold_coins_small": ExtResource("62_2aj2t"),
 "great_axe": ExtResource("64_g2m76"),
 "great_bow": ExtResource("17_0gxut"),
 "greatsword": ExtResource("47_v3anb"),
@@ -160,6 +166,7 @@ items = {
 "knife": ExtResource("92_gsk0d"),
 "kukri": ExtResource("50_d8m3e"),
 "life_tap": ExtResource("59_jqcuj"),
+"long_bow": ExtResource("104_q80qu"),
 "lumen": ExtResource("87_gcqt1"),
 "mage_blade": ExtResource("53_1g7xb"),
 "mandate": ExtResource("46_jmx6f"),
@@ -172,7 +179,6 @@ items = {
 "recover": ExtResource("41_dpqwc"),
 "reinforced_bow": ExtResource("99_5bd5o"),
 "resonant_ore": ExtResource("101_7bcyb"),
-"rubbish": ExtResource("62_2aj2t"),
 "sabre": ExtResource("26_3x5tg"),
 "sanguis": ExtResource("71_i5lad"),
 "shade": ExtResource("75_b030a"),

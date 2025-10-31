@@ -34,8 +34,6 @@ unit_growth_change = SubResource("Resource_cx02q")
 
 [sub_resource type="Resource" id="Resource_yoqhc"]
 script = ExtResource("5_musb4")
-item_rarity_whitelist = Array[String](["Rare"])
-item_type_whitelist = Array[int]([0])
 
 [sub_resource type="Resource" id="Resource_3c1p6"]
 script = ExtResource("6_vuy7x")

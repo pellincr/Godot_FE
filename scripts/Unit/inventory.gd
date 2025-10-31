@@ -150,10 +150,10 @@ func use_at_index(index : int):
 	if index < capacity:
 		var target_item :ItemDefinition = items[index]
 		target_item.expend_use()
+		# What is the state of the item, is it broken and does it have to be removed?
 		if target_item.uses <= 0:
-			items.remove_at(index)
-			#items.push_back(null)
-				
+			if not target_item.expended and not target_item.unbreakable:
+				items.remove_at(index)
 
 
 func set_item_at_index(index: int, item: ItemDefinition):

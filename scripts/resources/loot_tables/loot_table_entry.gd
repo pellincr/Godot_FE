@@ -2,11 +2,8 @@ extends Resource
 class_name LootTableEntry
 
 @export var probability : float
-#@export var unique : bool
-#@export var always : bool
-#var enabled : bool
-@export_group("Item Information")
-@export var item_db_key: String #LEAVE 0 to use random
-@export var item_rarity_whitelist : Array[String]
-@export var item_type_whitelist : Array[ItemConstants.ITEM_TYPE]
-@export var weapon_type_whitelist : Array[ItemConstants.WEAPON_TYPE] #ONLY USED IF WHITELIST HAS WEAPON
+# Target Item, Leave null for all items
+#@export var item: ItemDefinition = null
+
+func get_data():
+	pass

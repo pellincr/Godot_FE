@@ -9,8 +9,6 @@ class_name Combat
 const COMBAT_UNIT_DISPLAY = preload("res://ui/combat/combat_unit_display/combat_unit_display.tscn")
 const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_display/combat_map_entity_display.tscn")
 
-
-
 ##Signals
 signal register_combat(combat_node: Node)
 signal turn_advanced()

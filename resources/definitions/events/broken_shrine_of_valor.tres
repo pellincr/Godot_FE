@@ -26,7 +26,6 @@ unit_growth_change = SubResource("Resource_ke52e")
 
 [sub_resource type="Resource" id="Resource_ep0ib"]
 script = ExtResource("4_okf23")
-item_rarity_whitelist = Array[String](["Common"])
 
 [sub_resource type="Resource" id="Resource_ie7tl"]
 script = ExtResource("5_nuwek")

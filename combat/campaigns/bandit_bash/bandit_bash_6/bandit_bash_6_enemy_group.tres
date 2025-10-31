@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=49 format=3 uid="uid://cha4i8vtpp64y"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=50 format=3 uid="uid://cha4i8vtpp64y"]
 
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_bcvlb"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_r74bv"]
@@ -22,17 +22,15 @@
 [ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="18_p5d48"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="20_kynr8"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="21_bwufa"]
+[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="22_kpyq7"]
 
 [sub_resource type="Resource" id="Resource_nwa8l"]
 script = ExtResource("1_bcvlb")
 name = "Thogun"
 map_position = Vector2i(2, 1)
 level = 13
-level_bonus = 2
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_bxknx"), ExtResource("7_6asiw")])
-ai_type = 2
-is_boss = true
 
 [sub_resource type="Resource" id="Resource_tn6hx"]
 script = ExtResource("1_bcvlb")
@@ -41,7 +39,6 @@ map_position = Vector2i(1, 2)
 level = 10
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475"), ExtResource("10_fkkwh"), ExtResource("18_p5d48")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_xmdvj"]
 script = ExtResource("1_bcvlb")
@@ -58,8 +55,6 @@ map_position = Vector2i(3, 7)
 level = 7
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("6_fsgv6"), ExtResource("8_6citu")])
-ai_type = 1
-drops_item = true
 
 [sub_resource type="Resource" id="Resource_1mdp4"]
 script = ExtResource("1_bcvlb")
@@ -68,7 +63,6 @@ map_position = Vector2i(3, 12)
 level = 10
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_iw475"), ExtResource("10_fkkwh")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_mq3u8"]
 script = ExtResource("1_bcvlb")
@@ -77,7 +71,6 @@ map_position = Vector2i(4, 18)
 level = 8
 unit_type_key = "ward"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("10_uib33")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_x5qgs"]
 script = ExtResource("1_bcvlb")
@@ -86,7 +79,6 @@ map_position = Vector2i(10, 7)
 level = 5
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc"), ExtResource("18_p5d48")])
-drops_item = true
 
 [sub_resource type="Resource" id="Resource_u4t8m"]
 script = ExtResource("1_bcvlb")
@@ -119,7 +111,6 @@ map_position = Vector2i(7, 11)
 level = 10
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("13_vf5np")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_br1sf"]
 script = ExtResource("1_bcvlb")
@@ -136,7 +127,6 @@ map_position = Vector2i(3, 19)
 level = 7
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627"), ExtResource("14_cndwi")])
-drops_item = true
 
 [sub_resource type="Resource" id="Resource_8vsi4"]
 script = ExtResource("1_bcvlb")
@@ -145,7 +135,6 @@ map_position = Vector2i(13, 21)
 level = 7
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("11_eq627")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_fbgc2"]
 script = ExtResource("1_bcvlb")
@@ -162,8 +151,6 @@ map_position = Vector2i(18, 17)
 level = 6
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("15_p3do1"), ExtResource("8_6citu")])
-ai_type = 1
-drops_item = true
 
 [sub_resource type="Resource" id="Resource_vincb"]
 script = ExtResource("1_bcvlb")
@@ -172,7 +159,6 @@ map_position = Vector2i(16, 6)
 level = 7
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("7_6asiw")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_ad1dr"]
 script = ExtResource("1_bcvlb")
@@ -181,7 +167,6 @@ map_position = Vector2i(18, 0)
 level = 11
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("4_bxknx"), ExtResource("16_jaeon"), ExtResource("16_rmndk")])
-is_boss = true
 
 [sub_resource type="Resource" id="Resource_ul0ni"]
 script = ExtResource("1_bcvlb")
@@ -190,7 +175,6 @@ map_position = Vector2i(17, 0)
 level = 6
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("17_7xfc8"), ExtResource("18_p5d48")])
-drops_item = true
 
 [sub_resource type="Resource" id="Resource_vtd33"]
 script = ExtResource("1_bcvlb")
@@ -231,7 +215,6 @@ map_position = Vector2i(14, 9)
 level = 6
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("21_bwufa")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_6jtds"]
 script = ExtResource("1_bcvlb")
@@ -240,7 +223,6 @@ map_position = Vector2i(15, 13)
 level = 6
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_apext"]
 script = ExtResource("1_bcvlb")
@@ -249,7 +231,6 @@ map_position = Vector2i(8, 2)
 level = 8
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("9_h23uc")])
-ai_type = 1
 
 [resource]
 script = ExtResource("12_78g6l")

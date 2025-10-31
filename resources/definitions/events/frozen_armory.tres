@@ -8,8 +8,6 @@
 
 [sub_resource type="Resource" id="Resource_74ra3"]
 script = ExtResource("1_vi1bu")
-item_rarity_whitelist = Array[String](["Mythical"])
-item_type_whitelist = Array[int]([0])
 metadata/_custom_type_script = "uid://bupixdlbvtyij"
 
 [sub_resource type="Resource" id="Resource_ng0hl"]

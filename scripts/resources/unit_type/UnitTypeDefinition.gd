@@ -31,3 +31,6 @@ class_name UnitTypeDefinition
 @export var skilL_unlock_level: Array[int]
 
 var tags : Array[String] ##TO BE CALCULATED
+
+@export_group("Generation & Items")
+@export var default_item_resource : UnitTypeDefaultItemsResource

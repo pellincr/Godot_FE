@@ -1,31 +1,28 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=7 format=3 uid="uid://buetf0jofki1r"]
+[gd_resource type="Resource" script_class="LootTable" load_steps=8 format=3 uid="uid://buetf0jofki1r"]
 
 [ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="1_xvw7d"]
+[ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="2_8snf8"]
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="2_btkmk"]
 
 [sub_resource type="Resource" id="Resource_6rm3a"]
 script = ExtResource("1_xvw7d")
 probability = 4.5
-item_db_key = "rubbish"
 
 [sub_resource type="Resource" id="Resource_j76ay"]
 script = ExtResource("1_xvw7d")
 probability = 3.0
-item_rarity_whitelist = Array[String](["Common"])
 item_type_whitelist = Array[int]([0])
 weapon_type_whitelist = Array[int]([7, 8, 9])
 
 [sub_resource type="Resource" id="Resource_t21cu"]
 script = ExtResource("1_xvw7d")
 probability = 1.5
-item_rarity_whitelist = Array[String](["Uncommon"])
 item_type_whitelist = Array[int]([0])
 weapon_type_whitelist = Array[int]([7, 8, 9])
 
 [sub_resource type="Resource" id="Resource_ecy2r"]
 script = ExtResource("1_xvw7d")
 probability = 0.5
-item_rarity_whitelist = Array[String](["Rare"])
 item_type_whitelist = Array[int]([0])
 weapon_type_whitelist = Array[int]([7, 8, 9])
 

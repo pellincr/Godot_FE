@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh66mgbsodlwe"
-path="res://.godot/imported/viper_bite.png-3c57dd8ad1ff61bca799aec41b75c046.ctex"
+uid="uid://cti2r6ks20ui7"
+path="res://.godot/imported/treasure_coins_large.png-d2f29fb2bc7cb2f057fe990f987df414.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/weapons/commander_specific/viper_bite.png"
-dest_files=["res://.godot/imported/viper_bite.png-3c57dd8ad1ff61bca799aec41b75c046.ctex"]
+source_file="res://resources/sprites/items/treasure/treasure_coins_large.png"
+dest_files=["res://.godot/imported/treasure_coins_large.png-d2f29fb2bc7cb2f057fe990f987df414.ctex"]
 
 [params]
 
