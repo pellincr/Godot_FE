@@ -301,10 +301,6 @@ func generate_random_unit(target:RandomCombatUnitData):
 		target.inventory = _inventory.duplicate() #IS THIS DUPLICATE REDUNDANT?
 		target.level = _level
 		target.drops_item = _drop_item
-		
-		#var new_unit = Unit.create_generic_unit(unit_type.db_key, _inventory, target.name, _level, 0, target.hard_mode_leveling)
-		#var generated_combat_unit : CombatUnit = create_combatant_unit(new_unit, 1, target.ai_type, _drop_item, target.is_boss,)
-		#add_combatant(generated_combat_unit, map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss, has_droppable_item)

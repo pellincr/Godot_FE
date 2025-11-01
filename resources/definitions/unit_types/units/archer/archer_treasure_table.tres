@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=6 format=3 uid="uid://cue7boyr156af"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_0vfue"]
+[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="2_b7wj3"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="3_3wkn5"]
+
+[sub_resource type="Resource" id="Resource_wyudb"]
+script = ExtResource("1_0vfue")
+probability = 88.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_owj3p"]
+script = ExtResource("1_0vfue")
+item = ExtResource("2_b7wj3")
+probability = 0.8
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("3_3wkn5")
+entries = Array[ExtResource("1_0vfue")]([SubResource("Resource_wyudb"), SubResource("Resource_owj3p")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

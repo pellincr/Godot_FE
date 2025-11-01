@@ -1,30 +1,44 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://chmhvok2b7sgj"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=14 format=3 uid="uid://chmhvok2b7sgj"]
 
 [ext_resource type="Resource" uid="uid://cneoftbrp4hi2" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_base_combat_stats.tres" id="1_jlkb8"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_o4h4l"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_o4h4l"]
 [ext_resource type="Resource" uid="uid://c8skxd6d5ns8q" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_growth_stats.tres" id="2_h5kmo"]
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="2_jqenn"]
 [ext_resource type="Resource" uid="uid://deth5afjl2c4w" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_max_stats.tres" id="3_eso8f"]
 [ext_resource type="Texture2D" uid="uid://dtv3rkdbibbfa" path="res://resources/sprites/units/axe_armor.png" id="3_qnuew"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_se7vg"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="3_v77r2"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_far6w"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="5_uph4s"]
+
+[sub_resource type="Resource" id="Resource_noi40"]
+script = ExtResource("3_v77r2")
+item = ExtResource("4_far6w")
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_2dfaf"]
+script = ExtResource("5_uph4s")
+entries = Array[ExtResource("3_v77r2")]([SubResource("Resource_noi40")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
+
+[sub_resource type="Resource" id="Resource_tj7do"]
+script = ExtResource("2_jqenn")
+weapon_default = SubResource("Resource_2dfaf")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"
 
 [resource]
 script = ExtResource("1_o4h4l")
 unit_type_name = "Axe Armor"
 db_key = "axe_armor"
 description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
-initiative = 1
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("3_se7vg")
 movement_type = 1
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([2])
 base_stats = ExtResource("1_jlkb8")
 maxuimum_stats = ExtResource("3_eso8f")
 growth_stats = ExtResource("2_h5kmo")
 icon = ExtResource("3_qnuew")
 map_sprite = ExtResource("3_qnuew")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])
+default_item_resource = SubResource("Resource_tj7do")

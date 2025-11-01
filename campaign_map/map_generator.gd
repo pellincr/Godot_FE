@@ -11,7 +11,7 @@ const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
 
 
-const BATTLE_ROOM_WEIGHT := 5.0 #0
+const BATTLE_ROOM_WEIGHT := 0#5.0 #0
 const EVENT_ROOM_WEIGHT := 4.0 #2.5
 const TREASURE_ROOM_WEIGHT := 1.0 #1
 const ELITE_ROOM_WEIGHT := 0.0 #1.5
