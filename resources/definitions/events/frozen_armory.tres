@@ -1,18 +1,12 @@
-[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://d2rwfvtcf2de2"]
+[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://d2rwfvtcf2de2"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_fhq5a"]
-[ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="1_vi1bu"]
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="2_sg5q4"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_erdm1"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="4_atj8j"]
 
-[sub_resource type="Resource" id="Resource_74ra3"]
-script = ExtResource("1_vi1bu")
-metadata/_custom_type_script = "uid://bupixdlbvtyij"
-
 [sub_resource type="Resource" id="Resource_ng0hl"]
 script = ExtResource("2_sg5q4")
-entries = Array[ExtResource("1_vi1bu")]([SubResource("Resource_74ra3")])
 metadata/_custom_type_script = "uid://dgaq5vstt54r"
 
 [sub_resource type="Resource" id="Resource_ixt8c"]

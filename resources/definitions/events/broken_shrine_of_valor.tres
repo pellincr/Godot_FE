@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="Event" load_steps=17 format=3 uid="uid://2ebb2awaycit"]
+[gd_resource type="Resource" script_class="Event" load_steps=15 format=3 uid="uid://2ebb2awaycit"]
 
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gjdrf"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_hon6e"]
 [ext_resource type="Texture2D" uid="uid://br2u23ch0s2vp" path="res://resources/sprites/events/broken_shrine_of_valor_background.png" id="1_pqwyy"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_rcrjr"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_1p5hj"]
-[ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_okf23"]
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_nuwek"]
 
 [sub_resource type="Resource" id="Resource_ke52e"]
@@ -24,12 +23,8 @@ effect = 2
 unit_stat_change = SubResource("Resource_aol43")
 unit_growth_change = SubResource("Resource_ke52e")
 
-[sub_resource type="Resource" id="Resource_ep0ib"]
-script = ExtResource("4_okf23")
-
 [sub_resource type="Resource" id="Resource_ie7tl"]
 script = ExtResource("5_nuwek")
-entries = Array[ExtResource("4_okf23")]([SubResource("Resource_ep0ib")])
 
 [sub_resource type="Resource" id="Resource_70bis"]
 script = ExtResource("3_1p5hj")

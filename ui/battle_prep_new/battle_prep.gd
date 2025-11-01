@@ -96,7 +96,7 @@ func update_by_state():
 			battle_prep_menu.start_game.connect(_on_start_game)
 			var current_level = playerOverworldData.current_level.instantiate()
 			var combat = current_level.get_child(2)
-			next_level_info.set_upcoming_enemies(combat.enemy_start_group)
+			next_level_info.set_upcoming_enemies(combat.unit_data.starting_enemy_group)
 			if combat.entity_manager:
 				next_level_info.set_upcoming_entities(combat.entity_manager.mapEntityData)
 			hbox_container.add_child(battle_prep_menu)

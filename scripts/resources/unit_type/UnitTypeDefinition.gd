@@ -33,4 +33,4 @@ class_name UnitTypeDefinition
 var tags : Array[String] ##TO BE CALCULATED
 
 @export_group("Generation & Items")
-@export var default_item_resource : UnitTypeDefaultItemsResource
+@export var default_item_resource : UnitTypeDefaultItemTables

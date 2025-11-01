@@ -2,15 +2,14 @@ extends Resource
 class_name LootTable
 # A loot table is a datatype that processes arrays of lootTableEntries,
 
-#var target_random GOES HERE
-var entries : Array[LootTableEntry]
 
 # We do the math to select the entry and then call get data
 func get_loot():
-	return self.select_entry().get_data()
+	pass
+	#return self.select_entry().get_data()
 
 # Chooses one of the entries from the loot table
-func select_entry() -> LootTableEntry:
+func select_entry(entries : Array) -> LootTableEntry:
 	var max : float = 0
 	# combine the entry weights
 	for entry : LootTableEntry in entries:

@@ -73,7 +73,7 @@ func fill_enemy_unit_type_info_container():
 		unit_type_label.add_theme_font_size_override("font_size",24)
 
 func fill_enemy_usable_weapon_info_container():
-	var usable_weapon_map = create_enemy_weapon_type_map(upcoming_enemies.group)
+	var usable_weapon_map = create_enemy_weapon_type_map(upcoming_enemies.group) #TODO CHANGE THIS TO THE CURRENT ENEMIES ON THE MAP
 	for usable_weapon_type_key in usable_weapon_map:
 		var enemy_info_sub_container = HBoxContainer.new()
 		var count_label := Label.new()
@@ -94,11 +94,12 @@ func create_enemy_weapon_type_map(enemies) -> Dictionary:
 	for enemy in enemies:
 		var unit_type := UnitTypeDatabase.get_definition(enemy.unit_type_key)
 		var usable_weapon_types = unit_type.usable_weapon_types
-		for usable_weapon_type in usable_weapon_types:
-			if usable_weapon_map.get(usable_weapon_type):
-				usable_weapon_map[usable_weapon_type] += 1
-			else:
-				usable_weapon_map[usable_weapon_type] = 1
+		if usable_weapon_types != null:
+			for usable_weapon_type in usable_weapon_types:
+				if usable_weapon_map.get(usable_weapon_type):
+					usable_weapon_map[usable_weapon_type] += 1
+				else:
+					usable_weapon_map[usable_weapon_type] = 1
 	return usable_weapon_map
 
 func fill_reinforcement_unit_type_header_container():

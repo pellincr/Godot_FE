@@ -73,8 +73,9 @@ var _player_unit_alive : bool = true
 
 @export var ally_spawn_tiles : Array[Vector2i] = []
 
-@export var enemy_start_group_options : Array[EnemyGroup]
-@onready var enemy_start_group : EnemyGroup = enemy_start_group_options.pick_random()
+@export var unit_data : CombatMapUnitData = CombatMapUnitData.new()
+#@export var enemy_start_group_options : Array[EnemyGroup]
+#@onready var enemy_start_group : EnemyGroup = enemy_start_group_options.pick_random()
 
 
 @export var level_reward : CombatReward
@@ -122,6 +123,7 @@ func _ready():
 	reinforcement_manager.populate(mapReinforcementData)
 	reinforcement_manager.connect("spawn_reinforcement", _on_reinforcement_manager_spawn_reinforcement)
 	#randomize()
+	unit_data.populate_map()
 
 func set_game_grid(game_grid : CombatMapGrid):
 	self.game_grid = game_grid
@@ -254,11 +256,55 @@ func check_reinforcement_spawn(turn_number : int):
 	reinforcement_check_completed.emit()
 
 func spawn_initial_units():
-	for unit :CombatUnitData in enemy_start_group.group:
+	# do the units who have classes
+	for unit : CombatUnitData in unit_data.starting_enemy_group.group: #for unit :CombatUnitData in enemy_start_group.group:
+		if unit is RandomCombatUnitData:
+			generate_random_unit(unit)
 		var enemy_unit : CombatUnit
 		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
 		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type, unit.drops_item, unit.is_boss,)
 		add_combatant(enemy_unit, unit.map_position)
+
+
+func generate_random_unit(target:RandomCombatUnitData):
+	# Get the target Unit Type
+	if unit_data.map_unit_data_table.has(target.unit_group):
+		var _drop_item : bool = false
+		#Get the unit data from the table
+		var unit_type : UnitTypeDefinition = UnitTypeDatabase.unit_types.get(		unit_data.map_unit_data_table.get(target.unit_group).get_loot())
+		#Get the inventory from the unitType
+		var _inventory :Array[ItemDefinition] = []
+		#TODO allow user to override this item find if a table exists in the 
+		#Weapon
+		var weapon = unit_type.default_item_resource.weapon_default.get_loot()
+		_inventory.append(weapon)
+		#Treasure
+		var treasure = unit_type.default_item_resource.treasure_default.get_loot()
+		if treasure != null:
+			_drop_item = true
+			_inventory.append(treasure)
+		# Randomize Level, with deviation around current depth
+		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 1), 1, playerOverworldData.combat_maps_completed + 4)
+		var _bonus_levels : int = 0 #TODO GET THIS RESOLVED BASED ON DIFFICULTY & DEPTH?
+		#Get available positions
+		var map_position : Vector2i = target.map_position
+		var selectable_tiles : Array[Vector2i] = []
+		if target.position_variance:
+			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position)
+			#Is the unit blocked in the tile, if so remove it from contention
+			for index in range(selectable_tiles.size()):
+				if game_grid.get_terrain(selectable_tiles[index]).blocks.has(unit_type.movement_type):
+					selectable_tiles.remove_at(index)
+				# ANY OTHER CHECKS FOR TILE VALIDITY GO HERE
+			map_position = selectable_tiles.pick_random()
+		target.unit_type_key = unit_type.db_key
+		target.inventory = _inventory.duplicate() #IS THIS DUPLICATE REDUNDANT?
+		target.level = _level
+		target.drops_item = _drop_item
+		
+		#var new_unit = Unit.create_generic_unit(unit_type.db_key, _inventory, target.name, _level, 0, target.hard_mode_leveling)
+		#var generated_combat_unit : CombatUnit = create_combatant_unit(new_unit, 1, target.ai_type, _drop_item, target.is_boss,)
+		#add_combatant(generated_combat_unit, map_position)
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss, has_droppable_item)
