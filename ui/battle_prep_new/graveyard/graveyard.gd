@@ -59,6 +59,7 @@ func _on_unit_panel_pressed(unit:Unit):
 
 func _on_unit_revived(unit:Unit, cost:int):
 	if playerOverworldData.gold >= cost:
+		AudioManager.play_sound_effect("resurrect")
 		playerOverworldData.gold -= cost
 		gold_counter.set_gold_count(playerOverworldData.gold)
 		playerOverworldData.total_party.append(unit)

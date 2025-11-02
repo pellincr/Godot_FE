@@ -163,5 +163,5 @@ func _on_mouse_entered():
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
-		AudioManager.play_sound_effect("menu_confirm")
+		#AudioManager.play_sound_effect("menu_confirm")
 		inventory_slot_pressed.emit(item)

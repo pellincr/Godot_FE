@@ -79,3 +79,4 @@ func _on_start_campaign_button_pressed() -> void:
 		selected_seed = randi()
 		seeded = false
 	start_game.emit(seeded, selected_seed,current_difficulty)
+	AudioManager.play_sound_effect("begin_campaign")

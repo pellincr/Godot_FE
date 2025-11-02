@@ -10,6 +10,7 @@ func _process(delta):
 	if campaign:
 		set_campaign_name_label(campaign.name)
 	if Input.is_action_just_pressed("ui_accept") and has_focus():
+		AudioManager.play_sound_effect("menu_confirm")
 		campaign_selected.emit(campaign)
 
 
@@ -22,6 +23,7 @@ func _on_mouse_entered():
 
 
 func _on_focus_entered():
+	AudioManager.play_sound_effect("menu_cursor")
 	theme = preload("res://overworld_new/campaign_selector_node_focused.tres")
 
 

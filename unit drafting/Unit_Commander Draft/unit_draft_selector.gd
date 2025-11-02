@@ -10,9 +10,6 @@ enum SELECTOR_STATE{
 	OVERVIEW, STATS, GROWTHS
 }
 
-var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
-var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
-
 @onready var name_label = $Panel/MarginContainer/MainVContainer/NameLabel
 @onready var class_label = $Panel/MarginContainer/MainVContainer/HBoxContainer/ClassLabel
 @onready var icon = $Panel/Icon
@@ -57,8 +54,10 @@ func _ready():
 
 func _on_gui_input(event):
 	if event.is_action_pressed("ui_confirm") and has_focus():
-		$AudioStreamPlayer.stream = menu_enter_effect
-		$AudioStreamPlayer.play()
+		#$AudioStreamPlayer.stream = menu_enter_effect
+		#AudioManager.play_sound_effect("menu_confirm")
+		AudioManager.play_sound_effect("draft_confirm")
+		#$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
 	if event.is_action_pressed("right_bumper"):
 		#show_next_screen()
@@ -199,8 +198,9 @@ func _on_panel_mouse_entered():
 
 func _on_focus_entered():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
-	$AudioStreamPlayer.stream = menu_hover_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_hover_effect
+	#$AudioStreamPlayer.play()
+	AudioManager.play_sound_effect("draft_hover")
 	print("Selection Focused")
 	if unit is Unit:
 		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)

@@ -772,6 +772,7 @@ func combat_loss():
 
 func combat_win():
 	controller.update_game_state(CombatMapConstants.COMBAT_MAP_STATE.VICTORY)
+	AudioManager.play_sound_effect("level_win")
 	var reward_screen := preload("res://ui/combat/reward_panel/reward_panel.tscn").instantiate()
 	level_reward.units_allowed = ally_spawn_tiles.size()
 	level_reward.turns_survived = current_turn

@@ -60,18 +60,25 @@ func _on_experience_gained_panel_gui_input(event: InputEvent) -> void:
 		if experience_gained > 0:
 			award_exp.emit(unit, experience_gained, available_bonus_exp)
 			spend_bonus_exp()
+			AudioManager.play_sound_effect("bonus_experience_spend")
 	if event.is_action_pressed("ui_up"):
 		increase_exp_gain_one()
+		AudioManager.play_sound_effect("bonus_experience_point")
 	if event.is_action_pressed("ui_down"):
 		decrease_exp_gain_one()
+		AudioManager.play_sound_effect("bonus_experience_point")
 	if event.is_action_pressed("ui_left"):
 		decrease_exp_gain_ten()
+		AudioManager.play_sound_effect("bonus_experience_point")
 	if event.is_action_pressed("ui_right"):
 		increase_exp_gain_ten()
+		AudioManager.play_sound_effect("bonus_experience_point")
 	if event.is_action_pressed("right_bumper"):
 		jump_to_next_level()
+		AudioManager.play_sound_effect("bonus_experience_point")
 	if event.is_action_pressed("left_bumper"):
 		decrease_exp_gain_n(experience_gained)
+		AudioManager.play_sound_effect("bonus_experience_point")
 """
 #Increases the Exp Gain Value by the N Value if there is enough bonus exp to satisfy
 func increase_exp_gain_n(n:int):

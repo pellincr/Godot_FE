@@ -42,3 +42,11 @@ func set_button(text:String):
 	elif CustomUtilityLibrary.equals_ignore_case(text, "Cancel"):
 		self.text = "Cancel"
 		self.icon = cancel_icon
+
+
+func _on_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
+
+
+func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")

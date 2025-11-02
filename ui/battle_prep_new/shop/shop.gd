@@ -99,6 +99,7 @@ func _on_item_bought_to_unit(item:ItemDefinition,unit_detailed_view):
 		unit_detailed_view.update_by_unit()
 		playerOverworldData.gold -= item.worth
 		gold_counter.set_gold_count(playerOverworldData.gold)
+		AudioManager.play_sound_effect("item_buy")
 
 func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 	if playerOverworldData.gold >= item.worth:
@@ -111,6 +112,7 @@ func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 
 func _on_item_sold(item:ItemDefinition):
 	if item:
+		AudioManager.play_sound_effect("item_sell")
 		playerOverworldData.gold += item.worth/2
 		gold_counter.set_gold_count(playerOverworldData.gold)
 

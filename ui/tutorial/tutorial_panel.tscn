@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ba56bol4rbggp"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_8okc1"]
-[ext_resource type="Script" path="res://ui/tutorial/tutorial_panel.gd" id="2_cky66"]
+[ext_resource type="Script" uid="uid://kkvvigdli2it" path="res://ui/tutorial/tutorial_panel.gd" id="2_cky66"]
 [ext_resource type="Texture2D" uid="uid://dsyeapnvmd1po" path="res://resources/sprites/controls/keyboard/enteralt.png" id="3_cvlnn"]
 [ext_resource type="Texture2D" uid="uid://cluajaeeln1i4" path="res://resources/sprites/controls/keyboard/backspace.png" id="3_m2474"]
 

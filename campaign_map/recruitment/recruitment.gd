@@ -10,7 +10,7 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 const unit_selector_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_selector.tscn")
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
-const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+#const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 @onready var army_draft_stage_label = $MarginContainer/MainContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/MainContainer/HBoxContainer/PickAmountLabel

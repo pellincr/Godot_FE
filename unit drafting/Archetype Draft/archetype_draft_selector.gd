@@ -6,8 +6,8 @@ signal archetype_selected(archetype)
 
 var playerOverworldData : PlayerOverworldData
 
-var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
-var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+#var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
+#var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 
 @onready var main_container = $Panel/MainVContainer
@@ -108,8 +108,9 @@ func clear_archetype_icon_container():
 
 
 func _on_focus_entered():
-	$AudioStreamPlayer.stream = menu_hover_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_hover_effect
+	#$AudioStreamPlayer.play()
+	AudioManager.play_sound_effect("draft_hover")
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
 	set_rarity_shadow_hue(archetype.rarity)
 	print("Selection Focused")
@@ -169,7 +170,8 @@ func filter_archetypes_by_duplicate(archetype_keys:Array) -> Array:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_confirm") and has_focus():
-			$AudioStreamPlayer.stream = menu_enter_effect
-			$AudioStreamPlayer.play()
+			#$AudioStreamPlayer.stream = menu_enter_effect
+			#$AudioStreamPlayer.play()
+			AudioManager.play_sound_effect("draft_confirm")
 			archetype_selected.emit(archetype)
 			print("Archetype Selected")

@@ -54,9 +54,9 @@ const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_invento
 const COMBAT_UNIT_INTERACT_ACTION_INVENTORY = preload("res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.tscn")
 
 #Audio imports
-const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
-const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
-const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
+#const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
+#const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
+#const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 
 #transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -421,20 +421,21 @@ func hide_unit_experience_bar():
 # Calls play_audio with parameters to play the cursor, or move sound in menus
 #
 func play_cursor():
-	play_audio(cursor_sound, ui_map_audio)
+	#play_audio(cursor_sound, ui_map_audio)
+	AudioManager.play_sound_effect("menu_cursor")
 
 #
 # Calls play_audio with parameters to play the confirm sound
 #
 func play_menu_confirm():
-	play_audio(menu_confirm_sound, ui_menu_audio)
+	AudioManager.play_sound_effect("menu_confirm")
 
 #
 # Calls play_audio with parameters to play the back or cancel sound
 #
 #
 func play_menu_back():
-	play_audio(menu_back_sound, ui_menu_audio)
+	AudioManager.play_sound_effect("menu_back")
 
 #
 # Used to play audio in ui components
@@ -462,6 +463,7 @@ func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[Uni
 	discard_container.grab_focus_btn()
 
 func create_item_obtained_pop_up(item:ItemDefinition):
+	AudioManager.play_sound_effect("item_obtained")
 	var _pop_up = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)

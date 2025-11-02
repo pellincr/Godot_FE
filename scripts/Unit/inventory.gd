@@ -56,6 +56,8 @@ func set_equipped(item : ItemDefinition):
 		items.remove_at(index + 1)
 		equipped = true
 
+
+
 #
 # Equips currently onwed item at specified index
 #

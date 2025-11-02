@@ -140,6 +140,7 @@ func _on_item_panel_pressed(item,unit_detailed_view,convoy):
 		unit_detailed_view.update_by_unit()
 		convoy.focused = false
 		convoy.reset_convoy_container()
+		AudioManager.play_sound_effect("item_from_convoy")
 
 func _on_send_item_to_convoy(item,convoy):
 	playerOverworldData.convoy.append(item)

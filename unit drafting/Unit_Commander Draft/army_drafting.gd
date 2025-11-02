@@ -9,7 +9,7 @@ signal drafting_complete(po_data)
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
-const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+#const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
@@ -127,8 +127,9 @@ func recruiting_complete():
 
 
 func update_to_archetype_screen():
-	$AudioStreamPlayer.stream = menu_enter_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_enter_effect
+	#$AudioStreamPlayer.play()
+	#AudioManager
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
 	unit_draft_controls.set_cycle_view_left_visibility(false)
@@ -141,8 +142,8 @@ func update_to_archetype_screen():
 	archetype_draft.connect("archetype_selected",archetype_selected)
 
 func update_to_unit_draft_screen():
-	$AudioStreamPlayer.stream = menu_enter_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_enter_effect
+	#$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.UNIT
 	unit_draft_controls.set_cycle_view_left_visibility(true)
 	unit_draft_controls.set_cycle_view_right_visibility(true)

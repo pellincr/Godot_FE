@@ -68,6 +68,7 @@ func update_buttons():
 
 func _on_equip_button_pressed() -> void:
 	equip.emit(selected_item)
+	play_equipped_item_sound(selected_item)
 
 
 func _on_un_equip_button_pressed() -> void:
@@ -99,5 +100,28 @@ func grab_focus_btn():
 
 
 
+func play_equipped_item_sound(item : ItemDefinition):
+	var selected_sound_effect = "menu_confirm"
+	if item is WeaponDefinition:
+		if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:
+			selected_sound_effect = "sword_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.AXE:
+			selected_sound_effect = "axe_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.LANCE:
+			selected_sound_effect = "lance_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.DAGGER:
+			selected_sound_effect = "dagger_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.FIST:
+			selected_sound_effect = "fist_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
+			selected_sound_effect = "staff_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.BOW:
+			selected_sound_effect = "bow_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.SHIELD:
+			selected_sound_effect = "shield_equip"
+		elif item.item_damage_type == ItemConstants.DAMAGE_TYPE.MAGIC:
+			selected_sound_effect = "magic_equip"
+	AudioManager.play_sound_effect(selected_sound_effect)
 
-	
+func _on_button_focus_entered():
+	AudioManager.play_sound_effect("menu_cursor")

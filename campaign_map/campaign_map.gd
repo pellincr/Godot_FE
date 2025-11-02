@@ -173,6 +173,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has("EXTRA"):
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("EXTRA").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
 			playerOverworldData.began_level = true
@@ -182,24 +183,28 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has(battle_tier):
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(battle_tier).pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
 			playerOverworldData.began_level = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.EVENT:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("event_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(EVENT_SELECT)
 		CampaignRoom.TYPE.BOSS:
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has("BOSS") and not playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").is_empty():
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
 			playerOverworldData.began_level = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.TREASURE:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("treasure_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(TREASURE_SCENE)
 		CampaignRoom.TYPE.SHOP:
@@ -208,6 +213,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			get_tree().change_scene_to_packed(PLACEHOLDER)
 		CampaignRoom.TYPE.RECRUITMENT:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("recruit_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(RECRUITMENT_SCENE)
 		CampaignRoom.TYPE.ELITE:

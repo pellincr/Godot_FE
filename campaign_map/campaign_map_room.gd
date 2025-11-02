@@ -52,6 +52,7 @@ func _on_map_room_selected() -> void:
 
 func _on_focus_entered():
 	modulate = Color.WHITE
+	AudioManager.play_sound_effect("campaign_map_room_hovered")
 
 
 func _on_focus_exited():

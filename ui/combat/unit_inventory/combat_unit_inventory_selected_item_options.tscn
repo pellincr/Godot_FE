@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ch3purv4oivig"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.gd" id="1_x8whe"]
+[ext_resource type="Script" uid="uid://bof14yh02r43w" path="res://ui/combat/unit_inventory/combat_unit_inventory_selected_item_options.gd" id="1_x8whe"]
 [ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="2_fm2v8"]
 
 [node name="CombatUnitInventorySelectedItemOptions" type="Panel"]
@@ -45,8 +45,13 @@ layout_mode = 2
 theme = ExtResource("2_fm2v8")
 text = "Discard"
 
+[connection signal="focus_entered" from="VBoxContainer/EquipButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/EquipButton" to="." method="_on_equip_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/UnEquipButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/UnEquipButton" to="." method="_on_un_equip_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/UseButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/ArrangeButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/ArrangeButton" to="." method="_on_arrange_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/DiscardButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/DiscardButton" to="." method="_on_discard_button_pressed"]

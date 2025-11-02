@@ -1,26 +1,104 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=11 format=3 uid="uid://b1ubk6fkwuowd"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=50 format=3 uid="uid://b1ubk6fkwuowd"]
 
 [ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
-[ext_resource type="AudioStream" uid="uid://dvlfsttmv1f2p" path="res://resources/sounds/ui/menu_confirm.wav" id="2_1rw36"]
-[ext_resource type="AudioStream" uid="uid://b8vuovpghejpv" path="res://resources/sounds/ui/menu_back.wav" id="3_wiycp"]
-[ext_resource type="AudioStream" uid="uid://catkywwwl2laj" path="res://resources/sounds/ui/menu_cursor.wav" id="4_qrst8"]
-[ext_resource type="AudioStream" uid="uid://dgmxha3wn01tl" path="res://resources/sounds/ui/experience_bar_sound.mp3" id="5_qy2gu"]
-[ext_resource type="AudioStream" uid="uid://pjqb8vj66esu" path="res://resources/sounds/combat/hit.wav" id="6_tryjc"]
-[ext_resource type="AudioStream" uid="uid://c3beq1poqa8of" path="res://resources/sounds/combat/Crit.wav" id="7_np7bv"]
-[ext_resource type="AudioStream" uid="uid://bahem7757jlqu" path="res://resources/sounds/combat/no_damage.wav" id="8_y8hrx"]
-[ext_resource type="AudioStream" uid="uid://v3m2jj3vbh22" path="res://resources/sounds/combat/miss.wav" id="9_8xtpo"]
+[ext_resource type="AudioStream" uid="uid://bsaeqapxav78g" path="res://resources/sounds/ui/level_up/experience_point.ogg" id="2_05ay2"]
+[ext_resource type="AudioStream" uid="uid://p2ckfl5njr11" path="res://resources/sounds/ui/menu_confirm.ogg" id="3_4gilo"]
+[ext_resource type="AudioStream" uid="uid://d1krbb34427ml" path="res://resources/sounds/ui/level_up/level_up.ogg" id="3_yku62"]
+[ext_resource type="AudioStream" uid="uid://ddhflkofcy0t7" path="res://resources/sounds/ui/level_up/level_up_point.ogg" id="4_7vslk"]
+[ext_resource type="AudioStream" uid="uid://cbqmesa7m6w31" path="res://resources/sounds/combat/level_win.ogg" id="5_wdait"]
+[ext_resource type="AudioStream" uid="uid://di36tagijssy2" path="res://resources/sounds/ui/menu_back.ogg" id="6_rgd6t"]
+[ext_resource type="AudioStream" uid="uid://c3beq1poqa8of" path="res://resources/sounds/combat/attack/old/crit_old.wav" id="9_ndyg3"]
 [ext_resource type="AudioStream" uid="uid://deqg3bd6nj55d" path="res://resources/sounds/combat/heal.wav" id="10_4gilo"]
+[ext_resource type="AudioStream" uid="uid://pjqb8vj66esu" path="res://resources/sounds/combat/attack/old/hit.wav" id="11_ih735"]
+[ext_resource type="AudioStream" uid="uid://v3m2jj3vbh22" path="res://resources/sounds/combat/attack/old/miss.wav" id="12_n1ypu"]
+[ext_resource type="AudioStream" uid="uid://bahem7757jlqu" path="res://resources/sounds/combat/attack/old/no_damage_old.wav" id="13_a57wq"]
+[ext_resource type="AudioStream" uid="uid://xc0cd7xpvrsf" path="res://resources/sounds/ui/menu_cursor.ogg" id="13_yqpx8"]
+[ext_resource type="AudioStream" uid="uid://1vlnackpobr3" path="res://resources/sounds/combat/unit_confirm.ogg" id="15_no1wr"]
+[ext_resource type="AudioStream" uid="uid://cw0hrbfu68crb" path="res://resources/sounds/combat/unit_select.ogg" id="16_5ef6t"]
+[ext_resource type="AudioStream" uid="uid://d52q5hmjy1pi" path="res://resources/sounds/ui/inventory/bow_equip.ogg" id="17_ml5ix"]
+[ext_resource type="AudioStream" uid="uid://uvpeywpyrjhn" path="res://resources/sounds/combat/unit_return.ogg" id="17_xoril"]
+[ext_resource type="AudioStream" uid="uid://c43oxlw2r6r12" path="res://resources/sounds/ui/overworld/begin_campaign.ogg" id="18_bl41c"]
+[ext_resource type="AudioStream" uid="uid://cnyrwn83fbpdh" path="res://resources/sounds/ui/draft/draft_hover.ogg" id="19_485dx"]
+[ext_resource type="AudioStream" uid="uid://bana2ilb5w081" path="res://resources/sounds/ui/draft/draft_confirm.ogg" id="20_rgd6t"]
+[ext_resource type="AudioStream" uid="uid://df1grc5ha354m" path="res://resources/sounds/ui/inventory/axe_equip.ogg" id="21_gkxbp"]
+[ext_resource type="AudioStream" uid="uid://dg25orml086qk" path="res://resources/sounds/ui/inventory/dagger_equip.ogg" id="22_6f3rd"]
+[ext_resource type="AudioStream" uid="uid://dtk18tx7x1f6b" path="res://resources/sounds/ui/inventory/fist_equip.ogg" id="23_q27tk"]
+[ext_resource type="AudioStream" uid="uid://c34ms0xpagxqg" path="res://resources/sounds/ui/inventory/lance_equip.ogg" id="24_mpbtu"]
+[ext_resource type="AudioStream" uid="uid://bidvhtmbsyf0a" path="res://resources/sounds/ui/inventory/magic_equip.ogg" id="25_t6mrr"]
+[ext_resource type="AudioStream" uid="uid://kkbuo45x3c1c" path="res://resources/sounds/ui/inventory/shield_equip.ogg" id="26_ydslc"]
+[ext_resource type="AudioStream" uid="uid://dv3ydjw1atjy6" path="res://resources/sounds/ui/inventory/staff_equip.ogg" id="27_ndyg3"]
+[ext_resource type="AudioStream" uid="uid://ctwycshkdbtxf" path="res://resources/sounds/ui/inventory/sword_equip.ogg" id="28_ih735"]
+[ext_resource type="AudioStream" uid="uid://1ml7ch3kfb3t" path="res://resources/sounds/ui/shop/item_sell.ogg" id="29_n1ypu"]
+[ext_resource type="AudioStream" uid="uid://c4feou6w6d7w6" path="res://resources/sounds/ui/shop/item_buy.ogg" id="30_a57wq"]
+[ext_resource type="AudioStream" uid="uid://bljito7jr0gn1" path="res://resources/sounds/ui/inventory/potion_use.ogg" id="31_qtawl"]
+[ext_resource type="AudioStream" uid="uid://dw6blkpmh3nc" path="res://resources/sounds/ui/inventory/store_item.ogg" id="32_u6dim"]
+[ext_resource type="AudioStream" uid="uid://jdsxlu5yo4is" path="res://resources/sounds/ui/inventory/item_from_convoy.ogg" id="33_p6ya6"]
+[ext_resource type="AudioStream" uid="uid://o3gfytotq3kj" path="res://resources/sounds/ui/campaign_map/battle_map_enter.ogg" id="35_7vslk"]
+[ext_resource type="AudioStream" uid="uid://dpchcfo7igpyv" path="res://resources/sounds/ui/campaign_map/treasure_map_enter.ogg" id="36_wdait"]
+[ext_resource type="AudioStream" uid="uid://ckuby6pw15ar6" path="res://resources/sounds/ui/campaign_map/campaign_map_room_hovered.ogg" id="37_ml5ix"]
+[ext_resource type="AudioStream" uid="uid://fmkeerhsalww" path="res://resources/sounds/ui/campaign_map/event_map_enter.ogg" id="37_wdait"]
+[ext_resource type="AudioStream" uid="uid://du2q6q6ber8bp" path="res://resources/sounds/ui/training_grounds/bonus_experience_point.ogg" id="38_bl41c"]
+[ext_resource type="AudioStream" uid="uid://bgumf5sb7hkm3" path="res://resources/sounds/ui/training_grounds/bonus_experience_spend.ogg" id="39_485dx"]
+[ext_resource type="AudioStream" uid="uid://cllj1ngbo6g6t" path="res://resources/sounds/combat/rewards/bonus_experience_rewarded.ogg" id="40_rgd6t"]
+[ext_resource type="AudioStream" uid="uid://crrgwyvbd5ug3" path="res://resources/sounds/combat/rewards/gold_rewarded.ogg" id="41_gkxbp"]
+[ext_resource type="AudioStream" uid="uid://o7upxvj882tp" path="res://resources/sounds/ui/graveyard/resurrect.ogg" id="42_gkxbp"]
+[ext_resource type="AudioStream" uid="uid://6gidliq8bwen" path="res://resources/sounds/combat/attack/flesh_impact.ogg" id="43_qtawl"]
+[ext_resource type="AudioStream" uid="uid://bt3008xry61uj" path="res://resources/sounds/combat/attack/no_damage.ogg" id="44_u6dim"]
+[ext_resource type="AudioStream" uid="uid://bl5glmsd3dk5r" path="res://resources/sounds/combat/attack/sword_swing_heavy.ogg" id="45_p6ya6"]
+[ext_resource type="AudioStream" uid="uid://dcp2odheytjvc" path="res://resources/sounds/combat/attack/sword_swing_light.ogg" id="46_jrlux"]
+[ext_resource type="AudioStream" uid="uid://c38rhis34inyk" path="res://resources/sounds/combat/attack/fire_spell_hit.wav" id="47_yp38g"]
+[ext_resource type="AudioStream" uid="uid://b0go1wscqvl1k" path="res://resources/sounds/combat/attack/wind_spell_hit.wav" id="48_0qbke"]
+[ext_resource type="AudioStream" uid="uid://sncf8rk4ne01" path="res://resources/sounds/combat/rewards/item_obtained.ogg" id="49_ih735"]
 
 [resource]
 script = ExtResource("1_v3pn6")
 sounds = {
-"experience_bar": ExtResource("5_qy2gu"),
-"menu_back": ExtResource("3_wiycp"),
-"menu_confirm": ExtResource("2_1rw36"),
-"menu_cursor": ExtResource("4_qrst8"),
-"unit_crit": ExtResource("7_np7bv"),
+"axe_equip": ExtResource("21_gkxbp"),
+"battle_map_enter": ExtResource("35_7vslk"),
+"begin_campaign": ExtResource("18_bl41c"),
+"bonus_experience_point": ExtResource("38_bl41c"),
+"bonus_experience_rewarded": ExtResource("40_rgd6t"),
+"bonus_experience_spend": ExtResource("39_485dx"),
+"bow_equip": ExtResource("17_ml5ix"),
+"campaign_map_room_hovered": ExtResource("37_ml5ix"),
+"dagger_equip": ExtResource("22_6f3rd"),
+"draft_confirm": ExtResource("20_rgd6t"),
+"draft_hover": ExtResource("19_485dx"),
+"event_map_enter": ExtResource("37_wdait"),
+"experience_point": ExtResource("2_05ay2"),
+"fire_spell_hit": ExtResource("47_yp38g"),
+"fist_equip": ExtResource("23_q27tk"),
+"flesh_impact": ExtResource("43_qtawl"),
+"gold_rewarded": ExtResource("41_gkxbp"),
+"item_buy": ExtResource("30_a57wq"),
+"item_from_convoy": ExtResource("33_p6ya6"),
+"item_obtained": ExtResource("49_ih735"),
+"item_sell": ExtResource("29_n1ypu"),
+"lance_equip": ExtResource("24_mpbtu"),
+"level_up": ExtResource("3_yku62"),
+"level_up_point": ExtResource("4_7vslk"),
+"level_win": ExtResource("5_wdait"),
+"magic_equip": ExtResource("25_t6mrr"),
+"menu_back": ExtResource("6_rgd6t"),
+"menu_confirm": ExtResource("3_4gilo"),
+"menu_cursor": ExtResource("13_yqpx8"),
+"no_damage": ExtResource("44_u6dim"),
+"potion_use": ExtResource("31_qtawl"),
+"resurrect": ExtResource("42_gkxbp"),
+"shield_equip": ExtResource("26_ydslc"),
+"staff_equip": ExtResource("27_ndyg3"),
+"store_item": ExtResource("32_u6dim"),
+"sword_equip": ExtResource("28_ih735"),
+"sword_swing_heavy": ExtResource("45_p6ya6"),
+"sword_swing_light": ExtResource("46_jrlux"),
+"treasure_map_enter": ExtResource("36_wdait"),
+"unit_confirm": ExtResource("15_no1wr"),
+"unit_crit": ExtResource("9_ndyg3"),
 "unit_heal": ExtResource("10_4gilo"),
-"unit_hit": ExtResource("6_tryjc"),
-"unit_miss": ExtResource("9_8xtpo"),
-"unit_no_damage": ExtResource("8_y8hrx")
+"unit_hit": ExtResource("11_ih735"),
+"unit_miss": ExtResource("12_n1ypu"),
+"unit_no_damage": ExtResource("13_a57wq"),
+"unit_return": ExtResource("17_xoril"),
+"unit_select": ExtResource("16_5ef6t"),
+"wind_spell_hit": ExtResource("48_0qbke")
 }

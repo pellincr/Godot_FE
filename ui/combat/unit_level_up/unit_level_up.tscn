@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dr5gv3nhxomby"]
+[gd_scene load_steps=13 format=3 uid="uid://dr5gv3nhxomby"]
 
 [ext_resource type="Script" uid="uid://cfv7xjrq8xbkc" path="res://ui/combat/unit_level_up/unit_level_up.gd" id="1_1h3xc"]
 [ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="1_3jusj"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://sucjko8qgioh" path="res://resources/sprites/units/destroyer_map.tres" id="3_85s4i"]
 [ext_resource type="Theme" uid="uid://c55bq2g52bloq" path="res://resources/themes/Unit_status_detailed_panel.tres" id="3_lh7o5"]
 [ext_resource type="SpriteFrames" uid="uid://6goe3c8ex2ju" path="res://resources/sprites/level_up/level_up.tres" id="9_aw2vt"]
-[ext_resource type="AudioStream" uid="uid://bxk8dac544l7q" path="res://resources/sounds/ui/level_up.mp3" id="10_v8fyt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63lk6"]
 bg_color = Color(0, 0, 0, 1)
@@ -254,6 +253,3 @@ position = Vector2(256, -80)
 sprite_frames = ExtResource("9_aw2vt")
 animation = &"level_up"
 autoplay = "level_up"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_v8fyt")

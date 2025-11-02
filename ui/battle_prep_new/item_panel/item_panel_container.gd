@@ -141,7 +141,7 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered() -> void:
-	AudioManager.play_sound_effect("menu_cursor")
+	#AudioManager.play_sound_effect("menu_cursor")
 	item_name_label.self_modulate = "FFFFFF"
 	self.theme = preload("res://ui/battle_prep_new/panel_option_focused.tres")
 
@@ -153,5 +153,5 @@ func _on_focus_exited() -> void:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
-		AudioManager.play_sound_effect("menu_confirm")
+		#AudioManager.play_sound_effect("menu_confirm")
 		item_panel_pressed.emit(item)

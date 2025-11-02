@@ -71,16 +71,19 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 		attacker.unit.inventory.use_item(attacker.get_equipped())
 
 func do_damage_entity(target: CombatEntity, damage:int):
+	#AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
 		#await use_audio_player(no_damage_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
+		#AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
+		#AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
 		#await use_audio_player(hit_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+		#AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+		#AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
 		if target.hp <= 0:
@@ -111,7 +114,8 @@ func heal_unit(unit: CombatUnit, amount: int):
 
 func hit_missed(dodging_unit: CombatUnit):
 	#await use_audio_player(miss_sound)
-	await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
+	#await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
+	await AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
@@ -150,7 +154,9 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	if(damage == 0):
 		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
 		#await use_audio_player(no_damage_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
+		#AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
@@ -159,11 +165,15 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
 			#await use_audio_player(crit_sound)
-			AudioManager.play_sound_effect_pitch_randomized("unit_crit")
+			#AudioManager.play_sound_effect_pitch_randomized("unit_crit")
+			AudioManager.play_sound_effect_pitch_randomized("sword_swing_heavy")
+			AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
 			#await use_audio_player(hit_sound)
-			AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+			#AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+			AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+			AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete

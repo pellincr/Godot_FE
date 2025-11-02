@@ -61,3 +61,12 @@ func update_hover_item(item: ItemDefinition):
 
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
+
+"""
+func _on_unit_inventory_slot_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
+
+
+func _on_unit_inventory_slot_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")
+"""

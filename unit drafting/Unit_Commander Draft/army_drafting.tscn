@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
 
-[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
+[ext_resource type="Script" uid="uid://k0jw4ofugyyo" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_klef3"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_xuf8l"]
 [ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="5_0gh02"]
@@ -110,5 +110,3 @@ layout_mode = 2
 z_index = -1
 layout_mode = 2
 size_flags_vertical = 8
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -104,6 +104,7 @@ func _on_inventory_slot_pressed(item):
 					clear_equipped_symbol()
 					update_by_unit()
 					item_equipped.emit(item)
+					play_equipped_item_sound(item)
 				else:
 					var item_use_option = preload("res://ui/battle_prep_new/item_use_option.tscn").instantiate()
 					add_child(item_use_option)
@@ -126,8 +127,10 @@ func _on_inventory_slot_pressed(item):
 			unit.inventory.discard_item(item)
 			#update the inventory to match the item has now been discarded
 			update_by_unit()
+			AudioManager.play_sound_effect("store_item")
 		INVENTORY_STATE.TRADE:
 			set_trade_item.emit(item)
+			AudioManager.play_sound_effect("menu_confirm")
 			for inventory_slot in inventory_slot_array:
 				if inventory_slot.item == item:
 					inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
@@ -152,6 +155,30 @@ func _on_sell_confirm(item):
 
 func _on_sell_confirm_close():
 	inventory_slot_1.grab_focus()
+
+func play_equipped_item_sound(item : ItemDefinition):
+	var selected_sound_effect = "menu_confirm"
+	if item is WeaponDefinition:
+		if item.weapon_type == ItemConstants.WEAPON_TYPE.SWORD:
+			selected_sound_effect = "sword_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.AXE:
+			selected_sound_effect = "axe_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.LANCE:
+			selected_sound_effect = "lance_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.DAGGER:
+			selected_sound_effect = "dagger_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.FIST:
+			selected_sound_effect = "fist_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.STAFF:
+			selected_sound_effect = "staff_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.BOW:
+			selected_sound_effect = "bow_equip"
+		elif item.weapon_type == ItemConstants.WEAPON_TYPE.SHIELD:
+			selected_sound_effect = "shield_equip"
+		elif item.item_damage_type == ItemConstants.DAMAGE_TYPE.MAGIC:
+			selected_sound_effect = "magic_equip"
+	AudioManager.play_sound_effect(selected_sound_effect)
+
 
 """
 func _on_item_set_for_trade(item):

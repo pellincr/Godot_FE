@@ -882,7 +882,8 @@ func fsm_unit_move_process(delta):
 # Moves the unit, visually and in code to its new position by calling move player when the user presses confirms the move
 #
 func fsm_unit_move_confirm(delta):
-	combat.game_ui.play_menu_confirm()
+	#combat.game_ui.play_menu_confirm()
+	AudioManager.play_sound_effect("unit_confirm")
 	if _arrived == true:
 		if current_tile in _movable_tiles:
 		#If the unit is currently at a position and the player is selecting a different available position
@@ -907,7 +908,8 @@ func fsm_unit_move_cancel(delta):
 # Called in the unit_action select state, this cancels the player's previous move and returns the unit to its starting position (if it has moved)
 #
 func fsm_unit_action_cancel(delta = null):
-	combat.game_ui.play_menu_back()
+	#combat.game_ui.play_menu_back()
+	AudioManager.play_sound_effect("unit_return")
 	if (_arrived):
 		#Did the unit traverse any tiles in the move?
 		var current_unit : CombatUnit = combat.get_current_combatant()
@@ -966,7 +968,8 @@ func fsm_unit_select_hover_process(delta):
 	if Input:
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
 		if Input.is_action_just_pressed("ui_confirm"):
-			combat.game_ui.play_menu_confirm()
+			#combat.game_ui.play_menu_confirm()
+			AudioManager.play_sound_effect("unit_select")
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				if !selected_unit.turn_taken: 
 					selected_tile = current_tile
@@ -1701,10 +1704,14 @@ func fsm_prep_unit_select_hover_process(delta):
 	if Input:
 		var selected_unit : CombatUnit = grid.get_combat_unit(current_tile)
 		if Input.is_action_just_pressed("ui_confirm"):
-			combat.game_ui.play_menu_confirm()
+			#combat.game_ui.play_menu_confirm()
+			AudioManager.play_sound_effect("unit_select")
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				## ADD LOGIC FOR UNIT SWAP HERE
 				swap_units(current_tile)
+		elif Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_back"):
+			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
+			combat.game_ui.return_to_battle_prep_screen()
 		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
 				combat.game_ui.create_combat_unit_detail_panel(selected_unit)
