@@ -836,6 +836,7 @@ func move_cursor(position: Vector2i):
 #
 func update_current_tile(position : Vector2i):
 	if grid.is_valid_tile(position):
+		AudioManager.play_sound_effect("move_tile")
 		current_tile = position
 		get_tile_info(position)
 		selector.position = grid.map_to_position(current_tile)
