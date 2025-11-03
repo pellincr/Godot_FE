@@ -388,7 +388,8 @@ func can_equip(item:ItemDefinition) -> bool:
 	var can_equip_item : bool = false
 	if item is WeaponDefinition:
 		if item.weapon_type in usable_weapon_types:
-			can_equip_item = true
+			if not item.expended:
+				can_equip_item = true
 		else :
 			print("Tried to equip weapon that class can't use")
 	else :
@@ -401,6 +402,13 @@ func attempt_to_equip_front_item():
 	else: 
 		inventory.unequip()
 	update_stats()
+
+func equip_next_available_weapon():
+	# get all equippable items
+	var equippables : Array[WeaponDefinition] = get_equippable_weapons()
+	if not equippables.is_empty():
+		inventory.set_equipped(equippables.front())
+		
 
 func set_equipped(item : ItemDefinition):
 	if can_equip(item):

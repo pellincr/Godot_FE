@@ -24,9 +24,9 @@ script = ExtResource("1_c34f5")
 name = "Glormix"
 map_position = Vector2i(15, 12)
 level = 5
+is_boss = true
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("3_5fd1q"), ExtResource("14_atf7x")])
-is_boss = true
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_dx00j"]
@@ -34,10 +34,10 @@ script = ExtResource("1_c34f5")
 name = "Stahng"
 map_position = Vector2i(14, 1)
 level = 8
-unit_type_key = "thief"
-inventory = Array[ExtResource("2_gis2o")]([ExtResource("4_ydnu3"), ExtResource("5_mpci1")])
 ai_type = 2
 is_boss = true
+unit_type_key = "thief"
+inventory = Array[ExtResource("2_gis2o")]([ExtResource("4_ydnu3"), ExtResource("5_mpci1")])
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_7pk7t"]
@@ -60,9 +60,9 @@ inventory = Array[ExtResource("2_gis2o")]([ExtResource("7_8ehhj")])
 script = ExtResource("1_c34f5")
 name = "Stahng's Crew"
 map_position = Vector2i(14, 6)
+ai_type = 1
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("8_hxv73"), ExtResource("9_ywx08")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_u1glg"]
@@ -79,9 +79,9 @@ name = "Stahng's Crew"
 map_position = Vector2i(12, 6)
 level = 4
 level_bonus = -1
+ai_type = 1
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("11_t8t2t")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_e8250"]
 script = ExtResource("1_c34f5")
@@ -120,9 +120,9 @@ script = ExtResource("1_c34f5")
 name = "Stahng's Crew"
 map_position = Vector2i(7, 6)
 level = 5
+ai_type = 1
 unit_type_key = "axe_cavalier"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("11_t8t2t")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_e4oum"]
 script = ExtResource("1_c34f5")
@@ -137,9 +137,9 @@ script = ExtResource("1_c34f5")
 name = "Stahng's Crew"
 map_position = Vector2i(15, 3)
 level = 5
+ai_type = 1
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("10_3khac"), ExtResource("14_atf7x")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_ptmet"]
@@ -172,9 +172,9 @@ script = ExtResource("1_c34f5")
 name = "Stahng's Crew"
 map_position = Vector2i(2, 1)
 level = 4
+ai_type = 1
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("13_82tqj")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_kpne2"]
 script = ExtResource("1_c34f5")
@@ -189,9 +189,9 @@ script = ExtResource("1_c34f5")
 name = "Stahng's Crew"
 map_position = Vector2i(2, 4)
 level = 6
+ai_type = 1
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_gis2o")]([ExtResource("7_8ehhj")])
-ai_type = 1
 
 [resource]
 script = ExtResource("8_prcn1")

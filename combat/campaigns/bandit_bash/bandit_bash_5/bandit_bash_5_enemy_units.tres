@@ -21,10 +21,10 @@ name = "Rudiger"
 map_position = Vector2i(2, 11)
 level = 8
 level_bonus = 3
-unit_type_key = "pikeman"
-inventory = Array[ExtResource("2_8r2od")]([ExtResource("3_6f0o8"), ExtResource("4_8g46f")])
 ai_type = 2
 is_boss = true
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_8r2od")]([ExtResource("3_6f0o8"), ExtResource("4_8g46f")])
 
 [sub_resource type="Resource" id="Resource_pkngd"]
 script = ExtResource("1_8n3fi")
@@ -112,9 +112,9 @@ script = ExtResource("1_8n3fi")
 name = "Raider"
 map_position = Vector2i(7, 14)
 level = 6
+ai_type = 1
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("2_8r2od")]([ExtResource("13_frvek")])
-ai_type = 1
 
 [resource]
 script = ExtResource("14_li3pq")

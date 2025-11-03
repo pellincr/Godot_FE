@@ -1,25 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbai5r4nou80q"]
+[gd_scene load_steps=15 format=3 uid="uid://cbai5r4nou80q"]
 
 [ext_resource type="PackedScene" uid="uid://bouxl8xwnlqn4" path="res://combat/campaigns/tutorial/tutorial_4/terrain.tscn" id="2_r2lpq"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_l8en5"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="4_vx4dk"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="5_6px8n"]
 [ext_resource type="Resource" uid="uid://cbn22t2pt4pwt" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4_reinforcements.tres" id="5_8jhf6"]
-[ext_resource type="Script" uid="uid://cqbyiltqk1opx" path="res://scripts/combat/combat_map_unit_data.gd" id="6_21380"]
-[ext_resource type="Resource" uid="uid://bba77rcw2g3tq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
+[ext_resource type="Resource" uid="uid://buexxhl072r87" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4_unit_data.tres" id="6_27hj2"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="7_27hj2"]
-[ext_resource type="Script" uid="uid://bs3y45mqbyodg" path="res://scripts/resources/loot_tables/loot_table_unit.gd" id="7_21380"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_j1pk3"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_t70ys"]
 [ext_resource type="Script" uid="uid://kx442wv8dfsa" path="res://scripts/Unit/unit_experience_manager.gd" id="8_wifo0"]
 [ext_resource type="Resource" uid="uid://chpqx0u6jyb38" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4_entities.tres" id="9_7i3t8"]
 [ext_resource type="Script" uid="uid://dcdbof5kh78wm" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="9_c4tgo"]
 [ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="10_r7vsa"]
-
-[sub_resource type="Resource" id="Resource_b837f"]
-script = ExtResource("6_21380")
-starting_enemy_group = ExtResource("6_byk7j")
-metadata/_custom_type_script = "uid://cqbyiltqk1opx"
 
 [sub_resource type="Resource" id="Resource_21380"]
 script = ExtResource("7_27hj2")
@@ -52,7 +45,7 @@ unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapReinforcementData = ExtResource("5_8jhf6")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(4, 6), Vector2i(6, 6), Vector2i(2, 7), Vector2i(3, 8), Vector2i(5, 9), Vector2i(5, 7)])
-unit_data = SubResource("Resource_b837f")
+unit_data = ExtResource("6_27hj2")
 level_reward = SubResource("Resource_21380")
 is_key_campaign_level = true
 

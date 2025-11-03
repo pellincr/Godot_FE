@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=50 format=3 uid="uid://cha4i8vtpp64y"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=49 format=3 uid="uid://cha4i8vtpp64y"]
 
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_bcvlb"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_r74bv"]
@@ -22,7 +22,6 @@
 [ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="18_p5d48"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="20_kynr8"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="21_bwufa"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="22_kpyq7"]
 
 [sub_resource type="Resource" id="Resource_nwa8l"]
 script = ExtResource("1_bcvlb")

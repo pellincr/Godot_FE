@@ -21,10 +21,10 @@ script = ExtResource("1_2hxme")
 name = "Roc"
 map_position = Vector2i(15, 15)
 level = 9
-unit_type_key = "axe_armor"
-inventory = Array[ExtResource("2_gj1ec")]([ExtResource("3_m8d0j"), ExtResource("4_ggxr3"), ExtResource("4_4itlx")])
 ai_type = 1
 is_boss = true
+unit_type_key = "axe_armor"
+inventory = Array[ExtResource("2_gj1ec")]([ExtResource("3_m8d0j"), ExtResource("4_ggxr3"), ExtResource("4_4itlx")])
 
 [sub_resource type="Resource" id="Resource_mydy3"]
 script = ExtResource("1_2hxme")
@@ -81,9 +81,9 @@ script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(12, 16)
 level = 6
+ai_type = 1
 unit_type_key = "lancer"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("11_ytdt3")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_2ykke"]
 script = ExtResource("1_2hxme")
@@ -98,9 +98,9 @@ script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(7, 15)
 level = 5
+ai_type = 1
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("8_hugls")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_rfaib"]
 script = ExtResource("1_2hxme")
@@ -108,9 +108,9 @@ name = "Roc's Rabble"
 map_position = Vector2i(2, 15)
 level = 6
 level_bonus = 1
+ai_type = 1
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("6_gjqyj"), ExtResource("13_plnrr")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_00jvn"]
@@ -118,9 +118,9 @@ script = ExtResource("1_2hxme")
 name = "Roc's Rabble"
 map_position = Vector2i(3, 12)
 level = 6
+ai_type = 1
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_gj1ec")]([ExtResource("12_2i1q2")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_5nfi1"]
 script = ExtResource("1_2hxme")

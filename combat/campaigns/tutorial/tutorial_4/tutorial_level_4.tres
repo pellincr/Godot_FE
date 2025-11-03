@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=27 format=3 uid="uid://bba77rcw2g3tq"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=26 format=3 uid="uid://bba77rcw2g3tq"]
 
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_myack"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_dj2yu"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
 [ext_resource type="Resource" uid="uid://7je7gpvirns" path="res://resources/definitions/items/weapons/nature/earth_split.tres" id="10_nn03f"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="11_11ylg"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="13_a0tn2"]
 
 [sub_resource type="Resource" id="Resource_4eexp"]
 script = ExtResource("1_myack")

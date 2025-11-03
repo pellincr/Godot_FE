@@ -21,9 +21,9 @@ name = "Dereigns"
 map_position = Vector2i(21, 21)
 level = 14
 level_bonus = 2
+is_boss = true
 unit_type_key = "night_blade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_gnt0w"), ExtResource("5_alvux")])
-is_boss = true
 
 [sub_resource type="Resource" id="Resource_4nmqb"]
 script = ExtResource("2_n6avb")

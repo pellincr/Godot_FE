@@ -26,5 +26,6 @@ description = "Heavy gauntlets of tempered steel that make any squeal."
 rarity = ExtResource("3_60jq6")
 uses = 6
 max_uses = 6
+has_expended_state = true
 worth = 0
 icon = ExtResource("2_ifu23")

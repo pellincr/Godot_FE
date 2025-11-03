@@ -35,10 +35,10 @@ name = "Micah"
 map_position = Vector2i(13, 6)
 level = 10
 level_bonus = -3
-unit_type_key = "line_breaker"
-inventory = Array[ExtResource("2_1ldps")]([ExtResource("3_mgepr"), ExtResource("4_qjao7"), ExtResource("5_4b86o")])
 ai_type = 2
 is_boss = true
+unit_type_key = "line_breaker"
+inventory = Array[ExtResource("2_1ldps")]([ExtResource("3_mgepr"), ExtResource("4_qjao7"), ExtResource("5_4b86o")])
 
 [sub_resource type="Resource" id="Resource_ayude"]
 script = ExtResource("1_qgbhp")
@@ -61,9 +61,9 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(4, 11)
 level = 7
+ai_type = 2
 unit_type_key = "lance_armor"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("8_n24rd"), ExtResource("6_wrtp3"), ExtResource("9_a7tns")])
-ai_type = 2
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_dmf70"]
@@ -113,18 +113,18 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(12, 2)
 level = 5
+ai_type = 1
 unit_type_key = "corsair"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("16_ytupx")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_u5p84"]
 script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(12, 3)
 level = 5
+ai_type = 1
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("7_52lo5")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_uhr2n"]
 script = ExtResource("1_qgbhp")
@@ -148,45 +148,45 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(10, 6)
 level = 5
+ai_type = 1
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("10_8ukus")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_qr5uu"]
 script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(16, 6)
 level = 5
+ai_type = 1
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("19_owcjo")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_q3vnm"]
 script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(15, 8)
 level = 5
+ai_type = 1
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("5_4b86o")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_tsmwh"]
 script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(11, 8)
 level = 6
+ai_type = 1
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("20_rq5iu")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_f04ut"]
 script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(13, 9)
 level = 8
+ai_type = 1
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("21_bsdtp")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_4kqkr"]
 script = ExtResource("1_qgbhp")
@@ -210,9 +210,9 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(13, 18)
 level = 5
+ai_type = 1
 unit_type_key = "shaman"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("19_owcjo")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_4rc6a"]
 script = ExtResource("1_qgbhp")
@@ -245,9 +245,9 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(18, 9)
 level = 6
+ai_type = 1
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("25_xt6wu")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_7kjul"]
@@ -255,9 +255,9 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(19, 14)
 level = 6
+ai_type = 1
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("26_p158p")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_jcrqp"]
@@ -273,9 +273,9 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(17, 15)
 level = 8
+ai_type = 2
 unit_type_key = "sword_armor"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("15_1vi2r"), ExtResource("9_a7tns")])
-ai_type = 2
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_4eagm"]

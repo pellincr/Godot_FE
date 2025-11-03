@@ -31,7 +31,7 @@ enum SUPPORT_TYPES {
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED
 @export var required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
-@export_range(0, 30, 1) var attack_range : Array[int] = [1]
+
 @export_group("Combat Stats") 
 @export_range(0, 30, 1, "or_greater") var damage = 0
 @export_range(0, 100, 1, "or_greater") var hit = 100
@@ -39,6 +39,7 @@ enum SUPPORT_TYPES {
 @export_range(0, 30, 1, "or_greater") var weight = 5
 @export var critical_multiplier : float = 3
 @export var attacks_per_combat_turn : int = 1
+@export_range(0, 30, 1) var attack_range : Array[int] = [1]
 
 @export_group("Weapon Specials") 
 @export_subgroup("Bonus Stats on Equip")

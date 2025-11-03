@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="7_kh5qo"]
 [ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="8_j0rte"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="9_q5hi4"]
-[ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/treasure/wine.tres" id="10_1ab0n"]
+[ext_resource type="Resource" uid="uid://dxdxaw1qqj2na" path="res://resources/definitions/items/treasure/wine.tres" id="10_1ab0n"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="11_xoro5"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="12_v16ud"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="13_sf7ue"]
@@ -25,10 +25,10 @@ name = "Silvik"
 map_position = Vector2i(14, 10)
 level = 15
 level_bonus = 5
-unit_type_key = "crossbowman"
-inventory = Array[ExtResource("2_ivwbr")]([ExtResource("3_rnhge"), ExtResource("5_0cqfu")])
 ai_type = 2
 is_boss = true
+unit_type_key = "crossbowman"
+inventory = Array[ExtResource("2_ivwbr")]([ExtResource("3_rnhge"), ExtResource("5_0cqfu")])
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_lpvf6"]

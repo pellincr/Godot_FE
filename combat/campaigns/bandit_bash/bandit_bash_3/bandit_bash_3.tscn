@@ -1,15 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://c5lppyaupps08"]
+[gd_scene load_steps=20 format=3 uid="uid://c5lppyaupps08"]
 
 [ext_resource type="PackedScene" uid="uid://sfvufimdp5mg" path="res://combat/campaigns/bandit_bash/bandit_bash_3/bandit_bash_3_terrain.tscn" id="1_biptl"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_eyiou"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_43my6"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_g3uod"]
 [ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="5_hqbv7"]
-[ext_resource type="Resource" uid="uid://dw14apn2v7278" path="res://resources/definitions/enemy_groups/tutorial/tutorial_1_reinforcements.tres" id="6_74hqi"]
+[ext_resource type="Resource" uid="uid://dw14apn2v7278" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1_reinforcements.tres" id="6_74hqi"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="7_tasgl"]
 [ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_tq65t"]
-[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_371rx"]
-[ext_resource type="Resource" uid="uid://dwsrcyhtfurai" path="res://combat/campaigns/bandit_bash/bandit_bash_3/bandit_bash_3_enemy_group.tres" id="9_qt5yn"]
+[ext_resource type="Resource" uid="uid://0g86hid00di2" path="res://combat/campaigns/bandit_bash/bandit_bash_3/bandit_bash_3_unit_data.tres" id="9_k3kc3"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="10_pjwlv"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="10_ub36w"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="11_bggam"]
@@ -61,7 +60,7 @@ combat_unit_item_manager = NodePath("CombatUnitItemManager")
 entity_manager = NodePath("CombatMapEntityManager")
 mapReinforcementData = SubResource("Resource_r40lg")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 10), Vector2i(3, 10), Vector2i(2, 11), Vector2i(4, 11), Vector2i(5, 10)])
-enemy_start_group_options = Array[ExtResource("9_371rx")]([ExtResource("9_qt5yn")])
+unit_data = ExtResource("9_k3kc3")
 level_reward = SubResource("Resource_371rx")
 is_key_campaign_level = true
 
