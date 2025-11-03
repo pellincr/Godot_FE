@@ -3,6 +3,7 @@ extends HBoxContainer
 class_name InventoryPrepScreen
 
 signal return_to_menu()
+signal screen_change(state:INVENTORY_STATE)
 
 var playerOverworldData : PlayerOverworldData
 
@@ -52,6 +53,7 @@ func update_by_state():
 	var army_container_scene = preload("res://ui/battle_prep_new/army_container/ArmyContainer.tscn")
 	var unit_detailed_view_simple_scene = preload("res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.tscn")
 	var convoy_scene = preload("res://ui/battle_prep_new/convoy/convoy_container/convoy_container.tscn")
+	screen_change.emit(current_state)
 	match current_state:
 		INVENTORY_STATE.UNIT_SELECT:
 			var army_container = army_container_scene.instantiate()

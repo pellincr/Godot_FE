@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://c6s873w31dy32"]
 
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="1_cg485"]
-[ext_resource type="Script" path="res://ui/battle_preparation/battle_preparation.gd" id="1_gqlkl"]
+[ext_resource type="Script" uid="uid://byddyoeybgcx" path="res://ui/battle_preparation/battle_preparation.gd" id="1_gqlkl"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="2_dg3px"]
 [ext_resource type="PackedScene" uid="uid://c6xka1fqiwxly" path="res://ui/battle_preparation/army_convoy_container.tscn" id="2_ubgvf"]
-[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/battle_preparation/controls/battle_prep_controls.tscn" id="5_ydc4c"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://controls/controls_ui.tscn" id="5_ydc4c"]
 
 [sub_resource type="Theme" id="Theme_nfu6t"]
 default_font = ExtResource("2_dg3px")

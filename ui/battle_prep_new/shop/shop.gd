@@ -3,6 +3,8 @@ extends VBoxContainer
 class_name Shop
 
 signal return_to_menu()
+signal shop_entered()
+signal shop_exited()
 
 @onready var gold_counter: GoldCounter = $GoldCounter
 
@@ -33,6 +35,7 @@ func _process(delta: float) -> void:
 		elif current_state == SHOP_STATE.SHOP_MENU:
 			current_state = SHOP_STATE.LOCATION_SELECT
 			selected_buy_location = null
+			shop_exited.emit()
 			update_by_shop_state()
 
 func set_po_data(po_data):
@@ -85,6 +88,7 @@ func clear_detailed_view():
 func _on_unit_panel_pressed(unit:Unit):
 	current_state = SHOP_STATE.SHOP_MENU
 	selected_buy_location = unit
+	shop_entered.emit()
 	update_by_shop_state()
 
 

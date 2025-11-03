@@ -25,7 +25,8 @@ const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.
 @onready var army_list_label = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArmyListLabel
 @onready var archetype_icon_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
 
-@onready var unit_draft_controls = $MarginContainer/UnitDraftControls
+#@onready var unit_draft_controls = $MarginContainer/UnitDraftControls
+@onready var controls_ui_container: ControlsUI = $ControlsUIContainer
 
 var max_unit_draft = 0
 var current_drafted = []
@@ -39,6 +40,8 @@ func _ready():
 		playerOverworldData = PlayerOverworldData.new()
 	load_data()
 	gold_counter.set_gold_count(playerOverworldData.gold)
+	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.DRAFT
+	controls_ui_container.update_by_control_state()
 	if playerOverworldData.floors_climbed > 0:
 		#if drafting in the middle of a campaign
 		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
@@ -132,8 +135,8 @@ func update_to_archetype_screen():
 	#AudioManager
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
-	unit_draft_controls.set_cycle_view_left_visibility(false)
-	unit_draft_controls.set_cycle_view_right_visibility(false)
+	#unit_draft_controls.set_cycle_view_left_visibility(false)
+	#unit_draft_controls.set_cycle_view_right_visibility(false)
 	#update_army_icon_container()
 	var archetype_draft = archetype_draft_scene.instantiate()
 	main_container.add_child(archetype_draft)
@@ -145,8 +148,8 @@ func update_to_unit_draft_screen():
 	#$AudioStreamPlayer.stream = menu_enter_effect
 	#$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.UNIT
-	unit_draft_controls.set_cycle_view_left_visibility(true)
-	unit_draft_controls.set_cycle_view_right_visibility(true)
+	#unit_draft_controls.set_cycle_view_left_visibility(true)
+	#unit_draft_controls.set_cycle_view_right_visibility(true)
 	var unit_draft = unit_draft_scene.instantiate()
 	unit_draft.set_po_data(playerOverworldData)
 	unit_draft.current_state = current_draft_state

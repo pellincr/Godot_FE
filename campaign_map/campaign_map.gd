@@ -22,6 +22,8 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var visuals :Node2D = $Visuals
 @onready var camera_2d : Camera2D = $Camera2D
 
+@onready var controls_ui_container: ControlsUI = $Camera2D/ControlsUIContainer
+
 const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 #var map_data:Array[Array]
@@ -30,15 +32,17 @@ const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.
 var camera_edge_y : float
 var pause_menu_open = false
 
+
 var tutorial_complete := true
 
 func _ready() -> void:
-	
 	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
+	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.CAMPAIGN_MAP
+	controls_ui_container.update_by_control_state()
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		seed(playerOverworldData.capmaign_seed)

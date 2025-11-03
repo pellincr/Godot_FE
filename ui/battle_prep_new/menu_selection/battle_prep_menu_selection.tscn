@@ -4,62 +4,68 @@
 [ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_p50n5"]
 [ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_homp3"]
 
-[node name="BattlePrepMenuSelection" type="PanelContainer"]
-custom_minimum_size = Vector2(380, 500)
-size_flags_horizontal = 0
+[node name="BattlePrepMenuSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_ogtpg")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="BattlePrepMenuSelection" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 382.0
+offset_bottom = 540.0
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BattlePrepMenuSelection"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="BattlePrepMenuSelection/MarginContainer"]
 layout_mode = 2
 
-[node name="StartBattleButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="StartBattleButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Start Battle"
 
-[node name="UnitSelectionButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="UnitSelectionButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Unit Selection"
 
-[node name="SwapSpacesButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="SwapSpacesButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Swap Spaces"
 
-[node name="ShopButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="ShopButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Shop"
 
-[node name="InventoryButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="InventoryButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Inventory"
 
-[node name="TrainingGroundsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="TrainingGroundsButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Training Grounds"
 
-[node name="GraveyardButton" type="Button" parent="MarginContainer/ButtonContainer"]
+[node name="GraveyardButton" type="Button" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer"]
 layout_mode = 2
 text = "Graveyard"
 script = ExtResource("3_homp3")
 metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 
-[node name="SavePreparationsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="SavePreparationsButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Save Preparations"
 
-[connection signal="pressed" from="MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
-[connection signal="focus_entered" from="MarginContainer/ButtonContainer/GraveyardButton" to="MarginContainer/ButtonContainer/GraveyardButton" method="_on_focus_entered"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/GraveyardButton" to="MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
+[connection signal="focus_entered" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_focus_entered"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]

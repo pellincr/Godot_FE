@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://k0jw4ofugyyo" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_klef3"]
 [ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_xuf8l"]
-[ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="5_0gh02"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://controls/controls_ui.tscn" id="4_xrl8o"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
 default_font_size = 36
@@ -106,7 +106,9 @@ text = "Army: "
 [node name="ArchetypeIconContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/MarginContainer/ArmyListContainer"]
 layout_mode = 2
 
-[node name="UnitDraftControls" parent="MarginContainer" instance=ExtResource("5_0gh02")]
-z_index = -1
-layout_mode = 2
-size_flags_vertical = 8
+[node name="ControlsUIContainer" parent="." instance=ExtResource("4_xrl8o")]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 678.0
+offset_right = 950.0
+offset_bottom = 718.0

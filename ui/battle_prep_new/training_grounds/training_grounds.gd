@@ -4,6 +4,7 @@ class_name TrainingGrounds
 
 signal return_to_menu()
 signal award_exp(unit:CombatUnit, xp:int)
+signal screen_change(state:TRAINING_STATE)
 
 var playerOverworldData : PlayerOverworldData
 
@@ -33,6 +34,7 @@ func set_po_data(po_data):
 
 func update_by_state():
 	clear_screen()
+	screen_change.emit(current_state)
 	match current_state:
 		TRAINING_STATE.CHOOSE_UNIT:
 			var army_container = preload("res://ui/battle_prep_new/army_container/ArmyContainer.tscn").instantiate()

@@ -1,13 +1,14 @@
-extends PanelContainer
+extends Control
 
 signal start_game()
 signal state_selected(state:BattlePrep.PREP_STATE)
 signal save_game()
 
 
-@onready var start_battle_button: Button = $MarginContainer/ButtonContainer/StartBattleButton
+@onready var start_battle_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/StartBattleButton
 #@onready var shop_button: Button = $MarginContainer/ButtonContainer/ShopButton
-@onready var button_container: VBoxContainer = $MarginContainer/ButtonContainer
+@onready var button_container: VBoxContainer = $BattlePrepMenuSelection/MarginContainer/ButtonContainer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

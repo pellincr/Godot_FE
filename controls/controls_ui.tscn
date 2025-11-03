@@ -1,0 +1,185 @@
+[gd_scene load_steps=13 format=3 uid="uid://bmfa1tdx2k3n3"]
+
+[ext_resource type="Script" uid="uid://chdgbppugsjt" path="res://controls/controls_ui.gd" id="1_238l5"]
+[ext_resource type="Texture2D" uid="uid://bsknkqoussxsw" path="res://resources/sprites/controls/keyboard/_.png" id="2_xbroc"]
+[ext_resource type="Texture2D" uid="uid://bf4ki84hvo6mr" path="res://resources/sprites/controls/keyboard/a.png" id="3_0bjqb"]
+[ext_resource type="Texture2D" uid="uid://dsyeapnvmd1po" path="res://resources/sprites/controls/keyboard/enteralt.png" id="3_kv0vd"]
+[ext_resource type="Texture2D" uid="uid://bofkn23segsuk" path="res://resources/sprites/controls/keyboard/s.png" id="4_4bw8a"]
+[ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="4_c1pqd"]
+[ext_resource type="Texture2D" uid="uid://cbgall1qwjntg" path="res://resources/sprites/controls/keyboard/w.png" id="5_1cq0s"]
+[ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_jakf0"]
+[ext_resource type="Texture2D" uid="uid://dbkasl3nxngi6" path="res://resources/sprites/controls/keyboard/escape.png" id="6_c1pqd"]
+[ext_resource type="Texture2D" uid="uid://doigrwcl5kis1" path="res://resources/sprites/controls/keyboard/d.png" id="6_fllf4"]
+[ext_resource type="Texture2D" uid="uid://cluajaeeln1i4" path="res://resources/sprites/controls/keyboard/backspace.png" id="10_ncyu5"]
+[ext_resource type="Texture2D" uid="uid://02air6ea0m0i" path="res://resources/sprites/controls/keyboard/controltext.png" id="11_k223j"]
+
+[node name="ControlsUIContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_238l5")
+
+[node name="NavigationContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NavigationIcon" type="TextureRect" parent="NavigationContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_xbroc")
+expand_mode = 3
+
+[node name="NavigationLabel" type="Label" parent="NavigationContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Navigate"
+vertical_alignment = 1
+
+[node name="LeftContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LeftIcon" type="TextureRect" parent="LeftContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_0bjqb")
+expand_mode = 3
+
+[node name="LeftLabel" type="Label" parent="LeftContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Left"
+vertical_alignment = 1
+
+[node name="DownContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DownIcon" type="TextureRect" parent="DownContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_4bw8a")
+expand_mode = 3
+
+[node name="DownLabel" type="Label" parent="DownContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Down"
+vertical_alignment = 1
+
+[node name="UpContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="UpIcon" type="TextureRect" parent="UpContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_1cq0s")
+expand_mode = 3
+
+[node name="UpLabel" type="Label" parent="UpContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Up"
+vertical_alignment = 1
+
+[node name="RightContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RightIcon" type="TextureRect" parent="RightContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_fllf4")
+expand_mode = 3
+
+[node name="RightLabel" type="Label" parent="RightContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Right"
+vertical_alignment = 1
+
+[node name="LeftBumperContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="LeftBumperIcon" type="TextureRect" parent="LeftBumperContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_c1pqd")
+expand_mode = 3
+
+[node name="LeftBumperLabel" type="Label" parent="LeftBumperContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "LB"
+vertical_alignment = 1
+
+[node name="RightBumperContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RightBumperIcon" type="TextureRect" parent="RightBumperContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_jakf0")
+expand_mode = 3
+
+[node name="RightBumperLabel" type="Label" parent="RightBumperContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "RB"
+vertical_alignment = 1
+
+[node name="ConfirmContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ConfirmIcon" type="TextureRect" parent="ConfirmContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_kv0vd")
+expand_mode = 3
+
+[node name="ConfirmLabel" type="Label" parent="ConfirmContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Confirm"
+vertical_alignment = 1
+
+[node name="BackContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="BackIcon" type="TextureRect" parent="BackContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("10_ncyu5")
+expand_mode = 3
+
+[node name="BackLabel" type="Label" parent="BackContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Back"
+vertical_alignment = 1
+
+[node name="DetailsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DetailsIcon" type="TextureRect" parent="DetailsContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("11_k223j")
+expand_mode = 3
+
+[node name="DetailsLabel" type="Label" parent="DetailsContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Details"
+vertical_alignment = 1
+
+[node name="PauseGameContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PauseGameIcon" type="TextureRect" parent="PauseGameContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_c1pqd")
+expand_mode = 3
+
+[node name="PauseGameLable" type="Label" parent="PauseGameContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Pause"
+vertical_alignment = 1

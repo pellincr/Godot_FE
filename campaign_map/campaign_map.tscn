@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clnq80g36qfs7" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
 [ext_resource type="Script" uid="uid://stypawclkv3q" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
-[ext_resource type="PackedScene" uid="uid://dujcntmufuji2" path="res://campaign_map/campaign_map_controls.tscn" id="2_m0mgj"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://controls/controls_ui.tscn" id="2_dll6e"]
 
 [sub_resource type="Gradient" id="Gradient_j1yjd"]
 colors = PackedColorArray(0, 0, 0, 1, 0.119911, 0.0829217, 1.02278e-07, 1)
@@ -27,11 +27,11 @@ unique_name_in_owner = true
 position = Vector2(643, 360)
 zoom = Vector2(2, 2)
 
-[node name="CampaignMapControls" parent="Camera2D" instance=ExtResource("2_m0mgj")]
-offset_left = -638.0
-offset_top = 328.0
-offset_right = -422.0
-offset_bottom = 360.0
+[node name="ControlsUIContainer" parent="Camera2D" instance=ExtResource("2_dll6e")]
+offset_left = -318.0
+offset_top = 136.0
+offset_right = 655.0
+offset_bottom = 176.0
 
 [node name="CampaignMapGenerator" type="Node" parent="."]
 script = ExtResource("1_1uwo1")

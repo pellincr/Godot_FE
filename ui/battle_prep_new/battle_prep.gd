@@ -14,6 +14,8 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 @onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
 @onready var header_lower_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
 
+@onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
+
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
@@ -37,6 +39,7 @@ var pause_menu_open = false
 
 func _ready() -> void:
 	#transition_in_animation()
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		tutorial_complete = false
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
@@ -83,11 +86,18 @@ func tutorial_completed():
 	update_by_state()
 	tutorial_complete = true
 
+func set_control_state(state:ControlsUI.CONTROL_STATE):
+	controls_ui_container.current_control_state = state
+	controls_ui_container.update_by_control_state()
+
 func update_by_state():
 	clear_existing_menus()
 	set_header_labels(current_state)
 	match current_state:
 		PREP_STATE.MENU:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
+			if controls_ui_container.size_flags_vertical == Control.SIZE_SHRINK_BEGIN:
+				controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
 			var hbox_container := HBoxContainer.new()
 			var battle_prep_menu = preload("res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.tscn").instantiate()
 			var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
@@ -105,6 +115,7 @@ func update_by_state():
 			next_level_info.fill_all_containers()
 			next_level_info.visible = false
 		PREP_STATE.UNIT_SELECTION:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_UNIT_SELECT)
 			var unit_selection = preload("res://ui/battle_prep_new/unit_selection/UnitSelection.tscn").instantiate()
 			unit_selection.set_po_data(playerOverworldData)
 			main_container.add_child(unit_selection)
@@ -112,28 +123,40 @@ func update_by_state():
 			unit_selection.unit_selected.connect(_on_unit_selected)
 			unit_selection.unit_deselected.connect(_on_unit_deselected)
 		PREP_STATE.SWAP_SPACES:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SWAP_SPACES)
+			controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 			swap_spaces.emit()
 		PREP_STATE.SHOP:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
 			var shop = preload("res://ui/battle_prep_new/shop/shop.tscn").instantiate()
 			shop.set_po_data(playerOverworldData)
 			main_container.add_child(shop)
 			shop.return_to_menu.connect(_on_return_to_menu)
+			shop.shop_entered.connect(_on_shop_entered)
+			shop.shop_exited.connect(_on_shop_exited)
 		PREP_STATE.INVENTORY:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
 			var inventory_prep_screen = preload("res://ui/battle_prep_new/inventory/inventory_prep_screen.tscn").instantiate()
 			inventory_prep_screen.set_po_data(playerOverworldData)
 			inventory_prep_screen.return_to_menu.connect(_on_return_to_menu)
+			inventory_prep_screen.screen_change.connect(_on_inventory_prep_screen_change)
 			main_container.add_child(inventory_prep_screen)
 		PREP_STATE.TRAINING_GROUNDS:
-			var training_ground = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
-			training_ground.set_po_data(playerOverworldData)
-			main_container.add_child(training_ground)
-			training_ground.return_to_menu.connect(_on_return_to_menu)
-			training_ground.award_exp.connect(_on_award_exp)
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
+			var training_grounds = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
+			training_grounds.set_po_data(playerOverworldData)
+			main_container.add_child(training_grounds)
+			training_grounds.return_to_menu.connect(_on_return_to_menu)
+			training_grounds.award_exp.connect(_on_award_exp)
+			training_grounds.screen_change.connect(_on_training_ground_screen_change)
 		PREP_STATE.GRAVEYARD:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
 			var graveyard = preload("res://ui/battle_prep_new/graveyard/graveyard.tscn").instantiate()
 			graveyard.set_po_data(playerOverworldData)
 			main_container.add_child(graveyard)
 			graveyard.return_to_menu.connect(_on_return_to_menu)
+			graveyard.screen_change.conenct(_on_graveyard_screen_change)
+	main_container.move_child(controls_ui_container,-1)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
 	current_state = state
@@ -187,7 +210,7 @@ func _on_start_game():
 
 func _on_menu_closed():
 	pause_menu_open = false
-	var open_screen = main_container.get_child(-1)
+	var open_screen = main_container.get_child(-2)
 	match current_state:
 		PREP_STATE.MENU:
 			var prep_menu = open_screen.get_child(0)
@@ -221,3 +244,33 @@ func update_training_grounds_stats():
 
 func _on_save_game():
 	SelectedSaveFile.save(playerOverworldData)
+
+
+func _on_shop_entered():
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHAT)
+
+func _on_shop_exited():
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
+
+func _on_inventory_prep_screen_change(state:InventoryPrepScreen.INVENTORY_STATE):
+	match state:
+		InventoryPrepScreen.INVENTORY_STATE.UNIT_SELECT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
+		InventoryPrepScreen.INVENTORY_STATE.MANAGE_ITEMS:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_MANAGE_ITEMS)
+		InventoryPrepScreen.INVENTORY_STATE.TRADE:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_TRADE)
+
+func _on_training_ground_screen_change(state:TrainingGrounds.TRAINING_STATE):
+	match state:
+		TrainingGrounds.TRAINING_STATE.CHOOSE_UNIT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
+		TrainingGrounds.TRAINING_STATE.GIVE_EXP:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_GIVE_EXP)
+
+func _on_graveyard_screen_change(state:Graveyard.STATE):
+	match state:
+		Graveyard.STATE.SELECT_UNIT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
+		Graveyard.STATE.CHOOSE_REVIVE:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_TOMBSTONE)

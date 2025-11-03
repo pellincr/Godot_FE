@@ -1,6 +1,11 @@
 extends Control
 
+class_name Graveyard
+
 signal return_to_menu()
+signal screen_change(STATE)
+
+
 
 @onready var gold_counter: GoldCounter = $GoldCounter
 
@@ -37,6 +42,7 @@ func clear_screen():
 
 func update_by_state():
 	clear_screen()
+	screen_change.emit(current_state)
 	match current_state:
 		STATE.SELECT_UNIT:
 			var army_container = preload("res://ui/battle_prep_new/army_container/ArmyContainer.tscn").instantiate()
