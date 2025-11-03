@@ -14,7 +14,7 @@ signal send_item_to_convoy(item)
 @onready var hp_bar = $MarginContainer/VBoxContainer/HPBar
 
 @onready var combat_stat_container = $MarginContainer/VBoxContainer/CombatStatContainer
-@onready var unit_inventory_container = $MarginContainer/VBoxContainer/UnitInventoryContainer
+@onready var unit_inventory_container: HBoxContainer = $MarginContainer/VBoxContainer/UnitInventoryContainer
 @onready var constitution_value_label: Label = $MarginContainer/VBoxContainer/CombatStatContainer/ConstitutionContainer/ConstitutionValueLabel
 
 

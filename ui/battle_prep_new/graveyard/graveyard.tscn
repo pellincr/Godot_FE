@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccbukuelncitv"]
 
 [ext_resource type="Script" uid="uid://cri76drqw125f" path="res://ui/battle_prep_new/graveyard/graveyard.gd" id="1_0a1nd"]
-[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_10nv8"]
+[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://ui/shared/gold/gold_counter.tscn" id="2_10nv8"]
 
 [node name="Graveyard" type="Control"]
 layout_mode = 3

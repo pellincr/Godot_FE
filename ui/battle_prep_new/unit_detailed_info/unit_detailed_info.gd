@@ -1,7 +1,7 @@
 extends Panel
 
 
-const WEAPON_DETAILED_INFO = preload("res://ui/battle_preparation/item_detailed_info/weapon_detailed_info.tscn")
+const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
 
 signal set_trade_item(item,unit)
 

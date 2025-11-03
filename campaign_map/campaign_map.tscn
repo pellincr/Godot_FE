@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clnq80g36qfs7" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
 [ext_resource type="Script" uid="uid://stypawclkv3q" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
-[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://controls/controls_ui.tscn" id="2_dll6e"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="2_dll6e"]
 [ext_resource type="PackedScene" uid="uid://cu0nblwxq6ad4" path="res://campaign_map/campaign_map_key/campaign_map_key.tscn" id="3_glfe6"]
 
 [sub_resource type="Gradient" id="Gradient_j1yjd"]

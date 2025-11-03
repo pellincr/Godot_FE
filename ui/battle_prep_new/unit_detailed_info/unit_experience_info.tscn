@@ -1,7 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dg5gkgx21b8if"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_hxor5"]
-[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.gd" id="2_umtwl"]
+[ext_resource type="Script" uid="uid://cq3wfxmoelmd5" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.gd" id="2_umtwl"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beicu"]
 bg_color = Color(0, 0, 0, 1)

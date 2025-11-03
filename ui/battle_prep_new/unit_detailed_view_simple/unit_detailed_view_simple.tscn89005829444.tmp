@@ -1,14 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfw00m8684j6u"]
+[gd_scene load_steps=10 format=3 uid="uid://bfw00m8684j6u"]
 
-[ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_fqj8m"]
 [ext_resource type="Script" uid="uid://ciprkfx06phm1" path="res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.gd" id="2_dljta"]
-[ext_resource type="PackedScene" uid="uid://dg5gkgx21b8if" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.tscn" id="2_sanl5"]
+[ext_resource type="PackedScene" uid="uid://dg5gkgx21b8if" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.tscn" id="2_j7r75"]
+[ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="3_24jvr"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="3_g2rpd"]
-[ext_resource type="PackedScene" uid="uid://d7gj6yaxkgwx" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.tscn" id="3_ym51l"]
-[ext_resource type="Script" uid="uid://cq3wfxmoelmd5" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.gd" id="4_27qkg"]
-[ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="4_c5wgh"]
-[ext_resource type="PackedScene" uid="uid://bvcw57dk23gw2" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.tscn" id="4_l087p"]
-[ext_resource type="Script" uid="uid://dm8mymuwofipf" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.gd" id="7_27x6y"]
+[ext_resource type="PackedScene" uid="uid://d7gj6yaxkgwx" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.tscn" id="4_27qkg"]
+[ext_resource type="PackedScene" uid="uid://bvcw57dk23gw2" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.tscn" id="5_27x6y"]
 
 [sub_resource type="Theme" id="Theme_wtybk"]
 default_font_size = 36
@@ -23,7 +20,6 @@ default_font_size = 18
 custom_minimum_size = Vector2(315, 500)
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("1_fqj8m")
 script = ExtResource("2_dljta")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -42,14 +38,13 @@ layout_mode = 2
 theme = SubResource("Theme_wtybk")
 text = "Character"
 
-[node name="UnitExperienceInfo" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_sanl5")]
+[node name="UnitExperienceInfo" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_j7r75")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-script = ExtResource("4_27qkg")
+script = null
 
-[node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_c5wgh")]
+[node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_24jvr")]
 layout_mode = 2
+script = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -71,11 +66,9 @@ layout_mode = 2
 value = 99.0
 show_percentage = false
 
-[node name="CombatStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ym51l")]
+[node name="CombatStatContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_27qkg")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-script = ExtResource("7_27x6y")
+script = null
 
 [node name="ConstitutionContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CombatStatContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
@@ -93,9 +86,11 @@ layout_mode = 2
 text = "17"
 horizontal_alignment = 2
 
-[node name="UnitInventoryContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_l087p")]
+[node name="UnitInventoryContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("5_27x6y")]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = null
 
 [node name="UnitIcon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(96, 96)
@@ -105,9 +100,3 @@ offset_top = 40.0
 offset_right = 296.0
 offset_bottom = 136.0
 texture = ExtResource("3_g2rpd")
-
-[connection signal="item_focused" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_focused"]
-[connection signal="item_used" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
-[connection signal="sell_item" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_sell_item"]
-[connection signal="send_to_convoy" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_send_to_convoy"]
-[connection signal="set_trade_item" from="MarginContainer/VBoxContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

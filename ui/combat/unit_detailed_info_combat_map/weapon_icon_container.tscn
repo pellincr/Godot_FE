@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://t6kd5141hhf6"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_o0tyf"]
-[ext_resource type="Script" uid="uid://b811xhh6sqeo" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.gd" id="2_v0tnq"]
+[ext_resource type="Script" uid="uid://crjcegivagm2g" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.gd" id="2_v0tnq"]
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="3_fq1dg"]
 [ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="4_eetps"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_lu80l"]
 [ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="6_kxetj"]
-[ext_resource type="Texture2D" uid="uid://cixqa2gkoy1ut" path="res://resources/sprites/icons/dagger_icon.png" id="7_webwp"]
+[ext_resource type="Texture2D" uid="uid://qf20t24ttbok" path="res://resources/sprites/icons/weapon_icons/dagger_icon.png" id="7_webwp"]
 [ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="8_xc5gt"]
 [ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="9_pmpyn"]
 [ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="10_72msp"]
@@ -14,7 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="12_a3xxg"]
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="13_lypn0"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="14_ljq8q"]
-[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="15_0fbvh"]
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="15_0fbvh"]
+
 
 [sub_resource type="Theme" id="Theme_0gbyd"]
 default_font = ExtResource("1_o0tyf")

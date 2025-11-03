@@ -1,11 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://uij42thge1m2"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
+[ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
 [ext_resource type="Script" uid="uid://d1n5jle7lq5bi" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
-[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
+[ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_644mu"]
 [ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="5_4kelt"]
+
 
 [sub_resource type="Theme" id="Theme_trk22"]
 default_font_size = 36
