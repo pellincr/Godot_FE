@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu0nblwxq6ad4"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_72sq3"]
+[ext_resource type="Texture2D" uid="uid://djuf8ftkwukjg" path="res://resources/sprites/icons/campaign_map_icons/major_combat_new_2.png" id="1_cykeg"]
+[ext_resource type="Texture2D" uid="uid://c0su0hju86kym" path="res://resources/sprites/icons/campaign_map_icons/boss_battle_icon.png" id="1_rirh4"]
+[ext_resource type="Texture2D" uid="uid://cgf8ryj30l44h" path="res://resources/sprites/icons/campaign_map_icons/major_combat_campaign_map_icon.png" id="2_bj3ql"]
+[ext_resource type="Texture2D" uid="uid://ch3833bvu2npf" path="res://resources/sprites/icons/campaign_map_icons/icon_event.png" id="3_ohdff"]
+[ext_resource type="Texture2D" uid="uid://bx3gipdkyr2ht" path="res://resources/sprites/icons/campaign_map_icons/icon_gem.png" id="4_rirh4"]
+[ext_resource type="Texture2D" uid="uid://dh471lhfln0jf" path="res://resources/sprites/icons/campaign_map_icons/army_addition_icon.png" id="5_72sq3"]
+
+[node name="CampaignMapKey" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_72sq3")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 151.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Map Key"
+horizontal_alignment = 1
+
+[node name="BossContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BossIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/BossContainer"]
+layout_mode = 2
+texture = ExtResource("1_rirh4")
+expand_mode = 3
+
+[node name="BossLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/BossContainer"]
+layout_mode = 2
+text = "- Boss"
+
+[node name="KeyBattleContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="KeyBattleIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/KeyBattleContainer"]
+layout_mode = 2
+texture = ExtResource("1_cykeg")
+expand_mode = 3
+
+[node name="KeyBattleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/KeyBattleContainer"]
+layout_mode = 2
+text = "- Key Battle"
+
+[node name="BattleContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BattleIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/BattleContainer"]
+layout_mode = 2
+texture = ExtResource("2_bj3ql")
+expand_mode = 3
+
+[node name="BattleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/BattleContainer"]
+layout_mode = 2
+text = "- Battle"
+
+[node name="EventContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EventIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/EventContainer"]
+layout_mode = 2
+texture = ExtResource("3_ohdff")
+expand_mode = 2
+
+[node name="EventLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/EventContainer"]
+layout_mode = 2
+text = "- Event"
+
+[node name="TreasureContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="KeyBattleIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/TreasureContainer"]
+layout_mode = 2
+texture = ExtResource("4_rirh4")
+expand_mode = 3
+
+[node name="KeyBattleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/TreasureContainer"]
+layout_mode = 2
+text = "- Treasure"
+
+[node name="RecruitContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RecruitIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/RecruitContainer"]
+layout_mode = 2
+texture = ExtResource("5_72sq3")
+expand_mode = 3
+
+[node name="RecruitLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RecruitContainer"]
+layout_mode = 2
+text = "- Recruit"
