@@ -1,16 +1,14 @@
 extends VBoxContainer
 
 signal item_confirmed(item)
+signal cancelled()
 
-@onready var use_panel = $UsePanel
-@onready var use_label = $Panel/UseLabel
-@onready var cancel_panel = $CancelPanel
-@onready var cancel_label = $Panel2/CancelLabel
+@onready var use_button: GeneralMenuButton = $UseButton
 
 var unit : Unit
 var item : ItemDefinition
 
-
+"""
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if use_panel.has_focus():
@@ -20,37 +18,24 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		cancel()
 		queue_free()
+"""
 
+func _ready() -> void:
+	use_button.grab_focus()
 
-
-func use_item(item:ItemDefinition, unit:Unit):
-	unit.use_consumable_item(item)
+func use_item(i:ItemDefinition, u:Unit):
+	u.use_consumable_item(i)
 	if item.uses == 0:
-		unit.discard_item(item)
+		u.discard_item(i)
 
 func cancel():
-	pass
+	cancelled.emit()
+
+func _on_use_button_pressed() -> void:
+	use_item(item, unit)
+	item_confirmed.emit(item)
 
 
-func _on_use_panel_mouse_entered():
-	use_panel.grab_focus()
-
-
-func _on_cancel_panel_mouse_entered():
-	cancel_panel.grab_focus()
-
-
-func _on_use_panel_focus_entered() -> void:
-	use_panel.theme = preload("res://ui/battle_prep_new/panel_option_focused.tres")
-
-
-func _on_use_panel_focus_exited() -> void:
-	use_panel.theme = preload("res://ui/battle_prep_new/panel_option_not_focused.tres")
-
-
-func _on_cancel_label_focus_entered() -> void:
-	cancel_panel.theme = preload("res://ui/battle_prep_new/panel_option_focused.tres")
-
-
-func _on_cancel_label_focus_exited() -> void:
-	cancel_panel.theme = preload("res://ui/battle_prep_new/panel_option_not_focused.tres")
+func _on_cancel_button_pressed() -> void:
+	cancel()
+	queue_free()

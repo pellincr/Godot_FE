@@ -71,10 +71,10 @@ func update_by_shop_state():
 				convoy_container.fill_convoy_scroll_container()
 				convoy_container.item_panel_pressed.connect(_on_item_panel_pressed.bind(convoy_container))
 				shop_container.item_bought.connect(_on_item_bought_to_convoy.bind(convoy_container))
+			if playerOverworldData.floors_climbed / float(playerOverworldData.current_campaign.max_floor_number) > 0.5:
+				shop_container.expanded_shop = true
 			main_container.add_child(shop_container)
 			shop_container.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_SHRINK_END
-			if playerOverworldData.floors_climbed / playerOverworldData.current_campaign.max_floor_number > 0.5:
-				shop_container.expanded_shop = true
 
 
 func clear_shop_screen():

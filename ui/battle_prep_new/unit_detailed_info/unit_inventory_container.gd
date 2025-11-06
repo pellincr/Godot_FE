@@ -106,9 +106,11 @@ func _on_inventory_slot_pressed(item):
 					item_equipped.emit(item)
 					play_equipped_item_sound(item)
 				else:
+					disable_inventory_focus()
 					var item_use_option = preload("res://ui/battle_prep_new/item_use_option.tscn").instantiate()
 					add_child(item_use_option)
 					item_use_option.item_confirmed.connect(_on_item_confirmed)
+					item_use_option.cancelled.connect(_on_item_confirmed)
 					item_use_option.item = item
 					item_use_option.unit = unit
 		INVENTORY_STATE.SELL:
@@ -118,10 +120,11 @@ func _on_inventory_slot_pressed(item):
 			#unit.inventory.discard_item(item)
 			#update the inventory to match the item has now been discarded
 			#update_by_unit()
+			disable_inventory_focus()
 			var sell_confirm_menu = preload("res://ui/battle_prep_new/shop/sell_confirm/sell_confirm.tscn").instantiate()
 			add_child(sell_confirm_menu)
 			sell_confirm_menu.sell_item.connect(_on_sell_confirm.bind(item))
-			sell_confirm_menu.menu_closed.connect(_on_sell_confirm_close)
+			sell_confirm_menu.menu_closed.connect(_on_confirm_close)
 		INVENTORY_STATE.CONVOY:
 			send_to_convoy.emit(item)
 			unit.inventory.discard_item(item)
@@ -138,13 +141,16 @@ func _on_inventory_slot_pressed(item):
 					inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused.tres")
 
 func _on_item_confirmed(item):
+	enable_inventory_focus()
 	update_by_unit()
 	item_used.emit(item)
+
 
 func grab_first_slot_focus():
 	inventory_container_slot_1.grab_focus()
 
 func _on_sell_confirm(item):
+	enable_inventory_focus()
 	#emit the signal so that the players gold can be increased
 	sell_item.emit(item)
 	#remove the item from the inventory
@@ -153,7 +159,7 @@ func _on_sell_confirm(item):
 	update_by_unit()
 	inventory_container_slot_1.grab_focus()
 
-func _on_sell_confirm_close():
+func _on_confirm_close():
 	inventory_container_slot_1.grab_focus()
 
 func play_equipped_item_sound(item : ItemDefinition):
@@ -198,3 +204,10 @@ func _on_inventory_container_slot_use_item(item):
 func _on_inventory_container_slot_sell_item(item):
 	sell_item.emit(item)
 """
+func disable_inventory_focus():
+	for slot in inventory_slot_array:
+		slot.focus_mode = FOCUS_NONE
+
+func enable_inventory_focus():
+	for slot in inventory_slot_array:
+		slot.focus_mode = FOCUS_ALL

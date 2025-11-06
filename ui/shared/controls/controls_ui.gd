@@ -234,6 +234,10 @@ func update_by_control_state():
 			set_label_text(confirm_label,"Confirm")
 		CONTROL_STATE.BATTLE_PREP_SHOP_WHAT:
 			battle_prep_sub_menu_general_visibility()
+			set_container_visibility(right_bumper_container, true)
+			set_label_text(right_bumper_label, "Screen Right")
+			set_container_visibility(right_bumper_container, true)
+			set_label_text(left_bumper_label, "Screen Left")
 			set_label_text(confirm_label,"Buy/Sell")
 		CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT:
 			battle_prep_sub_menu_general_visibility()
