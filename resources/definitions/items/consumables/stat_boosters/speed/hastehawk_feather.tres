@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://crvd3gshuxr6f"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_lbgv0"]
+[ext_resource type="Texture2D" uid="uid://ba08jdr45xmq" path="res://resources/sprites/items/consumables/stat_boosters/speed/hastehawk_feather.png" id="2_leo4y"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_dv01l"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_udoim"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_ebv3d"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_lbgv0")
+speed = 12
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_udoim")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Hastehawk Feather"
+db_key = "hastehawk_feather"
+description = "A plume from a legendary hawk said to create storms, its aura quickens every heartbeat it touches."
+item_type = 2
+rarity = ExtResource("3_dv01l")
+worth = 5000
+icon = ExtResource("2_leo4y")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://drc2uo5ymexx8"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_6ps1s"]
-[ext_resource type="Resource" uid="uid://ce23eaw8hq6gf" path="res://resources/definitions/unit_types/units/corsair/corsair_weapon_table.tres" id="2_nb7cy"]
+[ext_resource type="Resource" uid="uid://byxisotpbmx3k" path="res://resources/definitions/unit_types/units/corsair/corsair_weapon_table.tres" id="2_nb7cy"]
 
 [resource]
 script = ExtResource("1_6ps1s")

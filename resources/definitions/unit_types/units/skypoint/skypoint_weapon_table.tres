@@ -21,19 +21,19 @@ metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 [sub_resource type="Resource" id="Resource_neva7"]
 script = ExtResource("1_mh5cs")
 item = ExtResource("3_fus1i")
-probability = 4.2
+probability = 9.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [sub_resource type="Resource" id="Resource_s5vq3"]
 script = ExtResource("1_mh5cs")
 item = ExtResource("4_iphpx")
-probability = 8.75
+probability = 6.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [sub_resource type="Resource" id="Resource_vs5oo"]
 script = ExtResource("1_mh5cs")
 item = ExtResource("5_h00e3")
-probability = 2.8
+probability = 0.8
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [sub_resource type="Resource" id="Resource_4chvx"]
@@ -57,13 +57,13 @@ metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 [sub_resource type="Resource" id="Resource_2x1ik"]
 script = ExtResource("1_mh5cs")
 item = ExtResource("9_te5og")
-probability = 7.0
+probability = 6.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [sub_resource type="Resource" id="Resource_tuvfv"]
 script = ExtResource("1_mh5cs")
 item = ExtResource("10_py3an")
-probability = 2.9
+probability = 5.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [resource]

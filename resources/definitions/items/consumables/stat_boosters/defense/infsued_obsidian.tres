@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://ccruwnqb2rr1u"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_q858w"]
+[ext_resource type="Texture2D" uid="uid://bcsossedfmq2u" path="res://resources/sprites/items/consumables/stat_boosters/defense/infused_obsidian.png" id="2_vcswu"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_0ad21"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_tice1"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_r7vmo"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_q858w")
+defense = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_tice1")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Infused Obsidian"
+db_key = "infsued_obsidian"
+description = "A jagged chunk of dark glass shot through with violet essence that swirls like smoke within, its aura forming a subtle barrier against harm."
+item_type = 2
+rarity = ExtResource("3_0ad21")
+worth = 4000
+icon = ExtResource("2_vcswu")

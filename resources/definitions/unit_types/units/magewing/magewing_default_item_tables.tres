@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://b2tn6r5tdhtlb"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_51qvl"]
-[ext_resource type="Resource" uid="uid://cgrlhveq6o2ew" path="res://resources/definitions/unit_types/units/mage/mage_weapon_table.tres" id="2_ogc8k"]
+[ext_resource type="Resource" uid="uid://dy3l88yxi5a0v" path="res://resources/definitions/unit_types/units/magewing/magewing_weapon_table.tres" id="2_xdidc"]
 
 [resource]
 script = ExtResource("1_51qvl")
-weapon_default = ExtResource("2_ogc8k")
+weapon_default = ExtResource("2_xdidc")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

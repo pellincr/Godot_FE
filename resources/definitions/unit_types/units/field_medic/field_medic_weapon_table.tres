@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="9_gbt4q"]
 [ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="10_6c36n"]
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="11_nygqm"]
-[ext_resource type="Resource" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="12_frysp"]
+[ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="12_frysp"]
 [ext_resource type="Resource" uid="uid://dss3x6j62pbtk" path="res://resources/definitions/items/weapons/dagger/sword_breaker.tres" id="13_v4rf2"]
 [ext_resource type="Resource" uid="uid://cpqf6v7ox1xs6" path="res://resources/definitions/items/weapons/dagger/silver_dagger.tres" id="14_ac4xd"]
 [ext_resource type="Resource" uid="uid://cmljuu3sxx1lf" path="res://resources/definitions/items/weapons/dagger/killer_dagger.tres" id="15_3xl85"]

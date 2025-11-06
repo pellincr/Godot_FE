@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://5d0x5t4vuwuf"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_3xjp1"]
+[ext_resource type="Texture2D" uid="uid://b086l2oetyso4" path="res://resources/sprites/items/consumables/stat_boosters/speed/tempo_tonic.png" id="2_k66jd"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_7j4wa"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_n47eu"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_ovw8g"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_3xjp1")
+speed = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_n47eu")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Tempo Tonic"
+db_key = "tempo_tonic"
+description = "A pale blue draught that synchronizes breath and motion, lending rhythm to every movement."
+item_type = 2
+rarity = ExtResource("3_7j4wa")
+worth = 4000
+icon = ExtResource("2_k66jd")

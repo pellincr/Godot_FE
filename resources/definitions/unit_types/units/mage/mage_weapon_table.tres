@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LootTableItem" load_steps=13 format=3 uid="uid://cgrlhveq6o2ew"]
 
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_twfkt"]
-[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="2_g101a"]
+[ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="2_g101a"]
 [ext_resource type="Resource" uid="uid://7je7gpvirns" path="res://resources/definitions/items/weapons/nature/earth_split.tres" id="3_gfbbk"]
 [ext_resource type="Resource" uid="uid://c068ci3uwxvd7" path="res://resources/definitions/items/weapons/nature/holy_fire.tres" id="4_dh4hl"]
 [ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="5_jmcv6"]

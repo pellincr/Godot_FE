@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://dctfc3d3nyau3" path="res://resources/definitions/unit_types/units/duelist/duelist_base_combat_stats.tres" id="1_vmeh1"]
 [ext_resource type="Resource" uid="uid://bqm1m8xll62gg" path="res://resources/definitions/unit_types/units/duelist/duelist_growth_stats.tres" id="2_4wg3g"]
-[ext_resource type="Resource" path="res://resources/definitions/unit_types/units/duelist/duelist_default_item_tables.tres" id="2_af46d"]
+[ext_resource type="Resource" uid="uid://bx41o2s712pfr" path="res://resources/definitions/unit_types/units/duelist/duelist_default_item_tables.tres" id="2_af46d"]
 [ext_resource type="Texture2D" uid="uid://dnbwkhhgujrgm" path="res://resources/sprites/units/duelist.png" id="3_7luyy"]
 [ext_resource type="Resource" uid="uid://vw2g3j2kkkbd" path="res://resources/definitions/unit_types/units/duelist/duelist_max_stats.tres" id="4_ulihi"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_2xl1h"]

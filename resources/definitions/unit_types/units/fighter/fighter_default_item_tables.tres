@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://beepne4cul1d1"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_qnbp6"]
-[ext_resource type="Resource" uid="uid://chqmc6mxjws57" path="res://resources/definitions/unit_types/units/fighter/fighter_weapon_table.tres" id="2_lo4bs"]
+[ext_resource type="Resource" uid="uid://cfod2aqv01o6u" path="res://resources/definitions/unit_types/units/fighter/fighter_weapon_table.tres" id="2_lo4bs"]
 
 [resource]
 script = ExtResource("1_qnbp6")

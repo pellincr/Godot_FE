@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://k7x7lwpr4le5" path="res://resources/definitions/unit_types/units/brawler/brawler_base_combat_stats.tres" id="1_j0clh"]
 [ext_resource type="Resource" uid="uid://cpao0lhvbmgy2" path="res://resources/definitions/unit_types/units/brawler/brawler_growth_stats.tres" id="2_jewuc"]
-[ext_resource type="Resource" path="res://resources/definitions/unit_types/units/brawler/brawler_default_item_tables.tres" id="2_pib06"]
+[ext_resource type="Resource" uid="uid://vhg1iede7gvm" path="res://resources/definitions/unit_types/units/brawler/brawler_default_item_tables.tres" id="2_pib06"]
 [ext_resource type="Texture2D" uid="uid://coxs2ya4a8sua" path="res://resources/sprites/units/brawler.png" id="3_g1ir4"]
 [ext_resource type="Resource" uid="uid://csefbxtabk70d" path="res://resources/definitions/unit_types/units/brawler/brawler_max_stats.tres" id="4_uab6d"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_yb7oa"]

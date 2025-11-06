@@ -91,6 +91,7 @@ metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 [sub_resource type="Resource" id="Resource_3gc4m"]
 script = ExtResource("1_ambav")
 item = ExtResource("14_f2luf")
+probability = 2.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
 [resource]

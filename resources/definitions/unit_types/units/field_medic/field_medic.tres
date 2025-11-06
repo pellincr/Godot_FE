@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://wdv3uyvn50no"]
 
 [ext_resource type="Resource" uid="uid://dh2u5pyc7lc0c" path="res://resources/definitions/unit_types/units/field_medic/field_medic_base_combat_stats.tres" id="1_karj0"]
-[ext_resource type="Resource" path="res://resources/definitions/unit_types/units/field_medic/field_medic_default_item_tables.tres" id="2_a5rwh"]
+[ext_resource type="Resource" uid="uid://c28ippx6ew0f4" path="res://resources/definitions/unit_types/units/field_medic/field_medic_default_item_tables.tres" id="2_a5rwh"]
 [ext_resource type="Resource" uid="uid://ddqec8vvnoa3k" path="res://resources/definitions/unit_types/units/field_medic/field_medic_growth_stats.tres" id="2_mak3x"]
 [ext_resource type="Texture2D" uid="uid://cffpilf27wmxm" path="res://resources/sprites/units/field_medic.png" id="3_gtumu"]
 [ext_resource type="Resource" uid="uid://brbny1ibl7iw2" path="res://resources/definitions/unit_types/units/field_medic/field_medic_max_stats.tres" id="4_vlc8e"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://4tugpwg7gjko" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_base_combat_stats.tres" id="1_16p6e"]
 [ext_resource type="Resource" uid="uid://cunokafpftcxy" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_growth_stats.tres" id="2_ft5l6"]
-[ext_resource type="Resource" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_default_item_tables.tres" id="2_yxgis"]
+[ext_resource type="Resource" uid="uid://dw5r1gwg6024h" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_default_item_tables.tres" id="2_yxgis"]
 [ext_resource type="Texture2D" uid="uid://vlk3mxq5ptlr" path="res://resources/sprites/units/crossbowman.png" id="3_p7uqe"]
 [ext_resource type="Resource" uid="uid://bnoje1tst5pv2" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman_max_stats.tres" id="4_rbi7o"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_mpnbg"]

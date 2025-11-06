@@ -2,22 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2lcuqecfuxm7"
-path="res://.godot/imported/boost_bread.png-9eeccce3498639539d655e0e9a4039bf.ctex"
+uid="uid://bl5dq7pq8tdko"
+path="res://.godot/imported/soul_dust.png-106bea0a1c1623b6b65a1dab6ca3994c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/items/consumables/boost_bread.png"
-dest_files=["res://.godot/imported/boost_bread.png-9eeccce3498639539d655e0e9a4039bf.ctex"]
+source_file="res://resources/sprites/items/consumables/stat_boosters/magic/soul_dust.png"
+dest_files=["res://.godot/imported/soul_dust.png-106bea0a1c1623b6b65a1dab6ca3994c.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
