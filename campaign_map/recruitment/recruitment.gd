@@ -9,14 +9,15 @@ signal drafting_complete(po_data)
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const unit_selector_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_selector.tscn")
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
+
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
 #const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+
+@onready var campaign_header: Control = $MarginContainer/MainContainer/CampaignHeader
 
 @onready var army_draft_stage_label = $MarginContainer/MainContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/MainContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/MainContainer/HeaderPanel/HeaderLabel
-
-@onready var gold_counter = $MarginContainer/MainContainer/GoldCounter
 
 @onready var army_list_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer
 @onready var army_list_label = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArmyListLabel
@@ -29,9 +30,15 @@ const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Dr
 
 @onready var current_draft_state = Constants.DRAFT_STATE.UNIT
 
+
+
+
 func _ready():
 	transition_in_animation()
 	update_to_unit_draft_screen()
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
 	#create_unit_selector_list(4, main_container)
 #
 # Plays the transition animation on combat map begin

@@ -10,9 +10,12 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 
 @onready var main_container: VBoxContainer = $MarginContainer/MainContainer
 
-@onready var battle_prep_header: PanelContainer = $MarginContainer/MainContainer/BattlePrepHeader
-@onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
-@onready var header_lower_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
+@onready var battle_prep_header: PanelContainer = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader
+@onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
+@onready var header_lower_label: Label = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
+
+@onready var campaign_header: Control = $MarginContainer/MainContainer/HeaderContainer/CampaignHeader
+
 
 @onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
 
@@ -40,6 +43,9 @@ var pause_menu_open = false
 func _ready() -> void:
 	#transition_in_animation()
 	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		tutorial_complete = false
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
@@ -134,6 +140,8 @@ func update_by_state():
 			shop.return_to_menu.connect(_on_return_to_menu)
 			shop.shop_entered.connect(_on_shop_entered)
 			shop.shop_exited.connect(_on_shop_exited)
+			shop.item_bought.connect(_on_item_bought)
+			shop.item_sold.connect(_on_item_sold)
 		PREP_STATE.INVENTORY:
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
 			var inventory_prep_screen = preload("res://ui/battle_prep_new/inventory/inventory_prep_screen.tscn").instantiate()
@@ -155,7 +163,7 @@ func update_by_state():
 			graveyard.set_po_data(playerOverworldData)
 			main_container.add_child(graveyard)
 			graveyard.return_to_menu.connect(_on_return_to_menu)
-			graveyard.screen_change.conenct(_on_graveyard_screen_change)
+			graveyard.screen_change.connect(_on_graveyard_screen_change)
 	main_container.move_child(controls_ui_container,-1)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
@@ -251,6 +259,14 @@ func _on_shop_entered():
 
 func _on_shop_exited():
 	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
+
+func _on_item_bought(value):
+	playerOverworldData.gold -= value
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+
+func _on_item_sold(value):
+	playerOverworldData.gold += value
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
 
 func _on_inventory_prep_screen_change(state:InventoryPrepScreen.INVENTORY_STATE):
 	match state:

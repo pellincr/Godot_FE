@@ -3,6 +3,8 @@ extends Control
 @onready var background: TextureRect = $background
 @onready var event_selection_container: VBoxContainer = $MarginContainer2/EventSelectionContainer
 
+@onready var campaign_header: Control = $CampaignHeader
+
 @onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -27,6 +29,9 @@ func _ready():
 	transition_in_animation()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
 	select_event()
 
 func select_event():

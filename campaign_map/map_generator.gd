@@ -173,7 +173,7 @@ func _setup_room_types() -> void:
 					_set_room_randomly(next_room)
 	for room : CampaignRoom in map_data[0]:
 		if room.next_rooms.size() > 0:
-			room.type = CampaignRoom.TYPE.BATTLE
+			room.type = CampaignRoom.TYPE.EVENT
 
 func _set_room_randomly(room_to_set : CampaignRoom) -> void:
 	#OMITTING NO CAMPFIRES BEFORE FLOOR 4 RULE

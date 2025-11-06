@@ -21,8 +21,12 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var rooms :Node2D = %Rooms
 @onready var visuals :Node2D = $Visuals
 @onready var camera_2d : Camera2D = $Camera2D
+@onready var map_background: CanvasLayer = $MapBackground
 
-@onready var controls_ui_container: ControlsUI = $Camera2D/ControlsUIContainer
+
+@onready var controls_ui_container: ControlsUI = $MapBackground/ControlsUIContainer
+@onready var campaign_header: Control = $MapBackground/CampaignHeader
+
 
 const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
@@ -41,8 +45,14 @@ func _ready() -> void:
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
 	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	
 	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.CAMPAIGN_MAP
 	controls_ui_container.update_by_control_state()
+	
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		seed(playerOverworldData.capmaign_seed)
@@ -64,7 +74,8 @@ func _ready() -> void:
 			tutorial_complete = false
 			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.CAMPAIGN_MAP
-			camera_2d.add_child(tutorial_panel)
+			map_background.add_child(tutorial_panel)
+			map_background.layer = 99
 			tutorial_panel.tutorial_completed.connect(tutorial_completed)
 
 
@@ -101,7 +112,8 @@ func _input(event:InputEvent) ->void:
 				_on_menu_closed()
 
 func tutorial_completed():
-#	camera_2d.zoom = Vector2(3,3)
+	#camera_2d.zoom = Vector2(3,3)
+	map_background.layer = -1
 	rooms.get_child(0).grab_focus()
 	tutorial_complete = true
 

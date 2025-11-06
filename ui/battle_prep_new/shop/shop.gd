@@ -3,10 +3,11 @@ extends VBoxContainer
 class_name Shop
 
 signal return_to_menu()
+signal item_bought(value:int)
+signal item_sold(value:int)
 signal shop_entered()
 signal shop_exited()
 
-@onready var gold_counter: GoldCounter = $GoldCounter
 
 @onready var main_container: HBoxContainer = $MainContainer
 
@@ -43,7 +44,7 @@ func set_po_data(po_data):
 
 func update_by_shop_state():
 	clear_shop_screen()
-	gold_counter.set_gold_count(playerOverworldData.gold)
+	#gold_counter.set_gold_count(playerOverworldData.gold)
 	match current_state:
 		SHOP_STATE.LOCATION_SELECT:
 			var army_container = army_container_scene.instantiate()
@@ -101,15 +102,17 @@ func _on_item_bought_to_unit(item:ItemDefinition,unit_detailed_view):
 	if !inventory.is_full() and playerOverworldData.gold >= item.worth:
 		inventory.give_item(item.duplicate())
 		unit_detailed_view.update_by_unit()
-		playerOverworldData.gold -= item.worth
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#playerOverworldData.gold -= item.worth
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		item_bought.emit(item.worth)
 		AudioManager.play_sound_effect("item_buy")
 
 func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 	if playerOverworldData.gold >= item.worth:
 		playerOverworldData.convoy.append(item.duplicate())
-		playerOverworldData.gold -= item.worth
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#playerOverworldData.gold -= item.worth
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		item_bought.emit(item.worth)
 		convoy_container.reset_convoy_container()
 
 
@@ -117,8 +120,10 @@ func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 func _on_item_sold(item:ItemDefinition):
 	if item:
 		AudioManager.play_sound_effect("item_sell")
-		playerOverworldData.gold += item.worth/2
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		item_sold.emit(item.worth/2)
 
 func _on_item_panel_pressed(item:ItemDefinition, convoy_container):
 	_on_item_sold(item)

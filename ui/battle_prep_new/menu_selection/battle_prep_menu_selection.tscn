@@ -66,6 +66,6 @@ text = "Save Preparations"
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
 [connection signal="focus_entered" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_focus_entered"]
-[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
