@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=146 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -143,6 +143,8 @@
 [ext_resource type="Resource" uid="uid://bgwayl0oegg0k" path="res://resources/definitions/items/consumables/stat_boosters/strength/brutvine_sap.tres" id="137_eq2cj"]
 [ext_resource type="Resource" uid="uid://d2oqed7tygy48" path="res://resources/definitions/items/consumables/stat_boosters/strength/giants_brew.tres" id="138_p2ujb"]
 [ext_resource type="Resource" uid="uid://cu4v3l3r0d3in" path="res://resources/definitions/items/consumables/stat_boosters/strength/power_rune.tres" id="139_sykvo"]
+[ext_resource type="Resource" uid="uid://bfxa8fiicoqsm" path="res://resources/definitions/items/consumables/refillable_potion.tres" id="140_tjwbw"]
+[ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -215,6 +217,7 @@ items = {
 "killer_sword": ExtResource("18_44h8f"),
 "knife": ExtResource("92_gsk0d"),
 "kukri": ExtResource("50_d8m3e"),
+"large_potion": ExtResource("141_1moet"),
 "life_tap": ExtResource("59_jqcuj"),
 "long_bow": ExtResource("104_q80qu"),
 "lumen": ExtResource("87_gcqt1"),
@@ -231,6 +234,7 @@ items = {
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
+"refillable_potion": ExtResource("140_tjwbw"),
 "reinforced_bow": ExtResource("99_5bd5o"),
 "resonant_ore": ExtResource("101_7bcyb"),
 "runewart": ExtResource("116_nw817"),
@@ -279,8 +283,8 @@ items = {
 "torrent": ExtResource("90_n7mel"),
 "vermillion_tonic": ExtResource("114_cws61"),
 "warding_worm": ExtResource("124_86gxh"),
-"warhammer": ExtResource("10_n4irs"),
-"wind_blade": ExtResource("34_ttak5"),
+"warpick": ExtResource("10_n4irs"),
+"wind": ExtResource("34_ttak5"),
 "wine": ExtResource("60_inhro"),
 "wisdom_wine": ExtResource("119_kdxkq"),
 "wyvern_wingdust": ExtResource("134_d85kj"),
