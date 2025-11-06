@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://cgse1ikjk728v"]
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://cgse1ikjk728v"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_x8c47"]
 [ext_resource type="Resource" uid="uid://cjfv704ohm2co" path="res://resources/definitions/unit_types/units/sellsword/sellsword_weapon_table.tres" id="2_1uw0p"]
+[ext_resource type="Resource" uid="uid://dw6fcenfjkteh" path="res://resources/definitions/unit_types/units/sellsword/sellsword_treasure_table.tres" id="2_tas2y"]
 
 [resource]
 script = ExtResource("1_x8c47")
 weapon_default = ExtResource("2_1uw0p")
+treasure_default = ExtResource("2_tas2y")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

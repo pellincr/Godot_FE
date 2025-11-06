@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=12 format=3 uid="uid://dm6brlaywpbfh"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_n0pyr"]
+[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/gold_coins_small.tres" id="2_dxmn4"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="3_f1064"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="4_ubs0b"]
+[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="5_lv7js"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="6_a2yo4"]
+
+[sub_resource type="Resource" id="Resource_wyudb"]
+script = ExtResource("1_n0pyr")
+probability = 90.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_vyf6g"]
+script = ExtResource("1_n0pyr")
+item = ExtResource("2_dxmn4")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_bjgxw"]
+script = ExtResource("1_n0pyr")
+item = ExtResource("3_f1064")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_glj7u"]
+script = ExtResource("1_n0pyr")
+item = ExtResource("4_ubs0b")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_lc3tj"]
+script = ExtResource("1_n0pyr")
+item = ExtResource("5_lv7js")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("6_a2yo4")
+entries = Array[ExtResource("1_n0pyr")]([SubResource("Resource_wyudb"), SubResource("Resource_vyf6g"), SubResource("Resource_bjgxw"), SubResource("Resource_glj7u"), SubResource("Resource_lc3tj")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

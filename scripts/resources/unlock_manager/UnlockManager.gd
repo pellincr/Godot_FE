@@ -210,6 +210,19 @@ class_name UnlockManager
 	"refillable_potion" : true,
 	"large_potion" : true,
 	"zweihander" : true,
+	"valor_axe" : true,
+	"valor_bow" : true,
+	"valor_dagger" : true,
+	"valor_lance" : true,
+	"valor_blade" : true,
+	"tri_axe" : true,
+	"tri_pike" : true,
+	"tri_edge" : true,
+	"armorbreaker" : true,
+	"shotel" : true,
+	"iron_greatshield" : true,
+	"steel_greatshield" : true,
+	"silver_greatshield" : true,
 }
 
 func get_count(dict: Dictionary, locked : bool):

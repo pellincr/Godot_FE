@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://dixyimsxkxprv"]
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://dixyimsxkxprv"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_hl0fb"]
 [ext_resource type="Resource" uid="uid://b52newjojbqoa" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner_weapon_table.tres" id="2_6v8qn"]
+[ext_resource type="Resource" uid="uid://cdnmidj6i7as1" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner_treasure_table.tres" id="2_tjlg7"]
 
 [resource]
 script = ExtResource("1_hl0fb")
 weapon_default = ExtResource("2_6v8qn")
+treasure_default = ExtResource("2_tjlg7")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

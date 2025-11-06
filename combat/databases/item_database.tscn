@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=160 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="7_x6uf5"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="8_l7lwn"]
 [ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="9_vblr4"]
-[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="10_n4irs"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_n4irs"]
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="11_uxm7i"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="12_6iapf"]
 [ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="13_ha374"]
@@ -145,6 +145,20 @@
 [ext_resource type="Resource" uid="uid://cu4v3l3r0d3in" path="res://resources/definitions/items/consumables/stat_boosters/strength/power_rune.tres" id="139_sykvo"]
 [ext_resource type="Resource" uid="uid://bfxa8fiicoqsm" path="res://resources/definitions/items/consumables/refillable_potion.tres" id="140_tjwbw"]
 [ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
+[ext_resource type="Resource" uid="uid://cmo7c2gqpwpdx" path="res://resources/definitions/items/weapons/axes/valor_axe.tres" id="142_niuha"]
+[ext_resource type="Resource" uid="uid://dco4sixhkecil" path="res://resources/definitions/items/weapons/bow/valor_bow.tres" id="143_4aqvk"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="144_86gxh"]
+[ext_resource type="Resource" uid="uid://yfafgeaai71j" path="res://resources/definitions/items/weapons/lance/valor_lance.tres" id="145_7a2us"]
+[ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="146_kn4gf"]
+[ext_resource type="Resource" uid="uid://p5wvq1gfcryr" path="res://resources/definitions/items/weapons/axes/tri_axe.tres" id="147_ccn1k"]
+[ext_resource type="Resource" uid="uid://bpv2q2oiapa6i" path="res://resources/definitions/items/weapons/lance/tri_pike.tres" id="148_8txxg"]
+[ext_resource type="Resource" uid="uid://d0isbl0uqtjwy" path="res://resources/definitions/items/weapons/swords/tri_edge.tres" id="149_kbtey"]
+[ext_resource type="Resource" uid="uid://d32nr8htgrya4" path="res://resources/definitions/items/weapons/dagger/armorbreaker.tres" id="150_7xe73"]
+[ext_resource type="Resource" uid="uid://bvnotca20t7r7" path="res://resources/definitions/items/weapons/swords/shotel.tres" id="151_4c85a"]
+[ext_resource type="Resource" uid="uid://ce7orlfww341f" path="res://resources/definitions/items/weapons/lance/great_lance.tres" id="152_e2yjl"]
+[ext_resource type="Resource" uid="uid://b5m7mb73uct4n" path="res://resources/definitions/items/weapons/shield/iron_greatshield.tres" id="153_llvit"]
+[ext_resource type="Resource" uid="uid://dn8nycdpo07q" path="res://resources/definitions/items/weapons/shield/steel_greatshield.tres" id="154_d85kj"]
+[ext_resource type="Resource" uid="uid://cogogvgr7hry6" path="res://resources/definitions/items/weapons/shield/silver_greatshield.tres" id="155_iuj88"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -154,6 +168,7 @@ items = {
 "all_seeing_hands": ExtResource("76_jk8mo"),
 "ancient_anchor": ExtResource("120_euqrm"),
 "annihilate": ExtResource("74_y5h4k"),
+"armorbreaker": ExtResource("150_7xe73"),
 "bastion_crab": ExtResource("106_50iop"),
 "bolting": ExtResource("35_xal3d"),
 "boost_bread": ExtResource("61_af6n4"),
@@ -187,6 +202,7 @@ items = {
 "gold_coins_small": ExtResource("62_2aj2t"),
 "great_axe": ExtResource("64_g2m76"),
 "great_bow": ExtResource("17_0gxut"),
+"great_lance": ExtResource("152_e2yjl"),
 "greatsword": ExtResource("47_v3anb"),
 "halberd": ExtResource("22_epcxq"),
 "hand_axe": ExtResource("11_uxm7i"),
@@ -205,6 +221,7 @@ items = {
 "iron_bow": ExtResource("5_ge5kc"),
 "iron_dagger": ExtResource("27_fgo5t"),
 "iron_fist": ExtResource("77_4s7is"),
+"iron_greatshield": ExtResource("153_llvit"),
 "iron_lance": ExtResource("4_o8mgg"),
 "iron_shield": ExtResource("40_8cwhn"),
 "iron_sword": ExtResource("5_inufr"),
@@ -248,10 +265,12 @@ items = {
 "short_axe": ExtResource("67_dh53s"),
 "short_bow": ExtResource("7_x6uf5"),
 "short_sword": ExtResource("94_xlfug"),
+"shotel": ExtResource("151_4c85a"),
 "silver_axe": ExtResource("23_7wv7v"),
 "silver_bow": ExtResource("55_n8hyn"),
 "silver_dagger": ExtResource("56_gbxts"),
 "silver_fist": ExtResource("80_gdl5g"),
+"silver_greatshield": ExtResource("155_iuj88"),
 "silver_lance": ExtResource("51_5lqt6"),
 "silver_shield": ExtResource("57_yomul"),
 "silver_sword": ExtResource("9_vblr4"),
@@ -268,6 +287,7 @@ items = {
 "steel_bow": ExtResource("54_n4b3q"),
 "steel_dagger": ExtResource("49_bdsdk"),
 "steel_fist": ExtResource("78_vos4o"),
+"steel_greatshield": ExtResource("154_d85kj"),
 "steel_lance": ExtResource("20_kc6t1"),
 "steel_shield": ExtResource("52_x6n6j"),
 "steel_sword": ExtResource("8_l7lwn"),
@@ -281,6 +301,14 @@ items = {
 "titans_will": ExtResource("85_qfgim"),
 "tomahawk": ExtResource("69_q45qp"),
 "torrent": ExtResource("90_n7mel"),
+"tri_axe": ExtResource("147_ccn1k"),
+"tri_edge": ExtResource("149_kbtey"),
+"tri_pike": ExtResource("148_8txxg"),
+"valor_axe": ExtResource("142_niuha"),
+"valor_blade": ExtResource("146_kn4gf"),
+"valor_bow": ExtResource("143_4aqvk"),
+"valor_dagger": ExtResource("144_86gxh"),
+"valor_lance": ExtResource("145_7a2us"),
 "vermillion_tonic": ExtResource("114_cws61"),
 "warding_worm": ExtResource("124_86gxh"),
 "warpick": ExtResource("10_n4irs"),

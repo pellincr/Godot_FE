@@ -17,7 +17,7 @@
 [ext_resource type="Resource" uid="uid://j2uu2bvu8yli" path="res://resources/definitions/items/consumables/elixir.tres" id="14_cndwi"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="15_p3do1"]
 [ext_resource type="Resource" uid="uid://cfr25jrickdoo" path="res://resources/definitions/items/weapons/lance/spear.tres" id="16_jaeon"]
-[ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="16_rmndk"]
+[ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/stat_boosters/boost_bread.tres" id="16_rmndk"]
 [ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="17_7xfc8"]
 [ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="18_p5d48"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="20_kynr8"]

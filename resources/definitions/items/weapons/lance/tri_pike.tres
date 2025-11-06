@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bpv2q2oiapa6i"]
+
+[ext_resource type="Texture2D" uid="uid://cjj8dmtt06bls" path="res://resources/sprites/items/weapons/lance/tri_pike_lance.png" id="1_fkahd"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_erqtl"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_bx3db"]
+
+[resource]
+script = ExtResource("3_bx3db")
+weapon_type = 3
+physical_weapon_triangle_type = 3
+required_mastery = 2
+damage = 10
+hit = 90
+weight = 13
+specials = Array[int]([0])
+name = "Tri-Pike"
+db_key = "tri_pike"
+equippable = true
+rarity = ExtResource("2_erqtl")
+uses = 16
+max_uses = 16
+worth = 3400
+icon = ExtResource("1_fkahd")

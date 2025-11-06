@@ -12,7 +12,6 @@ damage = 8
 hit = 85
 weight = 11
 weapon_effectiveness_trait = Array[int]([1])
-specials = Array[int]([0])
 name = "Sabre"
 db_key = "sabre"
 equippable = true

@@ -1,4 +1,4 @@
-extends LootTableEntryItem
+extends LootTableItemEntry
 class_name LootTableEntryItemExpanded
 
 @export_group("Expanded Options Information")
