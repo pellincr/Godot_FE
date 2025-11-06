@@ -4,10 +4,7 @@ class_name Graveyard
 
 signal return_to_menu()
 signal screen_change(STATE)
-
-
-
-@onready var gold_counter: GoldCounter = $GoldCounter
+signal unit_revived(cost)
 
 var playerOverworldData : PlayerOverworldData
 
@@ -19,7 +16,6 @@ var current_state = STATE.SELECT_UNIT
 var chosen_unit : Unit
 
 func _ready() -> void:
-	gold_counter.set_gold_count(playerOverworldData.gold)
 	update_by_state()
 
 func _process(_delta: float) -> void:
@@ -66,8 +62,7 @@ func _on_unit_panel_pressed(unit:Unit):
 func _on_unit_revived(unit:Unit, cost:int):
 	if playerOverworldData.gold >= cost:
 		AudioManager.play_sound_effect("resurrect")
-		playerOverworldData.gold -= cost
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		unit_revived.emit(cost)
 		playerOverworldData.total_party.append(unit)
 		playerOverworldData.dead_party_members.erase(unit)
 		current_state = STATE.SELECT_UNIT

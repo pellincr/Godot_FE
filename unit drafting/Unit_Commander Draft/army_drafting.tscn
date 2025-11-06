@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=8 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" uid="uid://k0jw4ofugyyo" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_klef3"]
-[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://ui/shared/gold/gold_counter.tscn" id="2_xuf8l"]
 [ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="4_xrl8o"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
@@ -63,10 +62,6 @@ size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "Pick 1 of 1"
 horizontal_alignment = 2
-
-[node name="GoldCounter" parent="MarginContainer/MainContainer" instance=ExtResource("2_xuf8l")]
-layout_mode = 2
-autowrap_mode = 0
 
 [node name="HeaderPanel" type="Panel" parent="MarginContainer/MainContainer"]
 custom_minimum_size = Vector2(830, 78)

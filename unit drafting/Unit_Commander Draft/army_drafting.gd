@@ -19,8 +19,6 @@ const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.
 @onready var pick_amount_label = $MarginContainer/MainContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/MainContainer/HeaderPanel/HeaderLabel
 
-@onready var gold_counter = $MarginContainer/MainContainer/GoldCounter
-
 @onready var army_list_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer
 @onready var army_list_label = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArmyListLabel
 @onready var archetype_icon_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
@@ -39,7 +37,6 @@ func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
 	load_data()
-	gold_counter.set_gold_count(playerOverworldData.gold)
 	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.DRAFT
 	controls_ui_container.update_by_control_state()
 	if playerOverworldData.floors_climbed > 0:

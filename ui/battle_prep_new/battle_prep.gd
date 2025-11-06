@@ -164,6 +164,7 @@ func update_by_state():
 			main_container.add_child(graveyard)
 			graveyard.return_to_menu.connect(_on_return_to_menu)
 			graveyard.screen_change.connect(_on_graveyard_screen_change)
+			graveyard.unit_revived.connect(_on_unit_revived)
 	main_container.move_child(controls_ui_container,-1)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
@@ -249,6 +250,10 @@ func update_training_grounds_stats():
 		unit_level_info.update_by_unit()
 		var bonus_exp_spend = training_grounds.get_child(1)
 		bonus_exp_spend.update_by_unit()
+
+func _on_unit_revived(cost):
+	playerOverworldData.gold -= cost
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
 
 func _on_save_game():
 	SelectedSaveFile.save(playerOverworldData)
