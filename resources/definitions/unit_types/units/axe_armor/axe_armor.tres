@@ -1,56 +1,12 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=21 format=3 uid="uid://chmhvok2b7sgj"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://chmhvok2b7sgj"]
 
 [ext_resource type="Resource" uid="uid://cneoftbrp4hi2" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_base_combat_stats.tres" id="1_jlkb8"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_o4h4l"]
+[ext_resource type="Resource" uid="uid://dic2rqmo32sin" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_default_item_tables.tres" id="2_7u6yp"]
 [ext_resource type="Resource" uid="uid://c8skxd6d5ns8q" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_growth_stats.tres" id="2_h5kmo"]
-[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="2_jqenn"]
 [ext_resource type="Resource" uid="uid://deth5afjl2c4w" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_max_stats.tres" id="3_eso8f"]
 [ext_resource type="Texture2D" uid="uid://dtv3rkdbibbfa" path="res://resources/sprites/units/axe_armor.png" id="3_qnuew"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_se7vg"]
-[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="3_v77r2"]
-[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_far6w"]
-[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="5_uph4s"]
-[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="5_v77r2"]
-[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_uph4s"]
-[ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="7_noi40"]
-
-[sub_resource type="Resource" id="Resource_noi40"]
-script = ExtResource("3_v77r2")
-item = ExtResource("4_far6w")
-probability = 44.5
-metadata/_custom_type_script = "uid://dss2u86tfdpgs"
-
-[sub_resource type="Resource" id="Resource_far6w"]
-script = ExtResource("3_v77r2")
-item = ExtResource("5_v77r2")
-probability = 20.0
-metadata/_custom_type_script = "uid://dss2u86tfdpgs"
-
-[sub_resource type="Resource" id="Resource_q3kwp"]
-script = ExtResource("3_v77r2")
-item = ExtResource("6_uph4s")
-probability = 7.0
-metadata/_custom_type_script = "uid://dss2u86tfdpgs"
-
-[sub_resource type="Resource" id="Resource_y1b7n"]
-script = ExtResource("3_v77r2")
-item = ExtResource("7_noi40")
-probability = 3.5
-metadata/_custom_type_script = "uid://dss2u86tfdpgs"
-
-[sub_resource type="Resource" id="Resource_6g0vn"]
-script = ExtResource("3_v77r2")
-metadata/_custom_type_script = "uid://dss2u86tfdpgs"
-
-[sub_resource type="Resource" id="Resource_2dfaf"]
-script = ExtResource("5_uph4s")
-entries = Array[ExtResource("3_v77r2")]([SubResource("Resource_noi40"), SubResource("Resource_far6w"), SubResource("Resource_q3kwp"), SubResource("Resource_y1b7n"), SubResource("Resource_6g0vn"), null])
-metadata/_custom_type_script = "uid://b61hlua22dboi"
-
-[sub_resource type="Resource" id="Resource_tj7do"]
-script = ExtResource("2_jqenn")
-weapon_default = SubResource("Resource_2dfaf")
-metadata/_custom_type_script = "uid://q1pglvnjnos3"
 
 [resource]
 script = ExtResource("1_o4h4l")
@@ -67,4 +23,4 @@ maxuimum_stats = ExtResource("3_eso8f")
 growth_stats = ExtResource("2_h5kmo")
 icon = ExtResource("3_qnuew")
 map_sprite = ExtResource("3_qnuew")
-default_item_resource = SubResource("Resource_tj7do")
+default_item_resource = ExtResource("2_7u6yp")

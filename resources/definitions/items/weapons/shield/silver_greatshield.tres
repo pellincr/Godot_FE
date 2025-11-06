@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://cogogvgr7hry6"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_wphyq"]
+[ext_resource type="Texture2D" uid="uid://pmpv0r0gdhk3" path="res://resources/sprites/items/weapons/shield/silver_greatshield.png" id="2_wphyq"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_n78wy"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_h8pko"]
+
+[sub_resource type="Resource" id="Resource_fb5s5"]
+script = ExtResource("1_wphyq")
+defense = 7
+resistance = 2
+
+[resource]
+script = ExtResource("4_h8pko")
+weapon_type = 12
+alignment = 3
+damage = 7
+critical_chance = 10
+weight = 16
+bonus_stat = SubResource("Resource_fb5s5")
+name = "Silver Greatshield"
+db_key = "silver_greatshield"
+equippable = true
+rarity = ExtResource("3_n78wy")
+uses = 8
+max_uses = 8
+worth = 2500
+icon = ExtResource("2_wphyq")

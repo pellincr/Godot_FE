@@ -284,6 +284,7 @@ func generate_random_unit(target:RandomCombatUnitData):
 			_drop_item = true
 			_inventory.append(treasure)
 		# Randomize Level, with deviation around current depth
+		# ensure bottom clamp is correct
 		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 1), 1, playerOverworldData.combat_maps_completed + 4)
 		var _bonus_levels : int = 0 #TODO GET THIS RESOLVED BASED ON DIFFICULTY & DEPTH?
 		#Get available positions

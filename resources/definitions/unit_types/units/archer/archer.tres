@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://3yeyocqp3lv8"]
 
 [ext_resource type="Resource" uid="uid://c0ry0h3c4g8lo" path="res://resources/definitions/unit_types/units/archer/archer_base_combat_stats.tres" id="1_syblc"]
-[ext_resource type="Resource" uid="uid://dg2gnkevg273i" path="res://resources/definitions/unit_types/units/archer/archer_item_table.tres" id="2_3uqwn"]
+[ext_resource type="Resource" uid="uid://dg2gnkevg273i" path="res://resources/definitions/unit_types/units/archer/archer_default_item_tables.tres" id="2_3uqwn"]
 [ext_resource type="Resource" uid="uid://fqmflxnp4yqn" path="res://resources/definitions/unit_types/units/archer/archer_growth_stats.tres" id="2_n1wy3"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="3_syh0e"]
 [ext_resource type="Resource" uid="uid://d08kvfs4un87q" path="res://resources/definitions/unit_types/units/archer/archer_max_stats.tres" id="4_tanwq"]

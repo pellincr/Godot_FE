@@ -1,30 +1,56 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://kua6tdnfbxl1"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=18 format=3 uid="uid://kua6tdnfbxl1"]
 
 [ext_resource type="Resource" uid="uid://cfyw4f23388t3" path="res://resources/definitions/unit_types/units/healer/healer_base_combat_stats.tres" id="1_co2yn"]
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="2_6sa01"]
 [ext_resource type="Resource" uid="uid://bsvcd22c48x5v" path="res://resources/definitions/unit_types/units/healer/healer_growth_stats.tres" id="2_pjhfn"]
 [ext_resource type="Texture2D" uid="uid://b44d4qqkhwy1x" path="res://resources/sprites/units/Healer.png" id="3_icp6f"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="3_n507d"]
+[ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="4_bjf6x"]
 [ext_resource type="Resource" uid="uid://ciy2akumtkx6h" path="res://resources/definitions/unit_types/units/healer/healer_max_stats.tres" id="4_peal4"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_xibya"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_xibya"]
+[ext_resource type="Resource" uid="uid://5b1f8mg0j3te" path="res://resources/definitions/items/stalves/heal_staff.tres" id="5_67027"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="5_q53qk"]
+[ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="6_d8mrb"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="7_a3nyq"]
+
+[sub_resource type="Resource" id="Resource_yde7c"]
+script = ExtResource("3_n507d")
+item = ExtResource("4_bjf6x")
+probability = 70.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_efqkr"]
+script = ExtResource("3_n507d")
+item = ExtResource("5_67027")
+probability = 8.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_vqkyg"]
+script = ExtResource("3_n507d")
+item = ExtResource("6_d8mrb")
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_v7a6l"]
+script = ExtResource("7_a3nyq")
+entries = Array[ExtResource("3_n507d")]([SubResource("Resource_yde7c"), SubResource("Resource_efqkr"), SubResource("Resource_vqkyg")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
+
+[sub_resource type="Resource" id="Resource_0crva"]
+script = ExtResource("2_6sa01")
+weapon_default = SubResource("Resource_v7a6l")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"
 
 [resource]
 script = ExtResource("4_xibya")
 unit_type_name = "Healer"
 db_key = "healer"
 description = "Trained clergy devoted to preserving life through focused, restorative magic."
-initiative = 1
 faction = Array[int]([1])
-traits = Array[int]([])
 unit_rarity = ExtResource("5_q53qk")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([6])
 base_stats = ExtResource("1_co2yn")
 maxuimum_stats = ExtResource("4_peal4")
 growth_stats = ExtResource("2_pjhfn")
 icon = ExtResource("3_icp6f")
 map_sprite = ExtResource("3_icp6f")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])
+default_item_resource = SubResource("Resource_0crva")

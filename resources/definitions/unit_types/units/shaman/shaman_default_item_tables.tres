@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://cqrkyj7fhu8cj"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_fojwr"]
+[ext_resource type="Resource" uid="uid://d1q5aue03jlf1" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch_weapon_table.tres" id="2_k1g5n"]
+
+[resource]
+script = ExtResource("1_fojwr")
+weapon_default = ExtResource("2_k1g5n")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

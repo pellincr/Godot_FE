@@ -1,0 +1,99 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=29 format=3 uid="uid://4igef6h4f7a6"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_ambav"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="2_dq2if"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="3_rmsk5"]
+[ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="4_hvsuo"]
+[ext_resource type="Resource" uid="uid://cdmmwqsud7wcp" path="res://resources/definitions/items/weapons/fists/killer_fist.tres" id="5_lqvan"]
+[ext_resource type="Resource" uid="uid://bxj522h8rq5l6" path="res://resources/definitions/items/weapons/fists/devil_knuckles.tres" id="6_ak4jd"]
+[ext_resource type="Resource" uid="uid://dmy68ob27p5l5" path="res://resources/definitions/items/weapons/fists/silver_fist.tres" id="7_upaiy"]
+[ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="8_cxdnm"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="8_nxa5a"]
+[ext_resource type="Resource" uid="uid://bulr5308i3tpv" path="res://resources/definitions/items/weapons/shield/buckler.tres" id="9_sl47c"]
+[ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="10_ney05"]
+[ext_resource type="Resource" uid="uid://b5m7mb73uct4n" path="res://resources/definitions/items/weapons/shield/iron_greatshield.tres" id="11_f8wsn"]
+[ext_resource type="Resource" uid="uid://dn8nycdpo07q" path="res://resources/definitions/items/weapons/shield/steel_greatshield.tres" id="12_45a7w"]
+[ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="13_sgwtr"]
+[ext_resource type="Resource" uid="uid://diojnt0oqm7x6" path="res://resources/definitions/items/weapons/shield/knight_shield.tres" id="14_f2luf"]
+
+[sub_resource type="Resource" id="Resource_qir3a"]
+script = ExtResource("1_ambav")
+item = ExtResource("2_dq2if")
+probability = 55.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_rpqx7"]
+script = ExtResource("1_ambav")
+item = ExtResource("3_rmsk5")
+probability = 27.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_8vawc"]
+script = ExtResource("1_ambav")
+item = ExtResource("4_hvsuo")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3b6ff"]
+script = ExtResource("1_ambav")
+item = ExtResource("5_lqvan")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_jacik"]
+script = ExtResource("1_ambav")
+item = ExtResource("6_ak4jd")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_85lm1"]
+script = ExtResource("1_ambav")
+item = ExtResource("7_upaiy")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_08tjt"]
+script = ExtResource("1_ambav")
+item = ExtResource("8_cxdnm")
+probability = 33.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_8i4f8"]
+script = ExtResource("1_ambav")
+item = ExtResource("9_sl47c")
+probability = 6.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_2lk1q"]
+script = ExtResource("1_ambav")
+item = ExtResource("10_ney05")
+probability = 10.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3hf4d"]
+script = ExtResource("1_ambav")
+item = ExtResource("11_f8wsn")
+probability = 8.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_4ffdl"]
+script = ExtResource("1_ambav")
+item = ExtResource("12_45a7w")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_0hkst"]
+script = ExtResource("1_ambav")
+item = ExtResource("13_sgwtr")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3gc4m"]
+script = ExtResource("1_ambav")
+item = ExtResource("14_f2luf")
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("8_nxa5a")
+entries = Array[ExtResource("1_ambav")]([SubResource("Resource_qir3a"), SubResource("Resource_rpqx7"), SubResource("Resource_8vawc"), SubResource("Resource_3b6ff"), SubResource("Resource_jacik"), SubResource("Resource_85lm1"), SubResource("Resource_08tjt"), SubResource("Resource_8i4f8"), SubResource("Resource_2lk1q"), SubResource("Resource_3hf4d"), SubResource("Resource_4ffdl"), SubResource("Resource_0hkst"), SubResource("Resource_3gc4m")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

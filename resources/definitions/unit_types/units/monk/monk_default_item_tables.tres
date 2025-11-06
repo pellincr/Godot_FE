@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://buepc4n8w6vqa"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_anvse"]
+[ext_resource type="Resource" uid="uid://dlkbliotp6g2v" path="res://resources/definitions/unit_types/units/brawler/brawler_weapon_table.tres" id="2_67nl3"]
+
+[resource]
+script = ExtResource("1_anvse")
+weapon_default = ExtResource("2_67nl3")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

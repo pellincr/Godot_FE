@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=110 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -35,7 +35,7 @@
 [ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="33_gk068"]
 [ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/nature/wind.tres" id="34_ttak5"]
 [ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/nature/bolting.tres" id="35_xal3d"]
-[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/enchanted_shotel.tres" id="36_1rwxd"]
+[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/spirit_dagger.tres" id="36_1rwxd"]
 [ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="37_psnnm"]
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="38_ysglg"]
 [ext_resource type="Resource" uid="uid://bxj522h8rq5l6" path="res://resources/definitions/items/weapons/fists/devil_knuckles.tres" id="39_kby4g"]
@@ -108,6 +108,7 @@
 [ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
 [ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="102_q80qu"]
 [ext_resource type="Resource" uid="uid://btbls8ing2pq0" path="res://resources/definitions/items/weapons/bow/long_bow.tres" id="104_q80qu"]
+[ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="105_l712n"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -130,7 +131,6 @@ items = {
 "ebonflight": ExtResource("70_s8rv5"),
 "elixir": ExtResource("93_1d4v0"),
 "enchanted_bow": ExtResource("24_4o3e2"),
-"enchanted_shotel": ExtResource("36_1rwxd"),
 "evil_eye": ExtResource("45_py2vi"),
 "eye_greatshield": ExtResource("43_v0y5j"),
 "fiend_fire": ExtResource("28_hv28m"),
@@ -146,6 +146,7 @@ items = {
 "harm": ExtResource("32_xfxu7"),
 "hatchet": ExtResource("44_677v3"),
 "heal_staff": ExtResource("16_exr5t"),
+"heavy_knife": ExtResource("105_l712n"),
 "heavy_lance": ExtResource("84_u837s"),
 "holy_fire": ExtResource("89_uiv3h"),
 "imbue_staff": ExtResource("63_bw6kg"),
@@ -199,6 +200,7 @@ items = {
 "smite": ExtResource("30_rffgk"),
 "soul_rip": ExtResource("48_m0w6q"),
 "spear": ExtResource("83_ptnxj"),
+"spirit_dagger": ExtResource("36_1rwxd"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
 "steel_dagger": ExtResource("49_bdsdk"),

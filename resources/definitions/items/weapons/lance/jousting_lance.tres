@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://c3u44a8r2o2ch"]
+
+[ext_resource type="Texture2D" uid="uid://dfn2q4htyva1v" path="res://resources/sprites/items/weapons/lance/Jousting_lance.png" id="1_hurvx"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_svgjp"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_s6irk"]
+
+[resource]
+script = ExtResource("3_s6irk")
+weapon_type = 3
+physical_weapon_triangle_type = 3
+required_mastery = 2
+damage = 11
+hit = 85
+weight = 12
+weapon_effectiveness_trait = Array[int]([1])
+name = "Jousting Lance"
+db_key = "jousting_lance"
+equippable = true
+rarity = ExtResource("2_svgjp")
+uses = 14
+max_uses = 14
+worth = 1800
+icon = ExtResource("1_hurvx")

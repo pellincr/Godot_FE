@@ -8,12 +8,11 @@
 script = ExtResource("2_e55d8")
 weapon_type = 1
 physical_weapon_triangle_type = 1
-damage = 5
+damage = 6
 hit = 80
 critical_chance = 15
 critical_multiplier = 3.5
-weapon_effectiveness = Array[int]([0, 1])
-weapon_effectiveness_trait = Array[int]([0, 1])
+weapon_effectiveness_trait = Array[int]([0])
 name = "Rapier"
 db_key = "rapier"
 equippable = true

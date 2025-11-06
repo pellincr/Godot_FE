@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://c28ippx6ew0f4"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_mi6yc"]
+[ext_resource type="Resource" uid="uid://d2gg3jetb6amb" path="res://resources/definitions/unit_types/units/field_medic/field_medic_treasure_table.tres" id="2_03acs"]
+[ext_resource type="Resource" uid="uid://dc1er517umew8" path="res://resources/definitions/unit_types/units/field_medic/field_medic_weapon_table.tres" id="3_emq2t"]
+
+[resource]
+script = ExtResource("1_mi6yc")
+weapon_default = ExtResource("3_emq2t")
+treasure_default = ExtResource("2_03acs")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

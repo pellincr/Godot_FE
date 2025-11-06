@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://bnhgx7kdd28co"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_s5t4p"]
+[ext_resource type="Resource" uid="uid://dx3vvju0ntmep" path="res://resources/definitions/unit_types/units/healer/healer_weapon_table.tres" id="2_fehwx"]
+
+[resource]
+script = ExtResource("1_s5t4p")
+weapon_default = ExtResource("2_fehwx")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"
