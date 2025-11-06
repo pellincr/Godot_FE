@@ -35,6 +35,7 @@ EffectConstants="*res://scripts/Constants/EffectConstants.gd"
 EffectTypeDatabase="*res://combat/databases/effect_type_database.tscn"
 AudioManager="*res://audio_manager/AudioManager.tscn"
 InputHelper="*res://addons/input_helper/input_helper.gd"
+OptionsConfig="*res://options/options_config.gd"
 
 [display]
 

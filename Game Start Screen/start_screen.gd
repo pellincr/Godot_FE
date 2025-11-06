@@ -3,7 +3,6 @@ extends Control
 
 
 @onready var main_container = get_node("MainVContainer")
-@onready var option_container = get_node("OptionVContainer")
 @onready var save_container = get_node("SaveVContainer")
 
 @onready var start_button: GeneralMenuButton = $MainVContainer/StartButton
@@ -27,8 +26,11 @@ var save_path_3 = "user://save3/"
 
 var playerOverworldData : PlayerOverworldData
 
+const OPTIONS_SCENE = preload("res://options/options.tscn")
+
 const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 
 #Load the Data from the existing save file and transition to the overworld
 func enter_game(save_path):
@@ -43,6 +45,7 @@ func enter_game(save_path):
 
 #Called when the node enters the scene tree for the first time.
 func _ready():
+	OptionsConfig.load_options()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
 	transition_in_animation()
@@ -97,14 +100,15 @@ func _on_quit_button_pressed():
 #Returns to the Main Menu from one of the sub-menus
 func _on_return_button_pressed():
 	main_container.visible = true
-	option_container.visible = false
 	save_container.visible = false
 	start_button.grab_focus()
 
 #Opens the Options Menu and Minimizes the Main Menu
 func _on_options_button_pressed():
 	main_container.visible = false
-	option_container.visible = true
+	var options = OPTIONS_SCENE.instantiate()
+	add_child(options)
+	options.menu_closed.connect(_on_options_menu_closed)
 
 #Opens the Save Slot Selection Menu and minimizes the Main Menu
 func _on_start_button_pressed():
@@ -158,3 +162,7 @@ func _on_save_button_3_pressed():
 #Deletes the Save Slot 3 File
 func _on_save_slot_3_delete_button_pressed():
 	_on_delete_save_button_pressed(save_path_3,save_button_3,delete_button_3)
+
+func _on_options_menu_closed():
+	main_container.visible = true
+	start_button.grab_focus()

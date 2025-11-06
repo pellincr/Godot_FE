@@ -17,3 +17,4 @@ volume_db = -15.0
 
 [node name="SoundEffectPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPolyphonic_a3w2e")
+volume_db = -15.0
