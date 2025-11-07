@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=160 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -159,7 +159,6 @@
 [ext_resource type="Resource" uid="uid://b5m7mb73uct4n" path="res://resources/definitions/items/weapons/shield/iron_greatshield.tres" id="153_llvit"]
 [ext_resource type="Resource" uid="uid://dn8nycdpo07q" path="res://resources/definitions/items/weapons/shield/steel_greatshield.tres" id="154_d85kj"]
 [ext_resource type="Resource" uid="uid://cogogvgr7hry6" path="res://resources/definitions/items/weapons/shield/silver_greatshield.tres" id="155_iuj88"]
-[ext_resource type="Resource" uid="uid://ven8mbk3rp67" path="res://resources/definitions/items/treasure/spices.tres" id="156_4aqvk"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -282,7 +281,6 @@ items = {
 "soul_dust": ExtResource("117_wmi8g"),
 "soul_rip": ExtResource("48_m0w6q"),
 "spear": ExtResource("83_ptnxj"),
-"spices": ExtResource("156_4aqvk"),
 "spirit_dagger": ExtResource("36_1rwxd"),
 "spirit_ink": ExtResource("118_0v30l"),
 "steel_axe": ExtResource("6_meveu"),
