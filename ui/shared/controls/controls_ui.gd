@@ -96,6 +96,7 @@ const XBOX_SELECT_ICON := preload("res://resources/sprites/controls/xbox_control
 
 #The State that determines the controls currently being displayed
 enum CONTROL_STATE{
+	TUTORIAL_FIRST_PAGE, TUTORIAL_MIDDLE_PAGE, TUTORIAL_LAST_PAGE,
 	DRAFT, 
 	CAMPAIGN_MAP,
 	BATTLE_PREP_MENU, 
@@ -224,6 +225,23 @@ func battle_prep_sub_menu_general_visibility():
 func update_by_control_state():
 	hide_all_controls()
 	match current_control_state:
+		CONTROL_STATE.TUTORIAL_FIRST_PAGE:
+			set_container_visibility(confirm_container,true)
+			set_label_text(confirm_label,"Next")
+			set_container_visibility(pause_game_container,true)
+			set_label_text(pause_game_label,"Skip")
+		CONTROL_STATE.TUTORIAL_MIDDLE_PAGE:
+			set_container_visibility(confirm_container,true)
+			set_label_text(confirm_label,"Next")
+			set_container_visibility(back_container,true)
+			set_container_visibility(pause_game_container,true)
+			set_label_text(pause_game_label,"Skip")
+		CONTROL_STATE.TUTORIAL_LAST_PAGE:
+			set_container_visibility(confirm_container,true)
+			set_label_text(confirm_label,"Done")
+			set_container_visibility(back_container,true)
+			set_container_visibility(pause_game_container,true)
+			set_label_text(pause_game_label,"Skip")
 		CONTROL_STATE.DRAFT:
 			general_control_visibility()
 			set_container_visibility(left_bumper_container,true)

@@ -9,9 +9,8 @@ signal tutorial_completed()
 
 @onready var page_number_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/PageNumberLabel
 
-@onready var back_container = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/BackContainer
-@onready var next_container = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer
-@onready var next_label = $TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer/NextLabel
+
+@onready var controls_ui_container: ControlsUI = $TutorialPanel/ControlsUIContainer
 
 enum TUTORIAL{
 	HOW_TO_PLAY,
@@ -103,8 +102,6 @@ func instantiate_tutorial():
 func set_tutorial_text(text:String):
 	tutorial_text.text = text
 
-func set_next_label_text(text):
-	next_label.text = text
 
 func set_tutorial_image(texture:Texture2D):
 	tutorial_image.texture = texture
@@ -113,51 +110,30 @@ func set_page_number_label():
 	page_number_label.text = str(current_page) + "/" + str(total_pages)
 
 
-func set_control_sub_container_visibility(container, vis):
-	container.visible = vis
 
 
 
-func set_control_sub_container_visibility_by_page():
+func update_control_ui_by_page():
 	if total_pages == 1:
 		#If there is only one page for the given tutorial
-		only_page_controls()
+		controls_ui_container.set_control_state(ControlsUI.CONTROL_STATE.TUTORIAL_LAST_PAGE)
 	else:
 		if current_page < total_pages:
 			#if the current page is not at the last page of the tutorial
 			if current_page == 1:
 				#if the current page is on the first page of the tutorial(no back button available)
-				first_page_controls()
+				controls_ui_container.set_control_state(ControlsUI.CONTROL_STATE.TUTORIAL_FIRST_PAGE)
 			else:
 				#if the current page is in the middle of the tutorial pages
-				middle_page_controls()
+				controls_ui_container.set_control_state(ControlsUI.CONTROL_STATE.TUTORIAL_MIDDLE_PAGE)
 		else:
 			#if the current page is at the last page of the tutorial
-			last_page_controls()
+			controls_ui_container.set_control_state(ControlsUI.CONTROL_STATE.TUTORIAL_LAST_PAGE)
 
-func only_page_controls():
-	set_control_sub_container_visibility(back_container,false)
-	set_control_sub_container_visibility(next_container,true)
-	set_next_label_text("Close")
-
-func first_page_controls():
-	set_control_sub_container_visibility(back_container,false)
-	set_control_sub_container_visibility(next_container,true)
-	set_next_label_text("Next")
-
-func middle_page_controls():
-	set_control_sub_container_visibility(back_container,true)
-	set_control_sub_container_visibility(next_container,true)
-	set_next_label_text("Next")
-
-func last_page_controls():
-	set_control_sub_container_visibility(back_container,true)
-	set_control_sub_container_visibility(next_container,true)
-	set_next_label_text("Close")
 
 func update_tutorial_panel():
 	set_page_number_label()
-	set_control_sub_container_visibility_by_page()
+	update_control_ui_by_page()
 	if !(current_page > tutorial_page_text.size()):
 		set_tutorial_text(tutorial_page_text[current_page-1])
 

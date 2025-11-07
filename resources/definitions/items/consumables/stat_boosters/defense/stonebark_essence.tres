@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://cs7d3e782xcnv"]
 
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_xqogv"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_xqogv"]
 [ext_resource type="Texture2D" uid="uid://cqrmi7gkhtuw8" path="res://resources/sprites/items/consumables/stat_boosters/defense/stonebark_essence.png" id="2_xqogv"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_0jmjt"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_sjtm1"]

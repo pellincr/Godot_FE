@@ -169,7 +169,7 @@ func filter_archetypes_by_duplicate(archetype_keys:Array) -> Array:
 	return accum
 
 func _on_gui_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_confirm") and has_focus():
+	if event.is_action_pressed("ui_confirm"):
 			#$AudioStreamPlayer.stream = menu_enter_effect
 			#$AudioStreamPlayer.play()
 			AudioManager.play_sound_effect("draft_confirm")

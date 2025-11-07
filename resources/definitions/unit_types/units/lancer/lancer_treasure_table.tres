@@ -1,7 +1,6 @@
 [gd_resource type="Resource" script_class="LootTableItem" load_steps=14 format=3 uid="uid://davx8u6ai6jf2"]
 
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_pprt3"]
-[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/gold_coins_small.tres" id="2_q5e1s"]
 [ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="3_3rl65"]
 [ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="4_5xk4f"]
 [ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="5_d4ah3"]
@@ -13,9 +12,12 @@ script = ExtResource("1_pprt3")
 probability = 90.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
+[sub_resource type="Resource" id="Resource_bsbjx"]
+metadata/__load_path__ = "res://resources/definitions/items/treasure/rubbish.tres"
+
 [sub_resource type="Resource" id="Resource_vyf6g"]
 script = ExtResource("1_pprt3")
-item = ExtResource("2_q5e1s")
+item = SubResource("Resource_bsbjx")
 probability = 1.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
