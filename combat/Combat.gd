@@ -257,11 +257,17 @@ func check_reinforcement_spawn(turn_number : int):
 
 func spawn_initial_units():
 	# do the units who have classes
+	# get added levels from hardmode
+	var _bonus_levels : int = 0
+	var hard_mode_leveling : bool = false
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD:
+		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.4)
+		hard_mode_leveling = true
 	for unit : CombatUnitData in unit_data.starting_enemy_group.group: #for unit :CombatUnitData in enemy_start_group.group:
 		if unit is RandomCombatUnitData:
 			generate_random_unit(unit)
 		var enemy_unit : CombatUnit
-		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus, unit.hard_mode_leveling)
+		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus + _bonus_levels, hard_mode_leveling)
 		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type, unit.drops_item, unit.is_boss,)
 		add_combatant(enemy_unit, unit.map_position)
 
@@ -285,15 +291,16 @@ func generate_random_unit(target:RandomCombatUnitData):
 			_inventory.append(treasure)
 		# Randomize Level, with deviation around current depth
 		# ensure bottom clamp is correct
-		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 1), 1, playerOverworldData.combat_maps_completed + 4)
-		var _bonus_levels : int = 0 #TODO GET THIS RESOLVED BASED ON DIFFICULTY & DEPTH?
+		var _minimum_level : int = clampi(playerOverworldData.combat_maps_completed -4, 1, playerOverworldData.combat_maps_completed)
+		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 1), _minimum_level, playerOverworldData.combat_maps_completed + 4)
+		var _bonus_levels : int = 0
 		#Get available positions
 		var map_position : Vector2i = target.map_position
 		var selectable_tiles : Array[Vector2i] = []
 		if target.position_variance:
 			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position)
 			#Is the unit blocked in the tile, if so remove it from contention
-			for index in range(selectable_tiles.size()):
+			for index in range(selectable_tiles.size()-1):
 				if game_grid.get_terrain(selectable_tiles[index]).blocks.has(unit_type.movement_type):
 					selectable_tiles.remove_at(index)
 				# ANY OTHER CHECKS FOR TILE VALIDITY GO HERE
