@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cu8jtbkxt5kwa"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cu8jtbkxt5kwa"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_frtar"]
 
@@ -25,6 +25,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.509804, 0.509804, 0.509804, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ehwa"]
+bg_color = Color(0, 0.22612795, 1.2032687e-07, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
 [resource]
 Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("1_frtar")
@@ -32,5 +39,6 @@ Button/styles/disabled = SubResource("StyleBoxFlat_cmtnb")
 Button/styles/focus = SubResource("StyleBoxFlat_cp5rc")
 Button/styles/hover = SubResource("StyleBoxFlat_cp5rc")
 Button/styles/normal = SubResource("StyleBoxFlat_e1ajl")
+Button/styles/pressed = SubResource("StyleBoxFlat_0ehwa")
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("1_frtar")

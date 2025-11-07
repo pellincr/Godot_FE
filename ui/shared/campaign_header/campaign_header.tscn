@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3oqbgaxos113"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_358lg"]
+[ext_resource type="Script" uid="uid://b51qhtbvdqcf6" path="res://ui/shared/campaign_header/campaign_header.gd" id="2_3bpje"]
+
+[node name="CampaignHeader" type="Control"]
+custom_minimum_size = Vector2(1280, 40)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("1_358lg")
+script = ExtResource("2_3bpje")
+
+[node name="MainHeaderContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 41.0
+grow_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MainHeaderContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainHeaderContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CampaignInfoContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GoldContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
+modulate = Color(1, 0.65882355, 0, 1)
+layout_mode = 2
+
+[node name="GoldValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="GoldLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
+layout_mode = 2
+text = "G"
+
+[node name="FloorContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="FloorLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/FloorContainer"]
+layout_mode = 2
+text = "Floor"
+
+[node name="FloorValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/FloorContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="DifficultyContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
+layout_mode = 2
+
+[node name="DifficultyLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/DifficultyContainer"]
+layout_mode = 2
+text = "Difficulty:"
+
+[node name="DifficultyValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/DifficultyContainer"]
+layout_mode = 2
+text = "Easy"
+
+[node name="ArtefactIconContainer" type="HBoxContainer" parent="MainHeaderContainer"]
+layout_mode = 2

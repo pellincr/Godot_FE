@@ -6,8 +6,8 @@ signal archetype_selected(archetype)
 
 var playerOverworldData : PlayerOverworldData
 
-var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
-var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+#var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
+#var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 
 @onready var main_container = $Panel/MainVContainer
@@ -16,6 +16,8 @@ var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 @onready var archetype_icon_container = $Panel/MainVContainer/ArchetypeIconContainer
 
 @onready var archetype:ArmyArchetypeDefinition = null
+
+var selected_archetypes := []
 
 var possible_rarities = {
 	"common" : 60,
@@ -70,7 +72,7 @@ func get_random_rarity():
 
 # list-of-dictionaries -> null
 #purpose: to use the given list of archetypes to fill in the selector card container
-func fill_archetype_list_container(archetype_picks):
+func fill_archetype_list_container(archetype_picks : Array[armyArchetypePickDefinition]):
 	for pick:armyArchetypePickDefinition in archetype_picks:
 		var archetype_label: Label = Label.new()
 		var volume = pick.volume
@@ -78,15 +80,26 @@ func fill_archetype_list_container(archetype_picks):
 		archetype_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		archetype_list_container.add_child(archetype_label)
 		while(volume > 0):
-			add_to_archetype_icon_container() #THIS WILL BE CHANGED WHEN PICKS GET THEIR ICONS
+			add_to_archetype_icon_container(pick) #THIS WILL BE CHANGED WHEN PICKS GET THEIR ICONS
 			volume-= 1
 
 
-func add_to_archetype_icon_container():
-	var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
-	var texture = TextureRect.new()
-	texture.texture = icon
-	archetype_icon_container.add_child(texture)
+func add_to_archetype_icon_container(pick):
+	#var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+	#var texture = TextureRect.new()
+	#texture.texture = icon
+	#archetype_icon_container.add_child(texture)
+	var icon
+	if pick is armyArchetypePickWeaponDefinition:
+		icon = preload("res://unit drafting/Archetype Draft/archetype_icons/item_archetype_icon.tscn").instantiate()
+		icon.item_archetype_pick = pick
+		archetype_icon_container.add_child(icon)
+		icon.update_by_archetype_pick()
+	else:
+		icon = preload("res://unit drafting/Archetype Draft/archetype_icons/unit_archetype_icon.tscn").instantiate()
+		icon.unit_archetype_pick = pick
+		archetype_icon_container.add_child(icon)
+		icon.update_by_archetype_pick()
 
 func clear_archetype_icon_container():
 	var children = archetype_icon_container.get_children()
@@ -95,8 +108,9 @@ func clear_archetype_icon_container():
 
 
 func _on_focus_entered():
-	$AudioStreamPlayer.stream = menu_hover_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_hover_effect
+	#$AudioStreamPlayer.play()
+	AudioManager.play_sound_effect("draft_hover")
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
 	set_rarity_shadow_hue(archetype.rarity)
 	print("Selection Focused")
@@ -123,7 +137,8 @@ func randomize_archetype():
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var unlocked_army_archetypes = filter_archetypes_by_unlocked(army_archetypes)
 	var chosen_rarity_archetypes = filter_archetypes_by_rarity(unlocked_army_archetypes,rarity)
-	var chosen_archetype_key = chosen_rarity_archetypes.pick_random()
+	var non_duplicate_archettypes = filter_archetypes_by_duplicate(chosen_rarity_archetypes)
+	var chosen_archetype_key = non_duplicate_archettypes.pick_random()
 	archetype =  ArmyArchetypeDatabase.army_archetypes.get(chosen_archetype_key)
 
 
@@ -146,9 +161,17 @@ func filter_archetypes_by_rarity(archetype_keys:Array, rarity:Rarity):
 	else:
 		return accum
 
+func filter_archetypes_by_duplicate(archetype_keys:Array) -> Array:
+	var accum = []
+	for key in archetype_keys:
+		if !selected_archetypes.has(key):
+			accum.append(key)
+	return accum
+
 func _on_gui_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_confirm") and has_focus():
-			$AudioStreamPlayer.stream = menu_enter_effect
-			$AudioStreamPlayer.play()
+			#$AudioStreamPlayer.stream = menu_enter_effect
+			#$AudioStreamPlayer.play()
+			AudioManager.play_sound_effect("draft_confirm")
 			archetype_selected.emit(archetype)
 			print("Archetype Selected")

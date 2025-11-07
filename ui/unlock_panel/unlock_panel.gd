@@ -22,13 +22,13 @@ func _ready():
 func set_icon(texture):
 	icon.texture = texture
 
-func set_unlocked_entity_name(name):
-	unlocked_entity_name.text = name
+func set_unlocked_entity_id(id):
+	unlocked_entity_name.text = id
 
 func update_by_unlocked_entity():
 	set_icon(unlocked_entity.icon)
 	if unlocked_entity is UnitTypeDefinition:
-		set_unlocked_entity_name(unlocked_entity.unit_type_name)
+		set_unlocked_entity_id(unlocked_entity.unit_type_name)
 	animated_sprite_2d.play("unlock")
 	animated_sprite_2d_2.play("unlock")
 	animated_sprite_2d_3.play("unlock")

@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://corcejfovracv"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_n5hup"]
+[ext_resource type="Texture2D" uid="uid://biwt8l6p0or0i" path="res://resources/sprites/events/clockwerk_hermit_background.png" id="1_qcw5y"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_m4ltd"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_86osf"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="4_lfo8y"]
+
+[sub_resource type="Resource" id="Resource_g45uy"]
+script = ExtResource("3_86osf")
+damage = 1
+critical_chance = 5
+weight = 1
+attacks_per_combat_turn = 5
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_32gki"]
+script = ExtResource("2_m4ltd")
+title = "Upgrade Gear"
+description = "A selected weapon gains [color=#8EE15F]1[/color] Damage, [color=#AC3232]1[/color] Weight, [color=#8EE15F]5[/color] Critical Chance and [color=#8EE15F]5[/color] durability. "
+effect = 6
+wpn_stat_change = SubResource("Resource_g45uy")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_wem0t"]
+script = ExtResource("4_lfo8y")
+skill = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_32hl6"]
+script = ExtResource("2_m4ltd")
+title = "Analyze the Mechanisms"
+description = "A selected unit gains [color=#8EE15F]2[/color] Skill. "
+effect = 2
+unit_stat_change = SubResource("Resource_wem0t")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_khkic"]
+script = ExtResource("4_lfo8y")
+hp = -15
+strength = -15
+magic = -15
+skill = -15
+speed = -15
+luck = -15
+defense = -15
+resistance = -15
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_7yfmu"]
+script = ExtResource("4_lfo8y")
+hp = 1
+strength = 1
+magic = 1
+skill = 1
+speed = 1
+luck = 1
+defense = 1
+resistance = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_auxb4"]
+script = ExtResource("2_m4ltd")
+title = "Augment Unit"
+description = "A selected unit gains [color=#8EE15F]1[/color] in all stats, but loses [color=#AC3232]15%[/color] growth in all stats. "
+effect = 2
+unit_stat_change = SubResource("Resource_7yfmu")
+unit_growth_change = SubResource("Resource_khkic")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_n5hup")
+name = "The Clockwork Hermit"
+description = "[center]Deep within a cluttered workshop, an eccentric hermit tinkers with gears that [wave]hum[/wave] with unnatural precision. Mechanical creations [shake]clatter[/shake] and [tornado]whirl[/tornado] around him as he beckons you closer, eager for a willing subject to test his latest invention.[/center] "
+background = ExtResource("1_qcw5y")
+option1 = SubResource("Resource_32gki")
+option2 = SubResource("Resource_32hl6")
+option3 = SubResource("Resource_auxb4")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

@@ -34,14 +34,14 @@ enum TRAITS
 	FLIER,
 	UNDEAD,
 	LOCKPICK,
-	MASSIVE
+	MOBILE
 }
 
 enum movement_type 
 { ## How unit terrain traversal is calculated
 	DEFAULT,
 	HEAVY,
-	LIGHT,
+	MOBILE,
 	MOUNTED,
 	FLIER
 }

@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvcw57dk23gw2"]
+
+[ext_resource type="Script" uid="uid://bfq8ylre1hh15" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.gd" id="1_ofcpn"]
+[ext_resource type="PackedScene" uid="uid://cca377ur8nme3" path="res://ui/battle_prep_new/unit_detailed_info/inventory_container_slot.tscn" id="2_icb0r"]
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="2_w27r7"]
+
+[sub_resource type="Theme" id="Theme_x4s2w"]
+default_font_size = 12
+
+[node name="UnitInventoryContainer" type="HBoxContainer"]
+offset_right = 282.0
+offset_bottom = 190.0
+script = ExtResource("1_ofcpn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("2_w27r7")
+
+[node name="InventoryHeaderLabel" type="Label" parent="VBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_x4s2w")
+text = "Inventory"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(275, 175)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InventoryContainerSlot" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_icb0r")]
+layout_mode = 2
+
+[node name="InventoryContainerSlot2" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_icb0r")]
+layout_mode = 2
+
+[node name="InventoryContainerSlot3" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_icb0r")]
+layout_mode = 2
+
+[node name="InventoryContainerSlot4" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_icb0r")]
+layout_mode = 2
+
+[node name="InventoryContainerSlot5" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_icb0r")]
+visible = false
+layout_mode = 2
+
+[connection signal="inventory_slot_pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_inventory_slot_pressed"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot" to="." method="_on_item_focused"]
+[connection signal="inventory_slot_pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_inventory_slot_pressed"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot2" to="." method="_on_item_focused"]
+[connection signal="inventory_slot_pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_inventory_slot_pressed"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot3" to="." method="_on_item_focused"]
+[connection signal="inventory_slot_pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_inventory_slot_pressed"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot4" to="." method="_on_item_focused"]
+[connection signal="inventory_slot_pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_inventory_slot_pressed"]
+[connection signal="item_focused" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/InventoryContainerSlot5" to="." method="_on_item_focused"]

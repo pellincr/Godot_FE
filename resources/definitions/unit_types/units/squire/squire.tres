@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://dq5n0x73nca4"]
+
+[ext_resource type="Resource" uid="uid://dg35rik1vn8h" path="res://resources/definitions/unit_types/units/squire/squire_base_combat_stats.tres" id="1_rl3b0"]
+[ext_resource type="Resource" uid="uid://cp01rf3ug38vh" path="res://resources/definitions/unit_types/units/squire/squire_default_item_tables.tres" id="2_4dste"]
+[ext_resource type="Resource" uid="uid://cugefevlom7n5" path="res://resources/definitions/unit_types/units/squire/squire_growth_stats.tres" id="3_7b3qx"]
+[ext_resource type="Texture2D" uid="uid://cn5s2v2wu3fu6" path="res://resources/sprites/units/squire.png" id="4_i8qna"]
+[ext_resource type="Resource" uid="uid://b25516ne2tvdn" path="res://resources/definitions/unit_types/units/squire/squire_max_stats.tres" id="5_30r2o"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_5u5eq"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_1iuyv"]
+
+[resource]
+script = ExtResource("6_5u5eq")
+unit_type_name = "Squire"
+db_key = "squire"
+description = "A lightly armored trainee who carries a shield more for duty than defense, the Squire relies on mobility to plug gaps in the line but cannot withstand sustained combat."
+faction = Array[int]([1])
+unit_rarity = ExtResource("7_1iuyv")
+movement_type = 2
+usable_weapon_types = Array[int]([12])
+base_stats = ExtResource("1_rl3b0")
+maxuimum_stats = ExtResource("5_30r2o")
+growth_stats = ExtResource("3_7b3qx")
+icon = ExtResource("4_i8qna")
+map_sprite = ExtResource("4_i8qna")
+default_item_resource = ExtResource("2_4dste")

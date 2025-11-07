@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Event" load_steps=9 format=3 uid="uid://dctabrtya4173"]
+
+[ext_resource type="Texture2D" uid="uid://bdkjydwab1ulu" path="res://resources/sprites/events/festival_of_embers_background.png" id="1_q8sr4"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_qd4mw"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_xqq4m"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_ck1lo"]
+
+[sub_resource type="Resource" id="Resource_knelo"]
+script = ExtResource("3_ck1lo")
+hp = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_npwsv"]
+script = ExtResource("2_xqq4m")
+title = "Be Merry"
+description = "All units gain [color=#FAFA82]2[/color] Max Health."
+effect = 3
+unit_stat_change = SubResource("Resource_knelo")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_kksd0"]
+script = ExtResource("2_xqq4m")
+title = "Collect Embers"
+description = "Gain [color=#deda00]Emberglass Vial[/color], a Rare consumable (restores 25 HP, regenerates uses between combat)"
+effect = 8
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_7h5bf"]
+script = ExtResource("2_xqq4m")
+title = "Perform for the Crowd"
+description = "Collect [color=#FFA800]2000G[/color]. "
+gold_change = 2000
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_qd4mw")
+name = "Festival of Embers"
+description = "Lanterns [wave]sway[/wave] gently above a crowded square. Music and laughter fill the night, but beneath the joy lingers a quiet reverence, a shared wish that the fire will never fade."
+background = ExtResource("1_q8sr4")
+option1 = SubResource("Resource_npwsv")
+option2 = SubResource("Resource_kksd0")
+option3 = SubResource("Resource_7h5bf")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

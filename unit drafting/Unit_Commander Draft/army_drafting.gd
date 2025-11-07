@@ -9,24 +9,27 @@ signal drafting_complete(po_data)
 const unit_draft_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft.tscn")
 const archetype_draft_scene = preload("res://unit drafting/Archetype Draft/ArmyArchetypeDraft.tscn")
 const unit_draft_controls_scene = preload("res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn")
-const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
+#const menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+
 
 @onready var army_draft_stage_label = $MarginContainer/MainContainer/HBoxContainer/ArmyDraftStageLabel
 @onready var pick_amount_label = $MarginContainer/MainContainer/HBoxContainer/PickAmountLabel
 @onready var header_label = $MarginContainer/MainContainer/HeaderPanel/HeaderLabel
 
-@onready var gold_counter = $MarginContainer/MainContainer/GoldCounter
-
 @onready var army_list_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer
 @onready var army_list_label = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArmyListLabel
 @onready var archetype_icon_container = $MarginContainer/MainContainer/MarginContainer/ArmyListContainer/ArchetypeIconContainer
 
-@onready var unit_draft_controls = $MarginContainer/UnitDraftControls
+#@onready var unit_draft_controls = $MarginContainer/UnitDraftControls
+@onready var controls_ui_container: ControlsUI = $ControlsUIContainer
 
 var max_unit_draft = 0
 var current_drafted = []
+
+var pause_menu_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +37,8 @@ func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
 	load_data()
-	gold_counter.set_gold_count(playerOverworldData.gold)
+	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.DRAFT
+	controls_ui_container.update_by_control_state()
 	if playerOverworldData.floors_climbed > 0:
 		#if drafting in the middle of a campaign
 		current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
@@ -54,6 +58,18 @@ func _ready():
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.DRAFT
 			tutorial_panel.tutorial_completed.connect(tutorial_completed.bind(unit_draft.get_first_selector()))
 			add_child(tutorial_panel)
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		if !pause_menu_open:
+			var main_pause_menu = main_pause_menu_scene.instantiate()
+			add_child(main_pause_menu)
+			main_pause_menu.menu_closed.connect(_on_menu_closed)
+			disable_screen_focus()
+			pause_menu_open = true
+		else:
+			get_child(-1).queue_free()
+			_on_menu_closed()
 
 func set_player_overworld_data(po_data):
 	playerOverworldData = po_data
@@ -111,12 +127,13 @@ func recruiting_complete():
 
 
 func update_to_archetype_screen():
-	$AudioStreamPlayer.stream = menu_enter_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_enter_effect
+	#$AudioStreamPlayer.play()
+	#AudioManager
 	current_draft_state = Constants.DRAFT_STATE.ARCHETYPE
 	army_list_label.visible = true
-	unit_draft_controls.set_cycle_view_left_visibility(false)
-	unit_draft_controls.set_cycle_view_right_visibility(false)
+	#unit_draft_controls.set_cycle_view_left_visibility(false)
+	#unit_draft_controls.set_cycle_view_right_visibility(false)
 	#update_army_icon_container()
 	var archetype_draft = archetype_draft_scene.instantiate()
 	main_container.add_child(archetype_draft)
@@ -125,11 +142,11 @@ func update_to_archetype_screen():
 	archetype_draft.connect("archetype_selected",archetype_selected)
 
 func update_to_unit_draft_screen():
-	$AudioStreamPlayer.stream = menu_enter_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_enter_effect
+	#$AudioStreamPlayer.play()
 	current_draft_state = Constants.DRAFT_STATE.UNIT
-	unit_draft_controls.set_cycle_view_left_visibility(true)
-	unit_draft_controls.set_cycle_view_right_visibility(true)
+	#unit_draft_controls.set_cycle_view_left_visibility(true)
+	#unit_draft_controls.set_cycle_view_right_visibility(true)
 	var unit_draft = unit_draft_scene.instantiate()
 	unit_draft.set_po_data(playerOverworldData)
 	unit_draft.current_state = current_draft_state
@@ -166,18 +183,30 @@ func archetype_selected(archetype):
 
 
 func add_archetype_to_archetype_icon_container(archetype : ArmyArchetypeDefinition):
-	var picks = archetype.archetype_picks
+	var picks := archetype.archetype_picks
 	#var panel = Panel.new()
 	var hbox = HBoxContainer.new()
 	var panel = PanelContainer.new()
 	for pick in picks:
 		for i in pick.volume:
-			var icon = preload("res://resources/sprites/icons/UnitArchetype.png")
-			var texture = TextureRect.new()
-			texture.texture = icon
-			hbox.add_child(texture)
-	panel.add_child(hbox)
-	archetype_icon_container.add_child(panel)
+			var icon
+			if pick is armyArchetypePickWeaponDefinition:
+				icon = preload("res://unit drafting/Archetype Draft/archetype_icons/item_archetype_icon.tscn").instantiate()
+				icon.item_archetype_pick = pick
+				hbox.add_child(icon)
+				panel.add_child(hbox)
+				archetype_icon_container.add_child(panel)
+				icon.update_by_archetype_pick()
+			else:
+				#icon = preload("res://resources/sprites/icons/UnitArchetype.png")
+				#var texture = TextureRect.new()
+				#texture.texture = icon
+				icon = preload("res://unit drafting/Archetype Draft/archetype_icons/unit_archetype_icon.tscn").instantiate()
+				icon.unit_archetype_pick = pick
+				hbox.add_child(icon)
+				panel.add_child(hbox)
+				archetype_icon_container.add_child(panel)
+				icon.update_by_archetype_pick()
 
 func update_archetype_icon_container(unit):
 	#clear_archetype_icons()
@@ -220,3 +249,17 @@ func set_pick_amount_label(text):
 
 func set_header_label(text):
 	header_label.text = text
+
+
+func enable_screen_focus():
+	var draft_scene = main_container.get_child(-1)
+	draft_scene.enable_selector_focus()
+
+func disable_screen_focus():
+	var draft_scene = main_container.get_child(-1)
+	draft_scene.disable_selector_focus()
+
+func _on_menu_closed():
+	enable_screen_focus()
+	pause_menu_open = false
+	main_container.get_child(-1).get_first_selector().grab_focus()

@@ -36,6 +36,11 @@ func _ready():
 	grab_focus()
 	update_tutorial_panel()
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		tutorial_completed.emit()
+		queue_free()
+
 func instantiate_tutorial():
 	match current_state:
 		TUTORIAL.HOW_TO_PLAY:
@@ -158,18 +163,20 @@ func update_tutorial_panel():
 
 func _on_gui_input(event):
 	print(str(current_page))
-	if event.is_action_pressed("ui_accept") and current_page >= total_pages:
-		tutorial_completed.emit()
-		queue_free()
+	if event.is_action_pressed("ui_accept"):
+		if current_page >= total_pages:
+			tutorial_completed.emit()
+			queue_free()
+		else:
+			current_page += 1
+			grab_focus()
+			update_tutorial_panel()
+		AudioManager.play_sound_effect("menu_confirm")
 	if event.is_action_pressed("ui_back") and current_page != 1:
 		current_page -= 1
 		grab_focus()
 		update_tutorial_panel()
-	if event.is_action_pressed("ui_accept") and current_page != total_pages:
-		current_page += 1
-		grab_focus()
-		update_tutorial_panel()
-
+		AudioManager.play_sound_effect("menu_back")
 
 func _on_focus_exited():
 	grab_focus()

@@ -1,0 +1,178 @@
+[gd_scene load_steps=4 format=3 uid="uid://wu2wq1kqwhj8"]
+
+[ext_resource type="Script" uid="uid://cop7f0f7o6npm" path="res://ui/battle_prep_new/training_grounds/unit_level_information/unit_level_info.gd" id="1_36ih2"]
+[ext_resource type="Texture2D" uid="uid://coxs2ya4a8sua" path="res://resources/sprites/units/brawler.png" id="1_37kkc"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_adbtn"]
+
+[node name="UnitLevelInfo" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 300)
+offset_right = 285.0
+offset_bottom = 300.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_adbtn")
+script = ExtResource("1_36ih2")
+
+[node name="UpperPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UpperPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="UnitTypeIcon" type="TextureRect" parent="UpperPanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_37kkc")
+stretch_mode = 5
+
+[node name="UnitBasicInfoContainer" type="VBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UnitTypeLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
+layout_mode = 2
+text = "Brawler"
+
+[node name="UpperContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
+layout_mode = 2
+
+[node name="LevelContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/LevelContainer"]
+layout_mode = 2
+text = "Lv"
+
+[node name="LevelValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/LevelContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="ExperienceContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer"]
+layout_mode = 2
+
+[node name="ExperienceLabal" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/ExperienceContainer"]
+layout_mode = 2
+text = "Exp"
+
+[node name="ExperienceValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/ExperienceContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="BottomContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
+layout_mode = 2
+
+[node name="HPContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/BottomContainer"]
+layout_mode = 2
+
+[node name="HPLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/BottomContainer/HPContainer"]
+layout_mode = 2
+text = "HP"
+
+[node name="HPValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/BottomContainer/HPContainer"]
+layout_mode = 2
+text = "1/1"
+
+[node name="LowerPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LowerPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="LowerPanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="StrengthContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StrengthLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/StrengthContainer"]
+layout_mode = 2
+text = "Strength"
+
+[node name="StrengthValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/StrengthContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="MagicContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MagicLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/MagicContainer"]
+layout_mode = 2
+text = "Magic"
+
+[node name="MagicValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/MagicContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="SkillContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SkillContainer"]
+layout_mode = 2
+text = "Skill"
+
+[node name="SkillValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SkillContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="SpeedContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpeedLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SpeedContainer"]
+layout_mode = 2
+text = "Speed"
+
+[node name="SpeedValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SpeedContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="LuckContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LuckLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/LuckContainer"]
+layout_mode = 2
+text = "Luck"
+
+[node name="LuckValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/LuckContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="DefenseContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DefenseLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/DefenseContainer"]
+layout_mode = 2
+text = "Defense"
+
+[node name="DefenseValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/DefenseContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="ResistanceContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResistanceLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/ResistanceContainer"]
+layout_mode = 2
+text = "Resistance"
+
+[node name="ResistanceValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/ResistanceContainer"]
+layout_mode = 2
+text = "0"

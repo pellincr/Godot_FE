@@ -10,9 +10,6 @@ enum SELECTOR_STATE{
 	OVERVIEW, STATS, GROWTHS
 }
 
-var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
-var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
-
 @onready var name_label = $Panel/MarginContainer/MainVContainer/NameLabel
 @onready var class_label = $Panel/MarginContainer/MainVContainer/HBoxContainer/ClassLabel
 @onready var icon = $Panel/Icon
@@ -49,7 +46,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection(playerOverworldData.combat_maps_completed +  1)
+	randomize_selection(playerOverworldData.combat_maps_completed)
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -57,15 +54,19 @@ func _ready():
 
 func _on_gui_input(event):
 	if event.is_action_pressed("ui_confirm") and has_focus():
-		$AudioStreamPlayer.stream = menu_enter_effect
-		$AudioStreamPlayer.play()
+		#$AudioStreamPlayer.stream = menu_enter_effect
+		#AudioManager.play_sound_effect("menu_confirm")
+		AudioManager.play_sound_effect("draft_confirm")
+		#$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
 	if event.is_action_pressed("right_bumper"):
 		#show_next_screen()
-		next_screen.emit()
+		if unit is Unit:
+			next_screen.emit()
 	if event.is_action_pressed("left_bumper"):
 		#show_previous_screen()
-		previous_screen.emit()
+		if unit is Unit:
+			previous_screen.emit()
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -197,8 +198,9 @@ func _on_panel_mouse_entered():
 
 func _on_focus_entered():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
-	$AudioStreamPlayer.stream = menu_hover_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_hover_effect
+	#$AudioStreamPlayer.play()
+	AudioManager.play_sound_effect("draft_hover")
 	print("Selection Focused")
 	if unit is Unit:
 		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
@@ -349,7 +351,6 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if unit_type is CommanderDefinition:
 		inventory.append(unit_type.signature_weapon)
 		inventory.append(ItemDatabase.items["potion"])
-	
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
@@ -361,7 +362,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.FIST):
 		inventory.append(ItemDatabase.items["iron_fist"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF):
-		inventory.append(ItemDatabase.items["heal_staff"])
+		inventory.append(ItemDatabase.items["minor_heal"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.DARK):
 		inventory.append(ItemDatabase.items["shade"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.LIGHT):

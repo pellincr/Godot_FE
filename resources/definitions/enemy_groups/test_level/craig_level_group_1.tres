@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_1chky"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_08l6q"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_b474b"]
+[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="2_b474b"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_3mxld"]
 
 [sub_resource type="Resource" id="Resource_yjned"]
@@ -15,6 +15,8 @@ hard_mode_leveling = false
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_08l6q")]([ExtResource("3_3mxld")])
 ai_type = 0
+is_boss = false
+drops_item = false
 
 [resource]
 script = ExtResource("2_b474b")

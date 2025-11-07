@@ -4,12 +4,13 @@ class_name mapEntityDefinition
 enum TYPE {
 	CHEST,
 	DOOR,
-	LEVER,
-	MOVEMENT,
-	CRATE,
+	LEVER, # Used to trigger a group
+	MOVEMENT, # TO BE IMPLEMENTED
 	BREAKABLE_TERRAIN,
-	VISITABLE, #Wall & SNAG
-	ON_GROUP_TRIGGER
+	DEBRIS,
+	VISITABLE, # REPLACED WITH SEARCH
+	ON_GROUP_TRIGGER,
+	SEARCH
 }
 
 @export_group("Metadata")
@@ -20,6 +21,7 @@ enum TYPE {
 @export var position: Vector2i 
 @export var terrain: Terrain = null
 @export var map_view : Texture2D
+@export var map_view_disabled : Texture2D
 
 @export_group("Combat Entity Stats")
 @export var hp = 0

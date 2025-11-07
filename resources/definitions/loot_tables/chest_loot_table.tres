@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=15 format=3 uid="uid://bfagy3hog22to"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_8wjw0"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_0gmq5"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="2_qqowg"]
+[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="3_wd7bk"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="4_xomlb"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="5_xoubj"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="6_p0vde"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="7_6khl1"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="8_xghhd"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="9_mooul"]
+
+[sub_resource type="Resource" id="Resource_prlxt"]
+script = ExtResource("5_xoubj")
+item_rarity_whitelist = Array[ExtResource("3_wd7bk")]([ExtResource("4_xomlb")])
+probability = 60.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_onjex"]
+script = ExtResource("5_xoubj")
+item_rarity_whitelist = Array[ExtResource("3_wd7bk")]([ExtResource("7_6khl1")])
+item_blacklist = Array[ExtResource("2_0gmq5")]([ExtResource("6_p0vde")])
+probability = 35.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_sc451"]
+script = ExtResource("5_xoubj")
+item_rarity_whitelist = Array[ExtResource("3_wd7bk")]([ExtResource("8_xghhd")])
+probability = 4.5
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_7baoc"]
+script = ExtResource("5_xoubj")
+item_rarity_whitelist = Array[ExtResource("3_wd7bk")]([ExtResource("9_mooul")])
+probability = 0.5
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[resource]
+script = ExtResource("2_qqowg")
+entries = Array[ExtResource("1_8wjw0")]([SubResource("Resource_prlxt"), SubResource("Resource_onjex"), SubResource("Resource_sc451"), SubResource("Resource_7baoc")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

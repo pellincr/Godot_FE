@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dqb48wswsnj1e"]
+
+[ext_resource type="Texture2D" uid="uid://c1jgjbbyhb0xn" path="res://resources/sprites/items/weapons/axes/war_pick.png" id="1_i14sq"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ijbgy"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_kgnji"]
+
+[resource]
+script = ExtResource("2_ijbgy")
+weapon_type = 2
+physical_weapon_triangle_type = 2
+required_mastery = 2
+damage = 10
+hit = 80
+weight = 15
+weapon_effectiveness_trait = Array[int]([0])
+name = "Warpick"
+db_key = "warpick"
+equippable = true
+description = "Effective against armor."
+rarity = ExtResource("2_kgnji")
+uses = 12
+max_uses = 12
+worth = 2000
+icon = ExtResource("1_i14sq")

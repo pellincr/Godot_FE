@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=8 format=3 uid="uid://d0624xvpq8x7i"]
+
+[ext_resource type="Texture2D" uid="uid://066nbg24yf68" path="res://resources/sprites/items/equipment/resonant_ore.png" id="1_kurlq"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_hfdnr"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="2_jdcs6"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_tyf4a"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_8rqs1"]
+
+[sub_resource type="Resource" id="Resource_5q5va"]
+script = ExtResource("2_hfdnr")
+speed = -2
+
+[sub_resource type="Resource" id="Resource_e5151"]
+script = ExtResource("2_jdcs6")
+hp = 5
+strength = 5
+magic = 5
+skill = 5
+speed = 5
+luck = 5
+defense = 5
+resistance = 5
+
+[resource]
+script = ExtResource("4_8rqs1")
+name = "Resonant Ore"
+db_key = "resonant_ore"
+description = "Mined from the Cavern of Echoing Steel, this ore hums with lingering resonance that nurtures all growths by 5%, yet weighs heavy on the bearer, reducing their Speed by 2."
+item_type = 3
+rarity = ExtResource("3_tyf4a")
+worth = 1600
+inventory_bonus_stats = SubResource("Resource_5q5va")
+inventory_growth_bonus_stats = SubResource("Resource_e5151")
+icon = ExtResource("1_kurlq")

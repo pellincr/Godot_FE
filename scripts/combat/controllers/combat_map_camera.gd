@@ -16,6 +16,10 @@ enum CAMERA_MODE {
 var zoomTarget :Vector2
 var focus_target :Vector2
 
+var footer_open = false
+var default_y_bound = 0
+var current_zoom_y_bound = 0
+
 var dragStartMousePos = Vector2.ZERO
 var dragStartCameraPos = Vector2.ZERO
 var isDragging : bool = false
@@ -32,9 +36,11 @@ func _ready():
 
 func init():
 	controller = get_node("../../Controller")
-	game_map = controller.tile_map
+	game_map = controller.background_tile_map
 	set_camera_limits()
 	initialized = true
+	self.limit_smoothed = true
+	self.position_smoothing_enabled = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -50,9 +56,11 @@ func _process(delta):
 func Zoom(delta):
 	if Input.is_action_just_pressed("camera_zoom_in"):
 		zoomTarget *= 1.1
+		update_bounds_for_footer()
 		
 	if Input.is_action_just_pressed("camera_zoom_out"):
 		zoomTarget *= 0.9
+		update_bounds_for_footer()
 	
 	zoomTarget = clamp(zoomTarget, zoomMin, zoomMax)
 	zoom = zoom.slerp(zoomTarget, zoomSpeed * delta)
@@ -67,10 +75,10 @@ func SimpleFollow(delta): #this needs to be perfected
 	var viewport : Rect2 = get_viewport().get_visible_rect()
 	#perform a simple follow when the camera is too close to its edge
 	if tile_position.x > (viewport.position.x + viewport.size.x * pan_threshold/2) or tile_position.x < viewport.position.x - (viewport.size.x *pan_threshold/2) or tile_position.y > (viewport.position.y - viewport.size.y *pan_threshold/4) or tile_position.y < viewport.position.y - (viewport.size.y *pan_threshold/4) :
-			var moveAmount = lerp(starting_position, tile_position, tile_position.length())
-			moveAmount = moveAmount.normalized()
-				#var moveAmount = (tile_offset - position).normalized()
-			position = position.slerp(tile_position, camSpeed * delta)
+		var moveAmount = lerp(starting_position, tile_position, tile_position.length())
+		moveAmount = moveAmount.normalized()
+			#var moveAmount = (tile_offset - position).normalized()
+		position = position.slerp(tile_position, camSpeed * delta)
 		
 func SimplePan(delta):
 	var moveAmount = Vector2.ZERO
@@ -112,6 +120,17 @@ func set_camera_limits(): ## needs to be updated
 	self.limit_right = map_limits.end.x * map_cellsize.x
 	self.limit_top = map_limits.position.y * map_cellsize.y
 	self.limit_bottom = map_limits.end.y * map_cellsize.y
+	default_y_bound = map_limits.end.y * map_cellsize.y
+	#ZOOM MIN
+	#var zoomMin: Vector2 = Vector2(2, 2)
+	var viewport : Vector2 = get_viewport().get_visible_rect().size
+	var y_min_zoom = viewport.y / (map_limits.end.y * map_cellsize.x)
+	var x_min_zoom = viewport.x / (map_limits.end.x * map_cellsize.y)
+	if x_min_zoom >= y_min_zoom:
+		zoomMin = Vector2(x_min_zoom, x_min_zoom)
+	else :
+		zoomMin = Vector2(y_min_zoom, y_min_zoom)
+	
 
 func set_mode(camera_mode : CAMERA_MODE):
 	self.mode = camera_mode
@@ -125,3 +144,18 @@ func center_target(delta):
 	#moveAmount = moveAmount.normalized()
 	position = position.slerp(focus_target, camSpeed * delta)
 	pass
+
+func set_footer_open(state: bool):
+	self.footer_open = state
+	update_bounds_for_footer()
+
+func update_bounds_for_footer():
+
+	if footer_open == false:
+		self.limit_bottom = default_y_bound
+	else:
+		var map_limits = game_map.get_used_rect()
+		var map_cellsize = game_map.tile_set.tile_size
+		var viewport : Vector2 = get_viewport().get_visible_rect().size
+		var padding_required : float = (viewport.y * 10)/(72* zoom.y)
+		self.limit_bottom = map_limits.end.y * map_cellsize.y + padding_required

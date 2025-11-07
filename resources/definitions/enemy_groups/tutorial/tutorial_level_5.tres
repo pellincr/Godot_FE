@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=18 format=3 uid="uid://b0sd3s30y0yy0"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=22 format=3 uid="uid://b0sd3s30y0yy0"]
 
 [ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_myack"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_dj2yu"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="3_pejxp"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_2bf81"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="4_uveul"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="5_g1a8q"]
-[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_uf7w5"]
 [ext_resource type="Resource" uid="uid://co7l31ly5a5mj" path="res://resources/definitions/items/weapons/swords/sabre.tres" id="7_1coei"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="7_ofijx"]
 [ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="9_5sp5b"]
+[ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="9_yh8dq"]
+[ext_resource type="Resource" uid="uid://bm5sgovgm4u6r" path="res://resources/definitions/items/weapons/lance/pilum.tres" id="10_8femj"]
 
 [sub_resource type="Resource" id="Resource_oib8e"]
 script = ExtResource("1_myack")
@@ -20,6 +23,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_xvqm5"]
 script = ExtResource("1_myack")
@@ -32,6 +36,7 @@ unit_type_key = "fighter"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_dku5f"]
 script = ExtResource("1_myack")
@@ -40,10 +45,11 @@ map_position = Vector2i(1, 5)
 level = 3
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "bladehand"
-inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_uf7w5")])
+unit_type_key = "mage"
+inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_uveul")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_1468u"]
 script = ExtResource("1_myack")
@@ -56,6 +62,7 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_g1a8q")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_4ij3a"]
 script = ExtResource("1_myack")
@@ -68,6 +75,7 @@ unit_type_key = "gunner"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_r8012"]
 script = ExtResource("1_myack")
@@ -77,9 +85,10 @@ level = 3
 level_bonus = 0
 hard_mode_leveling = false
 unit_type_key = "fighter"
-inventory = Array[ExtResource("2_dj2yu")]([ExtResource("4_2bf81")])
+inventory = Array[ExtResource("2_dj2yu")]([ExtResource("7_ofijx")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_uh1vl"]
 script = ExtResource("1_myack")
@@ -92,31 +101,47 @@ unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("5_g1a8q")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_tk4gb"]
 script = ExtResource("1_myack")
-name = ""
+name = "Bandit"
 map_position = Vector2i(4, 11)
 level = 3
 level_bonus = 0
 hard_mode_leveling = false
-unit_type_key = "gunner"
+unit_type_key = "archer"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("3_pejxp")])
 ai_type = 0
 is_boss = false
+drops_item = false
 
 [sub_resource type="Resource" id="Resource_wke7l"]
 script = ExtResource("1_myack")
 name = "Grupory"
 map_position = Vector2i(9, 13)
 level = 7
-level_bonus = 3
+level_bonus = 4
 hard_mode_leveling = false
 unit_type_key = "corsair"
 inventory = Array[ExtResource("2_dj2yu")]([ExtResource("7_1coei")])
-ai_type = 2
+ai_type = 1
 is_boss = true
+drops_item = false
+
+[sub_resource type="Resource" id="Resource_i44w2"]
+script = ExtResource("1_myack")
+name = "Purganza"
+map_position = Vector2i(11, 13)
+level = 6
+level_bonus = 0
+hard_mode_leveling = false
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_dj2yu")]([ExtResource("9_yh8dq"), ExtResource("10_8femj")])
+ai_type = 1
+is_boss = true
+drops_item = false
 
 [resource]
 script = ExtResource("9_5sp5b")
-group = Array[ExtResource("1_myack")]([SubResource("Resource_oib8e"), SubResource("Resource_xvqm5"), SubResource("Resource_dku5f"), SubResource("Resource_1468u"), SubResource("Resource_4ij3a"), SubResource("Resource_r8012"), SubResource("Resource_uh1vl"), SubResource("Resource_tk4gb"), SubResource("Resource_wke7l")])
+group = Array[ExtResource("1_myack")]([SubResource("Resource_oib8e"), SubResource("Resource_xvqm5"), SubResource("Resource_dku5f"), SubResource("Resource_1468u"), SubResource("Resource_4ij3a"), SubResource("Resource_r8012"), SubResource("Resource_uh1vl"), SubResource("Resource_tk4gb"), SubResource("Resource_wke7l"), SubResource("Resource_i44w2")])

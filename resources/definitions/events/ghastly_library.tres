@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://iowm3ipdn3b4"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_icp25"]
+[ext_resource type="Texture2D" uid="uid://d7hnjqhblwr3" path="res://resources/sprites/events/whispering_library_background.png" id="1_wfpig"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_ayyeo"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_6vypc"]
+[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_kq51s"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="6_5vsyw"]
+
+[sub_resource type="Resource" id="Resource_0a2sq"]
+script = ExtResource("3_6vypc")
+magic = 25
+skill = 15
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_clonk"]
+script = ExtResource("3_6vypc")
+defense = -1
+resistance = -1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_8kn22"]
+script = ExtResource("2_ayyeo")
+title = "Answer the Voices"
+description = "Commander gains +25% Mag growth and +15% Skill growth, but –1 Res and -1 Defense."
+effect = 4
+unit_stat_change = SubResource("Resource_clonk")
+unit_growth_change = SubResource("Resource_0a2sq")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_yknpt"]
+script = ExtResource("5_kq51s")
+metadata/_custom_type_script = "uid://dgaq5vstt54r"
+
+[sub_resource type="Resource" id="Resource_pe770"]
+script = ExtResource("2_ayyeo")
+title = "Take a Tome"
+description = "Gain magic tome of rare rarity or better."
+effect = 8
+loot_table = SubResource("Resource_yknpt")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_m3khi"]
+script = ExtResource("6_5vsyw")
+change_damage_type = true
+item_new_damage_type = 1
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
+
+[sub_resource type="Resource" id="Resource_0dj0a"]
+script = ExtResource("2_ayyeo")
+title = "Ethereal Infusion"
+description = "Change a weapon's damage type to magic."
+effect = 6
+wpn_stat_change = SubResource("Resource_m3khi")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_icp25")
+name = "Ghastly Library"
+description = "Voices echo down the halls of ancient library."
+background = ExtResource("1_wfpig")
+option1 = SubResource("Resource_8kn22")
+option2 = SubResource("Resource_pe770")
+option3 = SubResource("Resource_0dj0a")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

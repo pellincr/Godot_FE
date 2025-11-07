@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://d0isbl0uqtjwy"]
+
+[ext_resource type="Texture2D" uid="uid://bameqvyrg1nhw" path="res://resources/sprites/items/weapons/swords/tri_edge_sword.png" id="1_fn28s"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_kt2lv"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_tee0k"]
+
+[resource]
+script = ExtResource("3_tee0k")
+weapon_type = 1
+physical_weapon_triangle_type = 1
+damage = 8
+hit = 90
+critical_chance = 5
+weight = 11
+weapon_effectiveness_trait = Array[int]([1])
+specials = Array[int]([0])
+name = "Tri-Edge"
+db_key = "tri_edge"
+equippable = true
+rarity = ExtResource("2_kt2lv")
+uses = 18
+max_uses = 18
+worth = 3200
+icon = ExtResource("1_fn28s")

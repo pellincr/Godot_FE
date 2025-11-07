@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu0cpg78e8pq3"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_0y1p5"]
+[ext_resource type="Script" uid="uid://ch73qtab3meg3" path="res://ui/battle_prep_new/item_use_option.gd" id="2_ljgkq"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_0y1p5"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 100.0
+offset_bottom = 54.0
+theme = ExtResource("1_0y1p5")
+script = ExtResource("2_ljgkq")
+
+[node name="UseButton" type="Button" parent="."]
+layout_mode = 2
+text = "Use"
+script = ExtResource("3_0y1p5")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="CancelButton" type="Button" parent="."]
+layout_mode = 2
+text = "Cancel"
+script = ExtResource("3_0y1p5")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[connection signal="focus_entered" from="UseButton" to="UseButton" method="_on_focus_entered"]
+[connection signal="pressed" from="UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="pressed" from="UseButton" to="UseButton" method="_on_pressed"]
+[connection signal="focus_entered" from="CancelButton" to="CancelButton" method="_on_focus_entered"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CancelButton" to="CancelButton" method="_on_pressed"]

@@ -42,7 +42,10 @@ func update_item_type_icon():
 
 func update_uses_label():
 	if item != null:
-		uses_label.text = str(item.uses)
+		if item.unbreakable:
+			uses_label.text = ""
+		else :
+			uses_label.text = str(item.uses)
 	else :
 		uses_label.text = ""
 
@@ -70,9 +73,12 @@ func grab_button_focus():
 	$Button.grab_focus()
 
 func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")
 	if not disabled:
 		emit_signal("_hover_item", item)
+		
 
 func _on_pressed() -> void:
 	if not disabled:
 		emit_signal("selected_item", item)
+		AudioManager.play_sound_effect("menu_confirm")

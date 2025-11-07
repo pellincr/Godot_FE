@@ -1,0 +1,101 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=26 format=3 uid="uid://bw36pa36hmgm5"]
+
+[ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_lvh6m"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_n6avb"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_8lwvs"]
+[ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="4_gnt0w"]
+[ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="5_alvux"]
+[ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="6_a6n8g"]
+[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="7_r7853"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="8_g7235"]
+[ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="9_k53a3"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="10_t247n"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="11_7uc1n"]
+[ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="12_wtk8h"]
+[ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="13_8v6h2"]
+[ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="14_q7aih"]
+
+[sub_resource type="Resource" id="Resource_m27s6"]
+script = ExtResource("2_n6avb")
+name = "Dereigns"
+map_position = Vector2i(21, 21)
+level = 14
+level_bonus = 2
+is_boss = true
+unit_type_key = "night_blade"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_gnt0w"), ExtResource("5_alvux")])
+
+[sub_resource type="Resource" id="Resource_4nmqb"]
+script = ExtResource("2_n6avb")
+name = "Assassin"
+map_position = Vector2i(20, 22)
+level = 10
+unit_type_key = "thief"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g"), ExtResource("7_r7853")])
+
+[sub_resource type="Resource" id="Resource_3efps"]
+script = ExtResource("2_n6avb")
+name = "Assassin"
+map_position = Vector2i(22, 20)
+level = 10
+unit_type_key = "thief"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g")])
+
+[sub_resource type="Resource" id="Resource_ux6oq"]
+script = ExtResource("2_n6avb")
+name = "Assassin"
+unit_type_key = "runeblade"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("8_g7235")])
+
+[sub_resource type="Resource" id="Resource_5srre"]
+script = ExtResource("2_n6avb")
+name = "Assassin"
+level_bonus = 10
+unit_type_key = "runeblade"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("9_k53a3")])
+
+[sub_resource type="Resource" id="Resource_o2kka"]
+script = ExtResource("1_lvh6m")
+trigger_type = 1
+zone_id = "zone_1"
+units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResource("Resource_4nmqb"), SubResource("Resource_3efps"), SubResource("Resource_ux6oq"), SubResource("Resource_5srre")])
+
+[sub_resource type="Resource" id="Resource_fi7bd"]
+script = ExtResource("2_n6avb")
+name = "Bandit"
+map_position = Vector2i(0, 20)
+level = 10
+level_bonus = 2
+unit_type_key = "sword_cavalier"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("10_t247n")])
+
+[sub_resource type="Resource" id="Resource_vq4he"]
+script = ExtResource("2_n6avb")
+name = "Bandit"
+map_position = Vector2i(0, 19)
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_7uc1n")])
+
+[sub_resource type="Resource" id="Resource_bketw"]
+script = ExtResource("2_n6avb")
+name = "Bandit"
+map_position = Vector2i(0, 21)
+level = 10
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("12_wtk8h")])
+
+[sub_resource type="Resource" id="Resource_0rspl"]
+script = ExtResource("1_lvh6m")
+turns = Array[int]([5, 7, 10])
+units = Array[ExtResource("2_n6avb")]([SubResource("Resource_fi7bd"), SubResource("Resource_vq4he"), SubResource("Resource_bketw")])
+
+[sub_resource type="Resource" id="Resource_j82or"]
+script = ExtResource("14_q7aih")
+zone_id = "zone_1"
+zone_bottom_left_vertex = Vector2i(4, 11)
+zone_top_right_vertex = Vector2i(16, 0)
+
+[resource]
+script = ExtResource("13_8v6h2")
+reinforcements = Array[ExtResource("1_lvh6m")]([SubResource("Resource_o2kka"), SubResource("Resource_0rspl")])
+zones = Array[ExtResource("14_q7aih")]([SubResource("Resource_j82or")])

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://bdmmxsjkp8bt0"]
+
+[ext_resource type="Resource" uid="uid://4drdglfjwjfw" path="res://resources/definitions/unit_types/units/magewing/magewing_base_combat_stats.tres" id="1_4lcxu"]
+[ext_resource type="Resource" uid="uid://b2tn6r5tdhtlb" path="res://resources/definitions/unit_types/units/magewing/magewing_default_item_tables.tres" id="2_4c5bc"]
+[ext_resource type="Resource" uid="uid://c1cyhc5nclui1" path="res://resources/definitions/unit_types/units/magewing/magewing_growth_stats.tres" id="2_ahl34"]
+[ext_resource type="Texture2D" uid="uid://brbxrctk4sffm" path="res://resources/sprites/units/mage_wing.png" id="3_jws1k"]
+[ext_resource type="Resource" uid="uid://clnx3wi77a74n" path="res://resources/definitions/unit_types/units/magewing/magewing_max_stats.tres" id="4_wt1hu"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_ht8lo"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_sco5u"]
+
+[resource]
+script = ExtResource("5_ht8lo")
+unit_type_name = "Magewing"
+db_key = "magewing"
+description = "Skybound mercenaries who dive, distract, and destabilize with high-mobility strikes."
+faction = Array[int]([0])
+traits = Array[int]([2])
+unit_rarity = ExtResource("6_sco5u")
+movement_type = 4
+usable_weapon_types = Array[int]([9])
+base_stats = ExtResource("1_4lcxu")
+maxuimum_stats = ExtResource("4_wt1hu")
+growth_stats = ExtResource("2_ahl34")
+icon = ExtResource("3_jws1k")
+map_sprite = ExtResource("3_jws1k")
+default_item_resource = ExtResource("2_4c5bc")

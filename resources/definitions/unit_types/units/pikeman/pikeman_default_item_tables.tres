@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://byxebgkurh6pe"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_4okh1"]
+[ext_resource type="Resource" uid="uid://da0um0ot2egx7" path="res://resources/definitions/unit_types/units/pikeman/pikeman_weapon_table.tres" id="2_6jpus"]
+[ext_resource type="Resource" uid="uid://ekpsr4lgcf86" path="res://resources/definitions/unit_types/units/pikeman/pikeman_treasure_table.tres" id="2_sa8vq"]
+
+[resource]
+script = ExtResource("1_4okh1")
+weapon_default = ExtResource("2_6jpus")
+treasure_default = ExtResource("2_sa8vq")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

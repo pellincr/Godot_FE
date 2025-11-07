@@ -18,6 +18,7 @@ extends VBoxContainer
 @onready var mounted_icon = $TraitsContainer/MountedIcon
 @onready var undead_icon = $TraitsContainer/UndeadIcon
 @onready var flier_icon = $TraitsContainer/FlierIcon
+@onready var mobile_icon = $TraitsContainer/LightMoveIcon
 
 var unit : Unit
 
@@ -65,7 +66,5 @@ func set_icon_visibility():
 		flier_icon.visible = true
 	if traits.has(unitConstants.TRAITS.UNDEAD):
 		undead_icon.visible = true
-	if traits.has(unitConstants.TRAITS.LOCKPICK):
-		armored_icon.visible = true#NO ICON EXISTS CURRENTLY
-	if traits.has(unitConstants.TRAITS.MASSIVE):
-		armored_icon.visible = true#NO ICON EXISTS CURRENTLY
+	if traits.has(unitConstants.TRAITS.MOBILE):
+		mobile_icon.visible = true#NO ICON EXISTS CURRENTLY

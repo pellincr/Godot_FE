@@ -1,0 +1,394 @@
+[gd_scene load_steps=29 format=3 uid="uid://bcteldqbxn7l0"]
+
+[ext_resource type="Script" uid="uid://ber7tsngt6t74" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_uy2uf"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_dgerc"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="4_ayaq8"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_vi1f8"]
+[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="7_i1iis"]
+[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="8_j8tm6"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="9_slfph"]
+[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="10_scdoh"]
+[ext_resource type="Texture2D" uid="uid://qf20t24ttbok" path="res://resources/sprites/icons/weapon_icons/dagger_icon.png" id="11_4fs14"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="12_0fhk5"]
+[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="13_0xh3x"]
+[ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="14_o3m0b"]
+[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="15_fg31k"]
+[ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="16_qcegn"]
+[ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="17_m4ecu"]
+[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="18_umscn"]
+[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="19_wqdf0"]
+
+[sub_resource type="Theme" id="Theme_eqxhd"]
+default_font = ExtResource("1_uy2uf")
+
+[sub_resource type="Theme" id="Theme_s01ql"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_k8s1b"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_fiq1w"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_dqod4"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_ls2o5"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_nks8u"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_wh1t3"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_k7uiw"]
+default_font_size = 12
+
+[node name="WeaponStatContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(221, 167)
+offset_right = 221.0
+offset_bottom = 157.0
+theme = SubResource("Theme_eqxhd")
+script = ExtResource("1_qgpcr")
+
+[node name="LeftContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="CombatStatsContainer" type="VBoxContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="CombatStatsHeader" type="Label" parent="LeftContainer/CombatStatsContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_s01ql")
+text = "Combat Stats"
+
+[node name="DamageContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="DamageHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
+layout_mode = 2
+text = "Damage :"
+
+[node name="DamageTypeIcon" type="TextureRect" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="DamageValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
+layout_mode = 2
+text = "15"
+
+[node name="AttackXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="AttackXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
+layout_mode = 2
+text = "Atk X :"
+
+[node name="AttackXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="HitContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="HitHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
+layout_mode = 2
+text = "Hit :"
+
+[node name="HitValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="CriticalContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="CriticalHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
+layout_mode = 2
+text = "Critical :"
+
+[node name="CriticalValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "15"
+
+[node name="CritXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="CriticalXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
+layout_mode = 2
+text = "Crit X :"
+
+[node name="CriticalXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "3"
+
+[node name="RangeContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
+layout_mode = 2
+
+[node name="RangeHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
+layout_mode = 2
+text = "Range"
+
+[node name="RangeValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "1-2"
+
+[node name="SpecialAndBonusContainer" type="VBoxContainer" parent="LeftContainer"]
+layout_mode = 2
+
+[node name="SpecialandBonusHeaderLabel" type="Label" parent="LeftContainer/SpecialAndBonusContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_k8s1b")
+text = "Special And Bonus"
+
+[node name="SpecialAndBonusValueContainer" type="VBoxContainer" parent="LeftContainer/SpecialAndBonusContainer"]
+layout_mode = 2
+
+[node name="SpecialValueLabel1" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel2" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel3" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel4" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="SpecialValueLabel5" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+layout_mode = 2
+theme = SubResource("Theme_fiq1w")
+text = "Special or Bonus 1"
+
+[node name="RightContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ScalingContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ScalingHeaderLabel" type="Label" parent="RightContainer/ScalingContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_dqod4")
+text = "Scaling Type"
+horizontal_alignment = 2
+
+[node name="ScalingValueLabel" type="Label" parent="RightContainer/ScalingContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Mundane"
+horizontal_alignment = 2
+
+[node name="ScalingXContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ScalingXHeaderLabel" type="Label" parent="RightContainer/ScalingXContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_dqod4")
+text = "Scaling X"
+horizontal_alignment = 2
+
+[node name="ScalingXValueLabel" type="Label" parent="RightContainer/ScalingXContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "1.0"
+horizontal_alignment = 2
+
+[node name="DurabilityContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+
+[node name="DurabilityHeaderLabel" type="Label" parent="RightContainer/DurabilityContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_ls2o5")
+text = "Durability"
+horizontal_alignment = 2
+
+[node name="DurabilityValueLabel" type="Label" parent="RightContainer/DurabilityContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "15"
+horizontal_alignment = 2
+
+[node name="WeightContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+
+[node name="WeightHeaderLabel" type="Label" parent="RightContainer/WeightContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_nks8u")
+text = "Weight"
+horizontal_alignment = 2
+
+[node name="WeightValueLabel" type="Label" parent="RightContainer/WeightContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "15"
+horizontal_alignment = 2
+
+[node name="RequirementsContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="RequirementsHeaderLabel" type="Label" parent="RightContainer/RequirementsContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_wh1t3")
+text = "Requirements"
+horizontal_alignment = 2
+
+[node name="EffectiveContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+
+[node name="EffectiveHeaderLabel" type="Label" parent="RightContainer/EffectiveContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_k7uiw")
+text = "Effective"
+horizontal_alignment = 2
+
+[node name="EffectiveTraitIconContainer" type="HBoxContainer" parent="RightContainer/EffectiveContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 2
+
+[node name="ArmoredIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_dgerc")
+
+[node name="MountedIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_ayaq8")
+expand_mode = 2
+
+[node name="FlierIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_ufbdx")
+expand_mode = 2
+
+[node name="UndeadIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_vi1f8")
+expand_mode = 2
+
+[node name="SwordIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_i1iis")
+expand_mode = 2
+
+[node name="AxeIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("8_j8tm6")
+expand_mode = 2
+
+[node name="LanceIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("9_slfph")
+expand_mode = 2
+
+[node name="ShieldIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("10_scdoh")
+expand_mode = 2
+
+[node name="DaggerIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("11_4fs14")
+expand_mode = 2
+
+[node name="FistIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("12_0fhk5")
+expand_mode = 2
+
+[node name="BowIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("13_0xh3x")
+expand_mode = 2
+
+[node name="BannerIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("14_o3m0b")
+expand_mode = 2
+
+[node name="StaffIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("15_fg31k")
+expand_mode = 2
+
+[node name="NatureIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("16_qcegn")
+expand_mode = 2
+
+[node name="LightIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("17_m4ecu")
+expand_mode = 2
+
+[node name="DarkIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("18_umscn")
+expand_mode = 2
+
+[node name="AnimalIcon" type="TextureRect" parent="RightContainer/EffectiveContainer/EffectiveTraitIconContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("19_wqdf0")
+expand_mode = 2

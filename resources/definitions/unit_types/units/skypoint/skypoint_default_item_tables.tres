@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://bsmn4ko6yxn13"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_vva7j"]
+[ext_resource type="Resource" uid="uid://da4nnstafbpyi" path="res://resources/definitions/unit_types/units/skypoint/skypoint_treasure_table.tres" id="2_6bfyx"]
+[ext_resource type="Resource" uid="uid://chtxeugmpacra" path="res://resources/definitions/unit_types/units/skypoint/skypoint_weapon_table.tres" id="2_ugmna"]
+
+[resource]
+script = ExtResource("1_vva7j")
+weapon_default = ExtResource("2_ugmna")
+treasure_default = ExtResource("2_6bfyx")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

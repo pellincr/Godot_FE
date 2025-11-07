@@ -35,9 +35,9 @@ func create_target_methods_weapon(unit:Unit) -> Dictionary:
 	var attack_range_map : Dictionary = {}
 	for item in unit.inventory.get_items():
 			if item is WeaponDefinition:
-				if unit.can_equip(item):
+				if unit.can_equip(item) and item.expended == false:
 					for attack_range in item.attack_range:
-						if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ENEMY):
+						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 							if attack_range_map.has(attack_range):
 								attack_range_map.get(attack_range).append(item)
 							else:
@@ -50,7 +50,7 @@ func create_target_methods_support(unit:Unit) -> Dictionary:
 	for item in unit.inventory.get_items():
 			if item is WeaponDefinition:
 				if unit.can_equip(item):
-					if item.item_target_faction.has(itemConstants.AVAILABLE_TARGETS.ALLY):
+					if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ALLY):
 						for attack_range in item.attack_range:
 							if attack_range_map.has(attack_range):
 								attack_range_map.get(attack_range).append(item)
@@ -102,15 +102,15 @@ func populate_target_maps(user_position: Vector2i,targets: Array[Vector2i]):
 #
 # Updates _available_target_methods to contain all methods to interact at ranges 
 #
-func update_available_target_methods(ranges: Array):
+func update_available_target_methods(distance: int): # this should just be @ a specific  range not an array?
 	_available_methods_at_target.clear()
-	# For each range
-	for distance in ranges:
-		if range_target_methods_map.has(distance):
-			for method in range_target_methods_map[distance]:
-				if !_available_methods_at_target.has(method):
-					_available_methods_at_target.append(method)
-	# get the index of our currently in use target_method
+	current_target_range = distance
+	# For the specific distance, populate a list of unique method references
+	if range_target_methods_map.has(distance):
+		for method in range_target_methods_map[distance]:
+			if !_available_methods_at_target.has(method):
+				_available_methods_at_target.append(method)
+	# update the index and if it doesnt exist set it to 0
 	for i in range(_available_methods_at_target.size()):
 		if current_method == _available_methods_at_target[i]:
 			_available_methods_at_target_index = i
@@ -123,18 +123,21 @@ func update_available_target_methods(ranges: Array):
 #
 func update_dynamic_maps_new_method(method):
 	current_method = method
-	#populate _available_targets_with_method
-	if _available_targets_with_method.is_empty():
-		if target_methods_range_map.has(method):
-			for range in target_methods_range_map[method]:
-				if range_target_map.has(range):
-					#get all available targets
-					_available_targets_with_method.append_array(range_target_map[range])
-					for new_method in range_target_methods_map[range]:
-						if ! _available_methods_at_target.has(new_method):
-							_available_methods_at_target.append(new_method)
+	_available_targets_with_method.clear()
+	# re-populate _available_targets_with_method
+	if target_methods_range_map.has(method):
+		for range in target_methods_range_map[method]:
+			if range_target_map.has(range):
+				#get all available targets
+				_available_targets_with_method.append_array(range_target_map[range])
+				for new_method in range_target_methods_map[range]:
+					if ! _available_methods_at_target.has(new_method):
+						_available_methods_at_target.append(new_method)
+		# Ensure the indexes used to move through the method arrays is in bounds
+		if _available_targets_at_range_index > _available_targets_with_method.size() and _available_targets_with_method.find(current_target_positon) != -1:
+			_available_targets_at_range_index = _available_targets_with_method.find(current_target_positon)
 	# set the current_target's position
-	current_target_positon =_available_targets_with_method[_available_targets_at_range_index]
+	current_target_positon =_available_targets_with_method[_available_targets_at_range_index] #THIS WAS DEEMED REDUNDANT AS WE ARE CHANGING THE METHOD NOT THE TARGET
 	current_target_range = target_range_map[current_target_positon]
 	for distance in target_methods_range_map.get(method):
 		_available_targets_with_method.append_array(range_target_methods_map.get(distance))
@@ -143,17 +146,18 @@ func update_dynamic_maps_new_method(method):
 func next_target_method():
 	#get the next method
 	_available_methods_at_target_index = CustomUtilityLibrary.array_next_index_with_loop(_available_methods_at_target, _available_methods_at_target_index)
-	current_method = _available_methods_at_target[_available_methods_at_target_index]
 	#update the arrays and indexes
-	update_dynamic_maps_new_method(current_method)
+	update_dynamic_maps_new_method(_available_methods_at_target[_available_methods_at_target_index])
+	print("method and targets updated")
 
 # get the next available target
 func next_target():
 	#get the next target in the index
 	_available_targets_at_range_index = CustomUtilityLibrary.array_next_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
 	#does the new target have the same range?
-	if current_target_range != target_range_map.get(_available_targets_with_method[_available_targets_at_range_index]):
-		update_available_target_methods(target_methods_range_map[current_method])
+	var new_target_distance = target_range_map.get(_available_targets_with_method[_available_targets_at_range_index])
+	if current_target_range != new_target_distance:
+		update_available_target_methods(new_target_distance)
 	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
 
 func next_target_no_new_methods():
@@ -170,15 +174,16 @@ func previous_target_no_new_methods():
 func previous_target_method():
 	# get the previous target_method
 	_available_methods_at_target_index = CustomUtilityLibrary.array_previous_index_with_loop(_available_methods_at_target, _available_methods_at_target_index)
-	current_method = _available_methods_at_target[_available_methods_at_target_index]
+	#current_method = _available_methods_at_target[_available_methods_at_target_index]
 	#update the arrays and indexes
-	update_dynamic_maps_new_method(current_method)
+	update_dynamic_maps_new_method(_available_methods_at_target[_available_methods_at_target_index])
+	print("method and targets updated")
 
 # get the previous available target
 func previous_target():
 	_available_targets_at_range_index = CustomUtilityLibrary.array_previous_index_with_loop(_available_targets_with_method,_available_targets_at_range_index)
 	if current_target_range != target_range_map.get(_available_targets_with_method[_available_targets_at_range_index]):
-		update_available_target_methods(target_methods_range_map[current_method])
+		update_available_target_methods(target_range_map.get(_available_targets_with_method[_available_targets_at_range_index]))
 	current_target_positon = _available_targets_with_method[_available_targets_at_range_index]
 
 # create an iventory data structure to send to action inventories
@@ -210,3 +215,9 @@ func generate_unit_inventory_slot_data(attacker: Unit) -> Array[UnitInventorySlo
 			unit_inventory_slot_data.valid = false
 		_unit_inventory_info.append(unit_inventory_slot_data)
 	return _unit_inventory_info
+
+func method_switch_available():
+	return _available_methods_at_target.size() > 1
+
+func target_switch_available():
+	return _available_targets_with_method.size() > 1

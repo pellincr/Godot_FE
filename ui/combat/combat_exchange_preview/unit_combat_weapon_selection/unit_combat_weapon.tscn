@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="1_b1n8f"]
 [ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.gd" id="1_eslat"]
-[ext_resource type="Script" uid="uid://qrvvscj5a8ec" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="3_j02ov"]
+[ext_resource type="Script" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="3_j02ov"]
 
 [sub_resource type="Theme" id="Theme_yq15n"]
-default_font_size = 24
+default_font_size = 32
 
 [node name="UnitCombatWeapon" type="HBoxContainer"]
 offset_right = 40.0
@@ -18,12 +18,17 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="ItemNameLabel" type="Label" parent="."]
+[node name="ItemNameLabel" type="RichTextLabel" parent="."]
+clip_contents = false
 layout_mode = 2
 theme = SubResource("Theme_yq15n")
+bbcode_enabled = true
 text = "Item Name"
+fit_content = true
+autowrap_mode = 0
 
 [node name="WeaponType" type="TextureRect" parent="."]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("3_j02ov")

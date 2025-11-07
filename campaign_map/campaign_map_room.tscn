@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://d2bnyn3hh5vva"]
 
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="1_27a5s"]
-[ext_resource type="Script" path="res://campaign_map/campaign_map_room.gd" id="1_w1275"]
+[ext_resource type="Script" uid="uid://cilsomyit56sv" path="res://campaign_map/campaign_map_room.gd" id="1_w1275"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_evsr8"]
 size = Vector2(16, 16)
@@ -81,9 +81,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_86uj1"]
 _data = {
-"RESET": SubResource("Animation_t8wdb"),
-"highlight": SubResource("Animation_xjceh"),
-"select": SubResource("Animation_t8ldv")
+&"RESET": SubResource("Animation_t8wdb"),
+&"highlight": SubResource("Animation_xjceh"),
+&"select": SubResource("Animation_t8ldv")
 }
 
 [node name="CampaignMapRoom" type="Control"]
@@ -110,7 +110,7 @@ texture = ExtResource("1_27a5s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_86uj1")
+&"": SubResource("AnimationLibrary_86uj1")
 }
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

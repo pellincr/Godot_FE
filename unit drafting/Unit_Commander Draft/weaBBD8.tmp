@@ -1,0 +1,139 @@
+[gd_scene load_steps=20 format=3 uid="uid://di7v11sroksay"]
+
+[ext_resource type="Script" uid="uid://beqqw8p4capqv" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.gd" id="1_adn3t"]
+[ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="1_xmg1x"]
+[ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="2_lae1c"]
+[ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="3_b0rrh"]
+[ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="4_prlsy"]
+[ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="5_n57en"]
+[ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="5_r33vi"]
+[ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="6_rgtij"]
+[ext_resource type="Texture2D" uid="uid://qf20t24ttbok" path="res://resources/sprites/icons/weapon_icons/dagger_icon.png" id="6_v3751"]
+[ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="8_5heo6"]
+[ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="8_swc1i"]
+[ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="9_8gtk7"]
+[ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="9_dw45a"]
+[ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="11_8r44h"]
+[ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="12_866h8"]
+[ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="13_sqant"]
+[ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="14_33de1"]
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="14_qg37k"]
+[ext_resource type="Texture2D" uid="uid://5kg6twx176sf" path="res://resources/sprites/icons/unit_trait_icons/light_move_icon.png" id="19_lw8ty"]
+
+[node name="WeaponTraitIconContainer" type="VBoxContainer"]
+script = ExtResource("1_adn3t")
+
+[node name="WeaponTypeContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(225, 16)
+layout_mode = 2
+
+[node name="SwordIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_xmg1x")
+expand_mode = 2
+
+[node name="AxeIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_lae1c")
+expand_mode = 2
+
+[node name="LanceIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_b0rrh")
+expand_mode = 2
+
+[node name="ShieldIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_r33vi")
+expand_mode = 2
+
+[node name="DaggerIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_v3751")
+expand_mode = 2
+
+[node name="FistIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_prlsy")
+expand_mode = 2
+
+[node name="BowIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_n57en")
+expand_mode = 2
+
+[node name="BannerIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_5heo6")
+expand_mode = 2
+
+[node name="StaffIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_rgtij")
+expand_mode = 2
+
+[node name="NatureIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_8gtk7")
+expand_mode = 2
+
+[node name="LightIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_dw45a")
+expand_mode = 2
+
+[node name="DarkIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_swc1i")
+expand_mode = 2
+
+[node name="AnimalIcon" type="TextureRect" parent="WeaponTypeContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("14_qg37k")
+expand_mode = 2
+
+[node name="TraitsContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(225, 16)
+layout_mode = 2
+
+[node name="ArmoredIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_866h8")
+
+[node name="MountedIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_8r44h")
+expand_mode = 2
+
+[node name="UndeadIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("14_33de1")
+expand_mode = 2
+
+[node name="FlierIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("13_sqant")
+expand_mode = 2
+
+[node name="LightMoveIcon" type="TextureRect" parent="TraitsContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("19_lw8ty")
+expand_mode = 2

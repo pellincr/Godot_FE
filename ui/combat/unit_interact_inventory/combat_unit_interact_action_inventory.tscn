@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bsjsmvnd545nd"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.gd" id="1_u206d"]
+[ext_resource type="Script" uid="uid://wk4xkrnsyske" path="res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.gd" id="1_u206d"]
 [ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="1_x650m"]
 [ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="2_0ren8"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="3_rjx0a"]
@@ -105,3 +105,12 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("6_u0owm")
 text = "Debug_text"
+
+[connection signal="focus_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1" to="." method="_on_unit_inventory_slot_focus_entered"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1" to="." method="_on_unit_inventory_slot_pressed"]
+[connection signal="focus_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2" to="." method="_on_unit_inventory_slot_focus_entered"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2" to="." method="_on_unit_inventory_slot_pressed"]
+[connection signal="focus_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3" to="." method="_on_unit_inventory_slot_focus_entered"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3" to="." method="_on_unit_inventory_slot_pressed"]
+[connection signal="focus_entered" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4" to="." method="_on_unit_inventory_slot_focus_entered"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4" to="." method="_on_unit_inventory_slot_pressed"]

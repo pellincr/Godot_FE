@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://nkplk3o4b1x3"]
+
+[ext_resource type="Script" uid="uid://ct7t6s53le6ot" path="res://ui/battle_prep_new/shop/shop.gd" id="1_uvf4r"]
+
+[node name="Shop" type="VBoxContainer"]
+script = ExtResource("1_uvf4r")
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_mode = 2

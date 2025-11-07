@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://5sst4s666qpw"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
+[ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_cc62d"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
+[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]
+
+[sub_resource type="Resource" id="Resource_e71i3"]
+script = ExtResource("3_ymgno")
+luck = 2
+
+[sub_resource type="Resource" id="Resource_31c6h"]
+script = ExtResource("2_cc62d")
+title = "Honor the Fallen"
+description = "All units gain [color=#FAFA82]2[/color] Luck."
+effect = 3
+unit_stat_change = SubResource("Resource_e71i3")
+
+[sub_resource type="Resource" id="Resource_jlbjb"]
+script = ExtResource("5_k8up4")
+
+[sub_resource type="Resource" id="Resource_p7vwh"]
+script = ExtResource("5_oppgp")
+damage = 4
+specials = Array[int]([8])
+
+[sub_resource type="Resource" id="Resource_556ly"]
+script = ExtResource("2_cc62d")
+title = "Claim the Relic"
+description = "Gain a Random weapon with [color=#FAFA82]4[/color] extra damage and has the [color=#FAFA82]Devil Reversal[/color]special tag."
+effect = 8
+wpn_stat_change = SubResource("Resource_p7vwh")
+loot_table = SubResource("Resource_jlbjb")
+
+[sub_resource type="Resource" id="Resource_rlnpb"]
+script = ExtResource("2_cc62d")
+title = "Search for Gold"
+description = "Scavenge the battle field for treasures, collect [color=#FFA800]1000 Gold[/color]."
+gold_change = 1000
+
+[resource]
+script = ExtResource("1_3o1ck")
+name = "Ancient Battlefield"
+description = "Mists curl around rusted weapons and forgotten banners. A large weapon lays in the center."
+background = ExtResource("1_dwhhw")
+option1 = SubResource("Resource_31c6h")
+option2 = SubResource("Resource_556ly")
+option3 = SubResource("Resource_rlnpb")

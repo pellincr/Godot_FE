@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://cqv0qetc37ogd"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_asev1"]
+[ext_resource type="Texture2D" uid="uid://cbeyv1175gywo" path="res://resources/sprites/items/consumables/stat_boosters/skill/true_pepper.png" id="2_lshf5"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_x20mk"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_cmn2i"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_wh58s"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_asev1")
+skill = 5
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_cmn2i")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Percise Pepper"
+db_key = "percise_pepper"
+description = "A sharp, violet pepper that tingles the tongue and clears the mind, prized by archers for its steadying burn."
+item_type = 2
+rarity = ExtResource("3_x20mk")
+worth = 2500
+icon = ExtResource("2_lshf5")

@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://d2rwfvtcf2de2"]
+
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_fhq5a"]
+[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="2_sg5q4"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_erdm1"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="4_atj8j"]
+
+[sub_resource type="Resource" id="Resource_ng0hl"]
+script = ExtResource("2_sg5q4")
+metadata/_custom_type_script = "uid://dgaq5vstt54r"
+
+[sub_resource type="Resource" id="Resource_ixt8c"]
+script = ExtResource("3_erdm1")
+title = "Break the Ice"
+description = "Gain a random weapon of[color=#d200b0]Mythical[/color]rarity with low durability."
+effect = 8
+loot_table = SubResource("Resource_ng0hl")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_7y6k7"]
+script = ExtResource("4_atj8j")
+resistance = 10
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_34vju"]
+script = ExtResource("4_atj8j")
+magic = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_llx5i"]
+script = ExtResource("3_erdm1")
+title = "Channnel the Chill"
+description = "Selected unit gains [color=#FAFA82]1[/color] Magic and [color=#FAFA82]10%[/color] Resistance growth."
+effect = 2
+unit_stat_change = SubResource("Resource_34vju")
+unit_growth_change = SubResource("Resource_7y6k7")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_d70up"]
+script = ExtResource("4_atj8j")
+hp = 3
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_mg6vf"]
+script = ExtResource("3_erdm1")
+title = "Stay Warm"
+description = "All units gain [color=#FAFA82]3[/color] HP."
+effect = 3
+unit_stat_change = SubResource("Resource_d70up")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_fhq5a")
+name = "Frozen Armory"
+description = "Weapons lie encased in ancient ice."
+option1 = SubResource("Resource_ixt8c")
+option2 = SubResource("Resource_llx5i")
+option3 = SubResource("Resource_mg6vf")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

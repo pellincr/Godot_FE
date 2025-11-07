@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4dt2eqefuomf"]
+
+[ext_resource type="Script" path="res://ui/battle_prep_new/convoy/convoy_container/convoy_container.gd" id="1_u8c2y"]
+
+[node name="ConvoyContainer" type="HBoxContainer"]
+size_flags_horizontal = 10
+script = ExtResource("1_u8c2y")
+
+[node name="ConvoyScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(350, 500)
+layout_mode = 2
+
+[node name="MainContainer" type="VBoxContainer" parent="ConvoyScrollContainer"]
+layout_mode = 2

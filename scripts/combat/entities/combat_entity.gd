@@ -31,27 +31,33 @@ func populate(definition: mapEntityDefinition):
 	self.attack_speed = definition.attack_speed
 	self.contents = definition.contents
 
-func populate_chest(definition: MapChestEntityDefinition, hp: int, def: int, res : int):
+func populate_chest(definition: MapChestEntityDefinition):
 	self.name = "Chest"
 	self.map_position = definition.position
 	self.interaction_type = mapEntityDefinition.TYPE.CHEST
 	self.terrain = definition.terrain
-	self.max_hp = hp
-	self.hp = hp
-	self.defense = def
-	self.resistance = res
+	self.max_hp = 0
+	self.hp = 0
+	self.defense = 0
+	self.resistance = 0
 	self.attack_speed = 0
-	self.contents = definition.contents
+	self.contents.append(definition.loot_table.get_loot())
 
-func populate_door(definition: MapDoorEntityDefinition, hp: int, def: int, res : int, position: Vector2i):
+func populate_search(definition: MapSearchEntityDefinition):
+	self.name = definition.get_type_name()
+	self.map_position = definition.position
+	self.interaction_type = mapEntityDefinition.TYPE.SEARCH
+	self.contents.append(definition.loot_table.get_loot())
+
+func populate_door(definition: MapDoorEntityDefinition, position: Vector2i):
 	self.name = "Door"
 	self.map_position = position
 	self.interaction_type = mapEntityDefinition.TYPE.DOOR
 	self.terrain = definition.terrain
-	self.max_hp = hp
-	self.hp = hp
-	self.defense = def
-	self.resistance = res
+	self.max_hp = 0
+	self.hp = 0
+	self.defense = 0
+	self.resistance = 0
 	self.attack_speed = 0
 	self.contents = []
 
@@ -67,6 +73,17 @@ func populate_breakable_terrain(definition: MapBreakableTerrainEntityDefinition,
 	self.attack_speed = 0
 	self.contents = []
 
+func populate_debris(definition: MapDebrisEntityDefinition, hp: int, def: int, res : int):
+	self.name = "Debris"
+	self.map_position = definition.position
+	self.interaction_type = mapEntityDefinition.TYPE.DEBRIS
+	self.terrain = definition.terrain
+	self.max_hp = hp
+	self.hp = hp
+	self.defense = def
+	self.resistance = res
+	self.attack_speed = 0
+	self.contents = []
 
 func set_display(map_display : CombatEntityDisplay):
 	self.display = map_display

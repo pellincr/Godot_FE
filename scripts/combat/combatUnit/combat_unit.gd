@@ -7,6 +7,7 @@ var alive : bool
 var allegience : Constants.FACTION
 var ai_type: Constants.UNIT_AI_TYPE
 var is_boss: bool = false
+var drops_item : bool = false
 #var drops_last_item : bool = false
 
 # Action Economy
@@ -35,7 +36,7 @@ var move_terrain : Terrain
 #display
 var map_display : CombatUnitDisplay
 
-static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> CombatUnit:
+static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false, drops_item: bool = false) -> CombatUnit:
 	var instance = CombatUnit.new()
 	instance.alive = true
 	instance.turn_taken = false
@@ -45,6 +46,8 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false) -> Comb
 	instance.allegience = team
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
+	instance.drops_item = drops_item
+	instance.update_inventory_stats()
 	return instance
 
 func set_map_terrain(ter : Terrain) :
@@ -87,10 +90,16 @@ func update_map_tile(cmt: CombatMapTile):
 func get_equipped() -> WeaponDefinition:
 	return self.unit.inventory.get_equipped_weapon()
 
+func update_unit_stats():
+	stats.populate_unit_stats(self.unit)
+
 func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)
 		stats.populate_weapon_stats(self, wpn)
+
+func update_inventory_stats():
+	stats.populate_inventory_stats(self)
 
 func un_equip_current_weapon():
 	if get_equipped != null:
@@ -144,10 +153,10 @@ func get_attack_speed() -> int:
 	return stats.attack_speed.evaluate() + stats.speed.evaluate()
 
 func get_critical_chance() -> int:
-	return clampi(stats.critical_chance.evaluate() + (stats.skill.evaluate()/2), 0, 99999)
+	return clampi(stats.critical_chance.evaluate() + (stats.skill.evaluate()/2) + stats.luck.evaluate()/4, 0, 99999)
 
 func get_critical_avoid() -> int:
-	return clampi(stats.critical_avoid.evaluate(), 0, 99999)
+	return stats.critical_avoid.evaluate() + stats.luck.evaluate()
 
 func get_critical_multiplier() -> int:
 	return clampi(stats.critical_multiplier.evaluate(), 1, 99999)

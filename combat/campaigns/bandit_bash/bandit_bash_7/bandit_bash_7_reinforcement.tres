@@ -1,0 +1,129 @@
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=30 format=3 uid="uid://11ph01hwiiof"]
+
+[ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_l0xyi"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_y1r37"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_53nlm"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="4_2yvq3"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="5_beupd"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_h46dk"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_aoe7f"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_rxd1g"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="9_7bodt"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_ys14t"]
+[ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="11_4f8tt"]
+[ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="12_t07uk"]
+[ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="13_ovmd8"]
+[ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="14_5npre"]
+
+[sub_resource type="Resource" id="Resource_gelp6"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(0, 1)
+level = 8
+level_bonus = 2
+unit_type_key = "fighter"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
+
+[sub_resource type="Resource" id="Resource_wavb6"]
+script = ExtResource("1_l0xyi")
+turns = Array[int]([2, 3])
+units = Array[ExtResource("2_y1r37")]([SubResource("Resource_gelp6")])
+
+[sub_resource type="Resource" id="Resource_ood86"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(1, 0)
+level = 8
+unit_type_key = "fighter"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("5_beupd"), ExtResource("6_h46dk")])
+
+[sub_resource type="Resource" id="Resource_6eva5"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(0, 2)
+level = 8
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("7_aoe7f")])
+
+[sub_resource type="Resource" id="Resource_panho"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(9, 17)
+level = 8
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
+
+[sub_resource type="Resource" id="Resource_yevud"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(7, 17)
+level = 8
+unit_type_key = "bladehand"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_7bodt")])
+
+[sub_resource type="Resource" id="Resource_inwj6"]
+script = ExtResource("1_l0xyi")
+turns = Array[int]([3])
+units = Array[ExtResource("2_y1r37")]([SubResource("Resource_ood86"), SubResource("Resource_6eva5"), SubResource("Resource_panho"), SubResource("Resource_yevud")])
+
+[sub_resource type="Resource" id="Resource_hjk6q"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(1, 0)
+level = 8
+unit_type_key = "fighter"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
+
+[sub_resource type="Resource" id="Resource_01ea6"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(0, 2)
+level = 8
+unit_type_key = "fighter"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("10_ys14t")])
+
+[sub_resource type="Resource" id="Resource_b7u7w"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(14, 9)
+level = 8
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
+
+[sub_resource type="Resource" id="Resource_nqhbo"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(14, 11)
+level = 8
+unit_type_key = "sword_cavalier"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("11_4f8tt")])
+
+[sub_resource type="Resource" id="Resource_1oo64"]
+script = ExtResource("1_l0xyi")
+turns = Array[int]([5])
+units = Array[ExtResource("2_y1r37")]([SubResource("Resource_hjk6q"), SubResource("Resource_01ea6"), SubResource("Resource_b7u7w"), SubResource("Resource_nqhbo")])
+
+[sub_resource type="Resource" id="Resource_nrsmi"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(14, 9)
+level = 10
+unit_type_key = "lance_cavalier"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("12_t07uk")])
+
+[sub_resource type="Resource" id="Resource_do6iu"]
+script = ExtResource("2_y1r37")
+name = "Raider"
+map_position = Vector2i(14, 11)
+level = 10
+unit_type_key = "axe_cavalier"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
+
+[sub_resource type="Resource" id="Resource_rcw70"]
+script = ExtResource("1_l0xyi")
+turns = Array[int]([6, 7])
+units = Array[ExtResource("2_y1r37")]([SubResource("Resource_nrsmi"), SubResource("Resource_do6iu")])
+
+[resource]
+script = ExtResource("13_ovmd8")
+reinforcements = Array[ExtResource("1_l0xyi")]([SubResource("Resource_wavb6"), SubResource("Resource_inwj6"), SubResource("Resource_1oo64"), SubResource("Resource_rcw70")])

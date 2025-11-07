@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cma8wx0vjcj0a" path="res://resources/definitions/unit_types/units/ward/ward_growth_stats.tres" id="2_40k5p"]
 [ext_resource type="Texture2D" uid="uid://6o8nc44qjukb" path="res://resources/sprites/units/ward.png" id="3_sjwqt"]
 [ext_resource type="Resource" uid="uid://wt0by2jkrpj6" path="res://resources/definitions/unit_types/units/ward/ward_max_stats.tres" id="4_ktkw7"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_i6xch"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_i6xch"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_sfen0"]
 
 [resource]
@@ -12,19 +12,12 @@ script = ExtResource("5_i6xch")
 unit_type_name = "Ward"
 db_key = "ward"
 description = "Hired protectors who ward allies with shield and spell, holding fast under pressure."
-initiative = 1
 faction = Array[int]([0])
-traits = Array[int]([0])
 unit_rarity = ExtResource("6_sfen0")
 movement_type = 1
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([12])
 base_stats = ExtResource("1_sbr7q")
 maxuimum_stats = ExtResource("4_ktkw7")
 growth_stats = ExtResource("2_40k5p")
 icon = ExtResource("3_sjwqt")
 map_sprite = ExtResource("3_sjwqt")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

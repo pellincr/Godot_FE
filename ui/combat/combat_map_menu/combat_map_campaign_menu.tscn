@@ -34,10 +34,10 @@ layout_mode = 2
 disabled = true
 text = "Overview"
 
-[node name="campaign" type="Button" parent="Vbox"]
+[node name="mainMenu" type="Button" parent="Vbox"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-text = "Campaign"
+text = "Main Menu"
 
 [node name="Panel" type="Panel" parent="Vbox"]
 custom_minimum_size = Vector2(200, 1)

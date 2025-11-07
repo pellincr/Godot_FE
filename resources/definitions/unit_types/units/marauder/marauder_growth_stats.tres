@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_gngmu")
-hp = 115
+hp = 175
 strength = 90
 magic = 6
-skill = 30
+skill = 35
 speed = 20
 luck = 10
 defense = 20

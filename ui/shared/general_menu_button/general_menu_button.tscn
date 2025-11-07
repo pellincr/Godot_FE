@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2ht6vn6wolmv"]
+
+[ext_resource type="Script" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="1_27say"]
+
+[node name="GeneralMenuButton" type="Button"]
+script = ExtResource("1_27say")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

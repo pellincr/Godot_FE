@@ -1,21 +1,18 @@
 [gd_resource type="Resource" script_class="EnemyGroup" load_steps=6 format=3 uid="uid://cgl2itrdxav2y"]
 
-[ext_resource type="Script" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_3ec4m"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_h23w0"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_3ec4m"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_h23w0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="3_y1e3v"]
-[ext_resource type="Script" uid="uid://dg3duikhdudk4" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_cyxgp"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_cyxgp"]
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_3ec4m")
 name = "Lanceman"
 map_position = Vector2i(9, 5)
 level = 1
-level_bonus = 0
-hard_mode_leveling = false
+ai_type = 2
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_h23w0")]([ExtResource("3_y1e3v")])
-ai_type = 2
-is_boss = false
 
 [resource]
 script = ExtResource("4_cyxgp")

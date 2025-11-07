@@ -2,37 +2,28 @@
 
 [ext_resource type="Texture2D" uid="uid://dcynueyqmosad" path="res://resources/sprites/items/weapons/nature/wind_tome.png" id="1_gaf5l"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_a4lhf"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_7qvcv"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_7qvcv"]
 
 [resource]
 script = ExtResource("3_7qvcv")
 weapon_type = 9
 alignment = 2
-physical_weapon_triangle_type = 0
 magic_weapon_triangle_type = 1
 item_damage_type = 1
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
 required_mastery = 1
-attack_range = Array[int]([1, 2, 3])
+attack_range = Array[int]([1, 2])
 damage = 5
 hit = 90
-critical_chance = 0
 weight = 3
-critical_multiplier = 3.0
 attacks_per_combat_turn = 2
-weapon_effectiveness = Array[int]([2])
-status_ailment = 0
-specials = Array[int]([])
+weapon_effectiveness_trait = Array[int]([2])
 name = "Wind"
 db_key = "wind_blade"
 equippable = true
 description = "Common wind maigc. Effective vs. Fliers. "
-item_type = 0
 rarity = ExtResource("2_a4lhf")
 uses = 40
 max_uses = 40
-unbreakable = false
-worth = 800
+worth = 1100
 icon = ExtResource("1_gaf5l")

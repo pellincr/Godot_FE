@@ -1,6 +1,6 @@
-[gd_scene load_steps=43 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=52 format=3 uid="uid://sgve77vtu623"]
 
-[ext_resource type="Script" uid="uid://dikueng4647vg" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
+[ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
 [ext_resource type="Resource" uid="uid://cq57ltputqp77" path="res://resources/definitions/unit_types/units/axe_cavalier/axe_cavalier.tres" id="4_bf4by"]
 [ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/units/bladehand/bladehand.tres" id="5_k6vk5"]
@@ -40,8 +40,17 @@
 [ext_resource type="Resource" uid="uid://1v4f5kpeul8x" path="res://resources/definitions/unit_types/units/troubadour/troubadour.tres" id="35_45nux"]
 [ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="35_vq7n6"]
 [ext_resource type="Resource" uid="uid://rb8jutcqf1uo" path="res://resources/definitions/unit_types/units/penitent/penitent.tres" id="36_lgvds"]
+[ext_resource type="Resource" uid="uid://inc8avad666v" path="res://resources/definitions/unit_types/units/skypoint/skypoint.tres" id="36_o7m45"]
+[ext_resource type="Resource" uid="uid://bdmmxsjkp8bt0" path="res://resources/definitions/unit_types/units/magewing/magewing.tres" id="37_yg62d"]
 [ext_resource type="Resource" uid="uid://dvu1p0j1xe7k0" path="res://resources/definitions/unit_types/units/sanctioner/sanctioner.tres" id="37_yk7sk"]
+[ext_resource type="Resource" uid="uid://dihrjvosfbttx" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor.tres" id="38_udy5e"]
+[ext_resource type="Resource" uid="uid://cab8epii6vr32" path="res://resources/definitions/unit_types/units/suncaster/suncaster.tres" id="39_ap7gd"]
+[ext_resource type="Resource" uid="uid://ob1s6tdmj477" path="res://resources/definitions/unit_types/units/bulwark/bulwark.tres" id="40_sh4xl"]
+[ext_resource type="Resource" uid="uid://dq5n0x73nca4" path="res://resources/definitions/unit_types/units/squire/squire.tres" id="41_qfqp5"]
 [ext_resource type="Resource" uid="uid://d4kej3pq2am2g" path="res://resources/definitions/unit_types/commanders/drengr/drengr.tres" id="42_885oc"]
+[ext_resource type="Resource" uid="uid://5lg6mp5w2p3g" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor.tres" id="42_ap7gd"]
+[ext_resource type="Resource" uid="uid://ckwa7dx3bcicr" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker.tres" id="44_n5a4x"]
+[ext_resource type="Resource" uid="uid://dmycp4ajadd8" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade.tres" id="45_a26rd"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -51,7 +60,9 @@ unit_types = {
 "axe_cavalier": ExtResource("4_bf4by"),
 "bishop": ExtResource("16_pd34h"),
 "bladehand": ExtResource("5_k6vk5"),
+"bow_armor": ExtResource("42_ap7gd"),
 "brawler": ExtResource("14_p6lhs"),
+"bulwark": ExtResource("40_sh4xl"),
 "corsair": ExtResource("23_027cf"),
 "crossbowman": ExtResource("27_rymva"),
 "duelist": ExtResource("22_sqm7u"),
@@ -65,15 +76,20 @@ unit_types = {
 "lance_cavalier": ExtResource("8_b047a"),
 "lancer": ExtResource("28_vkfaj"),
 "mage": ExtResource("32_um71q"),
+"magewing": ExtResource("37_yg62d"),
 "marauder": ExtResource("24_jj4js"),
 "monk": ExtResource("18_bpik5"),
 "penitent": ExtResource("36_lgvds"),
 "pikeman": ExtResource("9_5nlrr"),
+"purge_armor": ExtResource("38_udy5e"),
 "runeblade": ExtResource("21_qhu82"),
 "sanctioner": ExtResource("37_yk7sk"),
 "sea_witch": ExtResource("25_fxnlp"),
 "sellsword": ExtResource("10_ntklw"),
 "shaman": ExtResource("33_b6uy8"),
+"skypoint": ExtResource("36_o7m45"),
+"squire": ExtResource("41_qfqp5"),
+"suncaster": ExtResource("39_ap7gd"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
@@ -86,7 +102,9 @@ commander_types = {
 "destroyer": ExtResource("28_ov4kq"),
 "drengr": ExtResource("42_885oc"),
 "iron_viper": ExtResource("34_w1y03"),
+"line_breaker": ExtResource("44_n5a4x"),
 "mage_knight": ExtResource("29_ycdqo"),
+"night_blade": ExtResource("45_a26rd"),
 "war_maiden": ExtResource("30_uy0ry"),
 "weapon_master": ExtResource("31_025il")
 }

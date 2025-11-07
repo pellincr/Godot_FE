@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=10 format=3 uid="uid://dw14apn2v7278"]
+
+[ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_ytmb4"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_flpnf"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_g2ajk"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_f3v1r"]
+[ext_resource type="Resource" uid="uid://b6l1kx4yenl1j" path="res://resources/definitions/items/weapons/lance/slim_lance.tres" id="5_6ukkl"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="6_hi65m"]
+
+[sub_resource type="Resource" id="Resource_8b07p"]
+script = ExtResource("2_flpnf")
+name = "Bandit"
+map_position = Vector2i(12, 10)
+level = 1
+level_bonus = -1
+unit_type_key = "marauder"
+inventory = Array[ExtResource("3_g2ajk")]([ExtResource("4_f3v1r")])
+
+[sub_resource type="Resource" id="Resource_sqrjm"]
+script = ExtResource("2_flpnf")
+name = "Bandit"
+map_position = Vector2i(12, 9)
+level = 1
+level_bonus = -1
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_g2ajk")]([ExtResource("5_6ukkl")])
+
+[sub_resource type="Resource" id="Resource_681r8"]
+script = ExtResource("2_flpnf")
+name = "Bandit"
+map_position = Vector2i(12, 11)
+level = 1
+level_bonus = -1
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_g2ajk")]([ExtResource("6_hi65m")])
+
+[resource]
+script = ExtResource("1_ytmb4")
+trigger_type = 1
+zone_id = "1"
+units = Array[ExtResource("2_flpnf")]([SubResource("Resource_8b07p"), SubResource("Resource_sqrjm"), SubResource("Resource_681r8")])

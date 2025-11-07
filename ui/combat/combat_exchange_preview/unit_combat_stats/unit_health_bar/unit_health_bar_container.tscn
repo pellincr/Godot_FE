@@ -1,13 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://b26kxlm2q45nj"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_o5wcn"]
-[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_health_bar/unit_health_bar_container.gd" id="2_ga8dl"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_ni3cs"]
+[ext_resource type="Script" uid="uid://dpic2rgda0ud0" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_health_bar/unit_health_bar_container.gd" id="2_ga8dl"]
 
 [sub_resource type="Theme" id="Theme_gxnmy"]
-default_font = ExtResource("1_o5wcn")
+default_font = ExtResource("1_ni3cs")
 
 [sub_resource type="Theme" id="Theme_o3v2x"]
-default_font_size = 32
+default_font = ExtResource("1_ni3cs")
+default_font_size = 48
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cjclq"]
 

@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://ca1v0oqv61d05"]
+
+[ext_resource type="PackedScene" uid="uid://c10vjt6hjl60s" path="res://combat/campaigns/tutorial/tutorial_level_boss/terrain.tscn" id="1_b7hda"]
+[ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_1yd47"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_7kwnf"]
+[ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_g0ph7"]
+[ext_resource type="Resource" uid="uid://fakbt3ee10h4" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss_unit_data.tres" id="5_krj0r"]
+[ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_krj0r"]
+[ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_8w12g"]
+[ext_resource type="Resource" uid="uid://c2x4hfn1ufy7o" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss_entities.tres" id="8_3pnw7"]
+[ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="8_rxgfr"]
+[ext_resource type="Script" uid="uid://kx442wv8dfsa" path="res://scripts/Unit/unit_experience_manager.gd" id="10_nsgwm"]
+[ext_resource type="Script" uid="uid://dcdbof5kh78wm" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="11_3yflw"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="12_uokay"]
+
+[sub_resource type="Resource" id="Resource_vtrco"]
+script = ExtResource("6_krj0r")
+par_turns = 10
+base_gold = 1000
+base_bonus_exp = 100
+metadata/_custom_type_script = "uid://clhuknqhyfx8e"
+
+[node name="Game" type="Node"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_b7hda")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+texture_filter = 1
+script = ExtResource("2_1yd47")
+combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_7kwnf")]
+top_level = true
+scale = Vector2(1, 1)
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager", "entity_manager")]
+script = ExtResource("4_g0ph7")
+victory_condition = 1
+turns_to_survive = 8
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+combat_audio = NodePath("CombatAudio")
+unit_experience_manager = NodePath("UnitExperienceManager")
+combat_unit_item_manager = NodePath("CombatUnitItemManager")
+entity_manager = NodePath("CombatMapEntityManager")
+ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 17), Vector2i(0, 18), Vector2i(3, 17), Vector2i(0, 16), Vector2i(2, 18), Vector2i(2, 15)])
+unit_data = ExtResource("5_krj0r")
+level_reward = SubResource("Resource_vtrco")
+is_key_campaign_level = true
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("7_8w12g")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("8_rxgfr")
+mapEntityData = ExtResource("8_3pnw7")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("10_nsgwm")
+
+[node name="CombatUnitItemManager" type="Node" parent="Combat"]
+script = ExtResource("11_3yflw")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("12_uokay")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+ui_map_audio = NodePath("UIMapAudio")
+ui_menu_audio = NodePath("UIMenuAudio")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

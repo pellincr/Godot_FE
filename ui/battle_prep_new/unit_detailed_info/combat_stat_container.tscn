@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://d7gj6yaxkgwx"]
+
+[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_8v0ht"]
+[ext_resource type="Script" uid="uid://dm8mymuwofipf" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.gd" id="2_5r25e"]
+
+[sub_resource type="Theme" id="Theme_fq3uv"]
+default_font = ExtResource("1_8v0ht")
+
+[sub_resource type="Theme" id="Theme_fkfqe"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_3jett"]
+default_font_size = 18
+
+[node name="CombatStatContainer" type="VBoxContainer"]
+custom_minimum_size = Vector2(167, 113)
+offset_right = 1.0
+offset_bottom = 104.0
+theme = SubResource("Theme_fq3uv")
+script = ExtResource("2_5r25e")
+
+[node name="CombatStatHeaderLabel" type="Label" parent="."]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_fkfqe")
+text = "Combat Stats"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_3jett")
+
+[node name="CombatStatHeaderContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="DamageHeaderLabel" type="Label" parent="HBoxContainer/CombatStatHeaderContainer"]
+layout_mode = 2
+text = "Damage : "
+
+[node name="HitHeaderLabel" type="Label" parent="HBoxContainer/CombatStatHeaderContainer"]
+layout_mode = 2
+text = "Hit : "
+
+[node name="CriticalHeaderLabel" type="Label" parent="HBoxContainer/CombatStatHeaderContainer"]
+layout_mode = 2
+text = "Critical : "
+
+[node name="AvoidHeaderLabel" type="Label" parent="HBoxContainer/CombatStatHeaderContainer"]
+layout_mode = 2
+text = "Avoid :"
+
+[node name="AttackSpeedHeaderLabel" type="Label" parent="HBoxContainer/CombatStatHeaderContainer"]
+layout_mode = 2
+text = "Atack Speed:"
+
+[node name="CombatStatValueContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="DamageValueContainer" type="HBoxContainer" parent="HBoxContainer/CombatStatValueContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Damage100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/DamageValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Damage10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/DamageValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Damage1ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/DamageValueContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="HitValueContainer" type="HBoxContainer" parent="HBoxContainer/CombatStatValueContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Hit100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/HitValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Hit10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/HitValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Hit1ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/HitValueContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="CriticalValueContainer" type="HBoxContainer" parent="HBoxContainer/CombatStatValueContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Critical100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/CriticalValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Critical10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/CriticalValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Critical1ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/CriticalValueContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="AvoidValueContainer" type="HBoxContainer" parent="HBoxContainer/CombatStatValueContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Avoid100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AvoidValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Avoid10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AvoidValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="Avoid1ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AvoidValueContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="AttackSpeedValueContainer" type="HBoxContainer" parent="HBoxContainer/CombatStatValueContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AttackSpeed100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AttackSpeedValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="AttackSpeed10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AttackSpeedValueContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "0"
+
+[node name="AttackSpeed1ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AttackSpeedValueContainer"]
+layout_mode = 2
+text = "5"

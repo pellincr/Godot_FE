@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=8 format=3 uid="uid://jd8kpn1weik3"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=11 format=3 uid="uid://jd8kpn1weik3"]
 
+[ext_resource type="Script" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_mxkf4"]
 [ext_resource type="Script" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="1_nrob8"]
 [ext_resource type="Script" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_5f7oj"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_sg8o8"]
 [ext_resource type="Texture2D" uid="uid://2bthayd7nvpl" path="res://resources/sprites/tilemaps/combat_map/Fort_tiles.png" id="3_ljp8u"]
+[ext_resource type="Script" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="3_umf4u"]
 [ext_resource type="Resource" uid="uid://d0k5n3y6wepdj" path="res://resources/definitions/terrians/cracked_stone_wall_terrain.tres" id="4_kkpsl"]
 [ext_resource type="Script" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="5_kyg66"]
 
@@ -26,3 +29,15 @@ contents = Array[ExtResource("2_5f7oj")]([])
 [resource]
 script = ExtResource("5_kyg66")
 entities = Array[ExtResource("1_nrob8")]([SubResource("Resource_lkrma")])
+chests = Array[ExtResource("2_sg8o8")]([])
+default_chest_hp = 25
+default_chest_defense = 10
+default_chest_resistance = 10
+doors = Array[ExtResource("3_umf4u")]([])
+default_door_hp = 50
+default_door_defense = 20
+default_door_resistance = 20
+breakable_terrains = Array[ExtResource("1_mxkf4")]([])
+default_breakable_terrain_hp = 25
+default_breakable_terrain_defense = 0
+default_breakable_terrain_resistance = 0

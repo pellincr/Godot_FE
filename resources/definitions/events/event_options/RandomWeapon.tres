@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_p3b7n")
 description = "Recieve 1 random Weapon"
-effect = 2
+effect = 8
+money_change = 0
+target_item_db_key = ""

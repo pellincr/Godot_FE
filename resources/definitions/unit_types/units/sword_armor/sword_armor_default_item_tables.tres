@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://cny1d3dlrjcni"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_x4lf1"]
+[ext_resource type="Resource" uid="uid://ibnjpdcd1fd3" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_treasure_table.tres" id="2_366t3"]
+[ext_resource type="Resource" uid="uid://bkn4sxdt6rbmb" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_weapon_table.tres" id="3_366t3"]
+
+[resource]
+script = ExtResource("1_x4lf1")
+weapon_default = ExtResource("3_366t3")
+treasure_default = ExtResource("2_366t3")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

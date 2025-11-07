@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://pmy8teg4tftq"]
 
-[ext_resource type="Script" path="res://ui/combat/unit_level_up/level_up_attribute_container.gd" id="1_qrcrj"]
+[ext_resource type="Script" uid="uid://cdn75p3x5fdi3" path="res://ui/combat/unit_level_up/level_up_attribute_container.gd" id="1_qrcrj"]
 [ext_resource type="Theme" uid="uid://cm7p7jgsvnp81" path="res://resources/themes/unit_status_subtext.tres" id="1_r2dw3"]
-[ext_resource type="FontFile" uid="uid://blovgibarp2q2" path="res://resources/fonts/CrimsonText-Bold.ttf" id="2_1pa5r"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="3_rqc5q"]
 [ext_resource type="SpriteFrames" uid="uid://6goe3c8ex2ju" path="res://resources/sprites/level_up/level_up.tres" id="4_wevrl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6oo0h"]
@@ -45,8 +45,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8v5t4"]
 _data = {
-"RESET": SubResource("Animation_4mqb4"),
-"level_up": SubResource("Animation_1d0n4")
+&"RESET": SubResource("Animation_4mqb4"),
+&"level_up": SubResource("Animation_1d0n4")
 }
 
 [node name="Attribute Container" type="PanelContainer"]
@@ -69,8 +69,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_r2dw3")
-theme_override_fonts/font = ExtResource("2_1pa5r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("3_rqc5q")
+theme_override_font_sizes/font_size = 32
 text = "Attribute"
 vertical_alignment = 1
 
@@ -90,8 +90,8 @@ size_flags_vertical = 1
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_r2dw3")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_1pa5r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("3_rqc5q")
+theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -109,15 +109,15 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 0
 theme_override_constants/shadow_outline_size = 3
-theme_override_fonts/font = ExtResource("2_1pa5r")
-theme_override_font_sizes/font_size = 21
+theme_override_fonts/font = ExtResource("3_rqc5q")
+theme_override_font_sizes/font_size = 32
 text = "+ 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_8v5t4")
+&"": SubResource("AnimationLibrary_8v5t4")
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

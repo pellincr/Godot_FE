@@ -30,6 +30,7 @@ func set_control_node(c_node):
 #This section will have all the methods for recruiting new units to the party
 var unit_selectors = []
 var randomized_commander_types = []
+
 #Creates the initial amount of buttons needed in the Recruit Units menu
 func instantiate_unit_selectors():
 	if current_state == Constants.DRAFT_STATE.COMMANDER:
@@ -84,9 +85,20 @@ func update_unit_selectors():
 		var selector: unitDraftSelector = unit_selectors[i]
 		selector.randomize_selection()
 		selector.update_information()
+		selector.current_state = unitDraftSelector.SELECTOR_STATE.OVERVIEW
 		var last_child = selector.main_container.get_children()[-1]
 		last_child.queue_free()
 		selector.instantiate_unit_draft_selector()
 
 func get_first_selector():
 	return main_container.get_child(0)
+
+func set_selectors_focus(focus):
+	for child in main_container.get_children():
+		child.focus_mode = focus
+
+func enable_selector_focus():
+	set_selectors_focus(FOCUS_ALL)
+
+func disable_selector_focus():
+	set_selectors_focus(FOCUS_NONE)

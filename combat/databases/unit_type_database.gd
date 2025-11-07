@@ -28,3 +28,6 @@ func get_commander_definition(db_key: String) -> UnitTypeDefinition:
 
 func has(db_key)-> bool:
 	return (unit_types.has(db_key) or commander_types.has(db_key))
+	
+func is_commander(db_key: String) -> bool: 
+	return (commander_types.has(db_key))

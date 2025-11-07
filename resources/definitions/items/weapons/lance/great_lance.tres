@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://ce7orlfww341f"]
+
+[ext_resource type="Texture2D" uid="uid://cgga0tfks81xo" path="res://resources/sprites/items/weapons/lance/great_lance.png" id="1_1f3hi"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_lka0r"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ir88j"]
+
+[resource]
+script = ExtResource("3_ir88j")
+weapon_type = 3
+physical_weapon_triangle_type = 3
+damage = 16
+hit = 75
+weight = 16
+name = "Great Lance"
+db_key = "great_lance"
+equippable = true
+description = "Strong, but difficult to wield."
+rarity = ExtResource("2_lka0r")
+uses = 20
+max_uses = 20
+worth = 2200
+icon = ExtResource("1_1f3hi")

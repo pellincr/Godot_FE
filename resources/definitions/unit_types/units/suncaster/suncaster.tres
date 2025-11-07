@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cab8epii6vr32"]
+
+[ext_resource type="Resource" uid="uid://cqvybllucjxd4" path="res://resources/definitions/unit_types/units/suncaster/suncaster_base_combat_stats.tres" id="1_r6hf8"]
+[ext_resource type="Resource" uid="uid://x6588rjimjxt" path="res://resources/definitions/unit_types/units/suncaster/suncaster_default_item_tables.tres" id="2_l1qsa"]
+[ext_resource type="Resource" uid="uid://c7jg8aor5l1s" path="res://resources/definitions/unit_types/units/suncaster/suncaster_growth_stats.tres" id="2_siiub"]
+[ext_resource type="Texture2D" uid="uid://f6esvvu4m35d" path="res://resources/sprites/units/suncaster.png" id="3_6qpj6"]
+[ext_resource type="Resource" uid="uid://cg8wwn3041fo8" path="res://resources/definitions/unit_types/units/suncaster/suncaster_max_stats.tres" id="4_pcma3"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_62w6y"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_10ea6"]
+
+[resource]
+script = ExtResource("5_62w6y")
+unit_type_name = "Suncaster"
+db_key = "suncaster"
+description = "A swift practitioner of light magic who trades raw power for agility."
+faction = Array[int]([2])
+unit_rarity = ExtResource("6_10ea6")
+usable_weapon_types = Array[int]([8])
+base_stats = ExtResource("1_r6hf8")
+maxuimum_stats = ExtResource("4_pcma3")
+growth_stats = ExtResource("2_siiub")
+icon = ExtResource("3_6qpj6")
+map_sprite = ExtResource("3_6qpj6")
+default_item_resource = ExtResource("2_l1qsa")

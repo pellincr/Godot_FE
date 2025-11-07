@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cei3lp41phd8n"]
+[gd_scene load_steps=12 format=3 uid="uid://cei3lp41phd8n"]
 
 [ext_resource type="PackedScene" uid="uid://73uf76y6romg" path="res://overworld_new/overworld_map.tscn" id="1_538l4"]
-[ext_resource type="Script" uid="uid://j52qryrsnec7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
+[ext_resource type="Script" uid="uid://ddudeqjb8a7a7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
 [ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
 [ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
-[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://resources/definitions/campaigns/tutorial.tres" id="5_uugxs"]
+[ext_resource type="Resource" uid="uid://dupcjl6ugp2d4" path="res://combat/campaigns/tutorial/tutorial_campaign.tres" id="5_6wia4"]
+[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://combat/campaigns/bandit_bash/bandit_bash.tres" id="5_c0epp"]
 [ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
 [ext_resource type="Resource" uid="uid://cghxx7c2042ce" path="res://resources/definitions/campaigns/isle_of_woe.tres" id="6_ls3an"]
 
@@ -27,6 +28,13 @@ Button/styles/normal = SubResource("StyleBoxFlat_etdch")
 [node name="OverworldMap" instance=ExtResource("1_538l4")]
 script = ExtResource("2_okeuv")
 
+[node name="TextureRect" parent="." index="0"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 4096.0
+offset_bottom = 3072.0
+
 [node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
 offset_left = 612.0
@@ -35,15 +43,23 @@ offset_right = 652.0
 offset_bottom = 104.0
 campaign = ExtResource("3_cxrwx")
 
-[node name="Tutorial" parent="." index="2" instance=ExtResource("2_xtlnu")]
+[node name="BanditBash" parent="." index="2" instance=ExtResource("2_xtlnu")]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 401.0
+offset_right = 407.0
+offset_bottom = 441.0
+campaign = ExtResource("5_c0epp")
+
+[node name="Tutorial" parent="." index="3" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
 offset_left = 847.0
 offset_top = 96.0
 offset_right = 887.0
 offset_bottom = 136.0
-campaign = ExtResource("5_uugxs")
+campaign = ExtResource("5_6wia4")
 
-[node name="Isle of Woe" parent="." index="3" instance=ExtResource("2_xtlnu")]
+[node name="Isle of Woe" parent="." index="4" instance=ExtResource("2_xtlnu")]
 layout_mode = 0
 offset_left = 308.0
 offset_top = 258.0
@@ -51,7 +67,7 @@ offset_right = 348.0
 offset_bottom = 298.0
 campaign = ExtResource("6_ls3an")
 
-[node name="ReturnButton" type="Button" parent="." index="4"]
+[node name="ReturnButton" type="Button" parent="." index="5"]
 layout_mode = 0
 offset_left = 1217.0
 offset_top = 1061.0
@@ -59,7 +75,7 @@ offset_right = 1278.0
 offset_bottom = 1092.0
 text = "Return"
 
-[node name="TutorialColosseumButton" type="Button" parent="." index="5"]
+[node name="TutorialColosseumButton" type="Button" parent="." index="6"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -76,13 +92,14 @@ autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Canvas Layer" type="CanvasLayer" parent="." index="6"]
+[node name="Canvas Layer" type="CanvasLayer" parent="." index="7"]
 
 [node name="Panel" type="Panel" parent="Canvas Layer" index="0"]
 offset_right = 40.0
 offset_bottom = 40.0
 
 [connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
+[connection signal="campaign_selected" from="BanditBash" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="campaign_selected" from="Isle of Woe" to="." method="_on_campaign_selector_node_campaign_selected"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

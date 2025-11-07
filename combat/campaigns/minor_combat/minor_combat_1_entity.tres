@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=10 format=3 uid="uid://dwsxb182ot04y"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_a3y55"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_1y5gs"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_iknte"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_bf3f1"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_0o28x"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_swhnw"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_nyro7"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="8_hmspo"]
+
+[sub_resource type="Resource" id="Resource_gt2he"]
+script = ExtResource("7_nyro7")
+position = Vector2i(7, 9)
+loot_table = ExtResource("8_hmspo")
+
+[resource]
+script = ExtResource("6_swhnw")
+searchs = Array[ExtResource("7_nyro7")]([SubResource("Resource_gt2he")])

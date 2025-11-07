@@ -1,23 +1,20 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://cxk8ovtotpucl"]
 
 [ext_resource type="Texture2D" uid="uid://dosv45gdwad0p" path="res://resources/sprites/items/consumables/potion.png" id="1_0q0jx"]
-[ext_resource type="Script" uid="uid://dfuyp0e3iuorh" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_v88bw"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="1_v88bw"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_h6nrx"]
-[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_gmciw"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_gmciw"]
 
 [resource]
 script = ExtResource("1_v88bw")
 use_effect = 1
 power = 15
-status_effect = Array[ExtResource("3_gmciw")]([])
 name = "Potion"
 db_key = "potion"
-equippable = false
 description = "A basic potion, heals the user by 15 HP. "
 item_type = 2
 rarity = ExtResource("2_h6nrx")
 uses = 3
 max_uses = 3
-unbreakable = false
 worth = 250
 icon = ExtResource("1_0q0jx")

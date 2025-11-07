@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://y6uw8w4wpc2h"]
+
+[ext_resource type="Texture2D" uid="uid://dlq3t1c8dem63" path="res://resources/sprites/items/weapons/dagger/kunai.png" id="1_181wn"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_0yagk"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ww8sk"]
+
+[resource]
+script = ExtResource("3_ww8sk")
+weapon_type = 13
+alignment = 4
+required_mastery = 1
+hit = 75
+critical_chance = 25
+weight = 9
+critical_multiplier = 4.0
+attack_range = Array[int]([1, 2])
+specials = Array[int]([3])
+name = "Kunai"
+db_key = "kunai"
+equippable = true
+description = "A percise throwing dagger from a foreign land."
+rarity = ExtResource("2_0yagk")
+uses = 14
+max_uses = 14
+worth = 3100
+icon = ExtResource("1_181wn")

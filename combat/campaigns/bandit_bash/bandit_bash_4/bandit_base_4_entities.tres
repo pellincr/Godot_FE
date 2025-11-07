@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=13 format=3 uid="uid://dixmqmjq665dv"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_857yj"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_3v4e7"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_j6o4l"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_r4k0m"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_d8oge"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_xlw4w"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_7bfm2"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="8_a632d"]
+
+[sub_resource type="Resource" id="Resource_xetji"]
+script = ExtResource("3_j6o4l")
+position = Vector2i(6, 11)
+
+[sub_resource type="Resource" id="Resource_mslbc"]
+script = ExtResource("7_7bfm2")
+position = Vector2i(1, 12)
+loot_table = ExtResource("8_a632d")
+
+[sub_resource type="Resource" id="Resource_aog2f"]
+script = ExtResource("7_7bfm2")
+position = Vector2i(3, 15)
+loot_table = ExtResource("8_a632d")
+
+[sub_resource type="Resource" id="Resource_lr7ej"]
+script = ExtResource("7_7bfm2")
+position = Vector2i(16, 11)
+loot_table = ExtResource("8_a632d")
+
+[resource]
+script = ExtResource("6_xlw4w")
+searchs = Array[ExtResource("7_7bfm2")]([SubResource("Resource_mslbc"), SubResource("Resource_aog2f"), SubResource("Resource_lr7ej")])
+debris = Array[ExtResource("3_j6o4l")]([SubResource("Resource_xetji")])

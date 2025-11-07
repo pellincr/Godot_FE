@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="Event" load_steps=10 format=3 uid="uid://do466lmwhxi3y"]
+
+[ext_resource type="Texture2D" uid="uid://4q3e6raxj7sv" path="res://resources/sprites/events/Runed_Obelisk_background.png" id="1_hfehe"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_odry8"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_u1ovl"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_4alto"]
+
+[sub_resource type="Resource" id="Resource_7b1pi"]
+script = ExtResource("3_4alto")
+magic = 2
+defense = -2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_8jgnf"]
+script = ExtResource("2_u1ovl")
+title = "Touch the Runes"
+description = "Selected unit gains [color=#8EE15F]2[/color] Magic, but loses [color=#AC3232]2[/color] Defense."
+effect = 2
+unit_stat_change = SubResource("Resource_7b1pi")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_fvv7h"]
+script = ExtResource("3_4alto")
+magic = 4
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_861x4"]
+script = ExtResource("2_u1ovl")
+title = "Study the Markings"
+description = "All units gain [color=#8EE15F]4%[/color] Magic growth."
+effect = 3
+unit_growth_change = SubResource("Resource_fvv7h")
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[sub_resource type="Resource" id="Resource_orgb2"]
+script = ExtResource("2_u1ovl")
+title = "Harvest Fragments"
+description = "Gain a [color=#d200b0]Rune Quartz[/color](Grants 15% Magic growth when held)."
+effect = 8
+metadata/_custom_type_script = "uid://dq6q58q1nixv"
+
+[resource]
+script = ExtResource("1_odry8")
+name = "Runed Obelisk"
+description = "A stone pillar [pulse]hums[/pulse] with strange glyphs."
+background = ExtResource("1_hfehe")
+option1 = SubResource("Resource_8jgnf")
+option2 = SubResource("Resource_861x4")
+option3 = SubResource("Resource_orgb2")
+metadata/_custom_type_script = "uid://cq0qa6sqx3jiq"

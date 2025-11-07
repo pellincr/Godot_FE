@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://dqgb8uc1ysvh7"]
+
+[ext_resource type="Texture2D" uid="uid://bt3qhef4pmrcr" path="res://resources/sprites/events/moonlit_armory_background.png" id="1_8gega"]
+[ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_3buo3"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_2i87y"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_onn5c"]
+[ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="5_7y7i6"]
+[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="6_vuy7x"]
+
+[sub_resource type="Resource" id="Resource_0rwxa"]
+script = ExtResource("3_2i87y")
+damage = 1
+hit = 15
+max_uses = -2
+
+[sub_resource type="Resource" id="Resource_ktxpm"]
+script = ExtResource("2_3buo3")
+title = "Empower"
+description = "Target Weapon recieves [color=#FAFA82]1[/color] Damage,[color=#FAFA82]15[/color] Hit, and loses [color=#AC3232]2[/color] Uses."
+effect = 6
+wpn_stat_change = SubResource("Resource_0rwxa")
+
+[sub_resource type="Resource" id="Resource_cx02q"]
+script = ExtResource("3_onn5c")
+skill = 15
+
+[sub_resource type="Resource" id="Resource_q57dt"]
+script = ExtResource("2_3buo3")
+title = "Study His Craft"
+description = "A selected unit gains [color=#FAFA82]15%[/color] Skill growth."
+effect = 2
+unit_growth_change = SubResource("Resource_cx02q")
+
+[sub_resource type="Resource" id="Resource_3c1p6"]
+script = ExtResource("6_vuy7x")
+
+[sub_resource type="Resource" id="Resource_4oeb3"]
+script = ExtResource("2_3buo3")
+title = "Purchase Oddities"
+description = "Spend [color=#FFA800]1500G[/color] and get a random [color=#689aff]Rare Weapon[/color]."
+effect = 8
+gold_change = -1500
+loot_table = SubResource("Resource_3c1p6")
+
+[resource]
+script = ExtResource("5_7y7i6")
+name = "Moonlit Armory"
+description = "A blacksmith works by moonlight, sparks violently dance in the night sky."
+background = ExtResource("1_8gega")
+option1 = SubResource("Resource_ktxpm")
+option2 = SubResource("Resource_q57dt")
+option3 = SubResource("Resource_4oeb3")

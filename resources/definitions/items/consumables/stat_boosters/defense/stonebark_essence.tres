@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://cs7d3e782xcnv"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_xqogv"]
+[ext_resource type="Texture2D" uid="uid://cqrmi7gkhtuw8" path="res://resources/sprites/items/consumables/stat_boosters/defense/stonebark_essence.png" id="2_xqogv"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_0jmjt"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_sjtm1"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_86utx"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_xqogv")
+defense = 12
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_sjtm1")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Stonebark Essence"
+db_key = "stonebark_essence"
+description = "A distilled extract from ancient stonebark trees, infusing the body with earthen fortitude."
+item_type = 2
+rarity = ExtResource("3_0jmjt")
+worth = 5000
+icon = ExtResource("2_xqogv")

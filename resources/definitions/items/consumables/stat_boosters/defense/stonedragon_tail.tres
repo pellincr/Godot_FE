@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://cxg35djtm8pb0"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_8ruas"]
+[ext_resource type="Texture2D" uid="uid://cfm1l2atrdudc" path="res://resources/sprites/items/consumables/stat_boosters/defense/stonewyvern_tail.png" id="2_irol5"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_vtdrl"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_s3grb"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_ng0kp"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_8ruas")
+defense = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_s3grb")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Stonedragon Tail"
+db_key = "stonedragon_tail"
+description = "A preserved segment of a wyvern’s tail, its petrified scales said to pass on the creature’s unyielding resilience."
+item_type = 2
+rarity = ExtResource("3_vtdrl")
+worth = 8000
+icon = ExtResource("2_irol5")

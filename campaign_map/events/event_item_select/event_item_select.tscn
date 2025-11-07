@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqipn71a5n6sp"]
+
+[ext_resource type="Script" path="res://campaign_map/events/event_item_select/event_item_select.gd" id="1_jmsi6"]
+[ext_resource type="Texture2D" uid="uid://coy6oot65wabn" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden.png" id="1_shv78"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_crcu6"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_smc01"]
+
+[node name="EventItemSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jmsi6")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 350.0
+grow_vertical = 2
+
+[node name="OwnerInfoPanel" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(310, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/OwnerInfoPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer/OwnerInfoPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_crcu6")
+theme_override_font_sizes/font_size = 32
+text = "Owner:"
+
+[node name="OwnerName" type="Label" parent="VBoxContainer/OwnerInfoPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_smc01")
+theme_override_font_sizes/font_size = 32
+text = "UNIT NAME"
+
+[node name="ownerIcon" type="TextureRect" parent="VBoxContainer/OwnerInfoPanel"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_shv78")
+
+[node name="ItemContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ConvoyScrollContainer2" type="ScrollContainer" parent="VBoxContainer/ItemContainer"]
+custom_minimum_size = Vector2(350, 500)
+layout_mode = 2
+follow_focus = true
+
+[node name="MainContainer" type="VBoxContainer" parent="VBoxContainer/ItemContainer/ConvoyScrollContainer2"]
+layout_mode = 2

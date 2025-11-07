@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mj46ut7xwvvu"]
 
-[ext_resource type="Script" path="res://unit drafting/Archetype Draft/army_archetype_draft.gd" id="1_m2t3o"]
+[ext_resource type="Script" uid="uid://cli3a0jpvspnr" path="res://unit drafting/Archetype Draft/army_archetype_draft.gd" id="1_m2t3o"]
 
 [node name="ArmyArchetypeDraft" type="CenterContainer"]
 offset_bottom = 355.0
