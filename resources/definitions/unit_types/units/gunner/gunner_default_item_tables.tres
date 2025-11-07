@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://b31o4reup3o06"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_tpimy"]
-[ext_resource type="Resource" uid="uid://dtcrw7cbf4avd" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_treasure_table.tres" id="2_kgccb"]
-[ext_resource type="Resource" uid="uid://bofe4dp0rtarf" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_weapon_table.tres" id="3_rx0cq"]
+[ext_resource type="Resource" uid="uid://cybvca1la3r4q" path="res://resources/definitions/unit_types/units/gunner/gunner_treasure_table.tres" id="2_hjeyj"]
+[ext_resource type="Resource" uid="uid://tsu84wd3rcwq" path="res://resources/definitions/unit_types/units/gunner/gunner_weapon_table.tres" id="3_ix1xy"]
 
 [resource]
 script = ExtResource("1_tpimy")
-weapon_default = ExtResource("3_rx0cq")
-treasure_default = ExtResource("2_kgccb")
+weapon_default = ExtResource("3_ix1xy")
+treasure_default = ExtResource("2_hjeyj")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

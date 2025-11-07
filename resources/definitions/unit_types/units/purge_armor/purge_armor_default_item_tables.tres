@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://c7j5poc84a2jy"]
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://c7j5poc84a2jy"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_i680n"]
 [ext_resource type="Resource" uid="uid://c78s542p0gho5" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor_weapon_table.tres" id="2_d7hyb"]
+[ext_resource type="Resource" uid="uid://b2gucwntiar28" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor_treasure_table.tres" id="2_g2jot"]
 
 [resource]
 script = ExtResource("1_i680n")
 weapon_default = ExtResource("2_d7hyb")
+treasure_default = ExtResource("2_g2jot")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

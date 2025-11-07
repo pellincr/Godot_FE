@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=3 format=3 uid="uid://ccp64xiedp01c"]
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://ccp64xiedp01c"]
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_e4vdv"]
+[ext_resource type="Resource" uid="uid://ccbet3f3e5mhi" path="res://resources/definitions/unit_types/units/axe_skeleton/axe_skeleton_treasure_table.tres" id="2_1ucbj"]
 [ext_resource type="Resource" uid="uid://c51qwa1sytjmo" path="res://resources/definitions/unit_types/units/axe_skeleton/axe_skeleton_weapon_table.tres" id="2_jx1vh"]
 
 [resource]
 script = ExtResource("1_e4vdv")
 weapon_default = ExtResource("2_jx1vh")
+treasure_default = ExtResource("2_1ucbj")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

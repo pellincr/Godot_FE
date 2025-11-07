@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=25 format=3 uid="uid://bca2nc6jfjkfo"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_rovyr"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="3_qrlnd"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_xsenu"]
+[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="4_2xfk5"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_35fkv"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="5_1rlk7"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="5_pbgjv"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="6_efpgv"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="6_tl3y6"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_86sey"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="7_i1xl1"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="8_0ed8p"]
+[ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="8_kkiyo"]
+[ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="9_flkdc"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="9_tf0pt"]
+[ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="10_udxc1"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="11_j4mcd"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="12_5wwcq"]
+[ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="13_3m8cc"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="15_7c60e"]
+
+[sub_resource type="Resource" id="Resource_aou4c"]
+script = ExtResource("6_tl3y6")
+item_rarity_whitelist = Array[ExtResource("4_2xfk5")]([ExtResource("15_7c60e")])
+item_type_whitelist = Array[int]([0])
+item_blacklist = Array[ExtResource("3_xsenu")]([ExtResource("3_qrlnd"), ExtResource("4_35fkv"), ExtResource("5_pbgjv"), ExtResource("6_efpgv"), ExtResource("7_86sey"), ExtResource("8_kkiyo"), ExtResource("9_flkdc"), ExtResource("10_udxc1"), ExtResource("11_j4mcd"), ExtResource("12_5wwcq"), ExtResource("13_3m8cc")])
+probability = 4.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_24plj"]
+script = ExtResource("6_tl3y6")
+item_rarity_whitelist = Array[ExtResource("4_2xfk5")]([ExtResource("5_1rlk7")])
+item_type_whitelist = Array[int]([0])
+probability = 15.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2k7l8"]
+script = ExtResource("6_tl3y6")
+item_rarity_whitelist = Array[ExtResource("4_2xfk5")]([ExtResource("7_i1xl1")])
+item_type_whitelist = Array[int]([0])
+probability = 10.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_eqd26"]
+script = ExtResource("6_tl3y6")
+item_rarity_whitelist = Array[ExtResource("4_2xfk5")]([ExtResource("8_0ed8p")])
+item_type_whitelist = Array[int]([0])
+probability = 5.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[resource]
+script = ExtResource("9_tf0pt")
+entries = Array[ExtResource("1_rovyr")]([SubResource("Resource_aou4c"), SubResource("Resource_24plj"), SubResource("Resource_2k7l8"), SubResource("Resource_eqd26")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

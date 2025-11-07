@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_51qvl")
 weapon_default = ExtResource("2_xdidc")
+treasure_default = ExtResource("2_xdidc")
 metadata/_custom_type_script = "uid://q1pglvnjnos3"

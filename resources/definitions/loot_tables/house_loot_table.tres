@@ -1,9 +1,99 @@
-[gd_resource type="Resource" script_class="LootTableItem" load_steps=3 format=3 uid="uid://cq1dubh7yqqix"]
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=25 format=3 uid="uid://cq1dubh7yqqix"]
 
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_hgjgp"]
+[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="2_o82ou"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_qp6ci"]
 [ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="2_rhh6i"]
+[ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="3_c30i6"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_s3s11"]
+[ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="4_2xlxw"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="4_ytw7y"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="5_qp6ci"]
+[ext_resource type="Resource" uid="uid://c6843ssmc82cg" path="res://resources/definitions/loot_tables/loot_table_entry/loot_table_entry_common_weapon_no_basic.tres" id="8_2ypwo"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="10_qaok4"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="11_knane"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="12_ofiqb"]
+
+[sub_resource type="Resource" id="Resource_c30i6"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("3_s3s11")])
+item_type_whitelist = Array[int]([2])
+item_blacklist = Array[ExtResource("2_qp6ci")]([ExtResource("3_c30i6"), ExtResource("4_2xlxw")])
+probability = 45.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2ypwo"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("3_s3s11")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 15.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_qaok4"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("5_qp6ci")])
+item_type_whitelist = Array[int]([2])
+probability = 8.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_xb707"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("5_qp6ci")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 5.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_24plj"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("5_qp6ci")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 6.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_nucla"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("11_knane")])
+item_type_whitelist = Array[int]([2])
+item_blacklist = Array[ExtResource("2_qp6ci")]([ExtResource("10_qaok4")])
+probability = 2.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_8qknx"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("11_knane")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 2.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2k7l8"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("11_knane")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 3.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_gss72"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("12_ofiqb")])
+item_type_whitelist = Array[int]([2])
+probability = 1.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_e6nju"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("12_ofiqb")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 0.5
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_eqd26"]
+script = ExtResource("4_ytw7y")
+item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("12_ofiqb")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 0.5
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
 [resource]
 script = ExtResource("2_rhh6i")
-entries = Array[ExtResource("1_hgjgp")]([null])
+entries = Array[ExtResource("1_hgjgp")]([SubResource("Resource_c30i6"), ExtResource("8_2ypwo"), SubResource("Resource_2ypwo"), SubResource("Resource_qaok4"), SubResource("Resource_xb707"), SubResource("Resource_24plj"), SubResource("Resource_nucla"), SubResource("Resource_8qknx"), SubResource("Resource_2k7l8"), SubResource("Resource_gss72"), SubResource("Resource_e6nju"), SubResource("Resource_eqd26")])
 metadata/_custom_type_script = "uid://b61hlua22dboi"
