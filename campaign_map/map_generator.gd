@@ -11,7 +11,7 @@ const MAP_WIDTH := 7#number of columns
 const PATHS := 6#number of paths there can be
 
 
-const BATTLE_ROOM_WEIGHT := 5.0 #0
+const BATTLE_ROOM_WEIGHT := 0#5.0 #0
 const EVENT_ROOM_WEIGHT := 4.0 #2.5
 const TREASURE_ROOM_WEIGHT := 1.0 #1
 const ELITE_ROOM_WEIGHT := 0.0 #1.5
@@ -173,7 +173,7 @@ func _setup_room_types() -> void:
 					_set_room_randomly(next_room)
 	for room : CampaignRoom in map_data[0]:
 		if room.next_rooms.size() > 0:
-			room.type = CampaignRoom.TYPE.TREASURE
+			room.type = CampaignRoom.TYPE.BATTLE
 
 func _set_room_randomly(room_to_set : CampaignRoom) -> void:
 	#OMITTING NO CAMPFIRES BEFORE FLOOR 4 RULE

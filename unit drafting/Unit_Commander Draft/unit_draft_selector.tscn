@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ca4gvrhyei6ye"]
+[gd_scene load_steps=7 format=3 uid="uid://ca4gvrhyei6ye"]
 
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_gwjt6"]
 [ext_resource type="Script" uid="uid://desy15e65ifb0" path="res://unit drafting/Unit_Commander Draft/unit_draft_selector.gd" id="1_i638l"]
 [ext_resource type="Texture2D" uid="uid://c2jtwksybv815" path="res://resources/sprites/units/mercenary_map.tres" id="2_70vdx"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="3_o6vh5"]
 
 [sub_resource type="Theme" id="Theme_fsx0a"]
 default_font_size = 32
@@ -54,6 +55,8 @@ theme_override_constants/separation = 155
 [node name="ClassLabel" type="Label" parent="Panel/MarginContainer/MainVContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_3w5h5")
+theme_override_fonts/font = ExtResource("3_o6vh5")
+theme_override_font_sizes/font_size = 18
 text = "Class"
 horizontal_alignment = 1
 vertical_alignment = 1

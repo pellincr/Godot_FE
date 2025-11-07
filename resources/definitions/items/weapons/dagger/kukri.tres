@@ -2,39 +2,25 @@
 
 [ext_resource type="Texture2D" uid="uid://bv4gvnf1pbavh" path="res://resources/sprites/items/weapons/dagger/kukri.png" id="1_tabyv"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_c74ut"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_slk0p"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_slk0p"]
 
 [resource]
 script = ExtResource("2_slk0p")
 weapon_type = 13
 alignment = 4
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2])
 damage = 2
 hit = 95
 critical_chance = 20
 weight = 9
 critical_multiplier = 4.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
+attack_range = Array[int]([1, 2])
 specials = Array[int]([3])
-augmented = false
 name = "Kukri"
 db_key = "kukri"
 equippable = true
 description = "This curved, crimson-edged kukri is perfectly balanced for both close combat and deadly throws. Its strikes slip past armor and shields alike, carving through defenses as though they were never there. Negates Defense"
-item_type = 0
 rarity = ExtResource("2_c74ut")
 uses = 12
 max_uses = 12
-unbreakable = false
 worth = 3500
 icon = ExtResource("1_tabyv")

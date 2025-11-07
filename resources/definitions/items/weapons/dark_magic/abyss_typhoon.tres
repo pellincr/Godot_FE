@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://q5auo22bnw4a"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_c8fli"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_c8fli"]
 [ext_resource type="Texture2D" uid="uid://cax026tjx8qnu" path="res://resources/sprites/items/weapons/dark/abyss_typhoon.png" id="1_cxc8y"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="2_661of"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_sng6e"]
@@ -16,12 +16,12 @@ alignment = 2
 item_damage_type = 1
 item_scaling_type = 2
 required_mastery = 5
-attack_range = Array[int]([1, 2])
 damage = 8
 hit = 85
 critical_chance = 25
 weight = 14
 attacks_per_combat_turn = 3
+attack_range = Array[int]([1, 2])
 bonus_stat = SubResource("Resource_m4ce7")
 name = "Abyss Typhoon"
 db_key = "abyss_typhoon"

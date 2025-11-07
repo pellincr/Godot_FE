@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_aoe7f"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_rxd1g"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="9_7bodt"]
-[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="10_ys14t"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_ys14t"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="11_4f8tt"]
 [ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="12_t07uk"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="13_ovmd8"]

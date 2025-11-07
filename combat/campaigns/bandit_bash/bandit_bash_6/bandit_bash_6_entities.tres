@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=32 format=3 uid="uid://bvgp0bom0l1ny"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=31 format=3 uid="uid://bvgp0bom0l1ny"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_beklm"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_rok6j"]
@@ -8,8 +8,7 @@
 [ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_lbyjp"]
 [ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="7_u11e1"]
 [ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="8_nb7fq"]
-[ext_resource type="Resource" uid="uid://c7cdaq7ty5bfl" path="res://resources/definitions/loot_tables/weapon_rack_loot_table.tres" id="9_7neq0"]
-[ext_resource type="Resource" uid="uid://buetf0jofki1r" path="res://resources/definitions/loot_tables/bookshelf_loot_table.tres" id="10_fahg4"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="9_h4yc4"]
 
 [sub_resource type="Resource" id="Resource_x8flg"]
 script = ExtResource("2_rok6j")
@@ -101,19 +100,19 @@ positions = Array[Vector2i]([Vector2i(3, 5)])
 script = ExtResource("8_nb7fq")
 type = 3
 position = Vector2i(14, 13)
-loot_table = ExtResource("9_7neq0")
+loot_table = ExtResource("9_h4yc4")
 
 [sub_resource type="Resource" id="Resource_fm2mx"]
 script = ExtResource("8_nb7fq")
 type = 3
 position = Vector2i(11, 7)
-loot_table = ExtResource("9_7neq0")
+loot_table = ExtResource("9_h4yc4")
 
 [sub_resource type="Resource" id="Resource_txidp"]
 script = ExtResource("8_nb7fq")
 type = 2
 position = Vector2i(9, 7)
-loot_table = ExtResource("10_fahg4")
+loot_table = ExtResource("9_h4yc4")
 
 [resource]
 script = ExtResource("7_u11e1")

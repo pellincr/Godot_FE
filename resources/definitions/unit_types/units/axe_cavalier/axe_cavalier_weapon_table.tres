@@ -1,0 +1,86 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=25 format=3 uid="uid://dd0lj4ypnpn2r"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_m1lrn"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="2_rhmyq"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="3_kb5dg"]
+[ext_resource type="Resource" uid="uid://dp624fv7qre82" path="res://resources/definitions/items/weapons/axes/slim_axe.tres" id="4_t2urh"]
+[ext_resource type="Resource" uid="uid://xotuxr86t70g" path="res://resources/definitions/items/weapons/axes/killer_axe.tres" id="5_myqlw"]
+[ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="6_j4743"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="7_4j8e1"]
+[ext_resource type="Resource" uid="uid://dudqmvg5uumjl" path="res://resources/definitions/items/weapons/axes/sword_reaver.tres" id="8_2nhi1"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="9_bhqxx"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="10_lgdwd"]
+[ext_resource type="Resource" uid="uid://da02m5ekvhj2r" path="res://resources/definitions/items/weapons/axes/tomahawk.tres" id="11_8bbww"]
+[ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="12_s403b"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="13_rfago"]
+
+[sub_resource type="Resource" id="Resource_noi40"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("2_rhmyq")
+probability = 52.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_far6w"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("3_kb5dg")
+probability = 14.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_q3kwp"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("4_t2urh")
+probability = 3.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_y1b7n"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("5_myqlw")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_6g0vn"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("6_j4743")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_26sfk"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("7_4j8e1")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_0238p"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("8_2nhi1")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_o8gxp"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("9_bhqxx")
+probability = 7.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3tovj"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("10_lgdwd")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_xkyw2"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("11_8bbww")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_aw23h"]
+script = ExtResource("1_m1lrn")
+item = ExtResource("12_s403b")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("13_rfago")
+entries = Array[ExtResource("1_m1lrn")]([SubResource("Resource_noi40"), SubResource("Resource_far6w"), SubResource("Resource_q3kwp"), SubResource("Resource_y1b7n"), SubResource("Resource_6g0vn"), SubResource("Resource_26sfk"), SubResource("Resource_0238p"), SubResource("Resource_o8gxp"), SubResource("Resource_3tovj"), SubResource("Resource_xkyw2"), SubResource("Resource_aw23h")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

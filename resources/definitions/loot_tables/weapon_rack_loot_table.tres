@@ -1,30 +1,48 @@
-[gd_resource type="Resource" script_class="LootTable" load_steps=7 format=3 uid="uid://c7cdaq7ty5bfl"]
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=14 format=3 uid="uid://dojp2n26ght42"]
 
-[ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="1_iipdb"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="2_hjf7b"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_03b8s"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_o7kmu"]
+[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="5_688dg"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="7_7784f"]
+[ext_resource type="Resource" uid="uid://c6843ssmc82cg" path="res://resources/definitions/loot_tables/loot_table_entry/loot_table_entry_common_weapon_no_basic.tres" id="8_c0fce"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="9_rfyea"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="11_6ncfb"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="12_navbx"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="13_ob65y"]
 
-[sub_resource type="Resource" id="Resource_6rm3a"]
-script = ExtResource("1_iipdb")
-probability = 4.5
-item_db_key = "rubbish"
+[sub_resource type="Resource" id="Resource_xb707"]
+script = ExtResource("7_7784f")
+item_rarity_whitelist = Array[ExtResource("5_688dg")]([ExtResource("9_rfyea")])
+item_type_whitelist = Array[int]([3])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 5, 13, 12])
+probability = 5.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
-[sub_resource type="Resource" id="Resource_j76ay"]
-script = ExtResource("1_iipdb")
+[sub_resource type="Resource" id="Resource_24plj"]
+script = ExtResource("7_7784f")
+item_rarity_whitelist = Array[ExtResource("5_688dg")]([ExtResource("9_rfyea")])
+item_type_whitelist = Array[int]([0])
+weapon_type_whitelist = Array[int]([2, 1, 3, 4, 5, 12, 13])
+probability = 6.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2k7l8"]
+script = ExtResource("7_7784f")
+item_rarity_whitelist = Array[ExtResource("5_688dg")]([ExtResource("11_6ncfb")])
+item_type_whitelist = Array[int]([0])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 5, 12, 13])
 probability = 3.0
-item_type_whitelist = Array[int]([0])
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
-[sub_resource type="Resource" id="Resource_t21cu"]
-script = ExtResource("1_iipdb")
-probability = 1.5
+[sub_resource type="Resource" id="Resource_eqd26"]
+script = ExtResource("7_7784f")
+item_rarity_whitelist = Array[ExtResource("5_688dg")]([ExtResource("12_navbx")])
 item_type_whitelist = Array[int]([0])
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 12, 13])
-
-[sub_resource type="Resource" id="Resource_ecy2r"]
-script = ExtResource("1_iipdb")
-probability = 0.1
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
+weapon_type_whitelist = Array[int]([1, 2, 3, 4, 5, 0])
+probability = 0.5
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
 [resource]
-script = ExtResource("2_hjf7b")
-entries = Array[ExtResource("1_iipdb")]([SubResource("Resource_6rm3a"), SubResource("Resource_j76ay"), SubResource("Resource_t21cu"), SubResource("Resource_ecy2r")])
+script = ExtResource("13_ob65y")
+entries = Array[ExtResource("1_03b8s")]([ExtResource("8_c0fce"), SubResource("Resource_xb707"), SubResource("Resource_24plj"), SubResource("Resource_2k7l8"), SubResource("Resource_eqd26")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

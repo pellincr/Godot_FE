@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=15 format=3 uid="uid://dlkbliotp6g2v"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_wyene"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="2_ulcj6"]
+[ext_resource type="Resource" uid="uid://brutmp44rppty" path="res://resources/definitions/items/weapons/fists/steel_fist.tres" id="3_rbjby"]
+[ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="4_ttdp0"]
+[ext_resource type="Resource" uid="uid://cdmmwqsud7wcp" path="res://resources/definitions/items/weapons/fists/killer_fist.tres" id="5_081xg"]
+[ext_resource type="Resource" uid="uid://bxj522h8rq5l6" path="res://resources/definitions/items/weapons/fists/devil_knuckles.tres" id="6_7n0ll"]
+[ext_resource type="Resource" uid="uid://dmy68ob27p5l5" path="res://resources/definitions/items/weapons/fists/silver_fist.tres" id="7_vb8wo"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="8_xot34"]
+
+[sub_resource type="Resource" id="Resource_qir3a"]
+script = ExtResource("1_wyene")
+item = ExtResource("2_ulcj6")
+probability = 55.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_rpqx7"]
+script = ExtResource("1_wyene")
+item = ExtResource("3_rbjby")
+probability = 27.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_8vawc"]
+script = ExtResource("1_wyene")
+item = ExtResource("4_ttdp0")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3b6ff"]
+script = ExtResource("1_wyene")
+item = ExtResource("5_081xg")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_jacik"]
+script = ExtResource("1_wyene")
+item = ExtResource("6_7n0ll")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_85lm1"]
+script = ExtResource("1_wyene")
+item = ExtResource("7_vb8wo")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("8_xot34")
+entries = Array[ExtResource("1_wyene")]([SubResource("Resource_qir3a"), SubResource("Resource_rpqx7"), SubResource("Resource_8vawc"), SubResource("Resource_3b6ff"), SubResource("Resource_jacik"), SubResource("Resource_85lm1")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

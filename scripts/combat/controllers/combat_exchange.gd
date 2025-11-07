@@ -61,7 +61,16 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 			if attacker.unit.inventory.get_equipped_weapon():
 				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
 					await heal_unit(attacker, damage_dealt)
+			#Durability Code
 			attacker.unit.inventory.use_item(attacker.get_equipped())
+			#check if the attacker still has something equipped here
+			if attacker.unit.inventory.equipped == false:
+				#TODO create pop-up for broken weapon here
+				attacker.unit.equip_next_available_weapon()
+			elif attacker.unit.inventory.get_equipped_weapon().expended and attacker.unit.inventory.equipped:
+				#TODO create pop-up for the expended weapon here
+				attacker.unit.inventory.send_back()
+				attacker.unit.equip_next_available_weapon()
 		else : ## Attack has missed
 			await hit_missed(target)
 

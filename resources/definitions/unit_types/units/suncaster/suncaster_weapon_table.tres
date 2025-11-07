@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=11 format=3 uid="uid://dkbfjnlsxamht"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_a0yul"]
+[ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="2_7njlh"]
+[ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="3_u5r68"]
+[ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/ray.tres" id="4_hh7g8"]
+[ext_resource type="Resource" uid="uid://dv135ep5smbds" path="res://resources/definitions/items/weapons/light_magic/lumen.tres" id="5_raujy"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="6_mo5bh"]
+
+[sub_resource type="Resource" id="Resource_nejiy"]
+script = ExtResource("1_a0yul")
+item = ExtResource("2_7njlh")
+probability = 68.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_n343v"]
+script = ExtResource("1_a0yul")
+item = ExtResource("3_u5r68")
+probability = 14.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_fi7as"]
+script = ExtResource("1_a0yul")
+item = ExtResource("4_hh7g8")
+probability = 6.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_wl7pa"]
+script = ExtResource("1_a0yul")
+item = ExtResource("5_raujy")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("6_mo5bh")
+entries = Array[ExtResource("1_a0yul")]([SubResource("Resource_nejiy"), SubResource("Resource_n343v"), SubResource("Resource_fi7as"), SubResource("Resource_wl7pa")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

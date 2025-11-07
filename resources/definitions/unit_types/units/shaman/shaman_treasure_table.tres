@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=14 format=3 uid="uid://dw7frhvnil0pw"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_llng4"]
+[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/gold_coins_small.tres" id="2_idjev"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="3_qneoj"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="4_k8db5"]
+[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="5_igvg1"]
+[ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="6_ualyu"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="7_obt2c"]
+
+[sub_resource type="Resource" id="Resource_wyudb"]
+script = ExtResource("1_llng4")
+probability = 50.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_vyf6g"]
+script = ExtResource("1_llng4")
+item = ExtResource("2_idjev")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_bjgxw"]
+script = ExtResource("1_llng4")
+item = ExtResource("3_qneoj")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_glj7u"]
+script = ExtResource("1_llng4")
+item = ExtResource("4_k8db5")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_lc3tj"]
+script = ExtResource("1_llng4")
+item = ExtResource("5_igvg1")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_hdorc"]
+script = ExtResource("1_llng4")
+item = ExtResource("6_ualyu")
+probability = 2.1
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("7_obt2c")
+entries = Array[ExtResource("1_llng4")]([SubResource("Resource_wyudb"), SubResource("Resource_vyf6g"), SubResource("Resource_bjgxw"), SubResource("Resource_glj7u"), SubResource("Resource_lc3tj"), SubResource("Resource_hdorc")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

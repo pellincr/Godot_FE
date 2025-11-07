@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bvuduv0mq2kqd"]
+
+[ext_resource type="Texture2D" uid="uid://bmrk6yufw4xgg" path="res://resources/sprites/items/weapons/dagger/magic_dagger.png" id="1_0k5er"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_1yv4t"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_ewpie"]
+
+[resource]
+script = ExtResource("2_1yv4t")
+weapon_type = 13
+alignment = 2
+magic_weapon_triangle_type = 1
+item_damage_type = 1
+damage = 5
+hit = 80
+critical_chance = 10
+critical_multiplier = 4.0
+attack_range = Array[int]([1, 2])
+name = "Spirit Dagger"
+db_key = "spirit_dagger"
+equippable = true
+rarity = ExtResource("2_ewpie")
+uses = 14
+max_uses = 14
+worth = 1250
+icon = ExtResource("1_0k5er")

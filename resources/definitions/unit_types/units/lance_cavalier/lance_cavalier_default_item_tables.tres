@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://bliu34pnryt4a"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_2rbhq"]
+[ext_resource type="Resource" uid="uid://wrh3j8m3tl5" path="res://resources/definitions/unit_types/units/lance_cavalier/lance_cavalier_weapon_table.tres" id="2_862n6"]
+[ext_resource type="Resource" uid="uid://w58sv0b6ecsb" path="res://resources/definitions/unit_types/units/lance_cavalier/lance_cavalier_treasure_table.tres" id="2_osekp"]
+
+[resource]
+script = ExtResource("1_2rbhq")
+weapon_default = ExtResource("2_862n6")
+treasure_default = ExtResource("2_osekp")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

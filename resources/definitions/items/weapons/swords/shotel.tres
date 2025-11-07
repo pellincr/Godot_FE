@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bvnotca20t7r7"]
+
+[ext_resource type="Texture2D" uid="uid://t416jfkprru1" path="res://resources/sprites/items/weapons/swords/shotel.png" id="1_bujt2"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_nxc4p"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_65g2m"]
+
+[resource]
+script = ExtResource("3_65g2m")
+weapon_type = 1
+physical_weapon_triangle_type = 1
+damage = 7
+hit = 80
+critical_chance = 20
+weapon_effectiveness_weapon_type = Array[int]([12])
+name = "Shotel"
+db_key = "shotel"
+equippable = true
+description = "A sword crafted to attack around shields."
+rarity = ExtResource("2_nxc4p")
+uses = 14
+max_uses = 14
+worth = 2000
+icon = ExtResource("1_bujt2")

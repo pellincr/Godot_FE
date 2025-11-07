@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_mbuv8"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_os6yd"]
-[ext_resource type="Resource" uid="uid://cpo8i3uv32yd5" path="res://resources/definitions/loot_tables/chest_loot_table_high_tier.tres" id="3_vu2i1"]
+[ext_resource type="Resource" uid="uid://bfagy3hog22to" path="res://resources/definitions/loot_tables/chest_loot_table.tres" id="3_8yslq"]
 [ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="4_g32s5"]
 [ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="5_oa2db"]
 [ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_nis3y"]
@@ -12,17 +12,17 @@
 [sub_resource type="Resource" id="Resource_ebd1l"]
 script = ExtResource("2_os6yd")
 position = Vector2i(1, 3)
-loot_table = ExtResource("3_vu2i1")
+loot_table = ExtResource("3_8yslq")
 
 [sub_resource type="Resource" id="Resource_ypoh2"]
 script = ExtResource("2_os6yd")
 position = Vector2i(2, 3)
-loot_table = ExtResource("3_vu2i1")
+loot_table = ExtResource("3_8yslq")
 
 [sub_resource type="Resource" id="Resource_funu7"]
 script = ExtResource("2_os6yd")
 position = Vector2i(19, 4)
-loot_table = ExtResource("3_vu2i1")
+loot_table = ExtResource("3_8yslq")
 
 [sub_resource type="Resource" id="Resource_w8o15"]
 script = ExtResource("4_g32s5")

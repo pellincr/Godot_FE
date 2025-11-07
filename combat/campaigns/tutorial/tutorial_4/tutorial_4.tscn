@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbai5r4nou80q"]
+[gd_scene load_steps=15 format=3 uid="uid://cbai5r4nou80q"]
 
 [ext_resource type="PackedScene" uid="uid://bouxl8xwnlqn4" path="res://combat/campaigns/tutorial/tutorial_4/terrain.tscn" id="2_r2lpq"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="4_l8en5"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="4_vx4dk"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="5_6px8n"]
 [ext_resource type="Resource" uid="uid://cbn22t2pt4pwt" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4_reinforcements.tres" id="5_8jhf6"]
-[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="6_21380"]
-[ext_resource type="Resource" uid="uid://bba77rcw2g3tq" path="res://resources/definitions/enemy_groups/tutorial/tutorial_level_4.tres" id="6_byk7j"]
+[ext_resource type="Resource" uid="uid://buexxhl072r87" path="res://combat/campaigns/tutorial/tutorial_4/tutorial_4_unit_data.tres" id="6_27hj2"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="7_27hj2"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_j1pk3"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="7_t70ys"]
@@ -46,7 +45,7 @@ unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 mapReinforcementData = ExtResource("5_8jhf6")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(4, 6), Vector2i(6, 6), Vector2i(2, 7), Vector2i(3, 8), Vector2i(5, 9), Vector2i(5, 7)])
-enemy_start_group_options = Array[ExtResource("6_21380")]([ExtResource("6_byk7j")])
+unit_data = ExtResource("6_27hj2")
 level_reward = SubResource("Resource_21380")
 is_key_campaign_level = true
 

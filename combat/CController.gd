@@ -188,6 +188,8 @@ func _process(delta):
 			if _arrived == false:
 				process_unit_move(delta)
 		elif (game_state == CombatMapConstants.COMBAT_MAP_STATE.VICTORY):
+			# Do an end of the map clean up, regenerate item uses
+			# Get all friendly items, and regenerate those where applicable
 			pass
 
 #draw the area

@@ -1,13 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://qqbr2yx8qmg4"]
+[gd_scene load_steps=14 format=3 uid="uid://qqbr2yx8qmg4"]
 
 [ext_resource type="PackedScene" uid="uid://bkjy3syca53ys" path="res://combat/campaigns/minor_combat/minor_combat_1_terrain.tscn" id="1_y26jk"]
 [ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_hsupr"]
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_lq1l3"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_kn684"]
-[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="5_lq1l3"]
-[ext_resource type="Resource" uid="uid://bnw87y2w0g2if" path="res://combat/campaigns/minor_combat/minor_combat_1_a_units.tres" id="6_kn684"]
+[ext_resource type="Resource" uid="uid://cbm36828s6wwj" path="res://combat/campaigns/minor_combat/minor_combat_map_1_map_unit_data.tres" id="5_y26jk"]
 [ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="6_xukwb"]
-[ext_resource type="Resource" uid="uid://bhvr8431auood" path="res://combat/campaigns/minor_combat/minor_combat_1_b_units.tres" id="7_3qjty"]
 [ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="7_h6xn5"]
 [ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="8_03bsb"]
 [ext_resource type="Resource" uid="uid://dwsxb182ot04y" path="res://combat/campaigns/minor_combat/minor_combat_1_entity.tres" id="9_sox57"]
@@ -44,7 +42,7 @@ combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 2), Vector2i(3, 2), Vector2i(2, 3), Vector2i(2, 1)])
-enemy_start_group_options = Array[ExtResource("5_lq1l3")]([ExtResource("6_kn684"), ExtResource("7_3qjty")])
+unit_data = ExtResource("5_y26jk")
 level_reward = SubResource("Resource_l4ya0")
 
 [node name="CombatExchange" type="Node" parent="Combat"]

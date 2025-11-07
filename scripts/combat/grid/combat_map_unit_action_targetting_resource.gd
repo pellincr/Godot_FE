@@ -35,7 +35,7 @@ func create_target_methods_weapon(unit:Unit) -> Dictionary:
 	var attack_range_map : Dictionary = {}
 	for item in unit.inventory.get_items():
 			if item is WeaponDefinition:
-				if unit.can_equip(item):
+				if unit.can_equip(item) and item.expended == false:
 					for attack_range in item.attack_range:
 						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 							if attack_range_map.has(attack_range):

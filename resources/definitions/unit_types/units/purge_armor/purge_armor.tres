@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://dihrjvosfbttx"]
+
+[ext_resource type="Resource" uid="uid://8lx1v8l35t78" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor_base_combat_stats.tres" id="1_iql2g"]
+[ext_resource type="Resource" uid="uid://dflasjbgfibge" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor_growth_stats.tres" id="2_m0hn0"]
+[ext_resource type="Texture2D" uid="uid://bvyj0vjq583qg" path="res://resources/sprites/units/purge_armor_old.png" id="3_c1kh8"]
+[ext_resource type="Resource" uid="uid://b37jbvynk7501" path="res://resources/definitions/unit_types/units/purge_armor/purge_armor_max_stats.tres" id="4_h5eod"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_o2wex"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_7mume"]
+
+[resource]
+script = ExtResource("5_o2wex")
+unit_type_name = "Purge Armor"
+db_key = "purge_armor"
+description = "Armored exorcists trained to burn out lesser horrors from the front line."
+faction = Array[int]([2])
+traits = Array[int]([0])
+unit_rarity = ExtResource("6_7mume")
+usable_weapon_types = Array[int]([8])
+base_stats = ExtResource("1_iql2g")
+maxuimum_stats = ExtResource("4_h5eod")
+growth_stats = ExtResource("2_m0hn0")
+icon = ExtResource("3_c1kh8")
+map_sprite = ExtResource("3_c1kh8")

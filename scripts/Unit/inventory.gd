@@ -152,11 +152,13 @@ func use_at_index(index : int):
 	if index < capacity:
 		var target_item :ItemDefinition = items[index]
 		target_item.expend_use()
+		# What is the state of the item, is it broken and does it have to be removed?
 		if target_item.uses <= 0:
-			items.remove_at(index)
-			#items.push_back(null)
-				
-
+			if not target_item.expended and not target_item.unbreakable:
+				items.remove_at(index)
+				if index == 0:
+					equipped = false
+				#emit something here indicating a break so UI can display it
 
 func set_item_at_index(index: int, item: ItemDefinition):
 	if item != null:
@@ -292,7 +294,10 @@ func arrange(item: ItemDefinition):
 	var index :int = get_item_index(item)
 	if index > 1:
 		swap_at_indexes(index, 1)
-	
+
+#Move item in front spot to the back
+func send_back():
+	swap_at_indexes(0, items.size()-1)
 #
 # Returns all weapons in inventory that contain input attack ranges
 #

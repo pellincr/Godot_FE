@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="Event" load_steps=17 format=3 uid="uid://5sst4s666qpw"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://5sst4s666qpw"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
 [ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_cc62d"]
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
-[ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="4_ptpeo"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]
 
@@ -19,29 +18,8 @@ description = "All units gain [color=#FAFA82]2[/color] Luck."
 effect = 3
 unit_stat_change = SubResource("Resource_e71i3")
 
-[sub_resource type="Resource" id="Resource_j76ay"]
-script = ExtResource("4_ptpeo")
-probability = 3.0
-item_rarity_whitelist = Array[String](["Uncommon", "Common"])
-item_type_whitelist = Array[int]([0])
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
-
-[sub_resource type="Resource" id="Resource_t21cu"]
-script = ExtResource("4_ptpeo")
-probability = 1.5
-item_rarity_whitelist = Array[String](["Rare"])
-item_type_whitelist = Array[int]([0])
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 12, 13])
-
-[sub_resource type="Resource" id="Resource_ecy2r"]
-script = ExtResource("4_ptpeo")
-probability = 0.1
-item_rarity_whitelist = Array[String](["Mythical"])
-weapon_type_whitelist = Array[int]([1, 2, 3, 4, 13, 12])
-
 [sub_resource type="Resource" id="Resource_jlbjb"]
 script = ExtResource("5_k8up4")
-entries = Array[ExtResource("4_ptpeo")]([SubResource("Resource_j76ay"), SubResource("Resource_t21cu"), SubResource("Resource_ecy2r")])
 
 [sub_resource type="Resource" id="Resource_p7vwh"]
 script = ExtResource("5_oppgp")

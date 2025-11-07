@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CombatMapUnitData" load_steps=3 format=3 uid="uid://b265064lxyp4g"]
+
+[ext_resource type="Script" uid="uid://cqbyiltqk1opx" path="res://scripts/combat/combat_map_unit_data.gd" id="1_r48w3"]
+[ext_resource type="Resource" uid="uid://rqchc33dh2es" path="res://combat/campaigns/bandit_bash/bandit_bash_8/bandit_bash_8_enemy_units.tres" id="2_u6hwv"]
+
+[resource]
+script = ExtResource("1_r48w3")
+starting_enemy_group = ExtResource("2_u6hwv")
+metadata/_custom_type_script = "uid://cqbyiltqk1opx"

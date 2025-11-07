@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CombatMapUnitData" load_steps=3 format=3 uid="uid://fakbt3ee10h4"]
+
+[ext_resource type="Script" uid="uid://cqbyiltqk1opx" path="res://scripts/combat/combat_map_unit_data.gd" id="1_drds1"]
+[ext_resource type="Resource" uid="uid://di3tvbcstp20l" path="res://combat/campaigns/tutorial/tutorial_level_boss/tutorial_boss_starting_units.tres" id="2_nbfks"]
+
+[resource]
+script = ExtResource("1_drds1")
+starting_enemy_group = ExtResource("2_nbfks")
+metadata/_custom_type_script = "uid://cqbyiltqk1opx"

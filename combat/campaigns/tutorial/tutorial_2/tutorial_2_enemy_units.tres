@@ -22,19 +22,19 @@ name = "Othric"
 map_position = Vector2i(12, 1)
 level = 6
 level_bonus = -2
-unit_type_key = "lance_armor"
-inventory = Array[ExtResource("2_pcatr")]([ExtResource("3_x2j2e"), ExtResource("4_oc44s")])
 ai_type = 2
 is_boss = true
+unit_type_key = "lance_armor"
+inventory = Array[ExtResource("2_pcatr")]([ExtResource("3_x2j2e"), ExtResource("4_oc44s")])
 
 [sub_resource type="Resource" id="Resource_5wfcj"]
 script = ExtResource("1_uvdst")
 name = "Bandit"
 map_position = Vector2i(15, 8)
 level = 2
+ai_type = 1
 unit_type_key = "thief"
 inventory = Array[ExtResource("2_pcatr")]([ExtResource("5_gs820"), ExtResource("6_63i8l")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_p02fv"]
@@ -42,9 +42,9 @@ script = ExtResource("1_uvdst")
 name = "Bandit"
 map_position = Vector2i(1, 7)
 level = 2
+ai_type = 1
 unit_type_key = "mage"
 inventory = Array[ExtResource("2_pcatr")]([ExtResource("7_y5p0i"), ExtResource("8_0b8eg")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_pawb5"]
@@ -52,9 +52,9 @@ script = ExtResource("1_uvdst")
 name = "Bandit"
 map_position = Vector2i(16, 10)
 level = 2
+ai_type = 1
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_pcatr")]([ExtResource("9_owmay"), ExtResource("8_0b8eg")])
-ai_type = 1
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_1san0"]
@@ -78,9 +78,9 @@ script = ExtResource("1_uvdst")
 name = "Bandit"
 map_position = Vector2i(12, 2)
 level = 2
+ai_type = 1
 unit_type_key = "archer"
 inventory = Array[ExtResource("2_pcatr")]([ExtResource("12_x2xus")])
-ai_type = 1
 
 [sub_resource type="Resource" id="Resource_5mdvp"]
 script = ExtResource("1_uvdst")

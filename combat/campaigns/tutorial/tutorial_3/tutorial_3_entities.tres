@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=16 format=3 uid="uid://jg6tcvr87t1b"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_ih7ot"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_ooip0"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_pp8of"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_demac"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_jec1g"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_8hwgy"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_vajf4"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="8_qaojd"]
+
+[sub_resource type="Resource" id="Resource_pdji7"]
+script = ExtResource("1_ih7ot")
+position = Vector2i(8, 4)
+orientation = 1
+
+[sub_resource type="Resource" id="Resource_vriek"]
+script = ExtResource("1_ih7ot")
+position = Vector2i(3, 2)
+
+[sub_resource type="Resource" id="Resource_g1hfn"]
+script = ExtResource("3_pp8of")
+position = Vector2i(5, 6)
+
+[sub_resource type="Resource" id="Resource_2q18u"]
+script = ExtResource("3_pp8of")
+position = Vector2i(11, 12)
+
+[sub_resource type="Resource" id="Resource_nko82"]
+script = ExtResource("7_vajf4")
+loot_table = ExtResource("8_qaojd")
+
+[sub_resource type="Resource" id="Resource_lq2lo"]
+script = ExtResource("7_vajf4")
+position = Vector2i(0, 7)
+loot_table = ExtResource("8_qaojd")
+
+[sub_resource type="Resource" id="Resource_dm8uf"]
+script = ExtResource("7_vajf4")
+position = Vector2i(10, 4)
+loot_table = ExtResource("8_qaojd")
+
+[resource]
+script = ExtResource("6_8hwgy")
+searchs = Array[ExtResource("7_vajf4")]([SubResource("Resource_nko82"), SubResource("Resource_lq2lo"), SubResource("Resource_dm8uf")])
+breakable_terrains = Array[ExtResource("1_ih7ot")]([SubResource("Resource_pdji7"), SubResource("Resource_vriek")])
+debris = Array[ExtResource("3_pp8of")]([SubResource("Resource_g1hfn"), SubResource("Resource_2q18u")])
+wooden_debris_hp = 40
+stone_debris_hp = 50

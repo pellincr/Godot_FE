@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=8 format=3 uid="uid://dr2gmnbxo5mfw"]
 
-[ext_resource type="Script" uid="uid://dddcksmavxgay" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_wj8nr"]
-[ext_resource type="Script" uid="uid://c8sor36dvpx8s" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_rkrso"]
+[ext_resource type="Script" uid="uid://65esssqu2hwv" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_wj8nr"]
+[ext_resource type="Script" uid="uid://cbpv57id3i1x4" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_rkrso"]
 [ext_resource type="Script" uid="uid://cch7sn28bgdk3" path="res://scripts/resources/army_archetypes/army_archetype_pick_weapon_definition.gd" id="3_41jx5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="4_7f1ag"]
-[ext_resource type="Script" uid="uid://ck3vg2oq3ex0s" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="5_y636x"]
+[ext_resource type="Script" uid="uid://dygwt74l43cvc" path="res://scripts/resources/army_archetypes/army_archetypes_definition.gd" id="5_y636x"]
 
 [sub_resource type="Resource" id="Resource_nlecq"]
 script = ExtResource("2_rkrso")
