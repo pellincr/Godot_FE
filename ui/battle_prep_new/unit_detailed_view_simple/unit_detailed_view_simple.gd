@@ -106,8 +106,15 @@ func clear_item_detail_panel():
 func _on_unit_inventory_container_item_focused(item: Variant) -> void:
 	clear_item_detail_panel()
 	if item != null:
-		var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
-		weapon_detailed_info.item = item
-		add_child(weapon_detailed_info)
-		weapon_detailed_info.update_by_item()
-		weapon_detailed_info.set_position(Vector2(330,20))
+		if item is WeaponDefinition:
+			var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
+			weapon_detailed_info.item = item
+			add_child(weapon_detailed_info)
+			weapon_detailed_info.update_by_item()
+			weapon_detailed_info.set_position(Vector2(330,20))
+		elif item is ConsumableItemDefinition:
+			var consumable_item_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+			consumable_item_detailed_info.item = item
+			add_child(consumable_item_detailed_info)
+			consumable_item_detailed_info.set_position(Vector2(330,20))
+			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR

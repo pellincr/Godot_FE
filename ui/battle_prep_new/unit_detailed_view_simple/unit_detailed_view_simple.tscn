@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfw00m8684j6u"]
+[gd_scene load_steps=11 format=3 uid="uid://bfw00m8684j6u"]
 
 [ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_fqj8m"]
 [ext_resource type="Script" uid="uid://ciprkfx06phm1" path="res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.gd" id="2_dljta"]
 [ext_resource type="PackedScene" uid="uid://dg5gkgx21b8if" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.tscn" id="2_sanl5"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="3_g2rpd"]
 [ext_resource type="PackedScene" uid="uid://d7gj6yaxkgwx" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.tscn" id="3_ym51l"]
-[ext_resource type="Script" uid="uid://cq3wfxmoelmd5" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.gd" id="4_27qkg"]
 [ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="4_c5wgh"]
 [ext_resource type="PackedScene" uid="uid://bvcw57dk23gw2" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.tscn" id="4_l087p"]
-[ext_resource type="Script" uid="uid://dm8mymuwofipf" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.gd" id="7_27x6y"]
 
 [sub_resource type="Theme" id="Theme_wtybk"]
 default_font_size = 36
@@ -46,7 +44,6 @@ text = "Character"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-script = ExtResource("4_27qkg")
 
 [node name="WeaponIconContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_c5wgh")]
 layout_mode = 2
@@ -75,7 +72,6 @@ show_percentage = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
-script = ExtResource("7_27x6y")
 
 [node name="ConstitutionContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CombatStatContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)

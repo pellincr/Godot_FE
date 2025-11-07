@@ -97,10 +97,10 @@ func _ready():
 	item_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 	fill_current_tab_view()
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("right_bumper"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_bumper"):
 		next_shop_screen()
-	if Input.is_action_just_pressed("left_bumper"):
+	if event.is_action_pressed("left_bumper"):
 		previous_shop_screen()
 
 func fill_current_tab_view():
@@ -158,12 +158,18 @@ func filter_by_useable_item():
 		var item : ItemDefinition = ItemDatabase.items[item_key]
 		#if item.item_type != ItemConstants.ITEM_TYPE.WEAPON:
 		if item is ConsumableItemDefinition:
+			if item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("common") and item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
+				accum.append(item)
+			"""
 			if item.rarity == RarityDatabase.rarities.get("standard"):
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
 				accum.append(item)
+			"""
 	return accum
 
 
@@ -188,11 +194,17 @@ func clear_main_container():
 
 func on_item_panel_focused(item):
 	clear_main_container()
-	var weapon_detailed_info = weapon_detailed_info_scene.instantiate()
-	weapon_detailed_info.item = item
-	main_container.add_child(weapon_detailed_info)
-	weapon_detailed_info.update_by_item()
-	weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	if item is WeaponDefinition:
+		var weapon_detailed_info = weapon_detailed_info_scene.instantiate()
+		weapon_detailed_info.item = item
+		main_container.add_child(weapon_detailed_info)
+		weapon_detailed_info.update_by_item()
+		weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	elif item is ConsumableItemDefinition:
+		var consumable_item_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+		consumable_item_detailed_info.item = item
+		main_container.add_child(consumable_item_detailed_info)
+		consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
 
 func _on_item_bought(item):
 	item_bought.emit(item)

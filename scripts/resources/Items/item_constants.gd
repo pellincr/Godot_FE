@@ -87,9 +87,9 @@ enum SCALING_TYPE
 enum CONSUMABLE_USE_EFFECT
 {
 	NONE,
-	HEAL,
+	HEAL, #In SHOP, all
 	DAMAGE,
-	STAT_BOOST,
+	STAT_BOOST, #in Shop commons only, can expand on expanded
 	STATUS_EFFECT,
 	KEY
 }

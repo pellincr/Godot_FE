@@ -2,6 +2,7 @@ extends Panel
 
 
 const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
+const CONSUMABLE_ITEM_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn")
 
 signal set_trade_item(item,unit)
 
@@ -90,15 +91,20 @@ func _on_unit_inventory_container_item_used(item):
 func clear_item_info_container():
 	var children = item_info_container.get_children()
 	for child_index in children.size():
-		if child_index != 0:
-			children[child_index].queue_free()
+		#if child_index != 0:
+		children[child_index].queue_free()
 
 func _on_unit_inventory_container_item_focused(item) -> void:
 	clear_item_info_container()
 	if item != null:
-		var weapon_detailed_info = WEAPON_DETAILED_INFO.instantiate()
-		weapon_detailed_info.item = item
-		item_info_container.add_child(weapon_detailed_info)
-		weapon_detailed_info.update_by_item()
-		weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
-		
+		if item is WeaponDefinition:
+			var weapon_detailed_info = WEAPON_DETAILED_INFO.instantiate()
+			weapon_detailed_info.item = item
+			item_info_container.add_child(weapon_detailed_info)
+			weapon_detailed_info.update_by_item()
+			weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif item is ConsumableItemDefinition:
+			var consumable_item_detailed_info = CONSUMABLE_ITEM_DETAILED_INFO.instantiate()
+			consumable_item_detailed_info.item = item
+			item_info_container.add_child(consumable_item_detailed_info)
+			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR

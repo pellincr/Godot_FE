@@ -1,7 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcteldqbxn7l0"]
+[gd_scene load_steps=28 format=3 uid="uid://bcteldqbxn7l0"]
 
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_i1iis"]
 [ext_resource type="Script" uid="uid://ber7tsngt6t74" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_uy2uf"]
 [ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_dgerc"]
 [ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="4_ayaq8"]
 [ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
@@ -19,9 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="17_m4ecu"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="18_umscn"]
 [ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="19_wqdf0"]
-
-[sub_resource type="Theme" id="Theme_eqxhd"]
-default_font = ExtResource("1_uy2uf")
 
 [sub_resource type="Theme" id="Theme_s01ql"]
 default_font_size = 12
@@ -51,7 +48,7 @@ default_font_size = 12
 custom_minimum_size = Vector2(221, 167)
 offset_right = 221.0
 offset_bottom = 157.0
-theme = SubResource("Theme_eqxhd")
+theme = ExtResource("1_i1iis")
 script = ExtResource("1_qgpcr")
 
 [node name="LeftContainer" type="VBoxContainer" parent="."]

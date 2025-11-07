@@ -8,16 +8,10 @@
 [resource]
 script = ExtResource("3_ur67b")
 use_effect = 5
-power = 0
-status_effect = Array[ExtResource("4_fgp2g")]([])
 name = "Chest Key"
 db_key = "chest_key"
-equippable = false
-description = ""
+description = "Useable only on Chests"
 item_type = 2
 rarity = ExtResource("2_egop1")
-uses = 1
-max_uses = 1
-unbreakable = false
 worth = 300
 icon = ExtResource("1_qx1ti")

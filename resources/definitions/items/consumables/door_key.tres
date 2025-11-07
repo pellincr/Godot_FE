@@ -5,12 +5,12 @@
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_fbdj1"]
 [ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_rfj82"]
 
-
 [resource]
 script = ExtResource("3_fbdj1")
 use_effect = 5
 name = "Door Key"
 db_key = "door_key"
+description = "Useable only on Doors"
 item_type = 2
 rarity = ExtResource("2_kpm0h")
 worth = 300
