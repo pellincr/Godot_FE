@@ -151,12 +151,12 @@ static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:i
 static func	calculate_generic_stat(growth: int, levels:int) -> int:
 	var return_value = 0
 	var stat_gain_center = float(growth * levels) / float(100)
-	var gain_low = stat_gain_center * 7 / 8
-	var gain_high = stat_gain_center * 9/8
+	var gain_low = stat_gain_center * 3/4
+	var gain_high = stat_gain_center * 5/4
 	var stat_gain = randf_range(gain_low, gain_high)
 	return_value = floor(stat_gain)
 	var stat_chance = fmod(stat_gain, return_value)
-	if CustomUtilityLibrary.random_rolls_bool(stat_chance, 1) :
+	if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
 		return_value += 1
 	return return_value
 
