@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3 uid="uid://ven8mbk3rp67"]
+
+[ext_resource type="Texture2D" uid="uid://btk8clnpy1om4" path="res://resources/sprites/items/treasure/spices.png" id="1_3rq5l"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_8s7d8"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_eajed"]
+
+[resource]
+script = ExtResource("3_eajed")
+name = "Spices"
+db_key = "spices"
+item_type = 4
+rarity = ExtResource("2_8s7d8")
+worth = 1500
+icon = ExtResource("1_3rq5l")
