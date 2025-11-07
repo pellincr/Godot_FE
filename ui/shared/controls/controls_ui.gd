@@ -42,8 +42,13 @@ class_name ControlsUI
 @onready var details_label: Label = $DetailsContainer/DetailsLabel
 @onready var details_icon: TextureRect = $DetailsContainer/DetailsIcon
 
+@onready var campaign_info_container: HBoxContainer = $CampaignInfoContainer
+@onready var campaign_info_icon: TextureRect = $CampaignInfoContainer/CampaignInfoIcon
+@onready var campaign_info_label: Label = $CampaignInfoContainer/CampaignInfoLabel
+
+
 @onready var pause_game_container: HBoxContainer = $PauseGameContainer
-@onready var pause_game_lable: Label = $PauseGameContainer/PauseGameLable
+@onready var pause_game_label: Label = $PauseGameContainer/PauseGameLabel
 @onready var pause_game_icon: TextureRect = $PauseGameContainer/PauseGameIcon
 
 #Keyboard Icons
@@ -58,6 +63,7 @@ const KEYBOARD_CONFIRM_ICON := preload("res://resources/sprites/controls/keyboar
 const KEYBOARD_BACK_ICON := preload("res://resources/sprites/controls/keyboard/backspace.png")
 const KEYBOARD_DETAILS_ICON := preload("res://resources/sprites/controls/keyboard/controltext.png")
 const KEYBOARD_PAUSE_ICON := preload("res://resources/sprites/controls/keyboard/escape.png")
+const KEYBOARD_SHIFT_ICON := preload("res://resources/sprites/controls/keyboard/shift.png")
 
 #PS Icons
 const PS_NAVIGATION_ICON := preload("res://resources/sprites/controls/ps_controller/_.png")
@@ -71,6 +77,7 @@ const PS_CONFIRM_ICON := preload("res://resources/sprites/controls/ps_controller
 const PS_BACK_ICON := preload("res://resources/sprites/controls/ps_controller/circle.png")
 const PS_DETAILS_ICON := preload("res://resources/sprites/controls/ps_controller/square.png")
 const PS_PAUSE_ICON := preload("res://resources/sprites/controls/ps_controller/start.png")
+const PS_SELECT_ICON := preload("res://resources/sprites/controls/ps_controller/select.png")
 
 const test = preload("res://resources/sprites/icons/campaign_map_icons/major_combat_campaign_map_icon.png")
 #XBOX Icons
@@ -85,6 +92,7 @@ const XBOX_CONFIRM_ICON := preload("res://resources/sprites/controls/xbox_contro
 const XBOX_BACK_ICON := preload("res://resources/sprites/controls/xbox_controller/b.png")
 const XBOX_DETAILS_ICON := preload("res://resources/sprites/controls/xbox_controller/x.png")
 const XBOX_PAUSE_ICON := preload("res://resources/sprites/controls/xbox_controller/start.png")
+const XBOX_SELECT_ICON := preload("res://resources/sprites/controls/xbox_controller/view.png")
 
 #The State that determines the controls currently being displayed
 enum CONTROL_STATE{
@@ -96,7 +104,8 @@ enum CONTROL_STATE{
 	BATTLE_PREP_SHOP_WHERE, BATTLE_PREP_SHOP_WHAT, 
 	BATTLE_PREP_INVENTORY_UNIT_SELECT, BATTLE_PREP_INVENTORY_MANAGE_ITEMS, BATTLE_PREP_INVENTORY_TRADE,
 	BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT, BATTLE_PREP_TRAINING_GROUNDS_GIVE_EXP,
-	BATTLE_PREP_GRAVEYARD_UNIT_SELECT, BATTLE_PREP_GRAVEYARD_TOMBSTONE
+	BATTLE_PREP_GRAVEYARD_UNIT_SELECT, BATTLE_PREP_GRAVEYARD_TOMBSTONE,
+	RECRUITMENT
 }
 
 #The State the derermines i
@@ -160,6 +169,7 @@ func update_by_controller_state():
 			set_icon_texture(confirm_icon,KEYBOARD_CONFIRM_ICON)
 			set_icon_texture(back_icon,KEYBOARD_BACK_ICON)
 			set_icon_texture(details_icon,KEYBOARD_DETAILS_ICON)
+			set_icon_texture(campaign_info_icon,KEYBOARD_SHIFT_ICON)
 			set_icon_texture(pause_game_icon,KEYBOARD_PAUSE_ICON)
 		CONTROLLER_STATE.PS:
 			set_icon_texture(navigation_icon,PS_NAVIGATION_ICON)
@@ -172,6 +182,7 @@ func update_by_controller_state():
 			set_icon_texture(confirm_icon,PS_CONFIRM_ICON)
 			set_icon_texture(back_icon,PS_BACK_ICON)
 			set_icon_texture(details_icon,PS_DETAILS_ICON)
+			set_icon_texture(campaign_info_icon,PS_SELECT_ICON)
 			set_icon_texture(pause_game_icon,PS_PAUSE_ICON)
 		CONTROLLER_STATE.XBOX:
 			set_icon_texture(navigation_icon,XBOX_NAVIGATION_ICON)
@@ -184,6 +195,7 @@ func update_by_controller_state():
 			set_icon_texture(confirm_icon,XBOX_CONFIRM_ICON)
 			set_icon_texture(back_icon,XBOX_BACK_ICON)
 			set_icon_texture(details_icon,XBOX_DETAILS_ICON)
+			set_icon_texture(campaign_info_icon,XBOX_SELECT_ICON)
 			set_icon_texture(pause_game_icon,XBOX_PAUSE_ICON)
 		CONTROLLER_STATE.SWITCH:
 			set_icon_texture(navigation_icon,XBOX_NAVIGATION_ICON)
@@ -196,6 +208,7 @@ func update_by_controller_state():
 			set_icon_texture(confirm_icon,XBOX_CONFIRM_ICON)
 			set_icon_texture(back_icon,XBOX_BACK_ICON)
 			set_icon_texture(details_icon,XBOX_DETAILS_ICON)
+			set_icon_texture(campaign_info_icon,XBOX_SELECT_ICON)
 			set_icon_texture(pause_game_icon,XBOX_PAUSE_ICON)
 
 
@@ -221,6 +234,7 @@ func update_by_control_state():
 		CONTROL_STATE.CAMPAIGN_MAP:
 			general_control_visibility()
 			set_label_text(confirm_label,"Confirm")
+			set_container_visibility(campaign_info_container,true)
 		CONTROL_STATE.BATTLE_PREP_MENU:
 			general_control_visibility()
 			set_label_text(confirm_label,"Confirm")
@@ -273,6 +287,14 @@ func update_by_control_state():
 		CONTROL_STATE.BATTLE_PREP_GRAVEYARD_TOMBSTONE:
 			set_container_visibility(confirm_container,true)
 			set_label_text(confirm_label,"Revive")
+		CONTROL_STATE.RECRUITMENT:
+			general_control_visibility()
+			set_container_visibility(left_bumper_container,true)
+			set_label_text(left_bumper_label,"Prev View")
+			set_container_visibility(right_bumper_container,true)
+			set_label_text(right_bumper_label,"Next View")
+			set_label_text(confirm_label,"Draft")
+			set_container_visibility(campaign_info_container,true)
 
 func hide_all_controls():
 	set_container_visibility(navigation_container,false)
@@ -285,4 +307,5 @@ func hide_all_controls():
 	set_container_visibility(confirm_container,false)
 	set_container_visibility(back_container,false)
 	set_container_visibility(details_container,false)
+	set_container_visibility(campaign_info_container,false)
 	set_container_visibility(pause_game_container,false)

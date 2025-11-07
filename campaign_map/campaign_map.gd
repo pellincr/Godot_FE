@@ -28,13 +28,17 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var campaign_header: Control = $MapBackground/CampaignHeader
 
 
-const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 #var map_data:Array[Array]
 #var floors_climbed:int
 #var last_room:CampaignRoom
 var camera_edge_y : float
-var pause_menu_open = false
+
+enum MENU_STATE{
+	NONE, PAUSE, CAMPAIGN_INFORMATION
+}
+var current_menu_state := MENU_STATE.NONE
 
 
 var tutorial_complete := true
@@ -94,28 +98,62 @@ func transition_out_animation():
 
 
 func _input(event:InputEvent) ->void:
-	if !pause_menu_open and (event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up")):
-		camera_2d.position.y -= SCROLL_SPEED
-	if !pause_menu_open and (event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down")):
-		camera_2d.position.y += SCROLL_SPEED
+	if event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up"):
+		if current_menu_state == MENU_STATE.NONE:
+			camera_2d.position.y -= SCROLL_SPEED
+	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
+		if current_menu_state == MENU_STATE.NONE:
+			camera_2d.position.y += SCROLL_SPEED
 	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
 	if event.is_action_pressed("ui_cancel"):
-		if !pause_menu_open and tutorial_complete:
-			var main_pause_menu = main_pause_menu_scene.instantiate()
-			camera_2d.add_child(main_pause_menu)
-			main_pause_menu.menu_closed.connect(_on_menu_closed)
-			disable_available_map_room_focus()
-			pause_menu_open = true
-		else:
-			if tutorial_complete:
-				camera_2d.get_child(-1).queue_free()
-				_on_menu_closed()
+		match current_menu_state:
+			MENU_STATE.NONE:
+				if tutorial_complete:
+					set_menu_state(MENU_STATE.PAUSE)
+				else:
+					map_background.get_child(-1).queue_free()
+					_on_menu_closed()
+					tutorial_complete = true
+			MENU_STATE.PAUSE:
+				set_menu_state(MENU_STATE.NONE)
+			MENU_STATE.CAMPAIGN_INFORMATION:
+				set_menu_state(MENU_STATE.NONE)
+	if event.is_action_pressed("campaign_information"):
+		match current_menu_state:
+			MENU_STATE.NONE:
+				set_menu_state(MENU_STATE.CAMPAIGN_INFORMATION)
 
 func tutorial_completed():
 	#camera_2d.zoom = Vector2(3,3)
 	map_background.layer = -1
 	rooms.get_child(0).grab_focus()
 	tutorial_complete = true
+
+func set_menu_state(state:MENU_STATE):
+	current_menu_state = state
+	update_by_menu_state()
+
+func update_by_menu_state():
+	match current_menu_state:
+		MENU_STATE.NONE:
+			map_background.layer = -1
+			map_background.get_child(-1).queue_free()
+			enable_available_map_room_focus()
+			grab_first_available_room_foucs()
+		MENU_STATE.PAUSE:
+			map_background.layer = 99
+			var main_pause_menu = main_pause_menu_scene.instantiate()
+			map_background.add_child(main_pause_menu)
+			main_pause_menu.menu_closed.connect(_on_menu_closed)
+			disable_available_map_room_focus()
+		MENU_STATE.CAMPAIGN_INFORMATION:
+			map_background.layer = 99
+			var campaign_information = CAMPAIGN_INFORMATION_SCENE.instantiate()
+			campaign_information.set_po_data(playerOverworldData)
+			campaign_information.current_availabilty = CampaignInformation.AVAILABILITY_STATE.ARMY_CONVOY_ONLY
+			map_background.add_child(campaign_information)
+			campaign_information.menu_closed.connect(_on_menu_closed)
+			disable_available_map_room_focus()
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
@@ -237,6 +275,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
 
+
 func grab_first_available_room_foucs() -> void:
 	for map_room:CampaignMapRoom in rooms.get_children():
 		if map_room.available:
@@ -274,6 +313,4 @@ func enable_available_map_room_focus():
 	set_available_map_room_focus(Control.FOCUS_ALL)
 
 func _on_menu_closed():
-	enable_available_map_room_focus()
-	_get_available_map_rooms()[0].grab_focus()
-	pause_menu_open = false
+	set_menu_state(MENU_STATE.NONE)

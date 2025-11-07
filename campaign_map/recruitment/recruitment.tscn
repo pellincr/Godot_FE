@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bc6jxb7iaed73" path="res://campaign_map/recruitment/recruitment.gd" id="1_qo7pv"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="2_p00dm"]
 [ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_c8wgi"]
-[ext_resource type="PackedScene" uid="uid://b1ji0ny03ko81" path="res://unit drafting/Unit_Commander Draft/unit_draft_controls.tscn" id="4_n6x6m"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="4_c8wgi"]
 
 [sub_resource type="Theme" id="Theme_epjme"]
 default_font_size = 36
@@ -69,11 +69,6 @@ vertical_alignment = 1
 [node name="CampaignHeader" parent="MarginContainer/MainContainer" instance=ExtResource("3_c8wgi")]
 layout_mode = 2
 
-[node name="UnitDraftControls" parent="MarginContainer" instance=ExtResource("4_n6x6m")]
-z_index = -1
-layout_mode = 2
-size_flags_vertical = 8
-
 [node name="LeaveButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -89,5 +84,12 @@ custom_minimum_size = Vector2(1150, 355)
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
+
+[node name="ControlsUIContainer" parent="." instance=ExtResource("4_c8wgi")]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 674.0
+offset_right = 8861.0
+offset_bottom = 714.0
 
 [connection signal="pressed" from="MarginContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmfa1tdx2k3n3"]
+[gd_scene load_steps=14 format=3 uid="uid://bmfa1tdx2k3n3"]
 
 [ext_resource type="Script" uid="uid://chdgbppugsjt" path="res://ui/shared/controls/controls_ui.gd" id="1_238l5"]
 [ext_resource type="Texture2D" uid="uid://bsknkqoussxsw" path="res://resources/sprites/controls/keyboard/_.png" id="2_xbroc"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://doigrwcl5kis1" path="res://resources/sprites/controls/keyboard/d.png" id="6_fllf4"]
 [ext_resource type="Texture2D" uid="uid://cluajaeeln1i4" path="res://resources/sprites/controls/keyboard/backspace.png" id="10_ncyu5"]
 [ext_resource type="Texture2D" uid="uid://02air6ea0m0i" path="res://resources/sprites/controls/keyboard/controltext.png" id="11_k223j"]
+[ext_resource type="Texture2D" uid="uid://w55ccl45y8ji" path="res://resources/sprites/controls/keyboard/shift.png" id="12_yynv8"]
 
 [node name="ControlsUIContainer" type="HBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
@@ -169,6 +170,21 @@ layout_mode = 2
 text = "Details"
 vertical_alignment = 1
 
+[node name="CampaignInfoContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CampaignInfoIcon" type="TextureRect" parent="CampaignInfoContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("12_yynv8")
+expand_mode = 3
+
+[node name="CampaignInfoLabel" type="Label" parent="CampaignInfoContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Info"
+vertical_alignment = 1
+
 [node name="PauseGameContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
@@ -178,7 +194,7 @@ layout_mode = 2
 texture = ExtResource("6_c1pqd")
 expand_mode = 3
 
-[node name="PauseGameLable" type="Label" parent="PauseGameContainer"]
+[node name="PauseGameLabel" type="Label" parent="PauseGameContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Pause"

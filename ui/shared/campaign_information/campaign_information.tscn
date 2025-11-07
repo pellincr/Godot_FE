@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv15e2bcwb77p"]
+
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="1_6dcha"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_hdnd3"]
+[ext_resource type="Script" uid="uid://jnh74vc2016" path="res://ui/shared/campaign_information/campaign_information.gd" id="2_pmlsd"]
+
+[node name="CampaignInformation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hdnd3")
+script = ExtResource("2_pmlsd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -71.0
+offset_right = 64.5
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hdnd3")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InformationSelectionContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ArmyButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer"]
+layout_mode = 2
+text = "Army"
+script = ExtResource("1_6dcha")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="ConvoyButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer"]
+layout_mode = 2
+text = "Convoy"
+script = ExtResource("1_6dcha")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="CampaignMapButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer"]
+layout_mode = 2
+text = "Map"
+script = ExtResource("1_6dcha")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[connection signal="focus_entered" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ArmyButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ArmyButton" method="_on_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ArmyButton" to="." method="_on_army_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ArmyButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ArmyButton" method="_on_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ConvoyButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ConvoyButton" method="_on_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ConvoyButton" to="." method="_on_convoy_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ConvoyButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/ConvoyButton" method="_on_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/CampaignMapButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/CampaignMapButton" method="_on_focus_entered"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/CampaignMapButton" to="CanvasLayer/PanelContainer/MarginContainer/InformationSelectionContainer/CampaignMapButton" method="_on_pressed"]

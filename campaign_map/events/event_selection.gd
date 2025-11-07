@@ -8,8 +8,14 @@ extends Control
 @onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+const MAIN_PAUSE_MENU_SCENE = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 const EVENT_UNIT_SELECT = preload("res://campaign_map/events/event_unit_select/event_unit_select.tscn")
 const EVENT_ITEM_SELECT = preload("res://campaign_map/events/event_item_select/event_item_select.tscn")
+
+enum MENU_STATE{
+	NONE, PAUSE, CAMPAIGN_INFO
+}
 
 enum STATE {
 	INIT,
@@ -21,6 +27,7 @@ enum STATE {
 	PROCESS
 }
 
+var current_menu_state = MENU_STATE.NONE
 var state = STATE.INIT
 var current_event : Event
 var selected_event_option : EventOption
@@ -33,6 +40,46 @@ func _ready():
 	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
 	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
 	select_event()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		match current_menu_state:
+			MENU_STATE.NONE:
+				set_menu_state(MENU_STATE.PAUSE)
+			MENU_STATE.PAUSE:
+				set_menu_state(MENU_STATE.NONE)
+			MENU_STATE.CAMPAIGN_INFO:
+				set_menu_state(MENU_STATE.NONE)
+	if event.is_action_pressed("campaign_information"):
+		if current_menu_state == MENU_STATE.NONE:
+			set_menu_state(MENU_STATE.CAMPAIGN_INFO)
+
+func set_menu_state(m_state:MENU_STATE):
+	current_menu_state = m_state
+	update_by_menu_state()
+
+func _on_menu_closed():
+	set_menu_state(MENU_STATE.NONE)
+
+
+func update_by_menu_state():
+	match current_menu_state:
+			MENU_STATE.NONE:
+				get_child(-1).queue_free()
+				event_selection_container.enable_focus()
+				event_selection_container.event_option_button_1.grab_focus()
+			MENU_STATE.PAUSE:
+				var main_pause_menu = MAIN_PAUSE_MENU_SCENE.instantiate()
+				add_child(main_pause_menu)
+				main_pause_menu.menu_closed.connect(_on_menu_closed)
+				event_selection_container.disable_focus()
+			MENU_STATE.CAMPAIGN_INFO:
+				var campaign_info = CAMPAIGN_INFORMATION_SCENE.instantiate()
+				campaign_info.set_po_data(playerOverworldData)
+				campaign_info.current_availabilty = CampaignInformation.AVAILABILITY_STATE.FULL_AVAILABLE
+				add_child(campaign_info)
+				campaign_info.menu_closed.connect(_on_menu_closed)
+				event_selection_container.disable_focus()
 
 func select_event():
 	#get all events
