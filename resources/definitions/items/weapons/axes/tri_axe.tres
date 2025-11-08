@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://p5wvq1gfcryr"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://p5wvq1gfcryr"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_pjuef"]
 [ext_resource type="Texture2D" uid="uid://eyf42q3jiyua" path="res://resources/sprites/items/weapons/axes/tri_axe.png" id="1_s4rj1"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_pjuef"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_mmjrx"]
+
+[sub_resource type="Resource" id="Resource_ism6y"]
+script = ExtResource("1_pjuef")
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("3_mmjrx")
@@ -13,6 +18,7 @@ damage = 11
 hit = 80
 weight = 14
 specials = Array[int]([0])
+equipped_specials = Array[ExtResource("1_pjuef")]([SubResource("Resource_ism6y")])
 name = "Tri-Axe"
 db_key = "tri_axe"
 equippable = true

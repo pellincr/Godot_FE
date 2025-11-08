@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://dvm6o4v86cbr0"]
+
+[ext_resource type="Texture2D" uid="uid://crijteij1o4ma" path="res://resources/sprites/items/equipment/loaded_dice.png" id="1_udjww"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_tlf0x"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_8kujf"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_vilws"]
+
+[sub_resource type="Resource" id="Resource_phbw1"]
+script = ExtResource("2_tlf0x")
+critical_chance = 40
+critical_multiplier = -1
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("4_vilws")
+name = "Loaded Die"
+db_key = "loaded_die"
+description = "A gambler’s relic enchanted to twist fate itself—every toss wins, but never as much as it should."
+item_type = 3
+rarity = ExtResource("3_8kujf")
+worth = 5400
+inventory_bonus_stats = SubResource("Resource_phbw1")
+icon = ExtResource("1_udjww")

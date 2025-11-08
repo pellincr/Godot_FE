@@ -36,6 +36,7 @@ var price : int = calculate_price()
 @export_subgroup("Gives Unit Bonus Stats When Held in Inventory")
 @export var inventory_bonus_stats : CombatUnitStat = null
 @export var inventory_growth_bonus_stats : UnitStat = null
+@export var held_specials : Array[SpecialEffect] = []
 
 @export_group("Visuals")
 @export var icon: Texture2D

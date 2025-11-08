@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://qkuun8cons7a"]
+
+[ext_resource type="Texture2D" uid="uid://djlc7urk5o0sc" path="res://resources/sprites/items/equipment/lucky_coin.png" id="1_w7d7w"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_yle6p"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_nu6w0"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_4wq4d"]
+
+[sub_resource type="Resource" id="Resource_txrur"]
+script = ExtResource("2_yle6p")
+critical_chance = 8
+
+[resource]
+script = ExtResource("4_4wq4d")
+name = "Lucky Coin"
+db_key = "luck_coin"
+description = "A dented gold coin that always seems to land just the way its holder hopes."
+item_type = 3
+rarity = ExtResource("3_nu6w0")
+worth = 850
+inventory_bonus_stats = SubResource("Resource_txrur")
+icon = ExtResource("1_w7d7w")

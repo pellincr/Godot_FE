@@ -213,7 +213,7 @@ func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
 	#await ui.play_turn_banner(turn_owner)
 	await process_terrain_effects()
-	await process_weapon_effects()
+	await process_special_effects()
 	# await process_skill_effects()
 	await clean_up() # --> remove debuffs / buffs, flush data structures
 	if (game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
@@ -557,16 +557,18 @@ func process_terrain_effects():
 									print("HEALED UNIT : " + combat_unit.unit.name)
 									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
 
-func process_weapon_effects():
+func process_special_effects():
+	var _special_effect_resource = SpecialEffectResource.new()
 	for combat_unit in combat.combatants:
 		if combat_unit not in combat.dead_units:
 			if (combat_unit.allegience == Constants.FACTION.PLAYERS and game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN) or (combat_unit.allegience == Constants.FACTION.ENEMIES and game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN):
-				var cu_equipped_weapon = combat_unit.get_equipped()
-				if cu_equipped_weapon != null:
-					if cu_equipped_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_10_PERCENT_ON_TURN_BEGIN): # changed to 10 in the code
-						if combat_unit.current_hp < combat_unit.get_max_hp():
-							print("ATTEMPTED WEAPON BASED HEAL")
-							await combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * 10/100))
+				var applicable_specials : Array[SpecialEffect] = combat_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+				if not applicable_specials.is_empty():
+					# BEGINNING OF TURN HEAL
+					if combat_unit.current_hp < combat_unit.get_max_hp():
+						var heal_on_begin_specials : Array[SpecialEffect] = _special_effect_resource.get_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN, applicable_specials)
+						if not heal_on_begin_specials.is_empty():
+							await combat.combatExchange.heal_unit(combat_unit,_special_effect_resource.calculate_aggregate_effect(heal_on_begin_specials, combat_unit.get_max_hp()))
 
 func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)
@@ -869,7 +871,7 @@ func fsm_unit_move_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm"):
 			fsm_unit_move_confirm(delta)
-		elif Input.is_action_just_pressed("ui_cancel"):
+		elif Input.is_action_just_pressed("ui_back"):
 			fsm_unit_move_cancel(delta)
 		elif Input.is_action_just_pressed("combat_map_up"):
 			update_current_tile(current_tile + Vector2i.UP)
@@ -1018,7 +1020,7 @@ func fsm_unit_select_hover_process(delta):
 
 func fsm_unit_details_screen_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			combat.game_ui.destory_active_ui_node()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 		elif Input.is_action_just_pressed("right_bumper"):
@@ -1040,7 +1042,7 @@ func fsm_unit_selected_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_confirm"):
 			fsm_unit_move_confirm(delta)
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			_action_tiles.clear()
 			combat.reset_all_effective_indicators()
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
@@ -1052,14 +1054,14 @@ func fsm_unit_action_select_process(delta):
 		if Input.is_action_just_pressed("ui_confirm"):
 			#This should be handled by the UI pop-up
 			pass
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			if combat.get_current_combatant().minor_action_taken == false:
 				combat.game_ui.destory_active_ui_node()
 				fsm_unit_action_cancel(delta)
 
 func fsm_game_menu_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			fsm_game_menu_cancel()
 
 func fsm_game_menu_cancel():
@@ -1228,7 +1230,7 @@ func unit_action_selection_handler(action:String):
 #Support
 func fsm_support_action_inventory_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 				combat.game_ui.destory_active_ui_node()
@@ -1269,7 +1271,7 @@ func fsm_support_action_targetting(delta):
 			await combat.perform_support(combat.get_current_combatant(), grid.get_combat_unit(target_tile), support_exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			targetting_resource.clear()
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
@@ -1322,7 +1324,7 @@ func fsm_support_action_inventory_confirm_new_hover(item:ItemDefinition):
 #Attack 
 func fsm_attack_action_inventory_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 				combat.game_ui.destory_active_ui_node()
@@ -1375,7 +1377,7 @@ func fsm_unit_combat_action_targetting(delta):
 			targetting_resource.clear()
 			#Enact combat exchange
 			pass
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
@@ -1473,7 +1475,7 @@ func fsm_unit_inventory_item_selected(data:UnitInventorySlotData):
 
 func fsm_unit_inventory_item_selected_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 				combat.game_ui.destory_active_ui_node()
 				combat.game_ui.get_active_ui_node().re_grab_focus()
 				revert_player_state()
@@ -1553,7 +1555,7 @@ func fsm_interact_targetting(delta):
 					var action_menu_inventory : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_interaction_inventory_data(combat.get_current_combatant(), CombatEntityConstants.valid_door_unlock_item_db_keys)
 					combat.game_ui.create_interact_action_inventory(combat.get_current_combatant(), action_menu_inventory)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INTERACT_ACTION_INVENTORY)
-			if Input.is_action_just_pressed("ui_cancel"):
+			if Input.is_action_just_pressed("ui_back"):
 				var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 				if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
@@ -1606,7 +1608,7 @@ func fsm_trade_action_targetting(delta):
 			combat.game_ui.create_trade_action_inventory(combat.get_current_combatant(), grid.get_combat_unit(target_tile))
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_TRADE_ACTION_INVENTORY)
 			targetting_resource.clear()
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 				#combat.game_ui.destory_active_ui_node() # ADD BACK WHEN TARGETTING INVENTORY IS MADE
@@ -1631,7 +1633,7 @@ func fsm_trade_action_targetting(delta):
 # Trade Action Menu
 func fsm_trade_action_inventory_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 				combat.game_ui.destory_active_ui_node()
 				if combat.get_current_combatant().minor_action_taken == false:
 					_interactable_tiles.clear()
@@ -1676,7 +1678,7 @@ func fsm_prep_unit_select(delta):
 		if Input.is_action_just_pressed("start_button"):
 			if combat.ally_spawn_tiles.has(current_tile):
 				swap_units(current_tile)
-		elif Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_back"):
+		elif Input.is_action_just_pressed("ui_back") or Input.is_action_just_pressed("ui_back"):
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 			combat.game_ui.return_to_battle_prep_screen()
 			#combat.game_ui.create_combat_map_game_menu() ## **CRAIG** CHANGE TO PREP MAP MENU
@@ -1712,7 +1714,7 @@ func fsm_prep_unit_select_hover_process(delta):
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				## ADD LOGIC FOR UNIT SWAP HERE
 				swap_units(current_tile)
-		elif Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_back"):
+		elif Input.is_action_just_pressed("ui_back") or Input.is_action_just_pressed("ui_back"):
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 			combat.game_ui.return_to_battle_prep_screen()
 		elif Input.is_action_just_pressed("details"):
@@ -1748,7 +1750,7 @@ func fsm_prep_unit_select_hover_process(delta):
 # Battle Prep Unit details screen FSM
 func fsm_prep_unit_details_screen_process(delta):
 	if Input:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_back"):
 			#Close the menu and progress the state
 			combat.game_ui.destory_active_ui_node()
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)

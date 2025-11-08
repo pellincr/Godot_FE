@@ -352,3 +352,13 @@ func total_item_held_bonus_growths() -> UnitStat:
 			if item.inventory_growth_bonus_stats != null:
 				_net_stat = CustomUtilityLibrary.add_unit_stat(_net_stat, item.inventory_growth_bonus_stats)
 	return _net_stat
+
+func get_all_specials_from_inventory_and_equipped() ->  Array[SpecialEffect]:
+	var _specials : Array[SpecialEffect] = []
+	# DO Equipped first
+	if equipped:
+		_specials.append_array(get_equipped_weapon().equipped_specials)
+	for item in items:
+		_specials.append_array(item.held_specials)
+	return _specials
+	

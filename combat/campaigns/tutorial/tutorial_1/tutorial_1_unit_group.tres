@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=26 format=3 uid="uid://dcq64qn3t78d7"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=25 format=3 uid="uid://dcq64qn3t78d7"]
 
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_2jm0c"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_k111x"]
@@ -6,7 +6,6 @@
 [ext_resource type="Resource" uid="uid://dxdxaw1qqj2na" path="res://resources/definitions/items/treasure/wine.tres" id="4_65k8o"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="5_nvxxv"]
 [ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="6_5yesa"]
-[ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="6_qcjya"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="7_3cb22"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="8_xp7bi"]
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="9_dw7ll"]
@@ -32,7 +31,7 @@ map_position = Vector2i(16, 5)
 level = 1
 level_bonus = -2
 unit_type_key = "sellsword"
-inventory = Array[ExtResource("2_k111x")]([ExtResource("5_nvxxv"), ExtResource("6_qcjya")])
+inventory = Array[ExtResource("2_k111x")]([ExtResource("5_nvxxv")])
 
 [sub_resource type="Resource" id="Resource_qpv38"]
 script = ExtResource("1_2jm0c")

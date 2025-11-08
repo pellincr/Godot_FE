@@ -1,13 +1,19 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bf8ot2t215k2q"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=8 format=3 uid="uid://bf8ot2t215k2q"]
 
 [ext_resource type="Texture2D" uid="uid://dh66mgbsodlwe" path="res://resources/sprites/items/weapons/commander_specific/viper_bite.png" id="1_2ri4r"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_3xc2q"]
 [ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_ci076"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_bqb2b"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="2_wnyqi"]
 
 [sub_resource type="Resource" id="Resource_xq0mb"]
 script = ExtResource("1_ci076")
 speed = 2
+
+[sub_resource type="Resource" id="Resource_bqb2b"]
+script = ExtResource("2_bqb2b")
+special = 3
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("1_3xc2q")
@@ -19,6 +25,7 @@ critical_chance = 15
 critical_multiplier = 3.5
 bonus_stat = SubResource("Resource_xq0mb")
 specials = Array[int]([4])
+equipped_specials = Array[ExtResource("2_bqb2b")]([SubResource("Resource_bqb2b")])
 name = "Viper's Bite"
 db_key = "vipers_bite"
 equippable = true

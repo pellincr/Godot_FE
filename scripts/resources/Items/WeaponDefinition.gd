@@ -52,4 +52,5 @@ enum SUPPORT_TYPES {
 @export_subgroup("Misc. Specials") 
 @export var status_ailment : EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE #USED IN STAFFS ETC.
 @export var specials : Array[WEAPON_SPECIALS] = [] # Activated on weapon equipped
+@export var equipped_specials : Array[SpecialEffect] = [] # Activated on weapon equipped
 @export var experience_modifier : float = 1 # TODO add to combat experience calculation
