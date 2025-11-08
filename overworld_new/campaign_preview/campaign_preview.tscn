@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://db1fxx4xyc4ob"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_1nydb"]
+[ext_resource type="Script" uid="uid://bfpd0s7wkpqml" path="res://overworld_new/campaign_preview/campaign_preview.gd" id="2_lcgo6"]
+
+[sub_resource type="Theme" id="Theme_lcgo6"]
+default_font_size = 36
+
+[node name="CampaignPreview" type="PanelContainer"]
+offset_right = 198.0
+offset_bottom = 119.0
+theme = ExtResource("1_1nydb")
+script = ExtResource("2_lcgo6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CampaignNameLabel" type="Label" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_lcgo6")
+text = "Campaign Name"
+
+[node name="CommanderLimitContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="CommanderLimitHeader" type="Label" parent="MarginContainer/MainContainer/CommanderLimitContainer"]
+layout_mode = 2
+text = "Commander Options #- "
+
+[node name="CommanderLimitValue" type="Label" parent="MarginContainer/MainContainer/CommanderLimitContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="ArchetypeAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="ArchetypeAmountHeader" type="Label" parent="MarginContainer/MainContainer/ArchetypeAmountContainer"]
+layout_mode = 2
+text = "Archetypes Given-"
+
+[node name="ArchetypeAmountValue" type="Label" parent="MarginContainer/MainContainer/ArchetypeAmountContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="FloorAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="FloorAmountHeader" type="Label" parent="MarginContainer/MainContainer/FloorAmountContainer"]
+layout_mode = 2
+text = "Floors-"
+
+[node name="FloorsAmountValue" type="Label" parent="MarginContainer/MainContainer/FloorAmountContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="RequiredCombatAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="RequiredCombatAmountHeader" type="Label" parent="MarginContainer/MainContainer/RequiredCombatAmountContainer"]
+layout_mode = 2
+text = "Required Combats-"
+
+[node name="RequiredCombatAmountValue" type="Label" parent="MarginContainer/MainContainer/RequiredCombatAmountContainer"]
+layout_mode = 2
+text = "0"

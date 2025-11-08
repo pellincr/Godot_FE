@@ -15,6 +15,7 @@ signal menu_closed()
 
 @onready var enter_seed_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/BottomContainer/EnterSeedCheckBox
 
+@onready var start_campaign_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/BottomContainer/StartCampaignButton
 
 
 enum DIFFICULTY{
@@ -23,7 +24,7 @@ enum DIFFICULTY{
 var current_difficulty := DIFFICULTY.EASY
 
 func _ready() -> void:
-	easy_mode_button.grab_focus()
+	start_campaign_button.grab_focus()
 	easy_mode_button.button_pressed = true
 
 func _input(event: InputEvent) -> void:
