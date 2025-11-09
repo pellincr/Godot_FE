@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=52 format=3 uid="uid://b1ubk6fkwuowd"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=53 format=3 uid="uid://b1ubk6fkwuowd"]
 
 [ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
 [ext_resource type="AudioStream" uid="uid://bsaeqapxav78g" path="res://resources/sounds/ui/level_up/experience_point.ogg" id="2_05ay2"]
@@ -51,6 +51,7 @@
 [ext_resource type="AudioStream" uid="uid://sncf8rk4ne01" path="res://resources/sounds/combat/rewards/item_obtained.ogg" id="49_ih735"]
 [ext_resource type="AudioStream" uid="uid://ixdm68o28kq7" path="res://resources/sounds/combat/move_tile.ogg" id="50_n1ypu"]
 [ext_resource type="AudioStream" uid="uid://c44ms8faji3yq" path="res://resources/sounds/ui/campaign_map/recruit_map_enter.ogg" id="51_a57wq"]
+[ext_resource type="AudioStream" uid="uid://d0nyyclnbhh4q" path="res://resources/sounds/combat/attack/crit_sound.ogg" id="52_qtawl"]
 
 [resource]
 script = ExtResource("1_v3pn6")
@@ -63,6 +64,7 @@ sounds = {
 "bonus_experience_spend": ExtResource("39_485dx"),
 "bow_equip": ExtResource("17_ml5ix"),
 "campaign_map_room_hovered": ExtResource("37_ml5ix"),
+"crit_sound": ExtResource("52_qtawl"),
 "dagger_equip": ExtResource("22_6f3rd"),
 "draft_confirm": ExtResource("20_rgd6t"),
 "draft_hover": ExtResource("19_485dx"),

@@ -175,7 +175,8 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		if is_critical:
 			#await use_audio_player(crit_sound)
 			#AudioManager.play_sound_effect_pitch_randomized("unit_crit")
-			AudioManager.play_sound_effect_pitch_randomized("sword_swing_heavy")
+			#AudioManager.play_sound_effect_pitch_randomized("sword_swing_heavy")
+			AudioManager.play_sound_effect("crit_sound")
 			AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
