@@ -1,0 +1,88 @@
+[gd_scene load_steps=18 format=3 uid="uid://bey0bbvktykhg"]
+
+[ext_resource type="PackedScene" uid="uid://cyfp8bhfllmvu" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_terrain.tscn" id="1_glcln"]
+[ext_resource type="Script" uid="uid://crdtbtti2jgsc" path="res://combat/CController.gd" id="2_7eo5w"]
+[ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_slxqa"]
+[ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_t8osv"]
+[ext_resource type="Resource" uid="uid://cx2x2b7nn26bh" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_unit_table_a.tres" id="5_ber6q"]
+[ext_resource type="Resource" uid="uid://bg8xavw502lvj" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_unit_table_b.tres" id="6_0nydc"]
+[ext_resource type="Script" uid="uid://cqbyiltqk1opx" path="res://scripts/combat/combat_map_unit_data.gd" id="6_a4yo4"]
+[ext_resource type="Resource" uid="uid://l7slox4bkm0f" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_c/minor_combat_ruin_2_c_enemy_group.tres" id="7_qp7c7"]
+[ext_resource type="Script" uid="uid://clhuknqhyfx8e" path="res://scripts/resources/combat_reward/combat_reward.gd" id="8_k8c4b"]
+[ext_resource type="Script" uid="uid://cvbl14d0anuv1" path="res://scripts/combat/controllers/combat_exchange.gd" id="9_ih2rs"]
+[ext_resource type="Script" uid="uid://cf42ltq5ysxc5" path="res://scripts/combat/entities/combat_map_entity_manager.gd" id="10_otuey"]
+[ext_resource type="Resource" uid="uid://67mgm055avoi" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_entity.tres" id="11_kv06y"]
+[ext_resource type="Script" uid="uid://kx442wv8dfsa" path="res://scripts/Unit/unit_experience_manager.gd" id="12_yfrx5"]
+[ext_resource type="Script" uid="uid://dcdbof5kh78wm" path="res://scripts/combat/controllers/CombatUnitItemManager.gd" id="13_2ubfw"]
+[ext_resource type="PackedScene" uid="uid://ddgx1hll377nx" path="res://ui/combat/combat_ui.tscn" id="14_tvc05"]
+
+[sub_resource type="Resource" id="Resource_ld8ne"]
+script = ExtResource("6_a4yo4")
+starting_enemy_group = ExtResource("7_qp7c7")
+a = ExtResource("5_ber6q")
+b = ExtResource("6_0nydc")
+metadata/_custom_type_script = "uid://cqbyiltqk1opx"
+
+[sub_resource type="Resource" id="Resource_l4ya0"]
+script = ExtResource("8_k8c4b")
+par_turns = 3
+base_gold = 500
+base_bonus_exp = 50
+metadata/_custom_type_script = "uid://clhuknqhyfx8e"
+
+[node name="Game" type="Node"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_glcln")]
+
+[node name="Controller" type="Node2D" parent="." node_paths=PackedStringArray("combat", "selector")]
+texture_filter = 1
+script = ExtResource("2_7eo5w")
+combat = NodePath("../Combat")
+selector = NodePath("Selector")
+
+[node name="Selector" parent="Controller" instance=ExtResource("3_slxqa")]
+top_level = true
+scale = Vector2(1, 1)
+
+[node name="Combat" type="Node" parent="." node_paths=PackedStringArray("game_ui", "controller", "combat_audio", "unit_experience_manager", "combat_unit_item_manager")]
+script = ExtResource("4_t8osv")
+game_ui = NodePath("../CanvasLayer/UI")
+controller = NodePath("../Controller")
+combat_audio = NodePath("CombatAudio")
+unit_experience_manager = NodePath("UnitExperienceManager")
+combat_unit_item_manager = NodePath("CombatUnitItemManager")
+ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 9), Vector2i(0, 11), Vector2i(8, 14), Vector2i(9, 12)])
+unit_data = SubResource("Resource_ld8ne")
+level_reward = SubResource("Resource_l4ya0")
+
+[node name="CombatExchange" type="Node" parent="Combat"]
+script = ExtResource("9_ih2rs")
+
+[node name="CombatMapEntityManager" type="Node" parent="Combat"]
+script = ExtResource("10_otuey")
+mapEntityData = ExtResource("11_kv06y")
+
+[node name="UnitExperienceManager" type="Node" parent="Combat"]
+script = ExtResource("12_yfrx5")
+
+[node name="CombatUnitItemManager" type="Node" parent="Combat"]
+script = ExtResource("13_2ubfw")
+
+[node name="CombatAudio" type="AudioStreamPlayer" parent="Combat"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" node_paths=PackedStringArray("combat", "controller", "ui_map_audio", "ui_menu_audio") instance=ExtResource("14_tvc05")]
+combat = NodePath("../../Combat")
+controller = NodePath("../../Controller")
+ui_map_audio = NodePath("UIMapAudio")
+ui_menu_audio = NodePath("UIMenuAudio")
+metadata/_edit_use_anchors_ = true
+
+[node name="UIMapAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[node name="UIMenuAudio" type="AudioStreamPlayer" parent="CanvasLayer/UI"]
+
+[connection signal="finished" from="Combat/CombatAudio" to="Combat" method="play_audio_complete"]
+[connection signal="finished" from="Combat/CombatAudio" to="Combat/CombatExchange" method="play_audio_complete"]
+[connection signal="turn_ended" from="CanvasLayer/UI" to="Controller" method="advance_turn"]

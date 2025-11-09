@@ -40,16 +40,8 @@ func set_unit_type_icon(unit_type: UnitTypeDefinition):
 		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png")
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		top_left_container.add_child(icon)
-	if unit_type.traits.has(unitConstants.TRAITS.UNDEAD):
+	if unit_type.traits.has(unitConstants.TRAITS.TERROR):
 		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/undead_icon.png")
-		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		top_left_container.add_child(icon)
-	if unit_type.traits.has(unitConstants.TRAITS.LOCKPICK):
-		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/flyer_icon.png")
-		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		top_left_container.add_child(icon)
-	if unit_type.traits.has(unitConstants.TRAITS.MOBILE):
-		icon.texture = preload("res://resources/sprites/icons/unit_trait_icons/light_move_icon.png")
 		icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		top_left_container.add_child(icon)
 	if unit_type.traits.has(unitConstants.TRAITS.FLIER):

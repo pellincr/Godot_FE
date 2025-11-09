@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://bhhd6h6vtdo23"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_pbvnx"]
+[ext_resource type="Texture2D" uid="uid://di1avesqacaog" path="res://resources/sprites/items/equipment/ring_of_favor.png" id="2_pbvnx"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="3_k7ji5"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="4_cucyx"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_u81lb"]
+
+[sub_resource type="Resource" id="Resource_k846p"]
+script = ExtResource("3_k7ji5")
+hp = 7
+strength = 2
+magic = 2
+skill = 1
+speed = 1
+luck = 10
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("5_u81lb")
+name = "Ring of Favor"
+db_key = "ring_of_favor"
+description = "A radiant ring once gifted by the gods to those who carried both strength and grace in equal measure."
+item_type = 3
+rarity = ExtResource("4_cucyx")
+worth = 10000
+inventory_bonus_stats = SubResource("Resource_k846p")
+icon = ExtResource("2_pbvnx")

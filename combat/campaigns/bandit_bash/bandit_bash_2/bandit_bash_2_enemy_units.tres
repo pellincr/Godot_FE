@@ -17,7 +17,6 @@ script = ExtResource("1_vgvgr")
 name = "Bandit"
 map_position = Vector2i(2, 9)
 level = 2
-level_bonus = 1
 unit_type_key = "thief"
 inventory = Array[ExtResource("2_f5xmg")]([ExtResource("3_2otph")])
 
@@ -81,7 +80,6 @@ script = ExtResource("1_vgvgr")
 name = "Bandit"
 map_position = Vector2i(11, 7)
 level = 2
-level_bonus = -1
 unit_type_key = "thief"
 inventory = Array[ExtResource("2_f5xmg")]([ExtResource("3_2otph")])
 

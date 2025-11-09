@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dx371xef2mx4i"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://dx371xef2mx4i"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_nu1h0"]
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_y6iis"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_p8t3m"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ycb2s"]

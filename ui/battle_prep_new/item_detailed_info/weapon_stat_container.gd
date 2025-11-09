@@ -185,7 +185,7 @@ func set_effective_trait_visibility(effective_traits, effective_weapon_types):
 		mounted_icon.visible = true
 	if effective_traits.has(unitConstants.TRAITS.FLIER):
 		flier_icon.visible = true
-	if effective_traits.has(unitConstants.TRAITS.UNDEAD):
+	if effective_traits.has(unitConstants.TRAITS.TERROR):
 		undead_icon.visible = true
 	#Weapon Types
 	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):

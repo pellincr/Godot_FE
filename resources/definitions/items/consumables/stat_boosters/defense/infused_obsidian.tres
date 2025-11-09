@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://ccruwnqb2rr1u"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://ccruwnqb2rr1u"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_1cy0c"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_1cy0c"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_j3mk1"]
 [ext_resource type="Texture2D" uid="uid://bcsossedfmq2u" path="res://resources/sprites/items/consumables/stat_boosters/defense/infused_obsidian.png" id="2_wpfff"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_j3mk1"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_cdd7s"]

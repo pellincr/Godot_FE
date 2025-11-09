@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=7 format=3 uid="uid://6fkc6kmfk3ol"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://6fkc6kmfk3ol"]
 
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_ilyw5"]
 [ext_resource type="Texture2D" uid="uid://cocr0x432l6hb" path="res://resources/sprites/items/consumables/stat_boosters/magic/spirit_ink.png" id="2_0wjs2"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_xq6y0"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_prlji"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_284ey"]
 [ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_efvfy"]

@@ -1,40 +1,36 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b07cyd1bkl6wb"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://b07cyd1bkl6wb"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_bv56r"]
 [ext_resource type="Texture2D" uid="uid://bolvx6ge1osij" path="res://resources/sprites/items/weapons/swords/dark_sword.png" id="1_pofte"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_6g6al"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_hq0um"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_hq0um"]
+
+[sub_resource type="Resource" id="Resource_uksoh"]
+script = ExtResource("1_bv56r")
+special = 6
+effect_weight = 50
+effect_type = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("2_hq0um")
 weapon_type = 1
-alignment = 0
 physical_weapon_triangle_type = 1
 magic_weapon_triangle_type = 3
-support_type = 0
 item_damage_type = 1
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2])
 damage = 12
 hit = 70
-critical_chance = 0
 weight = 12
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
+attack_range = Array[int]([1, 2])
 specials = Array[int]([2])
-augmented = false
+equipped_specials = Array[ExtResource("1_bv56r")]([SubResource("Resource_uksoh")])
 name = "Life Drinker"
 db_key = "dark_sword"
 equippable = true
 description = "Drains enemy HP into caster. Imbued with dark magic."
-item_type = 0
 rarity = ExtResource("2_6g6al")
 uses = 20
 max_uses = 20
-unbreakable = false
 worth = 5000
 icon = ExtResource("1_pofte")

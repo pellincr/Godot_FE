@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://cn50lbgi2bx3t"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_rqgqc"]
+[ext_resource type="Texture2D" uid="uid://bkdk6j08xvr1k" path="res://resources/sprites/items/equipment/jester_mask.png" id="2_drf48"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="4_ct6vh"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_o2dna"]
+
+[sub_resource type="Resource" id="Resource_rqgqc"]
+script = ExtResource("1_rqgqc")
+special = 3
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[resource]
+script = ExtResource("5_o2dna")
+name = "Jester Mask"
+db_key = "jester_mask"
+description = "A painted mask once worn by a mad performer who claimed laughter alone could wound the soul."
+item_type = 3
+rarity = ExtResource("4_ct6vh")
+worth = 6250
+held_specials = Array[ExtResource("1_rqgqc")]([SubResource("Resource_rqgqc")])
+icon = ExtResource("2_drf48")

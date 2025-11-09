@@ -1,30 +1,23 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://df0kbv1d0nc5o"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://df0kbv1d0nc5o"]
 
 [ext_resource type="Resource" uid="uid://d8exk1x7sint" path="res://resources/definitions/unit_types/units/shaman/shaman_base_combat_stats.tres" id="1_wurto"]
 [ext_resource type="Resource" uid="uid://dhx0f5ytv1hs" path="res://resources/definitions/unit_types/units/shaman/shaman_growth_stats.tres" id="2_bpn74"]
+[ext_resource type="Resource" uid="uid://cqrkyj7fhu8cj" path="res://resources/definitions/unit_types/units/shaman/shaman_default_item_tables.tres" id="2_yhrrs"]
 [ext_resource type="Texture2D" uid="uid://xtxy4bjl1od7" path="res://resources/sprites/units/shaman.png" id="3_q547y"]
 [ext_resource type="Resource" uid="uid://b17f112saiuk2" path="res://resources/definitions/unit_types/units/shaman/shaman_max_stats.tres" id="4_6blm8"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_r8tpm"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_r8tpm"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_4lqmy"]
 
 [resource]
 script = ExtResource("5_r8tpm")
 unit_type_name = "Shaman"
 db_key = "shaman"
-description = ""
-initiative = 1
 faction = Array[int]([4])
-traits = Array[int]([])
 unit_rarity = ExtResource("6_4lqmy")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([7])
 base_stats = ExtResource("1_wurto")
 maxuimum_stats = ExtResource("4_6blm8")
 growth_stats = ExtResource("2_bpn74")
 icon = ExtResource("3_q547y")
 map_sprite = ExtResource("3_q547y")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])
+default_item_resource = ExtResource("2_yhrrs")

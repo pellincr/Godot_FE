@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dlphnpkojmg82"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://dlphnpkojmg82"]
 
 [ext_resource type="Texture2D" uid="uid://bv4gvnf1pbavh" path="res://resources/sprites/items/weapons/dagger/kukri.png" id="1_tabyv"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_xhv2i"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_c74ut"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_slk0p"]
 
@@ -8,13 +9,12 @@
 script = ExtResource("2_slk0p")
 weapon_type = 13
 alignment = 4
-damage = 2
+damage = 8
 hit = 95
 critical_chance = 20
 weight = 9
 critical_multiplier = 4.0
 attack_range = Array[int]([1, 2])
-specials = Array[int]([3])
 name = "Kukri"
 db_key = "kukri"
 equippable = true

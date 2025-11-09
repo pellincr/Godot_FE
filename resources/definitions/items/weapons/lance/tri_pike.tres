@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://bpv2q2oiapa6i"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bpv2q2oiapa6i"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_erqtl"]
 [ext_resource type="Texture2D" uid="uid://cjj8dmtt06bls" path="res://resources/sprites/items/weapons/lance/tri_pike_lance.png" id="1_fkahd"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_erqtl"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_bx3db"]
+
+[sub_resource type="Resource" id="Resource_bx3db"]
+script = ExtResource("1_erqtl")
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("3_bx3db")
@@ -13,6 +18,7 @@ damage = 10
 hit = 90
 weight = 13
 specials = Array[int]([0])
+equipped_specials = Array[ExtResource("1_erqtl")]([SubResource("Resource_bx3db")])
 name = "Tri-Pike"
 db_key = "tri_pike"
 equippable = true

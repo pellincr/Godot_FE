@@ -1,12 +1,12 @@
 extends Node
 
 #checks if the current RNG is successful
-func random_rolls_bool(chance: int, number_of_rolls : int) -> bool:
+func random_rolls_bool(chance: int, number_of_rolls : int, threshold: int = 100) -> bool:
 	var aggregated_rolls = 0
 	for rolls in number_of_rolls: 
-		var random_number = randi() % 100
+		var random_number = randi() % threshold
 		aggregated_rolls += random_number
-	var trueHit = clampi(int(aggregated_rolls/ number_of_rolls), 0, 100)
+	var trueHit = clampi(int(aggregated_rolls/ number_of_rolls), 0, threshold)
 	if trueHit < chance:
 		return true
 	else :

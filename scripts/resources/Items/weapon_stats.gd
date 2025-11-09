@@ -24,7 +24,7 @@ class_name WeaponStats
 @export var weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
 @export var weapon_effectiveness_weapon_type : Array[ItemConstants.WEAPON_TYPE] = []
 @export var specials : Array[WeaponDefinition.WEAPON_SPECIALS] = [] # Activated on weapon equipped
-
+@export var equipped_specials : Array[SpecialEffect] = []
 
 func apply_weapon_stats(weapon: WeaponDefinition):
 	#item_stats
@@ -64,4 +64,6 @@ func apply_weapon_stats(weapon: WeaponDefinition):
 		weapon.weapon_effectiveness_weapon_type.append_array(weapon_effectiveness_weapon_type)
 	if not specials.is_empty():
 		weapon.specials.append_array(specials)
+	if not equipped_specials.is_empty():
+		weapon.equipped_specials.append_array(equipped_specials)
 	

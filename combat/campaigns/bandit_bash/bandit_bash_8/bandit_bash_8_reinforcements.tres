@@ -19,8 +19,8 @@
 script = ExtResource("2_n6avb")
 name = "Dereigns"
 map_position = Vector2i(21, 21)
-level = 14
-level_bonus = 2
+level = 18
+level_bonus = 4
 is_boss = true
 unit_type_key = "night_blade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_gnt0w"), ExtResource("5_alvux")])
@@ -29,7 +29,7 @@ inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_gnt0w"), ExtResource("
 script = ExtResource("2_n6avb")
 name = "Assassin"
 map_position = Vector2i(20, 22)
-level = 10
+level = 14
 unit_type_key = "thief"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g"), ExtResource("7_r7853")])
 
@@ -37,20 +37,21 @@ inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g"), ExtResource("
 script = ExtResource("2_n6avb")
 name = "Assassin"
 map_position = Vector2i(22, 20)
-level = 10
+level = 14
 unit_type_key = "thief"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g")])
 
 [sub_resource type="Resource" id="Resource_ux6oq"]
 script = ExtResource("2_n6avb")
 name = "Assassin"
+level = 14
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("8_g7235")])
 
 [sub_resource type="Resource" id="Resource_5srre"]
 script = ExtResource("2_n6avb")
 name = "Assassin"
-level_bonus = 10
+level = 14
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("9_k53a3")])
 
@@ -64,8 +65,7 @@ units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResourc
 script = ExtResource("2_n6avb")
 name = "Bandit"
 map_position = Vector2i(0, 20)
-level = 10
-level_bonus = 2
+level = 14
 unit_type_key = "sword_cavalier"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("10_t247n")])
 
@@ -73,6 +73,7 @@ inventory = Array[ExtResource("3_8lwvs")]([ExtResource("10_t247n")])
 script = ExtResource("2_n6avb")
 name = "Bandit"
 map_position = Vector2i(0, 19)
+level = 14
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_7uc1n")])
 
@@ -80,7 +81,7 @@ inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_7uc1n")])
 script = ExtResource("2_n6avb")
 name = "Bandit"
 map_position = Vector2i(0, 21)
-level = 10
+level = 14
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("12_wtk8h")])
 

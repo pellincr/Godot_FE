@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://bcu8037u4mcol"]
+
+[ext_resource type="Texture2D" uid="uid://c854koo6to18o" path="res://resources/sprites/items/equipment/enshrouding_sash.png" id="1_f6mjl"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_jumqu"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_jumqu"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_f6mjl"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_e3xk4"]
+
+[sub_resource type="Resource" id="Resource_v5d6o"]
+script = ExtResource("2_jumqu")
+avoid = 15
+defense = -1
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("4_e3xk4")
+name = "Enshrouding Sash"
+db_key = "enshrouding_stash"
+description = "A silken sash woven from dusk spider thread, flowing like mist and muffling every movement."
+item_type = 3
+rarity = ExtResource("3_f6mjl")
+worth = 2400
+inventory_bonus_stats = SubResource("Resource_v5d6o")
+icon = ExtResource("1_f6mjl")

@@ -64,7 +64,5 @@ func set_icon_visibility():
 		mounted_icon.visible = true
 	if traits.has(unitConstants.TRAITS.FLIER):
 		flier_icon.visible = true
-	if traits.has(unitConstants.TRAITS.UNDEAD):
+	if traits.has(unitConstants.TRAITS.TERROR):
 		undead_icon.visible = true
-	if traits.has(unitConstants.TRAITS.MOBILE):
-		mobile_icon.visible = true#NO ICON EXISTS CURRENTLY

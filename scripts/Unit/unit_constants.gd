@@ -32,9 +32,7 @@ enum TRAITS
 	ARMORED,
 	MOUNTED,
 	FLIER,
-	UNDEAD,
-	LOCKPICK,
-	MOBILE
+	TERROR
 }
 
 enum movement_type 

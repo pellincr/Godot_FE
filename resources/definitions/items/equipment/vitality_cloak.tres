@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://c7nxl3m1wrynx"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_chsvi"]
+[ext_resource type="Texture2D" uid="uid://dau12l46tiv8w" path="res://resources/sprites/items/equipment/vitality_cloak.png" id="1_kd6gr"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_chsvi"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_v5cre"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_s3al7"]
+
+[sub_resource type="Resource" id="Resource_chsvi"]
+script = ExtResource("2_chsvi")
+current_hp = 4
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("4_s3al7")
+name = "Vitality Cloak"
+db_key = "vitality_cloak"
+description = "A thick cloak that traps warmth and fortifies the heart against chill and fear alike."
+item_type = 3
+rarity = ExtResource("3_v5cre")
+worth = 1200
+inventory_bonus_stats = SubResource("Resource_chsvi")
+icon = ExtResource("1_kd6gr")
