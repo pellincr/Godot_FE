@@ -230,7 +230,10 @@ func get_next_unit(cu: CombatUnit = null, forwards: bool = true) -> CombatUnit:
 			next_unit_index = CustomUtilityLibrary.array_previous_index_with_loop(groups[cu.allegience], faction_index) 
 			return combatants[groups[cu.allegience][next_unit_index]]
 	else: 
-		return combatants[groups[0].front()]
+		if groups[0].is_empty():
+			return combatants.front()
+		else:
+			return combatants[groups[0].front()]
 	
 func get_first_available_unit(faction_index :int = 0) -> CombatUnit:
 	var _arr : Array[CombatUnit] = get_available_units(faction_index)
@@ -277,7 +280,7 @@ func generate_random_unit(target:RandomCombatUnitData):
 	if unit_data.map_unit_data_table.has(target.unit_group):
 		var _drop_item : bool = false
 		#Get the unit data from the table
-		var unit_type : UnitTypeDefinition = UnitTypeDatabase.unit_types.get(		unit_data.map_unit_data_table.get(target.unit_group).get_loot())
+		var unit_type : UnitTypeDefinition = UnitTypeDatabase.unit_types.get(unit_data.map_unit_data_table.get(target.unit_group).get_loot())
 		#Get the inventory from the unitType
 		var _inventory :Array[ItemDefinition] = []
 		#TODO allow user to override this item find if a table exists in the 
@@ -291,24 +294,32 @@ func generate_random_unit(target:RandomCombatUnitData):
 			_inventory.append(treasure)
 		# Randomize Level, with deviation around current depth
 		# ensure bottom clamp is correct
-		var _minimum_level : int = clampi(playerOverworldData.combat_maps_completed -4, 1, playerOverworldData.combat_maps_completed)
-		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 1), _minimum_level, playerOverworldData.combat_maps_completed + 4)
-		var _bonus_levels : int = 0
+		var _minimum_level : int = clampi(playerOverworldData.combat_maps_completed -2, 1, playerOverworldData.combat_maps_completed)
+		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 2), _minimum_level, playerOverworldData.combat_maps_completed + 4)
+		var _bonus_levels : int = target.level_bonus
+		if target.is_boss:
+			_bonus_levels = 3 + int(_level/2)
+			_level = _level + 2
 		#Get available positions
 		var map_position : Vector2i = target.map_position
 		var selectable_tiles : Array[Vector2i] = []
 		if target.position_variance:
 			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position)
 			#Is the unit blocked in the tile, if so remove it from contention
-			for index in range(selectable_tiles.size()-1):
-				if game_grid.get_terrain(selectable_tiles[index]).blocks.has(unit_type.movement_type):
-					selectable_tiles.remove_at(index)
+			for tile in selectable_tiles:
+				if game_grid.get_terrain(tile).blocks.has(unit_type.movement_type):
+					selectable_tiles.erase(tile)
+			#for index in range(selectable_tiles.size()-1):
+			#	if game_grid.get_terrain(selectable_tiles[index]).blocks.has(unit_type.movement_type):
+				#	selectable_tiles.remove_at(index)
 				# ANY OTHER CHECKS FOR TILE VALIDITY GO HERE
 			map_position = selectable_tiles.pick_random()
 		target.unit_type_key = unit_type.db_key
 		target.inventory = _inventory.duplicate() #IS THIS DUPLICATE REDUNDANT?
 		target.level = _level
 		target.drops_item = _drop_item
+		target.level_bonus = _bonus_levels
+		target.map_position = map_position
 
 func create_combatant_unit(unit:Unit, team:int, ai_type: int = 0, has_droppable_item:bool = false, is_boss: bool = false):
 	var comb = CombatUnit.create(unit, team, ai_type,is_boss, has_droppable_item)

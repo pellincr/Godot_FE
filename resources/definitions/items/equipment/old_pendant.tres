@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://bocqqoda422bq"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://bocqqoda422bq"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_8ib7s"]
 [ext_resource type="Texture2D" uid="uid://do56i71ji5ssm" path="res://resources/sprites/items/equipment/old_pendant.png" id="1_au7pc"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_8ib7s"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_k7uu5"]

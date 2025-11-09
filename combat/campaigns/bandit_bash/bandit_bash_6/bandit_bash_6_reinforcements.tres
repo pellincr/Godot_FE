@@ -13,7 +13,7 @@
 script = ExtResource("2_1scyu")
 name = "Thogun's Thug"
 map_position = Vector2i(1, 25)
-level = 6
+level = 9
 unit_type_key = "axe_cavalier"
 inventory = Array[ExtResource("3_naset")]([ExtResource("4_xpwab")])
 
@@ -21,7 +21,7 @@ inventory = Array[ExtResource("3_naset")]([ExtResource("4_xpwab")])
 script = ExtResource("2_1scyu")
 name = "Thogun's Thug"
 map_position = Vector2i(0, 24)
-level = 6
+level = 9
 unit_type_key = "sword_cavalier"
 inventory = Array[ExtResource("3_naset")]([ExtResource("5_o0mx6")])
 
@@ -34,7 +34,7 @@ units = Array[ExtResource("2_1scyu")]([SubResource("Resource_hyl33"), SubResourc
 script = ExtResource("2_1scyu")
 name = "Brask's Brigade"
 map_position = Vector2i(5, 0)
-level = 6
+level = 10
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_naset")]([ExtResource("6_4e4bh")])
 
@@ -42,7 +42,7 @@ inventory = Array[ExtResource("3_naset")]([ExtResource("6_4e4bh")])
 script = ExtResource("2_1scyu")
 name = "Brask's Brigade"
 map_position = Vector2i(18, 0)
-level = 6
+level = 10
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_naset")]([ExtResource("6_4e4bh")])
 

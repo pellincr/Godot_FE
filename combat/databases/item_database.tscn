@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=183 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -160,6 +160,28 @@
 [ext_resource type="Resource" uid="uid://dn8nycdpo07q" path="res://resources/definitions/items/weapons/shield/steel_greatshield.tres" id="154_d85kj"]
 [ext_resource type="Resource" uid="uid://cogogvgr7hry6" path="res://resources/definitions/items/weapons/shield/silver_greatshield.tres" id="155_iuj88"]
 [ext_resource type="Resource" uid="uid://ven8mbk3rp67" path="res://resources/definitions/items/treasure/spices.tres" id="156_4aqvk"]
+[ext_resource type="Resource" uid="uid://buifjastb8bc5" path="res://resources/definitions/items/equipment/band_of_fortune.tres" id="157_ewy5w"]
+[ext_resource type="Resource" uid="uid://bcu8037u4mcol" path="res://resources/definitions/items/equipment/enshrouding_stash.tres" id="158_6rcnr"]
+[ext_resource type="Resource" uid="uid://c7rpmq73clyum" path="res://resources/definitions/items/equipment/family_ring.tres" id="159_cqs85"]
+[ext_resource type="Resource" uid="uid://bjytyu8voutuv" path="res://resources/definitions/items/equipment/fancy_cloak.tres" id="160_smksv"]
+[ext_resource type="Resource" uid="uid://cn50lbgi2bx3t" path="res://resources/definitions/items/equipment/jester_mask.tres" id="161_jongk"]
+[ext_resource type="Resource" uid="uid://cg5wo0fkyh5uw" path="res://resources/definitions/items/equipment/knights_token.tres" id="162_a2n7e"]
+[ext_resource type="Resource" uid="uid://dvm6o4v86cbr0" path="res://resources/definitions/items/equipment/loaded_die.tres" id="163_3lb28"]
+[ext_resource type="Resource" uid="uid://qkuun8cons7a" path="res://resources/definitions/items/equipment/lucky_coin.tres" id="164_xul00"]
+[ext_resource type="Resource" uid="uid://c27vhlofo7ly6" path="res://resources/definitions/items/equipment/magi_robes.tres" id="165_n7wwd"]
+[ext_resource type="Resource" uid="uid://l6kd2wl63bem" path="res://resources/definitions/items/equipment/mystifying_incense.tres" id="166_ncyn0"]
+[ext_resource type="Resource" uid="uid://cyj3gt2n6yn8y" path="res://resources/definitions/items/equipment/null_sigl.tres" id="167_n308j"]
+[ext_resource type="Resource" uid="uid://bocqqoda422bq" path="res://resources/definitions/items/equipment/old_pendant.tres" id="168_87ert"]
+[ext_resource type="Resource" uid="uid://ch3c7efjp00as" path="res://resources/definitions/items/equipment/old_soldiers_band.tres" id="169_sec5j"]
+[ext_resource type="Resource" uid="uid://dbauvolqrqquy" path="res://resources/definitions/items/equipment/power_band.tres" id="170_e40e4"]
+[ext_resource type="Resource" uid="uid://xyky33pirc2u" path="res://resources/definitions/items/equipment/quick_soles.tres" id="171_stywt"]
+[ext_resource type="Resource" uid="uid://bhhd6h6vtdo23" path="res://resources/definitions/items/equipment/ring_of_favor.tres" id="172_u32r1"]
+[ext_resource type="Resource" uid="uid://bibwkx8e7sl5i" path="res://resources/definitions/items/equipment/royal_crest.tres" id="173_26xed"]
+[ext_resource type="Resource" uid="uid://ckgavju6d8chp" path="res://resources/definitions/items/equipment/scholars_optics.tres" id="174_esb4d"]
+[ext_resource type="Resource" uid="uid://cn232dt8461s3" path="res://resources/definitions/items/equipment/training_weights.tres" id="175_k7afb"]
+[ext_resource type="Resource" uid="uid://xtlbht140mcb" path="res://resources/definitions/items/equipment/travelers_ring.tres" id="176_51rj4"]
+[ext_resource type="Resource" uid="uid://b58f56xtumpv1" path="res://resources/definitions/items/equipment/tungsten_ooze.tres" id="177_j81yc"]
+[ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -170,6 +192,7 @@ items = {
 "ancient_anchor": ExtResource("120_euqrm"),
 "annihilate": ExtResource("74_y5h4k"),
 "armorbreaker": ExtResource("150_7xe73"),
+"band_of_fortune": ExtResource("157_ewy5w"),
 "bastion_crab": ExtResource("106_50iop"),
 "bolting": ExtResource("35_xal3d"),
 "boost_bread": ExtResource("61_af6n4"),
@@ -191,8 +214,11 @@ items = {
 "ebonflight": ExtResource("70_s8rv5"),
 "elixir": ExtResource("93_1d4v0"),
 "enchanted_bow": ExtResource("24_4o3e2"),
+"enshrouding_stash": ExtResource("158_6rcnr"),
 "evil_eye": ExtResource("45_py2vi"),
 "eye_greatshield": ExtResource("43_v0y5j"),
+"family_ring": ExtResource("159_cqs85"),
+"fancy_cloak": ExtResource("160_smksv"),
 "fiend_fire": ExtResource("28_hv28m"),
 "finesse_fillet": ExtResource("126_kn4gf"),
 "fire_spell": ExtResource("19_q1d18"),
@@ -227,6 +253,7 @@ items = {
 "iron_shield": ExtResource("40_8cwhn"),
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
+"jester_mask": ExtResource("161_jongk"),
 "killer_axe": ExtResource("66_2c4cv"),
 "killer_bow": ExtResource("15_jhgao"),
 "killer_dagger": ExtResource("72_ckkvo"),
@@ -234,33 +261,46 @@ items = {
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
 "knife": ExtResource("92_gsk0d"),
+"knights_token": ExtResource("162_a2n7e"),
 "kukri": ExtResource("50_d8m3e"),
 "large_potion": ExtResource("141_1moet"),
 "life_tap": ExtResource("59_jqcuj"),
+"loaded_die": ExtResource("163_3lb28"),
 "long_bow": ExtResource("104_q80qu"),
+"lucky_coin": ExtResource("164_xul00"),
 "lumen": ExtResource("87_gcqt1"),
 "mage_blade": ExtResource("53_1g7xb"),
+"magi_robes": ExtResource("165_n7wwd"),
 "mandate": ExtResource("46_jmx6f"),
 "martial_scroll": ExtResource("128_8txxg"),
 "minor_heal": ExtResource("98_5vscg"),
 "moonclam_pearl": ExtResource("115_35x00"),
+"mystifying_incense": ExtResource("166_ncyn0"),
+"null_sigil": ExtResource("167_n308j"),
 "oak_wood_charm": ExtResource("100_2u5qe"),
+"old_pendant": ExtResource("168_87ert"),
+"old_soldiers_band": ExtResource("169_sec5j"),
 "percise_pepper": ExtResource("129_kbtey"),
 "pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
+"power_band": ExtResource("170_e40e4"),
 "power_rune": ExtResource("139_sykvo"),
+"quick_soles": ExtResource("171_stywt"),
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
 "refillable_potion": ExtResource("140_tjwbw"),
 "reinforced_bow": ExtResource("99_5bd5o"),
 "resonant_ore": ExtResource("101_7bcyb"),
+"ring_of_favor": ExtResource("172_u32r1"),
+"royal_crest": ExtResource("173_26xed"),
 "runewart": ExtResource("116_nw817"),
 "rushraddish": ExtResource("131_4c85a"),
 "sabre": ExtResource("26_3x5tg"),
 "sanctree_branch": ExtResource("122_niuha"),
 "sanctuary_shell": ExtResource("123_4aqvk"),
 "sanguis": ExtResource("71_i5lad"),
+"scholars_optics": ExtResource("174_esb4d"),
 "shade": ExtResource("75_b030a"),
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_axe": ExtResource("67_dh53s"),
@@ -303,15 +343,19 @@ items = {
 "titans_will": ExtResource("85_qfgim"),
 "tomahawk": ExtResource("69_q45qp"),
 "torrent": ExtResource("90_n7mel"),
+"training_weights": ExtResource("175_k7afb"),
+"travelers_ring": ExtResource("176_51rj4"),
 "tri_axe": ExtResource("147_ccn1k"),
 "tri_edge": ExtResource("149_kbtey"),
 "tri_pike": ExtResource("148_8txxg"),
+"tungsten_ooze": ExtResource("177_j81yc"),
 "valor_axe": ExtResource("142_niuha"),
 "valor_blade": ExtResource("146_kn4gf"),
 "valor_bow": ExtResource("143_4aqvk"),
 "valor_dagger": ExtResource("144_86gxh"),
 "valor_lance": ExtResource("145_7a2us"),
 "vermillion_tonic": ExtResource("114_cws61"),
+"vitality_cloak": ExtResource("178_a0mno"),
 "warding_worm": ExtResource("124_86gxh"),
 "warpick": ExtResource("10_n4irs"),
 "wind": ExtResource("34_ttak5"),

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://bjytyu8voutuv"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://bjytyu8voutuv"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_0r6co"]
 [ext_resource type="Texture2D" uid="uid://dtkmyx6urqp1r" path="res://resources/sprites/items/equipment/fancy_cloak.png" id="1_vwuc2"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_0r6co"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_0r6co"]

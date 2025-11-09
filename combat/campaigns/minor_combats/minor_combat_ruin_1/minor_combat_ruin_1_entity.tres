@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=10 format=3 uid="uid://dwsxb182ot04y"]
+
+[ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_jd6oc"]
+[ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_x1qfu"]
+[ext_resource type="Script" uid="uid://dh6ibyc5nxikd" path="res://scripts/combat/entities/map_debris_entity_definition.gd" id="3_asrv7"]
+[ext_resource type="Script" uid="uid://cnbnjwx16eg6n" path="res://scripts/combat/entities/map_door_entity_definition.gd" id="4_3iekb"]
+[ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="5_5gvcm"]
+[ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="6_060g5"]
+[ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="7_eoacr"]
+
+[sub_resource type="Resource" id="Resource_l3gbs"]
+script = ExtResource("3_asrv7")
+position = Vector2i(5, 12)
+type = 1
+metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
+
+[sub_resource type="Resource" id="Resource_8yiie"]
+script = ExtResource("3_asrv7")
+position = Vector2i(7, 14)
+type = 1
+metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
+
+[resource]
+script = ExtResource("6_060g5")
+debris = Array[ExtResource("3_asrv7")]([SubResource("Resource_l3gbs"), SubResource("Resource_8yiie")])
+default_stone_debris_defense = 0
+default_stone_debris_resistance = 0

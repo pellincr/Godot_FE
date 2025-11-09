@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=10 format=3 uid="uid://cnr2egn3jwnfb"]
+
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_wiebr"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_hsw62"]
+[ext_resource type="Script" uid="uid://dbvwm6gbf27l7" path="res://scripts/combat/combatUnit/randomCombatUnitData.gd" id="3_deqqo"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_eilm4"]
+
+[sub_resource type="Resource" id="Resource_15xpf"]
+script = ExtResource("3_deqqo")
+unit_group = "A"
+position_variance_weight = 1
+name = "Bandit"
+map_position = Vector2i(2, 10)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_vyxr5"]
+script = ExtResource("3_deqqo")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(16, 13)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_8lc6y"]
+script = ExtResource("3_deqqo")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(7, 13)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_ca082"]
+script = ExtResource("3_deqqo")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(1, 17)
+ai_type = 1
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_hk5tg"]
+script = ExtResource("3_deqqo")
+unit_group = "A"
+position_variance = true
+position_variance_weight = 1
+name = "Bandit Boss"
+map_position = Vector2i(16, 17)
+ai_type = 2
+is_boss = true
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[resource]
+script = ExtResource("4_eilm4")
+group = Array[ExtResource("1_wiebr")]([SubResource("Resource_15xpf"), SubResource("Resource_vyxr5"), SubResource("Resource_8lc6y"), SubResource("Resource_ca082"), SubResource("Resource_hk5tg")])
+metadata/_custom_type_script = "uid://ctoil1vwlbm4k"

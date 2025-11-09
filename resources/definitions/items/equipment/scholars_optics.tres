@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://ckgavju6d8chp"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://ckgavju6d8chp"]
 
 [ext_resource type="Texture2D" uid="uid://c5s6ywpjncvli" path="res://resources/sprites/items/equipment/scholars_optics.png" id="1_ens5a"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_vlism"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_vlism"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_il8ow"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_7se5i"]

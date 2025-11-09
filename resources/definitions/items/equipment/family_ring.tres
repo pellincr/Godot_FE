@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://c7rpmq73clyum"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://c7rpmq73clyum"]
 
 [ext_resource type="Texture2D" uid="uid://cxdb17ngw3dje" path="res://resources/sprites/items/equipment/family_ring.png" id="1_ifmv2"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_mjr3b"]
 [ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="2_mjr3b"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_ti88p"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_tyjwl"]

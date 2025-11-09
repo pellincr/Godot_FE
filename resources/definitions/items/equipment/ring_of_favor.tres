@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://vapttex4fj3j"
 [resource]
 script = ExtResource("5_u81lb")
 name = "Ring of Favor"
-db_key = "royal_crest"
+db_key = "ring_of_favor"
 description = "A radiant ring once gifted by the gods to those who carried both strength and grace in equal measure."
 item_type = 3
 rarity = ExtResource("4_cucyx")
