@@ -71,7 +71,7 @@ func spawn_reinforcement_group(group : String):
 
 func spawn_reinforcement_unit(unit_data: CombatUnitData):
 	if game_grid.is_position_occupied(unit_data.map_position) == false:
-		var _unit_data = Unit.create_generic_unit(unit_data.unit_type_key, unit_data.inventory, unit_data.name, unit_data.level, unit_data.level_bonus, unit_data.hard_mode_leveling)
+		var _unit_data = Unit.create_generic_unit(unit_data.unit_type_key, unit_data.inventory, unit_data.name, unit_data.level, unit_data.level_bonus)
 		var _combat_unit = CombatUnit.create(_unit_data, Constants.FACTION.ENEMIES, unit_data.ai_type,unit_data.is_boss)
 		var position = unit_data.map_position
 		print("spawn reinforcement_unit emitted")

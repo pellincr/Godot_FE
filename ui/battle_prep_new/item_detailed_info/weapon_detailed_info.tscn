@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://uij42thge1m2"]
+[gd_scene load_steps=10 format=3 uid="uid://uij42thge1m2"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_bgdbb"]
 [ext_resource type="Script" uid="uid://d1n5jle7lq5bi" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_2jgc7"]
 [ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_644mu"]
@@ -42,6 +43,8 @@ theme_override_constants/separation = 4
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = SubResource("Theme_trk22")
+theme_override_fonts/font = ExtResource("3_2jgc7")
+theme_override_font_sizes/font_size = 32
 text = "Item Name"
 
 [node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -50,6 +53,7 @@ theme = SubResource("Theme_wgwh4")
 
 [node name="ItemTypeHeader" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Item Type"
 
 [node name="-" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
@@ -58,6 +62,7 @@ text = "-"
 
 [node name="ItemType" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Item type"
 
 [node name="FullWeaponIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

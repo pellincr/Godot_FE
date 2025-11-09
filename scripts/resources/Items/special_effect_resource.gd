@@ -24,13 +24,13 @@ func get_various_special_effects_with_type(target_effects :Array[SpecialEffect.S
 # Calculates the total value for the effect combining flat & percent so effect operation only happens once
 func calculate_aggregate_effect(monotype_effects_list :Array[SpecialEffect], one_hundred_percent_value: int) -> int:
 	var _flat_weight :int = 0
-	var _percent_weight : int = 0
+	var _percent_weight : float = 0
 	for special_effect in monotype_effects_list:
 		if special_effect.effect_type == SpecialEffect.SPECIAL_EFFECT_WEIGHT_TYPE.FLAT_VALUE:
 			_flat_weight = _flat_weight + special_effect.effect_weight
 		elif special_effect.effect_type == SpecialEffect.SPECIAL_EFFECT_WEIGHT_TYPE.PERCENTAGE:
 			_percent_weight = _percent_weight + special_effect.effect_weight
-	return _flat_weight + (int(_percent_weight *one_hundred_percent_value))
+	return _flat_weight + (int( float(_percent_weight/100) * one_hundred_percent_value))
 	
 func get_all_special_effect_types(specials: Array[SpecialEffect]) -> Array[SpecialEffect.SPECIAL_EFFECT]:
 	var _arr : Array[SpecialEffect.SPECIAL_EFFECT]  = []

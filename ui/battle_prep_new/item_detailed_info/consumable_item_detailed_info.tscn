@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwesyjybbvx48"]
+[gd_scene load_steps=7 format=3 uid="uid://dwesyjybbvx48"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ohqp3"]
 [ext_resource type="Script" uid="uid://dpw6qmr8kyuc5" path="res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.gd" id="2_a4wg7"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_2lans"]
 [ext_resource type="Texture2D" uid="uid://dosv45gdwad0p" path="res://resources/sprites/items/consumables/potion.png" id="3_alcit"]
 
 [sub_resource type="Theme" id="Theme_hrc1k"]
-default_font_size = 36
+default_font = ExtResource("3_2lans")
+default_font_size = 32
 
 [sub_resource type="Theme" id="Theme_6h6tc"]
-default_font_size = 18
+default_font_size = 16
 
 [node name="ConsumableItemDetailedInfo" type="PanelContainer"]
 size_flags_horizontal = 6
@@ -59,6 +61,7 @@ text = "100G"
 modulate = Color(0.50980395, 0.50980395, 0.50980395, 1)
 custom_minimum_size = Vector2(228, 30)
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Description"
 autowrap_mode = 3
 

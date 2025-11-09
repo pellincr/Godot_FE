@@ -14,7 +14,7 @@ movement = 1
 [sub_resource type="Resource" id="Resource_okj6i"]
 script = ExtResource("2_okj6i")
 special = 6
-effect_weight = 25
+effect_weight = 50
 effect_type = 1
 metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
