@@ -35,7 +35,7 @@ enum EXCHANGE_OUTCOME
 var audio_player_busy: bool = false
 var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
-var se_resource : SpecialEffectResource
+var se_resource : SpecialEffectResource = SpecialEffectResource.new()
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var attacker_specials = attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()

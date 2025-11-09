@@ -566,7 +566,7 @@ func process_special_effects():
 				if not applicable_specials.is_empty():
 					# BEGINNING OF TURN HEAL
 					if combat_unit.current_hp < combat_unit.get_max_hp():
-						var heal_on_begin_specials : Array[SpecialEffect] = _special_effect_resource.get_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN, applicable_specials)
+						var heal_on_begin_specials : Array[SpecialEffect] = _special_effect_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN, applicable_specials)
 						if not heal_on_begin_specials.is_empty():
 							await combat.combatExchange.heal_unit(combat_unit,_special_effect_resource.calculate_aggregate_effect(heal_on_begin_specials, combat_unit.get_max_hp()))
 
