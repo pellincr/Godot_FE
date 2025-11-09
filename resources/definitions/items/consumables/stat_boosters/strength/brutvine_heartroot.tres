@@ -21,5 +21,5 @@ db_key = "brutvine_heartroot"
 description = "The dense core of the Brutvine plant, pulsing with raw, untamed power."
 item_type = 2
 rarity = ExtResource("3_iklwa")
-worth = 5000
+worth = 1350
 icon = ExtResource("2_x34yc")

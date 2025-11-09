@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_x03sh"]
 script = ExtResource("1_lbgv0")
-speed = 12
+speed = 15
 metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
 
 [resource]
@@ -21,5 +21,5 @@ db_key = "hastehawk_feather"
 description = "A plume from a legendary hawk said to create storms, its aura quickens every heartbeat it touches."
 item_type = 2
 rarity = ExtResource("3_dv01l")
-worth = 5000
+worth = 3500
 icon = ExtResource("2_leo4y")

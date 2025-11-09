@@ -21,5 +21,5 @@ db_key = "brutvine_sap"
 description = "A thick, amber sap drawn from the wild Brutvine, thrumming with feral vigor."
 item_type = 2
 rarity = ExtResource("3_hjvs5")
-worth = 1600
+worth = 375
 icon = ExtResource("2_qa44a")

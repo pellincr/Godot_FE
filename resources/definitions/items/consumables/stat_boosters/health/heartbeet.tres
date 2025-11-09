@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://c3rv0ukehgqln"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_16uds"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_16uds"]
 [ext_resource type="Texture2D" uid="uid://codwu8y2imjx5" path="res://resources/sprites/items/consumables/stat_boosters/health/heart_beet.png" id="2_ilqk5"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_mghys"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_4n380"]
@@ -21,5 +21,5 @@ db_key = "heartbeet"
 description = "A crimson root that beats faintly when held, said to share its rhythm with the eater’s heart."
 item_type = 2
 rarity = ExtResource("3_sojey")
-worth = 1600
+worth = 600
 icon = ExtResource("2_ilqk5")

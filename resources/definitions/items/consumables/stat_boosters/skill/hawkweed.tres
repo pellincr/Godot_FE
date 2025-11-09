@@ -21,5 +21,5 @@ db_key = "hawkweed"
 description = "A slender golden herb that sharpens the senses and steadies the hand when brewed into tea."
 item_type = 2
 rarity = ExtResource("3_cn11f")
-worth = 1600
+worth = 350
 icon = ExtResource("2_ep6c8")

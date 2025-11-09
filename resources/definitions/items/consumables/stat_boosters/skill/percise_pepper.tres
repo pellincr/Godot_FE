@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://cqv0qetc37ogd"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_asev1"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_asev1"]
 [ext_resource type="Texture2D" uid="uid://cbeyv1175gywo" path="res://resources/sprites/items/consumables/stat_boosters/skill/true_pepper.png" id="2_lshf5"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_m75on"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_x20mk"]
@@ -21,5 +21,5 @@ db_key = "percise_pepper"
 description = "A sharp, violet pepper that tingles the tongue and clears the mind, prized by archers for its steadying burn."
 item_type = 2
 rarity = ExtResource("3_x20mk")
-worth = 2500
+worth = 850
 icon = ExtResource("2_lshf5")

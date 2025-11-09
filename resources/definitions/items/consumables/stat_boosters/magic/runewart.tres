@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://bvxcxn35h4vvd"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_e8pxd"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_e8pxd"]
 [ext_resource type="Texture2D" uid="uid://b8b0uyslsyiot" path="res://resources/sprites/items/consumables/stat_boosters/magic/rune_wart.png" id="2_6wjca"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_wwykh"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_wwykh"]
@@ -21,5 +21,5 @@ db_key = "runewart"
 description = "A pale mushroom whose cap is etched with natural runic veins that glow softly when exposed to moonlight."
 item_type = 2
 rarity = ExtResource("3_wwykh")
-worth = 1600
+worth = 400
 icon = ExtResource("2_6wjca")

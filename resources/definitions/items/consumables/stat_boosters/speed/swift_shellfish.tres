@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://csmujnyruvv5h"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_pnjln"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_pnjln"]
 [ext_resource type="Texture2D" uid="uid://dxxko6rsvlki2" path="res://resources/sprites/items/consumables/stat_boosters/speed/swift_shellfish.png" id="2_2uvew"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_hssee"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_hssee"]
@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_x03sh"]
 script = ExtResource("1_pnjln")
-speed = 5
+speed = 7
 metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
 
 [resource]
@@ -21,5 +21,5 @@ db_key = "swift_shellfish"
 description = "A sleek, golden crustacean that darts through water with uncanny reflexes, its meat quickening the pulse."
 item_type = 2
 rarity = ExtResource("3_hssee")
-worth = 2500
+worth = 1100
 icon = ExtResource("2_2uvew")
