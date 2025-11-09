@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://xyky33pirc2u"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_sr86l"]
+[ext_resource type="Texture2D" uid="uid://pr3nlptwvjbo" path="res://resources/sprites/items/equipment/quick_soles.png" id="2_d4g0c"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="3_e55aw"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_i3j8m"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="4_i03kg"]
+
+[sub_resource type="Resource" id="Resource_rjc5o"]
+script = ExtResource("3_e55aw")
+movement = 2
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("4_i3j8m")
+name = "Quick Soles"
+db_key = "quick_soles"
+description = "Boots woven from sky-beast hide, said to carry the wind beneath each step."
+item_type = 3
+rarity = ExtResource("4_i03kg")
+worth = 6500
+inventory_bonus_stats = SubResource("Resource_rjc5o")
+icon = ExtResource("2_d4g0c")

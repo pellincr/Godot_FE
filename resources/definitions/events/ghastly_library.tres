@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://iowm3ipdn3b4"]
+[gd_resource type="Resource" script_class="Event" load_steps=15 format=3 uid="uid://iowm3ipdn3b4"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_icp25"]
 [ext_resource type="Texture2D" uid="uid://d7hnjqhblwr3" path="res://resources/sprites/events/whispering_library_background.png" id="1_wfpig"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_ayyeo"]
 [ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_6vypc"]
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_kq51s"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="5_wfpig"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="6_5vsyw"]
 
 [sub_resource type="Resource" id="Resource_0a2sq"]

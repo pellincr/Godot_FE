@@ -71,3 +71,4 @@ enum SPECIAL_EFFECT_ACTIVATION_TYPE {
 @export var always_active : bool = true
 @export var activation_type : SPECIAL_EFFECT_ACTIVATION_TYPE = SPECIAL_EFFECT_ACTIVATION_TYPE.RANDOM_CHANCE
 @export var activation_threshold : float = 100
+@export var activation_chance : float = 100

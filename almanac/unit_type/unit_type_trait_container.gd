@@ -19,5 +19,5 @@ func set_icon_visibiltiy_by_unit_type():
 		mounted_icon.visible = true
 	if traits.has(unitConstants.TRAITS.FLIER):
 		flier_icon.visible = true
-	if traits.has(unitConstants.TRAITS.UNDEAD):
+	if traits.has(unitConstants.TRAITS.TERROR):
 		undead_icon.visible = true

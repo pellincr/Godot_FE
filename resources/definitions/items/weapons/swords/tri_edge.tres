@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://d0isbl0uqtjwy"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://d0isbl0uqtjwy"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_cp0lh"]
 [ext_resource type="Texture2D" uid="uid://bameqvyrg1nhw" path="res://resources/sprites/items/weapons/swords/tri_edge_sword.png" id="1_fn28s"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_kt2lv"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_tee0k"]
+
+[sub_resource type="Resource" id="Resource_11afd"]
+script = ExtResource("1_cp0lh")
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("3_tee0k")
@@ -14,6 +19,7 @@ critical_chance = 5
 weight = 11
 weapon_effectiveness_trait = Array[int]([1])
 specials = Array[int]([0])
+equipped_specials = Array[ExtResource("1_cp0lh")]([SubResource("Resource_11afd")])
 name = "Tri-Edge"
 db_key = "tri_edge"
 equippable = true

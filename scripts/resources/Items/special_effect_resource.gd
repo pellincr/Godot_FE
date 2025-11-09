@@ -39,3 +39,35 @@ func get_all_special_effect_types(specials: Array[SpecialEffect]) -> Array[Speci
 			_arr.append(se.special)
 	return _arr
 	
+func check_activation(se: SpecialEffect, comb: CombatUnit = null) -> bool:
+	if se.always_active :
+		return true
+	var _threshold = se.activation_threshold
+	var _chance = se.activation_chance
+	# Update thresholds if it is a stat based check
+	if comb != null:
+		match se.activation_type:
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.RANDOM_CHANCE:
+				pass
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_HP:
+				_chance = comb.get_max_hp()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_STRENGTH:
+				_chance = comb.get_strength()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_MAGIC:
+				_chance = comb.get_magic()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_SKILL:
+				_chance = comb.get_skill()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_SPEED:
+				_chance = comb.get_speed()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_LUCK:
+				_chance = comb.get_luck()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_DEFENSE:
+				_chance = comb.get_defense()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_RESISTANCE:
+				_chance = comb.get_resistance()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_MOVEMENT:
+				_chance = comb.get_movement()
+			SpecialEffect.SPECIAL_EFFECT_ACTIVATION_TYPE.UNIT_STAT_CONSITUTION:
+				_chance = comb.get_constitution()
+	# Do the roll
+	return CustomUtilityLibrary.random_rolls_bool(_chance, 1, _threshold)

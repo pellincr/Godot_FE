@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://cyj3gt2n6yn8y"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_heqld"]
+[ext_resource type="Texture2D" uid="uid://d3fv42j1o65uh" path="res://resources/sprites/items/equipment/null_sigil.png" id="2_heqld"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="4_f25rb"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_qgvas"]
+
+[sub_resource type="Resource" id="Resource_42frt"]
+script = ExtResource("1_heqld")
+special = 7
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[resource]
+script = ExtResource("5_qgvas")
+name = "Null Sigil"
+db_key = "null_sigil"
+description = "Negates foe critical."
+item_type = 3
+rarity = ExtResource("4_f25rb")
+worth = 5000
+held_specials = Array[ExtResource("1_heqld")]([SubResource("Resource_42frt")])
+icon = ExtResource("2_heqld")

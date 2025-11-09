@@ -1,30 +1,27 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://barvjqtxacqp4"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://barvjqtxacqp4"]
 
 [ext_resource type="Texture2D" uid="uid://bl5nivv36v1hr" path="res://resources/sprites/items/weapons/staff/destroy_staff.png" id="1_1inl6"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_wfii7"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_yck0u"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_b0nfm"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_b0nfm"]
+
+[sub_resource type="Resource" id="Resource_07tr3"]
+script = ExtResource("1_wfii7")
+special = 4
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("3_b0nfm")
 weapon_type = 6
 alignment = 2
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
 item_damage_type = 1
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2, 3, 4])
 damage = 20
 hit = 85
-critical_chance = 0
 weight = 20
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
+attack_range = Array[int]([1, 2, 3, 4])
 specials = Array[int]([6])
+equipped_specials = Array[ExtResource("1_wfii7")]([SubResource("Resource_07tr3")])
 name = "Harm"
 db_key = "harm"
 equippable = true
@@ -33,6 +30,5 @@ item_type = 1
 rarity = ExtResource("2_yck0u")
 uses = 4
 max_uses = 4
-unbreakable = false
 worth = 3500
 icon = ExtResource("1_1inl6")

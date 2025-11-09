@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://cymrbyixh0afj"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://cymrbyixh0afj"]
 
 [ext_resource type="Texture2D" uid="uid://c710uuu3jys46" path="res://resources/sprites/events/Wind_Carved_Archway_background.png" id="1_4vm1v"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_bd0qe"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_epgqw"]
 [ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_7l8u1"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="4_3jxrr"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="4_epgqw"]
 
 [sub_resource type="Resource" id="Resource_h6ohp"]
 script = ExtResource("3_7l8u1")

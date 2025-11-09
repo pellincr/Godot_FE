@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://cxnyafyx5fcyt"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=8 format=3 uid="uid://cxnyafyx5fcyt"]
 
 [ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_qvl03"]
 [ext_resource type="Texture2D" uid="uid://d3pqwslpvbk1x" path="res://resources/sprites/items/weapons/shield/Eye Greatshield.png" id="2_dme6c"]
@@ -13,6 +13,13 @@ speed = -3
 defense = 5
 resistance = 3
 
+[sub_resource type="Resource" id="Resource_we5th"]
+script = ExtResource("2_we5th")
+special = 6
+effect_weight = 50
+effect_type = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
 [resource]
 script = ExtResource("3_mvc2i")
 weapon_type = 12
@@ -22,6 +29,7 @@ critical_chance = 10
 weight = 25
 bonus_stat = SubResource("Resource_tvbcc")
 specials = Array[int]([2])
+equipped_specials = Array[ExtResource("2_we5th")]([SubResource("Resource_we5th")])
 name = "Eye Shield"
 db_key = "eye_greatshield"
 equippable = true
