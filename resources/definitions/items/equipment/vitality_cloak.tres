@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_chsvi"]
 script = ExtResource("2_chsvi")
-current_hp = 4
+hp = 5
 metadata/_custom_type_script = "uid://vapttex4fj3j"
 
 [resource]

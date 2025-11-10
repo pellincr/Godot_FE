@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://c27vhlofo7ly6"]
 
-[ext_resource type="Texture2D" uid="uid://b08spam3im1h4" path="res://resources/sprites/items/equipment/power_band.png" id="1_7q5xv"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_10tla"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_10tla"]
+[ext_resource type="Texture2D" uid="uid://c173qbrobhxqy" path="res://resources/sprites/items/equipment/magi_robes.png" id="2_kjuy1"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_kjuy1"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_q73fp"]
 
@@ -20,4 +20,4 @@ item_type = 3
 rarity = ExtResource("3_kjuy1")
 worth = 2800
 inventory_bonus_stats = SubResource("Resource_phbw1")
-icon = ExtResource("1_7q5xv")
+icon = ExtResource("2_kjuy1")

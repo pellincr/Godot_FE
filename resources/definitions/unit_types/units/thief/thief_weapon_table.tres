@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_cdcu3"]
 [ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="9_se7gf"]
-[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="10_x4aic"]
+[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="10_x4aic"]
 [ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="11_uikht"]
 [ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="12_7nrwq"]
 [ext_resource type="Resource" uid="uid://dss3x6j62pbtk" path="res://resources/definitions/items/weapons/dagger/sword_breaker.tres" id="13_vybdq"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://cmljuu3sxx1lf" path="res://resources/definitions/items/weapons/dagger/killer_dagger.tres" id="15_0rclj"]
 [ext_resource type="Resource" uid="uid://y6uw8w4wpc2h" path="res://resources/definitions/items/weapons/dagger/kunai.tres" id="16_mp310"]
 [ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="17_7xfgx"]
+
 
 [sub_resource type="Resource" id="Resource_gujfa"]
 script = ExtResource("1_cdcu3")

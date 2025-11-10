@@ -264,7 +264,7 @@ func spawn_initial_units():
 	var _bonus_levels : int = 0
 	var hard_mode_leveling : bool = false
 	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD:
-		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.2)
+		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.4)
 		hard_mode_leveling = true
 	for unit : CombatUnitData in unit_data.starting_enemy_group.group: #for unit :CombatUnitData in enemy_start_group.group:
 		if unit is RandomCombatUnitData:

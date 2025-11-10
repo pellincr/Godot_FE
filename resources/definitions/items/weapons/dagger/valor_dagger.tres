@@ -1,24 +1,27 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cqebfjgonud70"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b36pv3aminpmj"]
 
-[ext_resource type="Texture2D" uid="uid://dp7e2ioc3iwen" path="res://resources/sprites/items/weapons/dagger/steel_dagger.png" id="1_moudk"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_f431w"]
-[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_tukl3"]
+[ext_resource type="Texture2D" uid="uid://bstmc5vcw052" path="res://resources/sprites/items/weapons/dagger/valor_dagger.png" id="1_0b5li"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_15vnp"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_llh6h"]
 
 [resource]
-script = ExtResource("3_tukl3")
+script = ExtResource("2_llh6h")
 weapon_type = 13
 alignment = 4
 required_mastery = 1
-damage = 6
-hit = 80
+damage = 5
+hit = 85
 critical_chance = 10
+weight = 8
 critical_multiplier = 4.0
+attacks_per_combat_turn = 2
 attack_range = Array[int]([1, 2])
-name = "Steel Dagger"
-db_key = "steel_dagger"
+name = "Valor Dagger"
+db_key = "valor_dagger"
 equippable = true
-rarity = ExtResource("2_f431w")
+description = "A weapon filled with great bravery. Can strike consecutively"
+rarity = ExtResource("2_15vnp")
 uses = 20
 max_uses = 20
-worth = 900
-icon = ExtResource("1_moudk")
+worth = 6000
+icon = ExtResource("1_0b5li")

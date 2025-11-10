@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3 uid="uid://ven8mbk3rp67"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://ven8mbk3rp67"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_3rq5l"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_8s7d8"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_eajed"]
 

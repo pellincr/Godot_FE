@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
 [ext_resource type="Resource" uid="uid://cghxx7c2042ce" path="res://resources/definitions/campaigns/isle_of_woe.tres" id="6_ls3an"]
 
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsq0u"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 2

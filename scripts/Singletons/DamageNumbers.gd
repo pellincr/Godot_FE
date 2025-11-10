@@ -16,7 +16,7 @@ func display_number(value:int, position:Vector2, is_critical: bool = false):
 	number.bbcode_enabled = true
 	number.theme = theme
 	if is_critical:
-		number.text = "[font_size={32}][color=#B22][shake]" +str(value) +"![/shake][/color][/font_size]"
+		number.text = "[font_size={36}][color=#B22][shake]" +str(value) +"![/shake][/color][/font_size]"
 	else:
 		number.text = str(value)
 	#var color = "#FFF"

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=16 format=3 uid="uid://cp5y552cish65"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=15 format=3 uid="uid://cp5y552cish65"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_mbuv8"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_os6yd"]
@@ -34,10 +34,6 @@ script = ExtResource("4_g32s5")
 position = Vector2i(4, 8)
 type = 1
 
-[sub_resource type="Resource" id="Resource_pywwf"]
-script = ExtResource("5_oa2db")
-positions = Array[Vector2i]([Vector2i(20, 7)])
-
 [sub_resource type="Resource" id="Resource_sn4qc"]
 script = ExtResource("5_oa2db")
 positions = Array[Vector2i]([Vector2i(1, 5)])
@@ -45,5 +41,5 @@ positions = Array[Vector2i]([Vector2i(1, 5)])
 [resource]
 script = ExtResource("7_50r4y")
 chests = Array[ExtResource("2_os6yd")]([SubResource("Resource_ebd1l"), SubResource("Resource_ypoh2"), SubResource("Resource_funu7")])
-doors = Array[ExtResource("5_oa2db")]([SubResource("Resource_pywwf"), SubResource("Resource_sn4qc")])
+doors = Array[ExtResource("5_oa2db")]([SubResource("Resource_sn4qc")])
 debris = Array[ExtResource("4_g32s5")]([SubResource("Resource_w8o15"), SubResource("Resource_d3xeq")])

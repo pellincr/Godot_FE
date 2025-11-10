@@ -102,6 +102,7 @@ func do_damage_entity(target: CombatEntity, damage:int):
 		#AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
+		await DamageNumbers.complete
 		if target.hp <= 0:
 			target.destroyed = true
 			entity_destroyed.emit(target)
