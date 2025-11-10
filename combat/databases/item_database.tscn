@@ -48,7 +48,6 @@
 [ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="46_jmx6f"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="47_v3anb"]
 [ext_resource type="Resource" uid="uid://dttd16vj7vl7q" path="res://resources/definitions/items/weapons/dark_magic/soul_rip.tres" id="48_m0w6q"]
-[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="49_bdsdk"]
 [ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="50_d8m3e"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="51_5lqt6"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="52_x6n6j"]
@@ -181,6 +180,7 @@
 [ext_resource type="Resource" uid="uid://xtlbht140mcb" path="res://resources/definitions/items/equipment/travelers_ring.tres" id="176_51rj4"]
 [ext_resource type="Resource" uid="uid://b58f56xtumpv1" path="res://resources/definitions/items/equipment/tungsten_ooze.tres" id="177_j81yc"]
 [ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
+[ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -325,7 +325,7 @@ items = {
 "spirit_ink": ExtResource("118_0v30l"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
-"steel_dagger": ExtResource("49_bdsdk"),
+"steel_dagger": ExtResource("144_86gxh"),
 "steel_fist": ExtResource("78_vos4o"),
 "steel_greatshield": ExtResource("154_d85kj"),
 "steel_lance": ExtResource("20_kc6t1"),
@@ -365,6 +365,7 @@ items = {
 commander_weapons = {
 "ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
+"magelock": ExtResource("181_tb7n7"),
 "persuaders": ExtResource("102_khegi"),
 "vipers_bite": ExtResource("62_xe68h")
 }

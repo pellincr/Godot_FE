@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=9 format=3 uid="uid://ywdeyemhoyhp"]
+[gd_resource type="Resource" script_class="ArmyArchetypeDefinition" load_steps=8 format=3 uid="uid://ywdeyemhoyhp"]
 
 [ext_resource type="Script" uid="uid://65esssqu2hwv" path="res://scripts/resources/army_archetypes/army_archetype_pick_definition.gd" id="1_iayq4"]
 [ext_resource type="Script" uid="uid://cbpv57id3i1x4" path="res://scripts/resources/army_archetypes/army_archetype_unit_pick_definition.gd" id="2_k64st"]
@@ -12,22 +12,16 @@ weapon_types = Array[int]([3])
 name = "Lance Unit"
 volume = 1
 
-[sub_resource type="Resource" id="Resource_20mui"]
-script = ExtResource("2_k64st")
-weapon_types = Array[int]([5, 13])
-name = "Nimble Unit"
-volume = 1
-
 [sub_resource type="Resource" id="Resource_m8817"]
 script = ExtResource("3_nrsy6")
-weapon_type = Array[int]([3, 13, 5])
-name = "Lance / Nimble"
+weapon_type = Array[int]([3])
+name = "Lance Pick"
 type = 1
 volume = 1
 
 [resource]
 script = ExtResource("4_84qrd")
-name = "Lickety Split Lances"
-db_key = "lickety_split_lances"
+name = "Lively Lances"
+db_key = "lively_lances"
 rarity = ExtResource("3_rwv0o")
-archetype_picks = Array[ExtResource("1_iayq4")]([SubResource("Resource_dlv6f"), SubResource("Resource_20mui"), SubResource("Resource_m8817")])
+archetype_picks = Array[ExtResource("1_iayq4")]([SubResource("Resource_dlv6f"), SubResource("Resource_m8817")])

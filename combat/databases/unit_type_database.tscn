@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=48 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -25,13 +25,9 @@
 [ext_resource type="Resource" uid="uid://cj2p2g07w7jwo" path="res://resources/definitions/unit_types/units/marauder/marauder.tres" id="24_jj4js"]
 [ext_resource type="Resource" uid="uid://710nx6xrxuvw" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch.tres" id="25_fxnlp"]
 [ext_resource type="Resource" uid="uid://bggom385t6lmm" path="res://resources/definitions/unit_types/units/gunner/gunner.tres" id="26_kidx7"]
-[ext_resource type="Resource" uid="uid://b6wt7bx06b8pq" path="res://resources/definitions/unit_types/commanders/centurion/centurion.tres" id="27_nwy4v"]
 [ext_resource type="Resource" uid="uid://x6q68u18j7o7" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman.tres" id="27_rymva"]
-[ext_resource type="Resource" uid="uid://cr636d16kh3r2" path="res://resources/definitions/unit_types/commanders/destroyer/destroyer.tres" id="28_ov4kq"]
 [ext_resource type="Resource" uid="uid://cl6jyccuv8wi4" path="res://resources/definitions/unit_types/units/lancer/lancer.tres" id="28_vkfaj"]
 [ext_resource type="Resource" uid="uid://bnx6qng2moqwn" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight.tres" id="29_ycdqo"]
-[ext_resource type="Resource" uid="uid://dm8fw53ceseeg" path="res://resources/definitions/unit_types/commanders/war_maiden/war_maiden.tres" id="30_uy0ry"]
-[ext_resource type="Resource" uid="uid://b8y5bf7xcsh5m" path="res://resources/definitions/unit_types/commanders/weapon_master/weapon_master.tres" id="31_025il"]
 [ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="31_id5fj"]
 [ext_resource type="Resource" uid="uid://06uoo1n8hpyw" path="res://resources/definitions/unit_types/units/mage/mage.tres" id="32_um71q"]
 [ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="33_b6uy8"]
@@ -98,13 +94,9 @@ unit_types = {
 "ward": ExtResource("19_ks8uf")
 }
 commander_types = {
-"centurion": ExtResource("27_nwy4v"),
-"destroyer": ExtResource("28_ov4kq"),
 "drengr": ExtResource("42_885oc"),
 "iron_viper": ExtResource("34_w1y03"),
 "line_breaker": ExtResource("44_n5a4x"),
 "mage_knight": ExtResource("29_ycdqo"),
-"night_blade": ExtResource("45_a26rd"),
-"war_maiden": ExtResource("30_uy0ry"),
-"weapon_master": ExtResource("31_025il")
+"night_blade": ExtResource("45_a26rd")
 }

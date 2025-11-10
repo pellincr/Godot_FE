@@ -4,31 +4,20 @@
 [ext_resource type="Resource" uid="uid://3ugabd0m0ptn" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker_growth_stats.tres" id="2_hg4fb"]
 [ext_resource type="Texture2D" uid="uid://caicrr52vce7s" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker.png" id="3_tqw3m"]
 [ext_resource type="Resource" uid="uid://dgf0vxau0hiw5" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker_max_stats.tres" id="4_g1m6u"]
-[ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_wuc5a"]
+[ext_resource type="Script" uid="uid://bivpkkd0jp1s3" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_wuc5a"]
 [ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="6_8jisk"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="7_0qi25"]
 
 [resource]
 script = ExtResource("5_wuc5a")
-boon = ""
-bane = ""
 signature_weapon = ExtResource("6_8jisk")
 unit_type_name = "Line Breaker"
 db_key = "line_breaker"
-description = ""
-initiative = 1
 faction = Array[int]([0])
-traits = Array[int]([])
 unit_rarity = ExtResource("7_0qi25")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([5, 3])
 base_stats = ExtResource("1_jrio2")
 maxuimum_stats = ExtResource("4_g1m6u")
 growth_stats = ExtResource("2_hg4fb")
 icon = ExtResource("3_tqw3m")
 map_sprite = ExtResource("3_tqw3m")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

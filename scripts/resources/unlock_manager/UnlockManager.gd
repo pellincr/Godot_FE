@@ -6,32 +6,26 @@ class_name UnlockManager
 	"armor_up" : true,
 	"bows" : true,
 	"classic" : true,
-	"coverage" : false,
 	"dark_development" : true,
 	"daring_daggers" : true,
 	"fearless_fist" : true,
 	"healing_here" : true,
-	"kingdom_come" : false,
-	"lickety_split_lances" : false,
-	"magic_mania" : false,
+	"kingdom_come" : true,
+	"lively_lances" : true,
+	"magic_mania" : true,
 	"might_and_magic" : true,
 	"mighty_mercs" : true,
 	"mundane_many" : true,
 	"random" : true,
 	"swords" : true,
-	"taverns_troop" : true,
 	"vicious_vigilantes" : true
 }
 
 @export var commander_types_unlocked : Dictionary = {
-	"centurion" : false,
-	"destroyer" : false,
 	"drengr" : true,
 	"iron_viper" : true,
 	"line_breaker" : true,
-	"mage_knight" : false,
-	"war_maiden" : false,
-	"weapon_master": false,
+	"mage_knight" : true,
 	"night_blade" : true
 }
 

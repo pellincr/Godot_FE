@@ -423,6 +423,9 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 	return _arr
 
 func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
+	var _attacker_specials = se_resource.get_all_special_effect_types(attacker.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	var _defender_specials = se_resource.get_all_special_effect_types(attacker.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	
 	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
 	var additional_turn_threshold = 4
 	var net_turn_count = 0
@@ -431,11 +434,14 @@ func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_tu
 		net_turn_count = net_turn_count + 1
 		_nas = _nas - additional_turn_threshold
 		additional_turn_threshold = additional_turn_threshold + 2
-	#var net_turn_count = int(net_attack_speed / floor(4))
 	if net_attack_speed > 0:
 		attacker_turns = attacker_turns + abs(net_turn_count)
 	elif net_attack_speed < 0: 
 		defender_turns = defender_turns + abs(net_turn_count)
+	if _attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE):
+		attacker_turns = 1 
+	if _defender_specials.has(SpecialEffect.SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE):
+		defender_turns = 1 
 	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
