@@ -84,7 +84,7 @@ func update_by_state():
 			add_child(unit_detailed_view_simple)
 			var army_container = army_container_scene.instantiate()
 			army_container.set_po_data(playerOverworldData)
-			var trade_unit_options = playerOverworldData.total_party
+			var trade_unit_options = playerOverworldData.total_party.duplicate()
 			trade_unit_options.erase(selected_unit)
 			#army_container.set_units_list(playerOverworldData.total_party)
 			army_container.set_units_list(trade_unit_options)
