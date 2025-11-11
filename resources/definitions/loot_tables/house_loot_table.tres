@@ -19,7 +19,7 @@ script = ExtResource("4_ytw7y")
 item_rarity_whitelist = Array[ExtResource("2_o82ou")]([ExtResource("3_s3s11")])
 item_type_whitelist = Array[int]([2])
 item_blacklist = Array[ExtResource("2_qp6ci")]([ExtResource("3_c30i6"), ExtResource("4_2xlxw")])
-probability = 45.0
+probability = 37.0
 metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
 [sub_resource type="Resource" id="Resource_2ypwo"]

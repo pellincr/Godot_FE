@@ -31,7 +31,7 @@ func update_revive_button_cost(cost):
 	revive_button.text = "Revive: " + str(cost) + "G"
 
 func calc_revive_cost():
-	var base_cost = 1000
+	var base_cost = 500
 	var unit_def := unit.get_unit_type_definition()
 	return base_cost * unit.level * unit_def.tier * unit.death_count
 

@@ -20,7 +20,7 @@ func get_data():
 	var valid_items = []
 	for item_key in ItemDatabase.items.keys():
 		var target_item : ItemDefinition = ItemDatabase.items[item_key]
-		if not item_blacklist.has(target_item.item_type) or item_type_whitelist.is_empty():
+		if not item_blacklist.has(target_item):
 			if item_type_whitelist.has(target_item.item_type) or item_type_whitelist.is_empty():
 				if target_item.rarity != null:
 					if item_rarity_whitelist.has(target_item.rarity) or item_rarity_whitelist.is_empty():
