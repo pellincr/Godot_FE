@@ -505,14 +505,11 @@ func heal_ally_units():
 	for unit:Unit in playerOverworldData.total_party:
 		unit.hp = unit.stats.hp
 
-func refresh_commander_signature_weapon():
+func refresh_expended_weapons():
 	for unit : Unit in playerOverworldData.total_party:
-		if UnitTypeDatabase.get_commander_definition(unit.unit_type_key):
-			var signature_weapon = UnitTypeDatabase.get_commander_definition(unit.unit_type_key).signature_weapon.db_key
-			var items = unit.inventory.get_items()
-			for item in items:
-				if item and item.db_key == signature_weapon:
-					item.refresh_uses()
+		for item :ItemDefinition in unit.inventory.items:
+			if item.has_expended_state:
+				item.refresh_uses()
 
 func unlock_new_unit_types():
 	var unlocked_units = playerOverworldData.current_campaign.unit_unlock_rewards
@@ -873,7 +870,7 @@ func _on_bonus_exp_obtained(bonus_exp):
 func _on_rewards_complete():
 	if heal_on_win:
 		heal_ally_units()
-	refresh_commander_signature_weapon()
+	refresh_expended_weapons()
 	#playerOverworldData.next_level = win_go_to_scene
 	#playerOverworldData.current_level += 1
 	playerOverworldData.began_level = false

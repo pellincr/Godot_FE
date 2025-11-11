@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dp624fv7qre82" path="res://resources/definitions/items/weapons/axes/slim_axe.tres" id="4_8ag3x"]
 [ext_resource type="Resource" uid="uid://xotuxr86t70g" path="res://resources/definitions/items/weapons/axes/killer_axe.tres" id="5_cjylg"]
 [ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="6_ydx3w"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="7_8hdss"]
 [ext_resource type="Resource" uid="uid://dudqmvg5uumjl" path="res://resources/definitions/items/weapons/axes/sword_reaver.tres" id="8_5ontb"]
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="9_e4c61"]
 [ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="10_snoqc"]
@@ -43,12 +44,9 @@ item = ExtResource("6_ydx3w")
 probability = 5.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 
-[sub_resource type="Resource" id="Resource_fmkuv"]
-metadata/__load_path__ = "res://resources/definitions/items/weapons/axes/warhammer.tres"
-
 [sub_resource type="Resource" id="Resource_26sfk"]
 script = ExtResource("1_7xrin")
-item = SubResource("Resource_fmkuv")
+item = ExtResource("7_8hdss")
 probability = 4.0
 metadata/_custom_type_script = "uid://dss2u86tfdpgs"
 

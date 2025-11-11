@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("4_mvgqg")
 name = "Bandit Bash"
-commander_draft_limit = 2
-number_of_archetypes_drafted = 4
+commander_draft_limit = 3
+number_of_archetypes_drafted = 5
 max_floor_number = 18
 number_of_required_combat_maps = 7
 level_pool = ExtResource("1_v5a5n")
