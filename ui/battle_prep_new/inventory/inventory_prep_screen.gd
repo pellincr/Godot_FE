@@ -73,7 +73,6 @@ func update_by_state():
 			#convoy.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN | Control.SIZE_EXPAND 
 			convoy.layout_direction = Control.LAYOUT_DIRECTION_RTL
 			add_child(convoy)
-			
 			convoy.fill_convoy_scroll_container()
 			convoy.item_panel_pressed.connect(_on_item_panel_pressed.bind(unit_detailed_view_simple,convoy))
 			if playerOverworldData.convoy.size() == 0:

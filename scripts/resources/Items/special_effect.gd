@@ -73,3 +73,76 @@ enum SPECIAL_EFFECT_ACTIVATION_TYPE {
 @export var activation_type : SPECIAL_EFFECT_ACTIVATION_TYPE = SPECIAL_EFFECT_ACTIVATION_TYPE.RANDOM_CHANCE
 @export var activation_threshold : float = 100
 @export var activation_chance : float = 100
+
+
+func _to_string() -> String:
+	var s = ""
+	match special:
+		SPECIAL_EFFECT.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE:
+			s = "Weapon Triangle Adv."
+		SPECIAL_EFFECT.CRITICAL_DISABLED:
+			s = "Crits Disabled"
+		SPECIAL_EFFECT.NEGATES_FOE_DEFENSE:
+			s = "Negate Defense"
+		SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL:
+			s = "Negates Def. on Crit"
+		SPECIAL_EFFECT.CANNOT_RETALIATE:
+			s = "No Rettaliation"
+		SPECIAL_EFFECT.DEVIL_REVERSAL:
+			s = "Devil Reversal"
+		SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE:
+			s = "Only 1 Attack"
+		#WEAPON SPECIAL THAT REQUIRE VALUE
+		SPECIAL_EFFECT.VAMPYRIC:
+			s = "Vampyric"
+		#ITEM SPECIALS
+		SPECIAL_EFFECT.CRITICAL_PROOF:
+			s = "Crit Proof"
+		SPECIAL_EFFECT.EFFECTIVE_PROOF:
+			s = "Eff. Proof"
+		SPECIAL_EFFECT.CANNOT_DO_EFFECTIVE_DAMAGE:
+			s = "Cannot Do Eff. Dmg"
+		SPECIAL_EFFECT.REMOVE_FLIER_EFFECTIVE:
+			s = "Remove Flier Eff"
+		SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE:
+			s = "Add Flier Eff"
+		SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE_ATTACK:
+			s = "Add Flier Eff Atk"
+		SPECIAL_EFFECT.REMOVE_ARMOR_EFFECTIVE:
+			s = "Remove Armor Eff"
+		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE:
+			s = "Add Armor Eff"
+		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE_ATTACK:
+			s = "Add Armor Eff Atk"
+		SPECIAL_EFFECT.REMOVE_MOUNTED_EFFECTIVE:
+			s = "Remove Mounted Eff"
+		SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE:
+			s = "Add Mounted Eff"
+		SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE_ATTACK:
+			s = "Add Mounted Eff Atk"
+		SPECIAL_EFFECT.REMOVE_TERROR_EFFECTIVE:
+			s = "Remove Terror Eff"
+		SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE:
+			s = "Add Terror Eff"
+		SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE_ATTACK:
+			s = "Add Terror Eff Atk"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_MAGIC: #TODO
+			s = "All Damage = Magic"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_PHYSICAL: #TODO
+			s = "All Damage = Physical"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_TRUE: #TODO
+			s = "All Damage = True"
+	#ITEM SPECIAL THAT REQUIRE VALUE
+		SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN:
+			s = "Heal on Turn Start"
+		SPECIAL_EFFECT.HEAL_ON_TURN_END:
+			s = "Heal on Turn End"
+		SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END:
+			s = "Heal Ater Combat"
+		SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT: # ADD OR REMOVE
+			s = "Augment Incoming Heal"
+		SPECIAL_EFFECT.INCOMING_DAMAGE_AUGMENT: # ADD OR REMOVE
+			s = "Augment Incoming Dmg"
+		SPECIAL_EFFECT.THORNS:
+			s = "Thorns"
+	return s

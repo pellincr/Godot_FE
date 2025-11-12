@@ -37,11 +37,24 @@ func clear_detailed_view_container():
 
 func _on_item_panel_focused(item):
 	clear_detailed_view_container()
-	var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
-	weapon_detailed_info.item = item
-	add_child(weapon_detailed_info)
-	weapon_detailed_info.update_by_item()
-	#weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	if item != null:
+		if item is WeaponDefinition:
+			var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
+			weapon_detailed_info.item = item
+			add_child(weapon_detailed_info)
+			weapon_detailed_info.update_by_item()
+			weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif item is ConsumableItemDefinition:
+			var consumable_item_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+			consumable_item_detailed_info.item = item
+			add_child(consumable_item_detailed_info)
+			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif item is ItemDefinition:
+			if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+				var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+				equipment_detaied_info.item = item
+				add_child(equipment_detaied_info)
+				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
 
 func _on_item_panel_pressed(item):
 	item_panel_pressed.emit(item)

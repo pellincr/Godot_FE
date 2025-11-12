@@ -1,20 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://dg60rlh8ct667"]
+[gd_scene load_steps=15 format=3 uid="uid://dg60rlh8ct667"]
 
 [ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_37l33"]
 [ext_resource type="Script" uid="uid://sn28jpal1lom" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.gd" id="2_ike3y"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="3_immfu"]
 [ext_resource type="PackedScene" uid="uid://dg5gkgx21b8if" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.tscn" id="4_g6kyw"]
 [ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="5_4a33b"]
-[ext_resource type="Script" uid="uid://cq3wfxmoelmd5" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.gd" id="5_8s4jy"]
 [ext_resource type="PackedScene" uid="uid://c2vvckxlecu5i" path="res://ui/battle_prep_new/unit_detailed_info/skills_container.tscn" id="6_nnc5v"]
 [ext_resource type="PackedScene" uid="uid://bvcw57dk23gw2" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.tscn" id="7_plx1a"]
 [ext_resource type="PackedScene" uid="uid://d7gj6yaxkgwx" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.tscn" id="8_pwy3b"]
 [ext_resource type="PackedScene" uid="uid://b584lx6otusdt" path="res://ui/battle_prep_new/unit_detailed_info/unit_stat_progression.tscn" id="9_v51eu"]
-[ext_resource type="Script" uid="uid://dm8mymuwofipf" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.gd" id="10_3ci0g"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="10_ke7a1"]
 [ext_resource type="Texture2D" uid="uid://j204awg3vg1a" path="res://resources/sprites/icons/Faction Banner.png" id="11_oibo0"]
 [ext_resource type="PackedScene" uid="uid://uij42thge1m2" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn" id="12_46d64"]
-[ext_resource type="Script" uid="uid://dg7g3ks37ju8b" path="res://ui/battle_prep_new/unit_detailed_info/unit_stat_progression.gd" id="12_ht2r5"]
 
 [sub_resource type="Theme" id="Theme_8a08l"]
 default_font_size = 36
@@ -57,7 +54,6 @@ text = "Character Name"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-script = ExtResource("5_8s4jy")
 
 [node name="WeaponIconContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("5_4a33b")]
 layout_mode = 2
@@ -97,11 +93,9 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
-script = ExtResource("10_3ci0g")
 
 [node name="UnitStatProgression" parent="MarginContainer/HBoxContainer/RightHalfContainer" instance=ExtResource("9_v51eu")]
 layout_mode = 2
-script = ExtResource("12_ht2r5")
 
 [node name="UnitIcon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(96, 96)
