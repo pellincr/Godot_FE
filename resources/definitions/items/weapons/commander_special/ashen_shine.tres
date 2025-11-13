@@ -28,5 +28,6 @@ rarity = ExtResource("3_vkdbr")
 uses = 4
 max_uses = 4
 has_expended_state = true
+refreshes_after_combat = 3
 worth = 0
 icon = ExtResource("2_qr5kh")

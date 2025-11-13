@@ -173,7 +173,7 @@ func _on_event_option_selected(event_option: EventOption):
 				# check all units
 				for player_unit: Unit in playerOverworldData.total_party:
 					for item in player_unit.inventory.items:
-						if item is WeaponDefinition and not ItemDatabase.is_commander_weapon(item.db_key):
+						if item is WeaponDefinition:
 							var new_info = event_item_selection_info.new(item, player_unit.name, player_unit.get_unit_type_definition().icon)
 							_wpn_array.append(new_info)
 

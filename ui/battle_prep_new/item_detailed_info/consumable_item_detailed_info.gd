@@ -28,6 +28,10 @@ extends PanelContainer
 @onready var defense_growth_value_label: Label = $MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/DefenseGrowthValueLabel
 @onready var resistance_growth_value_label: Label = $MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthValueLabel
 
+@onready var item_type: Label = $MarginContainer/MainContainer/ItemTypeContainer/ItemType
+@onready var item_type_header: Label = $MarginContainer/MainContainer/ItemTypeContainer/ItemTypeHeader
+
+
 var item : ConsumableItemDefinition
 
 func _ready() -> void:
@@ -48,16 +52,16 @@ func set_item_effect_label(effect:ItemConstants.CONSUMABLE_USE_EFFECT):
 	var text = ""
 	match effect:
 		ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
-			text = "HEAL"
+			text = "Healing Consumable"
 		ItemConstants.CONSUMABLE_USE_EFFECT.DAMAGE:
-			text = "DAMAGE"
+			text = "Damage Consumable"
 		ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
-			text = "STAT BOOST"
+			text = "Stat Booster"
 		ItemConstants.CONSUMABLE_USE_EFFECT.STATUS_EFFECT:
 			text = "STATUS_EFFECT"
 		ItemConstants.CONSUMABLE_USE_EFFECT.KEY:
-			text = "KEY"
-	item_effect_value_label.text = text
+			text = "Key"
+	item_type.text = text
 
 func set_value_label(label,value):
 	label.text = str(value)
@@ -96,6 +100,8 @@ func update_by_item():
 	set_item_effect_label(item.use_effect)
 	set_value_label(power_value_label,item.power)
 	set_value_label(uses_value_label,item.uses)
+	set_item_type_header(item)
+	set_item_rarity_header(item.rarity)
 	if item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
 		if item.boost_stat:
 			set_stat_boost_container(item.boost_stat)
@@ -108,3 +114,21 @@ func update_by_item():
 	else:
 		item_stats_boost_container.visible = false
 		item_growths_boost_container.visible = false
+
+
+func set_item_type_header(item: ItemDefinition):
+	match item.item_type:
+		ItemConstants.ITEM_TYPE.WEAPON:
+			item_type_header.text = "Weapon"
+		ItemConstants.ITEM_TYPE.STAFF:
+			item_type_header.text = "Staff"
+		ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+			item_type_header.text = "Consumable"
+		ItemConstants.ITEM_TYPE.EQUIPMENT:
+			item_type_header.text = "Equipment"
+		ItemConstants.ITEM_TYPE.TREASURE:
+			item_type_header.text = "Treasure"
+
+func set_item_rarity_header(rarity : Rarity):
+	item_type_header.text = rarity.rarity_name
+	item_type_header.self_modulate = rarity.ui_color

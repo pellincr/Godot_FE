@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://dk71ny3285hl7"]
+
+[ext_resource type="Resource" uid="uid://btsvgbl2fjivr" path="res://resources/definitions/unit_types/units/farmhand/farmhand_base_combat_stats.tres" id="1_n2ov7"]
+[ext_resource type="Resource" uid="uid://7hdj5fx6e8ne" path="res://resources/definitions/unit_types/units/farmhand/farmhand_default_item_tables.tres" id="2_s7dee"]
+[ext_resource type="Resource" uid="uid://crmnifsg0hyl7" path="res://resources/definitions/unit_types/units/farmhand/farmhand_growth_stats.tres" id="3_0j6l6"]
+[ext_resource type="Texture2D" uid="uid://b8by7fatv8gpf" path="res://resources/sprites/units/tier1/farmer.png" id="4_hcv8o"]
+[ext_resource type="Resource" uid="uid://0v5xgubtumh0" path="res://resources/definitions/unit_types/units/farmhand/farmhand_max_stats.tres" id="5_i2io0"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_58dd5"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_xjule"]
+
+[resource]
+script = ExtResource("6_58dd5")
+unit_type_name = "Farmhand"
+db_key = "farmhand"
+unit_rarity = ExtResource("7_xjule")
+tier = 1
+usable_weapon_types = Array[int]([3])
+base_stats = ExtResource("1_n2ov7")
+maxuimum_stats = ExtResource("5_i2io0")
+growth_stats = ExtResource("3_0j6l6")
+icon = ExtResource("4_hcv8o")
+map_sprite = ExtResource("4_hcv8o")
+default_item_resource = ExtResource("2_s7dee")

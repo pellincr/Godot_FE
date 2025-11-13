@@ -1,4 +1,4 @@
-[gd_scene load_steps=182 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=183 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -104,7 +104,6 @@
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
 [ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="101_7bcyb"]
 [ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="101_7w3tq"]
-[ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
 [ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="102_q80qu"]
 [ext_resource type="Resource" uid="uid://btbls8ing2pq0" path="res://resources/definitions/items/weapons/bow/long_bow.tres" id="104_q80qu"]
 [ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="105_l712n"]
@@ -178,9 +177,11 @@
 [ext_resource type="Resource" uid="uid://ckgavju6d8chp" path="res://resources/definitions/items/equipment/scholars_optics.tres" id="174_esb4d"]
 [ext_resource type="Resource" uid="uid://cn232dt8461s3" path="res://resources/definitions/items/equipment/training_weights.tres" id="175_k7afb"]
 [ext_resource type="Resource" uid="uid://xtlbht140mcb" path="res://resources/definitions/items/equipment/travelers_ring.tres" id="176_51rj4"]
+[ext_resource type="Resource" uid="uid://c3u44a8r2o2ch" path="res://resources/definitions/items/weapons/lance/jousting_lance.tres" id="177_ewy5w"]
 [ext_resource type="Resource" uid="uid://b58f56xtumpv1" path="res://resources/definitions/items/equipment/tungsten_ooze.tres" id="177_j81yc"]
 [ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
 [ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
+[ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -253,6 +254,7 @@ items = {
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
 "jester_mask": ExtResource("161_jongk"),
+"jousting_lance": ExtResource("177_ewy5w"),
 "killer_axe": ExtResource("66_2c4cv"),
 "killer_bow": ExtResource("15_jhgao"),
 "killer_dagger": ExtResource("72_ckkvo"),
@@ -366,6 +368,6 @@ commander_weapons = {
 "ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
 "magelock": ExtResource("181_tb7n7"),
-"persuaders": ExtResource("102_khegi"),
+"persauders": ExtResource("182_ewy5w"),
 "vipers_bite": ExtResource("62_xe68h")
 }

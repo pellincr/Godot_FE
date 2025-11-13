@@ -466,41 +466,37 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 
 func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) -> WeaponDefinition:
 	if wpn_a and wpn_b:
-		match wpn_a.alignment:
-			ItemConstants.ALIGNMENT.MUNDANE:
-				match wpn_a.physical_weapon_triangle_type:
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return wpn_b
-						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return wpn_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return wpn_b
-						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return wpn_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+		match wpn_a.physical_weapon_triangle_type:
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+					if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+						return wpn_b
+					elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						return wpn_a
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+					if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						return wpn_b
+					elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+						return wpn_a
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
 						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 							return wpn_b
 						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return wpn_a
-			ItemConstants.ALIGNMENT.MAGIC:
-				match wpn_a.magic_weapon_triangle_type:
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return wpn_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return wpn_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return wpn_a
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						return wpn_a
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						return wpn_a
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						return wpn_a
 	return null
 	
 func use_audio_player(sound:AudioStream):
@@ -569,8 +565,6 @@ func check_weapon_effective(weapon: WeaponDefinition, target: Unit, attacker_spe
 	if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE_ATTACK):
 		if not attacker_trait_effectives.has(unitConstants.TRAITS.TERROR):
 			attacker_trait_effectives.append(unitConstants.TRAITS.TERROR)
-	
-	
 	
 	#Create special effect and weapon trait effectiveness
 	if not attacker_trait_effectives.is_empty():
@@ -733,9 +727,11 @@ func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit
 	if (enemy_unit.unit.get_unit_type_definition().promoted) :
 		enemy_unit_value = 20
 	
-	var unit_value_difference = ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value))
+	var unit_value_difference = ( (enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - ((player_unit.unit.level + player_unit_value)))
 	#Experience Formula
-	experience_gain = clamp(((2* unit_value_difference) +31)  / 3, 1, 25)
+	
+	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
+	experience_gain = clamp(tier_multiplier * ((2* unit_value_difference) +31)/ 3, 1, 25)
 	#print ("calculate_experience_gain_hit = " + str(experience_gain))
 	return experience_gain
 
@@ -745,7 +741,7 @@ func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUni
 	var enemy_unit_value = 0
 	var base_experience_gain = calculate_experience_gain_hit(player_unit, enemy_unit)
 	var boss_bonus = 0
-
+	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
 	if(player_unit.unit.get_unit_type_definition().promoted):
 		player_unit_value = 60
 	if (enemy_unit.unit.get_unit_type_definition().promoted) :
@@ -753,5 +749,5 @@ func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUni
 	if enemy_unit.is_boss:
 		boss_bonus = 40
 	#Experience Formula
-	experience_gain = clampi(base_experience_gain + ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value)) + 20 + boss_bonus, 2, 100)
+	experience_gain = clampi(tier_multiplier*(base_experience_gain + ((enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - (player_unit.unit.get_unit_type_definition().tier*(player_unit.unit.level + player_unit_value))) + 20 + boss_bonus), 2, 100)
 	return experience_gain

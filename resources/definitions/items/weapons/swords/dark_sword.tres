@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_uksoh"]
 script = ExtResource("1_bv56r")
-special = 6
+special = 7
 effect_weight = 50
 effect_type = 1
 metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"

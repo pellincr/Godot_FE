@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=16 format=3 uid="uid://b3hiwdb3ehrsu"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_3fh6h"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="2_8qe3u"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="3_21w0o"]
+[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="4_x4qgl"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="5_jda2u"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="6_ugemt"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="7_wxha7"]
+
+[sub_resource type="Resource" id="Resource_wyudb"]
+script = ExtResource("1_3fh6h")
+probability = 90.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_hpp5s"]
+metadata/__load_path__ = "res://resources/definitions/items/treasure/rubbish.tres"
+
+[sub_resource type="Resource" id="Resource_vyf6g"]
+script = ExtResource("1_3fh6h")
+item = SubResource("Resource_hpp5s")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_bjgxw"]
+script = ExtResource("1_3fh6h")
+item = ExtResource("2_8qe3u")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_glj7u"]
+script = ExtResource("1_3fh6h")
+item = ExtResource("3_21w0o")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_lc3tj"]
+script = ExtResource("1_3fh6h")
+item = ExtResource("4_x4qgl")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_vrwfh"]
+script = ExtResource("1_3fh6h")
+item = ExtResource("5_jda2u")
+probability = 2.1
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_l05t8"]
+script = ExtResource("1_3fh6h")
+item = ExtResource("6_ugemt")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("7_wxha7")
+entries = Array[ExtResource("1_3fh6h")]([SubResource("Resource_wyudb"), SubResource("Resource_vyf6g"), SubResource("Resource_bjgxw"), SubResource("Resource_glj7u"), SubResource("Resource_lc3tj"), SubResource("Resource_vrwfh"), SubResource("Resource_l05t8")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

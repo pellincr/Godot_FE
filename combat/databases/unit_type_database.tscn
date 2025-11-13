@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=54 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -45,12 +45,19 @@
 [ext_resource type="Resource" uid="uid://dq5n0x73nca4" path="res://resources/definitions/unit_types/units/squire/squire.tres" id="41_qfqp5"]
 [ext_resource type="Resource" uid="uid://d4kej3pq2am2g" path="res://resources/definitions/unit_types/commanders/drengr/drengr.tres" id="42_885oc"]
 [ext_resource type="Resource" uid="uid://5lg6mp5w2p3g" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor.tres" id="42_ap7gd"]
+[ext_resource type="Resource" uid="uid://c4iis1udi7kta" path="res://resources/definitions/unit_types/units/chopper/chopper.tres" id="43_6p1ic"]
 [ext_resource type="Resource" uid="uid://ckwa7dx3bcicr" path="res://resources/definitions/unit_types/commanders/line_breaker/line_breaker.tres" id="44_n5a4x"]
+[ext_resource type="Resource" uid="uid://dk71ny3285hl7" path="res://resources/definitions/unit_types/units/farmhand/farmhand.tres" id="44_udy5e"]
 [ext_resource type="Resource" uid="uid://dmycp4ajadd8" path="res://resources/definitions/unit_types/commanders/night_blade/night_blade.tres" id="45_a26rd"]
+[ext_resource type="Resource" uid="uid://bwmanbsn4rpgn" path="res://resources/definitions/unit_types/units/hewman/hewman.tres" id="45_ap7gd"]
+[ext_resource type="Resource" uid="uid://b8mq5pwau58lw" path="res://resources/definitions/unit_types/units/twigshot/twigshot.tres" id="46_qfqp5"]
+[ext_resource type="Resource" uid="uid://ckwskix53npw4" path="res://resources/definitions/unit_types/units/apprentice/apprentice.tres" id="47_36q4w"]
+[ext_resource type="Resource" uid="uid://d3yjqcqcsb6ny" path="res://resources/definitions/unit_types/units/knave/knave.tres" id="48_55blc"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
 unit_types = {
+"apprentice": ExtResource("47_36q4w"),
 "archer": ExtResource("2_pke6c"),
 "axe_armor": ExtResource("31_id5fj"),
 "axe_cavalier": ExtResource("4_bf4by"),
@@ -59,15 +66,19 @@ unit_types = {
 "bow_armor": ExtResource("42_ap7gd"),
 "brawler": ExtResource("14_p6lhs"),
 "bulwark": ExtResource("40_sh4xl"),
+"chopper": ExtResource("43_6p1ic"),
 "corsair": ExtResource("23_027cf"),
 "crossbowman": ExtResource("27_rymva"),
 "duelist": ExtResource("22_sqm7u"),
+"farmhand": ExtResource("44_udy5e"),
 "field_medic": ExtResource("20_gr6kv"),
 "fighter": ExtResource("6_dtgcv"),
 "freewing": ExtResource("17_6h8uy"),
 "gunner": ExtResource("26_kidx7"),
 "hakkapel": ExtResource("34_oj3db"),
 "healer": ExtResource("15_nrv8r"),
+"hewman": ExtResource("45_ap7gd"),
+"knave": ExtResource("48_55blc"),
 "lance_armor": ExtResource("7_m2b6g"),
 "lance_cavalier": ExtResource("8_b047a"),
 "lancer": ExtResource("28_vkfaj"),
@@ -90,6 +101,7 @@ unit_types = {
 "sword_cavalier": ExtResource("12_tvv6x"),
 "thief": ExtResource("13_yos3a"),
 "troubadour": ExtResource("35_45nux"),
+"twigshot": ExtResource("46_qfqp5"),
 "vandal": ExtResource("35_vq7n6"),
 "ward": ExtResource("19_ks8uf")
 }

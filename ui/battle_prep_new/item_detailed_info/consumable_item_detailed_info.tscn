@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwesyjybbvx48"]
+[gd_scene load_steps=9 format=3 uid="uid://dwesyjybbvx48"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ohqp3"]
 [ext_resource type="Script" uid="uid://dpw6qmr8kyuc5" path="res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.gd" id="2_a4wg7"]
@@ -10,6 +10,12 @@ default_font = ExtResource("3_2lans")
 default_font_size = 32
 
 [sub_resource type="Theme" id="Theme_6h6tc"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_2lans"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_21x8d"]
 default_font_size = 16
 
 [node name="ConsumableItemDetailedInfo" type="PanelContainer"]
@@ -57,6 +63,24 @@ grow_vertical = 0
 theme = SubResource("Theme_6h6tc")
 text = "100G"
 
+[node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_2lans")
+
+[node name="ItemTypeHeader" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item Type"
+
+[node name="-" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="ItemType" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item type"
+
 [node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/MainContainer"]
 modulate = Color(0.50980395, 0.50980395, 0.50980395, 1)
 custom_minimum_size = Vector2(228, 30)
@@ -68,13 +92,22 @@ autowrap_mode = 3
 [node name="ItemEffectContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
 
-[node name="ItemEffectHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer"]
+[node name="DurabilityHeaderLabel2" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
-text = "Item Effect -"
+size_flags_horizontal = 3
+theme = SubResource("Theme_21x8d")
+text = "Use Effect "
 
-[node name="ItemEffectValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer"]
+[node name="DurabilityContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/ItemEffectContainer"]
 layout_mode = 2
-text = "HEAL"
+
+[node name="DurabilityHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer/DurabilityContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_21x8d")
+text = "Durability"
+horizontal_alignment = 2
 
 [node name="ItemPowerContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2

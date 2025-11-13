@@ -252,7 +252,7 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	await attack_action_inventory
 	attack_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
-	#TO BE CONNECTED CANCEL
+	#attack_action_inventory.backButton.connect()
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
