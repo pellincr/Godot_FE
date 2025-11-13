@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://d3yjqcqcsb6ny"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=11 format=3 uid="uid://d3yjqcqcsb6ny"]
 
 [ext_resource type="Resource" uid="uid://bwvuriuyjaewp" path="res://resources/definitions/unit_types/units/knave/knave_base_combat_stats.tres" id="1_da31p"]
 [ext_resource type="Resource" uid="uid://b60thid1qj4st" path="res://resources/definitions/unit_types/units/knave/knave_default_item_tables.tres" id="2_4wh73"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://ditl5j54hnppf" path="res://resources/sprites/units/tier1/knave.png" id="4_t3bqv"]
 [ext_resource type="Resource" uid="uid://cqhgxuf18lcrn" path="res://resources/definitions/unit_types/units/knave/knave_max_stats.tres" id="5_y3bnn"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_hamm4"]
+[ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="7_kgxel"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_pa2tc"]
+[ext_resource type="Resource" uid="uid://dcg1per38s866" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor.tres" id="8_x0l42"]
+[ext_resource type="Resource" uid="uid://w3fe6ovr8565" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor.tres" id="9_x0l42"]
 
 [resource]
 script = ExtResource("6_hamm4")
@@ -14,6 +17,7 @@ unit_type_name = "Knave"
 db_key = "knave"
 unit_rarity = ExtResource("7_pa2tc")
 tier = 1
+promotion_types_available = Array[ExtResource("6_hamm4")]([ExtResource("7_kgxel"), ExtResource("8_x0l42"), ExtResource("9_x0l42")])
 usable_weapon_types = Array[int]([13])
 base_stats = ExtResource("1_da31p")
 maxuimum_stats = ExtResource("5_y3bnn")

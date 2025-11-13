@@ -11,7 +11,7 @@ class_name UnitTypeDefinition
 @export var unit_rarity : Rarity
 @export var movement_type : unitConstants.movement_type = 0
 @export_range(1, 5, 1, "or_greater") var tier = 2
-@export var promoted: bool ##OUTDATED TO BE REMOVED, USE TIER SYSTEM
+@export var promotion_types_available : Array[UnitTypeDefinition]
 @export var unit_promoted_from_key: String
 
 @export_group("Usable Weapon Types")

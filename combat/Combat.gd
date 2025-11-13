@@ -886,7 +886,11 @@ func _on_rewards_complete():
 			playerOverworldData.began_level = false
 			playerOverworldData.current_level = null
 			SelectedSaveFile.save(playerOverworldData)
-			get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
+			#Determine if a tier 1 unit needs to be promoted or not
+			if check_tier_1_promotion_available():
+				get_tree().change_scene_to_packed(preload("res://ui/promotion/promotion.tscn"))
+			else:
+				get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
 		else:
 			#reset the game back to the start screen after final level so that it can be played again
 			var win_number = playerOverworldData.hall_of_heroes_manager.latest_win_number + 1
@@ -899,3 +903,11 @@ func _on_rewards_complete():
 			SelectedSaveFile.save(playerOverworldData)
 			#await get_tree().create_timer(8).timeout
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
+
+
+func check_tier_1_promotion_available() -> bool:
+	for unit : Unit in playerOverworldData.selected_party:
+		var unit_type = unit.get_unit_type_definition()
+		if unit_type.tier == 1 and unit.level >= 10:
+			return true
+	return false
