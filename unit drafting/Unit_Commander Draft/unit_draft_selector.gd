@@ -181,7 +181,7 @@ func show_previous_screen():
 				main_container.add_child(overview_view)
 				overview_view.set_stats_overview_label(unit_stat_grade)
 				overview_view.set_growths_overview_label(unit_growth_grade)
-				overview_view.set_icon_visibility(unit)
+				overview_view.set_icon_visibility(unit.unit_type)
 				current_state = SELECTOR_STATE.OVERVIEW
 		SELECTOR_STATE.GROWTHS:
 			#when in growths, go to stats

@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="14_ulcjr"]
 [ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="15_h3rc2"]
 
-
 [sub_resource type="Theme" id="Theme_0gbyd"]
 default_font = ExtResource("1_lvo56")
 

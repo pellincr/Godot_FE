@@ -21,7 +21,7 @@ func _ready():
 		update_by_weapon()
 
 func set_icon_visibility(unit):
-	weapon_trait_icon_container.unit = unit
+	weapon_trait_icon_container.unit = unit.get_unit_type_definition()
 	weapon_trait_icon_container.set_icon_visibility()
 
 func set_weapon_name(name):
