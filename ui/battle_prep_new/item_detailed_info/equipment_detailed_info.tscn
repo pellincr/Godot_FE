@@ -1,0 +1,350 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi433f00uckdl"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_1b8bj"]
+[ext_resource type="Texture2D" uid="uid://crijteij1o4ma" path="res://resources/sprites/items/equipment/loaded_dice.png" id="2_d2ypa"]
+[ext_resource type="Script" uid="uid://bs6xtn0cxv0fp" path="res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.gd" id="2_jniku"]
+
+[sub_resource type="Theme" id="Theme_d2ypa"]
+default_font_size = 36
+
+[node name="EquipmentDetailedInfo" type="PanelContainer"]
+offset_right = 242.0
+offset_bottom = 68.0
+theme = ExtResource("1_1b8bj")
+script = ExtResource("2_jniku")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_d2ypa")
+text = "Equipment Name"
+
+[node name="ItemIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/ItemNameLabel"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 3.0
+offset_right = 221.0
+offset_bottom = 35.0
+texture = ExtResource("2_d2ypa")
+
+[node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 10)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+
+[node name="ItemStatsBoostContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="ItemStatsHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+text = "Stats Boosts -"
+
+[node name="ItemStatsBoostContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="DamageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="DamageHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DamageContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Damage -"
+
+[node name="DamageStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DamageContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="HitContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="HitHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HitContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Hit -"
+
+[node name="HitStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HitContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="AvoidContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="AvoidHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AvoidContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Avoid -"
+
+[node name="AvoidStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AvoidContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="AttackSpeedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="AttackSpeedHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AttackSpeedContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Attack Speed-"
+
+[node name="AttackSpeedStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AttackSpeedContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="CritChanceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="CritChanceHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritChanceContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Crit Chance -"
+
+[node name="CritChanceStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritChanceContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="CritMultContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="CritMultHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritMultContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Crit Mult -"
+
+[node name="CritMultStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritMultContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="CritAvoidContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="CritAvoidHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritAvoidContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Crit Avoid -"
+
+[node name="CritAvoidStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/CritAvoidContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="StrengthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="StrengthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/StrengthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Strength -"
+
+[node name="StrengthStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/StrengthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="MagicContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="MagicHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/MagicContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Magic -"
+
+[node name="MagicStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/MagicContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="SkillContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="SkillHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/SkillContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Skill -"
+
+[node name="SkillStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/SkillContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="SpeedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="SpeedHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/SpeedContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Speed -"
+
+[node name="SpeedStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/SpeedContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="LuckContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="LuckHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/LuckContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Luck -"
+
+[node name="LuckStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/LuckContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="DefenseContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="DefenseHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DefenseContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Defense -"
+
+[node name="DefenseStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DefenseContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="ResistanceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="ResistanceHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ResistanceContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Resistance -"
+
+[node name="ResistanceStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ResistanceContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="ItemGrowthsBoostContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ItemGrowthsHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+text = "Growths Boosts -"
+
+[node name="ItemGrowthsBoostContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="StrengthGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="StrengthGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Strength -"
+
+[node name="StrengthGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="MagicGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="MagicGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/MagicGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Magic -"
+
+[node name="MagicGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/MagicGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="SkillGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="SkillGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SkillGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Skill -"
+
+[node name="SkillGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SkillGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="SpeedGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="SpeedGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SpeedGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Speed -"
+
+[node name="SpeedGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SpeedGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="LuckGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="LuckGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/LuckGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Luck -"
+
+[node name="LuckGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/LuckGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="DefenseGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="DefenseGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/DefenseGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Defense -"
+
+[node name="DefenseGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/DefenseGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="ResistanceGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="ResistanceGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Resistance -"
+
+[node name="ResistanceGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+
+[node name="SpecialEffectsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="SpecialEffectHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialEffectsContainer"]
+layout_mode = 2
+text = "Special Effects-"

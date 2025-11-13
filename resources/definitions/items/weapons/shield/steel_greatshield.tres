@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://dn8nycdpo07q"]
 
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_1g1mt"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_1g1mt"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_cswhf"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_cswhf"]
 [ext_resource type="Texture2D" uid="uid://ccan1vlb8ahu8" path="res://resources/sprites/items/weapons/shield/steel_greatshield.png" id="3_vdp0l"]

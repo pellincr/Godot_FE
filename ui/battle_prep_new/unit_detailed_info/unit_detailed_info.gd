@@ -108,3 +108,9 @@ func _on_unit_inventory_container_item_focused(item) -> void:
 			consumable_item_detailed_info.item = item
 			item_info_container.add_child(consumable_item_detailed_info)
 			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif item is ItemDefinition:
+			if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+				var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+				equipment_detaied_info.item = item
+				item_info_container.add_child(equipment_detaied_info)
+				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
