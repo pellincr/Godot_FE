@@ -95,4 +95,5 @@ func _on_promotion_type_selected():
 	if get_first_promotion_unit():
 		set_page_availability()
 	else:
+		SelectedSaveFile.save(playerOverworldData)
 		get_tree().change_scene_to_packed(preload("res://campaign_map/campaign_map.tscn"))
