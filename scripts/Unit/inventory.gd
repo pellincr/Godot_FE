@@ -148,7 +148,7 @@ func is_empty() -> bool:
 		return true 
 	return false
 
-func use_at_index(index : int): 
+func use_at_index(index : int) -> ItemDefinition: 
 	if index < capacity:
 		var target_item :ItemDefinition = items[index]
 		target_item.expend_use()
@@ -158,7 +158,9 @@ func use_at_index(index : int):
 				items.remove_at(index)
 				if index == 0:
 					equipped = false
+				return target_item
 				#emit something here indicating a break so UI can display it
+	return null
 
 func set_item_at_index(index: int, item: ItemDefinition):
 	if item != null:
@@ -317,9 +319,10 @@ func get_items() -> Array[ItemDefinition]:
 		_item_arr[i] = items[i]
 	return _item_arr
 
-func use_item(item: ItemDefinition):
+func use_item(item: ItemDefinition) -> ItemDefinition:
 	if has(item):
-		use_at_index(get_item_index(item))
+		return use_at_index(get_item_index(item))
+	return null
 
 func has_item(item: ItemDefinition):
 	return items.has(item)

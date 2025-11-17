@@ -29,7 +29,7 @@ func _process(delta):
 			else:
 				sell_item.emit(item)
 		else:
-			self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
+			#self.theme = preload("res://ui/battle_preparation/inventory_not_focused_trade_ready.tres")
 			item_selected_for_trade.emit(item)
 
 func set_invetory_item_icon(icon:Texture2D):

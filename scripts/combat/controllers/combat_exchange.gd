@@ -12,6 +12,10 @@ const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_
 signal unit_defeated(unit: CombatUnit)
 signal entity_destroyed(entity: CombatEntity)
 signal entity_destroyed_processing_completed()
+signal item_broken_popup_create(item: ItemDefinition)
+signal item_broken_popup_completed()
+signal item_expended_popup_create(item: ItemDefinition)
+signal item_expended_popup_completed()
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -68,13 +72,15 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 			var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
 			await heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
 		#Durability Code
-		attacker.unit.inventory.use_item(attacker.get_equipped())
-		if attacker.unit.inventory.equipped == false:
+		var broken_item = attacker.unit.inventory.use_item(attacker.get_equipped())
+		if broken_item != null:
 			#TODO create pop-up for broken weapon here
-			print("WEAPON BROKE!")
+			item_broken_popup_create.emit(broken_item)
+			await item_broken_popup_completed
 		elif attacker.unit.inventory.get_equipped_weapon().expended:
 			#TODO create pop-up for the expended weapon here
-			print("WEAPON EXPENDED")
+			item_expended_popup_create.emit(attacker.unit.inventory.get_equipped_weapon())
+			await item_expended_popup_completed
 	else : ## Attack has missed
 		await hit_missed(target)
 
@@ -771,3 +777,10 @@ func update_ai_type(unit: CombatUnit):
 		if unit.ai_type == Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
 			unit.ai_type = Constants.UNIT_AI_TYPE.DEFAULT
 	
+
+
+func _on_item_broken_popup_completed():
+	item_broken_popup_completed.emit()
+
+func _on_item_expended_popup_completed():
+	item_expended_popup_completed.emit()

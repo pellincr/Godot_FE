@@ -110,6 +110,8 @@ func _ready():
 	combatExchange.connect("unit_defeated",combatant_die)
 	combatExchange.connect("entity_destroyed",entity_destroyed_combat)
 	combatExchange.connect("give_items", give_curent_unit_items)
+	combatExchange.connect("item_broken_popup_create", create_item_broken_pop_up)
+	combatExchange.connect("item_expended_popup_create", create_item_expended_pop_up)
 	#Connections Combat Unit Item Manager 
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
@@ -801,6 +803,18 @@ func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
 
 func create_item_obtained_pop_up(item:ItemDefinition):
 	await game_ui.create_item_obtained_pop_up(item)
+	combat_unit_item_manager._on_give_item_popup_completed()
+
+func create_item_broken_pop_up(item:ItemDefinition):
+	await game_ui.create_combat_view_pop_up_item_broken(item)
+	combatExchange._on_item_broken_popup_completed()
+
+func create_item_expended_pop_up(item:ItemDefinition):
+	await game_ui.create_combat_view_pop_up_expended(item)
+	combatExchange._on_item_expended_popup_completed()
+
+func create_stat_up_pop_up(item:ItemDefinition):
+	await game_ui.create_combat_view_pop_up_stats_increased(item)
 	combat_unit_item_manager._on_give_item_popup_completed()
 
 func entity_interact_use_item(unit: CombatUnit, use_item:ItemDefinition, entity:CombatEntity):

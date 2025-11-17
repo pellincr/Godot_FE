@@ -462,12 +462,58 @@ func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[Uni
 	push_ui_node_stack(discard_container)
 	discard_container.grab_focus_btn()
 
-func create_item_obtained_pop_up(item:ItemDefinition):
-	AudioManager.play_sound_effect("item_obtained")
-	var _pop_up = COMBAT_VIEW_POP_UP.instantiate()
+##
+# @Signal, used to call the correct pop up
+##
+
+##
+#
+##
+func create_combat_view_pop_up_expended(item:ItemDefinition):
+	AudioManager.play_sound_effect("menu_back") #TODO Change to item expended
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)
-	_pop_up.set_item(item)
+	_pop_up.init_expended_item(item.name, item.icon)
+	_pop_up.visible = true
+	await get_tree().create_timer(1.5).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_item_broken(item:ItemDefinition):
+	AudioManager.play_sound_effect("menu_back") #TODO Change to item broke
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_broke_item_panel(item.name, item.icon)
+	_pop_up.visible = true
+	await get_tree().create_timer(1.5).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_item_obtained(item:ItemDefinition):
+	AudioManager.play_sound_effect("item_obtained")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_obtained_item_panel(item.name, item.icon)
+	_pop_up.visible = true
+	await get_tree().create_timer(1).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_stats_increased(item:ItemDefinition):
+	AudioManager.play_sound_effect("item_obtained")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_stats_increased()
 	_pop_up.visible = true
 	await get_tree().create_timer(1).timeout
 	_pop_up.queue_free()
