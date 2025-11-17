@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=53 format=3 uid="uid://b1ubk6fkwuowd"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=56 format=3 uid="uid://b1ubk6fkwuowd"]
 
 [ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
 [ext_resource type="AudioStream" uid="uid://bsaeqapxav78g" path="res://resources/sounds/ui/level_up/experience_point.ogg" id="2_05ay2"]
@@ -52,6 +52,9 @@
 [ext_resource type="AudioStream" uid="uid://ixdm68o28kq7" path="res://resources/sounds/combat/move_tile.ogg" id="50_n1ypu"]
 [ext_resource type="AudioStream" uid="uid://c44ms8faji3yq" path="res://resources/sounds/ui/campaign_map/recruit_map_enter.ogg" id="51_a57wq"]
 [ext_resource type="AudioStream" uid="uid://d0nyyclnbhh4q" path="res://resources/sounds/combat/attack/crit_sound.ogg" id="52_qtawl"]
+[ext_resource type="AudioStream" uid="uid://oip3sos2ytul" path="res://resources/sounds/combat/weapon_break.ogg" id="53_u6dim"]
+[ext_resource type="AudioStream" uid="uid://bwbylcd0eequi" path="res://resources/sounds/ui/promotion/promotion.ogg" id="54_p6ya6"]
+[ext_resource type="AudioStream" uid="uid://x380asfw4121" path="res://resources/sounds/combat/weapon_expended.ogg" id="55_jrlux"]
 
 [resource]
 script = ExtResource("1_v3pn6")
@@ -89,6 +92,7 @@ sounds = {
 "move_tile": ExtResource("50_n1ypu"),
 "no_damage": ExtResource("44_u6dim"),
 "potion_use": ExtResource("31_qtawl"),
+"promotion": ExtResource("54_p6ya6"),
 "recruit_map_enter": ExtResource("51_a57wq"),
 "resurrect": ExtResource("42_gkxbp"),
 "shield_equip": ExtResource("26_ydslc"),
@@ -106,5 +110,7 @@ sounds = {
 "unit_no_damage": ExtResource("13_a57wq"),
 "unit_return": ExtResource("17_xoril"),
 "unit_select": ExtResource("16_5ef6t"),
+"weapon_break": ExtResource("53_u6dim"),
+"weapon_expended": ExtResource("55_jrlux"),
 "wind_spell_hit": ExtResource("48_0qbke")
 }

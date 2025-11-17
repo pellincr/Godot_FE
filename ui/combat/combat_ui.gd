@@ -470,7 +470,7 @@ func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[Uni
 #
 ##
 func create_combat_view_pop_up_expended(item:ItemDefinition):
-	AudioManager.play_sound_effect("menu_back") #TODO Change to item expended
+	AudioManager.play_sound_effect("weapon_expended")
 	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)
@@ -483,7 +483,7 @@ func create_combat_view_pop_up_expended(item:ItemDefinition):
 #
 ##
 func create_combat_view_pop_up_item_broken(item:ItemDefinition):
-	AudioManager.play_sound_effect("menu_back") #TODO Change to item broke
+	AudioManager.play_sound_effect("weapon_break")
 	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)

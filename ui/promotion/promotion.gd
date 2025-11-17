@@ -92,6 +92,7 @@ func get_first_promotion_unit():
 
 func _on_promotion_type_selected():
 	unit_to_promote.promote(current_promotion_option)
+	AudioManager.play_sound_effect("promotion")
 	print("UNIT PROMOTED")
 	if get_first_promotion_unit():
 		set_page_availability()

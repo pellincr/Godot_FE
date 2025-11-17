@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_gdb3o"]
 [ext_resource type="Texture2D" uid="uid://24osm25o854k" path="res://resources/sprites/events/grove_trial_background.png" id="1_ncqdf"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="3_iv5nk"]
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_rfpjw"]
 
 [sub_resource type="Resource" id="Resource_acy4k"]
 script = ExtResource("3_rfpjw")
