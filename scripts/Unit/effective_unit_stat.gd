@@ -202,8 +202,8 @@ func populate_from_unit_stat_source(tag: String, source: UnitStat):
 	# Calculation based stats
 	self.hit.append(StatModifier.create(int(2 * source.skill) + (source.luck/2) , tag))
 	self.attack_speed.append(StatModifier.create(source.speed, tag))
-	self.avoid.append(StatModifier.create(int(2 * self.attack_speed.get_item(tag) + self.luck.get_item(tag)), tag))
-	self.critical_chance.append(StatModifier.create(int(self.luck.get_item(tag)/2), tag))
+	self.avoid.append(StatModifier.create(int(self.luck.get_item(tag)), tag)) ##DONT ACCOUNT FOR SPEED B/C IT HAPPENS IN THE OTHER CALC
+	self.critical_chance.append(StatModifier.create(int(self.skill.get_item(tag)/2 + self.luck.get_item(tag)/2), tag))
 	self.critical_avoid.append(StatModifier.create(self.luck.get_item(tag), tag))
 
 func populate_from_equipped_weapon_definition(weapon : WeaponDefinition):

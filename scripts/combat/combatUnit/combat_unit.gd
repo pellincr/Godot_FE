@@ -97,6 +97,7 @@ func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)
 		unit.update_stats()
+		unit.update_growths()
 		update_unit_stats()
 		#stats.populate_weapon_stats(self, wpn)
 

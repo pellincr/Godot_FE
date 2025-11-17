@@ -335,16 +335,16 @@ func calculate_hit(weapon: WeaponDefinition = null) -> int:
 		hit_value = clampi(weapon.hit + effective_stats.hit.evaluate(), 0, 500)
 	else :
 		if inventory.get_equipped_weapon():
-			hit_value = clampi(inventory.get_equipped_weapon().hit + (2 * stats.skill) + (stats.luck/2), 0, 500)
+			hit_value = clampi(inventory.get_equipped_weapon().hit + effective_stats.hit.evaluate(), 0, 500)
 	return hit_value
 	
 func calculate_critical_hit(weapon: WeaponDefinition = null) -> int:
 	var critcal_value : int = 0
 	if weapon:
-		critcal_value = clampi(weapon.critical_chance + (stats.skill/2), 0 , 500)
+		critcal_value = clampi(weapon.critical_chance + effective_stats.critical_chance.evaluate(), 0 , 500)
 	else :
 		if inventory.get_equipped_weapon():
-			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + (stats.skill/2), 0 , 500) 
+			critcal_value = clampi(inventory.get_equipped_weapon().critical_chance + effective_stats.critical_chance.evaluate(), 0 , 500) 
 	return critcal_value
 
 func calculate_critical_avoid() -> int:
@@ -353,11 +353,9 @@ func calculate_critical_avoid() -> int:
 func calculate_avoid(weapon: WeaponDefinition = null, terrain : Terrain = null) -> int:
 	var avoid_value: int = 0
 	if weapon:
-		avoid_value = (2 * calculate_attack_speed(weapon)) + stats.luck
+		avoid_value = (2 * attack_speed) + effective_stats.avoid.evaluate()
 	else :
-		avoid_value = (2 * calculate_attack_speed()) + stats.luck
-	if terrain:
-		avoid_value += terrain.avoid
+		avoid_value = (2 * attack_speed) +  effective_stats.avoid.evaluate()
 	return avoid_value
 
 func calculate_attack(weapon: WeaponDefinition = null) -> int: 
