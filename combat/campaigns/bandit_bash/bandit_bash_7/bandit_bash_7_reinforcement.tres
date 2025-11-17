@@ -19,7 +19,7 @@
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 1)
-level = 11
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 
@@ -40,7 +40,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("5_beupd"), ExtResource("
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 2)
-level = 11
+level = 10
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("7_aoe7f")])
 
@@ -48,7 +48,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("7_aoe7f")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(9, 17)
-level = 11
+level = 10
 unit_type_key = "lancer"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 
@@ -56,7 +56,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(7, 17)
-level = 11
+level = 10
 unit_type_key = "bladehand"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_7bodt")])
 
@@ -69,7 +69,7 @@ units = Array[ExtResource("2_y1r37")]([SubResource("Resource_ood86"), SubResourc
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(1, 0)
-level = 11
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 
@@ -77,7 +77,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 2)
-level = 11
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("10_ys14t")])
 
@@ -93,7 +93,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 11)
-level = 11
+level = 10
 unit_type_key = "sword_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("11_4f8tt")])
 
@@ -106,7 +106,7 @@ units = Array[ExtResource("2_y1r37")]([SubResource("Resource_hjk6q"), SubResourc
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 9)
-level = 13
+level = 14
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("12_t07uk")])
 

@@ -20,7 +20,7 @@
 script = ExtResource("2_n6avb")
 name = "Crag"
 map_position = Vector2i(21, 21)
-level = 20
+level = 18
 is_boss = true
 unit_type_key = "night_blade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_lyd2y"), ExtResource("5_alvux"), ExtResource("6_v6gop")])

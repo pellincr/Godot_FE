@@ -85,7 +85,7 @@ inventory = Array[ExtResource("2_ivwbr")]([ExtResource("11_xoro5")])
 script = ExtResource("1_hrtaf")
 name = "Raider"
 map_position = Vector2i(7, 11)
-level = 13
+level = 14
 unit_type_key = "axe_armor"
 inventory = Array[ExtResource("2_ivwbr")]([ExtResource("12_v16ud")])
 
@@ -125,7 +125,7 @@ inventory = Array[ExtResource("2_ivwbr")]([ExtResource("16_sjk40")])
 script = ExtResource("1_hrtaf")
 name = "Raider"
 map_position = Vector2i(14, 11)
-level = 9
+level = 10
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_ivwbr")]([ExtResource("17_vvsa5")])
 
@@ -133,7 +133,7 @@ inventory = Array[ExtResource("2_ivwbr")]([ExtResource("17_vvsa5")])
 script = ExtResource("1_hrtaf")
 name = "Raider"
 map_position = Vector2i(14, 9)
-level = 11
+level = 10
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_ivwbr")]([ExtResource("18_3hrla")])
 drops_item = true
@@ -142,7 +142,7 @@ drops_item = true
 script = ExtResource("1_hrtaf")
 name = "Raider"
 map_position = Vector2i(0, 2)
-level = 11
+level = 10
 unit_type_key = "crossbowman"
 inventory = Array[ExtResource("2_ivwbr")]([ExtResource("11_xoro5")])
 
