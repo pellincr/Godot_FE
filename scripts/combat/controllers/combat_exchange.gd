@@ -154,9 +154,11 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 		return
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
+		update_ai_type(enemy_unit)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
 		emit_signal("gain_experience", player_unit, calculate_experience_gain_hit(player_unit, enemy_unit))
+		update_ai_type(enemy_unit)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
 		emit_signal("gain_experience", player_unit, calculate_experience_gain_kill(player_unit, enemy_unit))
@@ -752,3 +754,12 @@ func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUni
 	#Experience Formula
 	experience_gain = clampi(tier_multiplier*(base_experience_gain + ((enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - (player_unit.unit.get_unit_type_definition().tier*(player_unit.unit.level + player_unit_value))) + 20 + boss_bonus), 2, 100)
 	return experience_gain
+
+##
+# Update the targetted unit's ai type if its an ai unit
+##
+func update_ai_type(unit: CombatUnit):
+	if not unit.is_boss:
+		if unit.ai_type == Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+			unit.ai_type = Constants.UNIT_AI_TYPE.DEFAULT
+	
