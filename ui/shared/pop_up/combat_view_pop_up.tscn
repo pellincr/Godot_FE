@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cptwwmoqj2yl4"]
 
-[ext_resource type="Script" path="res://ui/shared/pop_up/combat_view_pop_up.gd" id="1_c1a4n"]
+[ext_resource type="Script" uid="uid://4a1pc1wrvxxd" path="res://ui/shared/pop_up/combat_view_pop_up.gd" id="1_c1a4n"]
 [ext_resource type="Theme" uid="uid://p1jl1efi0vc2" path="res://ui/shared/pop_up/combat_view_pop_up_theme.tres" id="1_mpnvj"]
-[ext_resource type="Texture2D" uid="uid://brid25cpk2slt" path="res://resources/sprites/icons/Group 132.png" id="2_ebm3x"]
+[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="3_ruapg"]
 
 [node name="CombatViewPopUp" type="Control"]
 custom_minimum_size = Vector2(200, 48)
@@ -41,38 +41,20 @@ theme_override_constants/margin_right = 10
 layout_mode = 2
 
 [node name="ItemPopUpInfo" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer"]
-visible = false
 layout_mode = 2
 
-[node name="Action" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo"]
-custom_minimum_size = Vector2(0, 48)
+[node name="Text" type="RichTextLabel" parent="PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo"]
 layout_mode = 2
-size_flags_vertical = 1
-text = "Got a"
-vertical_alignment = 2
-
-[node name="ItemName" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.698247, 1, 0.671604, 1)
-text = "Placeholder"
-vertical_alignment = 2
+bbcode_enabled = true
+text = "Got a Blah"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("2_ebm3x")
+texture = ExtResource("3_ruapg")
 expand_mode = 1
-
-[node name="TextPopUpInfo" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Action" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/TextPopUpInfo"]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_vertical = 1
-text = "Some message goes here"
-vertical_alignment = 2

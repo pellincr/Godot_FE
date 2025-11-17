@@ -40,46 +40,43 @@ var se_resource : SpecialEffectResource = SpecialEffectResource.new()
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var attacker_specials = attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped()
-	if attacker.get_equipped() != null:
-		var damage_dealt
-		if check_hit(hit_chance):
-			if check_critical(critical_chance) :
-				#emit critical
-				if se_resource.has(SpecialEffect.SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL, attacker_specials):
-				#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
-					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
-				else:
-					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
-				if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
-				#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
-					var backfire_chance : int = 31 - attacker.get_luck()
-					var roll = randi_range(0,100)
-					if roll <= backfire_chance: 
-						await do_damage(attacker,damage_dealt, true)
-					else: 
-						await do_damage(target,damage_dealt, true)
-				await do_damage(target,damage_dealt, true)
-			else : 
-				#emit generic damage
-				damage_dealt = calc_damage(attacker, target)
-				await do_damage(target,damage_dealt)
-			#if attacker.unit.inventory.get_equipped_weapon():
-				#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
-			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials):
-				var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
-				await heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
-			#Durability Code
-			attacker.unit.inventory.use_item(attacker.get_equipped())
-			#check if the attacker still has something equipped here
-			if attacker.unit.inventory.equipped == false:
-				#TODO create pop-up for broken weapon here
-				attacker.unit.equip_next_available_weapon()
-			elif attacker.unit.inventory.get_equipped_weapon().expended and attacker.unit.inventory.equipped:
-				#TODO create pop-up for the expended weapon here
-				attacker.unit.inventory.send_back()
-				attacker.unit.equip_next_available_weapon()
-		else : ## Attack has missed
-			await hit_missed(target)
+	var damage_dealt
+	if check_hit(hit_chance):
+		if check_critical(critical_chance) :
+			#emit critical
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL, attacker_specials):
+			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
+				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
+			else:
+				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
+			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
+				var backfire_chance : int = 31 - attacker.get_luck()
+				var roll = randi_range(0,100)
+				if roll <= backfire_chance: 
+					await do_damage(attacker,damage_dealt, true)
+				else: 
+					await do_damage(target,damage_dealt, true)
+			await do_damage(target,damage_dealt, true)
+		else : 
+			#emit generic damage
+			damage_dealt = calc_damage(attacker, target)
+			await do_damage(target,damage_dealt)
+		#if attacker.unit.inventory.get_equipped_weapon():
+			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
+		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials):
+			var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
+			await heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
+		#Durability Code
+		attacker.unit.inventory.use_item(attacker.get_equipped())
+		if attacker.unit.inventory.equipped == false:
+			#TODO create pop-up for broken weapon here
+			print("WEAPON BROKE!")
+		elif attacker.unit.inventory.get_equipped_weapon().expended:
+			#TODO create pop-up for the expended weapon here
+			print("WEAPON EXPENDED")
+	else : ## Attack has missed
+		await hit_missed(target)
 
 func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
 	if attacker.get_equipped() != null:
@@ -140,6 +137,15 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 	# get unit specials 
 	var player_unit_specials = player_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	var enemy_unit_specials = enemy_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	
+	#check if the player unit has broken or expended its weapon and equip a new one
+	if player_unit.unit.inventory.equipped == false:
+		#TODO create pop-up for broken weapon here
+		player_unit.unit.equip_next_available_weapon()
+	elif player_unit.unit.inventory.get_equipped_weapon().expended and player_unit.unit.inventory.equipped:
+		#TODO create pop-up for the expended weapon here
+		player_unit.unit.inventory.send_back()
+		player_unit.unit.equip_next_available_weapon()
 	
 	if se_resource.has(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, player_unit_specials):
 		var _heal_weight = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, player_unit_specials)
@@ -672,21 +678,23 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	for turn in exchange_data.exchange_data:
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
-				await perform_hit(attacker,defender,turn.hit,turn.critical)
-				if not defender.alive:
-					if player_unit == defender:
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else : 
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if attacker.get_equipped() != null and not attacker.get_equipped().expended:
+					await perform_hit(attacker,defender,turn.hit,turn.critical)
+					if not defender.alive:
+						if player_unit == defender:
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else : 
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 			elif turn.owner == defender:
-				await perform_hit(defender,attacker,turn.hit,turn.critical)
-				if not attacker.alive: 
-					if attacker == player_unit: 
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else:
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if defender.get_equipped() != null and not defender.get_equipped().expended:
+					await perform_hit(defender,attacker,turn.hit,turn.critical)
+					if not attacker.alive: 
+						if attacker == player_unit: 
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else:
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 	# Both units have survived the exchange
 	if enemy_unit.current_hp < enemy_unit_starting_hp:
 		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
