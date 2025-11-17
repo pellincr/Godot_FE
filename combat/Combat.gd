@@ -911,6 +911,6 @@ func convoy_item(item:ItemDefinition):
 func check_tier_1_promotion_available() -> bool:
 	for unit : Unit in playerOverworldData.selected_party:
 		var unit_type = unit.get_unit_type_definition()
-		if unit_type.tier == 1 and unit.level >= 1:
+		if unit_type.tier == 1 and unit.level >= 10:
 			return true
 	return false

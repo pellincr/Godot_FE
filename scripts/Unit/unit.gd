@@ -231,6 +231,7 @@ func promote(promotion_unit_type : UnitTypeDefinition):
 	self.update_visuals(self)
 	self.update_stats()
 	self.update_growths()
+	hp = stats.hp
 	print("ENDED PROMOTE IN UNIT.GD")
 ##
 # update_stats : calculates the effective stats for a unit
@@ -502,15 +503,8 @@ func get_attackable_ranges() -> Array[int]:
 	return attack_ranges
 
 static func update_visuals(u :Unit): 
-	if u.unit_character:
-		if u.unit_character.icon : 
-			u.icon = u.unit_character.icon
-		if u.unit_character.map_sprite:
-			u.map_sprite = u.unit_character.map_sprite
-	if null == u.icon:
-		u.icon = u.get_unit_type_definition().icon
-	if null == u.map_sprite:
-		u.map_sprite = u.get_unit_type_definition().map_sprite
+	u.icon = u.get_unit_type_definition().icon
+	u.map_sprite = u.get_unit_type_definition().map_sprite
 
 static func set_movement(u :Unit): 
 	u.movement = u.bonus_movment + u.get_unit_type_definition().base_stats.movement

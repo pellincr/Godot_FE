@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_8wjw0"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_0gmq5"]
 [ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="2_qqowg"]
-[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="3_wd7bk"]
+[ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="3_wd7bk"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="4_xomlb"]
 [ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="5_xoubj"]
 [ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="6_p0vde"]

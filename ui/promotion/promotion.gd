@@ -86,7 +86,7 @@ func _on_promotion_option_focus_entered():
 func get_first_promotion_unit():
 	for unit in playerOverworldData.selected_party:
 		var unit_type = unit.get_unit_type_definition()
-		if unit_type.tier == 1 and unit.level >= 1:
+		if unit_type.tier == 1 and unit.level >= 10:
 			return unit
 
 
