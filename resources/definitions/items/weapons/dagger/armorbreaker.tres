@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://d32nr8htgrya4"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://d32nr8htgrya4"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_2vj2y"]
 [ext_resource type="Texture2D" uid="uid://2mrsvi4q0ael" path="res://resources/sprites/items/weapons/swords/armor_slayer.png" id="1_chfp3"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_2vj2y"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_j2glb"]
@@ -14,6 +15,7 @@ hit = 85
 critical_chance = 10
 weight = 8
 critical_multiplier = 4.0
+attack_range = Array[int]([1, 2])
 weapon_effectiveness_trait = Array[int]([0])
 name = "Armorbreaker"
 db_key = "armorbreaker"

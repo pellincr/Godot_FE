@@ -362,3 +362,18 @@ func get_all_specials_from_inventory_and_equipped() ->  Array[SpecialEffect]:
 		_specials.append_array(item.held_specials)
 	return _specials
 	
+func get_all_stats_from_held_items() -> CombatUnitStat:
+	var net_stat : CombatUnitStat = CombatUnitStat.new()
+	for item in get_items():
+		if item != null:
+			if item.inventory_bonus_stats != null:
+				net_stat = CustomUtilityLibrary.add_combat_unit_stat(net_stat,item.inventory_bonus_stats)
+	return net_stat
+
+func get_all_growths_from_held_items() -> UnitStat:
+	var net_stat : UnitStat = UnitStat.new()
+	for item in get_items():
+		if item != null:
+			if item.inventory_growth_bonus_stats != null:
+				net_stat = CustomUtilityLibrary.add_unit_stat(net_stat,item.inventory_growth_bonus_stats)
+	return net_stat

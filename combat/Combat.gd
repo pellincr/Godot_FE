@@ -114,6 +114,7 @@ func _ready():
 	combat_unit_item_manager.connect("heal_unit", heal_unit)
 	combat_unit_item_manager.connect("create_discard_container", create_unit_item_discard_container)
 	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
+	combat_unit_item_manager.connect("convoy_item", convoy_item)
 	#Connections Entity Manager
 	entity_manager.connect("entity_added", entity_added)
 	entity_manager.connect("give_items", give_curent_unit_items)
@@ -339,7 +340,6 @@ func add_combatant(combat_unit: CombatUnit, position: Vector2i):
 
 	var new_combatant_sprite = COMBAT_UNIT_DISPLAY.instantiate()
 	combat_unit.stats.populate_unit_stats(combat_unit.unit)
-	combat_unit.stats.populate_weapon_stats(combat_unit, combat_unit.get_equipped())
 	new_combatant_sprite.set_reference_unit(combat_unit)
 	$"../Terrain/UnitLayer".add_child(new_combatant_sprite)
 	new_combatant_sprite.position = Vector2(position * 32.0) + Vector2(16, 16)
@@ -904,10 +904,13 @@ func _on_rewards_complete():
 			#await get_tree().create_timer(8).timeout
 			get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 
+func convoy_item(item:ItemDefinition):
+	playerOverworldData.convoy.append(item)
+
 
 func check_tier_1_promotion_available() -> bool:
 	for unit : Unit in playerOverworldData.selected_party:
 		var unit_type = unit.get_unit_type_definition()
-		if unit_type.tier == 1 and unit.level >= 10:
+		if unit_type.tier == 1 and unit.level >= 1:
 			return true
 	return false

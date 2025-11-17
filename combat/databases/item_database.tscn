@@ -145,7 +145,7 @@
 [ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
 [ext_resource type="Resource" uid="uid://cmo7c2gqpwpdx" path="res://resources/definitions/items/weapons/axes/valor_axe.tres" id="142_niuha"]
 [ext_resource type="Resource" uid="uid://dco4sixhkecil" path="res://resources/definitions/items/weapons/bow/valor_bow.tres" id="143_4aqvk"]
-[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="144_86gxh"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="144_86gxh"]
 [ext_resource type="Resource" uid="uid://yfafgeaai71j" path="res://resources/definitions/items/weapons/lance/valor_lance.tres" id="145_7a2us"]
 [ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="146_kn4gf"]
 [ext_resource type="Resource" uid="uid://p5wvq1gfcryr" path="res://resources/definitions/items/weapons/axes/tri_axe.tres" id="147_ccn1k"]

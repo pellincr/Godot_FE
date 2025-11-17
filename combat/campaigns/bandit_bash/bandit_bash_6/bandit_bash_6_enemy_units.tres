@@ -35,6 +35,7 @@ script = ExtResource("1_bcvlb")
 name = "Thogun"
 map_position = Vector2i(2, 1)
 level = 14
+is_boss = true
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("3_iwj06"), ExtResource("4_bxknx")])
 
@@ -178,6 +179,7 @@ script = ExtResource("1_bcvlb")
 name = "Brask"
 map_position = Vector2i(18, 0)
 level = 13
+is_boss = true
 unit_type_key = "hakkapel"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("16_jaeon"), ExtResource("23_f4wo0"), ExtResource("19_hvq7o")])
 

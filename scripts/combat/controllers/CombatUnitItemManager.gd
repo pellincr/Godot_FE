@@ -3,12 +3,14 @@ class_name CombatUnitItemManager
 
 signal discard_selection_complete(give_item_required: bool)
 var give_item_required
+var playerOverworldData : PlayerOverworldData
 
 signal heal_unit(cu: CombatUnit, amount: int)
 signal create_give_item_pop_up(item:ItemDefinition)
 signal give_item_popup_completed()
 signal create_discard_container(cu:CombatUnit, item:ItemDefinition)
 signal unit_inventory_updated(cu: CombatUnit)
+signal convoy_item(item:ItemDefinition)
 
 const POP_UP_COMPONENT = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
 const DISCARD_ITEM_COMPONENT = preload("res://ui/combat/discard_item_inventory/discard_item_inventory.tscn")
@@ -100,10 +102,14 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 		user.update_inventory_stats()
 
 func discard_item(owner: CombatUnit, item: ItemDefinition):
+	# changed to send item to convoy
+	convoy_item.emit(item)
 	owner.unit.inventory.discard_item(item)
 	owner.update_inventory_stats()
 
 func discard_item_at_index(owner: CombatUnit, index: int):
+	# changed to send item to convoy
+	convoy_item.emit(owner.unit.inventory.get_item(index))
 	owner.unit.inventory.discard_at_index(index)
 	owner.update_inventory_stats()
 

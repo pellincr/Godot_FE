@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://b8mq5pwau58lw"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=10 format=3 uid="uid://b8mq5pwau58lw"]
 
 [ext_resource type="Resource" uid="uid://c0hb2j7pqo1dp" path="res://resources/definitions/unit_types/units/twigshot/twigshot_base_combat_stats.tres" id="1_xqisv"]
 [ext_resource type="Resource" uid="uid://bdnf233xhg3gx" path="res://resources/definitions/unit_types/units/twigshot/twigshot_default_item_tables.tres" id="2_7stnh"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://doqucr50h7ee4" path="res://resources/sprites/units/tier1/twigshot.png" id="4_exlig"]
 [ext_resource type="Resource" uid="uid://noin1redahsp" path="res://resources/definitions/unit_types/units/twigshot/twigshot_max_stats.tres" id="5_qm88n"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_ilo5m"]
+[ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="7_q0rto"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_upxco"]
+[ext_resource type="Resource" uid="uid://x6q68u18j7o7" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman.tres" id="8_lfq7f"]
 
 [resource]
 script = ExtResource("6_ilo5m")
@@ -14,6 +16,7 @@ unit_type_name = "Twigshot"
 db_key = "twigshot"
 unit_rarity = ExtResource("7_upxco")
 tier = 1
+promotion_types_available = Array[ExtResource("6_ilo5m")]([ExtResource("7_q0rto"), ExtResource("8_lfq7f")])
 usable_weapon_types = Array[int]([4])
 base_stats = ExtResource("1_xqisv")
 maxuimum_stats = ExtResource("5_qm88n")

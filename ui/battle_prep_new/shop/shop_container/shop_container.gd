@@ -162,6 +162,8 @@ func filter_by_useable_item():
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("common") and item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
 				accum.append(item)
+		if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+			accum.append(item)
 			"""
 			if item.rarity == RarityDatabase.rarities.get("standard"):
 				accum.append(item)

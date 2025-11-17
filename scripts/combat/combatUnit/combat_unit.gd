@@ -21,7 +21,7 @@ var effective_move : int = 0
 @export var unit : Unit
 
 # The effective Stats of a unit
-var stats : CombatMapUnitNetStat = CombatMapUnitNetStat.new()
+var stats : EffectiveUnitStat = EffectiveUnitStat.new()
 var current_hp
 # Satus Effect
 var status_effects : Dictionary = {}
@@ -47,7 +47,7 @@ static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false, drops_i
 	instance.effective_move = unit.stats.movement
 	instance.is_boss = boss
 	instance.drops_item = drops_item
-	instance.update_inventory_stats()
+	instance.update_unit_stats()
 	return instance
 
 func set_map_terrain(ter : Terrain) :
@@ -96,15 +96,22 @@ func update_unit_stats():
 func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)
-		stats.populate_weapon_stats(self, wpn)
+		unit.update_stats()
+		update_unit_stats()
+		#stats.populate_weapon_stats(self, wpn)
 
 func update_inventory_stats():
-	stats.populate_inventory_stats(self)
+	unit.update_stats()
+	unit.update_growths()
+	update_unit_stats()
+	#stats.populate_inventory_stats(self)
 
 func un_equip_current_weapon():
 	if get_equipped != null:
 		unit.inventory.equipped = false
-		stats.populate_weapon_stats(self, null)
+		unit.update_stats()
+		update_unit_stats()
+		#stats.populate_weapon_stats(self, null)
 
 func update_display():
 	if map_display != null:
@@ -147,16 +154,16 @@ func get_hit() -> int:
 	return clampi(stats.hit.evaluate(), 0, 99999)
 
 func get_avoid() -> int:
-	return int(stats.avoid.evaluate() + stats.luck.evaluate() + 2 * stats.speed.evaluate())
+	return int(stats.avoid.evaluate())
 
 func get_attack_speed() -> int:
-	return stats.attack_speed.evaluate() + stats.speed.evaluate()
+	return stats.attack_speed.evaluate()
 
 func get_critical_chance() -> int:
-	return clampi(stats.critical_chance.evaluate() + (stats.skill.evaluate()/2) + stats.luck.evaluate()/4, 0, 99999)
+	return clampi(stats.critical_chance.evaluate(), 0, 99999)
 
 func get_critical_avoid() -> int:
-	return stats.critical_avoid.evaluate() + stats.luck.evaluate()
+	return stats.critical_avoid.evaluate()
 
 func get_critical_multiplier() -> int:
 	return clampi(stats.critical_multiplier.evaluate(), 1, 99999)

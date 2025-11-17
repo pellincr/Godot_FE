@@ -1,21 +1,22 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://co7l31ly5a5mj"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://co7l31ly5a5mj"]
 
 [ext_resource type="Texture2D" uid="uid://dh8ei2gv82mw3" path="res://resources/sprites/items/weapons/swords/sabre.png" id="1_6m0tg"]
-[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_4ti1u"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_4077w"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_7c4gx"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_p6tke"]
 
 [resource]
 script = ExtResource("2_7c4gx")
 weapon_type = 1
 physical_weapon_triangle_type = 1
-damage = 8
+damage = 9
 hit = 85
 weight = 11
 weapon_effectiveness_trait = Array[int]([1])
 name = "Sabre"
 db_key = "sabre"
 equippable = true
-rarity = ExtResource("2_4ti1u")
+rarity = ExtResource("3_p6tke")
 uses = 14
 max_uses = 14
 worth = 2200

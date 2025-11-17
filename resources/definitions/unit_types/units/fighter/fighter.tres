@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://d0ewglo4bmena"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://d0ewglo4bmena"]
 
 [ext_resource type="Resource" uid="uid://briygm4kd6voh" path="res://resources/definitions/unit_types/units/fighter/fighter_base_combat_stats.tres" id="1_qqov0"]
 [ext_resource type="Resource" uid="uid://dnlwb0vcm05er" path="res://resources/definitions/unit_types/units/fighter/fighter_growth_stats.tres" id="2_8o003"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cwip6mxincb88" path="res://resources/sprites/units/fighter.png" id="3_ngor2"]
 [ext_resource type="Resource" uid="uid://cdltacblirtka" path="res://resources/definitions/unit_types/units/fighter/fighter_max_stats.tres" id="4_7lbsj"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_g18ft"]
+[ext_resource type="Resource" uid="uid://bi35n5x0xt5yj" path="res://resources/definitions/unit_types/units/fighter/fighter_promotion_stats.tres" id="6_08ten"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_rcp3b"]
 
 [resource]
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([2])
 base_stats = ExtResource("1_qqov0")
 maxuimum_stats = ExtResource("4_7lbsj")
 growth_stats = ExtResource("2_8o003")
+promotion_to_stats = ExtResource("6_08ten")
 icon = ExtResource("3_ngor2")
 map_sprite = ExtResource("3_ngor2")
 default_item_resource = ExtResource("2_676vj")

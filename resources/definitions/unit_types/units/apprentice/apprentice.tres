@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://ckwskix53npw4"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=11 format=3 uid="uid://ckwskix53npw4"]
 
 [ext_resource type="Resource" uid="uid://er5t86hladoq" path="res://resources/definitions/unit_types/units/apprentice/apprentice_base_combat_stats.tres" id="1_1esjg"]
 [ext_resource type="Resource" uid="uid://bqf5107qne20r" path="res://resources/definitions/unit_types/units/apprentice/apprentice_default_item_tables.tres" id="2_3tb51"]
@@ -7,6 +7,9 @@
 [ext_resource type="Resource" uid="uid://ys2qe6q3l70j" path="res://resources/definitions/unit_types/units/apprentice/apprentice_max_stats.tres" id="5_qraid"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_ngsf2"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_7532h"]
+[ext_resource type="Resource" uid="uid://06uoo1n8hpyw" path="res://resources/definitions/unit_types/units/mage/mage.tres" id="7_fypmt"]
+[ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="8_yjton"]
+[ext_resource type="Resource" uid="uid://cc74dagkdtjhy" path="res://resources/definitions/unit_types/units/bishop/bishop.tres" id="9_762mh"]
 
 [resource]
 script = ExtResource("6_ngsf2")
@@ -14,6 +17,7 @@ unit_type_name = "Apprentice"
 db_key = "apprentice"
 unit_rarity = ExtResource("7_7532h")
 tier = 1
+promotion_types_available = Array[ExtResource("6_ngsf2")]([ExtResource("7_fypmt"), ExtResource("8_yjton"), ExtResource("9_762mh")])
 usable_weapon_types = Array[int]([9, 8, 7])
 base_stats = ExtResource("1_1esjg")
 maxuimum_stats = ExtResource("5_qraid")

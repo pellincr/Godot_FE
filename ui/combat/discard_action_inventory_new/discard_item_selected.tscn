@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cm0qbxevm3w1g"]
 
-[ext_resource type="Script" path="res://ui/combat/discard_action_inventory_new/discard_item_selected.gd" id="1_sqfj1"]
+[ext_resource type="Script" uid="uid://djgo333vr210v" path="res://ui/combat/discard_action_inventory_new/discard_item_selected.gd" id="1_sqfj1"]
 [ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="2_c00ii"]
 [ext_resource type="Theme" uid="uid://spqlmvt5day1" path="res://resources/themes/combat/unit_action_inventory/unit_action_inventory_enabled.tres" id="2_lk8i8"]
 
@@ -18,7 +18,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4jiof")
 script = ExtResource("1_sqfj1")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 490.0
 offset_top = 285.0
 offset_right = 890.0
@@ -53,7 +53,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Discard"
+text = "Convoy"
 horizontal_alignment = 2
 
 [node name="ItemIcon" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer2"]
@@ -74,7 +74,7 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("2_lk8i8")
-text = "Discard"
+text = "Convoy"
 
 [node name="CancelButton" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)

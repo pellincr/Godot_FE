@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cq7p2m3rndn5"]
 
-[ext_resource type="Script" path="res://ui/combat/discard_action_inventory_new/discard_action_inventory.gd" id="1_ytl2i"]
+[ext_resource type="Script" uid="uid://p6jtb0kvwitv" path="res://ui/combat/discard_action_inventory_new/discard_action_inventory.gd" id="1_ytl2i"]
 [ext_resource type="Theme" uid="uid://dikknykmpv1k4" path="res://resources/themes/combat/unit_action_inventory/text_sub_header.tres" id="2_8ggd3"]
 [ext_resource type="Theme" uid="uid://5u8khyn2exwk" path="res://resources/themes/combat/unit_action_inventory/combat_ui_divider.tres" id="3_0qv0o"]
 [ext_resource type="PackedScene" uid="uid://cxd4y8qg56hq3" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.tscn" id="4_rfwwp"]
@@ -38,7 +38,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme = ExtResource("2_8ggd3")
-text = "Select an Item to Discard"
+text = "Select an Item to Send to Convoy"
 
 [node name="Divider" type="Panel" parent="MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(290, 1)

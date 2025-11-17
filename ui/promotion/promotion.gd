@@ -86,12 +86,13 @@ func _on_promotion_option_focus_entered():
 func get_first_promotion_unit():
 	for unit in playerOverworldData.selected_party:
 		var unit_type = unit.get_unit_type_definition()
-		if unit_type.tier == 1 and unit.level >= 10:
+		if unit_type.tier == 1 and unit.level >= 1:
 			return unit
 
 
 func _on_promotion_type_selected():
-	#CODE TO PROMOTE UNIT HERE
+	unit_to_promote.promote(current_promotion_option)
+	print("UNIT PROMOTED")
 	if get_first_promotion_unit():
 		set_page_availability()
 	else:

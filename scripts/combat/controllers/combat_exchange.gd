@@ -482,6 +482,7 @@ func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) 
 							return wpn_b
 						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return wpn_a
+		match wpn_a.magic_weapon_triangle_type:
 				ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
 					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 						return wpn_b
@@ -722,9 +723,9 @@ func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit
 	var experience_gain = 0
 	var player_unit_value = 0
 	var enemy_unit_value = 0
-	if(player_unit.unit.get_unit_type_definition().promoted):
+	if(player_unit.unit.get_unit_type_definition().tier == 3):
 		player_unit_value = 20
-	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+	if (enemy_unit.unit.get_unit_type_definition().tier == 3) :
 		enemy_unit_value = 20
 	
 	var unit_value_difference = ( (enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - ((player_unit.unit.level + player_unit_value)))
@@ -742,9 +743,9 @@ func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUni
 	var base_experience_gain = calculate_experience_gain_hit(player_unit, enemy_unit)
 	var boss_bonus = 0
 	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
-	if(player_unit.unit.get_unit_type_definition().promoted):
+	if(player_unit.unit.get_unit_type_definition().tier == 3):
 		player_unit_value = 60
-	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+	if (enemy_unit.unit.get_unit_type_definition().tier == 3) :
 		enemy_unit_value = 60
 	if enemy_unit.is_boss:
 		boss_bonus = 40

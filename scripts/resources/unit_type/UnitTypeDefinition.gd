@@ -21,7 +21,7 @@ class_name UnitTypeDefinition
 @export var base_stats : UnitStat
 @export var maxuimum_stats : UnitStat 
 @export var growth_stats : UnitStat
-@export var promotion_stats : UnitStat 
+@export var promotion_to_stats : UnitStat 
 
 @export_group("Visual")
 @export var icon: Texture2D

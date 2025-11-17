@@ -1,5 +1,5 @@
 extends Resource
-class_name CombatMapUnitNetStat
+class_name EffectiveUnitStat
 
 var max_hp : StatModifierList = StatModifierList.new()
 var strength : StatModifierList = StatModifierList.new()
@@ -65,14 +65,15 @@ func populate_unit_stats(unit : Unit):
 	self.constitution.append(StatModifier.create(unit.stats.constitution, "Unit"))
 
 	#other stats that require calculations
-	#stats.damage Awaits the weapon equip to see what stat to pull from
-	#self.attack_speed.append(StatModifier.create(self.speed.evaluate(), "Unit")) THIS IS REDUNDANT and should be calced in the combat unit
+	self.damage.append(StatModifier.create(unit.attack, "Unit"))
+	self.attack_speed.append(StatModifier.create(unit.attack_speed, "Unit"))
 	
-	#self.hit.append(StatModifier.create(int(2 * self.skill.evaluate() +self.luck.evaluate()/2), "Unit"))
-	#self.avoid.append(StatModifier.create(int(self.luck.evaluate() + 2 * self.speed.evaluate()), "Unit"))
+	self.hit.append(StatModifier.create(unit.hit, "Unit"))
+	self.avoid.append(StatModifier.create(unit.avoid, "Unit"))
 
-	self.critical_chance.append(StatModifier.create(0, "Unit"))
-	self.critical_multiplier.append(StatModifier.create(0, "Unit"))
+	self.critical_chance.append(StatModifier.create(unit.critical_hit, "Unit"))
+	self.critical_multiplier.append(StatModifier.create(unit.effective_stats.critical_multiplier.evaluate(), "Unit"))
+
 
 func populate_weapon_stats(cu: CombatUnit, weapon : WeaponDefinition):
 	if weapon != null:
@@ -161,3 +162,89 @@ func populate_inventory_stats(cu: CombatUnit):
 	self.critical_chance.append(StatModifier.create(inventory_bonuses.critical_chance, "Inventory"))
 	self.critical_multiplier.append(StatModifier.create(inventory_bonuses.critical_multiplier, "Inventory"))
 	self.critical_avoid.append(StatModifier.create(inventory_bonuses.critical_avoid, "Inventory"))
+
+func populate_from_combat_unit_stat_source(tag: String, source: CombatUnitStat):
+	self.max_hp.append(StatModifier.create(source.hp, tag))
+	self.strength.append(StatModifier.create(source.strength, tag))
+	self.magic.append(StatModifier.create(source.magic, tag))
+	self.skill.append(StatModifier.create(source.skill, tag))
+	self.speed.append(StatModifier.create(source.speed, tag))
+	self.luck.append(StatModifier.create(source.luck, tag))
+	
+	self.defense.append(StatModifier.create(source.defense, tag))
+	self.resistance.append(StatModifier.create(source.resistance, tag))
+	self.movement.append(StatModifier.create(source.movement, tag))
+	self.constitution.append(StatModifier.create(source.constitution, tag))
+	self.speed.append(StatModifier.create(source.speed, tag))
+	self.damage.append(StatModifier.create(source.damage, tag))
+	
+	# Calculation based stats
+	self.hit.append(StatModifier.create(int(source.hit + (2 * self.skill.get_item(tag)) + (self.luck.get_item(tag)/2)) , tag))
+	self.attack_speed.append(StatModifier.create(source.attack_speed + self.speed.get_item(tag), tag))
+	self.avoid.append(StatModifier.create(int(source.avoid + (2 * self.attack_speed.get_item(tag)) + self.luck.get_item(tag)), tag))
+	self.critical_chance.append(StatModifier.create(int(source.critical_chance +  self.luck.get_item(tag)/2), tag))
+	self.critical_multiplier.append(StatModifier.create(source.critical_multiplier, tag))
+	self.critical_avoid.append(StatModifier.create(source.critical_avoid + self.luck.get_item(tag), tag))
+
+func populate_from_unit_stat_source(tag: String, source: UnitStat):
+	self.max_hp.append(StatModifier.create(source.hp, tag))
+	self.strength.append(StatModifier.create(source.strength, tag))
+	self.magic.append(StatModifier.create(source.magic, tag))
+	self.skill.append(StatModifier.create(source.skill, tag))
+	self.speed.append(StatModifier.create(source.speed, tag))
+	self.luck.append(StatModifier.create(source.luck, tag))
+	self.defense.append(StatModifier.create(source.defense, tag))
+	self.resistance.append(StatModifier.create(source.resistance, tag))
+	self.movement.append(StatModifier.create(source.movement, tag))
+	self.constitution.append(StatModifier.create(source.constitution, tag))
+	self.speed.append(StatModifier.create(source.speed, tag))
+	
+	# Calculation based stats
+	self.hit.append(StatModifier.create(int(2 * source.skill) + (source.luck/2) , tag))
+	self.attack_speed.append(StatModifier.create(source.speed, tag))
+	self.avoid.append(StatModifier.create(int(2 * self.attack_speed.get_item(tag) + self.luck.get_item(tag)), tag))
+	self.critical_chance.append(StatModifier.create(int(self.luck.get_item(tag)/2), tag))
+	self.critical_avoid.append(StatModifier.create(self.luck.get_item(tag), tag))
+
+func populate_from_equipped_weapon_definition(weapon : WeaponDefinition):
+		# Do bonus Stats
+		if weapon.bonus_stat != null:
+			self.max_hp.append(StatModifier.create(weapon.bonus_stat.hp, "Equipped"))
+			self.strength.append(StatModifier.create(weapon.bonus_stat.strength, "Equipped"))
+			self.magic.append(StatModifier.create(weapon.bonus_stat.magic, "Equipped"))
+			self.skill.append(StatModifier.create(weapon.bonus_stat.skill, "Equipped"))
+			self.speed.append(StatModifier.create(weapon.bonus_stat.speed, "Equipped"))
+			self.luck.append(StatModifier.create(weapon.bonus_stat.luck, "Equipped"))
+			self.defense.append(StatModifier.create(weapon.bonus_stat.defense, "Equipped"))
+			self.resistance.append(StatModifier.create(weapon.bonus_stat.resistance, "Equipped"))
+			self.movement.append(StatModifier.create(weapon.bonus_stat.movement, "Equipped"))
+			self.constitution.append(StatModifier.create(weapon.bonus_stat.constitution, "Equipped"))
+		# Calculate others
+		self.damage.append(StatModifier.create(weapon.damage, "Equipped"))
+		self.hit.append(StatModifier.create(weapon.hit, "Equipped"))
+		self.critical_chance.append(StatModifier.create(weapon.critical_chance, "Equipped"))
+		self.critical_multiplier.append(StatModifier.create(weapon.critical_multiplier, "Equipped"))
+		self.attack_speed.append(StatModifier.create(self.speed.get_item("Equipped"), "Equipped"))
+		self.avoid.append(StatModifier.create((2 * self.attack_speed.get_item("Equipped")) + self.luck.get_item("Equipped"), "Equipped"))
+
+func remove_all_with_tag(tag: String):
+	self.max_hp.remove(tag)
+	self.strength.remove(tag)
+	self.magic.remove(tag)
+	self.skill.remove(tag)
+	self.speed.remove(tag)
+	self.luck.remove(tag)
+	
+	self.defense.remove(tag)
+	self.resistance.remove(tag)
+	self.movement.remove(tag)
+	self.constitution.remove(tag)
+	self.speed.remove(tag)
+	self.damage.remove(tag)
+	self.hit.remove(tag)
+	self.avoid.remove(tag)
+	self.attack_speed.remove(tag)
+	self.critical_chance.remove(tag)
+	self.critical_multiplier.remove(tag)
+	self.critical_avoid.remove(tag)
+	
