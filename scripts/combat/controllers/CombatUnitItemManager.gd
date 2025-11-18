@@ -3,7 +3,6 @@ class_name CombatUnitItemManager
 
 signal discard_selection_complete(give_item_required: bool)
 var give_item_required
-var playerOverworldData : PlayerOverworldData
 
 signal heal_unit(cu: CombatUnit, amount: int)
 signal create_give_item_pop_up(item:ItemDefinition)
@@ -44,6 +43,7 @@ func give_item_discard_result_complete(cu: CombatUnit, item : ItemDefinition):
 		give_item_required = true
 	else:
 		give_item_required = false
+		convoy_item.emit(item)
 	discard_selection_complete.emit()
 
 func generate_combat_unit_inventory_data(cu:CombatUnit) -> Array[UnitInventorySlotData]:
