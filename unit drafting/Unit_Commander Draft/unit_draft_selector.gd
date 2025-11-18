@@ -308,7 +308,7 @@ func randomize_unit_stats(unit_character, unit_type_key):
 	var magic_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.magic, 5) 
 	var skill_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.skill, 5) 
 	var speed_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.speed, 5) 
-	var luck_rand = clampi(randfn( 3, deviation), - unit_type.base_stats.luck, 5) 
+	var luck_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.luck, 5) 
 	var defense_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.defense, 5) 
 	var resistance_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.resistance, 5) 
 	stats.hp = health_rand
@@ -642,7 +642,7 @@ func filter_items_by_base_type(items_list:Array):
 	return items_list
 
 func get_unit_stat_difference_total():
-	var difference_total = unit.unit_character.stats.hp + unit.unit_character.stats.strength + unit.unit_character.stats.magic + unit.unit_character.stats.skill + unit.unit_character.stats.speed + (unit.unit_character.stats.luck-3) + unit.unit_character.stats.defense + unit.unit_character.stats.resistance
+	var difference_total = unit.unit_character.stats.hp + unit.unit_character.stats.strength + unit.unit_character.stats.magic + unit.unit_character.stats.skill + unit.unit_character.stats.speed + unit.unit_character.stats.luck + unit.unit_character.stats.defense + unit.unit_character.stats.resistance
 	return difference_total
 
 func get_unit_growth_difference_total():

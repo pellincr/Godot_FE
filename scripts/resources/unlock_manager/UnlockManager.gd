@@ -38,7 +38,6 @@ class_name UnlockManager
 	"bow_armor" : true,
 	"brawler" : true,
 	"bulwark": true,
-	"chopper": true,
 	"corsair" : true,
 	"crossbowman" : true,
 	"duelist" : true,
@@ -75,6 +74,7 @@ class_name UnlockManager
 	"hewman" : true,
 	"apprentice" : true,
 	"twigshot" : true,
+	"chopper": true,
 	"knave" : true
 }
 

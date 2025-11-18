@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://gdi76tkrump4"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_yw665"]
-[ext_resource type="Script" path="res://almanac/unit_type/unit_type_almanac_detailed_view.gd" id="2_0m8mb"]
+[ext_resource type="Script" uid="uid://cgqpkngrx336b" path="res://almanac/unit_type/unit_type_almanac_detailed_view.gd" id="2_0m8mb"]
 [ext_resource type="PackedScene" uid="uid://uu25grierx8r" path="res://almanac/unit_type/unit_type_full_stat_container.tscn" id="3_y0tt6"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="4_geqfg"]
 [ext_resource type="PackedScene" uid="uid://bwojcenhgb8vy" path="res://almanac/unit_type/unit_type_almanac_weapon_types.tscn" id="5_2uyw7"]
@@ -56,7 +56,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Panel"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 5.0
 offset_top = 1.0
 offset_right = 334.0
@@ -115,7 +115,7 @@ text = "10"
 layout_mode = 2
 
 [node name="UnitIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer/Panel"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 241.0
 offset_top = 24.0
 offset_right = 305.0

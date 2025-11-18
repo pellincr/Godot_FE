@@ -802,7 +802,7 @@ func discard_item_selected(discard_item: ItemDefinition, cu: CombatUnit):
 	await combat_unit_item_manager.give_item_discard_result_complete(cu, discard_item)
 
 func create_item_obtained_pop_up(item:ItemDefinition):
-	await game_ui.create_item_obtained_pop_up(item)
+	await game_ui.create_combat_view_pop_up_item_obtained(item)
 	combat_unit_item_manager._on_give_item_popup_completed()
 
 func create_item_broken_pop_up(item:ItemDefinition):

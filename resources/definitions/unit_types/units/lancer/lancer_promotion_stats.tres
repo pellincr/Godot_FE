@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://deot68ho60n2x"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_cfica"]
+
+[resource]
+script = ExtResource("1_cfica")
+hp = 19
+strength = 4
+skill = 5
+speed = 6
+defense = 3
+resistance = 2
+movement = 5
+constitution = 8

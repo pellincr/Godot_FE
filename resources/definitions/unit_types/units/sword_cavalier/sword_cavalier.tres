@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://p0yw74owchbh"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://p0yw74owchbh"]
 
 [ext_resource type="Resource" uid="uid://cyg4m85jyyfbn" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier_base_combat_stats.tres" id="1_ptb2d"]
 [ext_resource type="Resource" uid="uid://dcy0d07wna8ra" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier_growth_stats.tres" id="2_hiu7h"]
 [ext_resource type="Texture2D" uid="uid://bkjmwspym2122" path="res://resources/sprites/units/sword_cavalier.png" id="3_a4f80"]
 [ext_resource type="Resource" uid="uid://523wqpvpxtop" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier_max_stats.tres" id="4_ooxyp"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_g11l6"]
+[ext_resource type="Resource" uid="uid://c0td7vtt5yfym" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier_promotion_stats.tres" id="5_axp0a"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_g11l6"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_vti00"]
 
 [resource]
@@ -12,19 +13,13 @@ script = ExtResource("5_g11l6")
 unit_type_name = "Sword Cavalier"
 db_key = "sword_cavalier"
 description = "Swift royal riders skilled in tactical disruption and precise melee skirmishing."
-initiative = 1
 faction = Array[int]([1])
 traits = Array[int]([1])
 unit_rarity = ExtResource("6_vti00")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_ptb2d")
 maxuimum_stats = ExtResource("4_ooxyp")
 growth_stats = ExtResource("2_hiu7h")
+promotion_to_stats = ExtResource("5_axp0a")
 icon = ExtResource("3_a4f80")
 map_sprite = ExtResource("3_a4f80")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

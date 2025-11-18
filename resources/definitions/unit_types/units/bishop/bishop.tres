@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cc74dagkdtjhy"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://cc74dagkdtjhy"]
 
 [ext_resource type="Resource" uid="uid://bsfepbbkc220n" path="res://resources/definitions/unit_types/units/bishop/bishop_base_combat_stats.tres" id="1_geff2"]
 [ext_resource type="Resource" uid="uid://r8wn4jg8mrx6" path="res://resources/definitions/unit_types/units/bishop/bishop_default_item_tables.tres" id="2_om7cc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ba2lfugp674e8" path="res://resources/definitions/unit_types/units/bishop/bishop_max_stats.tres" id="4_6ko8u"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="4_mn8lb"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="5_jme3r"]
+[ext_resource type="Resource" uid="uid://487ec6cmeff2" path="res://resources/definitions/unit_types/units/bishop/bishop_promotion_stats.tres" id="6_ofvwl"]
 
 [resource]
 script = ExtResource("4_mn8lb")
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([8])
 base_stats = ExtResource("1_geff2")
 maxuimum_stats = ExtResource("4_6ko8u")
 growth_stats = ExtResource("2_xsp2i")
+promotion_to_stats = ExtResource("6_ofvwl")
 icon = ExtResource("3_0mhnc")
 map_sprite = ExtResource("3_0mhnc")
 default_item_resource = ExtResource("2_om7cc")

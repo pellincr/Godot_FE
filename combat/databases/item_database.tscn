@@ -1,4 +1,4 @@
-[gd_scene load_steps=183 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=184 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -145,6 +145,7 @@
 [ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
 [ext_resource type="Resource" uid="uid://cmo7c2gqpwpdx" path="res://resources/definitions/items/weapons/axes/valor_axe.tres" id="142_niuha"]
 [ext_resource type="Resource" uid="uid://dco4sixhkecil" path="res://resources/definitions/items/weapons/bow/valor_bow.tres" id="143_4aqvk"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="143_6rcnr"]
 [ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="144_86gxh"]
 [ext_resource type="Resource" uid="uid://yfafgeaai71j" path="res://resources/definitions/items/weapons/lance/valor_lance.tres" id="145_7a2us"]
 [ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="146_kn4gf"]
@@ -327,7 +328,7 @@ items = {
 "spirit_ink": ExtResource("118_0v30l"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
-"steel_dagger": ExtResource("144_86gxh"),
+"steel_dagger": ExtResource("143_6rcnr"),
 "steel_fist": ExtResource("78_vos4o"),
 "steel_greatshield": ExtResource("154_d85kj"),
 "steel_lance": ExtResource("20_kc6t1"),
