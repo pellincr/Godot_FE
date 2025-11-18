@@ -252,7 +252,7 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	await attack_action_inventory
 	attack_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
-	#attack_action_inventory.backButton.connect()
+	attack_action_inventory.back.connect(controller.fsm_attack_action_inventory_cancel)
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
@@ -279,7 +279,7 @@ func create_support_action_inventory(inputCombatUnit : CombatUnit, inventory: Ar
 	await support_action_inventory
 	support_action_inventory.item_selected.connect(controller.fsm_support_action_inventory_confirm.bind())
 	support_action_inventory.new_item_hovered.connect(controller.fsm_support_action_inventory_confirm_new_hover.bind())
-	#TO BE CONNECTED CANCEL
+	support_action_inventory.back.connect(controller.fsm_support_action_inventory_cancel)
 	support_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(support_action_inventory)
 	support_action_inventory.grab_focus()

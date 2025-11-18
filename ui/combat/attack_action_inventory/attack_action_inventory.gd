@@ -28,6 +28,7 @@ func _ready() -> void:
 	unit_inventory_slot_2.connect("selected_item",item_selected_button_press)
 	unit_inventory_slot_3.connect("selected_item",item_selected_button_press)
 	unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
+	backButton.connect("pressed", back_btn_pressed)
 
 func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
 	await equippable_item_information
@@ -64,6 +65,6 @@ func reset_focus(item: ItemDefinition):
 
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
-	back.emit()
 
-	
+func back_btn_pressed():
+	back.emit()

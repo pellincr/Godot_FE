@@ -1231,15 +1231,18 @@ func unit_action_selection_handler(action:String):
 func fsm_support_action_inventory_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_back"):
-			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
-			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				combat.game_ui.destory_active_ui_node()
-				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
-				combat.game_ui.create_unit_action_container(actions)
-				combat.game_ui.display_unit_status()
-				camera.set_footer_open(true)
-				update_current_tile(move_tile)
-				revert_player_state()
+			fsm_support_action_inventory_cancel()
+
+func fsm_support_action_inventory_cancel():
+	var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+	if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
+		combat.game_ui.destory_active_ui_node()
+		var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+		combat.game_ui.create_unit_action_container(actions)
+		combat.game_ui.display_unit_status()
+		camera.set_footer_open(true)
+		update_current_tile(move_tile)
+		revert_player_state()
 
 func fsm_support_action_inventory_confirm(selected_item : ItemDefinition):
 	# equip selected item and call menu needed to progress flow
@@ -1325,15 +1328,18 @@ func fsm_support_action_inventory_confirm_new_hover(item:ItemDefinition):
 func fsm_attack_action_inventory_process(delta):
 	if Input:
 		if Input.is_action_just_pressed("ui_back"):
-			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
-			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
-				combat.game_ui.destory_active_ui_node()
-				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
-				combat.game_ui.create_unit_action_container(actions)
-				combat.game_ui.display_unit_status()
-				camera.set_footer_open(true)
-				update_current_tile(move_tile)
-				revert_player_state()
+			fsm_attack_action_inventory_cancel()
+
+func fsm_attack_action_inventory_cancel():
+	var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+	if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
+		combat.game_ui.destory_active_ui_node()
+		var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+		combat.game_ui.create_unit_action_container(actions)
+		combat.game_ui.display_unit_status()
+		camera.set_footer_open(true)
+		update_current_tile(move_tile)
+		revert_player_state()
 
 func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 	# equip selected item and call menu needed to progress flow
