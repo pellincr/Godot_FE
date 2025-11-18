@@ -2,7 +2,8 @@ extends Resource
 
 class_name UnlockManager
 
-@export var archetypes_unlocked : Dictionary = {
+@export var archetypes_unlocked : Dictionary 
+"""= {
 	"armor_up" : true,
 	"bows" : true,
 	"classic" : true,
@@ -19,17 +20,19 @@ class_name UnlockManager
 	"random" : true,
 	"swords" : true,
 	"vicious_vigilantes" : true
-}
+}"""
 
-@export var commander_types_unlocked : Dictionary = {
+@export var commander_types_unlocked : Dictionary
+"""= {
 	"drengr" : true,
 	"iron_viper" : true,
 	"line_breaker" : true,
 	"mage_knight" : true,
 	"night_blade" : true
 }
-
-@export var unit_types_unlocked : Dictionary = {
+"""
+@export var unit_types_unlocked : Dictionary 
+"""= {
 	"archer" : true,
 	"axe_armor" : true,
 	"axe_cavalier" : true,
@@ -77,8 +80,10 @@ class_name UnlockManager
 	"chopper": true,
 	"knave" : true
 }
+"""
 
-@export var items_unlocked : Dictionary = {
+@export var items_unlocked : Dictionary 
+"""= {
 	"abyss_typhoon": true,
 	"all_seeing_hands": true,
 	"annihilate": true,
@@ -224,6 +229,34 @@ class_name UnlockManager
 	"steel_greatshield" : true,
 	"silver_greatshield" : true,
 }
+"""
+
+func _init() -> void:
+	instantiate_archetypes_unlocked()
+	instantiate_commander_types_unlocked()
+	instantiate_unit_types_unlocked()
+	instantiate_items_unlocked()
+
+
+func instantiate_archetypes_unlocked():
+	var archetypes := ArmyArchetypeDatabase.army_archetypes.values()
+	for archetype : ArmyArchetypeDefinition in archetypes:
+		archetypes_unlocked[archetype] = archetype.unlocked
+
+func instantiate_unit_types_unlocked():
+	var unit_types = UnitTypeDatabase.unit_types.values()
+	for unit_type : UnitTypeDefinition in unit_types:
+		unit_types_unlocked[unit_type] = unit_type.unlocked
+
+func instantiate_commander_types_unlocked():
+	var commander_types = UnitTypeDatabase.commander_types.values()
+	for commander_type : CommanderDefinition in commander_types:
+		commander_types_unlocked[commander_type] = commander_type.unlocked
+
+func instantiate_items_unlocked():
+	var items = ItemDatabase.items.values()
+	for item: ItemDefinition in items:
+		items_unlocked[item] = item.unlocked
 
 func get_count(dict: Dictionary, locked : bool):
 	var count = 0

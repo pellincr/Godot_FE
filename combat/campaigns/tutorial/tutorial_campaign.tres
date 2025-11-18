@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=16 format=3 uid="uid://dupcjl6ugp2d4"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=17 format=3 uid="uid://dupcjl6ugp2d4"]
 
 [ext_resource type="PackedScene" uid="uid://c622nlhdyyq6a" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1.tscn" id="1_6q7ee"]
 [ext_resource type="Script" uid="uid://ktkgeds6abeh" path="res://scripts/resources/level_pool/LevelPool.gd" id="1_au7wh"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c5xyvloiirobl" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_a/minor_combat_ruin_2_a.tscn" id="10_dybq7"]
 [ext_resource type="PackedScene" uid="uid://dqh8d3udxv86" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_b/minor_combat_ruin_2_b.tscn" id="11_c6xoi"]
 [ext_resource type="PackedScene" uid="uid://bey0bbvktykhg" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_c/minor_combat_ruin_2_c.tscn" id="12_sehje"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="15_dybq7"]
 
 [sub_resource type="Resource" id="Resource_bnrb4"]
 script = ExtResource("1_au7wh")
@@ -35,5 +36,4 @@ number_of_required_combat_maps = 4
 level_pool = SubResource("Resource_bnrb4")
 boss_commander = ExtResource("1_swunh")
 length = "Short"
-rewards = "Line Breaker"
-unit_unlock_rewards = Array[String](["line_breaker"])
+unit_unlock_rewards = Array[ExtResource("15_dybq7")]([ExtResource("1_swunh")])

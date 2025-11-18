@@ -2,9 +2,9 @@ extends Resource
 
 class_name PlayerOverworldData
 @export_group("Main Save Data")
-@export var unlock_manager = UnlockManager.new()
-@export var hall_of_heroes_manager = HallOfHeroesManager.new()
-@export var game_stats_manager = GameStatsManager.new()
+@export var unlock_manager := UnlockManager.new()
+@export var hall_of_heroes_manager := HallOfHeroesManager.new()
+@export var game_stats_manager := GameStatsManager.new()
 
 @export_group("Campaign Data")
 @export var current_campaign : Campaign

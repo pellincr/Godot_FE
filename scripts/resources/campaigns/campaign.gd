@@ -19,5 +19,5 @@ class_name Campaign
 @export var length : String = ""
 
 @export_subgroup("Campaign Rewards Info")
-@export var rewards : String
-@export var unit_unlock_rewards : Array[String]
+#@export var rewards : String
+@export var unit_unlock_rewards : Array[UnitTypeDefinition]

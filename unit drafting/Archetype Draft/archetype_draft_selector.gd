@@ -145,8 +145,9 @@ func randomize_archetype():
 func filter_archetypes_by_unlocked(archetype_keys: Array) -> Array:
 	var accum = []
 	for archetype_key in archetype_keys:
-		if playerOverworldData.unlock_manager.archetypes_unlocked.keys().has(archetype_key):
-			if playerOverworldData.unlock_manager.archetypes_unlocked[archetype_key]:
+		var current_archetype = ArmyArchetypeDatabase.army_archetypes.get(archetype_key)
+		if playerOverworldData.unlock_manager.archetypes_unlocked.keys().has(current_archetype):
+			if playerOverworldData.unlock_manager.archetypes_unlocked[current_archetype]:
 				accum.append(archetype_key)
 	return accum
 
