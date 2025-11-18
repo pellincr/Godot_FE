@@ -39,6 +39,11 @@ func update_item_name_label():
 
 func update_item_type_icon():
 	item_type_icon.set_types_from_item(item)
+	
+func update_item_name_color():
+	if item:
+		item_name_label.set("theme_override_colors/font_color",item.rarity.ui_color)
+
 
 func update_uses_label():
 	if item != null:
@@ -57,6 +62,7 @@ func set_fields(input_item: ItemDefinition, e:bool = false) :
 	self.update_item_type_icon()
 	self.update_uses_label()
 	self.style_fields()
+	self.update_item_name_color()
 
 func style_fields():
 	if disabled:

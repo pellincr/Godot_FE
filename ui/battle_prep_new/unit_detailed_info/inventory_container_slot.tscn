@@ -1,14 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cca377ur8nme3"]
+[gd_scene load_steps=7 format=3 uid="uid://cca377ur8nme3"]
 
 [ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_prep_new/inventory_not_focused.tres" id="1_b2fil"]
 [ext_resource type="Script" uid="uid://dm2lyswggslww" path="res://ui/battle_prep_new/unit_detailed_info/inventory_container_slot.gd" id="2_q4pa1"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_my4qm"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_sqnff"]
 
 [sub_resource type="Theme" id="Theme_if1ym"]
-default_font_size = 24
+default_font = ExtResource("4_sqnff")
+default_font_size = 32
 
 [sub_resource type="Theme" id="Theme_61c5o"]
-default_font_size = 24
+default_font = ExtResource("4_sqnff")
+default_font_size = 32
 
 [node name="InventoryContainerSlot" type="Panel"]
 custom_minimum_size = Vector2(270, 36)
@@ -38,12 +41,14 @@ mouse_filter = 2
 layout_mode = 2
 theme = SubResource("Theme_if1ym")
 text = "Item Name"
+vertical_alignment = 1
 
 [node name="UsesLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme = SubResource("Theme_61c5o")
 text = "30"
+vertical_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

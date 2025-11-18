@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxd4y8qg56hq3"]
+[gd_scene load_steps=8 format=3 uid="uid://cxd4y8qg56hq3"]
 
 [ext_resource type="Theme" uid="uid://cu8jtbkxt5kwa" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot_enabled.tres" id="1_djri8"]
 [ext_resource type="Script" uid="uid://ca6tg0vmry453" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.gd" id="1_kpyca"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_11e7w"]
 [ext_resource type="Script" uid="uid://d4mtodvoref3h" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="4_4b1qe"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_un5da"]
 
 [sub_resource type="Theme" id="Theme_hxiho"]
-default_font_size = 24
+default_font = ExtResource("4_un5da")
+default_font_size = 32
 
 [sub_resource type="Theme" id="Theme_nkl5n"]
-default_font_size = 24
+default_font = ExtResource("4_un5da")
+default_font_size = 32
 
 [node name="UnitInventorySlot" type="Button"]
 custom_minimum_size = Vector2(290, 50)
@@ -23,6 +26,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_djri8")
 script = ExtResource("1_kpyca")
+equipped = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(290, 50)

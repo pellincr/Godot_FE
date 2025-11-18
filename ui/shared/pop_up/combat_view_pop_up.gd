@@ -7,8 +7,8 @@ class_name CombatViewPopUp
 @onready var text_label = $PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo/Text
 @onready var icon_display = $PanelContainer/MarginContainer/CenterContainer/ItemPopUpInfo/Icon
 	
-func init_obtained_item_panel(item: String, icon:Texture2D):	
-	text_label.text = "Obtained a [color=#B22]" + item + "/[color=#B22]"
+func init_obtained_item_panel(item: String, icon:Texture2D, color: Color):	
+	text_label.text = "Obtained a [color=" + color.to_html() +"]" + item + "[color=#"+ color.to_html() + "]"
 	icon_display.texture = icon
 
 func init_expended_item(item: String, icon:Texture2D):

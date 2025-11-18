@@ -27,10 +27,14 @@ func set_invetory_item_icon(icon:Texture2D):
 func set_item_name_label(text):
 	item_name_label.text = text
 
+func set_item_name_color(color: Color):
+	item_name_label.set("theme_override_colors/font_color",color)
+
 func update_by_item():
 	if item:
 		set_invetory_item_icon(item.icon)
 		set_item_name_label(item.name)
+		set_item_name_color(item.rarity.ui_color)
 		update_item_type_icon_by_item()
 		if item.unbreakable:
 			set_item_uses(0)

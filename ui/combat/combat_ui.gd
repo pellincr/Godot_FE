@@ -500,7 +500,7 @@ func create_combat_view_pop_up_item_obtained(item:ItemDefinition):
 	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)
-	_pop_up.init_obtained_item_panel(item.name, item.icon)
+	_pop_up.init_obtained_item_panel(item.name, item.icon, item.rarity.ui_color)
 	_pop_up.visible = true
 	await get_tree().create_timer(1).timeout
 	_pop_up.queue_free()
