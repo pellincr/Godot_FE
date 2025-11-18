@@ -12,5 +12,8 @@ class_name ArmyArchetypeDefinition
 @export_group("Picks")
 @export var archetype_picks : Array[armyArchetypePickDefinition]
 
+@export_group("unlockables")
+@export var unlocked := true
+
 func get_number_of_picks() -> int:
 	return archetype_picks.size()

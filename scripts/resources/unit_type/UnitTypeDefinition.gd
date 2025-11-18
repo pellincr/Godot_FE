@@ -30,6 +30,9 @@ class_name UnitTypeDefinition
 @export var skills: Array[String]
 @export var skilL_unlock_level: Array[int]
 
+@export_group("Unlockables")
+@export var unlocked := true
+
 var tags : Array[String] ##TO BE CALCULATED
 
 @export_group("Generation & Items")

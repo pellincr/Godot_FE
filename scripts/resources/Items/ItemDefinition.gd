@@ -38,6 +38,9 @@ var price : int = calculate_price()
 @export var inventory_growth_bonus_stats : UnitStat = null
 @export var held_specials : Array[SpecialEffect] = []
 
+@export_group("unlockables")
+@export var unlocked := true
+
 @export_group("Visuals")
 @export var icon: Texture2D
 @export var expended_icon : Texture2D
