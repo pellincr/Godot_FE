@@ -426,24 +426,31 @@ func get_units_by_class(given_unit_classes, unit_trait, rarity):
 func filter_all_commander_by_unlocked(commander_type_keys: Array) -> Array:
 	var accum = []
 	for commander_type_key in commander_type_keys:
-		if playerOverworldData.unlock_manager.commander_types_unlocked.keys().has(commander_type_key):
-			if playerOverworldData.unlock_manager.commander_types_unlocked[commander_type_key]:
+		var commander_type = UnitTypeDatabase.get_definition(commander_type_key)
+		if playerOverworldData.unlock_manager.commander_types_unlocked.keys().has(commander_type):
+			#Check if the manager has that type to unlock
+			if playerOverworldData.unlock_manager.commander_types_unlocked[commander_type]:
+				#check if the type is unlocked
 				accum.append(commander_type_key)
 	return accum
 
 func filter_all_classes_by_unlocked(unit_type_keys: Array) -> Array:
 	var accum = []
 	for unit_type_key in unit_type_keys:
-		if playerOverworldData.unlock_manager.unit_types_unlocked.keys().has(unit_type_key):
-			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type_key]:
+		var unit_type = UnitTypeDatabase.get_definition(unit_type_key)
+		if playerOverworldData.unlock_manager.unit_types_unlocked.keys().has(unit_type):
+			#Check if the manager has that type to unlock
+			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type]:
+				#check if the type is unlocked
 				accum.append(unit_type_key)
 	return accum
 
 func filter_all_items_by_unlocked(item_keys: Array) -> Array:
 	var accum = []
 	for item_key in item_keys:
-		if playerOverworldData.unlock_manager.items_unlocked.keys().has(item_key):
-			if playerOverworldData.unlock_manager.items_unlocked[item_key]:
+		var item = ItemDatabase.items.get(item_key)
+		if playerOverworldData.unlock_manager.items_unlocked.keys().has(item):
+			if playerOverworldData.unlock_manager.items_unlocked[item]:
 				accum.append(item_key)
 	return accum
 
