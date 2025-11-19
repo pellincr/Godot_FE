@@ -1550,8 +1550,8 @@ func fsm_unit_inventory_un_equip(item:ItemDefinition):
 func fsm_unit_inventory_use(item:ItemDefinition):
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_ACTION)
 	combat.game_ui.destory_active_ui_node()
-	combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
-	#confirm_unit_move(combat.get_current_combatant())
+	#combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
+	confirm_unit_move(combat.get_current_combatant())
 	if item is ConsumableItemDefinition:
 		await combat.combat_unit_item_manager.use_item(combat.get_current_combatant(), item)
 	var unit_inventory_data : Array[UnitInventorySlotData] = combat.combat_unit_item_manager.generate_combat_unit_inventory_data(combat.get_current_combatant())
@@ -1562,8 +1562,8 @@ func fsm_unit_inventory_use(item:ItemDefinition):
 #Wait
 func wait_action(cu: CombatUnit):
 	combat.get_current_combatant().turn_taken = true
-	combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
-	#confirm_unit_move(cu)
+	#combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
+	confirm_unit_move(cu)
 	if combat.get_current_combatant().alive:
 		combat.get_current_combatant().map_display.update_values()
 		update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
