@@ -8,6 +8,7 @@ var hp: int
 var is_boss : bool
 var drops_item : bool
 var is_effective : bool
+var is_range_selected : bool
 var unit_sprite: Texture2D
 var reference_unit : CombatUnit
 var allegience : int = -1
@@ -47,8 +48,15 @@ func set_is_effective(active: bool):
 	self.is_effective = active
 	update_warning_icon()
 
+func set_is_range_indicator(active: bool):
+	is_range_selected = active
+	update_range_icon()
+
 func update_warning_icon():
 	$WarningIndicator.visible = is_effective
+
+func update_range_icon():
+	$RangeIndicator.visible = is_range_selected
 
 func update_drop_indicator():
 	$drop_indicator.visible = drops_item
@@ -74,10 +82,11 @@ func update_values():
 	set_max_hp(self.reference_unit.get_max_hp())
 	await update_hp(self.reference_unit.current_hp)
 	set_unit_sprite(self.reference_unit.unit.map_sprite)
-	set_allegience(self.reference_unit.allegience)
 	set_color_factor(self.reference_unit.turn_taken)
 	set_is_boss(self.reference_unit.is_boss)
 	set_drops_item(self.reference_unit.drops_item)
+	set_is_range_indicator(self.reference_unit.draw_ranges)
+	set_allegience(self.reference_unit.allegience)
 	
 func set_allegience(team : int):
 	self.allegience = team
@@ -86,7 +95,10 @@ func set_allegience(team : int):
 		#$UnitSprite.material.set_shader_parameter("modulate_color",BLUE)
 	elif allegience == 1:
 		$UnitSprite.material.set_shader_parameter("line_color", Color.DARK_RED)
-		#$UnitSprite.material.set_shader_parameter("modulate_color", RED)
+		if is_range_selected:
+			$UnitSprite.material.set_shader_parameter("modulate_color", RED)
+		else:
+			$UnitSprite.material.set_shader_parameter("modulate_color", Color.WHITE)
 	else :
 		$UnitSprite.material.set_shader_parameter("line_color", Color.WHITE)
 		#$UnitSprite.material.set_shader_parameter("modulate_color",Color.WHITE)

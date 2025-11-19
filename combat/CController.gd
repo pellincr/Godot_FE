@@ -46,6 +46,10 @@ var active_tile_map : TileMapLayer
 var grid: CombatMapGrid
 var camera: CombatMapCamera
 
+## attack range manager
+var rangeManager: CombatUnitRangeManager
+var show_all_enemy_range : bool = false
+
 var current_tile : Vector2i # Where the cursor currently is
 var selected_tile := Vector2i(-1,-1) # What we first selected (Most likely the tile containing the unit we have selected)
 var target_tile : Vector2i # Our First Target
@@ -112,6 +116,8 @@ func _ready():
 	grid.setup(background_tile_map, active_tile_map)
 	self.add_child(grid)
 	self.add_child(camera)
+	rangeManager = CombatUnitRangeManager.new(grid)
+	self.add_child(rangeManager)
 	#Auto Wire combat signals for modularity
 	combat.connect("perform_shove", perform_shove)
 	combat.connect("combatant_added", combatant_added)
@@ -132,6 +138,7 @@ func _ready():
 		await combat.game_ui.tutorial_panel.tutorial_completed
 	#autoCursor()
 	##Set the correct states to begin FSM flow
+	rangeManager.update_output_arrays()
 	update_current_tile(combat.ally_spawn_tiles.front())
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
 	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
@@ -194,6 +201,7 @@ func _process(delta):
 
 #draw the area
 func _draw():
+	draw_enemy_ranges()
 	if(game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
 		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_SELECT_HOVER):
 			draw_hover_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
@@ -208,6 +216,7 @@ func _draw():
 			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color.DARK_BLUE)
 		if(player_state == CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER):
 			draw_hover_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
+
 
 func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
@@ -301,12 +310,17 @@ func progress_turn_order():
 
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)
+	if combatant.allegience != 0:
+		rangeManager.add_unit(combatant)
+	rangeManager.update_effected_entries([combatant.map_position])
+	rangeManager.update_output_arrays()
 	
 func combatant_died(combatant: CombatUnit):
-	if combatant.map_display:
-		combatant.map_display.queue_free()
 	if grid.get_combat_unit(combatant.map_position):
 		grid.combat_unit_died(combatant.map_position)
+	rangeManager.process_unit_die(combatant)
+	if combatant.map_display:
+		combatant.map_display.queue_free()
 
 func find_path(goal_tile:Vector2i, origin_tile: Vector2i = Vector2i(-999,-999)):
 	_path.clear()
@@ -379,7 +393,15 @@ func draw_hover_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool
 
 func draw_attack_range(attack_range:Array[Vector2i]):
 	for tile in attack_range : 
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color.CRIMSON)
+			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .5))
+
+func draw_enemy_ranges():
+	if show_all_enemy_range:
+		for tile in rangeManager.enemy_range_tiles:
+			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
+	else:
+		for tile in rangeManager.selected_unit_range_tiles:
+			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
 
 func draw_action_tiles(tiles:Array[Vector2i], ua:UnitAction):
 	##Set the tile color based on the type of action
@@ -770,7 +792,7 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 func confirm_unit_move(combat_unit: CombatUnit):
 	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
 	if update_successful:
-		pass
+		rangeManager.process_unit_move(combat_unit)
 	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
@@ -985,7 +1007,9 @@ func fsm_unit_select_hover_process(delta):
 					update_player_state(CombatMapConstants.PLAYER_STATE.GAME_MENU)
 			else : 
 			# To Be Implemented : Enemy Unit Range Map
-				pass 
+				selected_unit.set_range_indicator(rangeManager.toggle_selected_unit(selected_unit))
+				
+				#pass 
 		elif Input.is_action_just_pressed("details"):
 			if selected_unit != null and selected_unit.alive:
 				combat.game_ui.create_combat_unit_detail_panel(selected_unit)
@@ -1720,6 +1744,8 @@ func fsm_prep_unit_select_hover_process(delta):
 			if selected_unit.allegience == Constants.FACTION.PLAYERS:
 				## ADD LOGIC FOR UNIT SWAP HERE
 				swap_units(current_tile)
+			else:
+				selected_unit.set_range_indicator(rangeManager.toggle_selected_unit(selected_unit))
 		elif Input.is_action_just_pressed("ui_back") or Input.is_action_just_pressed("ui_back"):
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 			combat.game_ui.return_to_battle_prep_screen()

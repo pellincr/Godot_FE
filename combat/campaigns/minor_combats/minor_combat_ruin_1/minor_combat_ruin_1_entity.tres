@@ -10,18 +10,19 @@
 
 [sub_resource type="Resource" id="Resource_l3gbs"]
 script = ExtResource("3_asrv7")
-position = Vector2i(5, 12)
+position = Vector2i(5, 4)
 type = 1
 metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
 
 [sub_resource type="Resource" id="Resource_8yiie"]
 script = ExtResource("3_asrv7")
-position = Vector2i(7, 14)
+position = Vector2i(7, 6)
 type = 1
 metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
 
 [resource]
 script = ExtResource("6_060g5")
 debris = Array[ExtResource("3_asrv7")]([SubResource("Resource_l3gbs"), SubResource("Resource_8yiie")])
+stone_debris_hp = 20
 default_stone_debris_defense = 0
 default_stone_debris_resistance = 0

@@ -35,6 +35,7 @@ var move_terrain : Terrain
 
 #display
 var map_display : CombatUnitDisplay
+var draw_ranges : bool = false
 
 static func create(unit: Unit, team: int, ai:int = 0, boss:bool = false, drops_item: bool = false) -> CombatUnit:
 	var instance = CombatUnit.new()
@@ -168,3 +169,7 @@ func get_critical_avoid() -> int:
 
 func get_critical_multiplier() -> int:
 	return clampi(stats.critical_multiplier.evaluate(), 1, 99999)
+
+func set_range_indicator(state: bool):
+	draw_ranges = state
+	map_display.update_values()
