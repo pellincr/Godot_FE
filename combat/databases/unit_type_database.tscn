@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=55 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -53,6 +53,7 @@
 [ext_resource type="Resource" uid="uid://b8mq5pwau58lw" path="res://resources/definitions/unit_types/units/twigshot/twigshot.tres" id="46_qfqp5"]
 [ext_resource type="Resource" uid="uid://ckwskix53npw4" path="res://resources/definitions/unit_types/units/apprentice/apprentice.tres" id="47_36q4w"]
 [ext_resource type="Resource" uid="uid://d3yjqcqcsb6ny" path="res://resources/definitions/unit_types/units/knave/knave.tres" id="48_55blc"]
+[ext_resource type="Resource" uid="uid://cy23n0romg1wx" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier.tres" id="49_36q4w"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -64,6 +65,7 @@ unit_types = {
 "bishop": ExtResource("16_pd34h"),
 "bladehand": ExtResource("5_k6vk5"),
 "bow_armor": ExtResource("42_ap7gd"),
+"bow_cavalier": ExtResource("49_36q4w"),
 "brawler": ExtResource("14_p6lhs"),
 "bulwark": ExtResource("40_sh4xl"),
 "chopper": ExtResource("43_6p1ic"),

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://cy23n0romg1wx"]
+
+[ext_resource type="Resource" uid="uid://duhtvvm4ouyaf" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_base_combat_stats.tres" id="1_6nt0f"]
+[ext_resource type="Resource" uid="uid://bmawn844007qn" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_default_item_tables.tres" id="2_85gjk"]
+[ext_resource type="Resource" uid="uid://frf456q8kwn" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_growth_stats.tres" id="3_7ak7d"]
+[ext_resource type="Texture2D" uid="uid://bl2pff5ugivg3" path="res://resources/sprites/units/bow_cavalier.png" id="4_kfcnl"]
+[ext_resource type="Resource" uid="uid://cdfdxl1eupujd" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_max_stats.tres" id="5_2o8l8"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_7ussy"]
+[ext_resource type="Resource" uid="uid://ccmx6qcjg1dok" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_promotion_stats.tres" id="6_jpbok"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_kydem"]
+
+[resource]
+script = ExtResource("6_7ussy")
+unit_type_name = "Bow Cavalier"
+db_key = "bow_cavalier"
+traits = Array[int]([1])
+unit_rarity = ExtResource("7_kydem")
+usable_weapon_types = Array[int]([4])
+base_stats = ExtResource("1_6nt0f")
+maxuimum_stats = ExtResource("5_2o8l8")
+growth_stats = ExtResource("3_7ak7d")
+promotion_to_stats = ExtResource("6_jpbok")
+icon = ExtResource("4_kfcnl")
+map_sprite = ExtResource("4_kfcnl")
+default_item_resource = ExtResource("2_85gjk")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://cdfdxl1eupujd"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_qd4qs"]
+
+[resource]
+script = ExtResource("1_qd4qs")
+hp = 65
+strength = 22
+magic = 9
+skill = 20
+speed = 20
+luck = 30
+defense = 24
+resistance = 15
+movement = 10
+constitution = 20

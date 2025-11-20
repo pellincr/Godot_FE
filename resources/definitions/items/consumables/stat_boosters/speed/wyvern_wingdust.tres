@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://dxo3kqxulooms"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_sb1e0"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_sb1e0"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_8dvwt"]
 [ext_resource type="Texture2D" uid="uid://36puvbl4it2v" path="res://resources/sprites/items/consumables/stat_boosters/speed/wyvern_wingdust.png" id="2_g4el7"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_k602d"]
