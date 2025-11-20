@@ -15,6 +15,7 @@ theme = ExtResource("1_s5330")
 script = ExtResource("1_2x6th")
 
 [node name="MainVContainer" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 offset_left = 397.0
 offset_top = 294.0
