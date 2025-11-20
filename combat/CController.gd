@@ -122,6 +122,7 @@ func _ready():
 	combat.connect("perform_shove", perform_shove)
 	combat.connect("combatant_added", combatant_added)
 	combat.connect("combatant_died", combatant_died)
+	combat.connect("combat_entity_added", entity_added)
 	combat.connect("major_action_completed", _on_visual_combat_major_action_completed)
 	combat.connect("minor_action_completed", _on_visual_combat_minor_action_completed)
 	combat.connect("turn_advanced", advance_turn)
@@ -314,6 +315,10 @@ func combatant_added(combatant : CombatUnit):
 		rangeManager.add_unit(combatant)
 	rangeManager.update_effected_entries([combatant.map_position])
 	rangeManager.update_output_arrays()
+
+func entity_added(cme:CombatEntity):
+	grid.set_entity(cme, cme.map_position)
+	rangeManager.update_effected_entries([cme.map_position])
 	
 func combatant_died(combatant: CombatUnit):
 	if grid.get_combat_unit(combatant.map_position):
@@ -767,7 +772,7 @@ func populate_combatant_tile_ranges(combatant: CombatUnit):
 	else :
 		_movable_tiles = grid.get_range_DFS(combatant.unit.stats.movement, current_tile, combatant.unit.movement_type, true, combatant.allegience)
 		var edge_array = grid.find_edges(_movable_tiles)
-		_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.inventory.get_max_attack_range(), edge_array)
+		_attackable_tiles = grid.get_range_multi_origin_DFS(combatant.unit.get_max_attack_range(), edge_array)
 
 func set_controlled_combatant(combatant: CombatUnit):
 	#combat.get_current_combatant() = combatant
@@ -790,10 +795,11 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 # Calls Grid function to update map, and finalizes the tile updates to the combat_unit. This replaces the map_tile
 #
 func confirm_unit_move(combat_unit: CombatUnit):
-	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
-	if update_successful:
-		rangeManager.process_unit_move(combat_unit)
-	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
+	if combat_unit.map_position != combat_unit.move_position:
+		var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
+		if update_successful:
+			rangeManager.process_unit_move(combat_unit)
+		combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
 
 func trigger_reinforcements():
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.REINFORCEMENT)
@@ -1170,7 +1176,7 @@ func unit_action_selection_handler(action:String):
 			# Move the unit to the correct state
 			combat.game_ui.destory_active_ui_node()
 			_interactable_tiles.clear()
-			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position,false, combat.get_current_combatant().allegience)
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.get_max_attack_range(),combat.get_current_combatant().move_position,false, combat.get_current_combatant().allegience)
 			targetting_resource.clear()
 			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
 			var target_positions : Array[Vector2i] = get_combat_entity_positions(combat.get_current_combatant(), grid_analysis.get_targetable_entities())
@@ -1412,7 +1418,7 @@ func fsm_unit_combat_action_targetting(delta):
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY:
 				combat.game_ui.destory_active_ui_node()
 				_interactable_tiles.clear()
-				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.inventory.get_max_attack_range(),combat.get_current_combatant().move_position, false, combat.get_current_combatant().allegience)
+				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.get_max_attack_range(),combat.get_current_combatant().move_position, false, combat.get_current_combatant().allegience)
 				targetting_resource.clear()
 				targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_all_targetables([Constants.FACTION.ENEMIES]),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
 				var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)

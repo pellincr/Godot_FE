@@ -13,7 +13,7 @@ const COMBAT_MAP_ENTITY_DISPLAY = preload("res://ui/combat/combat_map_entity_dis
 signal register_combat(combat_node: Node)
 signal turn_advanced()
 signal combatant_added(combatant: CombatUnit)
-#signal entity_added(cme:CombatEntity)
+signal combat_entity_added(cme:CombatEntity)
 signal combatant_died(combatant: CombatUnit)
 signal update_information(text: String)
 signal update_combatants(combatants: Array) #THIS IS OLD?
@@ -118,7 +118,7 @@ func _ready():
 	combat_unit_item_manager.connect("create_give_item_pop_up", create_item_obtained_pop_up)
 	combat_unit_item_manager.connect("convoy_item", convoy_item)
 	#Connections Entity Manager
-	entity_manager.connect("entity_added", entity_added)
+	entity_manager.connect("entity_added", on_combat_entity_added)
 	entity_manager.connect("give_items", give_curent_unit_items)
 	entity_manager.connect("entity_process_complete",_on_entity_processing_completed)
 	#Connections Reinforcement Manager
@@ -538,11 +538,14 @@ func combatant_die(combatant: CombatUnit):
 	var comb_id = combatants.find(combatant)
 	if comb_id != -1:
 		combatant.alive = false
-		groups[combatant.allegience].erase(comb_id)###
+		groups[combatant.allegience].erase(comb_id)
+		# Do player overworld data management
 		if playerOverworldData.total_party.has(combatant.unit):
+			#play unit died jingle?
 			playerOverworldData.dead_party_members.append(combatant.unit)
 			playerOverworldData.total_party.erase(combatant.unit)
 			playerOverworldData.selected_party.erase(combatant.unit)
+			convoy_inventory(combatant)
 			level_reward.units_lost += 1
 			combatant.unit.death_count += 1
 		else:
@@ -729,8 +732,8 @@ func play_audio(sound : AudioStream):
 	await combat_audio.finished
 	combatExchange.audio_player_ready()
 
-func entity_added(cme:CombatEntity):
-	controller.grid.set_entity(cme, cme.map_position)
+func on_combat_entity_added(cme:CombatEntity):
+	combat_entity_added.emit(cme)
 
 func check_win():
 	match victory_condition:
@@ -922,6 +925,10 @@ func _on_rewards_complete():
 func convoy_item(item:ItemDefinition):
 	playerOverworldData.convoy.append(item)
 
+func convoy_inventory(combat_unit: CombatUnit):
+	for item in combat_unit.unit.inventory.items:
+		if item != null:
+			combat_unit_item_manager.discard_item(combat_unit, item)
 
 func check_tier_1_promotion_available() -> bool:
 	for unit : Unit in playerOverworldData.selected_party:

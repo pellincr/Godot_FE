@@ -42,9 +42,10 @@ func update_range_map():
 			if items[item_index] is WeaponDefinition:
 				for attack_range in items[item_index].attack_range:
 					if attack_range_map.has(attack_range):
-						attack_range_map.get(attack_range).append(item_index)
+						attack_range_map.get(attack_range).append(items[item_index])
 					else:
-						attack_range_map.put([item_index])
+						var _arr : Array[ItemDefinition] = [items[item_index]]
+						attack_range_map[attack_range] = _arr
 
 #
 # Force sets the currently equipped item
@@ -91,6 +92,23 @@ func get_max_attack_range() -> int:
 		return get_available_attack_ranges().max()
 	else:
 		return 0
+
+
+#
+# Returns a list of weapons structured by item with the most range first
+#
+func get_items_by_range() -> Array[ItemDefinition]:
+	update_range_map()
+	var _item_arr :Array[ItemDefinition]
+	var _key_arr: Array = attack_range_map.keys();
+	for x in _key_arr.size():
+		var key = _key_arr[-x-1]
+		if attack_range_map.has(key):
+			for item in attack_range_map[key]:
+				if not _item_arr.has(item):
+					_item_arr.append(item)
+	return _item_arr
+
 
 #
 # Returns the maximum attack range of the items contained in the inventory
@@ -184,6 +202,7 @@ func give_item(item: ItemDefinition) -> bool:
 	else:
 		items.append(item)
 		item_gave = true
+		update_range_map()
 	return item_gave
 
 
@@ -233,6 +252,7 @@ func discard_at_index(index : int) -> bool:
 #
 func discard_item(target_item: ItemDefinition):
 	items.erase(target_item)
+	update_range_map()
 
 #
 # Swaps two items with indexes

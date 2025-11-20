@@ -222,6 +222,7 @@ func apply_level_up_value(level : UnitStat, unit: Unit = self):
 func promote(promotion_unit_type : UnitTypeDefinition):
 	self.unit_type_key = promotion_unit_type.db_key
 	self.level = 1
+	self.experience = 0
 	self.xp_worth = promotion_unit_type.tier
 	self.movement_type = promotion_unit_type.movement_type
 	self.traits = promotion_unit_type.traits
@@ -452,13 +453,15 @@ func can_use_consumable_item(item:ItemDefinition) -> bool:
 
 func discard_item(item:ItemDefinition):
 	inventory.discard_item(item)
+	
 
 func can_equip(item:ItemDefinition) -> bool:
 	var can_equip_item : bool = false
 	if item is WeaponDefinition:
 		if item.weapon_type in usable_weapon_types:
 			if not item.expended:
-				can_equip_item = true
+				if item.class_lock.is_empty() or item.class_lock == unit_type_key:
+					can_equip_item = true
 		else :
 			print("Tried to equip weapon that class can't use")
 	else :
@@ -506,3 +509,12 @@ static func update_visuals(u :Unit):
 
 static func set_movement(u :Unit): 
 	u.movement = u.bonus_movment + u.get_unit_type_definition().base_stats.movement
+
+func get_max_attack_range() -> int:
+	var _items = inventory.get_items_by_range()
+	for item in _items:
+		if item is WeaponDefinition:
+			if can_equip(item):
+				if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
+					return item.attack_range.max()
+	return 0

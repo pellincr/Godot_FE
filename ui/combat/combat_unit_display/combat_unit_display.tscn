@@ -67,6 +67,7 @@ offset_left = -15.0
 offset_top = -15.0
 offset_right = -7.0
 offset_bottom = -7.0
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_3gj1x")
 
 [node name="weapon_icon" type="Sprite2D" parent="."]

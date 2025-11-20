@@ -141,8 +141,12 @@ func hit_missed(dodging_unit: CombatUnit):
 
 func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):
 	# get unit specials 
-	var player_unit_specials = player_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
-	var enemy_unit_specials = enemy_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var player_unit_specials : Array[SpecialEffect]
+	var enemy_unit_specials : Array[SpecialEffect]
+	if player_unit != null:
+		player_unit_specials = player_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	if enemy_unit != null:
+		enemy_unit_specials = enemy_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	
 	#check if the player unit has broken or expended its weapon and equip a new one
 	if player_unit.unit.inventory.equipped == false:

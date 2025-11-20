@@ -31,6 +31,7 @@ enum SUPPORT_TYPES {
 
 @export_group("Weapon Requirements") ## TO BE IMPLEMENTED
 @export var required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
+@export var class_lock : String = ""
 
 @export_group("Combat Stats") 
 @export_range(0, 30, 1, "or_greater") var damage = 0

@@ -36,13 +36,14 @@ func update_effected_entries(updated_tiles: Array[Vector2i]):
 	# parse each tile
 	var cache:  Dictionary[CombatUnit, bool] = {}
 	for tile in updated_tiles:
-		var _effected_units = units_in_range_of_tile[tile].data
-		for combatUnit in _effected_units:
-			# have we already re-calculated for this unit?
-			if not cache.has(combatUnit):
-				# update the unit's info and the cache
-				update_combat_unit_effective_range_data(combatUnit)
-				cache[combatUnit] = true
+		if units_in_range_of_tile.has(tile):
+			var _effected_units = units_in_range_of_tile[tile].data
+			for combatUnit in _effected_units:
+				# have we already re-calculated for this unit?
+				if not cache.has(combatUnit):
+					# update the unit's info and the cache
+					update_combat_unit_effective_range_data(combatUnit)
+					cache[combatUnit] = true
 	update_enemy_range_tiles()
 	update_selected_unit_range_tiles(selected_unit_list)
 
@@ -134,7 +135,7 @@ func get_max_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 		# get the edge of the maximum tiles
 		var _edge_array = game_grid.find_edges(_movable_tiles)
 		# return all the tiles that can be reached
-		var _attack_tiles = game_grid.get_range_multi_origin_DFS(combatUnit.unit.inventory.get_max_attack_range(), _edge_array)
+		var _attack_tiles = game_grid.get_range_multi_origin_DFS(combatUnit.unit.get_max_attack_range(), _edge_array)
 		_arr.append_array(_movable_tiles)
 		_arr.append_array(_attack_tiles)
 		return _arr
@@ -150,7 +151,7 @@ func get_effective_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 		# get the edge of the move tiles
 		var _edge_array = game_grid.find_edges(_moveable_tiles)
 		# return all the tiles that can be reached
-		var _attack_tiles = game_grid.get_range_multi_origin_DFS(combatUnit.unit.inventory.get_max_attack_range(), _edge_array)
+		var _attack_tiles = game_grid.get_range_multi_origin_DFS(combatUnit.unit.get_max_attack_range(), _edge_array)
 		_arr.append_array(_moveable_tiles)
 		_arr.append_array(_attack_tiles)
 		return _arr
