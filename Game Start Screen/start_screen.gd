@@ -26,10 +26,14 @@ var save_path_3 = "user://save3/"
 
 var playerOverworldData : PlayerOverworldData
 
+const DEVELOPER_SPLASH_SCREEN_SCENE = preload("res://Game Start Screen/developer_splash_screen/developer_splash_screen.tscn")
+
 const OPTIONS_SCENE = preload("res://options/options.tscn")
+
 
 const main_menu_scene = preload("res://Game Main Menu/main_menu.tscn")
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+
 
 
 #Load the Data from the existing save file and transition to the overworld
@@ -48,6 +52,14 @@ func _ready():
 	OptionsConfig.load_options()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
+	var splash_screen = DEVELOPER_SPLASH_SCREEN_SCENE.instantiate()
+	add_child(splash_screen)
+	splash_screen.play_animation("fade_in")
+	await splash_screen.animation_player.animation_finished
+	splash_screen.play_animation("fade_out")
+	await splash_screen.animation_player.animation_finished
+	splash_screen.queue_free()
+	main_container.visible = true
 	transition_in_animation()
 	SelectedSaveFile.selected_save_path = ""
 	start_button.grab_focus()
