@@ -4,6 +4,8 @@ extends VBoxContainer
 @onready var top_left_container = $UpperHalhContainer/TopLeftContainer
 @onready var level_number_label = $UpperHalhContainer/LevelNumberLabel
 
+@onready var tier_container: HBoxContainer = $TierContainer
+
 @onready var experience_bar = $ExperienceBar
 
 @onready var experience_value_label = $LowerHalfContainer/ExperienceValueLabel
@@ -52,6 +54,14 @@ func set_unit_type_icon(unit_type: UnitTypeDefinition):
 func set_level_number_label(level):
 	level_number_label.text = "lv " +  str(level)
 
+func set_tier_container_icons(tier):
+	var i = 0
+	while i < tier:
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = preload("res://resources/sprites/icons/infantry_icon.png")
+		tier_container.add_child(texture_rect)
+		i += 1
+
 func set_experience_bar_value(exp):
 	experience_bar.value = exp
 
@@ -64,5 +74,6 @@ func update_by_unit():
 	set_unit_type_label(unit_type.unit_type_name)
 	set_unit_type_icon(unit_type)
 	set_level_number_label(unit.level)
+	set_tier_container_icons(unit_type.tier)
 	set_experience_bar_value(unit.experience)
 	set_experience_value_label(unit.experience)

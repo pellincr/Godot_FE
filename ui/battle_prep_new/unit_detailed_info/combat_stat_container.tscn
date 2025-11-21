@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://d7gj6yaxkgwx"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_8v0ht"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_5utu7"]
 [ext_resource type="Script" uid="uid://dm8mymuwofipf" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.gd" id="2_5r25e"]
 
 [sub_resource type="Theme" id="Theme_fq3uv"]
-default_font = ExtResource("1_8v0ht")
+default_font = ExtResource("1_5utu7")
 
 [sub_resource type="Theme" id="Theme_fkfqe"]
 default_font_size = 12

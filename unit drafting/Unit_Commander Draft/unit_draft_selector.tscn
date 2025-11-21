@@ -48,18 +48,20 @@ theme = SubResource("Theme_fsx0a")
 text = "Name"
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/MainVContainer"]
-layout_mode = 2
-theme_override_constants/separation = 155
-
-[node name="ClassLabel" type="Label" parent="Panel/MarginContainer/MainVContainer/HBoxContainer"]
+[node name="ClassLabel" type="Label" parent="Panel/MarginContainer/MainVContainer"]
 layout_mode = 2
 theme = SubResource("Theme_3w5h5")
 theme_override_fonts/font = ExtResource("3_o6vh5")
 theme_override_font_sizes/font_size = 18
 text = "Class"
-horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TierContainer" type="HBoxContainer" parent="Panel/MarginContainer/MainVContainer"]
+layout_mode = 2
+
+[node name="TierHeader" type="Label" parent="Panel/MarginContainer/MainVContainer/TierContainer"]
+layout_mode = 2
+text = "Tier:"
 
 [node name="Icon" type="TextureRect" parent="Panel"]
 custom_minimum_size = Vector2(62, 62)

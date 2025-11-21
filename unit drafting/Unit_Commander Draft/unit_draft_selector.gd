@@ -11,7 +11,9 @@ enum SELECTOR_STATE{
 }
 
 @onready var name_label = $Panel/MarginContainer/MainVContainer/NameLabel
-@onready var class_label = $Panel/MarginContainer/MainVContainer/HBoxContainer/ClassLabel
+@onready var class_label: Label = $Panel/MarginContainer/MainVContainer/ClassLabel
+@onready var tier_container: HBoxContainer = $Panel/MarginContainer/MainVContainer/TierContainer
+
 @onready var icon = $Panel/Icon
 
 @onready var selection_hovered = false
@@ -81,6 +83,17 @@ func set_name_label(name):
 		#rarity = unit.rarity
 	#if rarity:
 		#name_label.self_modulate = rarity.ui_color
+
+func set_tier_container_icons(tier):
+	for child in tier_container.get_children():
+		if child is TextureRect:
+			child.queue_free()
+	var i = 0
+	while i < tier:
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = preload("res://resources/sprites/icons/infantry_icon.png")
+		tier_container.add_child(texture_rect)
+		i += 1
 
 func set_rarity_shadow_hue(rarity):
 	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
@@ -392,12 +405,15 @@ func update_information():
 		var weapon_types = unit_type.usable_weapon_types
 		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)
+		tier_container.visible = true
+		set_tier_container_icons(unit_type.tier)
 		unit_growth_grade = get_growth_grade(get_unit_growth_difference_total())
 		unit_stat_grade = get_stat_grade(get_unit_stat_difference_total())
 	elif unit is WeaponDefinition:
 		set_name_label(unit.name)
 		set_icon(unit.icon)
 		set_class_label("")
+		tier_container.visible = false
 	#var last_child = main_container.get_children()[-1]
 	#last_child.queue_free()
 	#instantiate_unit_draft_selector()
