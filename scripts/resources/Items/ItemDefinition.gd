@@ -30,7 +30,7 @@ var expended = false
 @export_subgroup("Price")
 @export_range(0,1000,1, "or_greater") var worth = 100
 @export var unsellable : bool = false
-var price : int = calculate_price()
+@export var price : int #= calculate_price()
 
 @export_group("Item Specials")
 @export_subgroup("Gives Unit Bonus Stats When Held in Inventory")
@@ -57,12 +57,15 @@ func expend_use():
 			expended = true
 		else : 
 			print(name + " broke!")
+	price = calculate_price()
 
 func calculate_price():
 	if unbreakable:
 		return worth
 	else: 
-		return floor(worth * (uses / max_uses))
+		var _use_ratio = (float(uses) / float(max_uses))
+		var _price =  int(float(worth) * _use_ratio)
+		return _price
 
 func refresh_uses():
 	# what kind of refresh is it?

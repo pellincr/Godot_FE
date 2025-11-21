@@ -1,15 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://cak05utx7a6gb"]
+[gd_scene load_steps=10 format=3 uid="uid://cak05utx7a6gb"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_wevyk"]
 [ext_resource type="Script" uid="uid://xi4hebfdnsqd" path="res://ui/battle_prep_new/battle_prep.gd" id="2_qwaoi"]
 [ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_8eefx"]
 [ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="3_vps4i"]
+[ext_resource type="PackedScene" uid="uid://cj1p82eejb86w" path="res://ui/shared/campaign_header/campaign_header_map_view.tscn" id="4_j7sln"]
 
 [sub_resource type="Theme" id="Theme_kptq3"]
 default_font_size = 48
 
 [sub_resource type="Theme" id="Theme_17gso"]
 default_font_size = 28
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7sln"]
+
+[sub_resource type="Theme" id="Theme_qx27e"]
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_j7sln")
 
 [node name="BattlePrep" type="Control"]
 layout_mode = 3
@@ -20,6 +26,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wevyk")
 script = ExtResource("2_qwaoi")
+
+[node name="CampaignHeaderMapView" parent="." instance=ExtResource("4_j7sln")]
+visible = false
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -63,6 +73,13 @@ horizontal_alignment = 1
 [node name="CampaignHeader" parent="MarginContainer/MainContainer/HeaderContainer" instance=ExtResource("3_8eefx")]
 layout_mode = 2
 
+[node name="CampaignHeaderMapViewSpacer" type="PanelContainer" parent="MarginContainer/MainContainer/HeaderContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+theme = SubResource("Theme_qx27e")
+
 [node name="ControlsUIContainer" parent="MarginContainer/MainContainer" instance=ExtResource("3_vps4i")]
 layout_mode = 2
 size_flags_vertical = 10
+alignment = 2

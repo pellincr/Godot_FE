@@ -70,6 +70,8 @@ offset_top = -15.0
 offset_right = 27.0
 grow_vertical = 0
 theme = SubResource("Theme_6h6tc")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 text = "100G"
 
 [node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]

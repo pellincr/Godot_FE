@@ -166,34 +166,44 @@ text = "Special And Bonus"
 layout_mode = 2
 
 [node name="SpecialValueLabel1" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
 theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel2" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
 theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel3" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
 theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel4" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
 theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel5" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
 theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="RightContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

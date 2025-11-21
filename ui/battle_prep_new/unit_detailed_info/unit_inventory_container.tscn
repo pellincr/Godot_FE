@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvcw57dk23gw2"]
+[gd_scene load_steps=6 format=3 uid="uid://bvcw57dk23gw2"]
 
 [ext_resource type="Script" uid="uid://bfq8ylre1hh15" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.gd" id="1_ofcpn"]
 [ext_resource type="PackedScene" uid="uid://cca377ur8nme3" path="res://ui/battle_prep_new/unit_detailed_info/inventory_container_slot.tscn" id="2_icb0r"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="2_w27r7"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="3_nk3pd"]
 
 [sub_resource type="Theme" id="Theme_x4s2w"]
-default_font_size = 12
+default_font = ExtResource("3_nk3pd")
+default_font_size = 16
 
 [node name="UnitInventoryContainer" type="HBoxContainer"]
 offset_right = 282.0

@@ -6,6 +6,7 @@ extends PanelContainer
 @onready var item_description_label: Label = $MarginContainer/VBoxContainer/ItemDescriptionLabel
 @onready var item_rarity: Label = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemRarity
 @onready var item_type: Label = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemType
+@onready var price_label: Label = $MarginContainer/VBoxContainer/ItemNameLabel/ItemIcon/PriceLabel
 
 
 @onready var item_stats_boost_container: VBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer
@@ -75,6 +76,9 @@ func set_item_name_label(n):
 
 func set_item_icon(texture):
 	item_icon.texture = texture
+
+func set_price_label(value):
+	price_label.text = str(value) + "G" 
 
 func set_item_description_label(desc):
 	item_description_label.text = desc
@@ -220,6 +224,7 @@ func update_by_item():
 	set_item_description_label(item.description)
 	set_item_type_header(item)
 	set_item_rarity_header(item.rarity)
+	set_price_label(item.worth)
 	if item.inventory_bonus_stats:
 		item_stats_boost_container.visible = true
 		set_stat_boost_container(item.inventory_bonus_stats)

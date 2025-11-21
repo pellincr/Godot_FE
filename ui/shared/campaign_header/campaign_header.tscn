@@ -34,19 +34,37 @@ theme_override_constants/margin_bottom = 10
 [node name="CampaignInfoContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GoldContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
+[node name="CurrencyContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 50
+
+[node name="GoldContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer"]
 modulate = Color(1, 0.65882355, 0, 1)
 layout_mode = 2
 
-[node name="GoldValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
+[node name="GoldValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer/GoldContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0"
 
-[node name="GoldLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
+[node name="GoldLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer/GoldContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "G"
+
+[node name="ExperienceContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer"]
+layout_mode = 2
+
+[node name="ExperienceValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer/ExperienceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="ExperienceLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/CurrencyContainer/ExperienceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "XP"
 
 [node name="FloorContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
 layout_mode = 2

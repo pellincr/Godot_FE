@@ -15,6 +15,9 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 @onready var header_lower_label: Label = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
 
 @onready var campaign_header: Control = $MarginContainer/MainContainer/HeaderContainer/CampaignHeader
+@onready var campaign_header_map_view: PanelContainer = $CampaignHeaderMapView
+@onready var campaign_header_map_view_spacer: PanelContainer = $MarginContainer/MainContainer/HeaderContainer/CampaignHeaderMapViewSpacer
+
 
 
 @onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
@@ -46,6 +49,12 @@ func _ready() -> void:
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
 	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
 	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	campaign_header.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header_map_view.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	campaign_header_map_view.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header_map_view_spacer.visible = false
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		tutorial_complete = false
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
@@ -178,8 +187,14 @@ func set_header_labels(state : PREP_STATE) -> void:
 		PREP_STATE.MENU:
 			upper_label_text = "Prepare For Battle!"
 			battle_prep_header.visible = true
+			campaign_header.visible = true
+			campaign_header_map_view.visible = false
+			campaign_header_map_view_spacer.visible = false
 		PREP_STATE.SWAP_SPACES:
 			battle_prep_header.visible = false
+			campaign_header.visible = false
+			campaign_header_map_view.visible = true
+			campaign_header_map_view_spacer.visible = true
 		PREP_STATE.UNIT_SELECTION:
 			upper_label_text = "Unit Selection"
 			lower_label_text = "Select which allies will fight"
@@ -241,6 +256,9 @@ func _on_unit_deselected(unit:Unit):
 
 func _on_award_exp(unit:CombatUnit, xp:int):
 	award_bonus_exp.emit(unit,xp)
+	campaign_header_map_view.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header.set_experience_value_label(playerOverworldData.bonus_experience)
+	
 
 func update_training_grounds_stats():
 	if current_state == PREP_STATE.TRAINING_GROUNDS:
@@ -254,6 +272,7 @@ func update_training_grounds_stats():
 func _on_unit_revived(cost):
 	playerOverworldData.gold -= cost
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
 
 func _on_save_game():
 	SelectedSaveFile.save(playerOverworldData)
@@ -268,10 +287,12 @@ func _on_shop_exited():
 func _on_item_bought(value):
 	playerOverworldData.gold -= value
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
 
 func _on_item_sold(value):
 	playerOverworldData.gold += value
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
 
 func _on_inventory_prep_screen_change(state:InventoryPrepScreen.INVENTORY_STATE):
 	match state:

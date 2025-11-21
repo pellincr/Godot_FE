@@ -187,6 +187,8 @@ func show_previous_screen():
 			#When in stats, go back to the unit or commander overview scene
 			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 				var overview_view = commander_overview_scene.instantiate()
+				if UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon:
+					overview_view.weapon = UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon
 				main_container.add_child(overview_view)
 				overview_view.set_icon_visibility(unit)
 				current_state = SELECTOR_STATE.OVERVIEW

@@ -55,7 +55,7 @@ func set_price_label(price):
 func update_by_item():
 	set_item_name(item.name)
 	set_item_icon(item.icon)
-	set_price_label(item.worth)
+	set_price_label(item.calculate_price())
 	set_item_rarity_header(item.rarity)
 	main_weapon_icon_container.set_header_visibility(false)
 	main_weapon_icon_container.item = item

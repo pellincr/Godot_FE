@@ -95,7 +95,7 @@ func set_stat_boost_container(stats:UnitStat, growths:= false):
 func update_by_item():
 	set_name_label(item.name)
 	set_icon(item.icon)
-	set_value_label(item_worth_label,item.worth)
+	set_value_label(item_worth_label,item.calculate_price())
 	set_item_description_label(item.description)
 	set_item_effect_label(item.use_effect)
 	set_value_label(power_value_label,item.power)
