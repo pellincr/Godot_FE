@@ -435,11 +435,21 @@ func get_usable_weapons_at_ranges(ranges: Array[int]) -> Array[WeaponDefinition]
 			usable_weapons.append(weapon)
 	return usable_weapons
 
-func use_consumable_item(item:ItemDefinition ):
+func use_consumable_item( item: ItemDefinition):
 	if item is ConsumableItemDefinition:
-		if item.use_effect == item.USE_EFFECTS.HEAL:
-			heal(item.use_effect_power)
-			inventory.use_item(item)
+		match item.use_effect:
+			ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
+				heal(item.use_effect_power)
+			ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
+				if item.boost_stat != null:
+					unit_character.stats = CustomUtilityLibrary.add_unit_stat(unit_character.stats, item.boost_stat)
+					update_stats()
+				if item.boost_growth != null:
+					unit_character.growths = CustomUtilityLibrary.add_unit_stat(unit_character.growths, item.boost_growth)
+					update_growths()
+			ItemConstants.CONSUMABLE_USE_EFFECT.STATUS_EFFECT:
+				pass
+		inventory.use_item(item)
 
 func can_use_consumable_item(item:ItemDefinition) -> bool:
 	var can_use :bool

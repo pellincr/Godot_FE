@@ -176,14 +176,18 @@ func swap_trade_items():
 	#focused_detailed_view.update_by_unit()
 	#current_trade_detailed_view.update_by_unit()
 	#clear_sub_container()
+	selected_unit.update_stats()
+	selected_unit.update_growths()
+	trade_unit.update_stats()
+	trade_unit.update_growths()
 	update_by_state()
 
 func _on_store_all():
-	var inventory_items = selected_unit.inventory.items
-	var equipped_item = selected_unit.inventory.get_equipped_item()
-	selected_unit.inventory.discard_item(equipped_item)
-	playerOverworldData.convoy.append(equipped_item)
+	var inventory_items = selected_unit.inventory.get_items()
+	#var equipped_item = selected_unit.inventory.get_equipped_item()
+	#if equipped_item != null:
 	for item in inventory_items:
-		selected_unit.inventory.discard_item(item)
-		playerOverworldData.convoy.append(item)
+		if item != null:
+			playerOverworldData.convoy.append(item)
+			selected_unit.inventory.discard_item(item)
 	update_by_state()

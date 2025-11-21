@@ -1,11 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi433f00uckdl"]
+[gd_scene load_steps=9 format=3 uid="uid://bi433f00uckdl"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_1b8bj"]
 [ext_resource type="Texture2D" uid="uid://crijteij1o4ma" path="res://resources/sprites/items/equipment/loaded_dice.png" id="2_d2ypa"]
 [ext_resource type="Script" uid="uid://bs6xtn0cxv0fp" path="res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.gd" id="2_jniku"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="4_lt3nf"]
 
 [sub_resource type="Theme" id="Theme_d2ypa"]
-default_font_size = 36
+default_font = ExtResource("4_lt3nf")
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_lt3nf"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_a25ng"]
+default_font = ExtResource("4_lt3nf")
+
+[sub_resource type="Theme" id="Theme_w8lah"]
+default_font = ExtResource("4_lt3nf")
 
 [node name="EquipmentDetailedInfo" type="PanelContainer"]
 offset_right = 242.0
@@ -22,38 +33,74 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+z_index = 1
 layout_mode = 2
 theme = SubResource("Theme_d2ypa")
 text = "Equipment Name"
 
 [node name="ItemIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/ItemNameLabel"]
+z_index = -1
 layout_mode = 0
-offset_left = 189.0
-offset_top = 3.0
-offset_right = 221.0
-offset_bottom = 35.0
+offset_left = 165.0
+offset_top = 5.0
+offset_right = 229.0
+offset_bottom = 69.0
 texture = ExtResource("2_d2ypa")
+
+[node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_lt3nf")
+
+[node name="ItemRarity" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item Type"
+
+[node name="-" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="ItemType" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item type"
 
 [node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(220, 10)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
 text = "Description"
 autowrap_mode = 3
 
 [node name="ItemStatsBoostContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 6
 
 [node name="ItemStatsHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer"]
 layout_mode = 2
-text = "Stats Boosts -"
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Stats Boosts"
 
 [node name="ItemStatsBoostContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer"]
 layout_mode = 2
+theme = SubResource("Theme_a25ng")
 columns = 2
+
+[node name="HealthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+
+[node name="HealthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HealthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Max Health -"
+
+[node name="HealthStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HealthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
 
 [node name="DamageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
 layout_mode = 2
@@ -100,7 +147,7 @@ layout_mode = 2
 [node name="AttackSpeedHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AttackSpeedContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-text = "Attack Speed-"
+text = "Atk Speed -"
 
 [node name="AttackSpeedStatValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/AttackSpeedContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -244,11 +291,26 @@ size_flags_vertical = 2
 
 [node name="ItemGrowthsHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer"]
 layout_mode = 2
-text = "Growths Boosts -"
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Growths Boosts"
 
 [node name="ItemGrowthsBoostContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer"]
 layout_mode = 2
+theme = SubResource("Theme_w8lah")
 columns = 2
+
+[node name="HealthGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="HealthGrowthHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Health -"
+
+[node name="HealthGrowthValueLabel" type="Label" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
 
 [node name="StrengthGrowthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
 layout_mode = 2
@@ -347,4 +409,5 @@ layout_mode = 2
 
 [node name="SpecialEffectHeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/SpecialEffectsContainer"]
 layout_mode = 2
-text = "Special Effects-"
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Specials"

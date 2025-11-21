@@ -8,14 +8,14 @@
 
 [sub_resource type="Resource" id="Resource_ti88p"]
 script = ExtResource("2_mjr3b")
-hp = 6
-strength = 3
-magic = 3
-skill = 3
-speed = 3
-luck = 3
-defense = 3
-resistance = 3
+hp = 8
+strength = 4
+magic = 4
+skill = 4
+speed = 4
+luck = 4
+defense = 4
+resistance = 4
 metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
 
 [resource]

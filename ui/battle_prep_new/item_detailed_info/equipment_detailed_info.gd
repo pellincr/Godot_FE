@@ -4,8 +4,13 @@ extends PanelContainer
 @onready var item_name_label: Label = $MarginContainer/VBoxContainer/ItemNameLabel
 @onready var item_icon: TextureRect = $MarginContainer/VBoxContainer/ItemNameLabel/ItemIcon
 @onready var item_description_label: Label = $MarginContainer/VBoxContainer/ItemDescriptionLabel
+@onready var item_rarity: Label = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemRarity
+@onready var item_type: Label = $MarginContainer/VBoxContainer/ItemTypeContainer/ItemType
+
 
 @onready var item_stats_boost_container: VBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer
+@onready var health_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HealthContainer
+@onready var health_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HealthContainer/HealthStatValueLabel
 @onready var damage_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DamageContainer
 @onready var damage_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DamageContainer/DamageStatValueLabel
 @onready var hit_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/HitContainer
@@ -37,6 +42,8 @@ extends PanelContainer
 
 
 @onready var item_growths_boost_container: VBoxContainer = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer
+@onready var health_growth_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer
+@onready var health_growth_value_label: Label = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer/HealthGrowthValueLabel
 @onready var strength_growth_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer
 @onready var strength_growth_value_label: Label = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer/StrengthGrowthValueLabel
 @onready var magic_growth_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/MagicGrowthContainer
@@ -76,6 +83,7 @@ func set_value_label(label,value):
 	label.text = str(value)
 
 func set_stat_boost_container(stats:CombatUnitStat):
+	var max_health = stats.hp
 	var damage = stats.damage
 	var hit = stats.hit
 	var avoid = stats.avoid
@@ -90,6 +98,10 @@ func set_stat_boost_container(stats:CombatUnitStat):
 	var luck = stats.luck
 	var defense = stats.defense
 	var resistance = stats.resistance
+	if max_health != 0:
+		set_value_label(health_stat_value_label,max_health)
+	else:
+		health_container.visible = false
 	if damage != 0:
 		set_value_label(damage_stat_value_label,damage)
 	else:
@@ -153,6 +165,7 @@ func set_stat_boost_container(stats:CombatUnitStat):
 
 
 func set_growths_boost_container(growths:UnitStat):
+	var health = growths.hp
 	var strength = growths.strength
 	var magic = growths.magic
 	var skill = growths.skill
@@ -160,7 +173,11 @@ func set_growths_boost_container(growths:UnitStat):
 	var luck = growths.luck
 	var defense = growths.defense
 	var resistance = growths.resistance
-	if strength > 0:
+	if health != 0:
+		set_value_label(health_growth_value_label,health)
+	else:
+		health_growth_value_label.visible = false
+	if strength != 0:
 		set_value_label(strength_growth_value_label,strength)
 	else:
 		strength_growth_container.visible = false
@@ -201,12 +218,32 @@ func update_by_item():
 	set_item_name_label(item.name)
 	set_item_icon(item.icon)
 	set_item_description_label(item.description)
+	set_item_type_header(item)
+	set_item_rarity_header(item.rarity)
 	if item.inventory_bonus_stats:
 		item_stats_boost_container.visible = true
 		set_stat_boost_container(item.inventory_bonus_stats)
 	if item.inventory_growth_bonus_stats:
 		item_growths_boost_container.visible = true
-		set_stat_boost_container(item.inventory_growth_bonus_stats)
+		set_growths_boost_container(item.inventory_growth_bonus_stats)
 	if item.held_specials:
 		update_special_container(item.held_specials)
 		special_effects_container.visible = true
+		
+
+func set_item_rarity_header(rarity : Rarity):
+	item_rarity.text = rarity.rarity_name
+	item_rarity.self_modulate = rarity.ui_color
+
+func set_item_type_header(item: ItemDefinition):
+	match item.item_type:
+		ItemConstants.ITEM_TYPE.WEAPON:
+			item_type.text = "Weapon"
+		ItemConstants.ITEM_TYPE.STAFF:
+			item_type.text = "Staff"
+		ItemConstants.ITEM_TYPE.USEABLE_ITEM:
+			item_type.text = "Consumable"
+		ItemConstants.ITEM_TYPE.EQUIPMENT:
+			item_type.text = "Equipment"
+		ItemConstants.ITEM_TYPE.TREASURE:
+			item_type.text = "Treasure"

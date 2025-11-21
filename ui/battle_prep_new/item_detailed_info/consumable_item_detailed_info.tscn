@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwesyjybbvx48"]
+[gd_scene load_steps=12 format=3 uid="uid://dwesyjybbvx48"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ohqp3"]
 [ext_resource type="Script" uid="uid://dpw6qmr8kyuc5" path="res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.gd" id="2_a4wg7"]
@@ -17,6 +17,15 @@ default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_21x8d"]
 default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_nl26n"]
+default_font = ExtResource("3_2lans")
+
+[sub_resource type="Theme" id="Theme_hkwbp"]
+default_font = ExtResource("3_2lans")
+
+[sub_resource type="Theme" id="Theme_qfj4o"]
+default_font = ExtResource("3_2lans")
 
 [node name="ConsumableItemDetailedInfo" type="PanelContainer"]
 size_flags_horizontal = 6
@@ -99,30 +108,24 @@ size_flags_horizontal = 3
 theme = SubResource("Theme_21x8d")
 text = "Use Effect "
 
-[node name="DurabilityContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/ItemEffectContainer"]
-layout_mode = 2
-
-[node name="DurabilityHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer/DurabilityContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_21x8d")
-text = "Durability"
-horizontal_alignment = 2
-
 [node name="ItemPowerContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
+theme = SubResource("Theme_nl26n")
 
 [node name="PowerHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemPowerContainer"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
+theme = SubResource("Theme_nl26n")
 text = "Power -"
 
 [node name="PowerValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemPowerContainer"]
 layout_mode = 2
+theme = SubResource("Theme_nl26n")
 text = "0"
 
 [node name="ItemUsesContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
+theme = SubResource("Theme_nl26n")
 
 [node name="UsesHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemUsesContainer"]
 custom_minimum_size = Vector2(70, 0)
@@ -139,10 +142,12 @@ size_flags_vertical = 10
 
 [node name="ItemStatsHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer"]
 layout_mode = 2
-text = "Stats Boosts -"
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Stats Boosts"
 
 [node name="ItemStatsBoostContainer" type="GridContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer"]
 layout_mode = 2
+theme = SubResource("Theme_hkwbp")
 columns = 4
 
 [node name="StrengthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostContainer"]
@@ -221,10 +226,12 @@ size_flags_vertical = 10
 
 [node name="ItemGrowthsHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer"]
 layout_mode = 2
-text = "Growths Boosts -"
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Growths Boosts"
 
 [node name="ItemGrowthsBoostContainer" type="GridContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer"]
 layout_mode = 2
+theme = SubResource("Theme_qfj4o")
 columns = 4
 
 [node name="StrengthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]

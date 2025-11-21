@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://bcteldqbxn7l0"]
+[gd_scene load_steps=29 format=3 uid="uid://bcteldqbxn7l0"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_i1iis"]
 [ext_resource type="Script" uid="uid://ber7tsngt6t74" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
 [ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_dgerc"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_j8tm6"]
 [ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="4_ayaq8"]
 [ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
 [ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_vi1f8"]
@@ -69,6 +70,7 @@ layout_mode = 2
 
 [node name="DamageHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Damage :"
 
 [node name="DamageTypeIcon" type="TextureRect" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
@@ -78,6 +80,7 @@ size_flags_horizontal = 10
 
 [node name="DamageValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="AttackXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -85,11 +88,13 @@ layout_mode = 2
 
 [node name="AttackXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Atk X :"
 
 [node name="AttackXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="HitContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -97,11 +102,13 @@ layout_mode = 2
 
 [node name="HitHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Hit :"
 
 [node name="HitValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="CriticalContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -109,11 +116,13 @@ layout_mode = 2
 
 [node name="CriticalHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Critical :"
 
 [node name="CriticalValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="CritXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -121,11 +130,13 @@ layout_mode = 2
 
 [node name="CriticalXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Crit X :"
 
 [node name="CriticalXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "3"
 
 [node name="RangeContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -133,11 +144,13 @@ layout_mode = 2
 
 [node name="RangeHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Range"
 
 [node name="RangeValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "1-2"
 
 [node name="SpecialAndBonusContainer" type="VBoxContainer" parent="LeftContainer"]
@@ -155,26 +168,31 @@ layout_mode = 2
 [node name="SpecialValueLabel1" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
 
 [node name="SpecialValueLabel2" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
 
 [node name="SpecialValueLabel3" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
 
 [node name="SpecialValueLabel4" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
 
 [node name="SpecialValueLabel5" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
 
 [node name="RightContainer" type="VBoxContainer" parent="."]
@@ -195,6 +213,7 @@ horizontal_alignment = 2
 [node name="ScalingValueLabel" type="Label" parent="RightContainer/ScalingContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Mundane"
 horizontal_alignment = 2
 
@@ -212,6 +231,7 @@ horizontal_alignment = 2
 [node name="ScalingXValueLabel" type="Label" parent="RightContainer/ScalingXContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "1.0"
 horizontal_alignment = 2
 
@@ -228,6 +248,7 @@ horizontal_alignment = 2
 [node name="DurabilityValueLabel" type="Label" parent="RightContainer/DurabilityContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 horizontal_alignment = 2
 
@@ -245,6 +266,7 @@ horizontal_alignment = 2
 [node name="WeightValueLabel" type="Label" parent="RightContainer/WeightContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 horizontal_alignment = 2
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://uij42thge1m2"]
+[gd_scene load_steps=11 format=3 uid="uid://uij42thge1m2"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_bgdbb"]
 [ext_resource type="Script" uid="uid://d1n5jle7lq5bi" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_644mu"]
+[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="7_vka8p"]
 
 [sub_resource type="Theme" id="Theme_trk22"]
 default_font_size = 36
@@ -37,7 +38,7 @@ theme_override_constants/margin_right = 14
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 
 [node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
@@ -46,6 +47,7 @@ theme = SubResource("Theme_trk22")
 theme_override_fonts/font = ExtResource("3_2jgc7")
 theme_override_font_sizes/font_size = 32
 text = "Item Name"
+vertical_alignment = 1
 
 [node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,6 +68,7 @@ theme_override_font_sizes/font_size = 16
 text = "Item type"
 
 [node name="FullWeaponIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MainWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("3_xvemf")]
@@ -87,6 +90,7 @@ custom_minimum_size = Vector2(221, 72)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_6j0ny")
+theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("4_644mu")
 theme_override_font_sizes/font_size = 16
 text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
@@ -103,6 +107,7 @@ offset_left = 174.0
 offset_top = 43.0
 offset_right = 238.0
 offset_bottom = 107.0
+texture = ExtResource("7_vka8p")
 
 [node name="PriceLabel" type="Label" parent="ItemIcon"]
 modulate = Color(0.899619, 0.69149, 0, 1)
@@ -115,4 +120,5 @@ offset_right = 58.0
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_2jgc7")
 text = "50G"
