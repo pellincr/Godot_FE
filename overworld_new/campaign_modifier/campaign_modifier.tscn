@@ -65,11 +65,27 @@ script = ExtResource("3_sx2wt")
 metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 
 [node name="CustomModeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons"]
-visible = false
 layout_mode = 2
+toggle_mode = true
 text = "Custom"
 script = ExtResource("3_sx2wt")
 metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="ModifierButtons" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ModifierHeaderLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ModifierButtons"]
+layout_mode = 2
+text = "Modifiers-"
+horizontal_alignment = 1
+
+[node name="ModifierScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ModifierButtons"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="ModifierContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ModifierButtons/ModifierScrollContainer"]
+layout_mode = 2
 
 [node name="SetSeedContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
@@ -162,8 +178,8 @@ metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" to="." method="_on_hard_mode_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" method="_on_pressed"]
 [connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" method="_on_focus_entered"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" to="." method="_on_custom_mode_button_2_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" to="." method="_on_custom_mode_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" to="." method="_on_custom_mode_button_2_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton" method="_on_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer/KeyboardValueContainer/Button1" to="." method="_add_self_to_seed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer/KeyboardValueContainer/Button2" to="." method="_add_self_to_seed"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://bgwayl0oegg0k"]
 
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_qlasj"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_qlasj"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_hjvs5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_hjvs5"]
 [ext_resource type="Texture2D" uid="uid://dmdh0so3q1lgv" path="res://resources/sprites/items/consumables/stat_boosters/strength/brutvine_sap.png" id="3_qa44a"]
