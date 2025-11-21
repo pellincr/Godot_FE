@@ -178,8 +178,10 @@ func swap_trade_items():
 	#clear_sub_container()
 	selected_unit.update_stats()
 	selected_unit.update_growths()
+	selected_unit.set_hp_to_max()
 	trade_unit.update_stats()
 	trade_unit.update_growths()
+	trade_unit.set_hp_to_max()
 	update_by_state()
 
 func _on_store_all():

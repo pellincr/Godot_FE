@@ -528,3 +528,6 @@ func get_max_attack_range() -> int:
 				if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 					return item.attack_range.max()
 	return 0
+
+func set_hp_to_max():
+	hp = stats.hp

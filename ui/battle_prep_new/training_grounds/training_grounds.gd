@@ -67,3 +67,4 @@ func _on_award_xp(unit:Unit, xp:int, bxp:int, level_info_screen):
 	playerOverworldData.bonus_experience = bxp
 	award_exp.emit(comb,xp)
 	level_info_screen.update_by_unit()
+	unit.set_hp_to_max()
