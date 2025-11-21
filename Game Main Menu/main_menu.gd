@@ -116,6 +116,7 @@ func _on_new_game_button_pressed():
 	playerOverworldData.convoy.clear()
 	playerOverworldData.combat_maps_completed = 0
 	playerOverworldData.total_party.clear()
+	playerOverworldData.dead_party_members.clear()
 	playerOverworldData.selected_party.clear()
 	overworld.instantiate().set_po_data(playerOverworldData)
 	SelectedSaveFile.save(playerOverworldData)
