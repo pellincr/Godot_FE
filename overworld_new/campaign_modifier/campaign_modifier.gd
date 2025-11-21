@@ -124,7 +124,7 @@ func fill_modifier_container():
 		check_box.text = modifier_name
 		modifier_container.add_child(check_box)
 		check_box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		check_box.toggled.connect(_on_modifier_check_box_toggled)
+		check_box.toggled.connect(_on_modifier_check_box_toggled.bind(mod))
 
 func _on_modifier_check_box_toggled(toggled_on:bool, mod:MODIFIER):
 	if toggled_on:

@@ -67,7 +67,7 @@ class_name Unit
 # @param _inventory : reference inventory to assign
 # @retuns Unit : created unit
 ##
-static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition], simulated_levels: int = 0) -> Unit:
+static func create_unit_unit_character(unit_type_key: String, unitCharacter: UnitCharacter, _inventory: Array[ItemDefinition], simulated_levels: int = 0, goliath_mode: bool = false, hyper_growth: bool = false) -> Unit:
 	#Create the unit
 	var new_unit = Unit.new()
 	#pull base data
@@ -82,13 +82,15 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.traits = unit_type.traits
 	new_unit.faction = unit_type.faction
 	new_unit.base_stats = new_unit.get_unit_type_definition().base_stats.duplicate()
+	if goliath_mode:
+		new_unit.base_stats = CustomUtilityLibrary.mult_unit_stat(new_unit.base_stats, 1.8)
 	update_usable_weapon_types(new_unit)
 	create_inventory(new_unit, _inventory)
 	update_visuals(new_unit)
 	new_unit.update_stats()
 	new_unit.update_growths()
 	for levelup in simulated_levels:
-		var level_up_stats : UnitStat = new_unit.get_level_up_value()
+		var level_up_stats : UnitStat = new_unit.get_level_up_value(new_unit, hyper_growth)
 		new_unit.apply_level_up_value(level_up_stats)
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
@@ -102,7 +104,7 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 # @param hard_mode : does this unit get hardmode bonuses?
 # @retuns Unit : created unit
 ##
-static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int = 0, hard_mode:bool = false) -> Unit:
+static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int = 0, hard_mode:bool = false, goliath_mode: bool = false, hyper_growth: bool = false) -> Unit:
 	#Create a unit object
 	var new_unit = Unit.new()
 	new_unit.unit_type_key = unit_type_key
@@ -112,10 +114,12 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 	new_unit.unit_character = null
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
 	new_unit.base_stats = new_unit.get_unit_type_definition().base_stats.duplicate()
+	if goliath_mode:
+		new_unit.base_stats = CustomUtilityLibrary.mult_unit_stat(new_unit.base_stats, 1.8)
 	update_usable_weapon_types(new_unit)
 	new_unit.update_growths()
 	create_inventory(new_unit, _inventory)
-	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode)
+	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode, goliath_mode, hyper_growth)
 	update_visuals(new_unit)
 	new_unit.update_stats()
 
@@ -129,30 +133,33 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 # @param bonus_level : extra levels uised in calculation, used for hardmode bonuses & promoted units
 # @param hardmode : apply hardmode bonuses
 ##
-static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool):
+static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool, goliath_mode:bool, hyper_growth:bool):
 	var effective_level = level -1 + bonus_level
+	var goliath_mode_mult = 1.0
 	if(unit.get_unit_type_definition().tier == 3): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
 		if(unit.get_unit_type_definition().unit_promoted_from_key):
 			if(hardmode):
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],20,0, false)
+				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],20,0, false, goliath_mode, hyper_growth)
 			else :
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],10,0, false)
+				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],10,0, false, goliath_mode, hyper_growth)
 				
-	unit.level_stats.hp = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level)
-	unit.level_stats.strength = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.strength, effective_level)
-	unit.level_stats.magic = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.magic, effective_level)
-	unit.level_stats.skill = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.skill, effective_level)
-	unit.level_stats.speed = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.speed, effective_level)
-	unit.level_stats.luck = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.luck, effective_level)
-	unit.level_stats.defense = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.defense, effective_level)
-	unit.level_stats.resistance = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.resistance, effective_level)
+	if goliath_mode:
+		goliath_mode_mult = 1.8
+	unit.level_stats.hp = int(goliath_mode_mult * calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level, hyper_growth))
+	unit.level_stats.strength = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.strength, effective_level, hyper_growth)
+	unit.level_stats.magic = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.magic, effective_level, hyper_growth)
+	unit.level_stats.skill = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.skill, effective_level, hyper_growth)
+	unit.level_stats.speed = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.speed, effective_level, hyper_growth)
+	unit.level_stats.luck = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.luck, effective_level, hyper_growth)
+	unit.level_stats.defense = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.defense, effective_level, hyper_growth)
+	unit.level_stats.resistance = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.resistance, effective_level, hyper_growth)
 
 ##
 # calculate_generic_stat : calculcates the level up bonus for a particular stat, used when generating a generic unit
 # @param levels : the number of levels to calculate 
 # @param growth : the % growth for the targetted stats
 ##
-static func	calculate_generic_stat(growth: int, levels:int) -> int:
+static func	calculate_generic_stat(growth: int, levels:int, hyper_growth:bool=false) -> int:
 	var return_value = 0
 	var stat_gain_center = float(growth * levels) / float(100)
 	var gain_low = stat_gain_center * 3/4
@@ -162,6 +169,9 @@ static func	calculate_generic_stat(growth: int, levels:int) -> int:
 	var stat_chance = fmod(stat_gain, return_value)
 	if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
 		return_value += 1
+	if hyper_growth:
+		if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
+			return_value += 1
 	return return_value
 
 ##
@@ -181,28 +191,31 @@ static func create_inventory(target_unit: Unit , reference_inventory: Array[Item
 # level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
 # @param growth_rate : target stat's growth rate (%)
 ##
-func level_up_stat_roll(growth_rate : int) -> int:
+func level_up_stat_roll(growth_rate : int, hyper_growth: bool = false) -> int:
 	var amount = floor(growth_rate/100)
 	if (CustomUtilityLibrary.random_rolls_bool(fmod(growth_rate, 100),1)):
 		amount += 1
+	if hyper_growth:
+		if (CustomUtilityLibrary.random_rolls_bool(fmod(growth_rate, 100),1)):
+			amount += 1
 	return amount
 	
 ##
 # level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
 # @param growth_rate : target stat's growth rate (%)
 ##
-func get_level_up_value(unit: Unit = self) -> UnitStat:
+func get_level_up_value(unit: Unit = self, hyper_growth:bool = false) -> UnitStat:
 	var level_stats : UnitStat = UnitStat.new()
 	#var bonus_growths : UnitStat = unit.inventory.total_item_held_bonus_growths()
 	
-	level_stats.hp += level_up_stat_roll(unit.growths.hp)
-	level_stats.strength += level_up_stat_roll(unit.growths.strength)
-	level_stats.magic += level_up_stat_roll(unit.growths.magic)
-	level_stats.skill += level_up_stat_roll(unit.growths.skill)
-	level_stats.speed += level_up_stat_roll(unit.growths.speed)
-	level_stats.luck += level_up_stat_roll(unit.growths.luck)
-	level_stats.defense += level_up_stat_roll(unit.growths.defense)
-	level_stats.resistance += level_up_stat_roll(unit.growths.resistance)
+	level_stats.hp += level_up_stat_roll(unit.growths.hp, hyper_growth)
+	level_stats.strength += level_up_stat_roll(unit.growths.strength, hyper_growth)
+	level_stats.magic += level_up_stat_roll(unit.growths.magic, hyper_growth)
+	level_stats.skill += level_up_stat_roll(unit.growths.skill, hyper_growth)
+	level_stats.speed += level_up_stat_roll(unit.growths.speed, hyper_growth)
+	level_stats.luck += level_up_stat_roll(unit.growths.luck, hyper_growth)
+	level_stats.defense += level_up_stat_roll(unit.growths.defense, hyper_growth)
+	level_stats.resistance += level_up_stat_roll(unit.growths.resistance, hyper_growth)
 	#unit.update_stats()
 	return level_stats
 

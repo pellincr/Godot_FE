@@ -266,14 +266,16 @@ func spawn_initial_units():
 	# get added levels from hardmode
 	var _bonus_levels : int = 0
 	var hard_mode_leveling : bool = false
-	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD:
+	var goliath_mode : bool = playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE)
+	var hyper_growth : bool = playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD or playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HARD_LEVELING):
 		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.4)
 		hard_mode_leveling = true
 	for unit : CombatUnitData in unit_data.starting_enemy_group.group: #for unit :CombatUnitData in enemy_start_group.group:
 		if unit is RandomCombatUnitData:
 			generate_random_unit(unit)
 		var enemy_unit : CombatUnit
-		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus + _bonus_levels, hard_mode_leveling)
+		var new_unit = Unit.create_generic_unit(unit.unit_type_key, unit.inventory, unit.name, unit.level, unit.level_bonus + _bonus_levels, hard_mode_leveling, goliath_mode, hyper_growth)
 		enemy_unit = create_combatant_unit(new_unit, 1, unit.ai_type, unit.drops_item, unit.is_boss,)
 		add_combatant(enemy_unit, unit.map_position)
 

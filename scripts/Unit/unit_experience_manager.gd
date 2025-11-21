@@ -7,7 +7,7 @@ signal experience_finished()
 const EXPERIENCE_BAR_COMPONENT = preload("res://ui/combat/unit_experience_bar/unit_experience_bar.tscn")
 const LEVEL_UP_COMPONENT = preload("res://ui/combat/unit_level_up/unit_level_up.tscn")
 
-func process_experience_gain(unit:CombatUnit, experience_amount: int):
+func process_experience_gain(unit:CombatUnit, experience_amount: int, hyper_growth:bool = false):
 	print ("Enteredprocess_experience_gain")
 	if (unit.unit.experience + experience_amount >= 100):
 		var experience_excess = unit.unit.experience + experience_amount - 100
@@ -27,7 +27,7 @@ func process_experience_gain(unit:CombatUnit, experience_amount: int):
 		$"../../CanvasLayer/UI".add_child(level_up_component)
 		level_up_component.visible = false
 		level_up_component.set_unit(unit.unit)
-		var level_up_stats : UnitStat = unit.unit.get_level_up_value()
+		var level_up_stats : UnitStat = unit.unit.get_level_up_value(unit.unit, hyper_growth)
 		level_up_component.set_level_up_stat_array(level_up_stats.to_array())
 		level_up_component.update_fields()
 		level_up_component.visible = true

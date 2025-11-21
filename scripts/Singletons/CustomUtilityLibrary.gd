@@ -45,6 +45,20 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 	result.constitution = a.constitution + b.constitution
 	return result
 
+func mult_unit_stat(a : UnitStat, mult: float) -> UnitStat:
+	var result : UnitStat = UnitStat.new()
+	result.hp = int(a.hp * mult)
+	result.strength = int(a.strength * mult)
+	result.magic = int(a.magic * mult)
+	result.skill = int(a.skill * mult)
+	result.speed = int(a.speed * mult)
+	result.luck = int(a.luck * mult)
+	result.defense = int(a.defense * mult)
+	result.resistance = int(a.resistance * mult)
+	result.movement = a.movement
+	result.constitution = a.constitution
+	return result
+
 func add_combat_unit_stat(a : CombatUnitStat, b : CombatUnitStat) -> CombatUnitStat:
 	var result : CombatUnitStat = CombatUnitStat.new()
 	result.hp = a.hp + b.hp
