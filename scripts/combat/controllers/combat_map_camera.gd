@@ -126,7 +126,7 @@ func set_camera_limits(): ## needs to be updated
 	var viewport : Vector2 = get_viewport().get_visible_rect().size
 	var y_min_zoom = viewport.y / (map_limits.end.y * map_cellsize.x)
 	var x_min_zoom = viewport.x / (map_limits.end.x * map_cellsize.y)
-	if x_min_zoom >= y_min_zoom:
+	if x_min_zoom <= y_min_zoom:
 		zoomMin = Vector2(x_min_zoom, x_min_zoom)
 	else :
 		zoomMin = Vector2(y_min_zoom, y_min_zoom)

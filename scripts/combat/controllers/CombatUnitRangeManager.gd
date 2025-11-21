@@ -26,7 +26,8 @@ func process_unit_move(combatUnit: CombatUnit):
 	update_effected_entries([combatUnit.map_position, combatUnit.move_position])
 
 func process_unit_die(combatUnit: CombatUnit):
-	remove_selected_unit(combatUnit)
+	remove_unit(combatUnit)
+	#remove_selected_unit(combatUnit)
 	update_effected_entries([combatUnit.map_position])
 
 ##
@@ -101,7 +102,7 @@ func update_selected_unit_range_tiles(selected_units: Array[CombatUnit] = select
 				cache.set(tile, true)
 
 func remove_unit(combatUnit: CombatUnit):
-	var unit_tiles = max_range[combatUnit]
+	var unit_tiles = max_range[combatUnit].data
 	# remove all the instances of the combat unit being in the units_in_range_of_tile dictionary
 	for tile in unit_tiles:
 		units_in_range_of_tile[tile].data.erase(combatUnit)
