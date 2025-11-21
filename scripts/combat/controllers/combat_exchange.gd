@@ -166,6 +166,7 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 	if ce_display != null:
 		ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
+		emit_signal("unit_defeated", player_unit)
 		combat_exchange_finished.emit(false)
 		return
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
@@ -177,6 +178,7 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 		update_ai_type(enemy_unit)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
+		emit_signal("unit_defeated", enemy_unit)
 		emit_signal("gain_experience", player_unit, calculate_experience_gain_kill(player_unit, enemy_unit))
 		await unit_gain_experience_finished
 		if enemy_unit.drops_item:
@@ -226,7 +228,6 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		target.map_display.update_values()
 		await target.map_display.update_complete
 		target.alive = false
-		emit_signal("unit_defeated", target)
 		#broadcast unit death
 	#return outcome
 

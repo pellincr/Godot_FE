@@ -380,7 +380,8 @@ func get_all_specials_from_inventory_and_equipped() ->  Array[SpecialEffect]:
 	var _specials : Array[SpecialEffect] = []
 	# DO Equipped first
 	if equipped:
-		_specials.append_array(get_equipped_weapon().equipped_specials)
+		if get_equipped_weapon() != null:
+			_specials.append_array(get_equipped_weapon().equipped_specials)
 	for item in items:
 		_specials.append_array(item.held_specials)
 	return _specials

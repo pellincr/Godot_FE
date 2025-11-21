@@ -17,7 +17,7 @@ script = ExtResource("3_x0scu")
 hp = 10
 strength = 35
 magic = 35
-speed = -5
+speed = -10
 metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
 
 [resource]
