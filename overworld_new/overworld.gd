@@ -99,11 +99,12 @@ func _on_menu_closed():
 	pause_menu_open = false
 	tutorial_campaign_selecter.grab_focus()
 
-func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY):
+func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):
 	seed(campaign_seed)
 	playerOverworldData.campaign_seed_preset = seeded
 	playerOverworldData.capmaign_seed = campaign_seed
 	playerOverworldData.campaign_difficulty = difficulty
+	playerOverworldData.campaign_modifiers = selected_modifiers
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")

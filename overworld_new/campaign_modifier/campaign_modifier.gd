@@ -2,12 +2,16 @@ extends Control
 
 class_name CampaignModifier
 
-signal start_game(seeded: bool, seed:int, difficulty: DIFFICULTY)
+signal start_game(seeded: bool, seed:int, difficulty: DIFFICULTY, modifiers : Array[MODIFIER])
 signal menu_closed()
 
 @onready var easy_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton
 @onready var hard_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton
 @onready var custom_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton
+
+@onready var modifier_buttons: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ModifierButtons
+@onready var modifier_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ModifierButtons/ModifierScrollContainer/ModifierContainer
+
 #Seed Information
 @onready var set_seed_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer
 @onready var seed_value_label: Label = $PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer/UpperValueContainer/SeedValueLabel
@@ -21,11 +25,20 @@ signal menu_closed()
 enum DIFFICULTY{
 	EASY,HARD,CUSTOM
 }
+
+enum MODIFIER{
+	HARD_LEVELING, 
+	GOLIATH_MODE, 
+	HYPER_GROWTH
+}
+
 var current_difficulty := DIFFICULTY.EASY
+var selected_modifiers : Array[MODIFIER]
 
 func _ready() -> void:
 	start_campaign_button.grab_focus()
 	easy_mode_button.button_pressed = true
+	fill_modifier_container()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_back") :
@@ -48,6 +61,8 @@ func _on_easy_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.EASY:
 		current_difficulty = DIFFICULTY.EASY
 		hard_mode_button.button_pressed = false
+		custom_mode_button.button_pressed = false
+		modifier_buttons.visible = false
 	else:
 		easy_mode_button.button_pressed = true
 
@@ -56,12 +71,21 @@ func _on_hard_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.HARD:
 		current_difficulty = DIFFICULTY.HARD
 		easy_mode_button.button_pressed = false
+		custom_mode_button.button_pressed = false
+		modifier_buttons.visible = false
 	else:
 		hard_mode_button.button_pressed = true
 
 
 func _on_custom_mode_button_pressed() -> void:
-	pass # Replace with function body.
+	if current_difficulty != DIFFICULTY.CUSTOM:
+		current_difficulty = DIFFICULTY.CUSTOM
+		easy_mode_button.button_pressed = false
+		hard_mode_button.button_pressed = false
+		modifier_buttons.visible = true
+	else:
+		custom_mode_button.button_pressed = true
+		modifier_buttons.visible = true
 
 
 func _on_enter_seed_check_box_toggled(toggled_on: bool) -> void:
@@ -79,5 +103,32 @@ func _on_start_campaign_button_pressed() -> void:
 		randomize()
 		selected_seed = randi()
 		seeded = false
-	start_game.emit(seeded, selected_seed,current_difficulty)
+	start_game.emit(seeded, selected_seed,current_difficulty, selected_modifiers)
 	AudioManager.play_sound_effect("begin_campaign")
+
+func get_modifier_name(mod:MODIFIER) -> String:
+	var final_string = ""
+	match mod:
+		MODIFIER.HARD_LEVELING:
+			final_string = "Hard Mode Leveling"
+		MODIFIER.GOLIATH_MODE:
+			final_string = "Goliath Mode"
+		MODIFIER.HYPER_GROWTH:
+			final_string = "Hyper Growth"
+	return final_string
+
+func fill_modifier_container():
+	for mod : MODIFIER in MODIFIER.values():
+		var check_box := CheckBox.new()
+		var modifier_name = get_modifier_name(mod)
+		check_box.text = modifier_name
+		modifier_container.add_child(check_box)
+		check_box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		check_box.toggled.connect(_on_modifier_check_box_toggled)
+
+func _on_modifier_check_box_toggled(toggled_on:bool, mod:MODIFIER):
+	if toggled_on:
+		selected_modifiers.append(mod)
+	else:
+		if selected_modifiers.has(mod):
+			selected_modifiers.erase(mod)
