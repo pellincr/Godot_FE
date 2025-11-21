@@ -46,6 +46,7 @@ func update_range_map():
 					else:
 						var _arr : Array[ItemDefinition] = [items[item_index]]
 						attack_range_map[attack_range] = _arr
+	attack_range_map.sort()
 
 #
 # Force sets the currently equipped item
