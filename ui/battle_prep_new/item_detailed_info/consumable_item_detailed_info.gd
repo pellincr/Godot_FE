@@ -32,7 +32,7 @@ extends PanelContainer
 @onready var item_type_header: Label = $MarginContainer/MainContainer/ItemTypeContainer/ItemTypeHeader
 
 
-var item : ConsumableItemDefinition
+var item : ItemDefinition
 
 func _ready() -> void:
 	#item = ItemDatabase.items.get("bastion_crab")

@@ -1,14 +1,19 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://1y2gauj0n4a3"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://1y2gauj0n4a3"]
 
 [ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_adr6y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oymho"]
-bg_color = Color(0.0313726, 0.0156863, 0, 1)
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.482353, 0.490196, 0.415686, 1)
+[sub_resource type="Gradient" id="Gradient_qu2ya"]
+offsets = PackedFloat32Array(0.8608871, 1)
+colors = PackedColorArray(0, 0, 0, 0.8666667, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yeg7p"]
+gradient = SubResource("Gradient_qu2ya")
+use_hdr = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wx4c7"]
+texture = SubResource("GradientTexture1D_yeg7p")
 
 [resource]
-Label/colors/font_color = Color(0.803922, 0.745098, 0.67451, 1)
+Label/colors/font_color = Color(1, 1, 1, 1)
 Label/fonts/font = ExtResource("1_adr6y")
-Panel/styles/panel = SubResource("StyleBoxFlat_oymho")
+Panel/styles/panel = SubResource("StyleBoxTexture_wx4c7")

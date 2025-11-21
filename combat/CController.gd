@@ -1802,6 +1802,8 @@ func fsm_prep_unit_details_screen_process(delta):
 			var next_unit : CombatUnit = combat.get_next_unit(grid.get_combat_unit(current_tile), false)
 			update_current_tile(next_unit.map_position)
 			combat.game_ui.update_combat_unit_detail_panel(next_unit)
+		elif Input.is_action_just_pressed("ui_right") or Input.is_action_just_pressed("ui_left"):
+			combat.game_ui.inspect_combat_unit_detail_panel()
 
 func _on_swap_unit_spaces() -> void:
 	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)

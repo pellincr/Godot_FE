@@ -1,46 +1,82 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpxlx5n7dxw7u"]
+[gd_scene load_steps=11 format=3 uid="uid://cpxlx5n7dxw7u"]
 
-[ext_resource type="Theme" uid="uid://1y2gauj0n4a3" path="res://ui/combat/combat_tile_info/tile_info_theme.tres" id="1_6c4dr"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_5jok1"]
 [ext_resource type="Script" uid="uid://b4toynry132gn" path="res://ui/combat/level_info_container/level_info_container.gd" id="1_8awr5"]
-[ext_resource type="Theme" uid="uid://d038xrv8o2iwr" path="res://resources/themes/Header_text.tres" id="3_8tqbc"]
+[ext_resource type="Texture2D" uid="uid://by7kcu1xgvcqf" path="res://resources/sprites/icons/star_icon.png" id="3_db15u"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="4_t3jvj"]
 
-[node name="LevelInfoContainer" type="HBoxContainer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -404.0
-offset_bottom = 30.0
-grow_horizontal = 0
-theme = ExtResource("1_6c4dr")
+[sub_resource type="Theme" id="Theme_10oao"]
+default_font = ExtResource("1_5jok1")
+default_font_size = 32
+
+[sub_resource type="Gradient" id="Gradient_cbvwc"]
+offsets = PackedFloat32Array(0, 0.6868217, 1)
+colors = PackedColorArray(0, 0, 0, 0.75686276, 0, 0, 0, 0.9627907, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qukom"]
+gradient = SubResource("Gradient_cbvwc")
+use_hdr = true
+fill_to = Vector2(0.44017094, 0.6196581)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h1ueb"]
+texture = SubResource("GradientTexture2D_qukom")
+
+[sub_resource type="Theme" id="Theme_8lhd7"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_h1ueb")
+
+[sub_resource type="Theme" id="Theme_53wth"]
+default_font = ExtResource("4_t3jvj")
+default_font_size = 32
+
+[node name="LevelInfoContainer" type="VBoxContainer"]
+offset_right = 403.0
+offset_bottom = 92.0
+theme = SubResource("Theme_10oao")
 script = ExtResource("1_8awr5")
 
 [node name="ObjectivePanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(200, 30)
+custom_minimum_size = Vector2(403, 92)
 layout_mode = 2
+theme = SubResource("Theme_8lhd7")
 
-[node name="ObjectiveContainer" type="HBoxContainer" parent="ObjectivePanel"]
+[node name="ObjectiveContainer" type="VBoxContainer" parent="ObjectivePanel"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme = ExtResource("3_8tqbc")
 
-[node name="ObjectiveHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer"]
 layout_mode = 2
-text = "Objective: "
+
+[node name="TextureRect" type="TextureRect" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 21)
+layout_mode = 2
+texture = ExtResource("3_db15u")
+stretch_mode = 4
+
+[node name="ObjectiveHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_53wth")
+text = "Main Objective"
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 60
+
+[node name="TurnCountContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TurnCountHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnCountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Turn : "
+horizontal_alignment = 2
+
+[node name="TurnCountLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnCountContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+text = "1234"
 
 [node name="ObjectiveLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer"]
 layout_mode = 2
-
-[node name="TurnCountPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(200, 30)
-layout_mode = 2
-theme = ExtResource("3_8tqbc")
-
-[node name="TurnCountContainer" type="HBoxContainer" parent="TurnCountPanel"]
-layout_mode = 2
-
-[node name="TurnCountHeaderLabel" type="Label" parent="TurnCountPanel/TurnCountContainer"]
-layout_mode = 2
-text = "Turn : "
-
-[node name="TurnCountLabel" type="Label" parent="TurnCountPanel/TurnCountContainer"]
-layout_mode = 2
+text = "This is a debug Label"

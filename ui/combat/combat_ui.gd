@@ -13,7 +13,7 @@ var ui_node_stack : Stack = Stack.new()
 @onready var unit_status: UnitSelectedFooterUI = $UnitStatus
 @onready var combat_tile_info: VBoxContainer = $combat_tile_info
 
-@onready var level_info_container: HBoxContainer = $LevelInfoContainer
+@onready var level_info_container: VBoxContainer = $LevelInfoContainer
 #@onready var battle_prep: BattlePrep = $BattlePrep
 
 
@@ -382,7 +382,11 @@ func update_combat_unit_detail_panel(combat_unit: CombatUnit):
 	var active_ui_node = ui_node_stack.peek()
 	active_ui_node.set_combat_unit(combat_unit)
 	#active_ui_node.update_by_unit()
-	
+
+func inspect_combat_unit_detail_panel():
+	var active_ui_node = ui_node_stack.peek()
+	active_ui_node.grab_inventory_focus()
+
 #
 #
 #

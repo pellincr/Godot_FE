@@ -22,6 +22,7 @@ signal send_to_convoy(item)
 const equipped_icon = preload("res://ui/battle_prep_new/unit_detailed_info/E.png")
 
 var unit :Unit
+var block_item_use : bool = false
 
 enum INVENTORY_STATE{
 	NONE,
@@ -49,6 +50,7 @@ func clear_slot(inventory_slot):
 	inventory_slot.set_item_name_label("")
 	inventory_slot.set_item_uses(-1)
 	inventory_slot.set_invetory_item_icon(null)
+	inventory_slot.update_item_type_icon(null)
 	inventory_slot.item = null
 
 func set_inventory_slot(item:ItemDefinition, slot):
@@ -60,18 +62,16 @@ func update_by_unit():
 		if slot_index < unit.inventory.items.size():
 			set_inventory_slot(unit.inventory.items[slot_index], inventory_slot_array[slot_index])
 			if unit.inventory.equipped:
-				var texture = TextureRect.new()
-				texture.texture = equipped_icon
-				inventory_slot_array[0].inventory_item_icon.add_child(texture)
+				var equipped_slot: InventoryContainerSlot = inventory_slot_array[0] 
+				equipped_slot.set_equipped(true)
 		else:
 			clear_slot(inventory_slot_array[slot_index])
 
 func clear_equipped_symbol(): #NOT WORKING
 	for slot in inventory_slot_array:
 		var children = slot.get_children()
-		for child in children:
-			if child is TextureRect and child.texture == equipped_icon:
-				child.queue_free()
+		for child :InventoryContainerSlot in children:
+			child.clear_equipped()
 """
 func set_inventory_for_trade_true():
 	for slot in inventory_slot_array:
@@ -96,6 +96,8 @@ func _on_item_focused(item):
 	item_focused.emit(item)
 
 func _on_inventory_slot_pressed(item):
+	if block_item_use:
+		return
 	match current_state:
 		INVENTORY_STATE.NONE:
 			if item:

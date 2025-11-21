@@ -452,7 +452,7 @@ func use_consumable_item( item: ItemDefinition):
 	if item is ConsumableItemDefinition:
 		match item.use_effect:
 			ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
-				heal(item.use_effect_power)
+				heal(item.power)
 			ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
 				if item.boost_stat != null:
 					unit_character.stats = CustomUtilityLibrary.add_unit_stat(unit_character.stats, item.boost_stat)

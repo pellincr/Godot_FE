@@ -1,17 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckorfcrg3m7eo"]
+[gd_scene load_steps=14 format=3 uid="uid://ckorfcrg3m7eo"]
 
 [ext_resource type="PackedScene" uid="uid://cqtdhgq4k72n0" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.tscn" id="1_18ejk"]
-[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_preview.gd" id="1_amclq"]
+[ext_resource type="Script" uid="uid://cwkih5k841vv0" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_preview.gd" id="1_amclq"]
 [ext_resource type="PackedScene" uid="uid://bkrqibh031py2" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.tscn" id="2_dbr8b"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="3_ohiay"]
 [ext_resource type="PackedScene" uid="uid://v518gv4vgx47" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow.tscn" id="4_door1"]
-[ext_resource type="Script" uid="uid://dsvp3rqrmflnx" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
+[ext_resource type="Script" uid="uid://sdyh8uwdp40y" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4evfg"]
-bg_color = Color(0, 0, 0, 0.313726)
+[sub_resource type="Gradient" id="Gradient_674xc"]
+offsets = PackedFloat32Array(0.55539566, 1)
+colors = PackedColorArray(0, 0, 0, 0.5411765, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cgtlm"]
+gradient = SubResource("Gradient_674xc")
+fill_from = Vector2(0.491453, 1)
+fill_to = Vector2(0.52136755, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fd18s"]
+texture = SubResource("GradientTexture2D_cgtlm")
 
 [sub_resource type="Theme" id="Theme_mwhw1"]
-Panel/styles/panel = SubResource("StyleBoxFlat_4evfg")
+Panel/styles/panel = SubResource("StyleBoxTexture_fd18s")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqmu3"]
 bg_color = Color(0, 0, 0, 1)

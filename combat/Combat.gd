@@ -261,7 +261,7 @@ func check_reinforcement_spawn(turn_number : int):
 	await get_tree().create_timer(0.5).timeout
 	reinforcement_check_completed.emit()
 
-func spawn_initial_units():
+func spawn_initial_units(): ##ENEMY
 	# do the units who have classes
 	# get added levels from hardmode
 	var _bonus_levels : int = 0

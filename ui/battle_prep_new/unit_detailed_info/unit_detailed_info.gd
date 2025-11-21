@@ -16,7 +16,7 @@ signal set_trade_item(item,unit)
 
 @onready var skills_container = $MarginContainer/HBoxContainer/LeftHalfContainer/SkillsContainer
 
-@onready var unit_inventory_container = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer
+@onready var unit_inventory_container : = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer
 
 @onready var combat_stats_container = $MarginContainer/HBoxContainer/RightHalfContainer/CombatStatContainer
 
@@ -31,20 +31,22 @@ signal set_trade_item(item,unit)
 
 
 var unit : Unit
-
-
+var block_item_use : bool = false
 
 func _ready():
 	if unit != null:
 		update_by_unit()
 
+func set_block_item_use(state: bool):
+	block_item_use = state
+	unit_inventory_container.block_item_use = state
 
 func set_hp_value(hp):
 	current_hp_label.text = str(hp) + "/" + str(unit.stats.hp)
 
 func set_hp_bar(hp):
-	hp_bar.value = hp
 	hp_bar.max_value = unit.stats.hp
+	hp_bar.value = hp
 
 func update_unit_icon(icon):
 	unit_icon.texture = icon
@@ -114,3 +116,8 @@ func _on_unit_inventory_container_item_focused(item) -> void:
 				equipment_detaied_info.item = item
 				item_info_container.add_child(equipment_detaied_info)
 				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+			elif item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
+				var treasure_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/treasure_detailed_info.tscn").instantiate()
+				treasure_detaied_info.item = item
+				item_info_container.add_child(treasure_detaied_info)
+				treasure_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR

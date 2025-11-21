@@ -1,15 +1,17 @@
-extends Panel
+extends PanelContainer
 class_name DiscardItemInventoryNew
 
 const DISCARD_ITEM_SELECTED = preload("res://ui/combat/discard_action_inventory_new/discard_item_selected.tscn")
 
-@onready var unit_inventory_slot_1: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot1
-@onready var unit_inventory_slot_2: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot2
-@onready var unit_inventory_slot_3: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot3
-@onready var unit_inventory_slot_4: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/UnitInventorySlot4
-@onready var incoming_item_button: UnitInventorySlot = $MarginContainer2/VBoxContainer/VBoxContainer2/IncomingItemButton
+@onready var unit_inventory_slot_1: UnitInventorySlot = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/UnitInventorySlot1
+@onready var unit_inventory_slot_2: UnitInventorySlot = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/UnitInventorySlot2
+@onready var unit_inventory_slot_3: UnitInventorySlot = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/UnitInventorySlot3
+@onready var unit_inventory_slot_4: UnitInventorySlot = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/UnitInventorySlot4
+@onready var incoming_item_button: UnitInventorySlot = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/IncomingItemButton
 
-@onready var equippable_item_information: EquippableItemInformation = $MarginContainer2/VBoxContainer/Equippable_item_information
+@onready var item_detail_container: PanelContainer = $HBoxContainer/ItemDetailContainer
+
+@onready var equippable_item_information: EquippableItemInformation = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Equippable_item_information
 
 signal item_selected(item:ItemDefinition)
 signal new_item_hovered(item:ItemDefinition)
@@ -66,9 +68,11 @@ func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition,
 		update_hover_item(item)
 
 func update_hover_item(item: ItemDefinition):
+	hovered_item = item
 	if item is WeaponDefinition:
 		equippable_item_information.update_hover_stats(combatUnit, item)
 		new_item_hovered.emit(item)
+	create_detail_panels()
 
 func reset_focus(item: ItemDefinition):
 	equippable_item_information.hovering_new_item = false
@@ -76,6 +80,7 @@ func reset_focus(item: ItemDefinition):
 	new_item_hovered.emit(item)
 
 func item_selected_button_press(item: ItemDefinition):
+	clear_detail_container()
 	create_discard_confirm_panel(item)
 
 func grab_focus_btn():
@@ -97,4 +102,35 @@ func close_confirm_container():
 
 func complete_discard_selection(item:ItemDefinition):
 	item_selected.emit(item)
-	
+
+func clear_detail_container():
+	var detail_panels = item_detail_container.get_children()
+	if not detail_panels.is_empty():
+		for panel in detail_panels:
+			panel.queue_free()
+
+func create_detail_panels():
+	clear_detail_container()
+	if hovered_item != null:
+		if hovered_item is WeaponDefinition:
+			var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
+			weapon_detailed_info.item = hovered_item
+			item_detail_container.add_child(weapon_detailed_info)
+			weapon_detailed_info.update_by_item()
+			weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif hovered_item is ConsumableItemDefinition:
+			var consumable_item_detailed_info =preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+			consumable_item_detailed_info.item = hovered_item
+			item_detail_container.add_child(consumable_item_detailed_info)
+			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif hovered_item is ItemDefinition:
+			if hovered_item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+				var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+				equipment_detaied_info.item = hovered_item
+				item_detail_container.add_child(equipment_detaied_info)
+				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+			elif hovered_item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
+				var treasure_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/treasure_detailed_info.tscn").instantiate()
+				treasure_detaied_info.item = hovered_item
+				item_detail_container.add_child(treasure_detaied_info)
+				treasure_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR

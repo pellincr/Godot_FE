@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cca377ur8nme3"]
+[gd_scene load_steps=9 format=3 uid="uid://cca377ur8nme3"]
 
 [ext_resource type="Theme" uid="uid://fihf40utah6i" path="res://ui/battle_prep_new/inventory_not_focused.tres" id="1_b2fil"]
 [ext_resource type="Script" uid="uid://dm2lyswggslww" path="res://ui/battle_prep_new/unit_detailed_info/inventory_container_slot.gd" id="2_q4pa1"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_my4qm"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_sqnff"]
+[ext_resource type="Script" uid="uid://d4mtodvoref3h" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="5_1q4ys"]
+[ext_resource type="Texture2D" uid="uid://xb1okf8u8p5q" path="res://resources/sprites/icons/unit_action_icons/inventory_icon.png" id="5_ccvdk"]
 
 [sub_resource type="Theme" id="Theme_if1ym"]
 default_font = ExtResource("4_sqnff")
@@ -37,11 +39,30 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="ItemNameLabel" type="Label" parent="HBoxContainer/LeftContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer/LeftContainer"]
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="HBoxContainer/LeftContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_if1ym")
 text = "Item Name"
 vertical_alignment = 1
+
+[node name="ItemTypeIcon" type="TextureRect" parent="HBoxContainer/LeftContainer/VBoxContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 2
+script = ExtResource("5_1q4ys")
+
+[node name="DroppableIcon" type="TextureRect" parent="HBoxContainer/LeftContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_ccvdk")
+expand_mode = 3
+stretch_mode = 4
 
 [node name="UsesLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2

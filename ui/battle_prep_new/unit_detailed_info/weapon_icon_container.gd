@@ -24,7 +24,23 @@ var item : ItemDefinition
 func set_header_visibility(vis):
 	weapons_header_label.visible = vis
 
+func clear_visibility():
+	sword_icon.visible = false
+	axe_icon.visible = false
+	lance_icon.visible = false
+	shield_icon.visible = false
+	dagger_icon.visible = false
+	fist_icon.visible = false
+	bow_icon.visible = false
+	banner_icon.visible = false
+	staff_icon.visible = false
+	nature_icon.visible = false
+	light_icon.visible = false
+	dark_icon.visible = false
+	animal_icon.visible = false
+
 func set_icon_visibility_unit():
+	clear_visibility()
 	var usable_weapons = unit.usable_weapon_types
 	var traits = unit.traits
 	#Weapons

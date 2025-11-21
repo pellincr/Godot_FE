@@ -70,12 +70,10 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="Damage100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/DamageValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
 [node name="Damage10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/DamageValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
@@ -89,12 +87,10 @@ theme = SubResource("Theme_1mus3")
 theme_override_constants/separation = 0
 
 [node name="Hit100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/HitValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
 [node name="Hit10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/HitValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
@@ -108,12 +104,10 @@ theme = SubResource("Theme_1mus3")
 theme_override_constants/separation = 0
 
 [node name="Critical100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/CriticalValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
 [node name="Critical10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/CriticalValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
@@ -127,12 +121,10 @@ theme = SubResource("Theme_1mus3")
 theme_override_constants/separation = 0
 
 [node name="Avoid100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AvoidValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
 [node name="Avoid10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AvoidValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
@@ -146,12 +138,10 @@ theme = SubResource("Theme_1mus3")
 theme_override_constants/separation = 0
 
 [node name="AttackSpeed100ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AttackSpeedValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
 [node name="AttackSpeed10ValueLabel" type="Label" parent="HBoxContainer/CombatStatValueContainer/AttackSpeedValueContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "0"
 
