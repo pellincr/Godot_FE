@@ -1,14 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://rutpjdu02rph"]
+[gd_scene load_steps=8 format=3 uid="uid://rutpjdu02rph"]
 
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_jn6tx"]
 [ext_resource type="Script" uid="uid://cyk6ixxni7780" path="res://unit drafting/Unit_Commander Draft/unit_select_overview.gd" id="2_j5hyn"]
 [ext_resource type="PackedScene" uid="uid://di7v11sroksay" path="res://unit drafting/Unit_Commander Draft/weapon_trait_icon_container.tscn" id="3_741w1"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="4_moeaa"]
 
 [sub_resource type="Theme" id="Theme_2a7jc"]
+default_font = ExtResource("4_moeaa")
 default_font_size = 36
 
 [sub_resource type="Theme" id="Theme_n1qum"]
 default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_bhcyq"]
+default_font = ExtResource("4_moeaa")
 
 [node name="UnitSelectOverview" type="Control"]
 layout_mode = 3
@@ -49,22 +54,27 @@ layout_mode = 2
 
 [node name="StatsHeaderLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/HeaderContainer"]
 layout_mode = 2
+theme = SubResource("Theme_bhcyq")
 text = "STATS"
 uppercase = true
 
 [node name="GrowthsHeaderLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/HeaderContainer"]
 layout_mode = 2
+theme = SubResource("Theme_bhcyq")
 text = "Grotwhs"
 uppercase = true
 
 [node name="GradeLabelContainer" type="VBoxContainer" parent="VBoxContainer/StatsOverviewContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = SubResource("Theme_bhcyq")
 
 [node name="StatsOverviewLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/GradeLabelContainer"]
 layout_mode = 2
+theme = SubResource("Theme_bhcyq")
 text = "A"
 
 [node name="GrowthsOverviewLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/GradeLabelContainer"]
 layout_mode = 2
+theme = SubResource("Theme_bhcyq")
 text = "B+"

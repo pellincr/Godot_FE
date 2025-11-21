@@ -40,10 +40,12 @@ layout_mode = 2
 
 [node name="GoldValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "0"
 
 [node name="GoldLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/GoldContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "G"
 
 [node name="FloorContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
@@ -52,10 +54,12 @@ size_flags_horizontal = 6
 
 [node name="FloorLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/FloorContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Floor"
 
 [node name="FloorValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/FloorContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "0"
 
 [node name="DifficultyContainer" type="HBoxContainer" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer"]
@@ -63,10 +67,12 @@ layout_mode = 2
 
 [node name="DifficultyLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/DifficultyContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Difficulty:"
 
 [node name="DifficultyValueLabel" type="Label" parent="MainHeaderContainer/PanelContainer/MarginContainer/CampaignInfoContainer/DifficultyContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Easy"
 
 [node name="ArtefactIconContainer" type="HBoxContainer" parent="MainHeaderContainer"]

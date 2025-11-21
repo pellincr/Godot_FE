@@ -1,6 +1,16 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cniserf33yy1g"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cniserf33yy1g"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_mm0u1"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_wrspe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrspe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rpyhx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_naoe0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x681j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6m6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01vw0"]
 bg_color = Color(0, 0, 0, 1)
@@ -13,6 +23,12 @@ border_width_right = 4
 border_width_bottom = 4
 
 [resource]
-default_font = ExtResource("1_mm0u1")
+default_font = ExtResource("1_wrspe")
+default_font_size = 32
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_wrspe")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_rpyhx")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_naoe0")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_x681j")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_i6m6q")
 Panel/styles/panel = SubResource("StyleBoxFlat_01vw0")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_b0s85")

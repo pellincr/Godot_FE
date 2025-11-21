@@ -91,7 +91,8 @@ func set_tier_container_icons(tier):
 	var i = 0
 	while i < tier:
 		var texture_rect := TextureRect.new()
-		texture_rect.texture = preload("res://resources/sprites/icons/infantry_icon.png")
+		texture_rect.texture = preload("res://resources/sprites/icons/star_icon.png")
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 		tier_container.add_child(texture_rect)
 		i += 1
 

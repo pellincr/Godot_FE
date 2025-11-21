@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dukbm08nt0oda"]
+[gd_scene load_steps=4 format=3 uid="uid://dukbm08nt0oda"]
 
-[ext_resource type="Script" path="res://ui/battle_prep_new/convoy/convoy_panel/convoy_panel.gd" id="1_8ywkn"]
+[ext_resource type="Script" uid="uid://btm2fob84dt5s" path="res://ui/battle_prep_new/convoy/convoy_panel/convoy_panel.gd" id="1_8ywkn"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_weou8"]
+
+[sub_resource type="Theme" id="Theme_v64cm"]
+default_font = ExtResource("2_weou8")
+default_font_size = 32
 
 [node name="ConvoyPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 50)
@@ -16,6 +21,7 @@ theme_override_constants/margin_bottom = 15
 
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
+theme = SubResource("Theme_v64cm")
 text = "Convoy"
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
