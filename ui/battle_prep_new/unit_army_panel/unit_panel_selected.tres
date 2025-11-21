@@ -1,6 +1,18 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c63n4u1rstriy"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://c63n4u1rstriy"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_5dw8b"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_rek1y"]
+[ext_resource type="Texture2D" uid="uid://baox2225sojam" path="res://resources/sprites/icons/Checked.png" id="1_riqs2"]
+[ext_resource type="Texture2D" uid="uid://cp5kul16nbb0c" path="res://resources/sprites/icons/Group 378.png" id="2_2n0xq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjacl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riqs2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2n0xq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u3p7i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wxn7u"]
 
 [sub_resource type="Gradient" id="Gradient_sur73"]
 offsets = PackedFloat32Array(0, 0.145749, 1)
@@ -19,6 +31,14 @@ border_width_right = 1
 border_width_bottom = 1
 
 [resource]
-default_font = ExtResource("1_5dw8b")
+default_font = ExtResource("1_rek1y")
+default_font_size = 32
+CheckBox/icons/checked = ExtResource("1_riqs2")
+CheckBox/icons/unchecked = ExtResource("2_2n0xq")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_yjacl")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_riqs2")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_2n0xq")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_u3p7i")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_wxn7u")
 Panel/styles/panel = SubResource("StyleBoxTexture_kh28c")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_bbyrm")

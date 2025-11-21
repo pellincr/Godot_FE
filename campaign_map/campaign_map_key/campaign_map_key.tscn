@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cu0nblwxq6ad4"]
+[gd_scene load_steps=5 format=3 uid="uid://cu0nblwxq6ad4"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_72sq3"]
 [ext_resource type="Script" uid="uid://dq4khokabjq53" path="res://campaign_map/campaign_map_key/campaign_map_key.gd" id="2_q4yfm"]
+
+[sub_resource type="Theme" id="Theme_bj3ql"]
 
 [sub_resource type="Theme" id="Theme_cykeg"]
 default_font_size = 28
@@ -16,6 +18,7 @@ script = ExtResource("2_q4yfm")
 layout_mode = 0
 offset_right = 175.0
 offset_bottom = 228.0
+theme = SubResource("Theme_bj3ql")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -30,6 +33,7 @@ theme = SubResource("Theme_cykeg")
 
 [node name="MapKeyHeaderLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Map Key"
 horizontal_alignment = 1
 
@@ -42,6 +46,7 @@ expand_mode = 3
 
 [node name="BossLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/BossContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Boss"
 
 [node name="KeyBattleContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -53,6 +58,7 @@ expand_mode = 3
 
 [node name="KeyBattleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/KeyBattleContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Key Battle"
 
 [node name="BattleContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -64,6 +70,7 @@ expand_mode = 3
 
 [node name="BattleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/BattleContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Battle"
 
 [node name="EventContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -75,6 +82,7 @@ expand_mode = 2
 
 [node name="EventLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/EventContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Event"
 
 [node name="TreasureContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -86,6 +94,7 @@ expand_mode = 3
 
 [node name="TreasureLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/TreasureContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Treasure"
 
 [node name="RecruitContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -97,4 +106,5 @@ expand_mode = 3
 
 [node name="RecruitLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/RecruitContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "- Recruit"

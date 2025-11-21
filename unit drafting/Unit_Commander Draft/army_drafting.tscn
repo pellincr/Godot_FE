@@ -1,14 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://fjug7h5xukk3"]
+[gd_scene load_steps=9 format=3 uid="uid://fjug7h5xukk3"]
 
 [ext_resource type="Script" uid="uid://k0jw4ofugyyo" path="res://unit drafting/Unit_Commander Draft/army_drafting.gd" id="1_54qw1"]
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_klef3"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_xrl8o"]
 [ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="4_xrl8o"]
 
 [sub_resource type="Theme" id="Theme_stt1w"]
 default_font_size = 36
 
 [sub_resource type="Theme" id="Theme_y16wd"]
-default_font_size = 36
+default_font = ExtResource("3_xrl8o")
+default_font_size = 48
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3b7fu"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

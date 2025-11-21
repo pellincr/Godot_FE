@@ -1,51 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://wak3vuvwex4l"]
+[gd_scene load_steps=7 format=3 uid="uid://wak3vuvwex4l"]
 
-[ext_resource type="Script" path="res://ui/battle_prep_new/unit_army_panel/unit_army_panel_container.gd" id="1_kkdmy"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_iuke7"]
+[ext_resource type="Script" uid="uid://bnjf3ufj7kip1" path="res://ui/battle_prep_new/unit_army_panel/unit_army_panel_container.gd" id="1_kkdmy"]
 [ext_resource type="Texture2D" uid="uid://da5b4ie8i1bal" path="res://resources/sprites/units/marauder.png" id="3_txfkw"]
 [ext_resource type="Texture2D" uid="uid://baox2225sojam" path="res://resources/sprites/icons/Checked.png" id="4_bftfq"]
 [ext_resource type="Texture2D" uid="uid://cp5kul16nbb0c" path="res://resources/sprites/icons/Group 378.png" id="5_m2x72"]
+
+[sub_resource type="Theme" id="Theme_eosa2"]
+default_font = ExtResource("1_iuke7")
+default_font_size = 32
 
 [node name="UnitArmyPanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 50)
 offset_right = 302.0
 offset_bottom = 52.0
 focus_mode = 2
+theme = SubResource("Theme_eosa2")
 script = ExtResource("1_kkdmy")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(300, 50)
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel"]
-layout_mode = 2
-offset_right = 300.0
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 0
+offset_right = 301.0
 offset_bottom = 50.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
+custom_minimum_size = Vector2(292, 42)
+layout_mode = 2
 theme_override_constants/separation = 60
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 mouse_filter = 2
 
-[node name="UnitIcon" type="TextureRect" parent="MarginContainer/Panel/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(35, 35)
+[node name="UnitIcon" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_txfkw")
-expand_mode = 2
-stretch_mode = 3
+expand_mode = 3
+stretch_mode = 5
 
-[node name="UnitNameLabel" type="Label" parent="MarginContainer/Panel/HBoxContainer/HBoxContainer"]
+[node name="UnitNameLabel" type="Label" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "Robert Bob Jr"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/Panel/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+[node name="CheckBox" type="CheckBox" parent="Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
