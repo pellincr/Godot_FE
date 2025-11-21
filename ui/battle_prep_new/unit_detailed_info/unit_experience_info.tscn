@@ -62,7 +62,7 @@ layout_mode = 2
 [node name="TierHeaderLabel" type="Label" parent="TierContainer"]
 layout_mode = 2
 theme = SubResource("Theme_kcqlu")
-text = "Tier  "
+text = "Tier "
 
 [node name="ExperienceBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(0, 3)

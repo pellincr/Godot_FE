@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b584lx6otusdt"]
+[gd_scene load_steps=9 format=3 uid="uid://b584lx6otusdt"]
 
 [ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_yvkr2"]
 [ext_resource type="Script" uid="uid://dg7g3ks37ju8b" path="res://ui/battle_prep_new/unit_detailed_info/unit_stat_progression.gd" id="2_3bbfo"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="3_sw66v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo4mh"]
 bg_color = Color(0, 0, 0, 1)
@@ -15,14 +16,16 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_e3lwf"]
 default_font = ExtResource("1_yvkr2")
+default_font_size = 32
 ProgressBar/styles/background = SubResource("StyleBoxFlat_uo4mh")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_wx011")
 
 [sub_resource type="Theme" id="Theme_07khm"]
-default_font_size = 12
+default_font = ExtResource("3_sw66v")
+default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_rmyy4"]
-default_font_size = 18
+default_font_size = 16
 
 [node name="UnitStatProgression" type="VBoxContainer"]
 offset_right = 210.0
@@ -63,6 +66,7 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(134, 3)
 layout_mode = 2
 size_flags_horizontal = 0
+step = 1.0
 show_percentage = false
 
 [node name="MagicContainer" type="VBoxContainer" parent="."]
@@ -242,19 +246,20 @@ show_percentage = false
 [node name="MoveContainer" type="HBoxContainer" parent="."]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
+size_flags_vertical = 4
 theme = SubResource("Theme_rmyy4")
 
 [node name="MoveHeaderLabel" type="Label" parent="MoveContainer"]
 custom_minimum_size = Vector2(134, 18)
 layout_mode = 2
-text = "Move
-"
+text = "Move"
 
 [node name="MoveValueLabel" type="Label" parent="MoveContainer"]
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "9"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="ConstitutionContainer" type="HBoxContainer" parent="."]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
@@ -269,5 +274,6 @@ text = "Constitution"
 [node name="ConstitutionValueLabel" type="Label" parent="ConstitutionContainer"]
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "17"
-horizontal_alignment = 2
+horizontal_alignment = 1

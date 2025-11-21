@@ -1,5 +1,5 @@
 extends Panel
-
+class_name UnitDetailedInfo
 
 const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
 const CONSUMABLE_ITEM_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn")

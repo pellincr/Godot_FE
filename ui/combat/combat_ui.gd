@@ -24,7 +24,7 @@ const BATTLE_PREP_MENU = preload("res://ui/battle_prep_new/battle_prep.tscn")
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
 # Detail Menu
-const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.tscn")
+const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/combat_unit_detailed_info.tscn")
 
 #Combat Action
 const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
@@ -368,20 +368,20 @@ func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData)
 # Populates and displayes the detailed info for a combat unit
 #
 func create_combat_unit_detail_panel(combat_unit: CombatUnit):
-	var unit_detailed_info_combat_map = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
-	self.add_child(unit_detailed_info_combat_map)
-	await unit_detailed_info_combat_map
-	unit_detailed_info_combat_map.unit = combat_unit
-	unit_detailed_info_combat_map.update_by_unit()
-	push_ui_node_stack(unit_detailed_info_combat_map)
+	var combat_unit_detailed_info : = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
+	self.add_child(combat_unit_detailed_info)
+	await combat_unit_detailed_info
+	combat_unit_detailed_info.set_combat_unit(combat_unit)
+	#unit_detailed_info_combat_map.update_by_unit()
+	push_ui_node_stack(combat_unit_detailed_info)
 	
 #
 # Populates and displayes the detailed info for a combat unit
 #
 func update_combat_unit_detail_panel(combat_unit: CombatUnit):
 	var active_ui_node = ui_node_stack.peek()
-	active_ui_node.unit = combat_unit
-	active_ui_node.update_by_unit()
+	active_ui_node.set_combat_unit(combat_unit)
+	#active_ui_node.update_by_unit()
 	
 #
 #

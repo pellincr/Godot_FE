@@ -52,6 +52,10 @@ func set_label_with_number(value_label : Label, val, percent = false):
 func set_progress_bar(progress_bar : ProgressBar, current_value, maximum_value):
 	progress_bar.max_value = maximum_value
 	progress_bar.value = current_value
+	progress_bar.step = 1
+	var _size = int(maximum_value * 134/35)
+	progress_bar.set_custom_minimum_size(Vector2(_size,3))
+	#progress_bar.set_size(Vector2(int(maximum_value/50 *134),0))
 
 
 func update_by_unit():

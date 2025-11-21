@@ -55,6 +55,9 @@ func set_level_number_label(level):
 	level_number_label.text = "lv " +  str(level)
 
 func set_tier_container_icons(tier):
+	if not tier_container.get_children().is_empty():
+		for child in tier_container.get_children():
+			child.queue_free()
 	var i = 0
 	while i < tier:
 		var texture_rect := TextureRect.new()
