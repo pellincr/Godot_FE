@@ -6,11 +6,11 @@
 script = ExtResource("1_6itm7")
 hp = 60
 strength = 11
-magic = 35
-skill = 25
-speed = 30
-luck = 30
-defense = 15
-resistance = 20
+magic = 40
+skill = 35
+speed = 40
+luck = 40
+defense = 20
+resistance = 35
 movement = 10
 constitution = 20

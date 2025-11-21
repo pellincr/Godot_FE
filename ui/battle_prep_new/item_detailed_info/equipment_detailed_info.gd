@@ -86,6 +86,9 @@ func set_item_description_label(desc):
 func set_value_label(label,value):
 	label.text = str(value)
 
+func set_value_label_percent(label,value):
+	label.text = str(value) + "%"
+
 func set_stat_boost_container(stats:CombatUnitStat):
 	var max_health = stats.hp
 	var damage = stats.damage
@@ -178,35 +181,35 @@ func set_growths_boost_container(growths:UnitStat):
 	var defense = growths.defense
 	var resistance = growths.resistance
 	if health != 0:
-		set_value_label(health_growth_value_label,health)
+		set_value_label_percent(health_growth_value_label,health)
 	else:
-		health_growth_value_label.visible = false
+		health_growth_container.visible = false
 	if strength != 0:
-		set_value_label(strength_growth_value_label,strength)
+		set_value_label_percent(strength_growth_value_label,strength)
 	else:
 		strength_growth_container.visible = false
 	if magic != 0:
-		set_value_label(magic_growth_value_label,magic)
+		set_value_label_percent(magic_growth_value_label,magic)
 	else:
 		magic_growth_container.visible = false
 	if skill != 0:
-		set_value_label(skill_growth_value_label,skill)
+		set_value_label_percent(skill_growth_value_label,skill)
 	else:
 		skill_growth_container.visible = false
 	if speed != 0:
-		set_value_label(speed_growth_value_label,speed)
+		set_value_label_percent(speed_growth_value_label,speed)
 	else:
 		speed_growth_container.visible = false
 	if luck != 0:
-		set_value_label(luck_growth_value_label,luck)
+		set_value_label_percent(luck_growth_value_label,luck)
 	else:
 		luck_growth_container.visible = false
 	if defense != 0:
-		set_value_label(defense_growth_value_label,defense)
+		set_value_label_percent(defense_growth_value_label,defense)
 	else:
 		defense_growth_container.visible = false
 	if resistance != 0:
-		set_value_label(resistance_growth_value_label,resistance)
+		set_value_label_percent(resistance_growth_value_label,resistance)
 	else:
 		resistance_growth_container.visible = false
 
