@@ -102,14 +102,15 @@ func update_selected_unit_range_tiles(selected_units: Array[CombatUnit] = select
 				cache.set(tile, true)
 
 func remove_unit(combatUnit: CombatUnit):
-	var unit_tiles = max_range[combatUnit].data
-	# remove all the instances of the combat unit being in the units_in_range_of_tile dictionary
-	for tile in unit_tiles:
-		units_in_range_of_tile[tile].data.erase(combatUnit)
-	#remove entries from other maps
-	max_range.erase(combatUnit)
-	enemy_range.erase(combatUnit)
-	selected_unit_list.erase(combatUnit)
+	if max_range.has(combatUnit):
+		var unit_tiles = max_range[combatUnit].data
+		# remove all the instances of the combat unit being in the units_in_range_of_tile dictionary
+		for tile in unit_tiles:
+			units_in_range_of_tile[tile].data.erase(combatUnit)
+		#remove entries from other maps
+		max_range.erase(combatUnit)
+		enemy_range.erase(combatUnit)
+		selected_unit_list.erase(combatUnit)
 
 func add_unit(combatUnit: CombatUnit):
 	# get the max range 
