@@ -8,8 +8,8 @@ extends HBoxContainer
 
 @onready var unit_type_full_stat_container = $VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/UnitTypeFullStatContainer
 
-@onready var weapon_type_container = $VBoxContainer/HBoxContainer/UnitTypeAlmanacWeaponTypes
-@onready var trait_type_container = $VBoxContainer/HBoxContainer/UnitTypeTraitContainer
+@onready var weapon_type_container = $VBoxContainer/HBoxContainer/VBoxContainer/UnitTypeAlmanacWeaponTypes
+@onready var trait_type_container = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/UnitTypeTraitContainer
 
 @onready var mercenary_label = $VBoxContainer/HBoxContainer/FactionContainer/Mercenary
 @onready var kingdom_label = $VBoxContainer/HBoxContainer/FactionContainer/Kingdom
@@ -19,7 +19,7 @@ extends HBoxContainer
 @onready var skeletal_label = $VBoxContainer/HBoxContainer/FactionContainer/Skeletal
 @onready var monster_label = $VBoxContainer/HBoxContainer/FactionContainer/Monster
 
-@onready var unit_icon = $VBoxContainer/HBoxContainer/Panel/UnitIcon
+@onready var unit_icon = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/UnitIcon
 
 @onready var unit_type_description_label = $VBoxContainer/PanelContainer/UnitTypeDescription
 

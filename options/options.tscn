@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2wv2v2nfjpci"]
+[gd_scene load_steps=5 format=3 uid="uid://c2wv2v2nfjpci"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_c0xh2"]
 [ext_resource type="Script" uid="uid://b5kj853ncpkar" path="res://options/options.gd" id="2_jtqf2"]
 [ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_dwof0"]
+[ext_resource type="PackedScene" uid="uid://baixd5nr123uf" path="res://ui/shared/version_label.tscn" id="3_jtqf2"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -13,6 +14,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_c0xh2")
 script = ExtResource("2_jtqf2")
+
+[node name="VersionLabel" parent="." instance=ExtResource("3_jtqf2")]
+layout_mode = 0
+anchors_preset = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

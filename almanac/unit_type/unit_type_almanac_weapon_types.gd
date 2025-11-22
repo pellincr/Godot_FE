@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends HBoxContainer
 
 @onready var sword_icon = $SwordIcon
 @onready var axe_icon = $AxeIcon

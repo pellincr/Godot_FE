@@ -34,10 +34,11 @@ func set_archetype_name_label(name):
 func update_by_archetype():
 	set_archetype_name_label(archetype.name)
 
+## TODO
 func check_if_unlocked():
-	var test = playerOverworldData.unlock_manager.archetypes_unlocked[archetype.db_key]
-	
-	return test
+	return true
+	#var test = playerOverworldData.unlock_manager.archetypes_unlocked[archetype.db_key]
+	#return test
 
 func update_set_locked():
 	set_archetype_name_label("???")

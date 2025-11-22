@@ -29,11 +29,11 @@ battle_levels = {
 
 [resource]
 script = ExtResource("2_ukuml")
-name = "Tutorial"
+name = "Intro Campaign"
 number_of_archetypes_drafted = 4
 max_floor_number = 9
 number_of_required_combat_maps = 4
 level_pool = SubResource("Resource_bnrb4")
 boss_commander = ExtResource("1_swunh")
-length = "Short"
+length = "30+ minutes"
 unit_unlock_rewards = Array[ExtResource("15_dybq7")]([ExtResource("1_swunh")])

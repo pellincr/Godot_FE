@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://bqflyxkqwk4cu"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ikra4"]
-[ext_resource type="Script" path="res://almanac/almanac.gd" id="2_8ydfc"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="3_lickx"]
+[ext_resource type="Script" uid="uid://cpgaob2ovotkp" path="res://almanac/almanac.gd" id="2_8ydfc"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="3_8tjd5"]
 [ext_resource type="PackedScene" uid="uid://h1lmy7pu0hfk" path="res://almanac/almanac_scroll_container.tscn" id="4_y0t33"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0def"]
@@ -17,7 +17,7 @@ border_color = Color(1, 1, 1, 1)
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_o0def")
 
 [sub_resource type="Theme" id="Theme_dtsd8"]
-default_font = ExtResource("3_lickx")
+default_font = ExtResource("3_8tjd5")
 default_font_size = 36
 
 [sub_resource type="Theme" id="Theme_jquec"]
@@ -60,23 +60,24 @@ alignment = 1
 [node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_dtsd8")
-text = "Unit Almanac"
+text = "Almanac"
 horizontal_alignment = 1
 
 [node name="-" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_jquec")
-text = "-
-"
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AlmanacTotalPercent" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_0s6gy")
-text = "-
-"
+text = "-"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="AlmanacScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_y0t33")]
 layout_mode = 2

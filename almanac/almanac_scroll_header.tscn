@@ -1,15 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://b36cv6rktmlvl"]
+[gd_scene load_steps=8 format=3 uid="uid://b36cv6rktmlvl"]
 
-[ext_resource type="Script" path="res://almanac/almanac_scroll_header.gd" id="1_py6or"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="1_i8hp3"]
+[ext_resource type="Script" uid="uid://dvt1x5ek4hnqg" path="res://almanac/almanac_scroll_header.gd" id="1_py6or"]
 [ext_resource type="Texture2D" uid="uid://cndlncw4udech" path="res://resources/sprites/controls/keyboard/q.png" id="2_l2ha6"]
 [ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://almanac/panel_container_focused.tres" id="3_ddvtm"]
 [ext_resource type="Theme" uid="uid://kdfakjl724jb" path="res://almanac/panel_container_not_focused.tres" id="4_b134o"]
 [ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_3mkh0"]
 
+[sub_resource type="Theme" id="Theme_nv305"]
+default_font = ExtResource("1_i8hp3")
+default_font_size = 32
+
 [node name="AlmanacScrollHeader" type="HBoxContainer"]
 custom_minimum_size = Vector2(350, 60)
 offset_right = 40.0
 offset_bottom = 40.0
+theme = SubResource("Theme_nv305")
 script = ExtResource("1_py6or")
 
 [node name="LeftBumperIcon" type="TextureRect" parent="."]
@@ -48,7 +54,7 @@ layout_mode = 2
 [node name="CommanderTypesLabel" type="Label" parent="CommanderTypesPanel/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
-text = "Commander Types"
+text = "Commanders"
 
 [node name="-" type="Label" parent="CommanderTypesPanel/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
@@ -94,7 +100,7 @@ layout_mode = 2
 [node name="ItemsLabel" type="Label" parent="ItemsPanel/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
-text = "Items"
+text = "Weapons"
 
 [node name="-" type="Label" parent="ItemsPanel/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
@@ -102,6 +108,54 @@ layout_mode = 2
 text = "-"
 
 [node name="ItemsPercent" type="Label" parent="ItemsPanel/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "100%"
+
+[node name="ItemsPanel2" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_b134o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemsPanel2"]
+layout_mode = 2
+
+[node name="ItemsLabel" type="Label" parent="ItemsPanel2/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Consumables"
+
+[node name="-" type="Label" parent="ItemsPanel2/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "-"
+
+[node name="ItemsPercent" type="Label" parent="ItemsPanel2/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "100%"
+
+[node name="ItemsPanel3" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_b134o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemsPanel3"]
+layout_mode = 2
+
+[node name="ItemsLabel" type="Label" parent="ItemsPanel3/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "Equipment"
+
+[node name="-" type="Label" parent="ItemsPanel3/HBoxContainer"]
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+text = "-"
+
+[node name="ItemsPercent" type="Label" parent="ItemsPanel3/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "100%"
