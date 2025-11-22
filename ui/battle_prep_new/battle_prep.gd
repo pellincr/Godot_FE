@@ -19,12 +19,15 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 @onready var campaign_header_map_view_spacer: PanelContainer = $MarginContainer/MainContainer/HeaderContainer/CampaignHeaderMapViewSpacer
 
 
+@onready var background_image: TextureRect = $CanvasLayer/BackgroundImage
 
 @onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
+const TRAINING_GROUND_BG = preload("res://ui/battle_prep_new/training_grounds/training_grounds.png")
+const GRAVEYARD_BG = preload("res://ui/battle_prep_new/graveyard/graveyard.png")
 var playerOverworldData : PlayerOverworldData #= ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name)#.duplicate(true)
 
 var tutorial_complete := true
@@ -105,11 +108,15 @@ func set_control_state(state:ControlsUI.CONTROL_STATE):
 	controls_ui_container.current_control_state = state
 	controls_ui_container.update_by_control_state()
 
+func set_background_image(texture):
+	background_image.texture = texture
+
 func update_by_state():
 	clear_existing_menus()
 	set_header_labels(current_state)
 	match current_state:
 		PREP_STATE.MENU:
+			set_background_image(null)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
 			if controls_ui_container.size_flags_vertical == Control.SIZE_SHRINK_BEGIN:
 				controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
@@ -159,6 +166,7 @@ func update_by_state():
 			inventory_prep_screen.screen_change.connect(_on_inventory_prep_screen_change)
 			main_container.add_child(inventory_prep_screen)
 		PREP_STATE.TRAINING_GROUNDS:
+			set_background_image(TRAINING_GROUND_BG)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
 			var training_grounds = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
 			training_grounds.set_po_data(playerOverworldData)
@@ -167,6 +175,7 @@ func update_by_state():
 			training_grounds.award_exp.connect(_on_award_exp)
 			training_grounds.screen_change.connect(_on_training_ground_screen_change)
 		PREP_STATE.GRAVEYARD:
+			set_background_image(GRAVEYARD_BG)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
 			var graveyard = preload("res://ui/battle_prep_new/graveyard/graveyard.tscn").instantiate()
 			graveyard.set_po_data(playerOverworldData)
@@ -179,6 +188,8 @@ func update_by_state():
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
 	current_state = state
 	update_by_state()
+
+
 
 func set_header_labels(state : PREP_STATE) -> void:
 	var upper_label_text = ""
@@ -225,10 +236,6 @@ func _on_return_to_menu():
 
 func _on_start_game():
 	if playerOverworldData.selected_party.size() > 0:
-		#playerOverworldData.began_level = true
-		#SelectedSaveFile.save(playerOverworldData)
-		#transition_out_animation()
-		#get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		begin_battle.emit()
 		queue_free()
 

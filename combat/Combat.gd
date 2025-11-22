@@ -36,7 +36,7 @@ var combatants : Array[CombatUnit] = []
 var inactive_units : Array[CombatUnit] = []
 var units: Array[CombatUnit]
 
-var groups = [ #TO BE UPDATED TO DICTIONARY
+@export_storage var groups = [ #TO BE UPDATED TO DICTIONARY
 	[], #players
 	[], #enemies
 	[], #FRIENDLY
@@ -134,12 +134,35 @@ func set_game_grid(game_grid : CombatMapGrid):
 
 func populate():
 	if is_tutorial:
-		set_player_tutorial_party()
-	spawn_initial_units()
-	for tile_index in ally_spawn_tiles.size():
-		if !(tile_index >= playerOverworldData.selected_party.size()):
-			add_combatant(create_combatant_unit(playerOverworldData.selected_party[tile_index],0),ally_spawn_tiles[tile_index])
-	entity_manager.load_entities()
+			set_player_tutorial_party()
+		
+	if !playerOverworldData.battle_prep_complete:
+		#if the level has not yet bgeun, spawn the units at their initial spawn points
+		spawn_initial_units()
+		for tile_index in ally_spawn_tiles.size():
+			if !(tile_index >= playerOverworldData.selected_party.size()):
+				add_combatant(create_combatant_unit(playerOverworldData.selected_party[tile_index],0),ally_spawn_tiles[tile_index])
+		entity_manager.load_entities()
+	else:
+		#if it has begun, spawn the units according to where they were saved
+		#var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
+		#var combat := campaign_level.get_child(2)
+		#Spawn Ally Units
+		#var ally_unit_indexes = combat.groups[0]
+		for unit: Unit in playerOverworldData.unit_positions.keys():
+			var saved_position = playerOverworldData.unit_positions[unit]
+			var combat_unit = create_combatant_unit(unit,0)
+			add_combatant(combat_unit, saved_position)
+		#for ally_unit_index in ally_unit_indexes:
+		#	var ally_unit :CombatUnit = combatants[ally_unit_index]
+		#	var saved_position = ally_unit.map_position
+		#	add_combatant(ally_unit, saved_position)
+		#Spawn Enemy Units
+		#var enemy_unit_indexes = combat.groups[1]
+		#for enemy_unit_index in enemy_unit_indexes:
+		#	var enemy_unit :CombatUnit = combatants[enemy_unit_index]
+		#	var saved_position = enemy_unit.map_position
+		#	add_combatant(enemy_unit, saved_position)
 
 
 func set_player_tutorial_party():
@@ -456,9 +479,16 @@ func Shove(unit:CombatUnit, target:CombatUnit):
 
 func complete_unit_turn():
 	get_current_combatant().turn_taken = true
-	
 
+func save_level_unit_positions():
+	for group in groups:
+		for unit_index in group:
+			var ally_combat_unit = combatants[unit_index]
+			playerOverworldData.unit_positions[ally_combat_unit] = ally_combat_unit.map_position
+		
 func advance_turn(faction: int):
+	#save_level_unit_positions()
+	#SelectedSaveFile.save(playerOverworldData)
 	## Reset Players to active
 	if faction < groups.size():
 		for entry in groups[faction]:
@@ -492,7 +522,8 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 
 func reset_game_state():
-	playerOverworldData.began_level = false
+	playerOverworldData.level_entered = false
+	playerOverworldData.battle_prep_complete = false
 	playerOverworldData.completed_drafting = false
 	playerOverworldData.current_level = null
 	playerOverworldData.current_campaign = null
@@ -893,7 +924,8 @@ func _on_rewards_complete():
 	refresh_expended_weapons()
 	#playerOverworldData.next_level = win_go_to_scene
 	#playerOverworldData.current_level += 1
-	playerOverworldData.began_level = false
+	playerOverworldData.level_entered = false
+	playerOverworldData.battle_prep_complete = false
 	if (is_key_campaign_level):
 		playerOverworldData.combat_maps_completed += 1
 	SelectedSaveFile.save(playerOverworldData)

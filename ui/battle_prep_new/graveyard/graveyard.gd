@@ -33,6 +33,7 @@ func set_po_data(po_data):
 
 func clear_screen():
 	for child in get_children():
+		if child is not TextureRect:
 			child.queue_free()
 
 func update_by_state():

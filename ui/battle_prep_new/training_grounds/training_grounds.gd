@@ -1,10 +1,12 @@
-extends HBoxContainer
+extends Control
 
 class_name TrainingGrounds
 
 signal return_to_menu()
 signal award_exp(unit:CombatUnit, xp:int)
 signal screen_change(state:TRAINING_STATE)
+
+@onready var training_grounds_container: HBoxContainer = $TrainingGroundsContainer
 
 var playerOverworldData : PlayerOverworldData
 
@@ -41,20 +43,24 @@ func update_by_state():
 			army_container.set_po_data(playerOverworldData)
 			army_container.set_units_list(playerOverworldData.total_party)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
-			add_child(army_container)
+			training_grounds_container.add_child(army_container)
 			army_container.fill_army_scroll_container()
+			army_container.size_flags_vertical = SIZE_SHRINK_BEGIN
 		TRAINING_STATE.GIVE_EXP:
 			var unit_level_info = preload("res://ui/battle_prep_new/training_grounds/unit_level_information/unit_level_info.tscn").instantiate()
 			unit_level_info.unit = chosen_unit
-			add_child(unit_level_info)
+			training_grounds_container.add_child(unit_level_info)
+			unit_level_info.size_flags_vertical = SIZE_SHRINK_CENTER
 			var bonus_experience_spend = preload("res://ui/battle_prep_new/training_grounds/bonus_experience_spend/bonus_experience_spend.tscn").instantiate()
 			bonus_experience_spend.unit = chosen_unit
 			bonus_experience_spend.available_bonus_exp = playerOverworldData.bonus_experience
 			bonus_experience_spend.award_exp.connect(_on_award_xp.bind(unit_level_info))
-			add_child(bonus_experience_spend)
+			training_grounds_container.add_child(bonus_experience_spend)
+			bonus_experience_spend.size_flags_vertical = SIZE_SHRINK_CENTER
+			
 
 func clear_screen():
-	for child in get_children():
+	for child in training_grounds_container.get_children():
 		child.queue_free()
 
 func _on_unit_panel_pressed(unit:Unit):

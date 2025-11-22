@@ -29,13 +29,15 @@ class_name PlayerOverworldData
 
 @export_group("Level Data")
 @export var current_level : PackedScene
-@export var began_level : bool = false
+@export var level_entered : bool = false #determines if the combat level was entered
+@export var battle_prep_complete := false #determines if the level prep was complete
 @export var total_party_capacity = 15 #number of units the player is allowed to own
 @export var available_party_capacity = 4 #number of units the player is allowed to use in dungeon
 @export var max_archetype = 4
 @export var total_party = []
 @export var dead_party_members = []
 @export var selected_party = []
+@export var unit_positions : Dictionary
 
 
 #THIS CAN BE MOVE ELSEWHERE

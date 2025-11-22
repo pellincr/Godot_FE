@@ -230,7 +230,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.KEY_BATTLE:
 			var battle_tier = playerOverworldData.combat_maps_completed
@@ -240,7 +240,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.EVENT:
 			SelectedSaveFile.save(playerOverworldData)
@@ -254,7 +254,7 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.TREASURE:
 			SelectedSaveFile.save(playerOverworldData)

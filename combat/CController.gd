@@ -141,11 +141,14 @@ func _ready():
 	##Set the correct states to begin FSM flow
 	rangeManager.update_output_arrays()
 	update_current_tile(combat.ally_spawn_tiles.front())
-	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
-	update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
+	if !combat.playerOverworldData.battle_prep_complete:
+		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION)
+		update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 	#Show Prep Screen
-	##Start Music
-	AudioManager.play_music("battle_prep_theme") ## CHANGE TO PREP THEME
+		##Start Music
+		AudioManager.play_music("battle_prep_theme") ## CHANGE TO PREP THEME
+	else:
+		begin_battle()
 	#begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
 
 #process called on frame

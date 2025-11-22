@@ -77,14 +77,15 @@ func _ready():
 	#set_level_info_container
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
 	level_info_container.set_turn_count_label(str(combat.current_turn))
-	var battle_prep = BATTLE_PREP_MENU.instantiate()
-	battle_prep.set_po_data(playerOverworldData)
-	add_child(battle_prep)
-	battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
-	battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
-	battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
-	battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
-	battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
+	if !playerOverworldData.battle_prep_complete:
+		var battle_prep = BATTLE_PREP_MENU.instantiate()
+		battle_prep.set_po_data(playerOverworldData)
+		add_child(battle_prep)
+		battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
+		battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
+		battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
+		battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
+		battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -569,6 +570,8 @@ func return_to_battle_prep_screen():
 
 func _on_battle_prep_begin_battle() -> void:
 	controller._on_battle_prep_start_battle()
+	#playerOverworldData.battle_prep_complete = true
+	SelectedSaveFile.save(playerOverworldData)
 	combat_tile_info.visible = true
 	level_info_container.visible = true
 

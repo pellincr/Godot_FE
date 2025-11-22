@@ -48,7 +48,7 @@ func _on_continue_game_button_pressed():
 	seed(playerOverworldData.capmaign_seed)
 	if playerOverworldData.completed_drafting:
 		if playerOverworldData.current_level:
-			if playerOverworldData.began_level:
+			if playerOverworldData.level_entered:
 				#if the level was previously being played
 				transition_out_animation()
 				get_tree().change_scene_to_packed(playerOverworldData.current_level)
@@ -109,7 +109,8 @@ func _on_new_game_button_pressed():
 	playerOverworldData.campaign_map_data.clear()
 	playerOverworldData.completed_drafting = false
 	playerOverworldData.current_level = null
-	playerOverworldData.began_level = false
+	playerOverworldData.level_entered = false
+	playerOverworldData.battle_prep_complete = false
 	playerOverworldData.floors_climbed = 0
 	playerOverworldData.current_archetype_count = 0
 	playerOverworldData.current_archetype_count = 0
@@ -127,7 +128,7 @@ func set_continue_game_button_text():
 	var str = ""
 	if playerOverworldData.completed_drafting:
 		str = playerOverworldData.current_campaign.name + " - Floor " + str(playerOverworldData.combat_maps_completed)
-		if playerOverworldData.began_level:
+		if playerOverworldData.level_entered:
 			str += " - Battle"
 		elif playerOverworldData.current_level:
 			str += " - Prep"
