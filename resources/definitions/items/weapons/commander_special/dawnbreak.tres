@@ -9,7 +9,6 @@
 [sub_resource type="Resource" id="Resource_x076x"]
 script = ExtResource("1_w6w4y")
 hp = 5
-movement = 1
 
 [sub_resource type="Resource" id="Resource_okj6i"]
 script = ExtResource("2_okj6i")

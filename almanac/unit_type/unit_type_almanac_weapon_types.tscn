@@ -5,15 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="2_xxsbp"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="3_fcjhj"]
 [ext_resource type="Texture2D" uid="uid://7lw5xtqqjdr0" path="res://resources/sprites/icons/weapon_icons/shield_icon.png" id="4_bbsss"]
-[ext_resource type="Texture2D" uid="uid://cixqa2gkoy1ut" path="res://resources/sprites/icons/dagger_icon.png" id="5_hneg5"]
 [ext_resource type="Texture2D" uid="uid://dllbrtren8dwq" path="res://resources/sprites/icons/weapon_icons/fist_icon.png" id="6_ujhmp"]
+[ext_resource type="Texture2D" uid="uid://qf20t24ttbok" path="res://resources/sprites/icons/weapon_icons/dagger_icon.png" id="6_ukach"]
 [ext_resource type="Texture2D" uid="uid://b70wq7k04a7e6" path="res://resources/sprites/icons/weapon_icons/bow_icon.png" id="7_hry4g"]
 [ext_resource type="Texture2D" uid="uid://d1ag5hugvxvj5" path="res://resources/sprites/icons/weapon_icons/banner_icon.png" id="8_vauxv"]
 [ext_resource type="Texture2D" uid="uid://co4ncbyfwrgna" path="res://resources/sprites/icons/weapon_icons/staff_icon.png" id="9_pv0yv"]
 [ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="10_o0byw"]
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="11_el5qa"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="12_ws2rh"]
-[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="13_cu5se"]
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="14_0xhc5"]
 
 [node name="UnitTypeAlmanacWeaponTypes" type="HBoxContainer"]
 custom_minimum_size = Vector2(16, 0)
@@ -60,7 +60,7 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("5_hneg5")
+texture = ExtResource("6_ukach")
 
 [node name="FistIcon" type="TextureRect" parent="."]
 visible = false
@@ -124,4 +124,4 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("13_cu5se")
+texture = ExtResource("14_0xhc5")
