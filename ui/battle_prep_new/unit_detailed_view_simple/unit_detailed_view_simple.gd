@@ -125,3 +125,6 @@ func _on_unit_inventory_container_item_focused(item: Variant) -> void:
 				add_child(equipment_detaied_info)
 				equipment_detaied_info.set_position(Vector2(330,20))
 				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+
+func get_first_inventory_container_slot():
+	return unit_inventory_container.inventory_container_slot_1

@@ -9,6 +9,8 @@ var playerOverworldData : PlayerOverworldData
 
 var focused := false
 
+var item_panels = []
+
 func set_po_data(po_data):
 	playerOverworldData = po_data
 	
@@ -16,6 +18,7 @@ func set_po_data(po_data):
 func fill_convoy_scroll_container():
 	for item in playerOverworldData.convoy:
 		var item_panel = preload("res://ui/battle_prep_new/item_panel/item_panel_container.tscn").instantiate()
+		item_panels.append(item_panel)
 		item_panel.item = item
 		main_container.add_child(item_panel)
 		item_panel.item_panel_pressed.connect(_on_item_panel_pressed)
@@ -62,3 +65,8 @@ func _on_item_panel_pressed(item):
 func reset_convoy_container():
 	clear_main_container()
 	fill_convoy_scroll_container()
+
+
+func set_foucs_neighbor_left(path):
+	for item_panel in item_panels:
+		item_panel.focus_neighbor_left = path

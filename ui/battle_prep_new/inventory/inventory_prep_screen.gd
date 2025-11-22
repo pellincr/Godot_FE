@@ -75,6 +75,7 @@ func update_by_state():
 			add_child(convoy)
 			convoy.fill_convoy_scroll_container()
 			convoy.item_panel_pressed.connect(_on_item_panel_pressed.bind(unit_detailed_view_simple,convoy))
+			convoy.set_foucs_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
 			if playerOverworldData.convoy.size() == 0:
 				unit_detailed_view_simple.grab_first_inventory_slot_focus()
 		INVENTORY_STATE.PICK_TRADE_UNIT:

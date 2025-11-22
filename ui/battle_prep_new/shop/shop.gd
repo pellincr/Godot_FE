@@ -63,6 +63,9 @@ func update_by_shop_state():
 				unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.SELL)
 				unit_detailed_view_simple.sell_item.connect(_on_item_sold)
 				shop_container.item_bought.connect(_on_item_bought_to_unit.bind(unit_detailed_view_simple))
+				main_container.add_child(shop_container)
+				shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
+				shop_container.tab_switched.connect(_on_shop_tab_switch.bind(shop_container,unit_detailed_view_simple))
 			else:
 				var convoy_container = preload("res://ui/battle_prep_new/convoy/convoy_container/convoy_container.tscn").instantiate()
 				convoy_container.set_po_data(playerOverworldData)
@@ -72,9 +75,10 @@ func update_by_shop_state():
 				convoy_container.fill_convoy_scroll_container()
 				convoy_container.item_panel_pressed.connect(_on_item_panel_pressed.bind(convoy_container))
 				shop_container.item_bought.connect(_on_item_bought_to_convoy.bind(convoy_container))
+				main_container.add_child(shop_container)
 			if playerOverworldData.floors_climbed / float(playerOverworldData.current_campaign.max_floor_number) > 0.5:
 				shop_container.expanded_shop = true
-			main_container.add_child(shop_container)
+			
 			shop_container.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_SHRINK_END
 
 
@@ -130,3 +134,6 @@ func _on_item_panel_pressed(item:ItemDefinition, convoy_container):
 	playerOverworldData.convoy.erase(item)
 	convoy_container.focused = false
 	convoy_container.reset_convoy_container()
+
+func _on_shop_tab_switch(shop_container, unit_detailed_view_simple):
+	shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
