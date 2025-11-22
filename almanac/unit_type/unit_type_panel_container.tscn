@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://almanac/panel_container_focused.tres" id="1_77ubq"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="2_f0wfo"]
-[ext_resource type="Script" path="res://almanac/unit_type/unit_type_panel_container.gd" id="2_o427w"]
+[ext_resource type="Script" uid="uid://vt2akrg3ffi5" path="res://almanac/unit_type/unit_type_panel_container.gd" id="2_o427w"]
 
 [node name="UnitTypePanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(350, 80)

@@ -48,6 +48,10 @@ func update_set_locked():
 func _on_mouse_entered():
 	grab_focus()
 
-##TODO FIX THIS
 func check_if_unlocked():
-	return unit_type.unlocked
+	var unlocked : bool
+	if unit_type is CommanderDefinition:
+		unlocked = playerOverworldData.unlock_manager.commander_types_unlocked[unit_type]
+	else:
+		unlocked = playerOverworldData.unlock_manager.unit_types_unlocked[unit_type]
+	return unlocked
