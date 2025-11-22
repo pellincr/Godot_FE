@@ -935,7 +935,7 @@ func _on_rewards_complete():
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 	else:
 		if playerOverworldData.last_room.type == CampaignRoom.TYPE.KEY_BATTLE or playerOverworldData.last_room.type == CampaignRoom.TYPE.BATTLE:
-			playerOverworldData.began_level = false
+			playerOverworldData.level_entered = false
 			playerOverworldData.current_level = null
 			SelectedSaveFile.save(playerOverworldData)
 			#Determine if a tier 1 unit needs to be promoted or not

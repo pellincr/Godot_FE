@@ -270,10 +270,10 @@ func _on_award_exp(unit:CombatUnit, xp:int):
 func update_training_grounds_stats():
 	if current_state == PREP_STATE.TRAINING_GROUNDS:
 		var training_grounds = main_container.get_child(1)
-		var unit_level_info = training_grounds.get_child(0)
+		var unit_level_info = training_grounds.get_child(0).get_child(0)
 		unit_level_info.unit.hp = unit_level_info.unit.stats.hp
 		unit_level_info.update_by_unit()
-		var bonus_exp_spend = training_grounds.get_child(1)
+		var bonus_exp_spend = training_grounds.get_child(0).get_child(1)
 		bonus_exp_spend.update_by_unit()
 
 func _on_unit_revived(cost):

@@ -69,9 +69,10 @@ func update_by_unit():
 
 func clear_equipped_symbol(): #NOT WORKING
 	for slot in inventory_slot_array:
-		var children = slot.get_children()
-		for child :InventoryContainerSlot in children:
-			child.clear_equipped()
+		slot.clear_equipped()
+		#var children = slot.get_children()
+		#for child : InventoryContainerSlot in children:
+			#child.clear_equipped()
 """
 func set_inventory_for_trade_true():
 	for slot in inventory_slot_array:
