@@ -20,6 +20,7 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 
 
 @onready var background_image: TextureRect = $CanvasLayer/BackgroundImage
+@onready var background_blur: ColorRect = $CanvasLayer/BackgroundBlur
 
 @onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
 
@@ -47,6 +48,7 @@ var current_state := PREP_STATE.MENU
 var pause_menu_open = false
 
 func _ready() -> void:
+	
 	#transition_in_animation()
 	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
@@ -116,6 +118,7 @@ func update_by_state():
 	set_header_labels(current_state)
 	match current_state:
 		PREP_STATE.MENU:
+			background_blur.visible = true
 			set_background_image(null)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
 			if controls_ui_container.size_flags_vertical == Control.SIZE_SHRINK_BEGIN:
@@ -145,6 +148,7 @@ func update_by_state():
 			unit_selection.unit_selected.connect(_on_unit_selected)
 			unit_selection.unit_deselected.connect(_on_unit_deselected)
 		PREP_STATE.SWAP_SPACES:
+			background_blur.visible = false
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SWAP_SPACES)
 			controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 			swap_spaces.emit()
