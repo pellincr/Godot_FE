@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjbn6qiqitrdm"]
 
 [ext_resource type="Theme" uid="uid://ddyvfeyue3va8" path="res://almanac/panel_container_focused.tres" id="1_n60p0"]
-[ext_resource type="Script" path="res://almanac/archetype/archetype_panel_container.gd" id="2_qi1l6"]
+[ext_resource type="Script" uid="uid://brb83qfijys8h" path="res://almanac/archetype/archetype_panel_container.gd" id="2_qi1l6"]
 
 [node name="ArchetypePanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(350, 80)

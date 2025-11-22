@@ -36,7 +36,8 @@ func update_by_archetype():
 
 ## TODO
 func check_if_unlocked():
-	return true
+	return archetype.unlocked
+	#return true
 	#var test = playerOverworldData.unlock_manager.archetypes_unlocked[archetype.db_key]
 	#return test
 

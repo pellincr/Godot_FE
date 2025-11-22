@@ -563,6 +563,7 @@ func _on_battle_prep_swap_spaces() -> void:
 func return_to_battle_prep_screen():
 	combat_tile_info.visible = false
 	level_info_container.visible = false
+	unit_status.visible = false
 	var battle_prep = get_child(-1)
 	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
 	battle_prep.update_by_state()

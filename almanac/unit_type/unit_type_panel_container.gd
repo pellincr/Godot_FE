@@ -50,11 +50,4 @@ func _on_mouse_entered():
 
 ##TODO FIX THIS
 func check_if_unlocked():
-	if UnitTypeDatabase.get_commander_definition(unit_type.db_key):
-		#var test = playerOverworldData.unlock_manager.commander_types_unlocked[unit_type.db_key]
-		#return test
-		return true
-	elif UnitTypeDatabase.get_unit_definition(unit_type.db_key):
-		#var test = playerOverworldData.unlock_manager.unit_types_unlocked.get(unit_type.db_key)
-		#return test
-		return true
+	return unit_type.unlocked

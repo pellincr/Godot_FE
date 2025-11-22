@@ -1717,7 +1717,7 @@ func fsm_prep_unit_select(delta):
 		if Input.is_action_just_pressed("start_button"):
 			if combat.ally_spawn_tiles.has(current_tile):
 				swap_units(current_tile)
-		elif Input.is_action_just_pressed("ui_back") or Input.is_action_just_pressed("ui_back"):
+		elif Input.is_action_just_pressed("ui_back"):
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 			combat.game_ui.return_to_battle_prep_screen()
 			#combat.game_ui.create_combat_map_game_menu() ## **CRAIG** CHANGE TO PREP MAP MENU
