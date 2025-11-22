@@ -188,7 +188,6 @@ func play_equipped_item_sound(item : ItemDefinition):
 			selected_sound_effect = "magic_equip"
 	AudioManager.play_sound_effect(selected_sound_effect)
 
-
 """
 func _on_item_set_for_trade(item):
 	set_trade_item.emit(item)
@@ -214,3 +213,8 @@ func disable_inventory_focus():
 func enable_inventory_focus():
 	for slot in inventory_slot_array:
 		slot.focus_mode = FOCUS_ALL
+
+
+func set_inventory_slots_left_focus_neighbor(path):
+	for inventory_container in inventory_slot_array:
+		inventory_container.focus_neighbor_left = path

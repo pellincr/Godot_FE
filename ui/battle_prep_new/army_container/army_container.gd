@@ -25,6 +25,11 @@ func set_po_data(po_data):
 func set_units_list(u_list):
 	units_list = u_list
 
+func get_unit_panel_from_container(unit:Unit):
+	for unit_panel in unit_panels:
+		if unit_panel.unit == unit:
+			return unit_panel
+
 func fill_army_scroll_container(add_convoy:=false):
 	for unit in units_list:
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
@@ -50,8 +55,11 @@ func fill_army_scroll_container(add_convoy:=false):
 func unit_focus_entered(unit):
 	var unit_detailed_info = preload("res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tscn").instantiate()
 	unit_detailed_info.unit = unit
+	var unit_panel = get_unit_panel_from_container(unit)
 	clear_detailed_view()
 	add_child(unit_detailed_info)
+	unit_panel.focus_neighbor_right = unit_detailed_info.get_first_inventory_container_slot().get_path()
+	unit_detailed_info.unit_inventory_container.set_inventory_slots_left_focus_neighbor(unit_panel.get_path())
 
 func _on_unit_panel_pressed(unit:Unit):
 	unit_panel_pressed.emit(unit)
