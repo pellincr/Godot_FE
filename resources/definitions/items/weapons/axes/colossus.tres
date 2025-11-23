@@ -29,5 +29,5 @@ description = "A weapon as vast as its name, it infuses the bearer with towering
 rarity = ExtResource("3_i6pjt")
 uses = 10
 max_uses = 10
-worth = 120000
+worth = 12000
 icon = ExtResource("2_cm38f")

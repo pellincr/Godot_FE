@@ -16,6 +16,7 @@ func set_po_data(po_data):
 	
 
 func fill_convoy_scroll_container():
+	playerOverworldData.convoy.sort_custom(CustomUtilityLibrary.sort_item)
 	for item in playerOverworldData.convoy:
 		var item_panel = preload("res://ui/battle_prep_new/item_panel/item_panel_container.tscn").instantiate()
 		item_panels.append(item_panel)

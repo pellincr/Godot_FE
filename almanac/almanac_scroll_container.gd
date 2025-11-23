@@ -101,32 +101,45 @@ func fill_main_scroll_container_weapons():
 		if !focused:
 			item_panel_container.grab_focus.call_deferred()
 			focused = true
-	for item_key in item_keys:
-		var item = ItemDatabase.items[item_key]
+	var items: Array[ItemDefinition] = []
+	for key in item_keys:
+		var item = ItemDatabase.items[key]
 		if item is WeaponDefinition:
-			var item_panel_container = item_panel_container_scene.instantiate()
-			item_panel_container.item = item
-			main_scroll_container.add_child(item_panel_container)
-			item_panel_container.focus_entered.connect(_on_item_panel_focused.bind(item))
+			items.append(item)
+	items.sort_custom(CustomUtilityLibrary.sort_item)
+	for item in items:
+		var item_panel_container = item_panel_container_scene.instantiate()
+		item_panel_container.item = item
+		main_scroll_container.add_child(item_panel_container)
+		item_panel_container.focus_entered.connect(_on_item_panel_focused.bind(item))
 
 func fill_main_scroll_container_equpiment():
 	var item_keys := ItemDatabase.items.keys()
-	for item_key in item_keys:
-		var item = ItemDatabase.items[item_key]
-		if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
-			var item_panel_container = item_panel_container_scene.instantiate()
-			item_panel_container.item = item
-			main_scroll_container.add_child(item_panel_container)
-			item_panel_container.focus_entered.connect(_on_item_panel_focused.bind(item))
-			if !focused:
-				item_panel_container.grab_focus.call_deferred()
-				focused = true
+	var items: Array[ItemDefinition] = []
+	for key in item_keys:
+		var item = ItemDatabase.items[key]
+		if item is ItemDefinition:
+			if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+				items.append(item)
+	items.sort_custom(CustomUtilityLibrary.sort_item)
+	for item in items:
+		var item_panel_container = item_panel_container_scene.instantiate()
+		item_panel_container.item = item
+		main_scroll_container.add_child(item_panel_container)
+		item_panel_container.focus_entered.connect(_on_item_panel_focused.bind(item))
+		if !focused:
+			item_panel_container.grab_focus.call_deferred()
+			focused = true
 
 func fill_main_scroll_container_consumable():
 	var item_keys := ItemDatabase.items.keys()
-	for item_key in item_keys:
-		var item = ItemDatabase.items[item_key]
-		if  item is ConsumableItemDefinition:
+	var items: Array[ItemDefinition] = []
+	for key in item_keys:
+		var item = ItemDatabase.items[key]
+		if item is ConsumableItemDefinition:
+			items.append(item)
+	items.sort_custom(CustomUtilityLibrary.sort_item)
+	for item in items:
 			var item_panel_container = item_panel_container_scene.instantiate()
 			item_panel_container.item = item
 			main_scroll_container.add_child(item_panel_container)

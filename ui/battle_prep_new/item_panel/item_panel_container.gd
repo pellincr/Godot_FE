@@ -29,6 +29,9 @@ func set_item_icon(texture):
 func set_item_name_label(item_name):
 	item_name_label.text = item_name
 
+func set_item_rarity_header(rarity : Rarity):
+	item_name_label.set("theme_override_colors/font_color",rarity.ui_color)
+
 func set_uses_label(use_count):
 	if use_count > 0:
 		uses_label.text = str(use_count)
@@ -39,6 +42,7 @@ func update_by_item():
 	set_item_icon(item.icon)
 	update_item_type_icon_by_item()
 	set_item_name_label(item.name)
+	set_item_rarity_header(item.rarity)
 	if item.unbreakable:
 		set_uses_label(0)
 	else :

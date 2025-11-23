@@ -117,3 +117,22 @@ func append_array_unique(arr1: Array, arr2:Array):
 		if not arr1.has(entry):
 			arr1.append(entry)
 	
+func sort_item(a:ItemDefinition, b:ItemDefinition):
+	# First check rarity,
+	if a.rarity != b.rarity:
+		return sort_by_rarity(a.rarity, b.rarity)
+	# Check Name
+	elif a.name != a.name:
+		return sort_name 
+	# Check Value
+	elif a.calculate_price() != b.calculate_price():
+		return a.calculate_price() < b.calculate_price()
+
+func sort_item_by_rarity(a:ItemDefinition, b:ItemDefinition):
+	return sort_by_rarity(a.rarity, b.rarity)
+	
+func sort_by_rarity(a: Rarity, b : Rarity):
+	return a.sort_score < b.sort_score
+
+func sort_name(a:String, b: String):
+	return a < b

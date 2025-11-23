@@ -114,6 +114,7 @@ func fill_current_tab_view():
 		items_list = filter_by_weapon_type(current_tab_subtheme)
 	elif current_tab_theme == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 		items_list = filter_by_useable_item()
+	items_list.sort_custom(CustomUtilityLibrary.sort_item)
 	for item in items_list:
 		var item_panel_container = item_panel_container_scene.instantiate()
 		current_item_panels.append(item_panel_container)
