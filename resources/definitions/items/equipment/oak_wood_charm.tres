@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_2tsue"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="1_pa6i4"]
+[ext_resource type="Texture2D" uid="uid://cfbublp5o1fve" path="res://resources/sprites/items/equipment/oak_wood_charm.png" id="2_jsnkl"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_wo2eg"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_4qcwu"]
-
-[sub_resource type="Resource" id="Resource_20iqd"]
-metadata/__load_path__ = "res://resources/sprites/items/equipment/oak_wood_charm.png"
 
 [sub_resource type="Resource" id="Resource_nlglf"]
 script = ExtResource("2_wo2eg")
@@ -20,4 +18,4 @@ description = "A charm carved from a mighty oak tree, grant 10 avoid when held."
 item_type = 3
 rarity = ExtResource("3_4qcwu")
 inventory_bonus_stats = SubResource("Resource_nlglf")
-icon = SubResource("Resource_20iqd")
+icon = ExtResource("2_jsnkl")

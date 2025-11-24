@@ -29,7 +29,6 @@ extends PanelContainer
 @onready var resistance_stat_container: HBoxContainer = $MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/ResistanceStatContainer
 @onready var resistance_stat_value_label: Label = $MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/ResistanceStatContainer/ResistanceStatValueLabel
 
-
 @onready var item_growths_boost_container: VBoxContainer = $MarginContainer/MainContainer/ItemGrowthsBoostContainer
 
 @onready var health_growth_container: HBoxContainer = $MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer
@@ -133,47 +132,49 @@ func set_growths_boost_container(growths:UnitStat):
 	else:
 		resistance_growth_container.visible = false
 
-func set_stats_boost_container(growths:UnitStat):
-	var health = growths.hp
-	var strength = growths.strength
-	var magic = growths.magic
-	var skill = growths.skill
-	var speed = growths.speed
-	var luck = growths.luck
-	var defense = growths.defense
-	var resistance = growths.resistance
+func set_stats_boost_container(stats:UnitStat):
+	var health = stats.hp
+	var strength = stats.strength
+	var magic = stats.magic
+	var skill = stats.skill
+	var speed = stats.speed
+	var luck = stats.luck
+	var defense = stats.defense
+	var resistance = stats.resistance
+	var constitution = stats.constitution
+	var move = stats.movement
 	if health != 0:
 		set_value_label(health_stat_value_label,health)
 	else:
-		health_growth_container.visible = false
+		health_stat_container.visible = false
 	if strength != 0:
 		set_value_label(strength_stat_value_label,strength)
 	else:
-		strength_growth_container.visible = false
+		strength_stat_container.visible = false
 	if magic != 0:
 		set_value_label(magic_stat_value_label,magic)
 	else:
-		magic_growth_container.visible = false
+		magic_stat_container.visible = false
 	if skill != 0:
 		set_value_label(skill_stat_value_label,skill)
 	else:
-		skill_growth_container.visible = false
+		skill_stat_container.visible = false
 	if speed != 0:
 		set_value_label(speed_stat_value_label,speed)
 	else:
-		speed_growth_container.visible = false
+		speed_stat_container.visible = false
 	if luck != 0:
 		set_value_label(luck_stat_value_label,luck)
 	else:
-		luck_growth_container.visible = false
+		luck_stat_container.visible = false
 	if defense != 0:
 		set_value_label(defense_stat_value_label,defense)
 	else:
-		defense_growth_container.visible = false
+		defense_stat_container.visible = false
 	if resistance != 0:
 		set_value_label(resistance_stat_value_label,resistance)
 	else:
-		resistance_growth_container.visible = false
+		resistance_stat_container.visible = false
 
 func update_by_item():
 	set_name_label(item.name)

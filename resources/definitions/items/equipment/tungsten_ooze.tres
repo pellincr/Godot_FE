@@ -8,12 +8,13 @@
 
 [sub_resource type="Resource" id="Resource_0uoup"]
 script = ExtResource("1_oc7mi")
-special = 14
+special = 15
 metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [sub_resource type="Resource" id="Resource_phbw1"]
 script = ExtResource("3_vrbx3")
 defense = 5
+movement = -1
 metadata/_custom_type_script = "uid://vapttex4fj3j"
 
 [resource]

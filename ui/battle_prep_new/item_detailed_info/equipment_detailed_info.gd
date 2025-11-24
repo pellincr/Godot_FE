@@ -40,6 +40,10 @@ extends PanelContainer
 @onready var defense_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/DefenseContainer/DefenseStatValueLabel
 @onready var resistance_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ResistanceContainer
 @onready var resistance_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ResistanceContainer/ResistanceStatValueLabel
+@onready var constitution_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ConstitutionContainer
+@onready var constitution_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/ConstitutionContainer/ConstitutionStatValueLabel
+@onready var move_container: HBoxContainer = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/MoveContainer
+@onready var move_stat_value_label: Label = $MarginContainer/VBoxContainer/ItemStatsBoostContainer/ItemStatsBoostContainer/MoveContainer/MoveStatValueLabel
 
 
 @onready var item_growths_boost_container: VBoxContainer = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer
@@ -61,7 +65,7 @@ extends PanelContainer
 @onready var resistance_growth_value_label: Label = $MarginContainer/VBoxContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthContainer/ResistanceGrowthValueLabel
 
 @onready var special_effects_container: VBoxContainer = $MarginContainer/VBoxContainer/SpecialEffectsContainer
-
+@onready var special_effects_label_container: VBoxContainer = $MarginContainer/VBoxContainer/SpecialEffectsContainer/SpecialEffectLabelContainer
 
 var item : ItemDefinition
 
@@ -105,6 +109,8 @@ func set_stat_boost_container(stats:CombatUnitStat):
 	var luck = stats.luck
 	var defense = stats.defense
 	var resistance = stats.resistance
+	var constitution = stats.constitution
+	var move = stats.movement
 	if max_health != 0:
 		set_value_label(health_stat_value_label,max_health)
 	else:
@@ -169,6 +175,14 @@ func set_stat_boost_container(stats:CombatUnitStat):
 		set_value_label(resistance_stat_value_label,resistance)
 	else:
 		resistance_container.visible = false
+	if constitution != 0:
+		set_value_label(constitution_stat_value_label,constitution)
+	else:
+		constitution_container.visible = false
+	if move != 0:
+		set_value_label(move_stat_value_label,move)
+	else:
+		move_container.visible = false
 
 
 func set_growths_boost_container(growths:UnitStat):
@@ -218,7 +232,7 @@ func update_special_container(held_specials:Array[SpecialEffect]):
 		var spec_text = held_special.to_string()
 		var label = Label.new()
 		label.text = spec_text
-		special_effects_container.add_child(label)
+		special_effects_label_container.add_child(label)
 
 
 func update_by_item():

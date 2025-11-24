@@ -111,7 +111,7 @@ func _to_string() -> String:
 		SPECIAL_EFFECT.REMOVE_ARMOR_EFFECTIVE:
 			s = "Remove Armor Eff"
 		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE:
-			s = "Add Armor Eff"
+			s = "Add Armor Trait"
 		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE_ATTACK:
 			s = "Add Armor Eff Atk"
 		SPECIAL_EFFECT.REMOVE_MOUNTED_EFFECTIVE:

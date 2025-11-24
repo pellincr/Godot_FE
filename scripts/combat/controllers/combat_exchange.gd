@@ -635,7 +635,7 @@ func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitS
 	var player_unit: CombatUnit
 	var enemy_unit: CombatUnit
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
-	
+	supporter.get_equipped().use()
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
 			await heal_unit(target, turn.effect_weight)
