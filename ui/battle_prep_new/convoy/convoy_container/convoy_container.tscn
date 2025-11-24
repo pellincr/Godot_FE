@@ -9,6 +9,7 @@ script = ExtResource("1_u8c2y")
 [node name="ConvoyScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(350, 500)
 layout_mode = 2
+follow_focus = true
 
 [node name="MainContainer" type="VBoxContainer" parent="ConvoyScrollContainer"]
 layout_mode = 2

@@ -367,6 +367,7 @@ func set_starting_inventory(unit_class) -> Array[ItemDefinition]:
 	if unit_type is CommanderDefinition:
 		inventory.append(unit_type.signature_weapon)
 		inventory.append(ItemDatabase.items["potion"])
+		inventory.append(ItemDatabase.items["band_of_fortune"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.SWORD):
 		inventory.append(ItemDatabase.items["iron_sword"])
 	if weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):

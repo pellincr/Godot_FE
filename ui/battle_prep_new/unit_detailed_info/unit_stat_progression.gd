@@ -2,36 +2,52 @@ extends VBoxContainer
 
 #Strength
 @onready var strength_value_label = $StrengthContainer/HBoxContainer/StrengthValueLabel
+@onready var strength_equipment_stat_label: Label = $StrengthContainer/HBoxContainer/StrengthEquipmentStatLabel
 @onready var strength_growth_label = $StrengthContainer/HBoxContainer/StrengthGrowthLabel
+@onready var strength_equipment_growth_label: Label = $StrengthContainer/HBoxContainer/StrengthEquipmentGrowthLabel
 @onready var strength_progress = $StrengthContainer/StrengthProgress
 #Magic
 @onready var magic_value_label = $MagicContainer/HBoxContainer/MagicValueLabel
+@onready var magic_equipment_stat_label: Label = $MagicContainer/HBoxContainer/MagicEquipmentStatLabel
 @onready var magic_growth_label = $MagicContainer/HBoxContainer/MagicGrowthLabel
+@onready var magic_equipment_growth_label: Label = $MagicContainer/HBoxContainer/MagicEquipmentGrowthLabel
 @onready var magic_progress = $MagicContainer/MagicProgress
 #Skill
 @onready var skill_value_label = $SkillContainer/HBoxContainer/SkillValueLabel
+@onready var skill_equipment_stat_label: Label = $SkillContainer/HBoxContainer/SkillEquipmentStatLabel
 @onready var skill_growth_label = $SkillContainer/HBoxContainer/SkillGrowthLabel
+@onready var skill_equipment_growth_label: Label = $SkillContainer/HBoxContainer/SkillEquipmentGrowthLabel
 @onready var skill_progress = $SkillContainer/SkillProgress
 #Speed
 @onready var speed_value_label = $SpeedContainer/HBoxContainer/SpeedValueLabel
+@onready var speed_equipment_stat_label: Label = $SpeedContainer/HBoxContainer/SpeedEquipmentStatLabel
 @onready var speed_growth_label = $SpeedContainer/HBoxContainer/SpeedGrowthLabel
+@onready var speed_equipment_growth_label: Label = $SpeedContainer/HBoxContainer/SpeedEquipmentGrowthLabel
 @onready var speed_progress = $SpeedContainer/SpeedProgress
 #Luck
 @onready var luck_value_label = $LuckContainer/HBoxContainer/LuckValueLabel
+@onready var luck_equipment_stat_label: Label = $LuckContainer/HBoxContainer/LuckEquipmentStatLabel
 @onready var luck_growth_label = $LuckContainer/HBoxContainer/LuckGrowthLabel
+@onready var luck_equipment_growth_label: Label = $LuckContainer/HBoxContainer/LuckEquipmentGrowthLabel
 @onready var luck_progress = $LuckContainer/LuckProgress
 #Defense
 @onready var defense_value_label = $DefenseContainer/HBoxContainer/DefenseValueLabel
+@onready var defense_equipment_stat_label: Label = $DefenseContainer/HBoxContainer/DefenseEquipmentStatLabel
 @onready var defense_growth_label = $DefenseContainer/HBoxContainer/DefenseGrowthLabel
+@onready var defense_equipment_growth_label: Label = $DefenseContainer/HBoxContainer/DefenseEquipmentGrowthLabel
 @onready var defense_progress = $DefenseContainer/DefenseProgress
 #Resistance
 @onready var resistance_value_label = $ResistanceContainer/HBoxContainer/ResistanceValueLabel
+@onready var resistance_equipment_stat_label: Label = $ResistanceContainer/HBoxContainer/ResistanceEquipmentStatLabel
 @onready var resistance_growth_label = $ResistanceContainer/HBoxContainer/ResistanceGrowthLabel
+@onready var resistance_equipment_growth_label: Label = $ResistanceContainer/HBoxContainer/ResistanceEquipmentGrowthLabel
 @onready var resistance_progress = $ResistanceContainer/ResistanceProgress
 #Move
 @onready var move_value_label = $MoveContainer/MoveValueLabel
+@onready var move_equipment_value_label: Label = $MoveContainer/MoveEquipmentValueLabel
 #Constitution
 @onready var constituiton_value_label = $ConstitutionContainer/ConstitutionValueLabel
+@onready var constitution_equipment_value_label: Label = $ConstitutionContainer/ConstitutionEquipmentValueLabel
 
 
 var unit : Unit
@@ -48,6 +64,12 @@ func set_label_with_number(value_label : Label, val, percent = false):
 		value_label.text = str(val)
 	else:
 		value_label.text = str(val) + "%"
+
+func set_label_with_number_plus(value_label : Label, val, percent = false):
+	if !percent:
+		value_label.text = "+" + str(val)
+	else:
+		value_label.text = "+" + str(val) + "%"
 
 func set_progress_bar(progress_bar : ProgressBar, current_value, maximum_value):
 	progress_bar.max_value = maximum_value
@@ -93,3 +115,81 @@ func update_by_unit():
 	set_label_with_number(move_value_label,unit.stats.movement)
 	
 	set_label_with_number(constituiton_value_label,unit.stats.constitution)
+	
+	#set_equiped_item_stats_total()
+	#set_equiped_item_growths_total()
+	
+
+
+
+
+
+func set_equiped_item_stats_total():
+	var accum_stats := unit.inventory.get_all_stats_from_held_items()
+	if accum_stats.strength > 0:
+		set_label_with_number_plus(strength_equipment_stat_label,accum_stats.strength)
+	else:
+		strength_equipment_stat_label.visible = false
+	if accum_stats.magic > 0:
+		set_label_with_number_plus(magic_equipment_stat_label,accum_stats.magic)
+	else:
+		magic_equipment_stat_label.visible = false
+	if accum_stats.skill > 0:
+		set_label_with_number_plus(skill_equipment_stat_label,accum_stats.skill)
+	else:
+		skill_equipment_stat_label.visible = false
+	if accum_stats.speed > 0:
+		set_label_with_number_plus(speed_equipment_stat_label,accum_stats.speed)
+	else:
+		speed_equipment_stat_label.visible = false
+	if accum_stats.luck > 0:
+		set_label_with_number_plus(luck_equipment_stat_label,accum_stats.luck)
+	else:
+		luck_equipment_stat_label.visible = false
+	if accum_stats.defense > 0:
+		set_label_with_number_plus(defense_equipment_stat_label,accum_stats.defense)
+	else:
+		defense_equipment_stat_label.visible = false
+	if accum_stats.resistance > 0:
+		set_label_with_number_plus(resistance_equipment_stat_label,accum_stats.resistance)
+	else:
+		resistance_equipment_stat_label.visible = false
+	if accum_stats.movement > 0:
+		set_label_with_number_plus(move_equipment_value_label,accum_stats.movement)
+	else:
+		move_equipment_value_label.visible = false
+	if accum_stats.constitution > 0:
+		set_label_with_number_plus(constituiton_value_label,accum_stats.constitution)
+	else:
+		constituiton_value_label.visible = false
+
+func set_equiped_item_growths_total():
+	var accum_growths := unit.inventory.get_all_growths_from_held_items()
+	if accum_growths.strength > 0:
+		set_label_with_number_plus(strength_equipment_growth_label,accum_growths.strength,true)
+	else:
+		strength_equipment_growth_label.visible = false
+	if accum_growths.magic > 0:
+		set_label_with_number_plus(magic_equipment_growth_label,accum_growths.magic,true)
+	else:
+		magic_equipment_growth_label.visible = false
+	if accum_growths.skill > 0:
+		set_label_with_number_plus(strength_equipment_growth_label,accum_growths.skill,true)
+	else:
+		skill_equipment_growth_label.visible = false
+	if accum_growths.speed > 0:
+		set_label_with_number_plus(speed_equipment_growth_label,accum_growths.speed,true)
+	else:
+		speed_equipment_growth_label.visible = false
+	if accum_growths.luck > 0:
+		set_label_with_number_plus(luck_equipment_growth_label,accum_growths.luck,true)
+	else:
+		luck_equipment_growth_label.visible = false
+	if accum_growths.defense > 0:
+		set_label_with_number_plus(defense_equipment_growth_label,accum_growths.defense,true)
+	else:
+		defense_equipment_growth_label.visible = false
+	if accum_growths.resistance > 0:
+		set_label_with_number_plus(resistance_equipment_growth_label,accum_growths.resistance,true)
+	else:
+		resistance_equipment_growth_label.visible = false
