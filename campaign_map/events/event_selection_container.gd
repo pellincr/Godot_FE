@@ -2,6 +2,7 @@ extends VBoxContainer
 
 signal event_option_selected(event)
 signal leave_selected()
+signal event_option_hovered(event_option)
 @onready var event_name_label: RichTextLabel = $EventNameLabel
 @onready var event_description: RichTextLabel = $EventDescription
 
@@ -32,14 +33,20 @@ func update_by_event():
 	
 	event_option_button_1.event_option = event.option1
 	event_option_button_1.update_by_event_option()
+	event_option_button_1.connect("focus_entered",_on_event_option_hovered.bind(event.option1))
 	event_option_button_2.event_option = event.option2
 	event_option_button_2.update_by_event_option()
+	event_option_button_2.connect("focus_entered",_on_event_option_hovered.bind(event.option2))
 	event_option_button_3.event_option = event.option3
 	event_option_button_3.update_by_event_option()
+	event_option_button_3.connect("focus_entered",_on_event_option_hovered.bind(event.option3))
 
 func _on_event_option_selected(event_option):
 	event_option_selected.emit(event_option)
 	disable_focus()
+
+func _on_event_option_hovered(event_option):
+	event_option_hovered.emit(event_option)
 
 func disable_focus():
 	event_option_button_1.focus_mode = FOCUS_NONE

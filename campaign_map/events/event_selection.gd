@@ -2,6 +2,7 @@ extends Control
 
 @onready var background: TextureRect = $background
 @onready var event_selection_container: VBoxContainer = $MarginContainer2/EventSelectionContainer
+@onready var detailed_info_margin_container : MarginContainer = $DetailedInfoMarginContainer
 
 @onready var campaign_header: Control = $CampaignHeader
 
@@ -12,6 +13,11 @@ const MAIN_PAUSE_MENU_SCENE = preload("res://ui/main_pause_menu/main_pause_menu.
 const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 const EVENT_UNIT_SELECT = preload("res://campaign_map/events/event_unit_select/event_unit_select.tscn")
 const EVENT_ITEM_SELECT = preload("res://campaign_map/events/event_item_select/event_item_select.tscn")
+
+const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
+const CONSUMABLE_ITEM_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn")
+
+
 
 enum MENU_STATE{
 	NONE, PAUSE, CAMPAIGN_INFO
@@ -85,13 +91,14 @@ func select_event():
 	#get all events
 	var events = EventDatabase.events
 	
-	#Do some filtering based on params here
+	#Do some filtering based on params here, and make sure user doesnt get same event twice
 	var chosen_event : Event = events.pick_random()
 	
 	#Update the display
 	set_event_background(chosen_event.background)
 	event_selection_container.event = chosen_event
 	event_selection_container.update_by_event()
+	event_selection_container.connect("event_option_hovered", _on_event_option_hovered)
 	current_event = chosen_event
 
 
@@ -365,3 +372,38 @@ class event_item_selection_info:
 		item = i
 		owner_name = o_name
 		owner_icon = o_texture
+
+func clear_detailed_info_container():
+	var _arr = detailed_info_margin_container.get_children()
+	if not _arr.is_empty():
+		for child in _arr:
+			child.queue_free()
+
+func _on_event_option_hovered(event_option:EventOption) -> void:
+	clear_detailed_info_container()
+	if event_option != null:
+		if event_option.effect == EventOption.EVENT_EFFECT.GIVE_ITEM:
+			if event_option.target_item != null:
+				var item = event_option.target_item
+				if item is WeaponDefinition:
+					var weapon_detailed_info = WEAPON_DETAILED_INFO.instantiate()
+					weapon_detailed_info.item = item
+					detailed_info_margin_container.add_child(weapon_detailed_info)
+					weapon_detailed_info.update_by_item()
+					weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+				elif item is ConsumableItemDefinition:
+					var consumable_item_detailed_info = CONSUMABLE_ITEM_DETAILED_INFO.instantiate()
+					consumable_item_detailed_info.item = item
+					detailed_info_margin_container.add_child(consumable_item_detailed_info)
+					consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+				elif item is ItemDefinition:
+					if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+						var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+						equipment_detaied_info.item = item
+						detailed_info_margin_container.add_child(equipment_detaied_info)
+						equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+					elif item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
+						var treasure_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/treasure_detailed_info.tscn").instantiate()
+						treasure_detaied_info.item = item
+						detailed_info_margin_container.add_child(treasure_detaied_info)
+						treasure_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
