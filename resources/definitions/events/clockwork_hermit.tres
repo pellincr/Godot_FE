@@ -9,6 +9,8 @@
 
 [sub_resource type="Resource" id="Resource_g45uy"]
 script = ExtResource("3_86osf")
+item_new_damage_type = 3
+item_new_scaling_type = 4
 damage = 1
 critical_chance = 5
 weight = 1

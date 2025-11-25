@@ -28,8 +28,8 @@ class_name WeaponStats
 
 func apply_weapon_stats(weapon: WeaponDefinition):
 	#item_stats
-	weapon.max_uses = clampi(weapon.max_uses - max_uses, 1 , 1000000)
-	weapon.uses = clampi(weapon.uses - max_uses, 1, 1000000)
+	weapon.max_uses = clampi(weapon.max_uses + max_uses, 1 , 1000000)
+	weapon.uses = clampi(weapon.uses + max_uses, 1, 1000000)
 	
 	if percent_durability != 1:
 		weapon.uses = clampi(int(weapon.uses * percent_durability),1, 1000000)
