@@ -31,7 +31,9 @@ func get_unit_panel_from_container(unit:Unit):
 			return unit_panel
 
 func fill_army_scroll_container(add_convoy:=false):
-	for unit in units_list:
+	var sorted_units_list = get_selected_units()
+	sorted_units_list.append_array(get_nonselected_units())
+	for unit in sorted_units_list:
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
 		unit_army_panel_container.unit = unit
 		#unit_army_panel_container.set_po_data(playerOverworldData)
@@ -117,3 +119,18 @@ func remove_unit_panel(unit):
 			unit_panels.erase(army_panel)
 	
 	grab_first_army_panel_focus()
+
+
+func get_selected_units() -> Array:
+	var accum = []
+	for unit in units_list:
+		if playerOverworldData.selected_party.has(unit):
+			accum.append(unit)
+	return accum
+
+func get_nonselected_units() -> Array:
+	var accum = []
+	for unit in units_list:
+		if !playerOverworldData.selected_party.has(unit):
+			accum.append(unit)
+	return accum
