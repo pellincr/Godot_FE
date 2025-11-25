@@ -522,6 +522,8 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 
 func reset_game_state():
+	playerOverworldData.gold = 1000
+	playerOverworldData.bonus_experience = 0
 	playerOverworldData.level_entered = false
 	playerOverworldData.battle_prep_complete = false
 	playerOverworldData.completed_drafting = false

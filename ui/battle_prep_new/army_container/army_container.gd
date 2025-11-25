@@ -111,6 +111,9 @@ func enable_army_container_focus():
 func grab_first_army_panel_focus():
 	main_scroll_container.get_child(0).grab_focus()
 
+func grab_last_panel_focus():
+	main_scroll_container.get_child(-1).grab_focus()
+
 func remove_unit_panel(unit):
 	var unit_army_panels = main_scroll_container.get_children()
 	for army_panel in unit_army_panels:

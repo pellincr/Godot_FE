@@ -60,8 +60,12 @@ func update_by_state():
 			army_container.set_po_data(playerOverworldData)
 			army_container.set_units_list(playerOverworldData.total_party)
 			add_child(army_container)
+			if selected_unit:
+				army_container.focused = true
 			army_container.fill_army_scroll_container()
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed.bind(army_container))
+			if selected_unit:
+				army_container.get_unit_panel_from_container(selected_unit).grab_focus()
 		INVENTORY_STATE.MANAGE_ITEMS:
 			var unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
 			var convoy = convoy_scene.instantiate()
@@ -136,7 +140,8 @@ func _on_inventory_option_selection_menu_closed(army_container):
 	army_container.enable_army_container_focus()
 	sub_menu_open = false
 	army_container.clear_detailed_view()
-	army_container.grab_first_army_panel_focus()
+	#army_container.grab_first_army_panel_focus()
+	army_container.get_unit_panel_from_container(selected_unit).grab_focus()
 
 func _on_item_panel_pressed(item,unit_detailed_view,convoy):
 	if !selected_unit.inventory.is_full():

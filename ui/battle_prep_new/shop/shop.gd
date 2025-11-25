@@ -24,8 +24,11 @@ var army_container_scene = preload("res://ui/battle_prep_new/army_container/Army
 var current_state = SHOP_STATE.LOCATION_SELECT
 var selected_buy_location = null
 
+var first_enter := true
+
 func _ready() -> void:
 	update_by_shop_state()
+	first_enter = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_back"):
@@ -35,7 +38,7 @@ func _process(delta: float) -> void:
 			selected_buy_location = null
 		elif current_state == SHOP_STATE.SHOP_MENU:
 			current_state = SHOP_STATE.LOCATION_SELECT
-			selected_buy_location = null
+			#selected_buy_location = null
 			shop_exited.emit()
 			update_by_shop_state()
 
@@ -51,9 +54,17 @@ func update_by_shop_state():
 			army_container.set_po_data(playerOverworldData)
 			army_container.set_units_list(playerOverworldData.total_party)
 			main_container.add_child(army_container)
+			if !first_enter:
+				army_container.focused = true
 			army_container.fill_army_scroll_container(true)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
 			army_container.convoy_panel_pressed.connect(_on_convoy_panel_pressed)
+			if selected_buy_location:
+				if selected_buy_location is Unit:
+					army_container.get_unit_panel_from_container(selected_buy_location).grab_focus()
+					selected_buy_location = null
+			else:
+				army_container.grab_last_panel_focus() 
 		SHOP_STATE.SHOP_MENU:
 			var shop_container = preload("res://ui/battle_prep_new/shop/shop_container/shop_container.tscn").instantiate()
 			if selected_buy_location is Unit:
