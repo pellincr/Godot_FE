@@ -80,14 +80,31 @@ func set_progress_bar(progress_bar : ProgressBar, current_value, maximum_value):
 	#progress_bar.set_size(Vector2(int(maximum_value/50 *134),0))
 
 func set_object_color(object, value):
-	if value + unit.level < 4:
+	if value < 3  + unit.level:
 		object.modulate = Color.DARK_RED
 	#elif value + unit.level < 4:
 	#	object.modulate = Color.RED
-	elif value + unit.level < 8:
+	elif value  < 7  + unit.level:
 		object.modulate = Color.YELLOW
 	else:
 		object.modulate = Color.GREEN
+
+func set_progress_bar_fill(bar,value):
+	var style_box := StyleBoxFlat.new()
+	#var current_stylebox = bar.get_theme_stylebox("fill") as StyleBoxFlat
+	#if current_stylebox:
+	if value < 3 + unit.level :
+			#current_stylebox.bg_color = Color.DARK_RED
+		style_box.bg_color = Color.DARK_RED
+	#elif value + unit.level < 4:
+	#	object.modulate = Color.RED
+	elif value < 7 + unit.level :
+		#current_stylebox.bg_color = Color.YELLOW
+		style_box.bg_color = Color.YELLOW
+	else:
+		#current_stylebox.bg_color = Color.GREEN
+		style_box.bg_color = Color.GREEN
+	bar.add_theme_stylebox_override("fill",style_box)
 
 func update_by_unit():
 	var unit_type : UnitTypeDefinition
@@ -98,42 +115,49 @@ func update_by_unit():
 	set_label_with_number(strength_growth_label,unit.growths.strength, true)
 	set_progress_bar(strength_progress,unit.stats.strength, unit_type.maxuimum_stats.strength)
 	#set_object_color(strength_progress,unit.stats.strength)
+	set_progress_bar_fill(strength_progress,unit.stats.strength)
 	
 	set_label_with_number(magic_value_label,unit.stats.magic)
 	set_object_color(magic_value_label,unit.stats.magic)
 	set_label_with_number(magic_growth_label,unit.growths.magic, true)
 	set_progress_bar(magic_progress,unit.stats.magic, unit_type.maxuimum_stats.magic)
 	#set_object_color(magic_progress,unit.stats.magic)
+	set_progress_bar_fill(magic_progress,unit.stats.magic)
 	
 	set_label_with_number(skill_value_label,unit.stats.skill)
 	set_object_color(skill_value_label,unit.stats.skill)
 	set_label_with_number(skill_growth_label,unit.growths.skill, true)
 	set_progress_bar(skill_progress,unit.stats.skill, unit_type.maxuimum_stats.skill)
 	#set_object_color(skill_progress,unit.stats.skill)
+	set_progress_bar_fill(skill_progress,unit.stats.skill)
 	
 	set_label_with_number(speed_value_label,unit.stats.speed)
 	set_object_color(speed_value_label,unit.stats.speed)
 	set_label_with_number(speed_growth_label,unit.growths.speed, true)
 	set_progress_bar(speed_progress,unit.stats.speed, unit_type.maxuimum_stats.speed)
 	#set_object_color(speed_progress,unit.stats.speed)
+	set_progress_bar_fill(speed_progress,unit.stats.speed)
 	
 	set_label_with_number(luck_value_label,unit.stats.luck)
 	set_object_color(luck_value_label,unit.stats.luck)
 	set_label_with_number(luck_growth_label,unit.growths.luck, true)
 	set_progress_bar(luck_progress,unit.stats.luck, unit_type.maxuimum_stats.luck)
 	#set_object_color(luck_progress,unit.stats.luck)
+	set_progress_bar_fill(luck_progress,unit.stats.luck)
 	
 	set_label_with_number(defense_value_label,unit.stats.defense)
 	set_object_color(defense_value_label,unit.stats.defense)
 	set_label_with_number(defense_growth_label,unit.growths.defense, true)
 	set_progress_bar(defense_progress,unit.stats.defense, unit_type.maxuimum_stats.defense)
 	#set_object_color(defense_progress,unit.stats.defense)
+	set_progress_bar_fill(defense_progress,unit.stats.defense)
 	
 	set_label_with_number(resistance_value_label,unit.stats.resistance)
 	set_object_color(resistance_value_label,unit.stats.resistance)
 	set_label_with_number(resistance_growth_label,unit.growths.resistance, true)
 	set_progress_bar(resistance_progress,unit.stats.resistance, unit_type.maxuimum_stats.resistance)
 	#set_object_color(resistance_progress,unit.stats.resistance)
+	set_progress_bar_fill(resistance_progress,unit.stats.resistance)
 	
 	set_label_with_number(move_value_label,unit.stats.movement)
 	

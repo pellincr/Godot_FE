@@ -147,24 +147,26 @@ func set_overall_stat_grade_level(grade):
 	overall_stat_grade_label.text = grade
 
 func set_object_color(object, value):
-	if value + unit.level < 4:
+	if value  < 3 + unit.level:
 		object.modulate = Color.DARK_RED
 	#elif value + unit.level < 4:
 	#	object.modulate = Color.RED
-	elif value + unit.level < 8:
+	elif value  < 7 + unit.level:
 		object.modulate = Color.YELLOW
 	else:
 		object.modulate = Color.GREEN
 
 func set_object_color_health(object, value):
-	if value + unit.level < 12:
+	if value< 11  + unit.level :
 		object.modulate = Color.DARK_RED
 	#elif value + unit.level < 4:
 	#	object.modulate = Color.RED
-	elif value + unit.level < 21:
+	elif value < 19 + unit.level :
 		object.modulate = Color.YELLOW
 	else:
 		object.modulate = Color.GREEN
+
+
 
 func update_all():
 	set_move(unit.stats.movement)
