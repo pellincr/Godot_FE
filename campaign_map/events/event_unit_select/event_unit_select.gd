@@ -4,8 +4,8 @@ signal return_to_menu()
 signal unit_selected(unit:Unit)
 #signal unit_deselected(unit:Unit)
 
-@onready var army_container: HBoxContainer = $VBoxContainer/ArmyContainer
-@onready var selection_effect: RichTextLabel = $VBoxContainer/SelectionEffect
+@onready var army_container: HBoxContainer = $MarginContainer/VBoxContainer/ArmyContainer
+@onready var selection_effect: RichTextLabel = $MarginContainer/VBoxContainer/SelectionEffect
 @onready var background: TextureRect = $background
 
 var description : String 

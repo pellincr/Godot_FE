@@ -32,22 +32,22 @@ text = "[center]Deep within a cluttered workshop, an eccentric hermit tinkers wi
 
 [node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 
 [node name="EventOptionButton2" parent="." instance=ExtResource("3_7q0in")]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 
 [node name="EventOptionButton3" parent="." instance=ExtResource("3_7q0in")]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 
 [node name="EventOptionButton4" parent="." instance=ExtResource("3_7q0in")]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 
 [node name="LeaveButton" type="Button" parent="."]
 visible = false

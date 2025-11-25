@@ -152,9 +152,11 @@ func set_scaling_value(scaler):
 func set_scaling_x_value(mult : float):
 	scaling_x_value_label.text = str(mult)
 
-func set_durability_value(uses, unbreakable:bool = false):
+func set_durability_value(uses, max_uses:int = 0, unbreakable:bool = false, expended_state: bool = false):
 	if unbreakable:
 		durability_value_label.text = "Unbreakable"
+	elif expended_state:
+		durability_value_label.text  = str(uses) + "/" + str(max_uses)
 	else:
 		durability_value_label.text = str(uses)
 	
@@ -235,7 +237,7 @@ func update_by_item():
 		#Right Container
 		set_scaling_value(item.item_scaling_type)
 		set_scaling_x_value(1)#TO BE UPDATED WHEN WEAPON IS UPDATED
-		set_durability_value(item.uses, item.unbreakable)
+		set_durability_value(item.uses, item.max_uses, item.unbreakable, item.has_expended_state)
 		set_duribility_expended_icon(item.has_expended_state)
 		set_weight_value(item.weight)
 		set_requirements_container(item.required_mastery)

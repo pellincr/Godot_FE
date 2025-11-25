@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://7yicggufrcxm"]
+[gd_scene load_steps=5 format=3 uid="uid://7yicggufrcxm"]
 
 [ext_resource type="Script" uid="uid://dact8crbxi8df" path="res://campaign_map/events/event_unit_select/event_unit_select.gd" id="1_14ge7"]
 [ext_resource type="PackedScene" uid="uid://dkk1vhoxov7g2" path="res://ui/battle_prep_new/army_container/ArmyContainer.tscn" id="1_s3arc"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_xiyfa"]
+
+[sub_resource type="Theme" id="Theme_1mdv0"]
+default_font = ExtResource("2_xiyfa")
+default_font_size = 32
 
 [node name="EventUnitSelect" type="Control"]
 layout_mode = 3
@@ -20,16 +25,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 315.0
-offset_bottom = 722.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
 
-[node name="SelectionEffect" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-bbcode_enabled = true
 
-[node name="ArmyContainer" parent="VBoxContainer" instance=ExtResource("1_s3arc")]
+[node name="SelectionEffect" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme = SubResource("Theme_1mdv0")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="ArmyContainer" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_s3arc")]
 layout_mode = 2
 size_flags_vertical = 3
