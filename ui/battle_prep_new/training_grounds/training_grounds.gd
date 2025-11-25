@@ -39,14 +39,20 @@ func update_by_state():
 	screen_change.emit(current_state)
 	match current_state:
 		TRAINING_STATE.CHOOSE_UNIT:
+			training_grounds_container.alignment = BoxContainer.ALIGNMENT_BEGIN
 			var army_container = preload("res://ui/battle_prep_new/army_container/ArmyContainer.tscn").instantiate()
 			army_container.set_po_data(playerOverworldData)
 			army_container.set_units_list(playerOverworldData.total_party)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
+			if chosen_unit:
+				army_container.focused = true
 			training_grounds_container.add_child(army_container)
 			army_container.fill_army_scroll_container()
 			army_container.size_flags_vertical = SIZE_SHRINK_BEGIN
+			if chosen_unit:
+				army_container.get_unit_panel_from_container(chosen_unit).grab_focus()
 		TRAINING_STATE.GIVE_EXP:
+			training_grounds_container.alignment = BoxContainer.ALIGNMENT_CENTER
 			var unit_level_info = preload("res://ui/battle_prep_new/training_grounds/unit_level_information/unit_level_info.tscn").instantiate()
 			unit_level_info.unit = chosen_unit
 			training_grounds_container.add_child(unit_level_info)

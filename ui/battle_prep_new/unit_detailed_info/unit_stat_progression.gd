@@ -80,11 +80,11 @@ func set_progress_bar(progress_bar : ProgressBar, current_value, maximum_value):
 	#progress_bar.set_size(Vector2(int(maximum_value/50 *134),0))
 
 func set_object_color(object, value):
-	if value < 3  + unit.level:
+	if value < unitConstants.LOW_STAT_LEVEL_BAR  + unit.level:
 		object.modulate = Color.DARK_RED
 	#elif value + unit.level < 4:
 	#	object.modulate = Color.RED
-	elif value  < 7  + unit.level:
+	elif value  < unitConstants.HIGH_STAT_LEVEL_BAR  + unit.level:
 		object.modulate = Color.YELLOW
 	else:
 		object.modulate = Color.GREEN
@@ -93,12 +93,12 @@ func set_progress_bar_fill(bar,value):
 	var style_box := StyleBoxFlat.new()
 	#var current_stylebox = bar.get_theme_stylebox("fill") as StyleBoxFlat
 	#if current_stylebox:
-	if value < 3 + unit.level :
+	if value < unitConstants.LOW_STAT_LEVEL_BAR + unit.level :
 			#current_stylebox.bg_color = Color.DARK_RED
 		style_box.bg_color = Color.DARK_RED
 	#elif value + unit.level < 4:
 	#	object.modulate = Color.RED
-	elif value < 7 + unit.level :
+	elif value < unitConstants.HIGH_STAT_LEVEL_BAR + unit.level :
 		#current_stylebox.bg_color = Color.YELLOW
 		style_box.bg_color = Color.YELLOW
 	else:

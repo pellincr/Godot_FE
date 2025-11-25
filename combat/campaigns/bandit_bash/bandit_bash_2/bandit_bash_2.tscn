@@ -39,7 +39,7 @@ zones = Array[ExtResource("8_j4o0y")]([SubResource("Resource_12sve")])
 script = ExtResource("10_vmj2c")
 par_turns = 10
 base_gold = 1100
-base_bonus_exp = 75
+base_bonus_exp = 115
 metadata/_custom_type_script = "uid://clhuknqhyfx8e"
 
 [sub_resource type="Resource" id="Resource_wbijw"]

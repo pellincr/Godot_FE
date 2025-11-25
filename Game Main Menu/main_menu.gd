@@ -105,6 +105,8 @@ func _on_tutorials_button_pressed():
 
 func _on_new_game_button_pressed():
 	var overworld = preload(overworld_scene)
+	playerOverworldData.gold = 1000
+	playerOverworldData.bonus_experience = 0
 	playerOverworldData.current_campaign = null
 	playerOverworldData.campaign_map_data.clear()
 	playerOverworldData.completed_drafting = false

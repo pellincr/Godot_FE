@@ -17,8 +17,8 @@
 [sub_resource type="Resource" id="Resource_im45y"]
 script = ExtResource("7_ihono")
 par_turns = 10
-base_gold = 1000
-base_bonus_exp = 30
+base_gold = 1500
+base_bonus_exp = 120
 metadata/_custom_type_script = "uid://clhuknqhyfx8e"
 
 [node name="Game" type="Node"]
