@@ -77,6 +77,8 @@ func _ready():
 	#set_level_info_container
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
 	level_info_container.set_turn_count_label(str(combat.current_turn))
+	set_par_turn_value_label(combat.level_reward.par_turns)
+	set_turn_count_color(combat.current_turn,combat.level_reward.par_turns)
 	if !playerOverworldData.battle_prep_complete:
 		var battle_prep = BATTLE_PREP_MENU.instantiate()
 		battle_prep.set_po_data(playerOverworldData)
@@ -552,6 +554,12 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 
 func set_turn_count_label(turn_count):
 	level_info_container.set_turn_count_label(str(turn_count))
+
+func set_turn_count_color(current_turn, par_turns):
+	level_info_container.set_turn_count_value_color(current_turn,par_turns)
+
+func set_par_turn_value_label(par_turns):
+	level_info_container.set_par_turn_value_label(par_turns)
 
 
 func _on_battle_prep_swap_spaces() -> void:

@@ -501,6 +501,7 @@ func advance_turn(faction: int):
 	#current_turn += .5
 	if is_equal_approx(current_turn, roundf(current_turn)):
 		game_ui.set_turn_count_label(current_turn)
+		game_ui.set_turn_count_color(current_turn,level_reward.par_turns)
 	if victory_condition == Constants.VICTORY_CONDITION.SURVIVE_TURNS:
 		if check_win():
 			combat_win()
