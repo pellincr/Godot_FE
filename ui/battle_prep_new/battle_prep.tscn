@@ -20,7 +20,7 @@ PanelContainer/styles/panel = SubResource("StyleBoxEmpty_j7sln")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b37dx"]
 shader = ExtResource("6_qx27e")
-shader_parameter/lod = 1.5000000712500001
+shader_parameter/lod = 1.50000007125
 
 [node name="BattlePrep" type="Control"]
 layout_mode = 3

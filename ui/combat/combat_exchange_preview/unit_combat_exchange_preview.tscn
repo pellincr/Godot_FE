@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrqibh031py2" path="res://ui/combat/combat_exchange_preview/unit_combat_stats/unit_combat_exchange_stats_panel.tscn" id="2_dbr8b"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="3_ohiay"]
 [ext_resource type="PackedScene" uid="uid://v518gv4vgx47" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow.tscn" id="4_door1"]
-[ext_resource type="Script" uid="uid://sdyh8uwdp40y" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
+[ext_resource type="Script" uid="uid://baaskdjx8hojb" path="res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow_container.gd" id="5_xv7ys"]
 
 [sub_resource type="Gradient" id="Gradient_674xc"]
 offsets = PackedFloat32Array(0.55539566, 1)
@@ -39,14 +39,10 @@ default_font_size = 24
 
 [node name="UnitCombatExchangePreview" type="Panel"]
 custom_minimum_size = Vector2(1270, 370)
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -635.0
-offset_top = -370.0
-offset_right = 635.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_mwhw1")
@@ -57,6 +53,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 

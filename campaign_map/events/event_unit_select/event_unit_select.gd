@@ -15,7 +15,7 @@ var event_selection_requirements #TO BE IMPL
 
 func _ready() -> void:
 	#SelectedSaveFile.save(playerOverworldData)
-	army_container.unit_selection = true
+	army_container.unit_selection = false
 	army_container.set_po_data(playerOverworldData)
 	army_container.set_units_list(playerOverworldData.total_party)
 	army_container.fill_army_scroll_container()

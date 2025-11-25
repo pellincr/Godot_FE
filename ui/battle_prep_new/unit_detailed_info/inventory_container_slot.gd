@@ -12,7 +12,8 @@ signal inventory_slot_pressed(item)
 @onready var item_name_label = $HBoxContainer/LeftContainer/VBoxContainer/ItemNameLabel
 @onready var item_type_icon: TextureRect = $HBoxContainer/LeftContainer/VBoxContainer/ItemTypeIcon
 @onready var droppable_icon: TextureRect = $HBoxContainer/LeftContainer/VBoxContainer/DroppableIcon
-@onready var item_uses_label = $HBoxContainer/UsesLabel
+@onready var expendable_icon : TextureRect = $HBoxContainer/UsesContainer/ExpendedIcon
+@onready var item_uses_label = $HBoxContainer/UsesContainer/UsesLabel
 @onready var left_container = $HBoxContainer/LeftContainer
 
 var item : ItemDefinition
@@ -35,11 +36,13 @@ func update_by_item():
 		set_item_name_label(item.name)
 		set_item_name_color(item.rarity.ui_color)
 		update_item_type_icon(item)
+		set_expandable_icon_visibility(item.has_expended_state)
 		if item.unbreakable:
 			set_item_uses(0)
 		else :
 			set_item_uses(item.uses)
 	else:
+		set_expandable_icon_visibility(false)
 		set_invetory_item_icon(null)
 		set_item_name_label("")
 		update_item_type_icon(null)
@@ -57,6 +60,8 @@ func clear_icons():
 		if child is TextureRect:
 			child.queue_free()
 
+func set_expandable_icon_visibility(state: bool):
+	expendable_icon.visible = state
 #func update_item_type_icon_by_item():
 	#clear_icons()
 	#var icon = TextureRect.new()

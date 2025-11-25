@@ -1,4 +1,4 @@
-[gd_scene load_steps=184 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=186 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -130,7 +130,7 @@
 [ext_resource type="Resource" uid="uid://mxlqck5barqa" path="res://resources/definitions/items/consumables/stat_boosters/skill/finesse_fillet.tres" id="126_kn4gf"]
 [ext_resource type="Resource" uid="uid://coa4735nd2772" path="res://resources/definitions/items/consumables/stat_boosters/skill/hawkweed.tres" id="127_ccn1k"]
 [ext_resource type="Resource" uid="uid://k8coy7rpl6fp" path="res://resources/definitions/items/consumables/stat_boosters/skill/martial_scroll.tres" id="128_8txxg"]
-[ext_resource type="Resource" uid="uid://cqv0qetc37ogd" path="res://resources/definitions/items/consumables/stat_boosters/skill/percise_pepper.tres" id="129_kbtey"]
+[ext_resource type="Resource" uid="uid://cqv0qetc37ogd" path="res://resources/definitions/items/consumables/stat_boosters/skill/precise_pepper.tres" id="129_kbtey"]
 [ext_resource type="Resource" uid="uid://crvd3gshuxr6f" path="res://resources/definitions/items/consumables/stat_boosters/speed/hastehawk_feather.tres" id="130_7xe73"]
 [ext_resource type="Resource" uid="uid://cl1ocurrvytss" path="res://resources/definitions/items/consumables/stat_boosters/speed/rushraddish.tres" id="131_4c85a"]
 [ext_resource type="Resource" uid="uid://csmujnyruvv5h" path="res://resources/definitions/items/consumables/stat_boosters/speed/swift_shellfish.tres" id="132_e2yjl"]
@@ -181,6 +181,8 @@
 [ext_resource type="Resource" uid="uid://c3u44a8r2o2ch" path="res://resources/definitions/items/weapons/lance/jousting_lance.tres" id="177_ewy5w"]
 [ext_resource type="Resource" uid="uid://b58f56xtumpv1" path="res://resources/definitions/items/equipment/tungsten_ooze.tres" id="177_j81yc"]
 [ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
+[ext_resource type="Resource" uid="uid://5j253u4wbq8v" path="res://resources/definitions/items/consumables/large_potion_+.tres" id="179_smksv"]
+[ext_resource type="Resource" uid="uid://ctxck0urg8ldt" path="res://resources/definitions/items/consumables/potion_+.tres" id="180_jongk"]
 [ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
 [ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
 
@@ -266,6 +268,7 @@ items = {
 "knights_token": ExtResource("162_a2n7e"),
 "kukri": ExtResource("50_d8m3e"),
 "large_potion": ExtResource("141_1moet"),
+"large_potion_+": ExtResource("179_smksv"),
 "life_tap": ExtResource("59_jqcuj"),
 "loaded_die": ExtResource("163_3lb28"),
 "long_bow": ExtResource("104_q80qu"),
@@ -282,11 +285,12 @@ items = {
 "oak_wood_charm": ExtResource("100_2u5qe"),
 "old_pendant": ExtResource("168_87ert"),
 "old_soldiers_band": ExtResource("169_sec5j"),
-"percise_pepper": ExtResource("129_kbtey"),
 "pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
+"potion_+": ExtResource("180_jongk"),
 "power_band": ExtResource("170_e40e4"),
 "power_rune": ExtResource("139_sykvo"),
+"precise_pepper": ExtResource("129_kbtey"),
 "quick_soles": ExtResource("171_stywt"),
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),

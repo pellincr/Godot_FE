@@ -210,23 +210,24 @@ func activate_entity(combat_entity: CombatEntity):
 	pass
 
 func get_contents(combat_entity: CombatEntity) -> Array[ItemDefinition]:
-	return combat_entity.contents
+	return combat_entity.contents.duplicate()
 
 func entity_destroyed_give_item(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
 	# give the item 
-	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
+	give_items.emit(get_contents(combat_entity), CombatMapConstants.COMBAT_ENTITY)
 	await give_items_complete
 
 func entity_interacted_give_item(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
 	# give the item 
-	give_items.emit(combat_entity.contents, CombatMapConstants.COMBAT_ENTITY)
+	give_items.emit(get_contents(combat_entity), CombatMapConstants.COMBAT_ENTITY)
 	await give_items_complete
 
 func entity_destroyed_remove(combat_entity: CombatEntity):
 	await disable_entity_group_by_entity(combat_entity)
 
+## OLD TO BE REMOVED
 func entity_destroyed_chest(combat_entity: CombatEntity):
 	disable_entity_group_by_entity(combat_entity)
 	# give the item 

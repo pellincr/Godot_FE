@@ -8,8 +8,8 @@ signal item_panel_pressed(item)
 @onready var left_container: HBoxContainer = $MarginContainer/HBoxContainer/LeftContainer
 @onready var item_icon: TextureRect = $MarginContainer/HBoxContainer/LeftContainer/ItemIcon
 @onready var item_name_label: Label = $MarginContainer/HBoxContainer/LeftContainer/ItemNameLabel
-
-@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesLabel
+@onready var expended_icon : TextureRect = $MarginContainer/HBoxContainer/UsesContainer/ExpendedIcon
+@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesContainer/UsesLabel
 
 var item : ItemDefinition
 
@@ -22,6 +22,8 @@ func _on_mouse_entered():
 	grab_focus()
 
 
+func set_item_expendable_icon(expendable):
+	expended_icon.visible = expendable
 
 func set_item_icon(texture):
 	item_icon.texture = texture
@@ -43,6 +45,7 @@ func update_by_item():
 	update_item_type_icon_by_item()
 	set_item_name_label(item.name)
 	set_item_rarity_header(item.rarity)
+	set_item_expendable_icon(item.has_expended_state)
 	if item.unbreakable:
 		set_uses_label(0)
 	else :

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpxlx5n7dxw7u"]
+[gd_scene load_steps=12 format=3 uid="uid://cpxlx5n7dxw7u"]
 
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_5jok1"]
 [ext_resource type="Script" uid="uid://b4toynry132gn" path="res://ui/combat/level_info_container/level_info_container.gd" id="1_8awr5"]
@@ -27,6 +27,10 @@ PanelContainer/styles/panel = SubResource("StyleBoxTexture_h1ueb")
 [sub_resource type="Theme" id="Theme_53wth"]
 default_font = ExtResource("4_t3jvj")
 default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_5jok1"]
+Label/colors/font_color = Color(0.48178947, 0.48178947, 0.48178947, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
 
 [node name="LevelInfoContainer" type="VBoxContainer"]
 offset_right = 403.0
@@ -60,22 +64,47 @@ vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 60
+theme_override_constants/margin_left = 40
 
-[node name="TurnCountContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer"]
+[node name="TurnInfoContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TurnCountContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TurnCountHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnCountContainer"]
+[node name="TurnCountHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer/TurnCountContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Turn : "
 horizontal_alignment = 2
 
-[node name="TurnCountLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnCountContainer"]
-custom_minimum_size = Vector2(48, 0)
+[node name="TurnCountLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer/TurnCountContainer"]
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 text = "1234"
+clip_text = true
+
+[node name="TurnParContainer" type="HBoxContainer" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TurnParHeaderLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer/TurnParContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_5jok1")
+theme_override_constants/outline_size = 5
+text = "Par: "
+horizontal_alignment = 2
+
+[node name="TurnParLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer/HBoxContainer/MarginContainer/TurnInfoContainer/TurnParContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme = SubResource("Theme_5jok1")
+theme_override_constants/outline_size = 5
+text = "1234"
+clip_text = true
 
 [node name="ObjectiveLabel" type="Label" parent="ObjectivePanel/ObjectiveContainer"]
 layout_mode = 2

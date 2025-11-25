@@ -205,11 +205,13 @@ func set_header_labels(state : PREP_STATE) -> void:
 			campaign_header.visible = true
 			campaign_header_map_view.visible = false
 			campaign_header_map_view_spacer.visible = false
+			controls_ui_container.alignment = BoxContainer.ALIGNMENT_BEGIN
 		PREP_STATE.SWAP_SPACES:
 			battle_prep_header.visible = false
 			campaign_header.visible = false
 			campaign_header_map_view.visible = true
 			campaign_header_map_view_spacer.visible = true
+			controls_ui_container.alignment = BoxContainer.ALIGNMENT_END
 		PREP_STATE.UNIT_SELECTION:
 			upper_label_text = "Unit Selection"
 			lower_label_text = "Select which allies will fight"

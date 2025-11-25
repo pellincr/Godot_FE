@@ -74,6 +74,15 @@ enum SPECIAL_EFFECT_ACTIVATION_TYPE {
 @export var activation_threshold : float = 100
 @export var activation_chance : float = 100
 
+func effect_weight_to_string() -> String:
+	if effect_weight != 0:
+		match effect_type:
+			SPECIAL_EFFECT_WEIGHT_TYPE.FLAT_VALUE:
+				return " " + str(effect_weight)
+			SPECIAL_EFFECT_WEIGHT_TYPE.PERCENTAGE:
+				return " " + str(effect_weight) + "%"
+	return ""
+
 
 func _to_string() -> String:
 	var s = ""
@@ -94,7 +103,7 @@ func _to_string() -> String:
 			s = "Only 1 Attack"
 		#WEAPON SPECIAL THAT REQUIRE VALUE
 		SPECIAL_EFFECT.VAMPYRIC:
-			s = "Vampyric"
+			s = "Vampyric" + effect_weight_to_string()
 		#ITEM SPECIALS
 		SPECIAL_EFFECT.CRITICAL_PROOF:
 			s = "Crit Proof"
@@ -134,15 +143,15 @@ func _to_string() -> String:
 			s = "All Damage = True"
 	#ITEM SPECIAL THAT REQUIRE VALUE
 		SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN:
-			s = "Heal on Turn Start"
+			s = "Heal on Turn Start" + effect_weight_to_string()
 		SPECIAL_EFFECT.HEAL_ON_TURN_END:
-			s = "Heal on Turn End"
+			s = "Heal on Turn End" + effect_weight_to_string()
 		SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END:
-			s = "Heal Ater Combat"
+			s = "Heal Ater Combat" + effect_weight_to_string()
 		SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT: # ADD OR REMOVE
-			s = "Augment Incoming Heal"
+			s = "Augment Incoming Heal" + effect_weight_to_string()
 		SPECIAL_EFFECT.INCOMING_DAMAGE_AUGMENT: # ADD OR REMOVE
-			s = "Augment Incoming Dmg"
+			s = "Augment Incoming Dmg" + effect_weight_to_string()
 		SPECIAL_EFFECT.THORNS:
-			s = "Thorns"
+			s = "Thorns" + effect_weight_to_string()
 	return s

@@ -28,7 +28,7 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 			create_discard_container.emit(cu, item)
 			await discard_selection_complete
 			if give_item_required:
-				cu.unit.inventory.give_item(item)
+				cu.unit.inventory.give_item(item.duplicate())
 				cu.update_inventory_stats()
 		else:
 			cu.unit.inventory.give_item(item)

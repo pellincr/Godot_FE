@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://pyui2qjdy5lu"]
+[gd_scene load_steps=7 format=3 uid="uid://pyui2qjdy5lu"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_knt25"]
 [ext_resource type="PackedScene" uid="uid://6leg2pgnfdjg" path="res://campaign_map/events/event_selection_container.tscn" id="2_5kxem"]
 [ext_resource type="Script" uid="uid://cks77666ws3cr" path="res://campaign_map/events/event_selection.gd" id="2_tmuj8"]
+[ext_resource type="Resource" uid="uid://iowm3ipdn3b4" path="res://resources/definitions/events/ghastly_library.tres" id="3_l3te4"]
 [ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_mjhah"]
 
 [sub_resource type="Theme" id="Theme_q5c1h"]
@@ -17,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_knt25")
 script = ExtResource("2_tmuj8")
+current_event = ExtResource("3_l3te4")
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1

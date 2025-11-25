@@ -29,7 +29,7 @@ enum STATE {
 
 var current_menu_state = MENU_STATE.NONE
 var state = STATE.INIT
-var current_event : Event
+@export var current_event : Event
 var selected_event_option : EventOption
 
 func _ready():

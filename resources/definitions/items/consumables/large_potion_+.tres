@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://5j253u4wbq8v"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_ti2w5"]
+[ext_resource type="Texture2D" uid="uid://cici74rrrr4vf" path="res://resources/sprites/items/consumables/large_potion+.png" id="2_ti2w5"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_ti2w5"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_uhyyt"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_hbie0"]
+
+[resource]
+script = ExtResource("4_uhyyt")
+use_effect = 1
+power = 25
+name = "Large Potion+"
+db_key = "large_potion_+"
+description = "A large jug full of a expertly brewed potion brew, heals the user by 25 HP. "
+item_type = 2
+rarity = ExtResource("3_ti2w5")
+uses = 5
+max_uses = 5
+worth = 1200
+icon = ExtResource("2_ti2w5")

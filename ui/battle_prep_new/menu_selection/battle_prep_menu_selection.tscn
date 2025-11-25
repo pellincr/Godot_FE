@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwe24m6b53kci"]
+[gd_scene load_steps=6 format=3 uid="uid://cwe24m6b53kci"]
 
 [ext_resource type="Script" uid="uid://da8n6k0e4gt7x" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
 [ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_p50n5"]
 [ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_homp3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_homp3"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+shadow_color = Color(1, 1, 1, 0.6)
+
+[sub_resource type="Theme" id="Theme_hdl0j"]
+Button/styles/focus = SubResource("StyleBoxFlat_homp3")
+Button/styles/hover = SubResource("StyleBoxFlat_homp3")
 
 [node name="BattlePrepMenuSelection" type="Control"]
 layout_mode = 3
@@ -24,6 +36,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="ButtonContainer" type="VBoxContainer" parent="BattlePrepMenuSelection/MarginContainer"]
 layout_mode = 2
+theme = SubResource("Theme_hdl0j")
 
 [node name="StartBattleButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2

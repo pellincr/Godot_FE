@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://bfxa8fiicoqsm"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://bfxa8fiicoqsm"]
 
 [ext_resource type="Texture2D" uid="uid://c73pxe8vv57xu" path="res://resources/sprites/items/consumables/refillable_potion.png" id="1_kr58g"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_rcuwt"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_rcuwt"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_x0rq6"]
 [ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="4_rejji"]
@@ -8,7 +9,7 @@
 [resource]
 script = ExtResource("3_x0rq6")
 use_effect = 1
-power = 10
+power = 15
 name = "Refillable Potion"
 db_key = "refillable_potion"
 description = "A potion flask enchanted to refill at the end of each battle, heals the user by 10 HP. "

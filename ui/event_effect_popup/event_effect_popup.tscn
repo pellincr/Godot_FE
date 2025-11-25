@@ -1,9 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqrmasoo5tudt"]
+[gd_scene load_steps=6 format=3 uid="uid://cqrmasoo5tudt"]
 
-[ext_resource type="Script" path="res://ui/event_effect_popup/event_effect_popup.gd" id="1_epxyl"]
+[ext_resource type="Script" uid="uid://c18b8gdqe6dbr" path="res://ui/event_effect_popup/event_effect_popup.gd" id="1_epxyl"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_uv6f5"]
+[ext_resource type="Texture2D" uid="uid://bh1i5tc3jcof8" path="res://resources/sprites/units/monk.png" id="3_olgee"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olgee"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_ufb2x"]
+default_font = ExtResource("1_uv6f5")
+default_font_size = 48
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_olgee")
 
 [node name="EventEffectPopup" type="PanelContainer"]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(0, 50)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,6 +30,7 @@ offset_right = 100.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_ufb2x")
 script = ExtResource("1_epxyl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -26,9 +42,15 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="EffectedIcon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+texture = ExtResource("3_olgee")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="EffectedLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+text = "Blah"
+vertical_alignment = 2

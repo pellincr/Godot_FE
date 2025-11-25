@@ -77,6 +77,7 @@ func _ready():
 	#set_level_info_container
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
 	level_info_container.set_turn_count_label(str(combat.current_turn))
+	level_info_container.set_turn_par_label(str(combat.level_reward.par_turns))
 	if !playerOverworldData.battle_prep_complete:
 		var battle_prep = BATTLE_PREP_MENU.instantiate()
 		battle_prep.set_po_data(playerOverworldData)
