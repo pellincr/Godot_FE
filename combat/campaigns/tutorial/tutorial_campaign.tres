@@ -35,5 +35,5 @@ max_floor_number = 9
 number_of_required_combat_maps = 4
 level_pool = SubResource("Resource_bnrb4")
 boss_commander = ExtResource("1_swunh")
-length = "30+ minutes"
+length = "Short"
 unit_unlock_rewards = Array[ExtResource("15_dybq7")]([ExtResource("1_swunh")])

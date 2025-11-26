@@ -91,7 +91,7 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 	new_unit.update_growths()
 	for levelup in simulated_levels:
 		var level_up_stats : UnitStat = new_unit.get_level_up_value(new_unit, hyper_growth)
-		new_unit.apply_level_up_value(level_up_stats)
+		new_unit.apply_level_up_value(level_up_stats,new_unit, false)
 	new_unit.hp = new_unit.stats.hp
 	return new_unit
 
@@ -145,7 +145,7 @@ static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:i
 				
 	if goliath_mode:
 		goliath_mode_mult = 1.8
-	unit.level_stats.hp = int(goliath_mode_mult * calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level, hyper_growth))
+	unit.level_stats.hp = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level, hyper_growth)
 	unit.level_stats.strength = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.strength, effective_level, hyper_growth)
 	unit.level_stats.magic = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.magic, effective_level, hyper_growth)
 	unit.level_stats.skill = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.skill, effective_level, hyper_growth)
@@ -160,18 +160,18 @@ static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:i
 # @param growth : the % growth for the targetted stats
 ##
 static func	calculate_generic_stat(growth: int, levels:int, hyper_growth:bool=false) -> int:
+	var _hyper_growth_bonus : int = 1
+	if hyper_growth :
+		_hyper_growth_bonus = 2 
 	var return_value = 0
-	var stat_gain_center = float(growth * levels) / float(100)
-	var gain_low = stat_gain_center * 3/4
-	var gain_high = stat_gain_center * 5/4
+	var stat_gain_center = float(growth * levels) / float(100) 
+	var gain_low = _hyper_growth_bonus * stat_gain_center * 3/4
+	var gain_high = _hyper_growth_bonus * stat_gain_center * 5/4
 	var stat_gain = randf_range(gain_low, gain_high)
 	return_value = floor(stat_gain)
 	var stat_chance = fmod(stat_gain, return_value)
 	if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
 		return_value += 1
-	if hyper_growth:
-		if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
-			return_value += 1
 	return return_value
 
 ##
@@ -223,9 +223,10 @@ func get_level_up_value(unit: Unit = self, hyper_growth:bool = false) -> UnitSta
 # level_up_stat_roll : performs calculation to see if a stat point is awarded during level up
 # @param growth_rate : target stat's growth rate (%)
 ##
-func apply_level_up_value(level : UnitStat, unit: Unit = self):
+func apply_level_up_value(level : UnitStat, unit: Unit = self, increase_level:bool = true):
 	level_stats = CustomUtilityLibrary.add_unit_stat(unit.level_stats, level)
-	unit.level = unit.level + 1
+	if increase_level:
+		unit.level = unit.level + 1
 	unit.update_stats()
 
 ##

@@ -257,8 +257,12 @@ func randomize_selection(unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
 	var _bonus_levels = unit_bonus_levels
+	var _effective_level = 1
 	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
 		_bonus_levels = _bonus_levels + 1
+	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.LEVEL_SURGE):
+		_bonus_levels = _bonus_levels + 9
+		_effective_level = 10
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
 		var current_archetype_pick
@@ -278,6 +282,7 @@ func randomize_selection(unit_bonus_levels : int = 0):
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 			var unit_character = UnitCharacter.new()
 			unit_character.name = new_unit_name
+			unit_character.level = _effective_level
 			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels, playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
@@ -292,14 +297,13 @@ func randomize_selection(unit_bonus_levels : int = 0):
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
-		 
+		unit_character.level = _effective_level
 		#set_base_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 		#set_base_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 		var stats = UnitStat.new()
 		var growths = UnitStat.new()
 		unit_character.stats = stats
 		unit_character.growths = growths
-		
 		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels,playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
 

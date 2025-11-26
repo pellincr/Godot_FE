@@ -8,7 +8,7 @@ signal menu_closed()
 @onready var easy_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton
 @onready var normal_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton
 @onready var hard_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton
-@onready var custom_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton
+@onready var custom_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/CustomModeButton
 
 @onready var modifier_buttons: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ModifierButtons
 @onready var modifier_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ModifierButtons/ModifierScrollContainer/ModifierContainer
@@ -16,6 +16,7 @@ signal menu_closed()
 #Seed Information
 @onready var set_seed_container: VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer
 @onready var seed_value_label: Label = $PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer/UpperValueContainer/SeedValueLabel
+@onready var info_label : Label = $PanelContainer/MarginContainer/VBoxContainer/InfoLabel
 @onready var keyboard_value_container: GridContainer = $PanelContainer/MarginContainer/VBoxContainer/SetSeedContainer/KeyboardValueContainer
 
 @onready var enter_seed_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/BottomContainer/EnterSeedCheckBox
@@ -31,12 +32,13 @@ enum DIFFICULTY{
 }
 
 enum MODIFIER{
-	HARD_LEVELING, 
+	#HARD_LEVELING, 
 	GOLIATH_MODE, 
-	HYPER_GROWTH
+	HYPER_GROWTH,
+	LEVEL_SURGE
 }
 
-var current_difficulty := DIFFICULTY.EASY
+var current_difficulty := DIFFICULTY.NORMAL
 var selected_modifiers : Array[MODIFIER]
 
 func _ready() -> void:
@@ -71,6 +73,10 @@ func _on_easy_mode_button_pressed() -> void:
 	else:
 		easy_mode_button.button_pressed = true
 
+func _on_easy_mode_hovered() -> void:
+	update_info_text("pass")
+	
+
 func _on_normal_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.NORMAL:
 		current_difficulty = DIFFICULTY.NORMAL
@@ -93,15 +99,16 @@ func _on_hard_mode_button_pressed() -> void:
 
 
 func _on_custom_mode_button_pressed() -> void:
-	if current_difficulty != DIFFICULTY.CUSTOM:
-		current_difficulty = DIFFICULTY.CUSTOM
-		easy_mode_button.button_pressed = false
-		normal_mode_button.button_pressed = false
-		hard_mode_button.button_pressed = false
-		modifier_buttons.visible = true
-	else:
-		custom_mode_button.button_pressed = true
-		modifier_buttons.visible = true
+	modifier_buttons.visible = true
+	#if current_difficulty != DIFFICULTY.CUSTOM:
+		#current_difficulty = DIFFICULTY.CUSTOM
+		#easy_mode_button.button_pressed = false
+		#normal_mode_button.button_pressed = false
+		#hard_mode_button.button_pressed = false
+		#modifier_buttons.visible = true
+	#else:
+		#custom_mode_button.button_pressed = true
+		#modifier_buttons.visible = true
 
 
 func _on_enter_seed_check_box_toggled(toggled_on: bool) -> void:
@@ -125,21 +132,26 @@ func _on_start_campaign_button_pressed() -> void:
 func get_modifier_name(mod:MODIFIER) -> String:
 	var final_string = ""
 	match mod:
-		MODIFIER.HARD_LEVELING:
-			final_string = "Hard Mode Leveling"
 		MODIFIER.GOLIATH_MODE:
-			final_string = "Goliath Mode"
+			final_string = "Base Boost"
 		MODIFIER.HYPER_GROWTH:
 			final_string = "Hyper Growth"
+		MODIFIER.LEVEL_SURGE:
+			final_string = "Level Surge"
 	return final_string
+
+
+func update_info_text(str):
+	info_label.text = str
+
 
 func fill_modifier_container():
 	for mod : MODIFIER in MODIFIER.values():
-		var check_box := CheckBox.new()
+		var check_box := CheckButton.new()
 		var modifier_name = get_modifier_name(mod)
 		check_box.text = modifier_name
 		modifier_container.add_child(check_box)
-		check_box.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		check_box.size_flags_horizontal = Control.SIZE_FILL
 		check_box.toggled.connect(_on_modifier_check_box_toggled.bind(mod))
 
 func _on_modifier_check_box_toggled(toggled_on:bool, mod:MODIFIER):

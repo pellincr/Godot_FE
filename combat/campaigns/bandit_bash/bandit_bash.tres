@@ -13,4 +13,4 @@ max_floor_number = 18
 number_of_required_combat_maps = 7
 level_pool = ExtResource("1_v5a5n")
 difficulty = 3
-length = "80 + minutes"
+length = "Long"
