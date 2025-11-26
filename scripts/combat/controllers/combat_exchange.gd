@@ -111,16 +111,23 @@ func do_damage_entity(target: CombatEntity, damage:int):
 			entity_destroyed.emit(target)
 			await entity_destroyed_processing_completed
 
-func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
-	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
-		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
-		attacker.unit.inventory.get_equipped_weapon().use()
-		#await use_audio_player(heal_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_heal")
-		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
-		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
-		target.map_display.update_values()
-		await target.map_display.update_complete
+func perform_heal(healer: CombatUnit, recipient: CombatUnit, amount: int):
+	#check that it can be used
+	var _healing_tool = healer.unit.inventory.get_equipped_weapon()
+	if _healing_tool != null:
+		if _healing_tool is WeaponDefinition:
+			if _healing_tool.support_type == WeaponDefinition.SUPPORT_TYPES.HEAL:
+			# Do the heal
+				await heal_unit(recipient, amount)
+				#Durability Code
+				var broken_item = healer.unit.inventory.use_item(healer.get_equipped())
+				if broken_item != null:
+					item_broken_popup_create.emit(broken_item)
+					await item_broken_popup_completed
+				elif healer.unit.inventory.get_equipped_weapon().expended:
+					item_expended_popup_create.emit(healer.unit.inventory.get_equipped_weapon())
+					await item_expended_popup_completed
+		await recipient.map_display.update_complete
 
 
 # Calculates the heal and any bonuses if applicable
@@ -646,21 +653,20 @@ func unit_gain_experience_complete():
 	in_experience_flow = false
 
 #
-# Used for healing
+# Used for healing TODO RE-WRITE THIS FOR BUFFS LATER
 #
 func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitSupportExchangeData):
 	var player_unit: CombatUnit
 	var enemy_unit: CombatUnit
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
-	supporter.get_equipped().use()
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
-			await heal_unit(target, turn.effect_weight)
+			await perform_heal(supporter, target, turn.effect_weight)
 			# ADD THE USE ITEM HERE
 	if supporter.allegience == Constants.FACTION.PLAYERS:
 		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :
-			pass
+		pass
 	supporter.turn_taken = true
 
 #

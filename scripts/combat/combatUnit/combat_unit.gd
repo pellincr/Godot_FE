@@ -93,19 +93,20 @@ func get_equipped() -> WeaponDefinition:
 
 func update_unit_stats():
 	stats.populate_unit_stats(self.unit)
+	current_hp = clampi(current_hp, 1, stats.max_hp.evaluate())
 
 func equip(wpn: WeaponDefinition):
 	if unit.can_equip(wpn):
 		unit.inventory.set_equipped(wpn)
-		unit.update_stats()
-		unit.update_growths()
-		update_unit_stats()
+		update_inventory_stats()
+		
 		#stats.populate_weapon_stats(self, wpn)
 
 func update_inventory_stats():
 	unit.update_stats()
 	unit.update_growths()
 	update_unit_stats()
+	map_display.update_values()
 	#stats.populate_inventory_stats(self)
 
 func un_equip_current_weapon():
