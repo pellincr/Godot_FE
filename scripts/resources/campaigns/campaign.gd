@@ -17,6 +17,7 @@ class_name Campaign
 @export var boss_commander: CommanderDefinition
 @export var difficulty : int = 1
 @export var length : String = ""
+@export var starting_gold = 1000
 
 @export_subgroup("Campaign Rewards Info")
 #@export var rewards : String

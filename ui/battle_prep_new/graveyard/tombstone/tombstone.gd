@@ -8,6 +8,7 @@ signal unit_revived(unit:Unit, cost : int)
 @onready var revive_button: GeneralMenuButton = $ReviveButton
 
 var unit : Unit
+var cost_modifier = 500
 
 func _ready() -> void:
 	#unit = Unit.create_generic_unit("fighter",[],"Test",1)
@@ -31,9 +32,9 @@ func update_revive_button_cost(cost):
 	revive_button.text = "Revive: " + str(cost) + "G"
 
 func calc_revive_cost():
-	var base_cost = 500
+	var base_cost = 1000
 	var unit_def := unit.get_unit_type_definition()
-	return base_cost * unit.level * unit_def.tier * unit.death_count
+	return base_cost + int(sqrt(unit.level) * float(unit_def.tier) * float(unit.death_count) * float(cost_modifier))
 
 
 func _on_revive_button_pressed() -> void:

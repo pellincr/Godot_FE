@@ -23,6 +23,8 @@ func set_difficulty_value_label(value:CampaignModifier.DIFFICULTY):
 	match value:
 		CampaignModifier.DIFFICULTY.EASY:
 			difficulty_text = "Easy"
+		CampaignModifier.DIFFICULTY.NORMAL:
+			difficulty_text = "Normal"
 		CampaignModifier.DIFFICULTY.HARD:
 			difficulty_text = "Hard"
 	difficulty_value_label.text = difficulty_text

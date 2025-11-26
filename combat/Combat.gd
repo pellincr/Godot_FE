@@ -294,6 +294,9 @@ func spawn_initial_units(): ##ENEMY
 	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD or playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HARD_LEVELING):
 		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.4)
 		hard_mode_leveling = true
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
+		_bonus_levels = clampi(-2 + int(playerOverworldData.combat_maps_completed*1.4), -2, 0)
+
 	for unit : CombatUnitData in unit_data.starting_enemy_group.group: #for unit :CombatUnitData in enemy_start_group.group:
 		if unit is RandomCombatUnitData:
 			generate_random_unit(unit)
@@ -523,7 +526,7 @@ func combatExchangeComplete(friendly_unit_alive:bool):
 		get_tree().change_scene_to_file("res://Game Main Menu/main_menu.tscn")
 
 func reset_game_state():
-	playerOverworldData.gold = 1000
+	playerOverworldData.gold = 0
 	playerOverworldData.bonus_experience = 0
 	playerOverworldData.level_entered = false
 	playerOverworldData.battle_prep_complete = false

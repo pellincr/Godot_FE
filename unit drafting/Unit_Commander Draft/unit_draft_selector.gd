@@ -256,6 +256,9 @@ func instantiate_unit_draft_selector():
 func randomize_selection(unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
+	var _bonus_levels = unit_bonus_levels
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
+		_bonus_levels = _bonus_levels + 1
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
 		var current_archetype_pick
@@ -277,7 +280,7 @@ func randomize_selection(unit_bonus_levels : int = 0):
 			unit_character.name = new_unit_name
 			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,unit_bonus_levels, playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels, playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 			unit = new_recruit
 	else:
 		#For Commander Drafting
@@ -297,7 +300,7 @@ func randomize_selection(unit_bonus_levels : int = 0):
 		unit_character.stats = stats
 		unit_character.growths = growths
 		
-		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,0,playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels,playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
 
 func get_random_rarity():

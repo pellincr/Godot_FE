@@ -101,6 +101,9 @@ func _on_menu_closed():
 
 func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):
 	seed(campaign_seed)
+	playerOverworldData.gold = playerOverworldData.current_campaign.starting_gold
+	if difficulty == CampaignModifier.DIFFICULTY.EASY:
+		playerOverworldData.gold = playerOverworldData.gold * 2
 	playerOverworldData.campaign_seed_preset = seeded
 	playerOverworldData.capmaign_seed = campaign_seed
 	playerOverworldData.campaign_difficulty = difficulty

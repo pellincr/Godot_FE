@@ -54,6 +54,10 @@ func update_by_state():
 			army_container.send_to_convoy.connect(_on_send_to_convoy)
 		STATE.CHOOSE_REVIVE:
 			var tombstone = preload("res://ui/battle_prep_new/graveyard/tombstone/tombstone.tscn").instantiate()
+			if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
+				tombstone.cost_modifier = 250
+			elif playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD:
+				tombstone.cost_modifier = 750
 			tombstone.unit = chosen_unit
 			add_child(tombstone)
 			tombstone.unit_revived.connect(_on_unit_revived)

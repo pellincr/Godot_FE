@@ -57,6 +57,13 @@ text = "Easy"
 script = ExtResource("3_sx2wt")
 metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 
+[node name="NormalModeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "Normal"
+script = ExtResource("3_sx2wt")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
 [node name="HardModeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons"]
 layout_mode = 2
 toggle_mode = true
@@ -174,6 +181,9 @@ metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 [connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton" method="_on_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton" to="." method="_on_easy_mode_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton" to="." method="_on_normal_mode_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton" method="_on_pressed"]
 [connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" method="_on_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" to="." method="_on_hard_mode_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" to="PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton" method="_on_pressed"]

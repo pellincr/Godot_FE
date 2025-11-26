@@ -6,6 +6,7 @@ signal start_game(seeded: bool, seed:int, difficulty: DIFFICULTY, modifiers : Ar
 signal menu_closed()
 
 @onready var easy_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/EasyModeButton
+@onready var normal_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/NormalModeButton
 @onready var hard_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/HardModeButton
 @onready var custom_mode_button: GeneralMenuButton = $PanelContainer/MarginContainer/VBoxContainer/DificultyButtons/CustomModeButton
 
@@ -23,7 +24,10 @@ signal menu_closed()
 
 
 enum DIFFICULTY{
-	EASY,HARD,CUSTOM
+	EASY,
+	NORMAL,
+	HARD,
+	CUSTOM
 }
 
 enum MODIFIER{
@@ -37,7 +41,7 @@ var selected_modifiers : Array[MODIFIER]
 
 func _ready() -> void:
 	start_campaign_button.grab_focus()
-	easy_mode_button.button_pressed = true
+	normal_mode_button.button_pressed = true
 	fill_modifier_container()
 
 func _input(event: InputEvent) -> void:
@@ -60,17 +64,28 @@ func _on_backspace_button_pressed() -> void:
 func _on_easy_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.EASY:
 		current_difficulty = DIFFICULTY.EASY
+		normal_mode_button.button_pressed = false
 		hard_mode_button.button_pressed = false
 		custom_mode_button.button_pressed = false
 		modifier_buttons.visible = false
 	else:
 		easy_mode_button.button_pressed = true
 
+func _on_normal_mode_button_pressed() -> void:
+	if current_difficulty != DIFFICULTY.NORMAL:
+		current_difficulty = DIFFICULTY.NORMAL
+		easy_mode_button.button_pressed = false
+		hard_mode_button.button_pressed = false
+		custom_mode_button.button_pressed = false
+		modifier_buttons.visible = false
+	else:
+		easy_mode_button.button_pressed = true
 
 func _on_hard_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.HARD:
 		current_difficulty = DIFFICULTY.HARD
 		easy_mode_button.button_pressed = false
+		normal_mode_button.button_pressed = false
 		custom_mode_button.button_pressed = false
 		modifier_buttons.visible = false
 	else:
@@ -81,6 +96,7 @@ func _on_custom_mode_button_pressed() -> void:
 	if current_difficulty != DIFFICULTY.CUSTOM:
 		current_difficulty = DIFFICULTY.CUSTOM
 		easy_mode_button.button_pressed = false
+		normal_mode_button.button_pressed = false
 		hard_mode_button.button_pressed = false
 		modifier_buttons.visible = true
 	else:
