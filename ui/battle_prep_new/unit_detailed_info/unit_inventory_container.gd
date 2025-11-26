@@ -23,15 +23,16 @@ const equipped_icon = preload("res://ui/battle_prep_new/unit_detailed_info/E.png
 
 var unit :Unit
 var block_item_use : bool = false
+var ready_for_trade := false
+#enum INVENTORY_STATE{
+#	NONE,
+#	SELL,
+#	CONVOY,
+#	TRADE
+#}
 
-enum INVENTORY_STATE{
-	NONE,
-	SELL,
-	CONVOY,
-	TRADE
-}
+#var current_state := INVENTORY_STATE.NONE
 
-var current_state := INVENTORY_STATE.NONE
 
 func _ready():
 	if unit != null:
@@ -40,8 +41,8 @@ func _ready():
 func get_inventory_slots():
 	return inventory_slot_array
 
-func set_current_state(state:InventoryContainer.INVENTORY_STATE):
-	current_state = state
+#func set_current_state(state:InventoryContainer.INVENTORY_STATE):
+#	current_state = state
 
 func set_slot_theme(slot,theme):
 	slot.theme = theme
@@ -87,11 +88,6 @@ func set_inventory_for_sale_true():
 		slot.set_for_sale = true
 """
 
-func _on_item_equipped(item):
-	unit.set_equipped(item)
-	clear_equipped_symbol()
-	update_by_unit()
-	item_equipped.emit(item)
 
 func _on_item_focused(item):
 	item_focused.emit(item)
@@ -99,6 +95,26 @@ func _on_item_focused(item):
 func _on_inventory_slot_pressed(item):
 	if block_item_use:
 		return
+	
+	if !ready_for_trade:
+		disable_inventory_focus()
+		var inventory_slot_options = preload("res://ui/battle_prep_new/unit_detailed_info/inventory_slot_options/inventory_slot_options.tscn").instantiate()
+		inventory_slot_options.item = item
+		add_child(inventory_slot_options)
+		inventory_slot_options.equip_item.connect(_on_item_equipped)
+		inventory_slot_options.use_item.connect(_on_item_used.bind(unit))
+		inventory_slot_options.send_item_to_convoy.connect(_on_send_item_to_convoy)
+		inventory_slot_options.sell_item.connect(_on_sell_confirm)
+		inventory_slot_options.menu_closed.connect(_on_menu_close)
+	else:
+		set_trade_item.emit(item)
+		AudioManager.play_sound_effect("menu_confirm")
+		for inventory_slot in inventory_slot_array:
+			if inventory_slot.item == item:
+				inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
+			else:
+				inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused.tres")
+	"""
 	match current_state:
 		INVENTORY_STATE.NONE:
 			if item:
@@ -142,12 +158,27 @@ func _on_inventory_slot_pressed(item):
 					inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused_trade_ready.tres")
 				else:
 					inventory_slot.theme = preload("res://ui/battle_prep_new/inventory_not_focused.tres")
+	"""
 
-func _on_item_confirmed(item):
+
+
+func _on_item_equipped(item):
+	unit.set_equipped(item)
+	clear_equipped_symbol()
+	update_by_unit()
+	item_equipped.emit(item)
+	play_equipped_item_sound(item)
+	enable_inventory_focus()
+	grab_first_slot_focus()
+
+func _on_item_used(item, unit:Unit):
+	unit.use_consumable_item(item)
 	enable_inventory_focus()
 	update_by_unit()
 	item_used.emit(item)
 
+func _on_menu_close():
+	inventory_container_slot_1.grab_focus()
 
 func grab_first_slot_focus():
 	inventory_container_slot_1.grab_focus()
@@ -162,8 +193,14 @@ func _on_sell_confirm(item):
 	update_by_unit()
 	inventory_container_slot_1.grab_focus()
 
-func _on_confirm_close():
-	inventory_container_slot_1.grab_focus()
+func _on_send_item_to_convoy(item):
+	enable_inventory_focus()
+	send_to_convoy.emit(item)
+	unit.inventory.discard_item(item)
+	#update the inventory to match the item has now been discarded
+	update_by_unit()
+	AudioManager.play_sound_effect("store_item")
+
 
 func play_equipped_item_sound(item : ItemDefinition):
 	var selected_sound_effect = "menu_confirm"

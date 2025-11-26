@@ -6,13 +6,20 @@ signal save_game()
 
 
 @onready var start_battle_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/StartBattleButton
+@onready var unit_selection_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/UnitSelectionButton
+@onready var swap_spaces_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/SwapSpacesButton
+@onready var shop_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/ShopButton
+@onready var inventory_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/InventoryButton
+@onready var training_grounds_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/TrainingGroundsButton
+@onready var graveyard_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton
+
 #@onready var shop_button: Button = $MarginContainer/ButtonContainer/ShopButton
 @onready var button_container: VBoxContainer = $BattlePrepMenuSelection/MarginContainer/ButtonContainer
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	start_battle_button.grab_focus()
+#func _ready() -> void:
+#	start_battle_button.grab_focus()
 
 
 func _on_unit_selection_button_pressed() -> void:
@@ -65,3 +72,20 @@ func grab_start_button_focus():
 
 func _on_save_preparations_button_pressed() -> void:
 	save_game.emit()
+
+func grab_focus_by_previous_menu_state(previous_state:BattlePrep.PREP_STATE):
+	match previous_state:
+		BattlePrep.PREP_STATE.MENU:
+			start_battle_button.grab_focus()
+		BattlePrep.PREP_STATE.UNIT_SELECTION:
+			unit_selection_button.grab_focus()
+		BattlePrep.PREP_STATE.SWAP_SPACES:
+			swap_spaces_button.grab_focus()
+		BattlePrep.PREP_STATE.SHOP:
+			shop_button.grab_focus()
+		BattlePrep.PREP_STATE.INVENTORY:
+			inventory_button.grab_focus()
+		BattlePrep.PREP_STATE.TRAINING_GROUNDS:
+			training_grounds_button.grab_focus()
+		BattlePrep.PREP_STATE.GRAVEYARD:
+			graveyard_button.grab_focus()

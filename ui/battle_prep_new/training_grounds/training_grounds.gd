@@ -6,6 +6,9 @@ signal return_to_menu()
 signal award_exp(unit:CombatUnit, xp:int)
 signal screen_change(state:TRAINING_STATE)
 
+signal sell_item(value:int)
+signal send_to_convoy(item)
+
 @onready var training_grounds_container: HBoxContainer = $TrainingGroundsContainer
 
 var playerOverworldData : PlayerOverworldData
@@ -44,6 +47,8 @@ func update_by_state():
 			army_container.set_po_data(playerOverworldData)
 			army_container.set_units_list(playerOverworldData.total_party)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_to_convoy)
 			if chosen_unit:
 				army_container.focused = true
 			training_grounds_container.add_child(army_container)
@@ -80,3 +85,14 @@ func _on_award_xp(unit:Unit, xp:int, bxp:int, level_info_screen):
 	award_exp.emit(comb,xp)
 	level_info_screen.update_by_unit()
 	unit.set_hp_to_max()
+
+func _on_item_sold(item:ItemDefinition):
+	if item:
+		#AudioManager.play_sound_effect("item_sell")
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		sell_item.emit(item.worth/2)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

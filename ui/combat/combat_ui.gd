@@ -573,6 +573,7 @@ func return_to_battle_prep_screen():
 	level_info_container.visible = false
 	unit_status.visible = false
 	var battle_prep = get_child(-1)
+	battle_prep.previous_state = battle_prep.current_state
 	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
 	battle_prep.update_by_state()
 

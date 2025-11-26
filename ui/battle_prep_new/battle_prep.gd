@@ -45,6 +45,7 @@ enum PREP_STATE{
 }
 
 var current_state := PREP_STATE.MENU
+var previous_state := PREP_STATE.MENU
 var pause_menu_open = false
 
 func _ready() -> void:
@@ -71,9 +72,6 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if current_state == PREP_STATE.MENU:
-		if event.is_action_pressed("right_bumper"):
-			main_container.get_child(-1).get_child(-1).visible = !main_container.get_child(-1).get_child(-1).visible
 	if event.is_action_pressed("ui_cancel"):
 		if !pause_menu_open and tutorial_complete and current_state != PREP_STATE.SWAP_SPACES:
 			var main_pause_menu = main_pause_menu_scene.instantiate()
@@ -123,22 +121,23 @@ func update_by_state():
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
 			if controls_ui_container.size_flags_vertical == Control.SIZE_SHRINK_BEGIN:
 				controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
-			var hbox_container := HBoxContainer.new()
+			#var hbox_container := HBoxContainer.new()
 			var battle_prep_menu = preload("res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.tscn").instantiate()
-			var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
+			#var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
 			battle_prep_menu.state_selected.connect(_on_battle_prep_menu_selection_state_selected)
 			battle_prep_menu.save_game.connect(_on_save_game)
 			battle_prep_menu.start_game.connect(_on_start_game)
-			var current_level = playerOverworldData.current_level.instantiate()
-			var combat = current_level.get_child(2)
-			next_level_info.set_upcoming_enemies(combat.unit_data.starting_enemy_group)
-			if combat.entity_manager:
-				next_level_info.set_upcoming_entities(combat.entity_manager.mapEntityData)
-			hbox_container.add_child(battle_prep_menu)
-			hbox_container.add_child(next_level_info)
-			main_container.add_child(hbox_container)
-			next_level_info.fill_all_containers()
-			next_level_info.visible = false
+			#var current_level = playerOverworldData.current_level.instantiate()
+			#var combat = current_level.get_child(2)
+			#next_level_info.set_upcoming_enemies(combat.unit_data.starting_enemy_group)
+			#if combat.entity_manager:
+			#	next_level_info.set_upcoming_entities(combat.entity_manager.mapEntityData)
+			#hbox_container.add_child(battle_prep_menu)
+			#hbox_container.add_child(next_level_info)
+			main_container.add_child(battle_prep_menu)# hbox_container)
+			#next_level_info.fill_all_containers()
+			# next_level_info.visible = false
+			battle_prep_menu.grab_focus_by_previous_menu_state(previous_state)
 		PREP_STATE.UNIT_SELECTION:
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_UNIT_SELECT)
 			var unit_selection = preload("res://ui/battle_prep_new/unit_selection/UnitSelection.tscn").instantiate()
@@ -147,6 +146,8 @@ func update_by_state():
 			unit_selection.return_to_menu.connect(_on_return_to_menu)
 			unit_selection.unit_selected.connect(_on_unit_selected)
 			unit_selection.unit_deselected.connect(_on_unit_deselected)
+			unit_selection.sell_item.connect(_on_item_sold)
+			unit_selection.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.SWAP_SPACES:
 			background_blur.visible = false
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SWAP_SPACES)
@@ -162,6 +163,8 @@ func update_by_state():
 			shop.shop_exited.connect(_on_shop_exited)
 			shop.item_bought.connect(_on_item_bought)
 			shop.item_sold.connect(_on_item_sold)
+			shop.item_sold.connect(_on_item_sold)
+			shop.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.INVENTORY:
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
 			var inventory_prep_screen = preload("res://ui/battle_prep_new/inventory/inventory_prep_screen.tscn").instantiate()
@@ -169,6 +172,8 @@ func update_by_state():
 			inventory_prep_screen.return_to_menu.connect(_on_return_to_menu)
 			inventory_prep_screen.screen_change.connect(_on_inventory_prep_screen_change)
 			main_container.add_child(inventory_prep_screen)
+			inventory_prep_screen.sell_item.connect(_on_item_sold)
+			inventory_prep_screen.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.TRAINING_GROUNDS:
 			set_background_image(TRAINING_GROUND_BG)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
@@ -178,6 +183,8 @@ func update_by_state():
 			training_grounds.return_to_menu.connect(_on_return_to_menu)
 			training_grounds.award_exp.connect(_on_award_exp)
 			training_grounds.screen_change.connect(_on_training_ground_screen_change)
+			training_grounds.sell_item.connect(_on_item_sold)
+			training_grounds.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.GRAVEYARD:
 			set_background_image(GRAVEYARD_BG)
 			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
@@ -187,9 +194,12 @@ func update_by_state():
 			graveyard.return_to_menu.connect(_on_return_to_menu)
 			graveyard.screen_change.connect(_on_graveyard_screen_change)
 			graveyard.unit_revived.connect(_on_unit_revived)
+			graveyard.sell_item.connect(_on_item_sold)
+			graveyard.send_to_convoy.connect(_on_send_item_to_convoy)
 	main_container.move_child(controls_ui_container,-1)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
+	previous_state = current_state
 	current_state = state
 	update_by_state()
 
@@ -237,6 +247,7 @@ func clear_existing_menus():
 			main_container.get_child(1).queue_free()
 
 func _on_return_to_menu():
+	previous_state = current_state
 	current_state = PREP_STATE.MENU
 	update_by_state()
 
@@ -297,15 +308,23 @@ func _on_shop_entered():
 func _on_shop_exited():
 	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
 
+
+
 func _on_item_bought(value):
 	playerOverworldData.gold -= value
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
 	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
 
 func _on_item_sold(value):
+	AudioManager.play_sound_effect("item_sell")
 	playerOverworldData.gold += value
 	campaign_header.set_gold_value_label(playerOverworldData.gold)
 	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
+
+
+func _on_send_item_to_convoy(item):
+	playerOverworldData.convoy.append(item)
+
 
 func _on_inventory_prep_screen_change(state:InventoryPrepScreen.INVENTORY_STATE):
 	match state:

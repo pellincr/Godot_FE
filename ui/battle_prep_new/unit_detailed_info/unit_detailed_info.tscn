@@ -137,5 +137,6 @@ theme = null
 [connection signal="item_equipped" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_equipped"]
 [connection signal="item_focused" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_focused"]
 [connection signal="item_used" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
-[connection signal="sell_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_sell_item"]
+[connection signal="sell_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_sell_item"]
+[connection signal="send_to_convoy" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_send_to_convoy"]
 [connection signal="set_trade_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

@@ -4,6 +4,9 @@ signal return_to_menu()
 signal unit_selected(unit:Unit)
 signal unit_deselected(unit:Unit)
 
+signal sell_item(value:int)
+signal send_to_convoy(item)
+
 @onready var army_container: HBoxContainer = $VBoxContainer/ArmyContainer
 @onready var units_left_value_label: Label = $VBoxContainer/UnitSelectionHeader/UnitsLeftValueLabel
 
@@ -19,6 +22,8 @@ func _ready() -> void:
 	army_container.set_po_data(playerOverworldData)
 	army_container.set_units_list(playerOverworldData.total_party)
 	army_container.fill_army_scroll_container()
+	army_container.sell_item.connect(_on_item_sold)
+	army_container.send_to_convoy.connect(_on_send_to_convoy)
 	set_units_left_value(playerOverworldData.selected_party.size(),playerOverworldData.available_party_capacity)
 
 func _process(delta: float) -> void:
@@ -67,3 +72,14 @@ func _on_army_scroll_container_unit_panel_pressed(unit: Unit) -> void:
 
 func grab_first_army_panel_focus():
 	army_container.grab_first_army_panel_focus()
+
+func _on_item_sold(item:ItemDefinition):
+	if item:
+		#AudioManager.play_sound_effect("item_sell")
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		sell_item.emit(item.worth/2)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)
