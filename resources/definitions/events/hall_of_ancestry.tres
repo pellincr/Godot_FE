@@ -19,6 +19,7 @@ title = "Bow Before the Ancestors"
 description = "The Commander unit gains [color=#FAFA82]1[/color] Defense and  [color=#FAFA82]1[/color] Resistance but loses [color=#FAFA82]1[/color] Speed."
 effect = 4
 unit_stat_change = SubResource("Resource_uxiua")
+requires_commander = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_8bogn"]
@@ -45,8 +46,9 @@ metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 script = ExtResource("1_u2eaq")
 title = "Infuse Weapon"
 description = "Commander weapon gains [color=#8EE15F]2 [/color]Damage and [color=#8EE15F]5[/color] Hit, but its weight increases by [color=#AC3232]1[/color]. "
-effect = 4
+effect = 7
 wpn_stat_change = SubResource("Resource_k2i1n")
+commander_item_required = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [resource]

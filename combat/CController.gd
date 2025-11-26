@@ -582,10 +582,10 @@ func process_terrain_effects():
 						if target_terrain.effect == Terrain.TERRAIN_EFFECTS.HEAL:
 							if combat_unit.current_hp < combat_unit.get_max_hp():
 								if target_terrain.effect_scaling == Terrain.EFFECT_SCALING.PERCENTAGE:
-									combat.combatExchange.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * target_terrain.effect_weight /100))
+									combat.heal_unit(combat_unit, floori(combat_unit.get_max_hp() * target_terrain.effect_weight /100))
 								else:
-									print("HEALED UNIT : " + combat_unit.unit.name)
-									combat.combatExchange.heal_unit(combat_unit, target_terrain.effect_weight)
+									#print("HEALED UNIT : " + combat_unit.unit.name)
+									combat.heal_unit(combat_unit, target_terrain.effect_weight)
 
 func process_special_effects():
 	var _special_effect_resource = SpecialEffectResource.new()
@@ -598,7 +598,7 @@ func process_special_effects():
 					if combat_unit.current_hp < combat_unit.get_max_hp():
 						var heal_on_begin_specials : Array[SpecialEffect] = _special_effect_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN, applicable_specials)
 						if not heal_on_begin_specials.is_empty():
-							await combat.combatExchange.heal_unit(combat_unit,_special_effect_resource.calculate_aggregate_effect(heal_on_begin_specials, combat_unit.get_max_hp()))
+							await combat.heal_unit(combat_unit,_special_effect_resource.calculate_aggregate_effect(heal_on_begin_specials, combat_unit.get_max_hp()))
 
 func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)

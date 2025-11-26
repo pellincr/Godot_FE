@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="4_8arx8"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="4_le0gf"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_8n685"]
-[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="6_61p61"]
+[ext_resource type="Resource" uid="uid://cy3m2nf7cxgul" path="res://resources/definitions/items/equipment/cleansed_goblet.tres" id="7_8arx8"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="7_rnsjk"]
 
 [sub_resource type="Resource" id="Resource_7h7gb"]
@@ -52,7 +52,7 @@ script = ExtResource("2_s7r1p")
 title = "Pour it Away"
 description = "Obtain a [color=#d200b0]Chalice[/color]."
 effect = 8
-target_item = ExtResource("6_61p61")
+target_item = ExtResource("7_8arx8")
 
 [resource]
 script = ExtResource("7_rnsjk")

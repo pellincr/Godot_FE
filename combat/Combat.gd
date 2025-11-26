@@ -811,7 +811,7 @@ func check_lose():
 #	return base_win_gold_reward * clamp(turn_reward_modifier,1,999)
 
 func heal_unit(cu:CombatUnit, amount:int):
-	await combatExchange.heal_unit(cu, amount)
+	await combatExchange.trigger_heal_unit(cu, amount)
 
 func entity_destroyed_combat(ce : CombatEntity):
 	#entity_processing.emit()

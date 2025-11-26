@@ -10,16 +10,16 @@
 
 [sub_resource type="Resource" id="Resource_6a03d"]
 script = ExtResource("3_i4u4i")
-weight = 2
+weight = 4
 attacks_per_combat_turn = 1
-percent_durability = 0.8
 
 [sub_resource type="Resource" id="Resource_pp0kq"]
 script = ExtResource("2_pmall")
 title = "Forge Resonance"
-description = "One weapon gains [color=#FAFA82]1[/color] Attack X and [color=#AC3232]2[/color] weight, but loses [color=#AC3232]20%[/color] durability."
+description = "One weapon gains [color=#FAFA82]1[/color] Attack X and [color=#AC3232]4[/color] weight."
 effect = 6
 wpn_stat_change = SubResource("Resource_6a03d")
+required_item_type_white_list = Array[int]([0])
 
 [sub_resource type="Resource" id="Resource_hmjav"]
 script = ExtResource("4_4613s")
@@ -32,11 +32,12 @@ title = "Listen Carefully"
 description = "A selected unit gains [color=#FAFA82]10%[/color] Skill growth and [color=#FAFA82]10%[/color] Speed growth."
 effect = 2
 unit_growth_change = SubResource("Resource_hmjav")
+requires_any_unit = true
 
 [sub_resource type="Resource" id="Resource_xg0dn"]
 script = ExtResource("2_pmall")
 title = "Harvest Ore"
-description = "Gain a [color=#deda00]Resonant Ore[/color] (Grants 5% growths in all stats, but decreases speed by 2 when held)."
+description = "Gain a [color=#deda00]Resonant Ore[/color]."
 effect = 8
 target_item = ExtResource("5_c0r4r")
 

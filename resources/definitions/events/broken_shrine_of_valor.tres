@@ -14,28 +14,32 @@ hp = 15
 
 [sub_resource type="Resource" id="Resource_aol43"]
 script = ExtResource("2_rcrjr")
+hp = 2
 strength = 1
 
 [sub_resource type="Resource" id="Resource_sgp1u"]
 script = ExtResource("1_gjdrf")
 title = "Rebuild the Statue"
-description = "Spend 1000 Gold, selected unit gains [color=#FAFA82]1[/color] Strength and [color=#FAFA82]15%[/color] Health growth."
+description = "Spend 1500 Gold, selected unit gains [color=#FAFA82]1[/color] Strength, [color=#FAFA82]2[/color] Max Health and [color=#FAFA82]15%[/color] Health growth."
 effect = 2
 unit_stat_change = SubResource("Resource_aol43")
 unit_growth_change = SubResource("Resource_ke52e")
+gold_requirement = 1500
+requires_any_unit = true
 
 [sub_resource type="Resource" id="Resource_ie7tl"]
 script = ExtResource("5_nuwek")
 
 [sub_resource type="Resource" id="Resource_70bis"]
 script = ExtResource("3_1p5hj")
+damage = 1
 hit = 5
 critical_chance = 10
 
 [sub_resource type="Resource" id="Resource_jgwae"]
 script = ExtResource("1_gjdrf")
 title = "Scavenge the Rubble"
-description = "Gain a Standard Iron weapon with bonus [color=#FAFA82]5[/color] hit and [color=#FAFA82]10[/color] Critical Chance."
+description = "Gain a Standard Iron weapon with bonus [color=#FAFA82]1[/color] damage, [color=#FAFA82]5[/color] hit, and [color=#FAFA82]10[/color] Critical Chance."
 wpn_stat_change = SubResource("Resource_70bis")
 loot_table = SubResource("Resource_ie7tl")
 
@@ -60,7 +64,7 @@ unit_growth_change = SubResource("Resource_qsym6")
 [resource]
 script = ExtResource("1_hon6e")
 name = "Broken Shrine of Valor"
-description = "A ruined statue of a forgotten hero lies scattered."
+description = "A shrine sits in a forest, light [shake]flickers across shattered stone[/shake], revealing the lower half of a once-heroic statue still gripping its greatsword in eternal vigilance. Around you, the fractured arches and leaning pillars rise like [shake]wounded sentinels[/shake], while the encroaching forest threatens to swallow the last memory of those honored here."
 background = ExtResource("1_pqwyy")
 option1 = SubResource("Resource_sgp1u")
 option2 = SubResource("Resource_jgwae")

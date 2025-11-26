@@ -1,4 +1,4 @@
-[gd_scene load_steps=186 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=188 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
@@ -183,7 +183,9 @@
 [ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
 [ext_resource type="Resource" uid="uid://5j253u4wbq8v" path="res://resources/definitions/items/consumables/large_potion_+.tres" id="179_smksv"]
 [ext_resource type="Resource" uid="uid://ctxck0urg8ldt" path="res://resources/definitions/items/consumables/potion_+.tres" id="180_jongk"]
+[ext_resource type="Resource" uid="uid://cy3m2nf7cxgul" path="res://resources/definitions/items/equipment/cleansed_goblet.tres" id="181_jongk"]
 [ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
+[ext_resource type="Resource" uid="uid://7jgl3w4yco8k" path="res://resources/definitions/items/equipment/heavy_brick.tres" id="182_a2n7e"]
 [ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
 
 [node name="ItemDatabase" type="Node"]
@@ -207,6 +209,7 @@ items = {
 "cave_carrot": ExtResource("121_4xm7o"),
 "century_cheese": ExtResource("111_psnd1"),
 "chest_key": ExtResource("96_q47d5"),
+"cleansed_goblet": ExtResource("181_jongk"),
 "colossus": ExtResource("85_6fek0"),
 "dark_pulse": ExtResource("29_sc5t6"),
 "dark_sword": ExtResource("25_rrx52"),
@@ -242,6 +245,7 @@ items = {
 "hawkweed": ExtResource("127_ccn1k"),
 "heal_staff": ExtResource("16_exr5t"),
 "heartbeet": ExtResource("113_u8lih"),
+"heavy_brick": ExtResource("182_a2n7e"),
 "heavy_knife": ExtResource("105_l712n"),
 "heavy_lance": ExtResource("84_u837s"),
 "holy_fire": ExtResource("89_uiv3h"),

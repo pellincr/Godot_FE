@@ -36,13 +36,13 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_o58bh"]
 script = ExtResource("4_3jxrr")
-critical_chance = 15
+hit = 15
 metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 
 [sub_resource type="Resource" id="Resource_2tugs"]
 script = ExtResource("2_epgqw")
 title = "Gust Sharpen"
-description = "A selected weapon gains [color=#8EE15F]15[/color] Critical Chance and loses [color=#8EE15F]4[/color] weight."
+description = "A selected weapon gains [color=#8EE15F]15[/color] Hit and loses [color=#8EE15F]4[/color] weight."
 effect = 6
 wpn_stat_change = SubResource("Resource_o58bh")
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
@@ -50,7 +50,7 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 [resource]
 script = ExtResource("1_bd0qe")
 name = "Wind Carved Archway"
-description = "An airy cliffside gate sings with the gale."
+description = "High on the cliffside, a stone archway stands unyielding. Wind [shake]BLASTS[/shake] through its smoothed  pillars As you step closer, tattered scraps of earth [wave]flutter in graceful arcs[/wave], carried effortlessly by the restless breath of the mountain."
 background = ExtResource("1_4vm1v")
 option1 = SubResource("Resource_n36su")
 option2 = SubResource("Resource_1r21n")

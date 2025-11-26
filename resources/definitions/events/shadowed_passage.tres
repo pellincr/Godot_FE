@@ -19,6 +19,7 @@ title = "Slip Past"
 description = "The commander unit gains [color=#8EE15F]2[/color] Speed, but loses [color=#AC3232]1[/color] Strength. "
 effect = 4
 unit_stat_change = SubResource("Resource_28227")
+requires_commander = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_7nf5n"]
@@ -33,6 +34,7 @@ title = "Confront Head-On"
 description = "The commander unit gains [color=#8EE15F]1[/color] Strength and [color=#AC3232]1[/color] Defense."
 effect = 4
 unit_stat_change = SubResource("Resource_7nf5n")
+requires_commander = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_dovi6"]
@@ -47,6 +49,7 @@ title = "Silent Kill"
 description = "The commander weapon gains [color=#8EE15F]15[/color] hit and [color=#8EE15F]15[/color] Critical Chance."
 effect = 7
 wpn_stat_change = SubResource("Resource_dovi6")
+commander_item_required = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [resource]

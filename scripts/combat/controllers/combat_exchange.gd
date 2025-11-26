@@ -122,6 +122,17 @@ func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
 		target.map_display.update_values()
 		await target.map_display.update_complete
 
+
+# Calculates the heal and any bonuses if applicable
+func trigger_heal_unit(combat_unit: CombatUnit, amount:int):
+	var _healing_amount = amount
+	var healed_unit_specials = combat_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	if healed_unit_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
+		var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, healed_unit_specials)
+		_healing_amount = _healing_amount +se_resource.calculate_aggregate_effect(_heal_bonus_effects, _healing_amount)
+	await heal_unit(combat_unit, _healing_amount)
+
+# Does the heal itself
 func heal_unit(unit: CombatUnit, amount: int):
 	#await use_audio_player(heal_sound)
 	AudioManager.play_sound_effect_pitch_randomized("unit_heal")
@@ -388,6 +399,9 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
 	#How many hits are performed?
 	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
+	var supporter_specials = se_resource.get_all_special_effect_types(supporter.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	var target_specials = se_resource.get_all_special_effect_types(target.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	
 	return_object.supporter = supporter
 	return_object.target = target
 	var turn_count = 1
@@ -396,6 +410,9 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
 		turn_data.effect_weight = supporter.get_damage()
+		if target_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
+			var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target_specials)
+			turn_data.effect_weight = turn_data.effect_weight +se_resource.calculate_aggregate_effect(_heal_bonus_effects, turn_data.effect_weight)
 		return_object.exchange_data.append(turn_data)
 	return_object.populate()
 	return return_object

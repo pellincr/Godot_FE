@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=8 format=3 uid="uid://7jgl3w4yco8k"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_1pfsj"]
+[ext_resource type="Texture2D" uid="uid://b0p85p4ouuaut" path="res://resources/sprites/items/equipment/heavy_brick.png" id="2_1pfsj"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="3_3mbat"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="4_mqnl2"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_kyrlv"]
+
+[sub_resource type="Resource" id="Resource_uhcht"]
+script = ExtResource("1_1pfsj")
+special = 27
+effect_weight = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[sub_resource type="Resource" id="Resource_4o6k3"]
+script = ExtResource("3_3mbat")
+constitution = 2
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("5_kyrlv")
+name = "Heavy Brick"
+db_key = "heavy_brick"
+description = "A dense brick salvaged from the remains of a long-fallen bridge, its surface carries a faint warmth that refuses to fade.Those who bear it feel their resolve harden and their wounds mend, as if the stone itself remembers how to hold the world together."
+item_type = 3
+rarity = ExtResource("4_mqnl2")
+worth = 2250
+inventory_bonus_stats = SubResource("Resource_4o6k3")
+held_specials = Array[ExtResource("1_1pfsj")]([SubResource("Resource_uhcht")])
+icon = ExtResource("2_1pfsj")

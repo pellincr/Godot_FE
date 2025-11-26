@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://dqgb8uc1ysvh7"]
+[gd_resource type="Resource" script_class="Event" load_steps=22 format=3 uid="uid://dqgb8uc1ysvh7"]
 
 [ext_resource type="Texture2D" uid="uid://bt3qhef4pmrcr" path="res://resources/sprites/events/moonlit_armory_background.png" id="1_8gega"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_3buo3"]
@@ -6,47 +6,69 @@
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_g6u0r"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_onn5c"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="5_7y7i6"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="6_vuy7x"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="6_6ayhs"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="7_pu478"]
+[ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="8_hj28v"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="9_h7164"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="10_ep3kr"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="11_tjw5d"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="12_annxa"]
 
 [sub_resource type="Resource" id="Resource_0rwxa"]
 script = ExtResource("3_2i87y")
 damage = 1
 hit = 15
-max_uses = -2
+max_uses = 4
 
 [sub_resource type="Resource" id="Resource_ktxpm"]
 script = ExtResource("2_3buo3")
 title = "Empower"
-description = "Target Weapon recieves [color=#FAFA82]1[/color] Damage,[color=#FAFA82]15[/color] Hit, and loses [color=#AC3232]2[/color] Uses."
+description = "Target Weapon recieves [color=#FAFA82]1[/color] Damage, [color=#FAFA82]15[/color] Hit, and [color=#FAFA82]4[/color] Uses."
 effect = 6
 wpn_stat_change = SubResource("Resource_0rwxa")
 
 [sub_resource type="Resource" id="Resource_cx02q"]
 script = ExtResource("3_onn5c")
-skill = 15
+skill = 18
 
 [sub_resource type="Resource" id="Resource_q57dt"]
 script = ExtResource("2_3buo3")
 title = "Study His Craft"
-description = "A selected unit gains [color=#FAFA82]15%[/color] Skill growth."
+description = "A selected unit gains [color=#FAFA82]18%[/color] Skill growth."
 effect = 2
 unit_growth_change = SubResource("Resource_cx02q")
 
-[sub_resource type="Resource" id="Resource_3c1p6"]
-script = ExtResource("6_vuy7x")
+[sub_resource type="Resource" id="Resource_gdh81"]
+script = ExtResource("10_ep3kr")
+item_rarity_whitelist = Array[ExtResource("8_hj28v")]([ExtResource("9_h7164")])
+item_type_whitelist = Array[int]([0])
+probability = 37.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_npjtj"]
+script = ExtResource("10_ep3kr")
+item_rarity_whitelist = Array[ExtResource("8_hj28v")]([ExtResource("11_tjw5d")])
+item_type_whitelist = Array[int]([0])
+probability = 13.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_x77cw"]
+script = ExtResource("12_annxa")
+entries = Array[ExtResource("6_6ayhs")]([SubResource("Resource_gdh81"), SubResource("Resource_npjtj")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
 
 [sub_resource type="Resource" id="Resource_4oeb3"]
 script = ExtResource("2_3buo3")
 title = "Purchase Oddities"
-description = "Spend [color=#FFA800]1500G[/color] and get a random [color=#689aff]Rare Weapon[/color]."
+description = "Spend [color=#FFA800]1500G[/color] and get a random [color=#689aff]Rare Weapon[/color] or [color=#d200b0]Mythical Weapon[/color]."
 effect = 8
 gold_change = -1500
-loot_table = SubResource("Resource_3c1p6")
+loot_table = SubResource("Resource_x77cw")
 
 [resource]
 script = ExtResource("5_7y7i6")
 name = "Moonlit Armory"
-description = "A blacksmith works by moonlight, sparks violently dance in the night sky."
+description = "Moonlight spills across the clearing striking the armory’s stone archway. Within, a lone smith’s tools and half-finished masterpieces glint beside a lantern he keeps burning through countless late hours. Sparks [shake]fly wildly[/shake] out of the forge, contrasting the steady rhythm of a craftsman who has not abandoned his art."
 background = ExtResource("1_8gega")
 option1 = SubResource("Resource_ktxpm")
 option2 = SubResource("Resource_q57dt")

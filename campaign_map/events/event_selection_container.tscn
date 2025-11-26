@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://6leg2pgnfdjg"]
+[gd_scene load_steps=7 format=3 uid="uid://6leg2pgnfdjg"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_o6dpi"]
 [ext_resource type="Script" uid="uid://b8hwlqpqs6qeg" path="res://campaign_map/events/event_selection_container.gd" id="2_kacqx"]
 [ext_resource type="PackedScene" uid="uid://ctdkeej0r0x4a" path="res://campaign_map/events/event_option_button.tscn" id="3_7q0in"]
 [ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_cxy0x"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_1hqls"]
+
+[sub_resource type="Theme" id="Theme_ehjxi"]
+RichTextLabel/font_sizes/bold_font_size = 32
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/bold_font = ExtResource("3_cxy0x")
+RichTextLabel/fonts/normal_font = ExtResource("4_1hqls")
 
 [node name="EventSelectionContainer" type="VBoxContainer"]
 custom_minimum_size = Vector2(560, 500)
@@ -25,10 +31,11 @@ fit_content = true
 [node name="EventDescription" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(558, 248)
 layout_mode = 2
+theme = SubResource("Theme_ehjxi")
 theme_override_fonts/normal_font = ExtResource("4_1hqls")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]Deep within a cluttered workshop, an eccentric hermit tinkers with gears that [wave]hum[/wave] with unnatural precision. Mechanical creations [shake]clatter[/shake] and [tornado] whirl[/tornado] around him as he beckons you closer, eager for a willing subject to test his latest invention.[/center]"
+text = "Commander gains [color=#FAFA82]25% [/color]Mag growth and [color=#FAFA82]15%[/color] Skill growth, but loses [color=#AC3232]1[/color] Resistance and [color=#AC3232]1[/color] Defense."
 
 [node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2

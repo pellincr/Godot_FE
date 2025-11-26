@@ -44,8 +44,15 @@ enum EVENT_EFFECT{
 @export var loot_table : LootTable = null
 @export var target_item : ItemDefinition
 
+## Requirements
 @export_group("Event Option Requirements")
 @export var gold_requirement = 0
+@export_subgroup("Event Requires unit")
+@export var requires_commander : bool = false
+@export var requires_non_commander_unit : bool = false
+@export var requires_any_unit : bool = false
+@export_subgroup("Event Requires item")
+@export var requires_any_item : bool = false
 @export var required_item : ItemDefinition = null
-@export var required_item_type : Array[ItemConstants.ITEM_TYPE]  = []
-@export var required_unit_stat : UnitStat = null
+@export var commander_item_required : bool = false
+@export var required_item_type_white_list : Array[ItemConstants.ITEM_TYPE]  = []

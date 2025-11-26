@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Event" load_steps=15 format=3 uid="uid://5sst4s666qpw"]
+[gd_resource type="Resource" script_class="Event" load_steps=30 format=3 uid="uid://5sst4s666qpw"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
 [ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
@@ -7,6 +7,15 @@
 [ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="5_r33rn"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="7_2t23g"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="8_ffwb1"]
+[ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="9_3j3fe"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="10_yvk1x"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="11_kxklu"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="12_6xchn"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="13_1wpxc"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="14_pxw8d"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="15_fnl6b"]
 
 [sub_resource type="Resource" id="Resource_e71i3"]
 script = ExtResource("3_ymgno")
@@ -35,22 +44,62 @@ equipped_specials = Array[ExtResource("5_r33rn")]([SubResource("Resource_fe022")
 
 [sub_resource type="Resource" id="Resource_556ly"]
 script = ExtResource("2_cc62d")
-title = "Claim the Relic"
-description = "Gain a Random weapon with [color=#FAFA82]4[/color] extra damage and has the [color=#FAFA82]Devil Reversal[/color]special tag."
+title = "Claim the Weapon"
+description = "Gain a Random weapon with [color=#FAFA82]4[/color] extra damage and has the [color=#FAFA82]Devil Reversal[/color] special effect."
 effect = 8
 wpn_stat_change = SubResource("Resource_p7vwh")
 loot_table = SubResource("Resource_jlbjb")
 
+[sub_resource type="Resource" id="Resource_wnnfo"]
+script = ExtResource("10_yvk1x")
+item_type_whitelist = Array[int]([3])
+probability = 45.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_1dfvo"]
+script = ExtResource("10_yvk1x")
+item_rarity_whitelist = Array[ExtResource("9_3j3fe")]([ExtResource("11_kxklu")])
+item_type_whitelist = Array[int]([3])
+probability = 35.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_pgwbw"]
+script = ExtResource("10_yvk1x")
+item_rarity_whitelist = Array[ExtResource("9_3j3fe")]([ExtResource("12_6xchn")])
+item_type_whitelist = Array[int]([3])
+probability = 15.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_ai10g"]
+script = ExtResource("10_yvk1x")
+item_rarity_whitelist = Array[ExtResource("9_3j3fe")]([ExtResource("13_1wpxc")])
+item_type_whitelist = Array[int]([3])
+probability = 4.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_viagj"]
+script = ExtResource("10_yvk1x")
+item_rarity_whitelist = Array[ExtResource("9_3j3fe")]([ExtResource("14_pxw8d")])
+item_type_whitelist = Array[int]([3])
+probability = 1.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_fngsd"]
+script = ExtResource("15_fnl6b")
+entries = Array[ExtResource("7_2t23g")]([SubResource("Resource_wnnfo"), SubResource("Resource_1dfvo"), SubResource("Resource_pgwbw"), SubResource("Resource_ai10g"), SubResource("Resource_viagj")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
+
 [sub_resource type="Resource" id="Resource_rlnpb"]
 script = ExtResource("2_cc62d")
-title = "Search for Gold"
-description = "Scavenge the battle field for treasures, collect [color=#FFA800]1000 Gold[/color]."
-gold_change = 1000
+title = "Scavenge"
+description = "Gain a random equipment item."
+effect = 8
+loot_table = SubResource("Resource_fngsd")
 
 [resource]
 script = ExtResource("1_3o1ck")
 name = "Ancient Battlefield"
-description = "Mists curl around rusted weapons and forgotten banners. A large weapon lays in the center."
+description = "Moonlight [wave]spills[/wave] across the desolate field, revealing rusted blades and tattered banners that stand defiantly surely long after those who held them were laid to rest. A [b]massive[/b] forgotten weapon lies half-buried at the center, its presence [shake]reverberating faintly [/shake]through the cold night air. "
 background = ExtResource("1_dwhhw")
 option1 = SubResource("Resource_31c6h")
 option2 = SubResource("Resource_556ly")

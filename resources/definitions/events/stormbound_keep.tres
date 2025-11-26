@@ -42,7 +42,7 @@ metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 [sub_resource type="Resource" id="Resource_t7ax6"]
 script = ExtResource("1_s6r8v")
 title = "Infuse the Blade"
-description = "A selected weapon gains [color=#8EE15F]effective damage[/color] against flying foes."
+description = "A selected weapon gains [color=#8EE15F]effective damage[/color] against f[color=#FAFA82]lying foes[/color]."
 effect = 6
 wpn_stat_change = SubResource("Resource_v2oi6")
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
@@ -50,7 +50,7 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 [resource]
 script = ExtResource("1_15irv")
 name = "Stormbound Keep"
-description = "Lightning dances along ancient battlements."
+description = "Sheets of rain [shake]hammer[/shake] the dark battlements as lightning tears through the clouds overhead. The keep stands unbroken against the storm, its shadowed towers [shake]shuddering[/shake] but refusing to yield to what seems an endless storm."
 option1 = SubResource("Resource_4b4rn")
 option2 = SubResource("Resource_ibqu3")
 option3 = SubResource("Resource_t7ax6")

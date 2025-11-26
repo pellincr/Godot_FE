@@ -73,7 +73,7 @@ func update_by_menu_state():
 			MENU_STATE.NONE:
 				get_child(-1).queue_free()
 				event_selection_container.enable_focus()
-				event_selection_container.event_option_button_1.grab_focus()
+				event_selection_container.grab_first_effective_focus()
 			MENU_STATE.PAUSE:
 				var main_pause_menu = MAIN_PAUSE_MENU_SCENE.instantiate()
 				add_child(main_pause_menu)
@@ -98,9 +98,84 @@ func select_event():
 	set_event_background(chosen_event.background)
 	event_selection_container.event = chosen_event
 	event_selection_container.update_by_event()
+	event_selection_container.update_valid_event_options(valid_event_option_requirement(chosen_event.option1), valid_event_option_requirement(chosen_event.option2), valid_event_option_requirement(chosen_event.option3))
 	event_selection_container.connect("event_option_hovered", _on_event_option_hovered)
 	current_event = chosen_event
 
+func valid_event_option_requirement(event_option:EventOption) -> bool:
+	# check the gold requirement
+	#var _has_any_unit = false
+	var _has_commander = false
+	var _has_non_commander_unit = false
+	var _has_any_item = not event_option.requires_any_item
+	var _has_item_of_type = event_option.required_item_type_white_list.is_empty()
+	var _has_required_item = event_option.required_item == null
+	var _has_commander_item = not event_option.commander_item_required
+	
+	if playerOverworldData.gold < event_option.gold_requirement:
+		return false
+		
+	# Check Unit Requirements
+	if not playerOverworldData.total_party.is_empty():
+		for unit in playerOverworldData.total_party:
+			if unit != null:
+				#_has_any_unit = true
+				if not _has_commander and not _has_non_commander_unit :
+					if UnitTypeDatabase.get_commander_definition(unit.unit_type_key) != null:
+						_has_commander = true
+					else:
+						if unit is Unit:
+							_has_non_commander_unit = true
+				if _has_non_commander_unit and _has_commander: 
+					break
+			if event_option.requires_any_unit:
+				if not (_has_commander or _has_non_commander_unit):
+					return false
+			if event_option.requires_commander:
+				if not _has_commander:
+					return false
+			if event_option.requires_non_commander_unit:
+				if not _has_commander:
+					return false
+	
+	#Check Item Requirements
+	if not (_has_item_of_type and _has_required_item and _has_commander_item):
+		#check the convoy first
+		for item :ItemDefinition in playerOverworldData.convoy:
+			if item != null:
+
+				if ItemDatabase.is_commander_weapon(item.db_key) and not _has_commander_item:
+					_has_commander_item = true
+					_has_any_item = true
+				if event_option.required_item_type_white_list.has(item.item_type) and not _has_item_of_type:
+					_has_item_of_type = true
+					_has_any_item = true
+				if not _has_required_item:
+					if item.db_key == event_option.required_item.db_key:
+						_has_required_item = true
+						_has_any_item = true
+				if (_has_item_of_type and _has_required_item and _has_commander_item):
+					break
+	# check all units
+	if not (_has_item_of_type and _has_required_item and _has_commander_item):
+		for player_unit: Unit in playerOverworldData.total_party:
+			for item in player_unit.inventory.items:
+				if item != null and item is ItemDefinition:
+					if ItemDatabase.is_commander_weapon(item.db_key) and not _has_commander_item:
+						_has_commander_item = true
+						_has_any_item = true
+					if event_option.required_item_type_white_list.has(item.item_type) and not _has_item_of_type:
+						_has_item_of_type = true
+						_has_any_item = true
+					if not _has_required_item:
+						if item.db_key == event_option.required_item.db_key:
+							_has_required_item = true
+							_has_any_item = true
+					if (_has_item_of_type and _has_required_item and _has_commander_item):
+						break
+	if not (_has_item_of_type and _has_required_item and _has_commander_item and _has_any_item):
+		return false
+	return true
 
 func set_event_background(texture):
 	background.texture = texture
