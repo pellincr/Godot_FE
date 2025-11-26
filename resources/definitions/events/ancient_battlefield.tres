@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="Event" load_steps=30 format=3 uid="uid://5sst4s666qpw"]
+[gd_resource type="Resource" script_class="Event" load_steps=31 format=3 uid="uid://5sst4s666qpw"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_3o1ck"]
 [ext_resource type="Texture2D" uid="uid://caxdvt8hbflff" path="res://resources/sprites/events/Ancient_Battlefield_background.png" id="1_dwhhw"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_cc62d"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_ymgno"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="5_k8up4"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_oppgp"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="5_r33rn"]
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="7_2t23g"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ffwb1"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="8_ffwb1"]
 [ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="9_3j3fe"]
 [ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="10_yvk1x"]
@@ -28,8 +28,15 @@ description = "All units gain [color=#FAFA82]2[/color] Luck."
 effect = 3
 unit_stat_change = SubResource("Resource_e71i3")
 
-[sub_resource type="Resource" id="Resource_jlbjb"]
-script = ExtResource("5_k8up4")
+[sub_resource type="Resource" id="Resource_3j3fe"]
+script = ExtResource("10_yvk1x")
+item_rarity_whitelist = Array[ExtResource("9_3j3fe")]([ExtResource("7_ffwb1"), ExtResource("11_kxklu"), ExtResource("12_6xchn"), ExtResource("13_1wpxc")])
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_yvk1x"]
+script = ExtResource("15_fnl6b")
+entries = Array[ExtResource("7_2t23g")]([SubResource("Resource_3j3fe")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
 
 [sub_resource type="Resource" id="Resource_fe022"]
 script = ExtResource("5_r33rn")
@@ -48,7 +55,7 @@ title = "Claim the Weapon"
 description = "Gain a Random weapon with [color=#FAFA82]4[/color] extra damage and has the [color=#FAFA82]Devil Reversal[/color] special effect."
 effect = 8
 wpn_stat_change = SubResource("Resource_p7vwh")
-loot_table = SubResource("Resource_jlbjb")
+loot_table = SubResource("Resource_yvk1x")
 
 [sub_resource type="Resource" id="Resource_wnnfo"]
 script = ExtResource("10_yvk1x")

@@ -35,7 +35,7 @@ theme = SubResource("Theme_ehjxi")
 theme_override_fonts/normal_font = ExtResource("4_1hqls")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "Commander gains [color=#FAFA82]25% [/color]Mag growth and [color=#FAFA82]15%[/color] Skill growth, but loses [color=#AC3232]1[/color] Resistance and [color=#AC3232]1[/color] Defense."
+text = "All units gain [color=#FAFA82]3[/color] HP."
 
 [node name="EventOptionButton1" parent="." instance=ExtResource("3_7q0in")]
 layout_mode = 2
