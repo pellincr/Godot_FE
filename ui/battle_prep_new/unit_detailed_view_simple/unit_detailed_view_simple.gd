@@ -2,7 +2,7 @@ extends Panel
 
 signal set_trade_item(item,unit)
 signal sell_item(item)
-signal send_item_to_convoy(item)
+signal send_to_convoy(item)
 
 @onready var unit_name_label = $MarginContainer/VBoxContainer/UnitNameLabel
 @onready var unit_icon = $UnitIcon
@@ -88,12 +88,14 @@ func _on_unit_inventory_container_sell_item(item):
 	sell_item.emit(item)
 
 
-func set_invetory_state(state:InventoryContainer.INVENTORY_STATE):
-	unit_inventory_container.set_current_state(state)
+#func set_invetory_state(state:InventoryContainer.INVENTORY_STATE):
+#	unit_inventory_container.set_current_state(state)
 
+func set_inventory_ready_for_trade():
+	unit_inventory_container.ready_for_trade = true
 
 func _on_unit_inventory_container_send_to_convoy(item: Variant) -> void:
-	send_item_to_convoy.emit(item)
+	send_to_convoy.emit(item)
 
 func grab_first_inventory_slot_focus():
 	unit_inventory_container.grab_first_slot_focus()

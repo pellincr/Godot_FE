@@ -5,6 +5,9 @@ class_name InventoryPrepScreen
 signal return_to_menu()
 signal screen_change(state:INVENTORY_STATE)
 
+signal sell_item(value:int)
+signal send_to_convoy(item)
+
 var playerOverworldData : PlayerOverworldData
 
 enum INVENTORY_STATE{
@@ -64,6 +67,8 @@ func update_by_state():
 				army_container.focused = true
 			army_container.fill_army_scroll_container()
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed.bind(army_container))
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_item_to_convoy)
 			if selected_unit:
 				army_container.get_unit_panel_from_container(selected_unit).grab_focus()
 		INVENTORY_STATE.MANAGE_ITEMS:
@@ -71,8 +76,9 @@ func update_by_state():
 			var convoy = convoy_scene.instantiate()
 			unit_detailed_view_simple.unit = selected_unit
 			add_child(unit_detailed_view_simple)
-			unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.CONVOY)
-			unit_detailed_view_simple.send_item_to_convoy.connect(_on_send_item_to_convoy.bind(convoy))
+			#unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.CONVOY)
+			unit_detailed_view_simple.sell_item.connect(_on_item_sold)
+			unit_detailed_view_simple.send_to_convoy.connect(_on_send_item_to_convoy)
 			convoy.set_po_data(playerOverworldData)
 			#convoy.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN | Control.SIZE_EXPAND 
 			convoy.layout_direction = Control.LAYOUT_DIRECTION_RTL
@@ -85,6 +91,8 @@ func update_by_state():
 		INVENTORY_STATE.PICK_TRADE_UNIT:
 			var unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
 			unit_detailed_view_simple.unit = selected_unit
+			unit_detailed_view_simple.sell_item.connect(_on_item_sold)
+			unit_detailed_view_simple.send_to_convoy.connect(_on_send_item_to_convoy)
 			add_child(unit_detailed_view_simple)
 			var army_container = army_container_scene.instantiate()
 			army_container.set_po_data(playerOverworldData)
@@ -92,6 +100,8 @@ func update_by_state():
 			trade_unit_options.erase(selected_unit)
 			#army_container.set_units_list(playerOverworldData.total_party)
 			army_container.set_units_list(trade_unit_options)
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_item_to_convoy)
 			add_child(army_container)
 			army_container.fill_army_scroll_container()
 			#army_container.remove_unit_panel(selected_unit)
@@ -102,13 +112,15 @@ func update_by_state():
 			unit_detailed_view_simple.unit = selected_unit
 			add_child(unit_detailed_view_simple)
 			unit_detailed_view_simple.set_trade_item.connect(_on_set_trade_item_1)
-			unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.TRADE)
+			#unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.TRADE)
+			unit_detailed_view_simple.set_inventory_ready_for_trade()
 			unit_detailed_view_simple.grab_first_inventory_slot_focus()
 			var trade_unit_detailed_view_simple = unit_detailed_view_simple_scene.instantiate()
 			trade_unit_detailed_view_simple.unit = trade_unit
 			add_child(trade_unit_detailed_view_simple)
 			trade_unit_detailed_view_simple.set_trade_item.connect(_on_set_trade_item_2)
-			trade_unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.TRADE)
+			#trade_unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.TRADE)
+			trade_unit_detailed_view_simple.set_inventory_ready_for_trade()
 
 
 func clear_screen():
@@ -152,10 +164,11 @@ func _on_item_panel_pressed(item,unit_detailed_view,convoy):
 		convoy.reset_convoy_container()
 		AudioManager.play_sound_effect("item_from_convoy")
 
-func _on_send_item_to_convoy(item,convoy):
-	playerOverworldData.convoy.append(item)
-	convoy.focused = false
-	convoy.reset_convoy_container()
+func _on_send_item_to_convoy(item):
+	#playerOverworldData.convoy.append(item)
+	#convoy.focused = false
+	#convoy.reset_convoy_container()
+	send_to_convoy.emit(item)
 
 func _on_set_trade_item_1(item,unit):
 	trade_item1 = item
@@ -199,3 +212,11 @@ func _on_store_all():
 			playerOverworldData.convoy.append(item)
 			selected_unit.inventory.discard_item(item)
 	update_by_state()
+
+func _on_item_sold(item:ItemDefinition):
+	if item:
+		#AudioManager.play_sound_effect("item_sell")
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		sell_item.emit(item.worth/2)

@@ -5,6 +5,8 @@ const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_inf
 const CONSUMABLE_ITEM_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn")
 
 signal set_trade_item(item,unit)
+signal sell_item(item)
+signal send_to_convoy(item)
 
 @onready var unit_name_label = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitNameLabel
 @onready var unit_experience_container = $MarginContainer/HBoxContainer/LeftHalfContainer/UnitExperienceInfo
@@ -125,3 +127,10 @@ func _on_unit_inventory_container_item_focused(item) -> void:
 
 func get_first_inventory_container_slot():
 	return unit_inventory_container.inventory_container_slot_1
+
+
+func _on_sell_item(item):
+	sell_item.emit(item)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

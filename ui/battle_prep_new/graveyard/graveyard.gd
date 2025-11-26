@@ -6,6 +6,9 @@ signal return_to_menu()
 signal screen_change(STATE)
 signal unit_revived(cost)
 
+signal sell_item(value:int)
+signal send_to_convoy(item)
+
 var playerOverworldData : PlayerOverworldData
 
 enum STATE {
@@ -47,6 +50,8 @@ func update_by_state():
 			add_child(army_container)
 			army_container.fill_army_scroll_container()
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_to_convoy)
 		STATE.CHOOSE_REVIVE:
 			var tombstone = preload("res://ui/battle_prep_new/graveyard/tombstone/tombstone.tscn").instantiate()
 			tombstone.unit = chosen_unit
@@ -67,3 +72,14 @@ func _on_unit_revived(unit:Unit, cost:int):
 		playerOverworldData.dead_party_members.erase(unit)
 		current_state = STATE.SELECT_UNIT
 		update_by_state()
+
+func _on_item_sold(item:ItemDefinition):
+	if item:
+		#AudioManager.play_sound_effect("item_sell")
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		sell_item.emit(item.worth/2)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

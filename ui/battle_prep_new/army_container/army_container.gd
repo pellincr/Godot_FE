@@ -6,6 +6,9 @@ extends HBoxContainer
 signal unit_panel_pressed(unit:Unit)
 signal convoy_panel_pressed()
 
+signal sell_item(item)
+signal send_to_convoy(item)
+
 @onready var main_scroll_container: VBoxContainer = $ArmyScrollContainer/MainScrollContainer
 
 
@@ -62,6 +65,9 @@ func unit_focus_entered(unit):
 	add_child(unit_detailed_info)
 	unit_panel.focus_neighbor_right = unit_detailed_info.get_first_inventory_container_slot().get_path()
 	unit_detailed_info.unit_inventory_container.set_inventory_slots_left_focus_neighbor(unit_panel.get_path())
+	unit_detailed_info.sell_item.connect(_on_sell_item)
+	unit_detailed_info.send_to_convoy.connect(_on_send_to_convoy)
+
 
 func _on_unit_panel_pressed(unit:Unit):
 	unit_panel_pressed.emit(unit)
@@ -137,3 +143,9 @@ func get_nonselected_units() -> Array:
 		if !playerOverworldData.selected_party.has(unit):
 			accum.append(unit)
 	return accum
+
+func _on_sell_item(item):
+	sell_item.emit(item)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

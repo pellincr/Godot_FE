@@ -7,7 +7,7 @@ signal item_bought(value:int)
 signal item_sold(value:int)
 signal shop_entered()
 signal shop_exited()
-
+signal send_to_convoy(item)
 
 @onready var main_container: HBoxContainer = $MainContainer
 
@@ -59,6 +59,8 @@ func update_by_shop_state():
 			army_container.fill_army_scroll_container(true)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
 			army_container.convoy_panel_pressed.connect(_on_convoy_panel_pressed)
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_to_convoy)
 			if selected_buy_location:
 				if selected_buy_location is Unit:
 					army_container.get_unit_panel_from_container(selected_buy_location).grab_focus()
@@ -71,8 +73,9 @@ func update_by_shop_state():
 				var unit_detailed_view_simple = preload("res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.tscn").instantiate()
 				unit_detailed_view_simple.unit = selected_buy_location
 				main_container.add_child(unit_detailed_view_simple)
-				unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.SELL)
+				#unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.SELL)
 				unit_detailed_view_simple.sell_item.connect(_on_item_sold)
+				unit_detailed_view_simple.send_to_convoy.connect(_on_send_to_convoy)
 				shop_container.item_bought.connect(_on_item_bought_to_unit.bind(unit_detailed_view_simple))
 				main_container.add_child(shop_container)
 				shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
@@ -134,7 +137,7 @@ func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 
 func _on_item_sold(item:ItemDefinition):
 	if item:
-		AudioManager.play_sound_effect("item_sell")
+		#AudioManager.play_sound_effect("item_sell")
 		#playerOverworldData.gold += item.worth/2
 		#gold_counter.set_gold_count(playerOverworldData.gold)
 		@warning_ignore("integer_division")
@@ -148,3 +151,6 @@ func _on_item_panel_pressed(item:ItemDefinition, convoy_container):
 
 func _on_shop_tab_switch(shop_container, unit_detailed_view_simple):
 	shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)
