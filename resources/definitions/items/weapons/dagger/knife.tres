@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://cs8wva34dhd8m"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cs8wva34dhd8m"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_c4xd2"]
 [ext_resource type="Texture2D" uid="uid://djl8qosvkyanw" path="res://resources/sprites/items/weapons/dagger/knife.png" id="1_m78wi"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_38fr4"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_0cl4e"]
@@ -9,10 +10,9 @@ script = ExtResource("3_0cl4e")
 weapon_type = 13
 alignment = 4
 item_scaling_multiplier = 1.2
-damage = 5
-hit = 60
+damage = 6
+hit = 75
 weight = 4
-critical_multiplier = 1.0
 attack_range = Array[int]([1, 2])
 name = "Knife"
 db_key = "knife"
