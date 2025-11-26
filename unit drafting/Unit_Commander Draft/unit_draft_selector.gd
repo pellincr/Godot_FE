@@ -271,7 +271,7 @@ func randomize_selection(unit_bonus_levels : int = 0):
 			#if the player is picking from a choice of units
 			var filtered_unit_classes = filter_classes_by_archetype_pick(current_archetype_pick, rarity)
 			new_randomized_pick = filtered_unit_classes.pick_random()
-			var new_unit_name = playerOverworldData.temp_name_list.pick_random()
+			var new_unit_name =randomize_name(UnitTypeDatabase.get_definition(new_randomized_pick).name_genders)#layerOverworldData.temp_name_list.pick_random()
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 			var unit_character = UnitCharacter.new()
 			unit_character.name = new_unit_name
@@ -285,7 +285,7 @@ func randomize_selection(unit_bonus_levels : int = 0):
 		var unlocked_commander_classes = filter_all_commander_by_unlocked(all_commander_classes)
 		var available_commander_classes = filter_commander_by_already_generated(unlocked_commander_classes)
 		new_randomized_pick = available_commander_classes.pick_random()
-		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
+		var new_unit_name = randomize_name(UnitTypeDatabase.get_definition(new_randomized_pick).name_genders)#playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
@@ -603,6 +603,15 @@ func randomize_weapon(archetype_pick, weapon_rarity):
 	var combo1 = get_list_in_common(weapon_type_filtered_list,damage_type_filtered_list)
 	var combo2 = get_list_in_common(combo1,scaling_type_filtered_list)
 	return filter_items_by_rarity(combo2,weapon_rarity)
+
+func randomize_name(name_constraints : Array[unitConstants.NAME_GENDERS]) -> String:
+	var _active_name_bank : Array[String] = []
+	_active_name_bank.append_array(unitConstants.UNISEX_NAME_BANK)
+	if name_constraints.has(unitConstants.NAME_GENDERS.MALE):
+		_active_name_bank.append_array(unitConstants.MALE_NAME_BANK)
+	if name_constraints.has(unitConstants.NAME_GENDERS.FEMALE):
+		_active_name_bank.append_array(unitConstants.FEMALE_NAME_BANK)
+	return _active_name_bank.pick_random()
 
 func filter_items_by_weapon_type(items_list:Array, weapon_type_list : Array):
 	var accum = []

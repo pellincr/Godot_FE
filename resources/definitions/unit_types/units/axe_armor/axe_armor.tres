@@ -13,6 +13,7 @@ script = ExtResource("1_o4h4l")
 unit_type_name = "Axe Armor"
 db_key = "axe_armor"
 description = "A wall of muscle and iron, these hired brutes soak hits and crush enemies for coin."
+name_genders = Array[int]([0, 1])
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("3_se7vg")

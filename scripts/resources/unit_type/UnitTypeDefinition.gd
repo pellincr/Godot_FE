@@ -5,6 +5,7 @@ class_name UnitTypeDefinition
 @export var unit_type_name = ""
 @export var db_key : String
 @export var description : String
+@export var name_genders : Array[unitConstants.NAME_GENDERS] = [unitConstants.NAME_GENDERS.MALE]
 @export_range(1, 2, 1, "or_greater") var initiative = 1 ## initative for AI to check on class move, OUTDATED CHANGE TO TIER
 @export var faction : Array[unitConstants.FACTION] = []
 @export var traits : Array[unitConstants.TRAITS] = []

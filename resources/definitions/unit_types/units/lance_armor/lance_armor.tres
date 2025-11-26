@@ -13,6 +13,7 @@ script = ExtResource("5_ym57y")
 unit_type_name = "Lance Amor"
 db_key = "lance_armor"
 description = "Stalwart royal defenders who anchor the line with reach and resolve."
+name_genders = Array[int]([0, 1])
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("6_kp6vm")

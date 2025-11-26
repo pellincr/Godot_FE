@@ -13,6 +13,7 @@ script = ExtResource("5_bfamd")
 unit_type_name = "Corsair"
 db_key = "corsair"
 description = "Lethal swordsmen trained for single combat, striking with unmatched precision."
+name_genders = Array[int]([1])
 faction = Array[int]([3])
 unit_rarity = ExtResource("6_4bsdy")
 movement_type = 2

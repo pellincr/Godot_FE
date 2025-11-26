@@ -12,6 +12,7 @@
 script = ExtResource("5_dbru7")
 unit_type_name = "Mage"
 db_key = "mage"
+name_genders = Array[int]([1])
 faction = Array[int]([1])
 unit_rarity = ExtResource("6_n0ybt")
 usable_weapon_types = Array[int]([9])

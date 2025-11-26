@@ -4,27 +4,21 @@
 [ext_resource type="Resource" uid="uid://cjb2idrixl0ju" path="res://resources/definitions/unit_types/units/troubadour/troubadour_growth_stats.tres" id="2_vtoo3"]
 [ext_resource type="Texture2D" uid="uid://7wuqrdibbe8w" path="res://resources/sprites/units/troubadour.png" id="3_calfy"]
 [ext_resource type="Resource" uid="uid://cefjnyqn5131f" path="res://resources/definitions/unit_types/units/troubadour/troubadour_max_stats.tres" id="4_68l5h"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_6jeud"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_6jeud"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_orimm"]
 
 [resource]
 script = ExtResource("5_6jeud")
 unit_type_name = "Troubadour"
 db_key = "troubadour"
-description = ""
-initiative = 1
+name_genders = Array[int]([1])
 faction = Array[int]([2])
 traits = Array[int]([1])
 unit_rarity = ExtResource("6_orimm")
 movement_type = 3
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([6])
 base_stats = ExtResource("1_tm181")
 maxuimum_stats = ExtResource("4_68l5h")
 growth_stats = ExtResource("2_vtoo3")
 icon = ExtResource("3_calfy")
 map_sprite = ExtResource("3_calfy")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

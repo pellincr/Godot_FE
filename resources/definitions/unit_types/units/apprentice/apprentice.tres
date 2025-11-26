@@ -15,6 +15,7 @@
 script = ExtResource("6_ngsf2")
 unit_type_name = "Apprentice"
 db_key = "apprentice"
+name_genders = Array[int]([0, 1])
 unit_rarity = ExtResource("7_7532h")
 tier = 1
 promotion_types_available = Array[ExtResource("6_ngsf2")]([ExtResource("7_fypmt"), ExtResource("8_yjton"), ExtResource("9_762mh")])

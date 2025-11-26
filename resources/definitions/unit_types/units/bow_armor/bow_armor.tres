@@ -12,6 +12,7 @@
 script = ExtResource("6_oho0a")
 unit_type_name = "Bow Armor"
 db_key = "bow_armor"
+name_genders = Array[int]([0, 1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("7_kp1nx")
 movement_type = 1

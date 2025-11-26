@@ -13,6 +13,7 @@ script = ExtResource("5_nplxm")
 unit_type_name = "Bulwark"
 db_key = "bulwark"
 description = "A fortress of flesh and iron, impenetrable to steel yet frail before the arcane."
+name_genders = Array[int]([0, 1])
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("6_lrf5s")

@@ -12,6 +12,7 @@ script = ExtResource("5_o2wex")
 unit_type_name = "Purge Armor"
 db_key = "purge_armor"
 description = "Armored exorcists trained to burn out lesser horrors from the front line."
+name_genders = Array[int]([0, 1])
 faction = Array[int]([2])
 traits = Array[int]([0])
 unit_rarity = ExtResource("6_7mume")

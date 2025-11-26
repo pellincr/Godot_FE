@@ -13,6 +13,7 @@ script = ExtResource("5_62w6y")
 unit_type_name = "Suncaster"
 db_key = "suncaster"
 description = "A swift practitioner of light magic who trades raw power for agility."
+name_genders = Array[int]([1])
 faction = Array[int]([2])
 unit_rarity = ExtResource("6_10ea6")
 usable_weapon_types = Array[int]([8])

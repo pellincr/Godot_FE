@@ -12,6 +12,7 @@
 script = ExtResource("5_h3cyf")
 unit_type_name = "Lancer"
 db_key = "lancer"
+name_genders = Array[int]([1])
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_psc4j")
 usable_weapon_types = Array[int]([3])

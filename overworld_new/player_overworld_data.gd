@@ -42,11 +42,12 @@ class_name PlayerOverworldData
 
 #THIS CAN BE MOVE ELSEWHERE
 @export var new_recruits = []
-@export var temp_name_list = ["Craig",
- "Devin",
- "Jacob",
- "Porter",
- "Jarry",
+@export var temp_name_list = [
+"Craig",
+"Devin",
+"Jacob",
+"Porter",
+"Jarry",
 "Aarall",
 "Abiala",
 "Acanos",

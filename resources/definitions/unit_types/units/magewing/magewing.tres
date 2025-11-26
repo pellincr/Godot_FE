@@ -13,6 +13,7 @@ script = ExtResource("5_ht8lo")
 unit_type_name = "Magewing"
 db_key = "magewing"
 description = "Skybound mercenaries who dive, distract, and destabilize with high-mobility strikes."
+name_genders = Array[int]([0, 1])
 faction = Array[int]([0])
 traits = Array[int]([2, 1])
 unit_rarity = ExtResource("6_sco5u")

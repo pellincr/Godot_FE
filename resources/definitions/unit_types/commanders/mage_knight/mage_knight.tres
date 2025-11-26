@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=7 format=3 uid="uid://bnx6qng2moqwn"]
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=8 format=3 uid="uid://bnx6qng2moqwn"]
 
 [ext_resource type="Resource" uid="uid://dvdih6cmacrsq" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_base_combat_stats.tres" id="1_4ulf3"]
-[ext_resource type="Script" uid="uid://bivpkkd0jp1s3" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_hthee"]
+[ext_resource type="Script" uid="uid://2hl0vdh123pi" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="1_hthee"]
 [ext_resource type="Resource" uid="uid://c8r2s17i2hon1" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_growth_stats.tres" id="2_ncdjn"]
 [ext_resource type="Texture2D" uid="uid://bgvg1ci81sjkg" path="res://resources/sprites/units/mage_knight.png" id="3_splch"]
 [ext_resource type="Resource" uid="uid://emdxo0xvw2sq" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight_max_stats.tres" id="4_h3l3e"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_puwv4"]
 [ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="6_ks4id"]
 
 [resource]
@@ -12,6 +13,7 @@ script = ExtResource("1_hthee")
 signature_weapon = ExtResource("6_ks4id")
 unit_type_name = "Mage Knight"
 db_key = "mage_knight"
+name_genders = Array[int]([1])
 faction = Array[int]([1])
 traits = Array[int]([1])
 movement_type = 3

@@ -13,6 +13,7 @@ script = ExtResource("5_jttq0")
 unit_type_name = "Sea Witch"
 db_key = "sea_witch"
 description = "Coastal spellcasters who wield the storm's fury and tidal magic to bless crews and hex their foes."
+name_genders = Array[int]([1])
 faction = Array[int]([3])
 unit_rarity = ExtResource("6_b2kdb")
 usable_weapon_types = Array[int]([7])
