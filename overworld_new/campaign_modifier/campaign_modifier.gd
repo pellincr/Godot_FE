@@ -35,7 +35,8 @@ enum MODIFIER{
 	#HARD_LEVELING, 
 	GOLIATH_MODE, 
 	HYPER_GROWTH,
-	LEVEL_SURGE
+	LEVEL_SURGE,
+	GENERICS
 }
 
 var current_difficulty := DIFFICULTY.NORMAL
@@ -138,6 +139,8 @@ func get_modifier_name(mod:MODIFIER) -> String:
 			final_string = "Hyper Growth"
 		MODIFIER.LEVEL_SURGE:
 			final_string = "Level Surge"
+		MODIFIER.GENERICS:
+			final_string = "Generic Units"
 	return final_string
 
 
