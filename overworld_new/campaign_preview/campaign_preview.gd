@@ -8,6 +8,7 @@ extends PanelContainer
 @onready var required_combat_amount_value: Label = $MarginContainer/MainContainer/RequiredCombatAmountContainer/RequiredCombatAmountValue
 @onready var difficulty_container: HBoxContainer = $MarginContainer/MainContainer/DifficultyContainer
 @onready var length_value: Label = $MarginContainer/MainContainer/LengthContainer/LengthValue
+@onready var starting_gold_value_label: Label = $MarginContainer/MainContainer/StartingGoldContainer/StartingGoldValueLabel
 
 
 var campaign : Campaign
@@ -16,7 +17,7 @@ func _ready() -> void:
 	if campaign:
 		update_by_campaign()
 
-func set_camoaign_name_label(n):
+func set_campaign_name_label(n):
 	campaign_name_label.text = n
 
 func set_amount_value_label(label,amount):
@@ -39,10 +40,12 @@ func set_length_string(str: String):
 	length_value.text = str
 
 func update_by_campaign():
-	set_camoaign_name_label(campaign.name)
+	set_campaign_name_label(campaign.name)
 	set_amount_value_label(commander_limit_value,campaign.commander_draft_limit)
 	set_amount_value_label(archetype_amount_value,campaign.number_of_archetypes_drafted)
 	set_amount_value_label(floors_amount_value,campaign.max_floor_number)
 	set_amount_value_label(required_combat_amount_value,campaign.number_of_required_combat_maps)
+	campaign.difficulty = campaign.calculate_campaign_difficulty()
 	set_difficulty_container_icons(campaign.difficulty)
 	set_length_string(campaign.length)
+	set_amount_value_label(starting_gold_value_label,campaign.starting_gold)
