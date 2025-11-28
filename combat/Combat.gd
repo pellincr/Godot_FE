@@ -82,6 +82,7 @@ var _player_unit_alive : bool = true
 
 @export var is_key_campaign_level : bool = false
 @export var is_tutorial := false
+@export var is_unit_preview_dev_level := false
 @export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var tutorial_level : TutorialPanel.TUTORIAL
 #@export var draft_amount_on_win : int
@@ -133,6 +134,9 @@ func set_game_grid(game_grid : CombatMapGrid):
 	reinforcement_manager.game_grid = game_grid
 
 func populate():
+	if is_unit_preview_dev_level:
+		spawn_all_unit_types()
+		return
 	if is_tutorial:
 			set_player_tutorial_party()
 		
@@ -979,3 +983,45 @@ func check_tier_1_promotion_available() -> bool:
 		if unit_type.tier == 1 and unit.level >= 10:
 			return true
 	return false
+
+##Function for test level to generate all units @ 1,5,10,20 for balance changes
+func spawn_all_unit_types():
+	# get added levels from hardmode
+	var _bonus_levels : int = 0
+	var hard_mode_leveling : bool = false
+	var goliath_mode : bool = playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE)
+	var hyper_growth : bool = playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)
+	var generic : bool = playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GENERICS)
+	var _effective_level_augment : int = 0
+	var unit_levels : Array[int] = [1,5,10,20]
+	
+	var _available_posotions : Array[Vector2i]
+	var _avaialable_position_index : int = 0
+	for x in 20:
+		for y in 20:
+			_available_posotions.append(Vector2i(x,y))
+	# get the entire game grid as vector2is to fill in the space
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.HARD:
+		_bonus_levels = 2 + int(playerOverworldData.combat_maps_completed*1.4)
+		hard_mode_leveling = true
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
+		_bonus_levels = clampi(-2 + int(playerOverworldData.combat_maps_completed*1.4), -2, 0)
+	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.LEVEL_SURGE):
+		_effective_level_augment = 9
+	
+	for commander_unit : CommanderDefinition in UnitTypeDatabase.commander_types.values():
+		for level_value in unit_levels:
+			var _enemy_unit : CombatUnit
+			var _new_unit = Unit.create_generic_unit(commander_unit.db_key, [], commander_unit.unit_type_name, level_value + _effective_level_augment, 0 + _bonus_levels, hard_mode_leveling, goliath_mode, hyper_growth, generic)
+			_enemy_unit = create_combatant_unit(_new_unit, 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false,false)
+			add_combatant(_enemy_unit, _available_posotions[_avaialable_position_index])
+			_avaialable_position_index = _avaialable_position_index + 1
+	
+	for unit : UnitTypeDefinition in UnitTypeDatabase.unit_types.values():
+		for level_value in unit_levels:
+			var _enemy_unit : CombatUnit
+			var _new_unit = Unit.create_generic_unit(unit.db_key, [], unit.unit_type_name, level_value + _effective_level_augment, 0 + _bonus_levels, hard_mode_leveling, goliath_mode, hyper_growth, generic)
+			_enemy_unit = create_combatant_unit(_new_unit, 1, Constants.UNIT_AI_TYPE.DEFEND_POINT, false,false)
+			add_combatant(_enemy_unit, _available_posotions[_avaialable_position_index])
+			_avaialable_position_index = _avaialable_position_index + 1
+	

@@ -130,7 +130,11 @@ func add_unit(combatUnit: CombatUnit):
 func get_max_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 	var _arr : Array[Vector2i] =  []
 	if combatUnit.ai_type == CombatMapConstants.UNIT_AI_TYPE.DEFEND_POINT:
-		return game_grid.get_range_DFS(combatUnit.unit.inventory.get_available_attack_ranges().max(), combatUnit.map_position)
+		var _max_range = 0
+		var _ranges = combatUnit.unit.inventory.get_available_attack_ranges()
+		if not _ranges.is_empty:
+			_max_range = _ranges.max()
+		return game_grid.get_range_DFS(_max_range, combatUnit.map_position)
 	else :
 		# get move tiles that is absolute max (no effect from terrain or units etc.)
 		var _movable_tiles = game_grid.get_range_DFS(combatUnit.unit.stats.movement, combatUnit.map_position)
@@ -146,7 +150,11 @@ func get_effective_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 	var _arr : Array[Vector2i] =  []
 	game_grid.update_astar_points(combatUnit)
 	if combatUnit.ai_type == CombatMapConstants.UNIT_AI_TYPE.DEFEND_POINT:
-		return game_grid.get_range_DFS(combatUnit.unit.inventory.get_available_attack_ranges().max(), combatUnit.map_position)
+		var _max_range = 0
+		var _ranges = combatUnit.unit.inventory.get_available_attack_ranges()
+		if not _ranges.is_empty:
+			_max_range = _ranges.max()
+		return game_grid.get_range_DFS(_max_range, combatUnit.map_position)
 	else :
 		# get move tiles
 		var _moveable_tiles = game_grid.get_range_DFS(combatUnit.unit.stats.movement, combatUnit.map_position, combatUnit.unit.movement_type, true, combatUnit.allegience)

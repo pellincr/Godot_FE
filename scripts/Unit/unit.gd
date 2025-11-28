@@ -104,13 +104,16 @@ static func create_unit_unit_character(unit_type_key: String, unitCharacter: Uni
 # @param hard_mode : does this unit get hardmode bonuses?
 # @retuns Unit : created unit
 ##
-static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int = 0, hard_mode:bool = false, goliath_mode: bool = false, hyper_growth: bool = false) -> Unit:
+static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefinition],name:String, level:int, bonus_levels:int = 0, hard_mode:bool = false, goliath_mode: bool = false, hyper_growth: bool = false, generic:bool = false) -> Unit:
 	#Create a unit object
 	var new_unit = Unit.new()
 	new_unit.unit_type_key = unit_type_key
 	new_unit.name = name
 	new_unit.level = level
-	new_unit.xp_worth = new_unit.get_unit_type_definition().tier
+	if new_unit.get_unit_type_definition().tier :
+		new_unit.xp_worth = new_unit.get_unit_type_definition().tier
+	else:
+		new_unit.xp_worth = 2
 	new_unit.unit_character = null
 	new_unit.movement_type = new_unit.get_unit_type_definition().movement_type
 	new_unit.base_stats = new_unit.get_unit_type_definition().base_stats.duplicate()
@@ -119,7 +122,7 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 	update_usable_weapon_types(new_unit)
 	new_unit.update_growths()
 	create_inventory(new_unit, _inventory)
-	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode, goliath_mode, hyper_growth)
+	calculate_generic_level_stats(new_unit, level, bonus_levels, hard_mode, goliath_mode, hyper_growth, generic)
 	update_visuals(new_unit)
 	new_unit.update_stats()
 
@@ -133,15 +136,15 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 # @param bonus_level : extra levels uised in calculation, used for hardmode bonuses & promoted units
 # @param hardmode : apply hardmode bonuses
 ##
-static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool, goliath_mode:bool, hyper_growth:bool):
+static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool, goliath_mode:bool, hyper_growth:bool, generic: bool):
 	var effective_level = level -1 + bonus_level
 	var goliath_mode_mult = 1.0
 	if(unit.get_unit_type_definition().tier == 3): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
 		if(unit.get_unit_type_definition().unit_promoted_from_key):
 			if(hardmode):
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],20,0, false, goliath_mode, hyper_growth)
+				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],20,0, false, goliath_mode, hyper_growth, generic)
 			else :
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],10,0, false, goliath_mode, hyper_growth)
+				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],10,0, false, goliath_mode, hyper_growth, generic)
 				
 	if goliath_mode:
 		goliath_mode_mult = 1.8
@@ -159,14 +162,18 @@ static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:i
 # @param levels : the number of levels to calculate 
 # @param growth : the % growth for the targetted stats
 ##
-static func	calculate_generic_stat(growth: int, levels:int, hyper_growth:bool=false) -> int:
+static func	calculate_generic_stat(growth: int, levels:int, hyper_growth:bool=false, generic:bool = false) -> int:
 	var _hyper_growth_bonus : int = 1
 	if hyper_growth :
 		_hyper_growth_bonus = 2 
 	var return_value = 0
 	var stat_gain_center = float(growth * levels) / float(100) 
+	
 	var gain_low = _hyper_growth_bonus * stat_gain_center * 3/4
 	var gain_high = _hyper_growth_bonus * stat_gain_center * 5/4
+	if generic: 
+		gain_low = stat_gain_center
+		gain_high = stat_gain_center
 	var stat_gain = randf_range(gain_low, gain_high)
 	return_value = floor(stat_gain)
 	var stat_chance = fmod(stat_gain, return_value)

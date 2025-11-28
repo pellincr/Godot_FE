@@ -562,13 +562,14 @@ func get_attackable_tiles(range_list: Array[int], cu: CombatUnit):
 #
 func populate_tiles_for_weapon(range_list: Array[int], origin: Vector2i) -> Array[Vector2i]:
 	var reachable_tiles : Array[Vector2i] 
-	reachable_tiles = grid.get_range_DFS(range_list.max(), origin)
-	if range_list.min() > 1:
-		var removed_tiles : Array[Vector2i] = grid.get_range_DFS(range_list.min()- 1, origin)
-		#remove the overlap where applicable
-		for tile in removed_tiles:
-			if reachable_tiles.has(tile):
-				reachable_tiles.erase(tile)
+	if not range_list.is_empty():
+		reachable_tiles = grid.get_range_DFS(range_list.max(), origin)
+		if range_list.min() > 1:
+			var removed_tiles : Array[Vector2i] = grid.get_range_DFS(range_list.min()- 1, origin)
+			#remove the overlap where applicable
+			for tile in removed_tiles:
+				if reachable_tiles.has(tile):
+					reachable_tiles.erase(tile)
 	return reachable_tiles
 
 func process_terrain_effects():
