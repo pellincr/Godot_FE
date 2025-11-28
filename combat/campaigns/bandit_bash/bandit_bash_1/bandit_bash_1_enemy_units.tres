@@ -22,7 +22,7 @@ map_position = Vector2i(10, 6)
 level = 4
 ai_type = 2
 is_boss = true
-unit_type_key = "marauder"
+unit_type_key = "vandal"
 inventory = Array[ExtResource("2_jikhw")]([ExtResource("8_glfs2"), ExtResource("4_bln82"), ExtResource("5_0ce4p")])
 drops_item = true
 

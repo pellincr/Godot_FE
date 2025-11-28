@@ -219,7 +219,7 @@ script = ExtResource("1_qgbhp")
 name = "Raider"
 map_position = Vector2i(13, 13)
 level = 7
-unit_type_key = "marauder"
+unit_type_key = "vandal"
 inventory = Array[ExtResource("2_1ldps")]([ExtResource("23_rqqcp")])
 drops_item = true
 

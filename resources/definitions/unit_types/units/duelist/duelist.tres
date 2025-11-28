@@ -12,7 +12,6 @@
 script = ExtResource("5_2xl1h")
 unit_type_name = "Duelist"
 db_key = "duelist"
-description = "Lethal swordsmen trained for single combat, striking with unmatched precision."
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_lv4oq")
 usable_weapon_types = Array[int]([1])

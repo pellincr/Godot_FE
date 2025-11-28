@@ -13,7 +13,7 @@ name = "Bandit"
 map_position = Vector2i(12, 10)
 level = 1
 level_bonus = -1
-unit_type_key = "marauder"
+unit_type_key = "vandal"
 inventory = Array[ExtResource("3_g2ajk")]([ExtResource("4_f3v1r")])
 
 [sub_resource type="Resource" id="Resource_sqrjm"]

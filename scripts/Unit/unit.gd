@@ -136,27 +136,37 @@ static func create_generic_unit(unit_type_key: String,_inventory: Array[ItemDefi
 # @param bonus_level : extra levels uised in calculation, used for hardmode bonuses & promoted units
 # @param hardmode : apply hardmode bonuses
 ##
-static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool, goliath_mode:bool, hyper_growth:bool, generic: bool):
+static func calculate_generic_level_stats(unit : Unit, level: int, bonus_level:int, hardmode:bool, goliath_mode:bool, hyper_growth:bool, generic: bool, augmented_growths: UnitStat = null):
 	var effective_level = level -1 + bonus_level
 	var goliath_mode_mult = 1.0
-	if(unit.get_unit_type_definition().tier == 3): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
+	if(unit.get_unit_type_definition().tier == 4 and augmented_growths == null): ##TO BE IMPLEMENTED GET THE GROWTHS OF PREVIOUS CLASS
 		if(unit.get_unit_type_definition().unit_promoted_from_key):
+			unit.promotion_stats = unit.get_unit_type_definition().promotion_to_stats
 			if(hardmode):
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],20,0, false, goliath_mode, hyper_growth, generic)
+				calculate_generic_level_stats(unit,20,0, false, goliath_mode, hyper_growth, generic, UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key].growth_stats)
 			else :
-				calculate_generic_level_stats(UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key],10,0, false, goliath_mode, hyper_growth, generic)
+				calculate_generic_level_stats(unit,10,0, false, goliath_mode, hyper_growth, generic, UnitTypeDatabase.unit_types[unit.get_unit_type_definition().unit_promoted_from_key].growth_stats)
 				
 	if goliath_mode:
 		goliath_mode_mult = 1.8
-	unit.level_stats.hp = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level, hyper_growth)
-	unit.level_stats.strength = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.strength, effective_level, hyper_growth)
-	unit.level_stats.magic = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.magic, effective_level, hyper_growth)
-	unit.level_stats.skill = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.skill, effective_level, hyper_growth)
-	unit.level_stats.speed = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.speed, effective_level, hyper_growth)
-	unit.level_stats.luck = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.luck, effective_level, hyper_growth)
-	unit.level_stats.defense = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.defense, effective_level, hyper_growth)
-	unit.level_stats.resistance = calculate_generic_stat(unit.get_unit_type_definition().growth_stats.resistance, effective_level, hyper_growth)
-
+	if augmented_growths == null:
+		unit.level_stats.hp = unit.level_stats.hp + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.hp, effective_level, hyper_growth,generic)
+		unit.level_stats.strength = unit.level_stats.strength + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.strength, effective_level, hyper_growth,generic)
+		unit.level_stats.magic = unit.level_stats.magic  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.magic, effective_level, hyper_growth,generic)
+		unit.level_stats.skill = unit.level_stats.skill  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.skill, effective_level, hyper_growth,generic)
+		unit.level_stats.speed = unit.level_stats.speed  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.speed, effective_level, hyper_growth,generic)
+		unit.level_stats.luck = unit.level_stats.luck  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.luck, effective_level, hyper_growth,generic)
+		unit.level_stats.defense = unit.level_stats.defense  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.defense, effective_level, hyper_growth,generic)
+		unit.level_stats.resistance = unit.level_stats.resistance  + calculate_generic_stat(unit.get_unit_type_definition().growth_stats.resistance, effective_level, hyper_growth,generic)
+	else:
+		unit.level_stats.hp = unit.level_stats.hp + calculate_generic_stat(augmented_growths.hp, effective_level, hyper_growth,generic)
+		unit.level_stats.strength = unit.level_stats.strength + calculate_generic_stat(augmented_growths.strength, effective_level, hyper_growth,generic)
+		unit.level_stats.magic = unit.level_stats.magic  + calculate_generic_stat(augmented_growths.magic, effective_level, hyper_growth,generic)
+		unit.level_stats.skill = unit.level_stats.skill  + calculate_generic_stat(augmented_growths.skill, effective_level, hyper_growth,generic)
+		unit.level_stats.speed = unit.level_stats.speed  + calculate_generic_stat(augmented_growths.speed, effective_level, hyper_growth,generic)
+		unit.level_stats.luck = unit.level_stats.luck  + calculate_generic_stat(augmented_growths.luck, effective_level, hyper_growth,generic)
+		unit.level_stats.defense = unit.level_stats.defense  + calculate_generic_stat(augmented_growths.defense, effective_level, hyper_growth,generic)
+		unit.level_stats.resistance = unit.level_stats.resistance  + calculate_generic_stat(augmented_growths.resistance, effective_level, hyper_growth,generic)
 ##
 # calculate_generic_stat : calculcates the level up bonus for a particular stat, used when generating a generic unit
 # @param levels : the number of levels to calculate 
@@ -167,18 +177,21 @@ static func	calculate_generic_stat(growth: int, levels:int, hyper_growth:bool=fa
 	if hyper_growth :
 		_hyper_growth_bonus = 2 
 	var return_value = 0
-	var stat_gain_center = float(growth * levels) / float(100) 
+	var stat_gain_center = float(growth * levels) / float(100)  * _hyper_growth_bonus
 	
-	var gain_low = _hyper_growth_bonus * stat_gain_center * 3/4
-	var gain_high = _hyper_growth_bonus * stat_gain_center * 5/4
+	var gain_low = stat_gain_center * 3/4
+	var gain_high = stat_gain_center * 5/4
 	if generic: 
 		gain_low = stat_gain_center
 		gain_high = stat_gain_center
 	var stat_gain = randf_range(gain_low, gain_high)
-	return_value = floor(stat_gain)
-	var stat_chance = fmod(stat_gain, return_value)
-	if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
-		return_value += 1
+	if generic:
+		return_value = roundi(stat_gain)
+	else:
+		return_value = floor(stat_gain)
+		var stat_chance = fmod(stat_gain, return_value)
+		if CustomUtilityLibrary.random_rolls_bool(stat_chance* 100, 1):
+			return_value += 1
 	return return_value
 
 ##

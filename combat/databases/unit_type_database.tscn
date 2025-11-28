@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=56 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
@@ -24,7 +24,6 @@
 [ext_resource type="Resource" uid="uid://coawvuy6qm2yk" path="res://resources/definitions/unit_types/units/corsair/corsair.tres" id="23_027cf"]
 [ext_resource type="Resource" uid="uid://cj2p2g07w7jwo" path="res://resources/definitions/unit_types/units/marauder/marauder.tres" id="24_jj4js"]
 [ext_resource type="Resource" uid="uid://710nx6xrxuvw" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch.tres" id="25_fxnlp"]
-[ext_resource type="Resource" uid="uid://bggom385t6lmm" path="res://resources/definitions/unit_types/units/gunner/gunner.tres" id="26_kidx7"]
 [ext_resource type="Resource" uid="uid://x6q68u18j7o7" path="res://resources/definitions/unit_types/units/crossbowman/crossbowman.tres" id="27_rymva"]
 [ext_resource type="Resource" uid="uid://cl6jyccuv8wi4" path="res://resources/definitions/unit_types/units/lancer/lancer.tres" id="28_vkfaj"]
 [ext_resource type="Resource" uid="uid://bnx6qng2moqwn" path="res://resources/definitions/unit_types/commanders/mage_knight/mage_knight.tres" id="29_ycdqo"]
@@ -54,6 +53,8 @@
 [ext_resource type="Resource" uid="uid://ckwskix53npw4" path="res://resources/definitions/unit_types/units/apprentice/apprentice.tres" id="47_36q4w"]
 [ext_resource type="Resource" uid="uid://d3yjqcqcsb6ny" path="res://resources/definitions/unit_types/units/knave/knave.tres" id="48_55blc"]
 [ext_resource type="Resource" uid="uid://cy23n0romg1wx" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier.tres" id="49_36q4w"]
+[ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="49_55blc"]
+[ext_resource type="Resource" uid="uid://vfmdqc5fyl8x" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms.tres" id="50_55blc"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -71,12 +72,12 @@ unit_types = {
 "chopper": ExtResource("43_6p1ic"),
 "corsair": ExtResource("23_027cf"),
 "crossbowman": ExtResource("27_rymva"),
+"cutthroat": ExtResource("49_55blc"),
 "duelist": ExtResource("22_sqm7u"),
 "farmhand": ExtResource("44_udy5e"),
 "field_medic": ExtResource("20_gr6kv"),
 "fighter": ExtResource("6_dtgcv"),
 "freewing": ExtResource("17_6h8uy"),
-"gunner": ExtResource("26_kidx7"),
 "hakkapel": ExtResource("34_oj3db"),
 "healer": ExtResource("15_nrv8r"),
 "hewman": ExtResource("45_ap7gd"),
@@ -86,6 +87,7 @@ unit_types = {
 "lancer": ExtResource("28_vkfaj"),
 "mage": ExtResource("32_um71q"),
 "magewing": ExtResource("37_yg62d"),
+"man_at_arms": ExtResource("50_55blc"),
 "marauder": ExtResource("24_jj4js"),
 "monk": ExtResource("18_bpik5"),
 "penitent": ExtResource("36_lgvds"),

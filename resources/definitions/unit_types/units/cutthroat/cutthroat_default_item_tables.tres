@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://duv7a1auc5h62"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_t7wva"]
+[ext_resource type="Resource" uid="uid://cnrviiiv1svd8" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_treasure_table.tres" id="2_ckecp"]
+[ext_resource type="Resource" uid="uid://bx6u668y1cyxp" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_weapon_table.tres" id="3_56xeb"]
+
+[resource]
+script = ExtResource("1_t7wva")
+weapon_default = ExtResource("3_56xeb")
+treasure_default = ExtResource("2_ckecp")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

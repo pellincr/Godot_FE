@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://dybfgcudmlrjh"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_mwqdg"]
+[ext_resource type="Resource" uid="uid://flljsl871f0e" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_treasure_table.tres" id="2_inctm"]
+[ext_resource type="Resource" uid="uid://cual7n365y7sw" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_weapon_table.tres" id="3_wr8n2"]
+
+[resource]
+script = ExtResource("1_mwqdg")
+weapon_default = ExtResource("3_wr8n2")
+treasure_default = ExtResource("2_inctm")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

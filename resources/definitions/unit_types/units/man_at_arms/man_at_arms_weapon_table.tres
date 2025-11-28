@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=25 format=3 uid="uid://cual7n365y7sw"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_e7w4d"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="2_gh3nm"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="3_0edhr"]
+[ext_resource type="Resource" uid="uid://dp624fv7qre82" path="res://resources/definitions/items/weapons/axes/slim_axe.tres" id="4_ldtal"]
+[ext_resource type="Resource" uid="uid://xotuxr86t70g" path="res://resources/definitions/items/weapons/axes/killer_axe.tres" id="5_vb7n7"]
+[ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="6_cfql5"]
+[ext_resource type="Resource" uid="uid://dudqmvg5uumjl" path="res://resources/definitions/items/weapons/axes/sword_reaver.tres" id="7_ec5dx"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="8_lw67t"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="9_dcl3t"]
+[ext_resource type="Resource" uid="uid://da02m5ekvhj2r" path="res://resources/definitions/items/weapons/axes/tomahawk.tres" id="10_mvysk"]
+[ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="11_8i5pb"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="12_5u3jq"]
+
+[sub_resource type="Resource" id="Resource_noi40"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("2_gh3nm")
+probability = 52.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_far6w"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("3_0edhr")
+probability = 14.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_q3kwp"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("4_ldtal")
+probability = 3.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_y1b7n"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("5_vb7n7")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_6g0vn"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("6_cfql5")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_wpg3u"]
+metadata/__load_path__ = "res://resources/definitions/items/weapons/axes/warhammer.tres"
+
+[sub_resource type="Resource" id="Resource_26sfk"]
+script = ExtResource("1_e7w4d")
+item = SubResource("Resource_wpg3u")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_0238p"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("7_ec5dx")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_o8gxp"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("8_lw67t")
+probability = 7.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_3tovj"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("9_dcl3t")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_xkyw2"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("10_mvysk")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_aw23h"]
+script = ExtResource("1_e7w4d")
+item = ExtResource("11_8i5pb")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("12_5u3jq")
+entries = Array[ExtResource("1_e7w4d")]([SubResource("Resource_noi40"), SubResource("Resource_far6w"), SubResource("Resource_q3kwp"), SubResource("Resource_y1b7n"), SubResource("Resource_6g0vn"), SubResource("Resource_26sfk"), SubResource("Resource_0238p"), SubResource("Resource_o8gxp"), SubResource("Resource_3tovj"), SubResource("Resource_xkyw2"), SubResource("Resource_aw23h")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

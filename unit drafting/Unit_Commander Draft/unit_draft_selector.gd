@@ -488,7 +488,8 @@ func filter_all_classes_by_unlocked(unit_type_keys: Array) -> Array:
 			#Check if the manager has that type to unlock
 			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type]:
 				#check if the type is unlocked
-				accum.append(unit_type_key)
+				if unit_type.tier < 4:
+					accum.append(unit_type_key)
 	return accum
 
 func filter_all_items_by_unlocked(item_keys: Array) -> Array:
