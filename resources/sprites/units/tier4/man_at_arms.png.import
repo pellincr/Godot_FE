@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxvba0xhdyq2k"
-path="res://.godot/imported/Centurion.png-492a53f3a6f25ca1b597e6f64c21c7b2.ctex"
+uid="uid://fefnt0c8kq3p"
+path="res://.godot/imported/man_at_arms.png-b876d8a2319b25e4ec8fd2806543ea79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/units/tier3/Centurion.png"
-dest_files=["res://.godot/imported/Centurion.png-492a53f3a6f25ca1b597e6f64c21c7b2.ctex"]
+source_file="res://resources/sprites/units/tier4/man_at_arms.png"
+dest_files=["res://.godot/imported/man_at_arms.png-b876d8a2319b25e4ec8fd2806543ea79.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://uold5sv7musy" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_base_combat_stats.tres" id="1_r8yei"]
 [ext_resource type="Resource" uid="uid://dybfgcudmlrjh" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_default_item_tables.tres" id="2_k3ah7"]
 [ext_resource type="Resource" uid="uid://bi627nhhmc1u1" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_growth_stats.tres" id="3_i53bu"]
-[ext_resource type="Texture2D" uid="uid://fefnt0c8kq3p" path="res://resources/sprites/units/tier_4/man_at_arms.png" id="4_bg38s"]
+[ext_resource type="Texture2D" uid="uid://fefnt0c8kq3p" path="res://resources/sprites/units/tier4/man_at_arms.png" id="4_bg38s"]
 [ext_resource type="Resource" uid="uid://ctic8a4hdo1h2" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_max_stats.tres" id="5_4xls3"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_pfj2f"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ki6wi"]

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj5x356ryc166"
-path="res://.godot/imported/heavy_cavalier.png-340dc39d46b8c39741c044abbf2cd2f2.ctex"
+path="res://.godot/imported/heavy_cavalier.png-1f6c5a084c14d9ba521a95009782e0a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/units/tier3/heavy_cavalier.png"
-dest_files=["res://.godot/imported/heavy_cavalier.png-340dc39d46b8c39741c044abbf2cd2f2.ctex"]
+source_file="res://resources/sprites/units/tier4/heavy_cavalier.png"
+dest_files=["res://.godot/imported/heavy_cavalier.png-1f6c5a084c14d9ba521a95009782e0a1.ctex"]
 
 [params]
 

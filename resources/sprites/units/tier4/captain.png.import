@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fefnt0c8kq3p"
-path="res://.godot/imported/man_at_arms.png-804dc90cb50f7fc850df8166c657bd98.ctex"
+uid="uid://dge4cfmayy3rm"
+path="res://.godot/imported/captain.png-4eff6c34e5c33ca36c7a3dfe69148cc6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/units/tier_4/man_at_arms.png"
-dest_files=["res://.godot/imported/man_at_arms.png-804dc90cb50f7fc850df8166c657bd98.ctex"]
+source_file="res://resources/sprites/units/tier4/captain.png"
+dest_files=["res://.godot/imported/captain.png-4eff6c34e5c33ca36c7a3dfe69148cc6.ctex"]
 
 [params]
 
