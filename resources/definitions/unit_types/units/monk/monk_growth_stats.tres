@@ -6,7 +6,7 @@
 script = ExtResource("1_54hy3")
 hp = 65
 strength = 28
-magic = 10
+magic = 20
 skill = 30
 speed = 58
 luck = 45

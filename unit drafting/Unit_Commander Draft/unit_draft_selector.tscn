@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_gwjt6"]
 [ext_resource type="Script" uid="uid://desy15e65ifb0" path="res://unit drafting/Unit_Commander Draft/unit_draft_selector.gd" id="1_i638l"]
-[ext_resource type="Texture2D" uid="uid://c2jtwksybv815" path="res://resources/sprites/units/mercenary_map.tres" id="2_70vdx"]
 [ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="3_o6vh5"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_l3xrb"]
+[ext_resource type="Texture2D" uid="uid://bxaab8fmi3cj0" path="res://resources/sprites/units/corsair.png" id="5_l3xrb"]
 
 [sub_resource type="Theme" id="Theme_fsx0a"]
 default_font_size = 32
@@ -76,7 +76,7 @@ offset_left = 175.0
 offset_top = 30.0
 offset_right = 238.0
 offset_bottom = 92.0
-texture = ExtResource("2_70vdx")
+texture = ExtResource("5_l3xrb")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
