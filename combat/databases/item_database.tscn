@@ -1,6 +1,7 @@
-[gd_scene load_steps=188 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=190 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_3lb28"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_o8mgg"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="5_ge5kc"]
@@ -145,11 +146,11 @@
 [ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
 [ext_resource type="Resource" uid="uid://cmo7c2gqpwpdx" path="res://resources/definitions/items/weapons/axes/valor_axe.tres" id="142_niuha"]
 [ext_resource type="Resource" uid="uid://dco4sixhkecil" path="res://resources/definitions/items/weapons/bow/valor_bow.tres" id="143_4aqvk"]
-[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="144_86gxh"]
 [ext_resource type="Resource" uid="uid://yfafgeaai71j" path="res://resources/definitions/items/weapons/lance/valor_lance.tres" id="145_7a2us"]
 [ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="146_kn4gf"]
 [ext_resource type="Resource" uid="uid://p5wvq1gfcryr" path="res://resources/definitions/items/weapons/axes/tri_axe.tres" id="147_ccn1k"]
 [ext_resource type="Resource" uid="uid://bpv2q2oiapa6i" path="res://resources/definitions/items/weapons/lance/tri_pike.tres" id="148_8txxg"]
+[ext_resource type="Resource" uid="uid://c5crxadul4wou" path="res://resources/definitions/items/weapons/dagger/steel_dagger_new.tres" id="148_xul00"]
 [ext_resource type="Resource" uid="uid://d0isbl0uqtjwy" path="res://resources/definitions/items/weapons/swords/tri_edge.tres" id="149_kbtey"]
 [ext_resource type="Resource" uid="uid://d32nr8htgrya4" path="res://resources/definitions/items/weapons/dagger/armorbreaker.tres" id="150_7xe73"]
 [ext_resource type="Resource" uid="uid://bvnotca20t7r7" path="res://resources/definitions/items/weapons/swords/shotel.tres" id="151_4c85a"]
@@ -168,7 +169,7 @@
 [ext_resource type="Resource" uid="uid://c27vhlofo7ly6" path="res://resources/definitions/items/equipment/magi_robes.tres" id="165_n7wwd"]
 [ext_resource type="Resource" uid="uid://l6kd2wl63bem" path="res://resources/definitions/items/equipment/mystifying_incense.tres" id="166_ncyn0"]
 [ext_resource type="Resource" uid="uid://cyj3gt2n6yn8y" path="res://resources/definitions/items/equipment/null_sigl.tres" id="167_n308j"]
-[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="168_6rcnr"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="168_6rcnr"]
 [ext_resource type="Resource" uid="uid://bocqqoda422bq" path="res://resources/definitions/items/equipment/old_pendant.tres" id="168_87ert"]
 [ext_resource type="Resource" uid="uid://ch3c7efjp00as" path="res://resources/definitions/items/equipment/old_soldiers_band.tres" id="169_sec5j"]
 [ext_resource type="Resource" uid="uid://dbauvolqrqquy" path="res://resources/definitions/items/equipment/power_band.tres" id="170_e40e4"]
@@ -187,10 +188,11 @@
 [ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
 [ext_resource type="Resource" uid="uid://7jgl3w4yco8k" path="res://resources/definitions/items/equipment/heavy_brick.tres" id="182_a2n7e"]
 [ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
+[ext_resource type="Resource" uid="uid://br1ypxp6y3bql" path="res://resources/definitions/items/weapons/bow/dragonslayer_bow.tres" id="184_xul00"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
-items = {
+items = Dictionary[String, ExtResource("2_3lb28")]({
 "abyss_typhoon": ExtResource("73_fi30s"),
 "adept_anchovy": ExtResource("125_7a2us"),
 "all_seeing_hands": ExtResource("76_jk8mo"),
@@ -216,6 +218,7 @@ items = {
 "deliverance": ExtResource("86_ogapb"),
 "devil_knuckles": ExtResource("39_kby4g"),
 "door_key": ExtResource("95_midyp"),
+"dragonslayer_bow": ExtResource("184_xul00"),
 "earth_split": ExtResource("88_p6flx"),
 "ebonflight": ExtResource("70_s8rv5"),
 "elixir": ExtResource("93_1d4v0"),
@@ -336,7 +339,7 @@ items = {
 "spirit_ink": ExtResource("118_0v30l"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
-"steel_dagger": ExtResource("144_86gxh"),
+"steel_dagger": ExtResource("148_xul00"),
 "steel_fist": ExtResource("78_vos4o"),
 "steel_greatshield": ExtResource("154_d85kj"),
 "steel_lance": ExtResource("20_kc6t1"),
@@ -372,11 +375,11 @@ items = {
 "wisdom_wine": ExtResource("119_kdxkq"),
 "wyvern_wingdust": ExtResource("134_d85kj"),
 "zweihander": ExtResource("91_khgvj")
-}
-commander_weapons = {
+})
+commander_weapons = Dictionary[String, ExtResource("2_3lb28")]({
 "ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
 "magelock": ExtResource("181_tb7n7"),
 "persauders": ExtResource("182_ewy5w"),
 "vipers_bite": ExtResource("62_xe68h")
-}
+})

@@ -5,11 +5,10 @@
 [resource]
 script = ExtResource("1_qnyni")
 hp = 21
-strength = 2
-skill = 7
-speed = 9
-luck = 5
-defense = 2
+strength = 6
+skill = 11
+speed = 10
+defense = 5
 resistance = 2
-movement = 5
-constitution = 8
+movement = 6
+constitution = 7

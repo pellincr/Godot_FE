@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=13 format=3 uid="uid://b8po33o34hr7u"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_5fnxc"]
+[ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="2_uiijs"]
+[ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="3_wm2qs"]
+[ext_resource type="Resource" uid="uid://bulr5308i3tpv" path="res://resources/definitions/items/weapons/shield/buckler.tres" id="4_uj67a"]
+[ext_resource type="Resource" uid="uid://diojnt0oqm7x6" path="res://resources/definitions/items/weapons/shield/knight_shield.tres" id="5_tsi28"]
+[ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="6_517a2"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="7_wjy4r"]
+
+[sub_resource type="Resource" id="Resource_uc8o2"]
+script = ExtResource("1_5fnxc")
+item = ExtResource("2_uiijs")
+probability = 68.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_wabid"]
+script = ExtResource("1_5fnxc")
+item = ExtResource("3_wm2qs")
+probability = 14.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_sy62u"]
+script = ExtResource("1_5fnxc")
+item = ExtResource("4_uj67a")
+probability = 7.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_l378v"]
+script = ExtResource("1_5fnxc")
+item = ExtResource("5_tsi28")
+probability = 4.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_15qku"]
+script = ExtResource("1_5fnxc")
+item = ExtResource("6_517a2")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("7_wjy4r")
+entries = Array[ExtResource("1_5fnxc")]([SubResource("Resource_uc8o2"), SubResource("Resource_wabid"), SubResource("Resource_sy62u"), SubResource("Resource_l378v"), SubResource("Resource_15qku")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

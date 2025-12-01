@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://710nx6xrxuvw"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://710nx6xrxuvw"]
 
 [ext_resource type="Resource" uid="uid://sq51uyt067ku" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch_base_combat_stats.tres" id="1_cfex4"]
 [ext_resource type="Resource" uid="uid://lqbwu06jfpy2" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch_default_item_tables.tres" id="2_urnkc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://dh2fc1lbi05hn" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch_max_stats.tres" id="4_m000x"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_jttq0"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_b2kdb"]
+[ext_resource type="Resource" uid="uid://bthaic24q4c7" path="res://resources/definitions/unit_types/units/sea_witch/sea_witch_promotion_to_stats.tres" id="6_w884v"]
 
 [resource]
 script = ExtResource("5_jttq0")
@@ -16,10 +17,13 @@ description = "Coastal spellcasters who wield the storm's fury and tidal magic t
 name_genders = Array[int]([1])
 faction = Array[int]([3])
 unit_rarity = ExtResource("6_b2kdb")
-usable_weapon_types = Array[int]([7])
+tier = 4
+unit_promoted_from_key = "mage"
+usable_weapon_types = Array[int]([7, 9, 8])
 base_stats = ExtResource("1_cfex4")
 maxuimum_stats = ExtResource("4_m000x")
 growth_stats = ExtResource("2_vttgw")
+promotion_to_stats = ExtResource("6_w884v")
 icon = ExtResource("3_k15jk")
 map_sprite = ExtResource("3_k15jk")
 default_item_resource = ExtResource("2_urnkc")

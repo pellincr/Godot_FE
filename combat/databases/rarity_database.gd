@@ -1,4 +1,4 @@
 extends Node
 
 
-@export var rarities: Dictionary
+@export var rarities: Dictionary[String, Rarity]

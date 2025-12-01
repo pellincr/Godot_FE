@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://bthaic24q4c7"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_fa1wi"]
+
+[resource]
+script = ExtResource("1_fa1wi")
+hp = 3
+strength = 1
+magic = 1
+skill = 1
+defense = 3
+resistance = 3
+movement = 1
+constitution = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"

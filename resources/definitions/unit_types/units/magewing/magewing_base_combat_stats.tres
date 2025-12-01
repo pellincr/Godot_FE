@@ -4,11 +4,10 @@
 
 [resource]
 script = ExtResource("1_almya")
-hp = 15
-magic = 4
-skill = 4
+hp = 14
+magic = 2
+skill = 5
 speed = 7
-defense = 1
-resistance = 3
+resistance = 2
 movement = 7
 constitution = 6

@@ -6,7 +6,7 @@
 script = ExtResource("1_gr2kj")
 hp = 15
 strength = 3
-magic = 7
+magic = 5
 skill = 5
 speed = 3
 defense = 2

@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_wcgtq")
-hp = 60
-strength = 27
+hp = 65
+strength = 22
 magic = 5
-skill = 55
-speed = 60
-luck = 30
-defense = 12
-resistance = 17
+skill = 40
+speed = 55
+luck = 25
+defense = 15
+resistance = 12

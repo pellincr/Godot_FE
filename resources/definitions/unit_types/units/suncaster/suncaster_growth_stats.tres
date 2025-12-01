@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_7668p")
-hp = 45
+hp = 55
 strength = 8
-magic = 30
+magic = 37
 skill = 35
-speed = 32
-luck = 45
-defense = 8
-resistance = 40
+speed = 55
+luck = 30
+defense = 10
+resistance = 35

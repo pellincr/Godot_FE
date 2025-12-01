@@ -18,6 +18,7 @@ name_genders = Array[int]([0, 1])
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_lfn5x")
 movement_type = 2
+usable_weapon_types = Array[int]([13, 6])
 base_stats = ExtResource("1_karj0")
 maxuimum_stats = ExtResource("4_vlc8e")
 growth_stats = ExtResource("2_mak3x")

@@ -1,8 +1,8 @@
 extends Node
 
-@export var unit_types: Dictionary
+@export var unit_types: Dictionary[String, UnitTypeDefinition]
 
-@export var commander_types : Dictionary
+@export var commander_types : Dictionary[String, CommanderDefinition]
 
 func get_definition(db_key: String) -> UnitTypeDefinition:
 	var unit_def : UnitTypeDefinition = get_unit_definition(db_key)
@@ -31,3 +31,13 @@ func has(db_key)-> bool:
 	
 func is_commander(db_key: String) -> bool: 
 	return (commander_types.has(db_key))
+
+func sort(a:UnitTypeDefinition, b:UnitTypeDefinition):
+	# First check rarity,
+	if a.usable_weapon_types.min() != b.usable_weapon_types.min():
+		return a.usable_weapon_types.min() < b.usable_weapon_types.min()
+	if a.tier != b.tier:
+		return a.tier < b.tier
+	# Check Name
+	elif a.unit_type_name != b.unit_type_name:
+		return a.unit_type_name < b.unit_type_name

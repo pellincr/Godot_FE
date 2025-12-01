@@ -2,6 +2,7 @@ extends Node
 
 class_name UnitExperienceManager
 
+const LEVEL_CAP_T2 = [10,20,30,20]
 signal experience_finished()
 
 const EXPERIENCE_BAR_COMPONENT = preload("res://ui/combat/unit_experience_bar/unit_experience_bar.tscn")

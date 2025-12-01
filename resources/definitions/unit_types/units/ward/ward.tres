@@ -11,7 +11,7 @@
 script = ExtResource("5_i6xch")
 unit_type_name = "Ward"
 db_key = "ward"
-description = "Hired protectors who ward allies with shield and spell, holding fast under pressure."
+description = "Hired protectors who ward allies with shield and flesh, holding fast under pressure."
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_sfen0")
 movement_type = 1

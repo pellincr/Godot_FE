@@ -12,10 +12,11 @@
 script = ExtResource("6_5u5eq")
 unit_type_name = "Squire"
 db_key = "squire"
-description = "A lightly armored trainee who carries a shield more for duty than defense, the Squire relies on mobility to plug gaps in the line but cannot withstand sustained combat."
+description = "A lightly armored trainee who carries a shield more for duty than defense, the Squire relies on bravery more than logic  to plug gaps."
 faction = Array[int]([1])
 unit_rarity = ExtResource("7_1iuyv")
 movement_type = 2
+tier = 1
 usable_weapon_types = Array[int]([12])
 base_stats = ExtResource("1_rl3b0")
 maxuimum_stats = ExtResource("5_30r2o")

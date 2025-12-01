@@ -48,7 +48,7 @@ func set_range_value(range):
 	var min = range[0]
 	var max = range[-1]
 	if min != max:
-		range_value_label.text = str(min) + "/" + str(max)
+		range_value_label.text = str(min) + "-" + str(max)
 	else:
 		range_value_label.text = str(min)
 

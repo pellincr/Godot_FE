@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://gdi76tkrump4"]
+[gd_scene load_steps=17 format=3 uid="uid://gdi76tkrump4"]
 
 [ext_resource type="Script" uid="uid://dubmx8lchxiwx" path="res://almanac/unit_type/unit_type_almanac_detailed_view.gd" id="2_0m8mb"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="3_2ven3"]
 [ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_7v744"]
 [ext_resource type="PackedScene" uid="uid://uu25grierx8r" path="res://almanac/unit_type/unit_type_full_stat_container.tscn" id="3_y0tt6"]
 [ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="4_geqfg"]
@@ -23,6 +24,10 @@ PanelContainer/styles/panel = SubResource("StyleBoxFlat_6vjg3")
 [sub_resource type="Theme" id="Theme_w7fdy"]
 default_font = ExtResource("3_7v744")
 default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_bmxp7"]
+default_font = ExtResource("3_2ven3")
+default_font_size = 18
 
 [sub_resource type="Theme" id="Theme_2ven3"]
 default_font = ExtResource("3_7v744")
@@ -69,7 +74,7 @@ theme_override_constants/margin_right = 10
 layout_mode = 2
 
 [node name="HeaderContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer"]
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(250, 32)
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -77,6 +82,11 @@ size_flags_vertical = 0
 layout_mode = 2
 theme = SubResource("Theme_w7fdy")
 text = "Lance Cavalry"
+
+[node name="TierContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/HeaderContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme = SubResource("Theme_bmxp7")
 
 [node name="MoveConContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)

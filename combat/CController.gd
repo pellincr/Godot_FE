@@ -10,6 +10,9 @@ class_name CController
 #Grid
 const GRID_TEXTURE = preload("res://resources/sprites/grid/grid_marker_2.png")
 const PATH_TEXTURE = preload("res://resources/sprites/grid/path_ellipse.png")
+const ATTACKABLE_TILE_TEXTURE = preload("res://resources/sprites/grid/attackable_tile.png")
+const ALLY_SPAWN_TILE_TEXTURE = preload("uid://bg1eu6cpquuv1")
+const MOVEABLE_TILE_TEXTURE = preload("res://resources/sprites/grid/movable_tile.png")
 
 #Movement
 const MOVEMENT_SPEED = 96
@@ -217,7 +220,7 @@ func _draw():
 	elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION):
 		#Draw the tiles for the player spaces
 		for tile in combat.ally_spawn_tiles:
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color.DARK_BLUE)
+			draw_texture(ALLY_SPAWN_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color.DARK_GOLDENROD)
 		if(player_state == CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER):
 			draw_hover_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
 
@@ -382,34 +385,34 @@ func draw_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool, atta
 	var attack_range_color = Color.CRIMSON
 	if (draw_move_range) :
 		for tile in move_range :
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
+			draw_texture(MOVEABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
 	if (draw_attack_range) :
 		for tile in attack_range :
 			if(!move_range.has(tile) or !draw_move_range) : 
-				draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
+				draw_texture(ATTACKABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
 
 func draw_hover_movement_ranges(move_range:Array[Vector2i], draw_move_range:bool, attack_range:Array[Vector2i], draw_attack_range:bool):
 	var move_range_color = Color(Color.BLUE,.5)
 	var attack_range_color = Color(Color.CRIMSON,.5)
 	if (draw_move_range) :
 		for tile in move_range :
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
+			draw_texture(MOVEABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), move_range_color)
 	if (draw_attack_range) :
 		for tile in attack_range :
 			if(!move_range.has(tile) or !draw_move_range) : 
-				draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
+				draw_texture(ATTACKABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), attack_range_color)
 
 func draw_attack_range(attack_range:Array[Vector2i]):
 	for tile in attack_range : 
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .5))
+			draw_texture(ATTACKABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .5))
 
 func draw_enemy_ranges():
 	if show_all_enemy_range:
 		for tile in rangeManager.enemy_range_tiles:
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
+			draw_texture(ATTACKABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
 	else:
 		for tile in rangeManager.selected_unit_range_tiles:
-			draw_texture(GRID_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
+			draw_texture(ATTACKABLE_TILE_TEXTURE, Vector2(tile)  * Vector2(32, 32), Color(Color.CRIMSON, .35))
 
 func draw_action_tiles(tiles:Array[Vector2i], ua:UnitAction):
 	##Set the tile color based on the type of action

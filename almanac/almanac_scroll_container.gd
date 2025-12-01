@@ -42,9 +42,10 @@ func clear_main_scroll_container():
 		focused = false
 
 func fill_main_scroll_container_unit_type():
-	var unit_type_keys = UnitTypeDatabase.unit_types.keys()
-	for unit_type_key in unit_type_keys:
-		var unit_type = UnitTypeDatabase.unit_types[unit_type_key]
+	var unit_types = UnitTypeDatabase.unit_types.values()
+	unit_types.sort_custom(UnitTypeDatabase.sort)
+	for unit_type in unit_types:
+		#var unit_type = UnitTypeDatabase.unit_types[unit_type_key]
 		var unit_type_panel_container = unit_type_panel_container_scene.instantiate()
 		unit_type_panel_container.set_po_data(playerOverworldData)
 		unit_type_panel_container.unit_type = unit_type

@@ -17,5 +17,6 @@ db_key = "oak_wood_charm"
 description = "A charm carved from a mighty oak tree, grant 10 avoid when held."
 item_type = 3
 rarity = ExtResource("3_4qcwu")
+worth = 750
 inventory_bonus_stats = SubResource("Resource_nlglf")
 icon = ExtResource("2_jsnkl")

@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_pfdnb")
-hp = 16
-magic = 5
-skill = 5
-speed = 7
-defense = 1
-resistance = 3
-movement = 5
-constitution = 8
+hp = 20
+magic = 6
+skill = 3
+speed = 6
+defense = 4
+resistance = 6
+movement = 6
+constitution = 7

@@ -1,6 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=59 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_ledaj"]
 [ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="2_pke6c"]
 [ext_resource type="Resource" uid="uid://cq57ltputqp77" path="res://resources/definitions/unit_types/units/axe_cavalier/axe_cavalier.tres" id="4_bf4by"]
 [ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/units/bladehand/bladehand.tres" id="5_k6vk5"]
@@ -55,10 +56,12 @@
 [ext_resource type="Resource" uid="uid://cy23n0romg1wx" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier.tres" id="49_36q4w"]
 [ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="49_55blc"]
 [ext_resource type="Resource" uid="uid://vfmdqc5fyl8x" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms.tres" id="50_55blc"]
+[ext_resource type="Resource" uid="uid://dmn8dlrbsdv0b" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner.tres" id="52_hd4cq"]
+[ext_resource type="Script" uid="uid://bivpkkd0jp1s3" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="53_x64ar"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
-unit_types = {
+unit_types = Dictionary[String, ExtResource("2_ledaj")]({
 "apprentice": ExtResource("47_36q4w"),
 "archer": ExtResource("2_pke6c"),
 "axe_armor": ExtResource("31_id5fj"),
@@ -98,6 +101,7 @@ unit_types = {
 "sea_witch": ExtResource("25_fxnlp"),
 "sellsword": ExtResource("10_ntklw"),
 "shaman": ExtResource("33_b6uy8"),
+"shield_runner": ExtResource("52_hd4cq"),
 "skypoint": ExtResource("36_o7m45"),
 "squire": ExtResource("41_qfqp5"),
 "suncaster": ExtResource("39_ap7gd"),
@@ -108,11 +112,11 @@ unit_types = {
 "twigshot": ExtResource("46_qfqp5"),
 "vandal": ExtResource("35_vq7n6"),
 "ward": ExtResource("19_ks8uf")
-}
-commander_types = {
+})
+commander_types = Dictionary[String, ExtResource("53_x64ar")]({
 "drengr": ExtResource("42_885oc"),
 "iron_viper": ExtResource("34_w1y03"),
 "line_breaker": ExtResource("44_n5a4x"),
 "mage_knight": ExtResource("29_ycdqo"),
 "night_blade": ExtResource("45_a26rd")
-}
+})
