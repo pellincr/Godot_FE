@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_ykw36")
-hp = 18
+hp = 21
 strength = 4
-skill = 5
-speed = 6
-defense = 2
+skill = 11
+speed = 10
+defense = 5
 resistance = 2
-movement = 5
-constitution = 8
+movement = 6
+constitution = 7

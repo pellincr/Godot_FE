@@ -4,12 +4,10 @@
 
 [resource]
 script = ExtResource("1_a2r6f")
-hp = 21
-strength = 2
-skill = 7
-speed = 9
-luck = 5
+hp = 4
+skill = 2
+speed = 2
 defense = 2
 resistance = 2
-movement = 5
-constitution = 8
+movement = 1
+constitution = 1

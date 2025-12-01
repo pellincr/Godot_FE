@@ -6,9 +6,9 @@
 script = ExtResource("1_qnyni")
 hp = 21
 strength = 6
-skill = 11
-speed = 10
-defense = 5
-resistance = 2
+skill = 7
+speed = 7
+defense = 4
+resistance = 1
 movement = 6
 constitution = 7

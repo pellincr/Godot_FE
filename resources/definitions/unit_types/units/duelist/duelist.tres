@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://c2pk7bebd54to"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://c2pk7bebd54to"]
 
 [ext_resource type="Resource" uid="uid://dctfc3d3nyau3" path="res://resources/definitions/unit_types/units/duelist/duelist_base_combat_stats.tres" id="1_vmeh1"]
 [ext_resource type="Resource" uid="uid://bqm1m8xll62gg" path="res://resources/definitions/unit_types/units/duelist/duelist_growth_stats.tres" id="2_4wg3g"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bxr0llxu75mln" path="res://resources/sprites/units/fencer.png" id="4_af46d"]
 [ext_resource type="Resource" uid="uid://vw2g3j2kkkbd" path="res://resources/definitions/unit_types/units/duelist/duelist_max_stats.tres" id="4_ulihi"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_2xl1h"]
+[ext_resource type="Resource" uid="uid://meammdi0kkww" path="res://resources/definitions/unit_types/units/duelist/duelist_promotion_stats.tres" id="6_0bn2s"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_lv4oq"]
 
 [resource]
@@ -14,10 +15,13 @@ unit_type_name = "Duelist"
 db_key = "duelist"
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_lv4oq")
+tier = 4
+unit_promoted_from_key = "corsair"
 usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_vmeh1")
 maxuimum_stats = ExtResource("4_ulihi")
 growth_stats = ExtResource("2_4wg3g")
+promotion_to_stats = ExtResource("6_0bn2s")
 icon = ExtResource("4_af46d")
 map_sprite = ExtResource("4_af46d")
 default_item_resource = ExtResource("2_af46d")
