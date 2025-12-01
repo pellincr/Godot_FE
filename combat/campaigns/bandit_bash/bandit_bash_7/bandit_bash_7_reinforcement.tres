@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_h46dk"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_aoe7f"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_rxd1g"]
-[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="9_7bodt"]
+[ext_resource type="Resource" uid="uid://c5crxadul4wou" path="res://resources/definitions/items/weapons/dagger/steel_dagger_new.tres" id="9_f3jxm"]
 [ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_ys14t"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="11_4f8tt"]
 [ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="12_t07uk"]
@@ -57,8 +57,8 @@ script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(7, 17)
 level = 10
-unit_type_key = "bladehand"
-inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_7bodt")])
+unit_type_key = "cutthroat"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_f3jxm")])
 
 [sub_resource type="Resource" id="Resource_inwj6"]
 script = ExtResource("1_l0xyi")

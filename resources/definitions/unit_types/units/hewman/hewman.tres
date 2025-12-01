@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_82f3f"]
 [ext_resource type="Resource" uid="uid://bg5poewlr3i7e" path="res://resources/definitions/unit_types/units/sellsword/sellsword.tres" id="7_mrdeh"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_npocf"]
-[ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/units/bladehand/bladehand.tres" id="8_7xwvf"]
 [ext_resource type="Resource" uid="uid://p0yw74owchbh" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier.tres" id="9_ec5hd"]
+[ext_resource type="Resource" uid="uid://w3fe6ovr8565" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor.tres" id="9_mrdeh"]
 
 [resource]
 script = ExtResource("6_82f3f")
@@ -17,7 +17,7 @@ unit_type_name = "Hewman"
 db_key = "hewman"
 unit_rarity = ExtResource("7_npocf")
 tier = 1
-promotion_types_available = Array[ExtResource("6_82f3f")]([ExtResource("7_mrdeh"), ExtResource("8_7xwvf"), ExtResource("9_ec5hd")])
+promotion_types_available = Array[ExtResource("6_82f3f")]([ExtResource("7_mrdeh"), ExtResource("9_ec5hd"), ExtResource("9_mrdeh")])
 usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_txcj5")
 maxuimum_stats = ExtResource("5_7eabv")

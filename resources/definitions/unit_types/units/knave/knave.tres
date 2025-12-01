@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_pa2tc"]
 [ext_resource type="Resource" uid="uid://bxeaa4qb7n0ni" path="res://resources/definitions/unit_types/units/thief/thief.tres" id="7_x0l42"]
 [ext_resource type="Resource" uid="uid://wdv3uyvn50no" path="res://resources/definitions/unit_types/units/field_medic/field_medic.tres" id="8_oy2ml"]
-[ext_resource type="Resource" uid="uid://in4s0ygo5wsr" path="res://resources/definitions/unit_types/units/bladehand/bladehand.tres" id="9_to7i4"]
+[ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="9_x0l42"]
 
 [resource]
 script = ExtResource("6_hamm4")
@@ -17,7 +17,7 @@ unit_type_name = "Knave"
 db_key = "knave"
 unit_rarity = ExtResource("7_pa2tc")
 tier = 1
-promotion_types_available = Array[ExtResource("6_hamm4")]([ExtResource("7_x0l42"), ExtResource("8_oy2ml"), ExtResource("9_to7i4")])
+promotion_types_available = Array[ExtResource("6_hamm4")]([ExtResource("7_x0l42"), ExtResource("8_oy2ml"), ExtResource("9_x0l42")])
 usable_weapon_types = Array[int]([13])
 base_stats = ExtResource("1_da31p")
 maxuimum_stats = ExtResource("5_y3bnn")

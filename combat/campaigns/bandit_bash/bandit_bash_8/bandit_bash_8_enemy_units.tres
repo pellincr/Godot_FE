@@ -245,7 +245,7 @@ name = "Bandit"
 map_position = Vector2i(13, 14)
 level = 12
 ai_type = 1
-unit_type_key = "bladehand"
+unit_type_key = "cutthroat"
 inventory = Array[ExtResource("2_ps3u0")]([ExtResource("21_jlm4s")])
 
 [sub_resource type="Resource" id="Resource_ckgwu"]

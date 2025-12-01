@@ -13,8 +13,8 @@
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="10_shq1q"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="11_nr2do"]
 [ext_resource type="Resource" uid="uid://dx371xef2mx4i" path="res://resources/definitions/items/weapons/axes/halberd.tres" id="12_8chno"]
-[ext_resource type="Resource" uid="uid://cq5siucueaoku" path="res://resources/definitions/items/weapons/swords/killer_sword.tres" id="14_58eeg"]
 [ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="14_li3pq"]
+[ext_resource type="Resource" uid="uid://cmljuu3sxx1lf" path="res://resources/definitions/items/weapons/dagger/killer_dagger.tres" id="14_m8jv2"]
 [ext_resource type="Resource" uid="uid://qkuun8cons7a" path="res://resources/definitions/items/equipment/lucky_coin.tres" id="15_x0rjn"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="16_2f1a2"]
 [ext_resource type="Resource" uid="uid://bulr5308i3tpv" path="res://resources/definitions/items/weapons/shield/buckler.tres" id="17_fgqt6"]
@@ -121,8 +121,8 @@ map_position = Vector2i(8, 14)
 level = 10
 ai_type = 1
 is_boss = true
-unit_type_key = "bladehand"
-inventory = Array[ExtResource("2_8r2od")]([ExtResource("14_58eeg"), ExtResource("15_x0rjn")])
+unit_type_key = "cutthroat"
+inventory = Array[ExtResource("2_8r2od")]([ExtResource("14_m8jv2"), ExtResource("15_x0rjn")])
 drops_item = true
 
 [sub_resource type="Resource" id="Resource_7utsc"]
