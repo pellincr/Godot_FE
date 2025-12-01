@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_vquyn")
-hp = 28
+hp = 35
 strength = 10
 skill = 6
 speed = 7
-defense = 6
+defense = 4
 movement = 6
 constitution = 14

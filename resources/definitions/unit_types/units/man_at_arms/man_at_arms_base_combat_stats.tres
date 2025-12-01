@@ -6,9 +6,9 @@
 script = ExtResource("1_pn8u6")
 hp = 22
 strength = 6
-skill = 10
-speed = 11
-defense = 6
+skill = 9
+speed = 10
+defense = 5
 resistance = 3
 movement = 6
 constitution = 11

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cj2p2g07w7jwo"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://cj2p2g07w7jwo"]
 
 [ext_resource type="Resource" uid="uid://cmm88qxp1ec6f" path="res://resources/definitions/unit_types/units/marauder/marauder_base_combat_stats.tres" id="1_cdjln"]
 [ext_resource type="Resource" uid="uid://dxe6oht7h5k8w" path="res://resources/definitions/unit_types/units/marauder/marauder_growth_stats.tres" id="2_2qb62"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ua12j817f0uw" path="res://resources/definitions/unit_types/units/marauder/marauder_max_stats.tres" id="4_lvhpc"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_wqe2v"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_n0m3k"]
+[ext_resource type="Resource" uid="uid://c2xtl7lrwiwdg" path="res://resources/definitions/unit_types/units/marauder/marauder_promotion_bonuses.tres" id="6_poqxo"]
 
 [resource]
 script = ExtResource("5_wqe2v")
@@ -22,6 +23,7 @@ usable_weapon_types = Array[int]([2])
 base_stats = ExtResource("1_cdjln")
 maxuimum_stats = ExtResource("4_lvhpc")
 growth_stats = ExtResource("2_2qb62")
+promotion_to_stats = ExtResource("6_poqxo")
 icon = ExtResource("3_60eqr")
 map_sprite = ExtResource("3_60eqr")
 default_item_resource = ExtResource("2_tdmap")
