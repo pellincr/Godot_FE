@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://vfmdqc5fyl8x"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://vfmdqc5fyl8x"]
 
 [ext_resource type="Resource" uid="uid://uold5sv7musy" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_base_combat_stats.tres" id="1_r8yei"]
 [ext_resource type="Resource" uid="uid://dybfgcudmlrjh" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_default_item_tables.tres" id="2_k3ah7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://fefnt0c8kq3p" path="res://resources/sprites/units/tier4/man_at_arms.png" id="4_bg38s"]
 [ext_resource type="Resource" uid="uid://ctic8a4hdo1h2" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_max_stats.tres" id="5_4xls3"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_pfj2f"]
+[ext_resource type="Resource" uid="uid://dlo1aj7f1jfkn" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms_promotion_bonus.tres" id="6_x2xpy"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ki6wi"]
 
 [resource]
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([2, 1])
 base_stats = ExtResource("1_r8yei")
 maxuimum_stats = ExtResource("5_4xls3")
 growth_stats = ExtResource("3_i53bu")
+promotion_to_stats = ExtResource("6_x2xpy")
 icon = ExtResource("4_bg38s")
 map_sprite = ExtResource("4_bg38s")
 default_item_resource = ExtResource("2_k3ah7")
