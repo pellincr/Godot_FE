@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=12 format=3 uid="uid://67mgm055avoi"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=11 format=3 uid="uid://67mgm055avoi"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_eip1t"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_o3bsn"]
@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_l3gbs"]
 script = ExtResource("3_wb8sv")
-position = Vector2i(3, 10)
+position = Vector2i(3, 2)
 type = 1
 metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
 
@@ -22,18 +22,12 @@ metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
 
 [sub_resource type="Resource" id="Resource_ovqg6"]
 script = ExtResource("3_wb8sv")
-position = Vector2i(10, 5)
-type = 1
-metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
-
-[sub_resource type="Resource" id="Resource_l8bpw"]
-script = ExtResource("3_wb8sv")
-position = Vector2i(4, 12)
+position = Vector2i(5, 4)
 type = 1
 metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
 
 [resource]
 script = ExtResource("6_ngyom")
-debris = Array[ExtResource("3_wb8sv")]([SubResource("Resource_l3gbs"), SubResource("Resource_8yiie"), SubResource("Resource_ovqg6"), SubResource("Resource_l8bpw")])
+debris = Array[ExtResource("3_wb8sv")]([SubResource("Resource_l3gbs"), SubResource("Resource_8yiie"), SubResource("Resource_ovqg6")])
 default_stone_debris_defense = 0
 default_stone_debris_resistance = 0

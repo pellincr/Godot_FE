@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="LootTableUnit" load_steps=21 format=3 uid="uid://c4oceayalnj6"]
+
+[ext_resource type="Script" uid="uid://cb8115giypysj" path="res://scripts/resources/loot_tables/loot_table_entry_string.gd" id="1_4lh17"]
+[ext_resource type="Resource" uid="uid://bg5poewlr3i7e" path="res://resources/definitions/unit_types/units/sellsword/sellsword.tres" id="2_6obpp"]
+[ext_resource type="Resource" uid="uid://d0ewglo4bmena" path="res://resources/definitions/unit_types/units/fighter/fighter.tres" id="3_f5848"]
+[ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="4_3wclp"]
+[ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="5_5kdq7"]
+[ext_resource type="Resource" uid="uid://b811vvt2heb2i" path="res://resources/definitions/unit_types/units/brawler/brawler.tres" id="6_6rwe3"]
+[ext_resource type="Resource" uid="uid://bakbb4v2mvxn6" path="res://resources/definitions/unit_types/units/hakkapel/hakkapel.tres" id="7_frqmk"]
+[ext_resource type="Resource" uid="uid://dmn8dlrbsdv0b" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner.tres" id="8_a2ipx"]
+[ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="9_7i00s"]
+[ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="10_4b74a"]
+[ext_resource type="Script" uid="uid://bs3y45mqbyodg" path="res://scripts/resources/loot_tables/loot_table_unit.gd" id="11_ehgif"]
+
+[sub_resource type="Resource" id="Resource_lu2c1"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("2_6obpp")
+probability = 5.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_e1bha"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("3_f5848")
+probability = 5.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_7e226"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("4_3wclp")
+probability = 1.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_52h8t"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("5_5kdq7")
+probability = 2.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_wc7hi"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("6_6rwe3")
+probability = 3.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_4vuh5"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("7_frqmk")
+probability = 1.5
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_t5w78"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("8_a2ipx")
+probability = 1.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_qwfgo"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("9_7i00s")
+probability = 0.5
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_6n2ta"]
+script = ExtResource("1_4lh17")
+unit = ExtResource("10_4b74a")
+probability = 2.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[resource]
+script = ExtResource("11_ehgif")
+entries = Array[ExtResource("1_4lh17")]([SubResource("Resource_lu2c1"), SubResource("Resource_e1bha"), SubResource("Resource_7e226"), SubResource("Resource_52h8t"), SubResource("Resource_wc7hi"), SubResource("Resource_4vuh5"), SubResource("Resource_t5w78"), SubResource("Resource_qwfgo"), SubResource("Resource_6n2ta")])
+metadata/_custom_type_script = "uid://bs3y45mqbyodg"

@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="LootTableUnit" load_steps=19 format=3 uid="uid://d37s0081jpb8j"]
+
+[ext_resource type="Script" uid="uid://cb8115giypysj" path="res://scripts/resources/loot_tables/loot_table_entry_string.gd" id="1_ca8o1"]
+[ext_resource type="Resource" uid="uid://chmhvok2b7sgj" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor.tres" id="2_yb8a0"]
+[ext_resource type="Resource" uid="uid://3yeyocqp3lv8" path="res://resources/definitions/unit_types/units/archer/archer.tres" id="3_kb6w6"]
+[ext_resource type="Resource" uid="uid://b811vvt2heb2i" path="res://resources/definitions/unit_types/units/brawler/brawler.tres" id="4_luwxq"]
+[ext_resource type="Resource" uid="uid://bakbb4v2mvxn6" path="res://resources/definitions/unit_types/units/hakkapel/hakkapel.tres" id="5_14cqb"]
+[ext_resource type="Resource" uid="uid://dq5n0x73nca4" path="res://resources/definitions/unit_types/units/squire/squire.tres" id="6_gnad6"]
+[ext_resource type="Resource" uid="uid://df0kbv1d0nc5o" path="res://resources/definitions/unit_types/units/shaman/shaman.tres" id="7_lsa6m"]
+[ext_resource type="Resource" uid="uid://06uoo1n8hpyw" path="res://resources/definitions/unit_types/units/mage/mage.tres" id="8_c4e2l"]
+[ext_resource type="Resource" uid="uid://cc74dagkdtjhy" path="res://resources/definitions/unit_types/units/bishop/bishop.tres" id="9_baa4u"]
+[ext_resource type="Script" uid="uid://bs3y45mqbyodg" path="res://scripts/resources/loot_tables/loot_table_unit.gd" id="10_70xih"]
+
+[sub_resource type="Resource" id="Resource_7e226"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("2_yb8a0")
+probability = 1.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_52h8t"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("3_kb6w6")
+probability = 6.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_wc7hi"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("4_luwxq")
+probability = 1.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_4vuh5"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("5_14cqb")
+probability = 4.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_t5w78"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("6_gnad6")
+probability = 0.5
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_qwfgo"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("7_lsa6m")
+probability = 3.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_4hy23"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("8_c4e2l")
+probability = 2.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[sub_resource type="Resource" id="Resource_r1iqu"]
+script = ExtResource("1_ca8o1")
+unit = ExtResource("9_baa4u")
+probability = 1.0
+metadata/_custom_type_script = "uid://cb8115giypysj"
+
+[resource]
+script = ExtResource("10_70xih")
+entries = Array[ExtResource("1_ca8o1")]([SubResource("Resource_7e226"), SubResource("Resource_52h8t"), SubResource("Resource_wc7hi"), SubResource("Resource_4vuh5"), SubResource("Resource_t5w78"), SubResource("Resource_qwfgo"), SubResource("Resource_4hy23"), SubResource("Resource_r1iqu")])
+metadata/_custom_type_script = "uid://bs3y45mqbyodg"

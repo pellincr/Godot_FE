@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=14 format=3 uid="uid://c2x4hfn1ufy7o"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=15 format=3 uid="uid://c2x4hfn1ufy7o"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_b4kmf"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_vdkhk"]
@@ -24,6 +24,12 @@ script = ExtResource("2_vdkhk")
 position = Vector2i(16, 18)
 loot_table = ExtResource("3_quc6h")
 
+[sub_resource type="Resource" id="Resource_i4wdk"]
+script = ExtResource("5_s3xvj")
+position = Vector2i(7, 8)
+type = 1
+metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
+
 [sub_resource type="Resource" id="Resource_o2kfj"]
 script = ExtResource("6_gd7ta")
 positions = Array[Vector2i]([Vector2i(4, 10)])
@@ -36,3 +42,7 @@ positions = Array[Vector2i]([Vector2i(17, 16)])
 script = ExtResource("8_mpwib")
 chests = Array[ExtResource("2_vdkhk")]([SubResource("Resource_sjftv"), SubResource("Resource_4lg8j"), SubResource("Resource_i8lnu")])
 doors = Array[ExtResource("6_gd7ta")]([SubResource("Resource_o2kfj"), SubResource("Resource_befkp")])
+debris = Array[ExtResource("5_s3xvj")]([SubResource("Resource_i4wdk")])
+stone_debris_hp = 50
+default_stone_debris_defense = 0
+default_stone_debris_resistance = 0
