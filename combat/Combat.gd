@@ -142,11 +142,12 @@ func populate():
 		
 	if !playerOverworldData.battle_prep_complete:
 		#if the level has not yet bgeun, spawn the units at their initial spawn points
+		entity_manager.load_entities()
 		spawn_initial_units()
 		for tile_index in ally_spawn_tiles.size():
 			if !(tile_index >= playerOverworldData.selected_party.size()):
 				add_combatant(create_combatant_unit(playerOverworldData.selected_party[tile_index],0),ally_spawn_tiles[tile_index])
-		entity_manager.load_entities()
+		#entity_manager.load_entities()
 	else:
 		#if it has begun, spawn the units according to where they were saved
 		#var campaign_level = playerOverworldData.current_level.instantiate() #playerOverworldData.current_campaign.levels[playerOverworldData.current_level].instantiate()
@@ -342,15 +343,17 @@ func generate_random_unit(target:RandomCombatUnitData):
 		var map_position : Vector2i = target.map_position
 		var selectable_tiles : Array[Vector2i] = []
 		if target.position_variance:
-			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position)
+			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position, unit_type.movement_type, true, 1)
+			print("123#@# UNFILTERED TILES: " + str(selectable_tiles))
 			#Is the unit blocked in the tile, if so remove it from contention
 			for tile in selectable_tiles:
-				if game_grid.get_terrain(tile).blocks.has(unit_type.movement_type):
+				if game_grid.is_position_occupied(tile):
+					print("123#@# REMOVED TILE OCCUPIED: " + str(tile))
 					selectable_tiles.erase(tile)
-			#for index in range(selectable_tiles.size()-1):
-			#	if game_grid.get_terrain(selectable_tiles[index]).blocks.has(unit_type.movement_type):
-				#	selectable_tiles.remove_at(index)
-				# ANY OTHER CHECKS FOR TILE VALIDITY GO HERE
+				if game_grid.get_terrain(tile).blocks.has(unit_type.movement_type):
+					print("123#@# REMOVED TILE TERRIAN BLOCK: " + str(tile))
+					selectable_tiles.erase(tile)
+			print("123#@# FILTERED TILES: " + str(selectable_tiles))
 			map_position = selectable_tiles.pick_random()
 		target.unit_type_key = unit_type.db_key
 		target.inventory = _inventory.duplicate() #IS THIS DUPLICATE REDUNDANT?

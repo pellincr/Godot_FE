@@ -51,7 +51,7 @@ controller = NodePath("../Controller")
 combat_audio = NodePath("CombatAudio")
 unit_experience_manager = NodePath("UnitExperienceManager")
 combat_unit_item_manager = NodePath("CombatUnitItemManager")
-ally_spawn_tiles = Array[Vector2i]([Vector2i(7, 4), Vector2i(9, 5), Vector2i(8, 4), Vector2i(9, 3)])
+ally_spawn_tiles = Array[Vector2i]([Vector2i(7, 4), Vector2i(9, 5), Vector2i(8, 6), Vector2i(9, 3)])
 unit_data = SubResource("Resource_ld8ne")
 level_reward = SubResource("Resource_l4ya0")
 

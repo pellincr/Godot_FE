@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_t7wva"]
 [ext_resource type="Resource" uid="uid://cnrviiiv1svd8" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_treasure_table.tres" id="2_ckecp"]
-[ext_resource type="Resource" uid="uid://bx6u668y1cyxp" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_weapon_table.tres" id="3_56xeb"]
+[ext_resource type="Resource" uid="uid://4670rop6kt0" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_weapon_table.tres" id="3_56xeb"]
 
 [resource]
 script = ExtResource("1_t7wva")

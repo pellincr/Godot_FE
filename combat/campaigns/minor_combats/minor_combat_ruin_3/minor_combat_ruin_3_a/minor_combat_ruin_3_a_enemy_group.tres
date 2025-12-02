@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_15xpf"]
 script = ExtResource("3_stmah")
-unit_group = "B"
+unit_group = "A"
 position_variance_weight = 1
 name = "Bandit"
 map_position = Vector2i(10, 6)
@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
 
 [sub_resource type="Resource" id="Resource_vyxr5"]
 script = ExtResource("3_stmah")
-unit_group = "B"
+unit_group = "A"
 position_variance = true
 name = "Bandit"
 map_position = Vector2i(6, 5)
@@ -36,7 +36,6 @@ unit_group = "A"
 position_variance = true
 name = "Bandit"
 map_position = Vector2i(6, 0)
-is_boss = true
 metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
 
 [resource]
