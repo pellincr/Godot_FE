@@ -19,14 +19,6 @@ func display_number(value:int, position:Vector2, is_critical: bool = false):
 		number.text = "[font_size={36}][color=#B22][shake]" +str(value) +"![/shake][/color][/font_size]"
 	else:
 		number.text = str(value)
-	#var color = "#FFF"
-	#if is_critical:
-	#	color = "#B22"
-	#number.label_settings.font_size = 24
-	#number.label_settings.font_color = color
-	#number.label_settings.font_size = 18
-	#number.label_settings.outline_color = "#000"
-	#number.label_settings.outline_size = 3
 	
 	call_deferred("add_child", number)
 	

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://dt8njm5wo7pxc"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://dt8njm5wo7pxc"]
 
 [ext_resource type="Resource" uid="uid://cut0ficjgnj2p" path="res://resources/definitions/unit_types/units/pikeman/pikeman_base_combat_stats.tres" id="1_d0sv8"]
 [ext_resource type="Resource" uid="uid://byxebgkurh6pe" path="res://resources/definitions/unit_types/units/pikeman/pikeman_default_item_tables.tres" id="2_f5qnh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://b3h36gnyqagf7" path="res://resources/definitions/unit_types/units/pikeman/pikeman_max_stats.tres" id="4_6w27f"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_sy7go"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_3hux3"]
+[ext_resource type="Resource" uid="uid://iexsk5n1g7sy" path="res://resources/definitions/unit_types/units/pikeman/pikeman_promotion_stats.tres" id="6_uf26o"]
 
 [resource]
 script = ExtResource("5_sy7go")
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([3])
 base_stats = ExtResource("1_d0sv8")
 maxuimum_stats = ExtResource("4_6w27f")
 growth_stats = ExtResource("2_udbuo")
+promotion_to_stats = ExtResource("6_uf26o")
 icon = ExtResource("3_witkw")
 map_sprite = ExtResource("3_witkw")
 default_item_resource = ExtResource("2_f5qnh")

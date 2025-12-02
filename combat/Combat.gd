@@ -857,6 +857,7 @@ func create_item_obtained_pop_up(item:ItemDefinition):
 
 func create_item_broken_pop_up(item:ItemDefinition):
 	await game_ui.create_combat_view_pop_up_item_broken(item)
+	await get_tree().create_timer(.1).timeout
 	combatExchange._on_item_broken_popup_completed()
 
 func create_item_expended_pop_up(item:ItemDefinition):

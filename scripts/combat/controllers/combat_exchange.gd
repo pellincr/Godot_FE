@@ -41,20 +41,21 @@ var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
 var se_resource : SpecialEffectResource = SpecialEffectResource.new()
 
+var active_funciton
+
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
 	var attacker_specials = attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	var damage_dealt
 	if check_hit(hit_chance):
 		if check_critical(critical_chance) :
-			#emit critical
+			# Is the critical augmented?
 			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL, attacker_specials):
-			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
 				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
 			else:
 				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+			#Check for devil reversal
 			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
-			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
 				var backfire_chance : int = 31 - attacker.get_luck()
 				var roll = randi_range(0,100)
 				if roll <= backfire_chance: 
@@ -63,8 +64,16 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 					await do_damage(target,damage_dealt, true)
 			await do_damage(target,damage_dealt, true)
 		else : 
-			#emit generic damage
+			#calc default damage
 			damage_dealt = calc_damage(attacker, target)
+			#Check for devil reversal
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
+				var backfire_chance : int = 31 - attacker.get_luck()
+				var roll = randi_range(0,100)
+				if roll <= backfire_chance: 
+					await do_damage(attacker,damage_dealt)
+				else: 
+					await do_damage(target,damage_dealt)
 			await do_damage(target,damage_dealt)
 		#if attacker.unit.inventory.get_equipped_weapon():
 			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
@@ -74,11 +83,9 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 		#Durability Code
 		var broken_item = attacker.unit.inventory.use_item(attacker.get_equipped())
 		if broken_item != null:
-			#TODO create pop-up for broken weapon here
 			item_broken_popup_create.emit(broken_item)
 			await item_broken_popup_completed
 		elif attacker.unit.inventory.get_equipped_weapon().expended:
-			#TODO create pop-up for the expended weapon here
 			item_expended_popup_create.emit(attacker.unit.inventory.get_equipped_weapon())
 			await item_expended_popup_completed
 	else : ## Attack has missed
@@ -90,19 +97,10 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 		attacker.unit.inventory.use_item(attacker.get_equipped())
 
 func do_damage_entity(target: CombatEntity, damage:int):
-	#AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 	if(damage == 0):
-		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		#await use_audio_player(no_damage_sound)
-		#AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
-		#AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
-		#play no damage noise
 		await DamageNumbers.complete
 	if (damage > 0):
-		#await use_audio_player(hit_sound)
-		#AudioManager.play_sound_effect_pitch_randomized("unit_hit")
-		#AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
 		await DamageNumbers.complete
@@ -127,7 +125,6 @@ func perform_heal(healer: CombatUnit, recipient: CombatUnit, amount: int):
 				elif healer.unit.inventory.get_equipped_weapon().expended:
 					item_expended_popup_create.emit(healer.unit.inventory.get_equipped_weapon())
 					await item_expended_popup_completed
-		await recipient.map_display.update_complete
 
 
 # Calculates the heal and any bonuses if applicable
@@ -136,8 +133,9 @@ func trigger_heal_unit(combat_unit: CombatUnit, amount:int):
 	var healed_unit_specials = combat_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	if healed_unit_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
 		var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, healed_unit_specials)
-		_healing_amount = _healing_amount +se_resource.calculate_aggregate_effect(_heal_bonus_effects, _healing_amount)
+		_healing_amount = _healing_amount + se_resource.calculate_aggregate_effect(_heal_bonus_effects, _healing_amount)
 	await heal_unit(combat_unit, _healing_amount)
+	await combat_unit.map_display.update_complete
 
 # Does the heal itself
 func heal_unit(unit: CombatUnit, amount: int):
@@ -148,11 +146,9 @@ func heal_unit(unit: CombatUnit, amount: int):
 	unit.map_display.update_values()
 	if ce_display != null:
 		await ce_display.update_unit_hp(unit, unit.current_hp)
-	#await unit.map_display.update_complete
+	await unit.map_display.update_complete
 
 func hit_missed(dodging_unit: CombatUnit):
-	#await use_audio_player(miss_sound)
-	#await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
 	await AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
@@ -168,10 +164,8 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 	
 	#check if the player unit has broken or expended its weapon and equip a new one
 	if player_unit.unit.inventory.equipped == false:
-		#TODO create pop-up for broken weapon here
 		player_unit.unit.equip_next_available_weapon()
 	elif player_unit.unit.inventory.get_equipped_weapon().expended and player_unit.unit.inventory.equipped:
-		#TODO create pop-up for the expended weapon here
 		player_unit.unit.inventory.send_back()
 		player_unit.unit.equip_next_available_weapon()
 	
@@ -406,8 +400,8 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
 	#How many hits are performed?
 	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
-	var supporter_specials = se_resource.get_all_special_effect_types(supporter.unit.inventory.get_all_specials_from_inventory_and_equipped())
-	var target_specials = se_resource.get_all_special_effect_types(target.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	var supporter_specials = supporter.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped()
 	
 	return_object.supporter = supporter
 	return_object.target = target
@@ -417,9 +411,11 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
 		turn_data.effect_weight = supporter.get_damage()
-		if target_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
-			var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target_specials)
-			turn_data.effect_weight = turn_data.effect_weight +se_resource.calculate_aggregate_effect(_heal_bonus_effects, turn_data.effect_weight)
+		
+		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target_specials):
+		#if target_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
+			var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target.unit.inventory.get_all_specials_from_inventory_and_equipped())
+			turn_data.effect_weight = turn_data.effect_weight + se_resource.calculate_aggregate_effect(_heal_bonus_effects, turn_data.effect_weight)
 		return_object.exchange_data.append(turn_data)
 	return_object.populate()
 	return return_object
@@ -662,29 +658,11 @@ func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitS
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
 			await perform_heal(supporter, target, turn.effect_weight)
-			# ADD THE USE ITEM HERE
 	if supporter.allegience == Constants.FACTION.PLAYERS:
 		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :
 		pass
 	supporter.turn_taken = true
-
-#
-# Gets the scaling bonus based on the item scaling type for calc damage
-###MOVED CAN THIS BE REMOVED?
-func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALING_TYPE) -> int:
-	match item_scaling_type:
-		ItemConstants.SCALING_TYPE.STRENGTH:
-			return owner.stats.strength
-		ItemConstants.SCALING_TYPE.SKILL:
-			return owner.stats.skill
-		ItemConstants.SCALING_TYPE.MAGIC:
-			return owner.stats.magic
-		ItemConstants.SCALING_TYPE.CONSTITUTION:
-			return 0 #THIS NEEDS TO BE IDIATED FURTHER
-		ItemConstants.SCALING_TYPE.NONE:
-			return 0
-	return 0
 
 #
 # Called when the attacker can hit and begin combat sequence
@@ -755,14 +733,6 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 				else:
 					break
 
-func _on_entity_destroyed_processing_completed():
-	await get_tree().create_timer(.1).timeout
-	entity_destroyed_processing_completed.emit()
-	
-func _on_give_item_complete():
-	give_items_complete.emit()
-
-
 func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
 	var experience_gain = 0
 	var player_unit_value = 0
@@ -772,12 +742,11 @@ func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit
 	if (enemy_unit.unit.get_unit_type_definition().tier == 3) :
 		enemy_unit_value = 20
 	
-	var unit_value_difference = ( (enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - ((player_unit.unit.level + player_unit_value)))
+	var unit_value_difference = ((enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - ((player_unit.unit.level + player_unit_value)))
 	#Experience Formula
 	
 	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
 	experience_gain = clamp(tier_multiplier * ((2* unit_value_difference) +31)/ 3, 1, 25)
-	#print ("calculate_experience_gain_hit = " + str(experience_gain))
 	return experience_gain
 
 func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
@@ -804,11 +773,18 @@ func update_ai_type(unit: CombatUnit):
 	if not unit.is_boss:
 		if unit.ai_type == Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
 			unit.ai_type = Constants.UNIT_AI_TYPE.DEFAULT
-	
 
+func _on_entity_destroyed_processing_completed():
+	await get_tree().create_timer(.1).timeout
+	entity_destroyed_processing_completed.emit()
+	
+func _on_give_item_complete():
+	give_items_complete.emit()
 
 func _on_item_broken_popup_completed():
+#	await get_tree().create_timer(.1).timeout
 	item_broken_popup_completed.emit()
 
 func _on_item_expended_popup_completed():
+	await get_tree().create_timer(.1).timeout
 	item_expended_popup_completed.emit()

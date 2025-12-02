@@ -160,7 +160,7 @@ func unit_drafted(unit):
 	if unit is Unit:
 		playerOverworldData.append_to_array(playerOverworldData.total_party,unit)
 	elif unit is WeaponDefinition:
-		playerOverworldData.append_to_array(playerOverworldData.convoy, unit)
+		playerOverworldData.append_to_array(playerOverworldData.convoy, unit.duplicate())
 	current_drafted.append(unit)
 	playerOverworldData.archetype_allotments.remove_at(0)
 	#update_army_icon_container()

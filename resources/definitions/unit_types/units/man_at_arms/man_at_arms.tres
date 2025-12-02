@@ -13,6 +13,7 @@
 script = ExtResource("6_pfj2f")
 unit_type_name = "Man At Arms"
 db_key = "man_at_arms"
+description = "A seasoned fighter trained in both blade and grit, the Man-at-Arms excels as a balanced frontline veteran, striking hard and enduring longer than common soldiers through sheer discipline and experience."
 unit_rarity = ExtResource("7_ki6wi")
 tier = 4
 unit_promoted_from_key = "sellsword"

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://dmn8dlrbsdv0b"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://dmn8dlrbsdv0b"]
 
 [ext_resource type="Resource" uid="uid://bj2x10ahe63r" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner_base_combat_stats.tres" id="1_lb30w"]
 [ext_resource type="Resource" uid="uid://dj0ltud0mskrs" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner_default_item_tables.tres" id="2_wbk53"]
 [ext_resource type="Resource" uid="uid://c4k8bc6ilscy1" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner_growth_stats.tres" id="3_tvr1v"]
 [ext_resource type="Texture2D" uid="uid://co4obnnwca6xw" path="res://resources/sprites/units/shield_runner.png" id="4_nbsk6"]
 [ext_resource type="Resource" uid="uid://dx0ygwrt0s7qb" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner_max_stats.tres" id="5_k6fgc"]
+[ext_resource type="Resource" uid="uid://cgp1etuhqgdui" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner_promotion_stats.tres" id="6_21m6p"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_av44d"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_1j2u1"]
 
@@ -20,6 +21,7 @@ usable_weapon_types = Array[int]([12, 13])
 base_stats = ExtResource("1_lb30w")
 maxuimum_stats = ExtResource("5_k6fgc")
 growth_stats = ExtResource("3_tvr1v")
+promotion_to_stats = ExtResource("6_21m6p")
 icon = ExtResource("4_nbsk6")
 map_sprite = ExtResource("4_nbsk6")
 default_item_resource = ExtResource("2_wbk53")
