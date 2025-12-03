@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://kigd7k2wdmmn"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_ffmpw"]
+[ext_resource type="Resource" uid="uid://bywueuhyls8f0" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_treasure_table.tres" id="2_s1q85"]
+[ext_resource type="Resource" uid="uid://b7dektaafmjir" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_weapon_table.tres" id="3_c7hd3"]
+
+[resource]
+script = ExtResource("1_ffmpw")
+weapon_default = ExtResource("3_c7hd3")
+treasure_default = ExtResource("2_s1q85")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

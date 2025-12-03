@@ -1,4 +1,4 @@
-[gd_scene load_steps=190 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=195 format=3 uid="uid://cm5gan74bnf37"]
 
 [ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_3lb28"]
@@ -189,6 +189,11 @@
 [ext_resource type="Resource" uid="uid://7jgl3w4yco8k" path="res://resources/definitions/items/equipment/heavy_brick.tres" id="182_a2n7e"]
 [ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
 [ext_resource type="Resource" uid="uid://br1ypxp6y3bql" path="res://resources/definitions/items/weapons/bow/dragonslayer_bow.tres" id="184_xul00"]
+[ext_resource type="Resource" uid="uid://dss3x6j62pbtk" path="res://resources/definitions/items/weapons/dagger/sword_breaker.tres" id="185_n308j"]
+[ext_resource type="Resource" uid="uid://cs4oh53eg6rj7" path="res://resources/definitions/items/weapons/dagger/tanto.tres" id="186_87ert"]
+[ext_resource type="Resource" uid="uid://y6uw8w4wpc2h" path="res://resources/definitions/items/weapons/dagger/kunai.tres" id="187_sec5j"]
+[ext_resource type="Resource" uid="uid://chd67lh7elx2i" path="res://resources/definitions/items/equipment/sunshard_band.tres" id="188_87ert"]
+[ext_resource type="Resource" uid="uid://diojnt0oqm7x6" path="res://resources/definitions/items/weapons/shield/knight_shield.tres" id="189_sec5j"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
@@ -272,8 +277,10 @@ items = Dictionary[String, ExtResource("2_3lb28")]({
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
 "knife": ExtResource("92_gsk0d"),
+"knight_shield": ExtResource("189_sec5j"),
 "knights_token": ExtResource("162_a2n7e"),
 "kukri": ExtResource("50_d8m3e"),
+"kunai": ExtResource("187_sec5j"),
 "large_potion": ExtResource("141_1moet"),
 "large_potion_+": ExtResource("179_smksv"),
 "life_tap": ExtResource("59_jqcuj"),
@@ -348,8 +355,11 @@ items = Dictionary[String, ExtResource("2_3lb28")]({
 "stonebark_blossom": ExtResource("108_tjwbw"),
 "stonebark_essence": ExtResource("109_1moet"),
 "stonedragon_tail": ExtResource("110_kkosx"),
+"sunshard_band": ExtResource("188_87ert"),
 "swift_shellfish": ExtResource("132_e2yjl"),
+"sword_breaker": ExtResource("185_n308j"),
 "sword_reaver": ExtResource("14_dv5o2"),
+"tanto": ExtResource("186_87ert"),
 "temp_tonic": ExtResource("133_llvit"),
 "titan_trout": ExtResource("97_41x7d"),
 "titans_will": ExtResource("85_qfgim"),

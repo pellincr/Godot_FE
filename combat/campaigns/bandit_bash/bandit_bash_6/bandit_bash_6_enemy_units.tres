@@ -21,12 +21,12 @@
 [ext_resource type="Resource" uid="uid://7je7gpvirns" path="res://resources/definitions/items/weapons/nature/earth_split.tres" id="15_yy4ak"]
 [ext_resource type="Resource" uid="uid://cfr25jrickdoo" path="res://resources/definitions/items/weapons/lance/spear.tres" id="16_jaeon"]
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="18_8lbfc"]
-[ext_resource type="Resource" uid="uid://bcu8037u4mcol" path="res://resources/definitions/items/equipment/enshrouding_sash.tres" id="19_hvq7o"]
 [ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="20_kynr8"]
 [ext_resource type="Resource" uid="uid://btbls8ing2pq0" path="res://resources/definitions/items/weapons/bow/long_bow.tres" id="20_oks2v"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="21_bwufa"]
 [ext_resource type="Resource" uid="uid://2qab0ejbdmbt" path="res://resources/definitions/items/weapons/swords/rapier.tres" id="21_ul41n"]
-[ext_resource type="Resource" uid="uid://bvnotca20t7r7" path="res://resources/definitions/items/weapons/swords/shotel.tres" id="23_f4wo0"]
+[ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="23_il4x5"]
+[ext_resource type="Resource" uid="uid://bjytyu8voutuv" path="res://resources/definitions/items/equipment/fancy_cloak.tres" id="24_il4x5"]
 [ext_resource type="Resource" uid="uid://c3u44a8r2o2ch" path="res://resources/definitions/items/weapons/lance/jousting_lance.tres" id="25_men0w"]
 [ext_resource type="Resource" uid="uid://e44kr4mj14d2" path="res://resources/definitions/items/consumables/stat_boosters/health/vermillion_tonic.tres" id="27_d8q0q"]
 
@@ -35,6 +35,7 @@ script = ExtResource("1_bcvlb")
 name = "Thogun"
 map_position = Vector2i(2, 1)
 level = 14
+ai_type = 2
 is_boss = true
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("2_r74bv")]([ExtResource("3_iwj06"), ExtResource("4_bxknx")])
@@ -181,7 +182,7 @@ map_position = Vector2i(18, 0)
 level = 13
 is_boss = true
 unit_type_key = "hakkapel"
-inventory = Array[ExtResource("2_r74bv")]([ExtResource("16_jaeon"), ExtResource("23_f4wo0"), ExtResource("19_hvq7o")])
+inventory = Array[ExtResource("2_r74bv")]([ExtResource("16_jaeon"), ExtResource("23_il4x5"), ExtResource("24_il4x5")])
 
 [sub_resource type="Resource" id="Resource_ul0ni"]
 script = ExtResource("1_bcvlb")

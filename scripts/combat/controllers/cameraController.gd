@@ -27,10 +27,10 @@ func _process(delta):
 	ClickAndDrag()
 	
 func Zoom(delta):
-	if Input.is_action_just_pressed("camera_zoom_in"):
+	if Input.is_action_pressed("camera_zoom_in"):
 		zoomTarget *= 1.1
 		
-	if Input.is_action_just_pressed("camera_zoom_out"):
+	if Input.is_action_pressed("camera_zoom_out"):
 		zoomTarget *= 0.9
 	
 	zoomTarget = clamp(zoomTarget, zoomMin, zoomMax)

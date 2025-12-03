@@ -7,5 +7,3 @@ script = ExtResource("1_v87ig")
 hp = 4
 strength = 1
 defense = 2
-movement = 3
-constitution = 4

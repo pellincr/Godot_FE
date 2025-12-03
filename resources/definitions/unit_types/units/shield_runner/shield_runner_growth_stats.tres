@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_ylhnd")
 hp = 115
-strength = 25
+strength = 32
 magic = 12
 skill = 30
 speed = 40

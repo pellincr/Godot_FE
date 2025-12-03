@@ -344,16 +344,12 @@ func generate_random_unit(target:RandomCombatUnitData):
 		var selectable_tiles : Array[Vector2i] = []
 		if target.position_variance:
 			selectable_tiles = game_grid.get_range_DFS(target.position_variance_weight, target.map_position, unit_type.movement_type, true, 1)
-			print("123#@# UNFILTERED TILES: " + str(selectable_tiles))
 			#Is the unit blocked in the tile, if so remove it from contention
 			for tile in selectable_tiles:
 				if game_grid.is_position_occupied(tile):
-					print("123#@# REMOVED TILE OCCUPIED: " + str(tile))
 					selectable_tiles.erase(tile)
 				if game_grid.get_terrain(tile).blocks.has(unit_type.movement_type):
-					print("123#@# REMOVED TILE TERRIAN BLOCK: " + str(tile))
 					selectable_tiles.erase(tile)
-			print("123#@# FILTERED TILES: " + str(selectable_tiles))
 			map_position = selectable_tiles.pick_random()
 		target.unit_type_key = unit_type.db_key
 		target.inventory = _inventory.duplicate() #IS THIS DUPLICATE REDUNDANT?

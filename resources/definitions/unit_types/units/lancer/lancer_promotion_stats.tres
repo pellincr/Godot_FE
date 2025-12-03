@@ -4,11 +4,9 @@
 
 [resource]
 script = ExtResource("1_cfica")
-hp = 19
-strength = 4
-skill = 5
-speed = 6
-defense = 3
-resistance = 2
-movement = 5
-constitution = 8
+hp = 4
+strength = 1
+skill = 1
+speed = 2
+defense = 1
+resistance = 1

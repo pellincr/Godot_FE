@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="CombatUnitGroupReinforcementData" load_steps=10 format=3 uid="uid://cawtioe1tx0fu"]
+
+[ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_r136e"]
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_qcupd"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_bco6u"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="4_fqte6"]
+[ext_resource type="Resource" uid="uid://b6l1kx4yenl1j" path="res://resources/definitions/items/weapons/lance/slim_lance.tres" id="5_xwoi1"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="6_d6b2l"]
+
+[sub_resource type="Resource" id="Resource_8b07p"]
+script = ExtResource("2_qcupd")
+name = "Bandit"
+map_position = Vector2i(12, 10)
+level = 1
+level_bonus = -1
+unit_type_key = "vandal"
+inventory = Array[ExtResource("3_bco6u")]([ExtResource("4_fqte6")])
+
+[sub_resource type="Resource" id="Resource_sqrjm"]
+script = ExtResource("2_qcupd")
+name = "Bandit"
+map_position = Vector2i(12, 9)
+level = 1
+level_bonus = -1
+unit_type_key = "lancer"
+inventory = Array[ExtResource("3_bco6u")]([ExtResource("5_xwoi1")])
+
+[sub_resource type="Resource" id="Resource_681r8"]
+script = ExtResource("2_qcupd")
+name = "Bandit"
+map_position = Vector2i(12, 11)
+level = 1
+level_bonus = -1
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("3_bco6u")]([ExtResource("6_d6b2l")])
+
+[resource]
+script = ExtResource("1_r136e")
+trigger_type = 1
+zone_id = "1"
+units = Array[ExtResource("2_qcupd")]([SubResource("Resource_8b07p"), SubResource("Resource_sqrjm"), SubResource("Resource_681r8")])

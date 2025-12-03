@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cp7736kkw5dkf"]
+
+[ext_resource type="Resource" uid="uid://c84sdttieaegh" path="res://resources/definitions/unit_types/units/bone_mancer/bone_mancer_base_combat_stats.tres" id="1_8a1g6"]
+[ext_resource type="Resource" uid="uid://cjj6ujhk634w4" path="res://resources/definitions/unit_types/units/bone_mancer/bone_mancer_default_item_tables.tres" id="2_fv6jo"]
+[ext_resource type="Resource" uid="uid://1d74lo1nsavg" path="res://resources/definitions/unit_types/units/bone_mancer/bone_mancer_growth_stats.tres" id="3_co4xy"]
+[ext_resource type="Texture2D" uid="uid://dcudormn2gbl" path="res://resources/sprites/units/bone_mancer.png" id="4_fkiap"]
+[ext_resource type="Resource" uid="uid://c0d62b8ehq5a6" path="res://resources/definitions/unit_types/units/bone_mancer/bone_mancer_max_stats.tres" id="5_4up55"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_jf4bo"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_miqi6"]
+
+[resource]
+script = ExtResource("6_jf4bo")
+unit_type_name = "Bonemancer"
+db_key = "bone_mancer"
+name_genders = Array[int]([0, 1])
+faction = Array[int]([5])
+traits = Array[int]([3])
+unit_rarity = ExtResource("7_miqi6")
+usable_weapon_types = Array[int]([6])
+base_stats = ExtResource("1_8a1g6")
+maxuimum_stats = ExtResource("5_4up55")
+growth_stats = ExtResource("3_co4xy")
+icon = ExtResource("4_fkiap")
+map_sprite = ExtResource("4_fkiap")
+unlocked = false
+default_item_resource = ExtResource("2_fv6jo")

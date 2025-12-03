@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cs4oh53eg6rj7"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_3yl7s"]
+[ext_resource type="Texture2D" uid="uid://c4liurh7743gn" path="res://resources/sprites/items/weapons/dagger/tanto.png" id="2_3yl7s"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_0lves"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_vm8qi"]
+
+[resource]
+script = ExtResource("4_vm8qi")
+weapon_type = 13
+alignment = 4
+required_mastery = 1
+damage = 10
+hit = 80
+critical_chance = 15
+weight = 11
+critical_multiplier = 4.0
+name = "Tanto"
+db_key = "tanto"
+equippable = true
+rarity = ExtResource("3_0lves")
+uses = 16
+max_uses = 16
+worth = 2000
+icon = ExtResource("2_3yl7s")

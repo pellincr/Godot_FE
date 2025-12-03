@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyGroup" load_steps=10 format=3 uid="uid://l7slox4bkm0f"]
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=9 format=3 uid="uid://l7slox4bkm0f"]
 
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_6jbgc"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_2he3l"]
@@ -32,24 +32,14 @@ name = "Bandit"
 map_position = Vector2i(4, 8)
 metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
 
-[sub_resource type="Resource" id="Resource_ca082"]
-script = ExtResource("3_kxhxq")
-unit_group = "A"
-position_variance = true
-name = "Bandit"
-map_position = Vector2i(1, 17)
-ai_type = 1
-metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
-
 [sub_resource type="Resource" id="Resource_pnk3y"]
 script = ExtResource("3_kxhxq")
 unit_group = "A"
 name = "Bandit"
 map_position = Vector2i(8, 9)
-ai_type = 1
 metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
 
 [resource]
 script = ExtResource("4_myuj2")
-group = Array[ExtResource("1_6jbgc")]([SubResource("Resource_15xpf"), SubResource("Resource_vyxr5"), SubResource("Resource_8lc6y"), SubResource("Resource_ca082"), SubResource("Resource_pnk3y")])
+group = Array[ExtResource("1_6jbgc")]([SubResource("Resource_15xpf"), SubResource("Resource_vyxr5"), SubResource("Resource_8lc6y"), SubResource("Resource_pnk3y")])
 metadata/_custom_type_script = "uid://ctoil1vwlbm4k"

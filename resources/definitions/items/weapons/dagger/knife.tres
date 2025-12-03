@@ -9,10 +9,9 @@
 script = ExtResource("3_0cl4e")
 weapon_type = 13
 alignment = 4
-item_scaling_multiplier = 1.2
-damage = 6
+damage = 7
 hit = 75
-weight = 4
+weight = 10
 attack_range = Array[int]([1, 2])
 name = "Knife"
 db_key = "knife"

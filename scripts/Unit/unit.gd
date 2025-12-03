@@ -262,6 +262,8 @@ func promote(promotion_unit_type : UnitTypeDefinition):
 	self.traits = promotion_unit_type.traits
 	self.faction = promotion_unit_type.faction
 	self.promotion_stats = CustomUtilityLibrary.add_unit_stat(promotion_stats, promotion_unit_type.promotion_to_stats)
+	self.base_stats.movement = promotion_unit_type.base_stats.movement
+	self.base_stats.constitution = promotion_unit_type.base_stats.constitution
 	self.update_usable_weapon_types(self)
 	self.update_visuals(self)
 	self.update_stats()

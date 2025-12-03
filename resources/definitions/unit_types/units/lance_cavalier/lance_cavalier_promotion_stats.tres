@@ -4,10 +4,6 @@
 
 [resource]
 script = ExtResource("1_ky5if")
-hp = 20
-strength = 5
-skill = 2
-speed = 5
-defense = 6
-movement = 7
-constitution = 11
+hp = 5
+strength = 2
+defense = 3

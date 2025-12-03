@@ -8,6 +8,3 @@ hp = 5
 strength = 2
 defense = 2
 resistance = 1
-movement = 1
-constitution = 1
-metadata/_custom_type_script = "uid://cr1ldq6s45fjd"

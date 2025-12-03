@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=9 format=3 uid="uid://q4mgkv2qb46n"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_kk17k"]
+[ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="2_m71vi"]
+[ext_resource type="Resource" uid="uid://5b1f8mg0j3te" path="res://resources/definitions/items/stalves/heal_staff.tres" id="3_pb2rk"]
+[ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="4_354eh"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="5_r55co"]
+
+[sub_resource type="Resource" id="Resource_yde7c"]
+script = ExtResource("1_kk17k")
+item = ExtResource("2_m71vi")
+probability = 70.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_efqkr"]
+script = ExtResource("1_kk17k")
+item = ExtResource("3_pb2rk")
+probability = 8.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_vqkyg"]
+script = ExtResource("1_kk17k")
+item = ExtResource("4_354eh")
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("5_r55co")
+entries = Array[ExtResource("1_kk17k")]([SubResource("Resource_yde7c"), SubResource("Resource_efqkr"), SubResource("Resource_vqkyg")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

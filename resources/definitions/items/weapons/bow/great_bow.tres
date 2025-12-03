@@ -19,5 +19,5 @@ equippable = true
 rarity = ExtResource("3_5l76t")
 uses = 15
 max_uses = 15
-worth = 7000
+worth = 2500
 icon = ExtResource("1_3v0ld")

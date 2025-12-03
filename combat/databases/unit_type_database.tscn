@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://sgve77vtu623"]
+[gd_scene load_steps=65 format=3 uid="uid://sgve77vtu623"]
 
 [ext_resource type="Script" uid="uid://dw0ib4gkgx5sf" path="res://combat/databases/unit_type_database.gd" id="1_5ebs0"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="2_ledaj"]
@@ -57,7 +57,13 @@
 [ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="49_55blc"]
 [ext_resource type="Resource" uid="uid://vfmdqc5fyl8x" path="res://resources/definitions/unit_types/units/man_at_arms/man_at_arms.tres" id="50_55blc"]
 [ext_resource type="Resource" uid="uid://dmn8dlrbsdv0b" path="res://resources/definitions/unit_types/units/shield_runner/shield_runner.tres" id="52_hd4cq"]
+[ext_resource type="Resource" uid="uid://cp7736kkw5dkf" path="res://resources/definitions/unit_types/units/bone_mancer/bone_mancer.tres" id="53_twixi"]
 [ext_resource type="Script" uid="uid://bivpkkd0jp1s3" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="53_x64ar"]
+[ext_resource type="Resource" uid="uid://vi8rfrpi7mo" path="res://resources/definitions/unit_types/units/flesh_prowler/flesh_prowler.tres" id="54_c2f3k"]
+[ext_resource type="Resource" uid="uid://chn2yuhatgy6u" path="res://resources/definitions/unit_types/units/axe_skeleton/axe_skeleton.tres" id="55_s6ovh"]
+[ext_resource type="Resource" uid="uid://b6uvluubeedpa" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton.tres" id="56_5te22"]
+[ext_resource type="Resource" uid="uid://b4rcxa2ml17y0" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton.tres" id="57_sacne"]
+[ext_resource type="Resource" uid="uid://clh2kojaaeomc" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer.tres" id="58_2scnx"]
 
 [node name="UnitTypeDatabase" type="Node"]
 script = ExtResource("1_5ebs0")
@@ -66,8 +72,10 @@ unit_types = Dictionary[String, ExtResource("2_ledaj")]({
 "archer": ExtResource("2_pke6c"),
 "axe_armor": ExtResource("31_id5fj"),
 "axe_cavalier": ExtResource("4_bf4by"),
+"axe_skeleton": ExtResource("55_s6ovh"),
 "bishop": ExtResource("16_pd34h"),
 "bladehand": ExtResource("5_k6vk5"),
+"bone_mancer": ExtResource("53_twixi"),
 "bow_armor": ExtResource("42_ap7gd"),
 "bow_cavalier": ExtResource("49_36q4w"),
 "brawler": ExtResource("14_p6lhs"),
@@ -80,6 +88,7 @@ unit_types = Dictionary[String, ExtResource("2_ledaj")]({
 "farmhand": ExtResource("44_udy5e"),
 "field_medic": ExtResource("20_gr6kv"),
 "fighter": ExtResource("6_dtgcv"),
+"flesh_prowler": ExtResource("54_c2f3k"),
 "freewing": ExtResource("17_6h8uy"),
 "hakkapel": ExtResource("34_oj3db"),
 "healer": ExtResource("15_nrv8r"),
@@ -87,6 +96,7 @@ unit_types = Dictionary[String, ExtResource("2_ledaj")]({
 "knave": ExtResource("48_55blc"),
 "lance_armor": ExtResource("7_m2b6g"),
 "lance_cavalier": ExtResource("8_b047a"),
+"lance_skeleton": ExtResource("56_5te22"),
 "lancer": ExtResource("28_vkfaj"),
 "mage": ExtResource("32_um71q"),
 "magewing": ExtResource("37_yg62d"),
@@ -102,11 +112,13 @@ unit_types = Dictionary[String, ExtResource("2_ledaj")]({
 "sellsword": ExtResource("10_ntklw"),
 "shaman": ExtResource("33_b6uy8"),
 "shield_runner": ExtResource("52_hd4cq"),
+"skeleton_archer": ExtResource("58_2scnx"),
 "skypoint": ExtResource("36_o7m45"),
 "squire": ExtResource("41_qfqp5"),
 "suncaster": ExtResource("39_ap7gd"),
 "sword_armor": ExtResource("11_s3c8i"),
 "sword_cavalier": ExtResource("12_tvv6x"),
+"sword_skeleton": ExtResource("57_sacne"),
 "thief": ExtResource("13_yos3a"),
 "troubadour": ExtResource("35_45nux"),
 "twigshot": ExtResource("46_qfqp5"),

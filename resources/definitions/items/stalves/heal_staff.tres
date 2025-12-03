@@ -20,5 +20,7 @@ equippable = true
 description = "Restores moderate HP to allies in adjacent spaces."
 item_type = 1
 rarity = ExtResource("2_eo7vp")
+uses = 14
+max_uses = 14
 worth = 1000
 icon = ExtResource("1_3mthl")

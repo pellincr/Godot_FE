@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b3kmpdxrr68vj" path="res://resources/sprites/grid/combat_map_selector.tscn" id="3_037r4"]
 [ext_resource type="Script" uid="uid://cctyfydi430w3" path="res://combat/Combat.gd" id="4_vyc7x"]
 [ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="5_0haob"]
-[ext_resource type="Resource" uid="uid://dw14apn2v7278" path="res://combat/campaigns/tutorial/tutorial_1/tutorial_1_reinforcements.tres" id="6_knr22"]
+[ext_resource type="Resource" uid="uid://cawtioe1tx0fu" path="res://combat/campaigns/bandit_bash/bandit_bash_2/bandt_bash_2_reinforcements.tres" id="6_cat6w"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="7_cjcyr"]
 [ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="8_j4o0y"]
 [ext_resource type="Resource" uid="uid://b6fhqdj0sc0ek" path="res://combat/campaigns/bandit_bash/bandit_bash_2/bandit_bash_2_unit_data.tres" id="9_cat6w"]
@@ -32,7 +32,7 @@ zone_top_right_vertex = Vector2i(5, 0)
 
 [sub_resource type="Resource" id="Resource_r40lg"]
 script = ExtResource("7_cjcyr")
-reinforcements = Array[ExtResource("5_0haob")]([ExtResource("6_knr22")])
+reinforcements = Array[ExtResource("5_0haob")]([ExtResource("6_cat6w")])
 zones = Array[ExtResource("8_j4o0y")]([SubResource("Resource_12sve")])
 
 [sub_resource type="Resource" id="Resource_kf6qu"]
