@@ -333,6 +333,7 @@ func generate_random_unit(target:RandomCombatUnitData):
 			_inventory.append(treasure)
 		# Randomize Level, with deviation around current depth
 		# ensure bottom clamp is correct
+		
 		var _minimum_level : int = clampi(playerOverworldData.combat_maps_completed -2, 1, playerOverworldData.combat_maps_completed)
 		var _level : int = clampi(randfn(playerOverworldData.combat_maps_completed, 2), _minimum_level, playerOverworldData.combat_maps_completed + 4)
 		var _bonus_levels : int = target.level_bonus

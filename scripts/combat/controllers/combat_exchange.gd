@@ -79,7 +79,7 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
 		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials):
 			var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
-			await heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
+			await trigger_heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
 		#Durability Code
 		var broken_item = attacker.unit.inventory.use_item(attacker.get_equipped())
 		if broken_item != null:
@@ -135,7 +135,6 @@ func trigger_heal_unit(combat_unit: CombatUnit, amount:int):
 		var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, healed_unit_specials)
 		_healing_amount = _healing_amount + se_resource.calculate_aggregate_effect(_heal_bonus_effects, _healing_amount)
 	await heal_unit(combat_unit, _healing_amount)
-	await combat_unit.map_display.update_complete
 
 # Does the heal itself
 func heal_unit(unit: CombatUnit, amount: int):
@@ -146,7 +145,7 @@ func heal_unit(unit: CombatUnit, amount: int):
 	unit.map_display.update_values()
 	if ce_display != null:
 		await ce_display.update_unit_hp(unit, unit.current_hp)
-	await unit.map_display.update_complete
+	await DamageNumbers.complete
 
 func hit_missed(dodging_unit: CombatUnit):
 	await AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
@@ -233,7 +232,6 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete
-		#await target.map_display.update_complete
 	##check and see if the unit has died
 	if target.current_hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED

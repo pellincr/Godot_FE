@@ -15,7 +15,7 @@
 
 [sub_resource type="Resource" id="Resource_371rx"]
 script = ExtResource("10_ub36w")
-par_turns = 10
+par_turns = 15
 base_gold = 1300
 base_bonus_exp = 150
 metadata/_custom_type_script = "uid://clhuknqhyfx8e"
