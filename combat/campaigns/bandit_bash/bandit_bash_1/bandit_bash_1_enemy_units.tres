@@ -77,7 +77,7 @@ inventory = Array[ExtResource("2_jikhw")]([ExtResource("3_bln82")])
 [sub_resource type="Resource" id="Resource_t1kih"]
 script = ExtResource("1_8l2j0")
 name = "Bandit"
-map_position = Vector2i(13, 8)
+map_position = Vector2i(10, 8)
 level = 1
 ai_type = 1
 unit_type_key = "sellsword"

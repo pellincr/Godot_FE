@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=57 format=3 uid="uid://bw36pa36hmgm5"]
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=56 format=3 uid="uid://bw36pa36hmgm5"]
 
 [ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_lvh6m"]
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_n6avb"]
@@ -40,6 +40,7 @@ script = ExtResource("2_n6avb")
 name = "Assassin"
 map_position = Vector2i(20, 20)
 level = 14
+ai_type = 1
 unit_type_key = "thief"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("7_5fiov")])
 
@@ -64,6 +65,7 @@ script = ExtResource("2_n6avb")
 name = "Assassin"
 map_position = Vector2i(22, 22)
 level = 14
+ai_type = 1
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("9_k53a3")])
 
@@ -90,7 +92,7 @@ script = ExtResource("2_n6avb")
 name = "Crag's Creation"
 map_position = Vector2i(15, 0)
 level = 15
-unit_type_key = "skeleton_archer"
+unit_type_key = "lance_skeleton"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("13_da0uj")])
 metadata/_custom_type_script = "uid://dx803pfypfpa3"
 
@@ -150,11 +152,10 @@ metadata/_custom_type_script = "uid://dx803pfypfpa3"
 
 [sub_resource type="Resource" id="Resource_ndx34"]
 script = ExtResource("2_n6avb")
-name = "flesh_prowler"
+name = "Crag's Creation"
 map_position = Vector2i(20, 21)
 level = 14
 ai_type = 1
-is_boss = true
 unit_type_key = "flesh_prowler"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
 metadata/_custom_type_script = "uid://dx803pfypfpa3"
@@ -194,7 +195,7 @@ map_position = Vector2i(6, 14)
 level = 16
 ai_type = 1
 unit_type_key = "axe_skeleton"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("17_afssm")])
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_np7xq"), ExtResource("17_afssm")])
 drops_item = true
 metadata/_custom_type_script = "uid://dx803pfypfpa3"
 
@@ -268,21 +269,11 @@ unit_type_key = "lance_skeleton"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("13_da0uj")])
 metadata/_custom_type_script = "uid://dx803pfypfpa3"
 
-[sub_resource type="Resource" id="Resource_xin8v"]
-script = ExtResource("2_n6avb")
-name = "Crag's Creation"
-map_position = Vector2i(19, 20)
-level = 14
-ai_type = 1
-unit_type_key = "lance_skeleton"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("13_da0uj")])
-metadata/_custom_type_script = "uid://dx803pfypfpa3"
-
 [sub_resource type="Resource" id="Resource_o2kka"]
 script = ExtResource("1_lvh6m")
 trigger_type = 1
 zone_id = "zone_1"
-units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResource("Resource_4nmqb"), SubResource("Resource_3efps"), SubResource("Resource_ux6oq"), SubResource("Resource_5srre"), SubResource("Resource_3gqgr"), SubResource("Resource_afssm"), SubResource("Resource_xnftr"), SubResource("Resource_vjhyw"), SubResource("Resource_da0uj"), SubResource("Resource_hhxa5"), SubResource("Resource_utguq"), SubResource("Resource_jrf6q"), SubResource("Resource_rskvh"), SubResource("Resource_ndx34"), SubResource("Resource_yt43n"), SubResource("Resource_8lube"), SubResource("Resource_iqn05"), SubResource("Resource_px50o"), SubResource("Resource_4cgod"), SubResource("Resource_e07k0"), SubResource("Resource_ocqbc"), SubResource("Resource_p63i7"), SubResource("Resource_ogcjo"), SubResource("Resource_oeyjo"), SubResource("Resource_hoen3"), SubResource("Resource_xin8v")])
+units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResource("Resource_4nmqb"), SubResource("Resource_3efps"), SubResource("Resource_ux6oq"), SubResource("Resource_5srre"), SubResource("Resource_3gqgr"), SubResource("Resource_afssm"), SubResource("Resource_xnftr"), SubResource("Resource_vjhyw"), SubResource("Resource_da0uj"), SubResource("Resource_hhxa5"), SubResource("Resource_utguq"), SubResource("Resource_jrf6q"), SubResource("Resource_rskvh"), SubResource("Resource_ndx34"), SubResource("Resource_yt43n"), SubResource("Resource_8lube"), SubResource("Resource_iqn05"), SubResource("Resource_px50o"), SubResource("Resource_4cgod"), SubResource("Resource_e07k0"), SubResource("Resource_ocqbc"), SubResource("Resource_p63i7"), SubResource("Resource_ogcjo"), SubResource("Resource_oeyjo"), SubResource("Resource_hoen3")])
 
 [sub_resource type="Resource" id="Resource_fi7bd"]
 script = ExtResource("2_n6avb")
