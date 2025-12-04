@@ -48,7 +48,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection(playerOverworldData.combat_maps_completed)
+	randomize_selection(clampi(playerOverworldData.combat_maps_completed, 1, 99))
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -252,17 +252,20 @@ func instantiate_unit_draft_selector():
 		weapon_draft.update_all()
 	#create the unit to be drafted (will be different between commanders and units)
 	
-
-func randomize_selection(unit_bonus_levels : int = 0):
+##
+# @unit_level = the level of the target unit will be used to set the unit's level on generation
+# @unit_bonus_levels = used for soft leveling or hidden leveling, bonus levels given to the unit to be simulated BUT NOT ADDED TO ACTUAL LEVEL
+##
+func randomize_selection(unit_level : int = 1 , unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
-	var _bonus_levels = unit_bonus_levels
-	var _effective_level = 1
+	var _effective_level = unit_level
+	var _bonus_levels = _effective_level + unit_bonus_levels
 	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
 		_bonus_levels = _bonus_levels + 1
 	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.LEVEL_SURGE):
 		_bonus_levels = _bonus_levels + 9
-		_effective_level = 10
+		_effective_level = _effective_level + 9
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
 		var current_archetype_pick
@@ -298,8 +301,6 @@ func randomize_selection(unit_bonus_levels : int = 0):
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
 		unit_character.level = _effective_level
-		#set_base_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-		#set_base_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 		var stats = UnitStat.new()
 		var growths = UnitStat.new()
 		unit_character.stats = stats

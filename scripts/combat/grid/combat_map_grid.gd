@@ -136,8 +136,8 @@ func combat_unit_moved(previous_map_positon : Vector2i, new_map_position: Vector
 
 func set_combat_unit(combatUnit: CombatUnit, position:Vector2i):
 	if game_map.has(str(position)):
-		var mapTile : CombatMapTile= game_map.get(str(position))
-		if !mapTile.unit:
+		if not is_position_occupied(position):
+			var mapTile : CombatMapTile = game_map.get(str(position))
 			mapTile.unit = combatUnit
 		else:
 			print("Error Adding unit in combat map grid, target position already occupied")

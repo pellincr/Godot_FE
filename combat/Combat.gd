@@ -881,11 +881,16 @@ func _on_entity_processing_completed():
 	entity_processing_completed.emit()
 
 func _on_reinforcement_manager_spawn_reinforcement(cu: CombatUnit, position: Vector2i):
-	if controller.perform_reinforcement_camera_adjustment(position):
-		await get_tree().create_timer(1).timeout
-		add_combatant(cu, position)
-		await get_tree().create_timer(1).timeout
-		reinforcement_manager._on_reinforcement_spawn_completed()
+	# check if the tile is occupied?
+	if not game_grid.is_position_occupied(position):
+		# if it available we adjust to it
+		if controller.perform_reinforcement_camera_adjustment(position):
+			await get_tree().create_timer(.25).timeout
+			await add_combatant(cu, position)
+			await get_tree().create_timer(.25).timeout
+			reinforcement_manager._on_reinforcement_spawn_completed()
+	else :
+		print("reinforcement spawn blocked! Did not spawn reinforcement at : " + str(position) + " | [" + game_grid.get_combat_unit(position).name + "] Already occupies space")
 
 func combat_loss():
 	reset_game_state()

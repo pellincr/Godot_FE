@@ -143,7 +143,7 @@ func heal_unit(unit: CombatUnit, amount: int):
 	unit.map_display.update_values()
 	if ce_display != null:
 		await ce_display.update_unit_hp(unit, unit.current_hp)
-	await DamageNumbers.complete
+	#await DamageNumbers.complete
 
 func hit_missed(dodging_unit: CombatUnit):
 	await AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
