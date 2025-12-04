@@ -134,7 +134,7 @@ func update_dynamic_maps_new_method(method):
 					if ! _available_methods_at_target.has(new_method):
 						_available_methods_at_target.append(new_method)
 		# Ensure the indexes used to move through the method arrays is in bounds
-		if _available_targets_at_range_index > _available_targets_with_method.size() and _available_targets_with_method.find(current_target_positon) != -1:
+		if _available_targets_at_range_index >= _available_targets_with_method.size() and _available_targets_with_method.find(current_target_positon) != -1:
 			_available_targets_at_range_index = _available_targets_with_method.find(current_target_positon)
 	# set the current_target's position
 	current_target_positon =_available_targets_with_method[_available_targets_at_range_index] #THIS WAS DEEMED REDUNDANT AS WE ARE CHANGING THE METHOD NOT THE TARGET

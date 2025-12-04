@@ -261,6 +261,20 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	attack_action_inventory.grab_focus()
 
 #
+# Creates the attack action inventory used to select the weapon to be used in the combat preview
+#
+func create_demolish_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var demolish_action_inventory = ATTACK_ACTION_INVENTORY.instantiate()
+	self.add_child(demolish_action_inventory)
+	await demolish_action_inventory
+	demolish_action_inventory.item_selected.connect(controller.fsm_demolish_action_inventory_confirm.bind()) 
+	demolish_action_inventory.new_item_hovered.connect(controller.fsm_demolish_action_inventory_confirm_new_hover.bind())
+	demolish_action_inventory.back.connect(controller.fsm_demolish_action_inventory_cancel)
+	demolish_action_inventory.populate(inputCombatUnit, inventory)
+	push_ui_node_stack(demolish_action_inventory)
+	demolish_action_inventory.grab_focus()
+
+#
 # Creates the trade action inventory used to select the weapon to be used in the combat preview
 #
 func create_trade_action_inventory(origin_unit : CombatUnit, target_unit: CombatUnit):
@@ -301,20 +315,20 @@ func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExcha
 #
 #
 #
-func create_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity,weapon_swap_visable : bool = false):
-	var combat_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
-	self.add_child(combat_exchange_preview)
-	await combat_exchange_preview
-	combat_exchange_preview.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
-	push_ui_node_stack(combat_exchange_preview)
-	combat_exchange_preview.grab_focus()
+func create_demolish_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity,weapon_swap_visable : bool = false):
+	var demolish_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(demolish_exchange_preview)
+	await demolish_exchange_preview
+	demolish_exchange_preview.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
+	push_ui_node_stack(demolish_exchange_preview)
+	demolish_exchange_preview.grab_focus()
 
 func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
 	var active_ui_node = ui_node_stack.peek()
 	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
 
-func update_weapon_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
+func update_weapon_demolish_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
 	var active_ui_node = ui_node_stack.peek()
 	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all_entity(exchange_info,target_entity,weapon_swap_visable)

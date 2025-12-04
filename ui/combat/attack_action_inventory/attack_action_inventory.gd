@@ -46,6 +46,7 @@ func update_display():
 
 func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
 	target.disabled = !valid
+	target.visible = valid
 	target.set_fields(item, equipped)
 	if valid:
 		if focus_grabbed == false:

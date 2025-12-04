@@ -75,8 +75,6 @@ func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, criti
 				else: 
 					await do_damage(target,damage_dealt)
 			await do_damage(target,damage_dealt)
-		#if attacker.unit.inventory.get_equipped_weapon():
-			#if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
 		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials):
 			var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
 			await trigger_heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))

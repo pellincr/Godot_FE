@@ -215,7 +215,7 @@ func _draw():
 		elif(player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
 			draw_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
 			drawSelectedpath()
-		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY):
+		if(player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_INVENTORY or player_state == CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_TARGETTING or player_state == CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_INVENTORY):
 			draw_attack_range(_weapon_attackable_tiles)
 	elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION):
 		#Draw the tiles for the player spaces
@@ -279,7 +279,7 @@ func process_unit_move(delta):
 				elif(player_state == CombatMapConstants.PLAYER_STATE.UNIT_MOVEMENT):
 					combat.get_current_combatant().update_move_tile(grid.get_map_tile(new_position))
 					grid.combat_unit_moved(combat.get_current_combatant().map_position,combat.get_current_combatant().move_position)
-					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+					var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
 			else: # AI Units
@@ -430,10 +430,14 @@ func draw_action_tiles(tiles:Array[Vector2i], ua:UnitAction):
 func get_tile_info(position : Vector2i): 
 	tile_info_updated.emit(grid.get_map_tile(position), grid.get_combat_unit(position))
 
+
+##
+# Gets potential units to target
+#
 func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Vector2i]:
 	var range_list :Array[int] = []
 	if range.is_empty():
-		range_list = cu.unit.inventory.get_available_attack_ranges()
+		range_list = cu.unit.get_attackable_ranges()
 	else:
 		range_list = range.duplicate()
 	var attackable_tiles : Array[Vector2i]
@@ -446,11 +450,30 @@ func get_potential_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Vec
 		if grid.get_combat_unit(tile):
 			if(grid.get_combat_unit(tile).allegience != cu.allegience) :
 				response.append(tile)
+	return response
+
+##
+# Gets potential entities in target combat_unit's range
+#
+func get_potential_entity_targets(cu : CombatUnit, range: Array[int] = []) -> Array[Vector2i]:
+	var range_list :Array[int] = []
+	if range.is_empty():
+		range_list = cu.unit.get_attackable_ranges()
+	else:
+		range_list = range.duplicate()
+	var attackable_tiles : Array[Vector2i]
+	var response : Array[Vector2i]
+	if range_list.is_empty() : ##There is no attack range
+		return response
+	attackable_tiles = get_attackable_tiles(range_list, cu)
+	_action_tiles = attackable_tiles.duplicate()
+	for tile in attackable_tiles :
 		if grid.get_entity(tile):
 			if grid.get_entity(tile).interaction_type in CombatEntityConstants.targetable_entity_types:
 				if tile not in response:
 					response.append(tile)
 	return response
+
 
 func get_potential_ally_targets(cu : CombatUnit, range: int)-> Array[CombatUnit]:
 	var targetable_tiles : Array[Vector2i]
@@ -604,7 +627,7 @@ func process_special_effects():
 						if not heal_on_begin_specials.is_empty():
 							await combat.heal_unit(combat_unit,_special_effect_resource.calculate_aggregate_effect(heal_on_begin_specials, combat_unit.get_max_hp()))
 
-func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
+func get_available_unit_actions(cu:CombatUnit) -> Array[String]: # TO BE OPTIMIZED
 	#get maximum actionable distance (ex weapons that have far atk)
 	#get actionable tiles
 	#get a map of units w/ ranges from the map
@@ -619,6 +642,8 @@ func get_available_unit_actions_NEW(cu:CombatUnit) -> Array[String]: # TO BE OPT
 			action_array.push_front("Shove")
 		if interact_action_available(cu):
 			action_array.push_front("Interact")
+		if not get_potential_entity_targets(cu).is_empty():
+			action_array.push_front("Demolish")
 		if not get_potential_support_targets(cu).is_empty() and cu.unit.usable_weapon_types.has(ItemConstants.WEAPON_TYPE.STAFF): # THIS NEEDS TO BE UPDATED TO ACCOUNT FOR ALL SUPPORT WEAPONS
 			action_array.push_front("Support")
 		if not get_potential_targets(cu).is_empty():
@@ -933,7 +958,7 @@ func fsm_unit_move_confirm(delta):
 						move_player()
 			else : 
 				combat.get_current_combatant().update_move_tile(grid.get_map_tile(selected_tile))
-				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+				var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
 				update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
 #
@@ -1165,6 +1190,13 @@ func player_fsm_process(delta):
 			fsm_unit_combat_action_targetting(delta)
 		CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION:
 			pass
+	## Demolish
+		CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_INVENTORY:
+			fsm_demolish_action_inventory_process(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_TARGETTING:
+			fsm_demolish_action_targetting(delta)
+		CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION:
+			pass
 	## Entity
 		CombatMapConstants.PLAYER_STATE.UNIT_INTERACT_ACTION_TARGETTING:
 			fsm_interact_targetting(delta)
@@ -1186,8 +1218,7 @@ func unit_action_selection_handler(action:String):
 			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.get_max_attack_range(),combat.get_current_combatant().move_position,false, combat.get_current_combatant().allegience)
 			targetting_resource.clear()
 			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
-			var target_positions : Array[Vector2i] = get_combat_entity_positions(combat.get_current_combatant(), grid_analysis.get_targetable_entities())
-			target_positions.append_array(grid_analysis.get_allegience_unit_indexes(Constants.FACTION.ENEMIES))
+			var target_positions : Array[Vector2i] = grid_analysis.get_allegience_unit_indexes(Constants.FACTION.ENEMIES)
 			targetting_resource.initalize(combat.get_current_combatant().move_position, target_positions, targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
 			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
 			if combat.get_current_combatant().get_equipped() != null:
@@ -1210,6 +1241,21 @@ func unit_action_selection_handler(action:String):
 			combat.game_ui.hide_unit_status()
 			camera.set_footer_open(false)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SUPPORT_ACTION_INVENTORY)
+		"Demolish":
+			combat.game_ui.destory_active_ui_node()
+			_interactable_tiles.clear()
+			_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.get_max_attack_range(),combat.get_current_combatant().move_position,false, combat.get_current_combatant().allegience)
+			targetting_resource.clear()
+			var grid_analysis : CombatMapGridAnalysis = grid.get_analysis_on_tiles(_interactable_tiles)
+			var target_positions : Array[Vector2i] = get_combat_entity_positions(combat.get_current_combatant(), grid_analysis.get_targetable_entities())
+			targetting_resource.initalize(combat.get_current_combatant().move_position, target_positions, targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
+			var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+			if combat.get_current_combatant().get_equipped() != null:
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+			combat.game_ui.create_demolish_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+			combat.game_ui.hide_unit_status()
+			camera.set_footer_open(false)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_INVENTORY)
 		"Skill":
 			pass
 		"Trade":
@@ -1274,7 +1320,7 @@ func fsm_support_action_inventory_cancel():
 	var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 	if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 		combat.game_ui.destory_active_ui_node()
-		var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+		var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 		combat.game_ui.create_unit_action_container(actions)
 		combat.game_ui.display_unit_status()
 		camera.set_footer_open(true)
@@ -1371,7 +1417,7 @@ func fsm_attack_action_inventory_cancel():
 	var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 	if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 		combat.game_ui.destory_active_ui_node()
-		var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+		var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 		combat.game_ui.create_unit_action_container(actions)
 		combat.game_ui.display_unit_status()
 		camera.set_footer_open(true)
@@ -1396,14 +1442,8 @@ func fsm_attack_action_inventory_confirm(selected_item : ItemDefinition):
 			combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info, true)
 		else:
 			combat.game_ui.create_attack_action_combat_exchange_preview(exchange_info)
-	elif grid.get_entity(target_tile) != null:
-		exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(),grid.get_entity(target_tile))
-		targetting_resource.current_target_type = CombatMapConstants.COMBAT_ENTITY
-		if targetting_resource._available_methods_at_target.size() > 1:
-			combat.game_ui.create_attack_action_combat_exchange_preview_entity(exchange_info, grid.get_entity(target_tile),true)
-		else:
-			combat.game_ui.create_attack_action_combat_exchange_preview_entity(exchange_info, grid.get_entity(target_tile))
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION_TARGETTING)
+
 
 func fsm_unit_combat_action_targetting(delta):
 	if Input:
@@ -1414,8 +1454,6 @@ func fsm_unit_combat_action_targetting(delta):
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_COMBAT_ACTION)
 			if targetting_resource.current_target_type == CombatMapConstants.COMBAT_UNIT:
 				await combat.perform_attack(combat.get_current_combatant(), grid.get_combat_unit(target_tile), exchange_info)
-			elif targetting_resource.current_target_type == CombatMapConstants.COMBAT_ENTITY:
-				await combat.perform_attack_entity(combat.get_current_combatant(), grid.get_entity(target_tile), exchange_info)
 			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
 			targetting_resource.clear()
 			#Enact combat exchange
@@ -1461,45 +1499,18 @@ func fsm_unit_combat_action_targetting(delta):
 				unit_combat_action_target_change(current_target_position)
 
 func unit_combat_action_target_change(current_target_position: Vector2i):
-	# Check to see if the next target is in the current tile
-	if current_target_position == targetting_resource.current_target_positon:
-		#if the target is in the current tile, which check if the other available target type is in the tile
-		if targetting_resource.current_target_type == CombatMapConstants.COMBAT_UNIT:
-			# the last target was a unit, so check for entity
-			var target_entity = grid.get_entity(targetting_resource.current_target_positon)
-			if target_entity != null:
-				targetting_resource.current_target_type = CombatMapConstants.COMBAT_ENTITY
-				fsm_attack_action_update_ui(targetting_resource.current_target_type)
-		elif targetting_resource.current_target_type == CombatMapConstants.COMBAT_ENTITY:
-			# the last target was a unit, so check for entity
-			var target_unit = grid.get_combat_unit(targetting_resource.current_target_positon)
-			if target_unit != null:
-				targetting_resource.current_target_type = CombatMapConstants.COMBAT_UNIT
-				fsm_attack_action_update_ui(targetting_resource.current_target_type)
-	else:
-		# Default Targetting, always unit first
-		target_tile = targetting_resource.current_target_positon
-		update_current_tile(target_tile)
-		camera.set_focus_target(grid.map_to_position(target_tile))
-		var target_unit = grid.get_combat_unit(targetting_resource.current_target_positon)
-		var target_entity = grid.get_entity(targetting_resource.current_target_positon)
-		if target_unit != null:
-			targetting_resource.current_target_type = CombatMapConstants.COMBAT_UNIT
-			fsm_attack_action_update_ui(targetting_resource.current_target_type)
-		elif target_entity != null:
-			targetting_resource.current_target_type = CombatMapConstants.COMBAT_ENTITY
-			fsm_attack_action_update_ui(targetting_resource.current_target_type)
+	# Default Targetting, always unit first
+	target_tile = targetting_resource.current_target_positon
+	update_current_tile(target_tile)
+	camera.set_focus_target(grid.map_to_position(target_tile))
+	var target_unit = grid.get_combat_unit(targetting_resource.current_target_positon)
+	var target_entity = grid.get_entity(targetting_resource.current_target_positon)
+	if target_unit != null:
+		targetting_resource.current_target_type = CombatMapConstants.COMBAT_UNIT
+		fsm_attack_action_update_ui(targetting_resource.current_target_type)
 
 func fsm_attack_action_update_ui(target_type:String):
-	if target_type == CombatMapConstants.COMBAT_ENTITY:
-	# create the entity exchange info
-		exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(),grid.get_entity(target_tile))
-		# check if we should allow options for swaps
-		if targetting_resource._available_methods_at_target.size() > 1:
-			combat.game_ui.update_weapon_attack_action_combat_exchange_preview_entity(exchange_info,grid.get_entity(target_tile), true)
-		else:
-			combat.game_ui.update_weapon_attack_action_combat_exchange_preview_entity(exchange_info,grid.get_entity(target_tile))
-	elif target_type == CombatMapConstants.COMBAT_UNIT:
+	if target_type == CombatMapConstants.COMBAT_UNIT:
 		exchange_info = combat.combatExchange.generate_combat_exchange_data(combat.get_current_combatant(),grid.get_combat_unit(target_tile), targetting_resource.current_target_range)
 		# check if we should allow options for swaps
 		if targetting_resource._available_methods_at_target.size() > 1:
@@ -1511,7 +1522,120 @@ func fsm_attack_action_inventory_confirm_new_hover(item:ItemDefinition):
 	if item is WeaponDefinition:
 		_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
 
-#Inventory
+#Demolish
+func fsm_demolish_action_inventory_process(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_back"):
+			fsm_demolish_action_inventory_cancel()
+
+func fsm_demolish_action_inventory_cancel():
+	var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+	if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
+		combat.game_ui.destory_active_ui_node()
+		var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
+		combat.game_ui.create_unit_action_container(actions)
+		combat.game_ui.display_unit_status()
+		camera.set_footer_open(true)
+		update_current_tile(move_tile)
+		revert_player_state()
+
+func fsm_demolish_action_inventory_confirm(selected_item : ItemDefinition):
+	# equip selected item and call menu needed to progress flow
+	combat.get_current_combatant().equip(selected_item)
+	combat.game_ui.destory_active_ui_node()
+	# destroy the old menu
+	targetting_resource.update_dynamic_maps_new_method(combat.get_current_combatant().get_equipped())
+	target_tile = targetting_resource.current_target_positon
+	update_current_tile(target_tile)
+	camera.set_focus_target(grid.map_to_position(target_tile))
+	camera.set_mode(camera.CAMERA_MODE.FOCUS)
+	selector.play("combat_targetting")
+	if grid.get_entity(target_tile) != null:
+		exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(),grid.get_entity(target_tile))
+		targetting_resource.current_target_type = CombatMapConstants.COMBAT_ENTITY
+		if targetting_resource._available_methods_at_target.size() > 1:
+			combat.game_ui.create_demolish_action_combat_exchange_preview(exchange_info, grid.get_entity(target_tile),true)
+		else:
+			combat.game_ui.create_demolish_action_combat_exchange_preview(exchange_info, grid.get_entity(target_tile))
+	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_TARGETTING)
+
+
+func fsm_demolish_action_targetting(delta):
+	if Input:
+		if Input.is_action_just_pressed("ui_confirm"):
+			combat.game_ui.destory_active_ui_node()
+			combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION)
+			if targetting_resource.current_target_type == CombatMapConstants.COMBAT_ENTITY:
+				await combat.perform_attack_entity(combat.get_current_combatant(), grid.get_entity(target_tile), exchange_info)
+			update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_SELECT)
+			targetting_resource.clear()
+			#Enact combat exchange
+			pass
+		if Input.is_action_just_pressed("ui_back"):
+			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
+			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_DEMOLISH_ACTION_INVENTORY:
+				combat.game_ui.destory_active_ui_node()
+				_interactable_tiles.clear()
+				_interactable_tiles = grid.get_range_DFS(combat.get_current_combatant().unit.get_max_attack_range(),combat.get_current_combatant().move_position, false, combat.get_current_combatant().allegience)
+				targetting_resource.clear()
+				targetting_resource.initalize(combat.get_current_combatant().move_position, grid.get_analysis_on_tiles(_interactable_tiles).get_targetable_entities(),targetting_resource.create_target_methods_weapon(combat.get_current_combatant().unit))
+				var action_menu_inventory : Array[UnitInventorySlotData] = targetting_resource.generate_unit_inventory_slot_data(combat.get_current_combatant().unit)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+				combat.game_ui.create_demolish_action_inventory(combat.get_current_combatant(), action_menu_inventory)
+				revert_player_state()
+				camera.set_mode(camera.CAMERA_MODE.FOLLOW)
+				update_current_tile(move_tile)
+		if Input.is_action_just_pressed("right_bumper"):
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.next_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(), grid.get_entity(target_tile))
+				combat.game_ui.update_weapon_demolish_action_combat_exchange_preview(exchange_info, grid.get_entity(target_tile), true)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+		if Input.is_action_just_pressed("left_bumper"):
+			#new weapon if applicable
+			if targetting_resource._available_methods_at_target.size() > 1:
+				targetting_resource.previous_target_method()
+				combat.get_current_combatant().equip(targetting_resource.current_method)
+				exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(), grid.get_entity(target_tile))
+				combat.game_ui.update_weapon_demolish_action_combat_exchange_preview(exchange_info, grid.get_entity(target_tile), true)
+				_weapon_attackable_tiles = populate_tiles_for_weapon(combat.get_current_combatant().get_equipped().attack_range,combat.get_current_combatant().move_position)
+		if Input.is_action_just_pressed("ui_left"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				var current_target_position = targetting_resource.current_target_positon
+				targetting_resource.previous_target()
+				unit_demolish_action_target_change(current_target_position)
+		if Input.is_action_just_pressed("ui_right"):
+			if targetting_resource._available_targets_with_method.size() > 1:
+				var current_target_position = targetting_resource.current_target_positon
+				targetting_resource.next_target()
+				unit_demolish_action_target_change(current_target_position)
+
+func unit_demolish_action_target_change(current_target_position: Vector2i):
+	target_tile = targetting_resource.current_target_positon
+	update_current_tile(target_tile)
+	camera.set_focus_target(grid.map_to_position(target_tile))
+	var target_entity = grid.get_entity(targetting_resource.current_target_positon)
+	if target_entity != null:
+		targetting_resource.current_target_type = CombatMapConstants.COMBAT_ENTITY
+		fsm_demolish_action_update_ui(targetting_resource.current_target_type)
+
+func fsm_demolish_action_update_ui(target_type:String):
+	if target_type == CombatMapConstants.COMBAT_ENTITY:
+	# create the entity exchange info
+		exchange_info = combat.combatExchange.generate_combat_exchange_data_entity(combat.get_current_combatant(),grid.get_entity(target_tile))
+		# check if we should allow options for swaps
+		if targetting_resource._available_methods_at_target.size() > 1:
+			combat.game_ui.update_weapon_demolish_action_combat_exchange_preview(exchange_info,grid.get_entity(target_tile), true)
+		else:
+			combat.game_ui.update_weapon_demolish_action_combat_exchange_preview(exchange_info,grid.get_entity(target_tile))
+
+func fsm_demolish_action_inventory_confirm_new_hover(item:ItemDefinition):
+	if item is WeaponDefinition:
+		_weapon_attackable_tiles = populate_tiles_for_weapon(item.attack_range,combat.get_current_combatant().move_position)
+
+##Inventory
 func fsm_unit_inventory_item_selected(data:UnitInventorySlotData):
 	combat.game_ui.create_unit_inventory_action_item_selected_menu(data)
 	update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_INVENTORY_ITEM_SELECTED)
@@ -1601,7 +1725,7 @@ func fsm_interact_targetting(delta):
 			if Input.is_action_just_pressed("ui_back"):
 				var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 				if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
-					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+					var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_current_tile(move_tile)
 					revert_player_state()
@@ -1655,7 +1779,7 @@ func fsm_trade_action_targetting(delta):
 			var prev_state_info : CombatControllerPlayerStateData = get_previous_player_state_data()
 			if prev_state_info._player_state == CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT:
 				#combat.game_ui.destory_active_ui_node() # ADD BACK WHEN TARGETTING INVENTORY IS MADE
-				var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+				var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 				combat.game_ui.create_unit_action_container(actions)
 				combat.game_ui.display_unit_status()
 				camera.set_footer_open(true)
@@ -1693,7 +1817,7 @@ func fsm_trade_action_inventory_process(delta):
 					revert_player_state()
 					selector.play("combat_targetting")
 				else:
-					var actions :Array[String]  = get_available_unit_actions_NEW(combat.get_current_combatant())
+					var actions :Array[String]  = get_available_unit_actions(combat.get_current_combatant())
 					combat.game_ui.create_unit_action_container(actions)
 					update_player_state(CombatMapConstants.PLAYER_STATE.UNIT_ACTION_SELECT)
 
