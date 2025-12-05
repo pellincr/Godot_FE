@@ -136,3 +136,10 @@ func sort_by_rarity(a: Rarity, b : Rarity):
 
 func sort_name(a:String, b: String):
 	return a < b
+
+func sort_aiAction(a: aiAction, b:aiAction):
+	return a.rating > b.rating
+
+func append_unique(arr: Array, item):
+	if not arr.has(item):
+		arr.append(item)

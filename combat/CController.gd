@@ -149,7 +149,10 @@ func _ready():
 		update_player_state(CombatMapConstants.PLAYER_STATE.PREP_MENU)
 	#Show Prep Screen
 		##Start Music
-		AudioManager.play_music("battle_prep_theme") ## CHANGE TO PREP THEME
+		if combat.is_boss_level:
+			AudioManager.play_music("battle_prep_theme_boss")
+		else:
+			AudioManager.play_music("battle_prep_theme")
 	else:
 		begin_battle()
 	#begin_battle() ## THIS WILL BE CHANGED TO A SIGNAL IN THE PREP SCREEN
@@ -239,7 +242,10 @@ func beginning_phase_processing():
 
 # used for to close the prep screen and start the map
 func begin_battle():
-	AudioManager.play_music("player_theme")
+	if combat.is_boss_level:
+		AudioManager.play_music("player_theme_boss")
+	else:
+		AudioManager.play_music("player_theme")
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 	turn_owner = CombatMapConstants.FACTION.PLAYERS
 	combat.game_ui.transition_in_animation()
@@ -309,11 +315,17 @@ func progress_turn_order():
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN)
 		#PLAYER MUSIC
-		AudioManager.play_music("player_theme")
+		if combat.is_boss_level:
+			AudioManager.play_music("player_theme_boss")
+		else:
+			AudioManager.play_music("player_theme")
 	else: 
 		update_game_state(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
 		combat.game_ui.display_turn_transition_scene(CombatMapConstants.COMBAT_MAP_STATE.AI_TURN)
-		AudioManager.play_music("enemy_theme")
+		if combat.is_boss_level:
+			AudioManager.play_music("enemy_theme_boss")
+		else:
+			AudioManager.play_music("enemy_theme")
 
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)
@@ -675,7 +687,8 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 	var actionable_tiles :Array[Vector2i]
 	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
 	var action_tile_options: Array[Vector2i]
-	var selected_action: aiAction
+	var selected_action: aiAction = aiAction.new()
+	selected_action.owner = ai_unit
 	var called_move : bool = false
 	#Step 1 : Get all moveable tiles
 	selected_action = ai_get_best_move_at_tile(ai_unit, current_position, actionable_range)
@@ -713,6 +726,8 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 									closet_action_tile = tile
 									_astar_closet_distance = _astar_distance
 					print("@ FOUND CLOSET ACTIONABLE TILE : [" + str(closet_action_tile) + "]")
+					
+					# Do the actual move here?
 					if closet_action_tile != null: 
 						if not grid.get_point_weight_scale(closet_action_tile) > 999999:
 							if closet_action_tile != Vector2i(current_position):
@@ -741,7 +756,7 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 											called_move = true
 			else:
 				if called_move == false:
-					if Vector2(current_position) != selected_action.action_position:
+					if current_position != selected_action.action_position:
 						ai_unit.update_move_tile(grid.get_map_tile(selected_action.action_position))
 						ai_move(selected_action.action_position, ai_unit)
 						called_move = true
@@ -754,6 +769,77 @@ func ai_process_new(ai_unit: CombatUnit) -> aiAction:
 		confirm_unit_move(ai_unit)
 	return selected_action
 
+
+func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
+	grid.update_astar_points(ai_unit)
+	var current_position = grid.position_to_map(controlled_node.position)
+	var moveable_tiles : Array[Vector2i]
+	var actionable_tiles :Array[Vector2i]
+	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
+	var action_tile_options: Array[Vector2i]
+	var selected_action: aiAction = aiAction.new()
+	selected_action.owner = ai_unit
+	#Step 1 : Get all moveable tiles
+	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
+		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true, ai_unit.allegience)
+	# Step 2, Get the highest rated "COMBAT" ai action in the tiles present
+	for moveable_tile in moveable_tiles:
+		if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type):
+			var best_tile_action: aiAction = ai_get_best_move_at_tile(ai_unit, moveable_tile, actionable_range)
+			if selected_action == null or selected_action.rating < best_tile_action.rating:
+				selected_action = best_tile_action
+				print("@ FOUND BETTER ACTION AT TILE : "+ str(moveable_tile) + ". WITH A RATING OF : " + str(selected_action.rating))
+	# Step 3, if the unit lacks an available "COMBAT" action, so we need to find the next best thing
+	if selected_action != null:
+		# Step 3.A ensure the unit can actually move, or should be looking to move and then find where they should be moving to have access to higher rated action tiles
+		if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT or ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+			if selected_action.action_type == "NONE":
+				for targetable_unit_index: int in combat.groups[Constants.FACTION.PLAYERS]:
+					for range in actionable_range:
+						for tile in grid.get_tiles_at_range_new(range,combat.combatants[targetable_unit_index].map_position):
+							if not grid.is_position_occupied(tile):
+								if tile not in actionable_tiles:
+									actionable_tiles.append(tile)
+					# Step 3.B Assess the "closest" high value tile
+					var closet_action_tile
+					var _astar_closet_distance = 999999
+					var closet_tile_in_range_to_action_tile
+					for tile in actionable_tiles:
+						if grid.is_valid_tile(tile):
+							var _astar_path = grid.get_id_path(current_position, tile, false)
+							if _astar_path:
+								var _astar_distance = grid.astar_path_distance(_astar_path)
+								if _astar_distance < _astar_closet_distance and _astar_distance != null:
+									closet_action_tile = tile
+									_astar_closet_distance = _astar_distance
+					# Step 3.C Get the "closest" movable tile to the "closest" high value action tile
+					if closet_action_tile != null: 
+						# Step 3.C.I Check if we can reach that target tile, (this may be redundant due to range checking in step 1)
+						if not grid.get_point_weight_scale(closet_action_tile) > 999999:
+							if closet_action_tile != Vector2i(current_position):
+								if closet_action_tile in moveable_tiles:
+									pass #DO THE POPULATION OF MOVE RATING HERE
+								else:
+									print("@ MOVEABLE TILES : [" + str(moveable_tiles) + "]")
+									var _astar_closet_move_tile_distance_to_action  = 99999
+									for moveable_tile in moveable_tiles: 
+										if not grid.is_position_occupied(moveable_tile):
+											if grid.is_valid_tile(moveable_tile):
+												var _astar_path = grid.get_id_path(moveable_tile,closet_action_tile)
+												if _astar_path:
+													var _astar_distance = grid.astar_path_distance(_astar_path)
+													if _astar_distance < _astar_closet_move_tile_distance_to_action and _astar_distance != null:
+														closet_tile_in_range_to_action_tile = moveable_tile
+														_astar_closet_move_tile_distance_to_action = _astar_distance
+														print("@UPDATED CLOSET MOVE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
+									print("@ FOUND CLOSET MOVEABLE TILE TO ACTIONABLE TILE : [" + str(closet_tile_in_range_to_action_tile) + "] with a move distance rating of" + str(_astar_closet_move_tile_distance_to_action))
+									if closet_tile_in_range_to_action_tile != null:
+										if closet_tile_in_range_to_action_tile !=  Vector2i(current_position):
+											ai_unit.update_move_tile(grid.get_map_tile(closet_tile_in_range_to_action_tile))
+											ai_move(closet_tile_in_range_to_action_tile, ai_unit)
+	return selected_action
+	
+
 #
 # Calculates the highest value move at a particular tile
 #
@@ -761,15 +847,17 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, atta
 	var tile_best_action: aiAction = aiAction.new()
 	tile_best_action.action_type = "NONE"
 	tile_best_action.rating = 0
-	# Check combat action values
+	# Check for "COMBAT" action tiles
 	for range in attack_range:
 		for tile in grid.get_tiles_at_range_new(range,tile_position):
-			# does the tile have a unit?
+			# does target tile have a unit?
 			if grid.get_combat_unit(tile) != null: 
 				# is the unit hostile?
 				if grid.get_combat_unit(tile).allegience == Constants.FACTION.PLAYERS:
+					# Can we attack?
 					if not ai_unit.unit.get_usable_weapons_at_range(range).is_empty():
 						if grid.get_effective_terrain(grid.get_map_tile(tile)):
+							# Gives us best "COMBAT" action
 							var best_action_target : aiAction = combat.ai_get_best_attack_action(ai_unit, CustomUtilityLibrary.get_distance(tile, tile_position), grid.get_combat_unit(tile), grid.get_effective_terrain(grid.get_map_tile(tile)))
 							best_action_target.target_position = tile
 							best_action_target.action_position = tile_position
@@ -786,11 +874,47 @@ func ai_move(target_position: Vector2i, ai_unit: CombatUnit):
 func ai_turn ():
 	_in_ai_process = true
 	var enemy_units  = combat.get_ai_units()
+	var _enemy_action_list : Array[aiAction] = []
+	var _number_of_units_to_process = enemy_units.size()
+	#Assess all actions for best move, for the first time
 	for unit :CombatUnit in enemy_units:
 		print("Began AI processing unit : "+ unit.unit.name)
 		set_controlled_combatant(unit)
-		await combat.ai_process_new(unit)
-		print("finished Processing Unit : " + unit.unit.name)
+		var _unit_best_action : aiAction = await ai_process_new(unit)
+		_enemy_action_list.append(_unit_best_action)
+		#await combat.ai_process_new(unit, best_action)
+	print("finished Processing Initial Action List")
+	_enemy_action_list.sort_custom(CustomUtilityLibrary.sort_aiAction)
+	# Now we process the best move
+	while not _number_of_units_to_process > 0 :#_enemy_action_list.is_empty():
+		var _target_move : aiAction = _enemy_action_list.pop_front()
+		var _action_origin_position : Vector2i = _target_move.owner.map_position
+		# do the action on the combat map
+		await combat.ai_process_new(_target_move.owner, _target_move)
+		_number_of_units_to_process = _number_of_units_to_process - 1
+		# Now see who has been effected by this move?
+		var _effected_positions : Array[Vector2i] = [_action_origin_position]
+		# Ensure positions to be processed for new AI calculations are unique to avoid re-calculations
+		if not _effected_positions.has(_target_move.action_position):
+			_effected_positions.append(_target_move.action_position)
+		if not _effected_positions.has(_target_move.target_position):
+			_effected_positions.append(_target_move.target_position)
+		# Get units effected by these positions
+		var _effected_units_arr : Array[CombatUnit] = []
+		for effected_position in _effected_positions:
+			_effected_units_arr.append_array(rangeManager.get_units_in_range_of_tile(effected_position))
+		# Remove these units from the _enemy_action_list, so it can be re-populated with new best move values (we are iterating backwards to avoid issues with removing elements)
+		for _enemy_action_index in range(_enemy_action_list.size() -1, -1, -1):
+			if _effected_units_arr.has(_enemy_action_list[_enemy_action_index].owner):
+				_enemy_action_list.remove_at(_enemy_action_index)
+		# re-calculate best moves for the effected units 
+		for enemy_unit in _effected_units_arr:
+			set_controlled_combatant(enemy_unit)
+			var _unit_best_action : aiAction = await ai_process_new(enemy_unit)
+			_enemy_action_list.append(_unit_best_action)
+		# re-sort the list to assure top action is best quality
+		_enemy_action_list.sort_custom(CustomUtilityLibrary.sort_aiAction)
+		
 	_enemy_units_turn_taken = true
 	print("finished AI Turn")
 	_in_ai_process = false

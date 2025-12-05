@@ -191,6 +191,12 @@ func remove_selected_unit(combatUnit: CombatUnit):
 		selected_unit_list.erase(combatUnit)
 		update_selected_unit_range_tiles()
 
+func get_units_in_range_of_tile(tile: Vector2i):
+	if units_in_range_of_tile.has(tile):
+		return units_in_range_of_tile[tile].data
+	else :
+		return null
+
 func update_output_arrays():
 	update_enemy_range_tiles()
 	update_selected_unit_range_tiles()

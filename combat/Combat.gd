@@ -80,6 +80,7 @@ var _player_unit_alive : bool = true
 
 @export var level_reward : CombatReward
 
+@export var is_boss_level : bool = false
 @export var is_key_campaign_level : bool = false
 @export var is_tutorial := false
 @export var is_unit_preview_dev_level := false
@@ -665,17 +666,16 @@ func ai_process(comb : CombatUnit):
 			comb.update_display()
 	return	 
 	
-	#Process does the legwork for targetting for AI
-func ai_process_new(comb : CombatUnit):
+#Process does the legwork for targetting for AI
+func ai_process_new(comb : CombatUnit, ai_action: aiAction):
 	print("In ai_process_new combat.gd")
-	var action : aiAction = await controller.ai_process_new(comb)
-	print("finished waiting for controller")
-	if action != null:
-		if action.action_type == "ATTACK":
+	#var action : aiAction = await controller.ai_process_new(comb)
+	if ai_action != null:
+		if ai_action.action_type == "ATTACK":
 			print("@ EQUIPPING BEST WEAPON")
-			comb.unit.set_equipped(action.selected_Weapon)
+			comb.unit.set_equipped(ai_action.selected_Weapon)
 			print("@ CALLED ATTACK")
-			await perform_attack(comb, action.target, action.combat_action_data)
+			await perform_attack(comb, ai_action.target, ai_action.combat_action_data)
 			print("@ FINISHED WAITING FOR ATTACK")
 	if comb:
 		if is_instance_valid(comb.map_display) :
@@ -728,7 +728,7 @@ func ai_get_best_attack_action(ai_unit: CombatUnit, distance: int, target:Combat
 			#action.item_index = i
 			action.selected_Weapon = usable_weapons[i]
 			action.target = target
-			action.action_type = "ATTACK"
+			action.action_type = "COMBAT"
 			action.combat_action_data = data
 			if best_action == null or action.rating > best_action.rating: 
 				best_action = action

@@ -1,16 +1,22 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=6 format=3 uid="uid://liipv0fn60jj"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=9 format=3 uid="uid://liipv0fn60jj"]
 
 [ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_d0k07"]
 [ext_resource type="AudioStream" uid="uid://dt3w5jlffa6g8" path="res://resources/music/Menu_-_Dreaming_Darkly.ogg" id="2_uoq67"]
 [ext_resource type="AudioStream" uid="uid://do0lmw0sevssb" path="res://resources/music/Action_-_Knightly_Fighting.ogg" id="3_r4j4p"]
 [ext_resource type="AudioStream" uid="uid://dumdl8bavp4st" path="res://resources/music/Menu_-_Noble_Kingdom.ogg" id="4_8gfpe"]
 [ext_resource type="AudioStream" uid="uid://3rwfm7phhecl" path="res://resources/music/Menu_-_Adventures_Await.ogg" id="5_iq0vs"]
+[ext_resource type="AudioStream" uid="uid://c7lvkeyd4k7y0" path="res://resources/music/Menu_-_Epic_Entrance.ogg" id="6_td3gn"]
+[ext_resource type="AudioStream" uid="uid://8i4rxtwde5ph" path="res://resources/music/Action_-_Surge_Forward.ogg" id="7_8svxf"]
+[ext_resource type="AudioStream" uid="uid://cdb82ravurfxj" path="res://resources/music/Boss_-_Perilous_Prince.ogg" id="8_hweag"]
 
 [resource]
 script = ExtResource("1_d0k07")
 sounds = {
 "battle_prep_theme": ExtResource("5_iq0vs"),
+"battle_prep_theme_boss": ExtResource("6_td3gn"),
 "enemy_theme": ExtResource("3_r4j4p"),
+"enemy_theme_boss": ExtResource("7_8svxf"),
 "menu_theme": ExtResource("2_uoq67"),
-"player_theme": ExtResource("4_8gfpe")
+"player_theme": ExtResource("4_8gfpe"),
+"player_theme_boss": ExtResource("8_hweag")
 }

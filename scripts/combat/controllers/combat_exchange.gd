@@ -97,8 +97,12 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		await DamageNumbers.complete
 	if (damage > 0):
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("entity_hit")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
 		await DamageNumbers.complete
@@ -175,6 +179,7 @@ func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, com
 	if ce_display != null:
 		ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
+		AudioManager.play_sound_effect("friendly_unit_die")
 		emit_signal("unit_defeated", player_unit)
 		combat_exchange_finished.emit(false)
 		return
@@ -204,9 +209,6 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	#check and see if it actually does any damage
 	#var outcome : int
 	if(damage == 0):
-		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		#await use_audio_player(no_damage_sound)
-		#AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 		AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
