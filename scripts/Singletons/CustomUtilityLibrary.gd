@@ -138,6 +138,8 @@ func sort_name(a:String, b: String):
 	return a < b
 
 func sort_aiAction(a: aiAction, b:aiAction):
+	if a.action_type != b.action_type:
+		return a.action_type < b.action_type
 	return a.rating > b.rating
 
 func append_unique(arr: Array, item):
