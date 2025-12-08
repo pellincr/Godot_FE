@@ -75,5 +75,6 @@ func generate_attack_action_rating(terrain_bonus: float, player_hit: int, estima
 	self.rating = ( 1+ (player_hit * kill_bonus) + clamp(estimated_damage/target_max_hp, 0, 1)* (damage_bonus + no_damage_recieved_bonus))
 
 func generate_move_action_rating(terrain_bonus: float):
-	var turn_penalty = 10
-	self.rating = (turn_penalty/float(distance_to_high_value_tile/owner.effective_move)) * (2 * owner.unit.level) * pow((owner.unit.get_unit_type_definition().tier/2),2) + (1+terrain_bonus)
+	var turns_to_high_value_tile : float = (float(distance_to_high_value_tile)/float(owner.effective_move))
+	var unit_value : float = (2 * owner.unit.level) * pow((owner.unit.get_unit_type_definition().tier/2),2)
+	self.rating = unit_value / turns_to_high_value_tile
