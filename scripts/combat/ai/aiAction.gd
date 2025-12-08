@@ -1,6 +1,6 @@
 extends Resource
 class_name aiAction
-## A reource that stores information about ai combat_unit's moves and actions
+## A resource that stores information about ai combat_unit's moves and actions
 ##
 ## The description of the script, what it can do,
 ## and any further detail.
@@ -46,7 +46,7 @@ var rating : float = 0
 ##
 ## Used in combat, The item index of the item used in the action
 ##
-var item_index: int #
+var item_index: int
 var selected_Weapon : WeaponDefinition
 var action_type : ACTION_TYPES ##ADD TO CONSTANTS?
 var combat_action_data: UnitCombatExchangeData

@@ -151,7 +151,7 @@ func get_effective_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 	game_grid.update_astar_points(combatUnit)
 	if combatUnit.ai_type == CombatMapConstants.UNIT_AI_TYPE.DEFEND_POINT:
 		var _max_range = 0
-		var _ranges = combatUnit.unit.inventory.get_available_attack_ranges()
+		var _ranges = combatUnit.unit.get_attackable_ranges()
 		if not _ranges.is_empty:
 			_max_range = _ranges.max()
 		return game_grid.get_range_DFS(_max_range, combatUnit.map_position)

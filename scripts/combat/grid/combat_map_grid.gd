@@ -1,7 +1,7 @@
 extends Node
 class_name CombatMapGrid
 ##
-# This script stores all the map related methods for the combat scene
+## This script stores all the map related methods for the combat scene
 ##
 
 ##SIGNALS
@@ -385,8 +385,9 @@ func DFS_recursion(range:int, origin: Vector2i, movement_type:int, effected_by_t
 									visited.get_or_add(target_tile, remaining_range)
 									DFS_recursion(remaining_range, target_tile, movement_type, effected_by_terrain, visited, allegience)
 						else : 
-							print("This tile was not considered due to unit positions : " + str(target_tile))
-							print("LOGIC : " + str(is_position_occupied_by_friendly_faction(target_tile, allegience)))
+							pass
+							#print("This tile was not considered due to unit positions : " + str(target_tile))
+							#print("LOGIC : " + str(is_position_occupied_by_friendly_faction(target_tile, allegience)))
 					else : 
 						remaining_range = range - DEFAULT_TILE_COST 
 						if (remaining_range >= 0) :

@@ -718,7 +718,7 @@ func ai_perform_selected_action(ai_action: aiAction):
 func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
 	grid.update_astar_points(ai_unit)
 	var current_position = grid.position_to_map(controlled_node.position)
-	var moveable_tiles : Array[Vector2i]
+	var moveable_tiles : Array[Vector2i] = [ai_unit.map_position]
 	var actionable_tiles :Array[Vector2i]
 	var actionable_range : Array[int]= ai_unit.unit.get_attackable_ranges()
 	var action_tile_options: Array[Vector2i]
