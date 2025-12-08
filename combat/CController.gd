@@ -733,11 +733,12 @@ func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
 		if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type):
 			var best_tile_action: aiAction = ai_get_best_move_at_tile(ai_unit, moveable_tile, current_position, actionable_range)
 			if selected_action == null or selected_action.rating < best_tile_action.rating:
-				selected_action = best_tile_action
+				if best_tile_action.action_type != aiAction.ACTION_TYPES.WAIT:
+					selected_action = best_tile_action
 	# Step 3: if the unit lacks an available "COMBAT" action, so we need to find the next best thing
 	if selected_action != null:
 		# Step 3.A ensure that the unit's ai type is not limiting its available acitons (in this case seeking a new high value action tile)
-		if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT or ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+		if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT and ai_unit.ai_type != Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
 			if selected_action.action_type == aiAction.ACTION_TYPES.WAIT:
 				# Create a list of tiles that a unit could perform high value actions on
 				# Look for potential tiles for the "COMBAT" action
@@ -912,7 +913,6 @@ func ai_turn ():
 	for unit_to_process in range(_number_of_units_to_process):
 		_effected_positions.clear()
 		_effected_units_arr.clear()
-		
 		var _target_move : aiAction = _enemy_action_list.pop_front()
 		select_best_action_position(_target_move, _enemy_action_list)
 		var _action_origin_position : Vector2i = _target_move.owner.map_position
@@ -986,7 +986,8 @@ func confirm_unit_move(combat_unit: CombatUnit):
 	#if combat_unit.map_position != combat_unit.move_position:
 	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
 	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
-	rangeManager.process_unit_move(combat_unit)
+	rangeManager.update_effected_entries([combat_unit.map_position,combat_unit.move_position])
+	rangeManager.update_combat_unit_range_data(combat_unit)
 
 
 func trigger_reinforcements():
