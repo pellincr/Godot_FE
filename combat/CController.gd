@@ -791,7 +791,63 @@ func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
 														if selected_action == null or _current_ai_action.rating > selected_action.rating:
 															selected_action = _current_ai_action
 	return selected_action
+
+##
+## Updates the selected action's action_position to choose best action considering other calculated aiActions
+##
+func select_best_action_position(selected_move: aiAction, move_list:Array[aiAction]):
+	if selected_move.action_positions.is_empty():
+		return
+	#make a map of tiles and the highest potential action rating on each tile
+	var _positions_value_map : Dictionary[Vector2i, int] = {}
+	# populate the map for each available position
+	for position in selected_move.action_positions:
+		_positions_value_map[position] = selected_move.rating
+	# iterate through the other move list to see potential conflicts with the selected move's positions
+	for next_ai_action: aiAction in move_list:
+		if next_ai_action.action_type != aiAction.ACTION_TYPES.MOVE or aiAction.ACTION_TYPES.WAIT:
+			if not next_ai_action.action_positions.is_empty():
+				for next_ai_action_position in next_ai_action.action_positions:
+						if _positions_value_map.has(next_ai_action_position):
+							if selected_move.rating - next_ai_action.rating < _positions_value_map[next_ai_action_position]:
+								_positions_value_map[next_ai_action_position] = selected_move.rating - next_ai_action.rating
+			elif _positions_value_map.has(next_ai_action.action_position):
+				if selected_move.rating - next_ai_action.rating < _positions_value_map[next_ai_action.action_position]:
+					_positions_value_map[next_ai_action.action_position] = selected_move.rating - next_ai_action.rating
 	
+	# Find the tile with the best value from the positions value map
+	var _highest_rated_positions_after_reductions : Array[Vector2i] = []
+	for key_tile in _positions_value_map.keys():
+		var entry = _positions_value_map[key_tile]
+		if _highest_rated_positions_after_reductions.is_empty():
+			_highest_rated_positions_after_reductions.append(key_tile)
+		elif _positions_value_map[_highest_rated_positions_after_reductions.front()] < _positions_value_map[key_tile]:
+			_highest_rated_positions_after_reductions.clear()
+			_highest_rated_positions_after_reductions.append(key_tile)
+		# if it is equal we add the value, if its less we clear the array and append the value
+		elif _positions_value_map[_highest_rated_positions_after_reductions.front()] == _positions_value_map[key_tile]:
+			_highest_rated_positions_after_reductions.append(key_tile)
+	if _highest_rated_positions_after_reductions.size() > 1:
+		# if the output list is larger than 1 entry we need to do terrain analysis on the tiles to see which is better
+		var _terrain_best_action_list :  Dictionary[Vector2i, int] = {}
+		for tile_position in _highest_rated_positions_after_reductions:
+			_terrain_best_action_list[tile_position] = aiAction.calculate_terrain_rating(grid.get_terrain(tile_position))
+		# check and see what is the best tile
+		var _best_terrain_tile : Array[Vector2i] = []
+		for terrain_tile_key in _terrain_best_action_list.keys():
+			if _best_terrain_tile.is_empty():
+				_best_terrain_tile.append(terrain_tile_key)
+			elif _terrain_best_action_list[_best_terrain_tile.front()] < _terrain_best_action_list[terrain_tile_key]:
+				_best_terrain_tile.clear()
+				_best_terrain_tile.append(terrain_tile_key)
+		# if the terrain analysis comes out as a draw pick a random tile
+		if _best_terrain_tile.size() > 1:
+			selected_move.action_position = _best_terrain_tile.pick_random()
+		else:
+			selected_move.action_position = _best_terrain_tile.front()
+	else :
+		selected_move.action_position = _highest_rated_positions_after_reductions.front()
+
 
 #
 # Calculates the highest value move at a particular tile
@@ -821,7 +877,12 @@ func ai_get_best_move_at_tile(ai_unit: CombatUnit, tile_position: Vector2i, curr
 								best_action_target.action_type = aiAction.ACTION_TYPES.COMBAT
 							else :
 								best_action_target.action_type = aiAction.ACTION_TYPES.COMBAT_AND_MOVE
-							if tile_best_action.rating < best_action_target.rating:
+							# Allow the unit to have multiple locations for the action if rating is equal
+							if tile_best_action.rating == best_action_target.rating:
+								if tile_best_action.action_positions.is_empty():
+									tile_best_action.action_positions.append(tile_best_action.action_position)
+								tile_best_action.action_positions.append(tile)
+							elif tile_best_action.rating < best_action_target.rating:
 								tile_best_action = best_action_target
 	return tile_best_action
 
@@ -853,6 +914,7 @@ func ai_turn ():
 		_effected_units_arr.clear()
 		
 		var _target_move : aiAction = _enemy_action_list.pop_front()
+		select_best_action_position(_target_move, _enemy_action_list)
 		var _action_origin_position : Vector2i = _target_move.owner.map_position
 		# do the action on the combat map
 		set_controlled_combatant(_target_move.owner)
@@ -870,7 +932,7 @@ func ai_turn ():
 			if rangeManager.get_units_in_range_of_tile(effected_position) != null:
 				for unit in rangeManager.get_units_in_range_of_tile(effected_position):
 					if unit.turn_taken == false:
-						if not _effected_units_arr.has(unit) and unit.alive:
+						if not _effected_units_arr.has(unit) and unit.alive and unit.allegience != Constants.FACTION.PLAYERS:
 								_effected_units_arr.append(unit)
 
 		# Remove these units from the _enemy_action_list, so it can be re-populated with new best move values (we are iterating backwards to avoid issues with removing elements)
@@ -921,11 +983,11 @@ func perform_shove(pushed_unit: CombatUnit, push_vector:Vector2i):
 # Calls Grid function to update map, and finalizes the tile updates to the combat_unit. This replaces the map_tile
 #
 func confirm_unit_move(combat_unit: CombatUnit):
-	if combat_unit.map_position != combat_unit.move_position:
-		var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
-		if update_successful:
-			rangeManager.process_unit_move(combat_unit)
-		combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
+	#if combat_unit.map_position != combat_unit.move_position:
+	var update_successful :bool = grid.combat_unit_moved(combat_unit.map_position,combat_unit.move_position)
+	combat_unit.update_map_tile(grid.get_map_tile(combat_unit.move_position))
+	rangeManager.process_unit_move(combat_unit)
+
 
 func trigger_reinforcements():
 	update_game_state(CombatMapConstants.COMBAT_MAP_STATE.REINFORCEMENT)

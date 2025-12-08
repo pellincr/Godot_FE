@@ -1,8 +1,13 @@
 extends Resource
-
 class_name CombatUnit
+## CombatUnit is a container for the unit resource inside the combat map, 
+## and has increased functionality to work with map interactions & status effects
+##
+## The description of the script, what it can do,
+## and any further detail.
+##
 
-# Status
+
 var alive : bool
 var allegience : Constants.FACTION
 var ai_type: Constants.UNIT_AI_TYPE

@@ -22,8 +22,8 @@ func set_game_grid(game_grid : CombatMapGrid):
 	self.game_grid = game_grid
 
 func process_unit_move(combatUnit: CombatUnit):
-	update_combat_unit_range_data(combatUnit)
 	update_effected_entries([combatUnit.map_position, combatUnit.move_position])
+	update_combat_unit_range_data(combatUnit)
 
 func process_unit_die(combatUnit: CombatUnit):
 	remove_unit(combatUnit)
