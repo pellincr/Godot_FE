@@ -145,12 +145,14 @@ func center_target(delta):
 	position = position.slerp(focus_target, camSpeed * delta)
 	pass
 
+func set_zoom_target(incoming_zoom_target:Vector2):
+	self.zoomTarget = incoming_zoom_target
+
 func set_footer_open(state: bool):
 	self.footer_open = state
 	update_bounds_for_footer()
 
 func update_bounds_for_footer():
-
 	if footer_open == false:
 		self.limit_bottom = default_y_bound
 	else:

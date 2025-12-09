@@ -39,7 +39,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_3o7by")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_tesjc")
 
 [node name="combat_unit_display" type="Control"]
-custom_minimum_size = Vector2(34, 34)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

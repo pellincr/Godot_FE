@@ -19,16 +19,18 @@ Button/styles/hover = SubResource("StyleBoxFlat_homp3")
 [node name="BattlePrepMenuSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+size_flags_vertical = 3
 script = ExtResource("1_ogtpg")
 
 [node name="BattlePrepMenuSelection" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 382.0
-offset_bottom = 540.0
+offset_right = 168.0
+offset_bottom = 314.0
 size_flags_horizontal = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="BattlePrepMenuSelection"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -36,43 +38,59 @@ theme_override_constants/margin_bottom = 10
 
 [node name="ButtonContainer" type="VBoxContainer" parent="BattlePrepMenuSelection/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme = SubResource("Theme_hdl0j")
-
-[node name="StartBattleButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
-layout_mode = 2
-text = "Start Battle"
 
 [node name="UnitSelectionButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Unit Selection"
+alignment = 0
 
 [node name="SwapSpacesButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
-text = "Swap Spaces"
+text = "View Map"
+alignment = 0
 
 [node name="ShopButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Shop"
+alignment = 0
 
 [node name="InventoryButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Inventory"
+alignment = 0
+
+[node name="DividerPanel" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
 
 [node name="TrainingGroundsButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Training Grounds"
+alignment = 0
 
 [node name="GraveyardButton" type="Button" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer"]
 layout_mode = 2
 text = "Graveyard"
+alignment = 0
 script = ExtResource("3_homp3")
 metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 
 [node name="SavePreparationsButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
 text = "Save Preparations"
+alignment = 0
 
-[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
+[node name="DividerPanel2" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="StartBattleButton" parent="BattlePrepMenuSelection/MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+text = "Start Battle"
+alignment = 0
+
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
@@ -82,3 +100,4 @@ text = "Save Preparations"
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
 [connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]

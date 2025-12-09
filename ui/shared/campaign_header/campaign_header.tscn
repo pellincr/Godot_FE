@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://b51qhtbvdqcf6" path="res://ui/shared/campaign_header/campaign_header.gd" id="2_3bpje"]
 
 [node name="CampaignHeader" type="Control"]
-custom_minimum_size = Vector2(1280, 40)
+custom_minimum_size = Vector2(1280, 48)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 48.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0

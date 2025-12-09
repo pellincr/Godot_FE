@@ -105,6 +105,7 @@ func _ready():
 	##Load Seed to ensure consistent runs
 	#seed(seed)
 	##Configure FSM States
+	#out_of_bounds_map = get_node("../Terrain/Background/OutOfBoundsBackgroundTiles")
 	background_tile_map = get_node("../Terrain/BackgroundTiles")
 	active_tile_map = get_node("../Terrain/ActiveMapTerrain")
 	game_state = CombatMapConstants.COMBAT_MAP_STATE.INITIALIZING
@@ -1051,7 +1052,14 @@ func move_cursor(position: Vector2i):
 	camera.centerCameraCenter(grid.map_to_position(position))
 	selector.position = grid.map_to_position(position)
 
+func move_camera(position: Vector2i):
+	camera.centerCameraCenter(grid.map_to_position(position))
+	await get_tree().create_timer(.2).timeout
 
+func move_and_zoom_camera(position: Vector2i, zoom_target: Vector2):
+	camera.centerCameraCenter(grid.map_to_position(position))
+	camera.set_zoom_target(zoom_target)
+	await get_tree().create_timer(.4).timeout
 #
 # Updates the selected tile to a new position, but ensures it is within the grid
 #
@@ -1081,7 +1089,6 @@ func focus_player_camera_on_current_tile():
 		camera.set_mode(camera.CAMERA_MODE.FOCUS)
 		await get_tree().create_timer(1).timeout
 		camera.set_mode(camera.CAMERA_MODE.FOLLOW)
-
 ## FSM METHODS
 
 func fsm_unit_move_process(delta):
