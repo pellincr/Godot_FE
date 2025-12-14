@@ -1,0 +1,21 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://clkmvwj7nj2b5"]
+
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_radiv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gf31o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfqfd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s8f5i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qhjb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_is372"]
+
+[resource]
+default_font = ExtResource("1_radiv")
+Button/styles/disabled = SubResource("StyleBoxEmpty_gf31o")
+Button/styles/focus = SubResource("StyleBoxEmpty_jfqfd")
+Button/styles/hover = SubResource("StyleBoxEmpty_s8f5i")
+Button/styles/normal = SubResource("StyleBoxEmpty_3qhjb")
+Button/styles/pressed = SubResource("StyleBoxEmpty_is372")

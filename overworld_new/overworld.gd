@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 var playerOverworldData : PlayerOverworldData
 var save_file_name = "PlayerOverworldSave.tres"
@@ -6,15 +6,16 @@ var save_file_name = "PlayerOverworldSave.tres"
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
+@onready var overworld_terrain: Node2D = $OverworldTerrain
 @onready var return_button = $ReturnButton
-@onready var tutorial_campaign_selecter = $Tutorial
+#@onready var tutorial_campaign_selecter = $Tutorial
 
 var pause_menu_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	transition_in_animation()
-	tutorial_campaign_selecter.grab_focus()
+	#tutorial_campaign_selecter.grab_focus()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
 	load_data()
@@ -97,7 +98,8 @@ func disable_screen_focus():
 func _on_menu_closed():
 	enable_screen_focus()
 	pause_menu_open = false
-	tutorial_campaign_selecter.grab_focus()
+	#tutorial_campaign_selecter.grab_focus()
+	overworld_terrain.grab_button_foucs()
 
 func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):
 	seed(campaign_seed)

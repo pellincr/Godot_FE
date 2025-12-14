@@ -1,20 +1,21 @@
-extends Panel
+extends Button
 
 signal campaign_selected(campaign)
 
 @export var campaign : Campaign
-@onready var campaign_name_label = $Label
+#@onready var campaign_name_label = $Label
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _ready() -> void:
 	if campaign:
-		set_campaign_name_label(campaign.name)
+		#set_campaign_name_label(campaign.name)
+		self.text = campaign.name
 
 
 
 
-func set_campaign_name_label(c_name):
-	campaign_name_label.text = c_name
+#func set_campaign_name_label(c_name):
+#	campaign_name_label.text = c_name
 
 
 func _on_mouse_entered():
@@ -35,7 +36,11 @@ func _on_focus_exited():
 	get_child(-1).queue_free()
 
 
-func _on_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		AudioManager.play_sound_effect("menu_confirm")
-		campaign_selected.emit(campaign)
+#func _on_gui_input(event: InputEvent) -> void:
+#	if event.is_action_pressed("ui_accept"):
+##		campaign_selected.emit(campaign)
+
+
+func _on_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
+	campaign_selected.emit(campaign)
