@@ -260,7 +260,7 @@ func randomize_selection(unit_level : int = 1 , unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
 	var _effective_level = unit_level
-	var _bonus_levels = _effective_level + unit_bonus_levels
+	var _bonus_levels = _effective_level + unit_bonus_levels - 1
 	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
 		_bonus_levels = _bonus_levels + 1
 	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.LEVEL_SURGE):

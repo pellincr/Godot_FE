@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AudioLibrary" load_steps=56 format=3 uid="uid://b1ubk6fkwuowd"]
+[gd_resource type="Resource" script_class="AudioLibrary" load_steps=58 format=3 uid="uid://b1ubk6fkwuowd"]
 
 [ext_resource type="Script" uid="uid://fffgdet2nteo" path="res://scripts/resources/audio_library/AudioLibrary.gd" id="1_v3pn6"]
 [ext_resource type="AudioStream" uid="uid://bsaeqapxav78g" path="res://resources/sounds/ui/level_up/experience_point.ogg" id="2_05ay2"]
@@ -55,6 +55,8 @@
 [ext_resource type="AudioStream" uid="uid://oip3sos2ytul" path="res://resources/sounds/combat/weapon_break.ogg" id="53_u6dim"]
 [ext_resource type="AudioStream" uid="uid://bwbylcd0eequi" path="res://resources/sounds/ui/promotion/promotion.ogg" id="54_p6ya6"]
 [ext_resource type="AudioStream" uid="uid://x380asfw4121" path="res://resources/sounds/combat/weapon_expended.ogg" id="55_jrlux"]
+[ext_resource type="AudioStream" uid="uid://c3qrwqmb5lnvd" path="res://resources/sounds/combat/attack/Entity_hit.ogg" id="56_yp38g"]
+[ext_resource type="AudioStream" uid="uid://puq0cuxsyqsn" path="res://resources/sounds/combat/Friendly_unit_die.ogg" id="57_0qbke"]
 
 [resource]
 script = ExtResource("1_v3pn6")
@@ -71,11 +73,13 @@ sounds = {
 "dagger_equip": ExtResource("22_6f3rd"),
 "draft_confirm": ExtResource("20_rgd6t"),
 "draft_hover": ExtResource("19_485dx"),
+"entity_hit": ExtResource("56_yp38g"),
 "event_map_enter": ExtResource("37_wdait"),
 "experience_point": ExtResource("2_05ay2"),
 "fire_spell_hit": ExtResource("47_yp38g"),
 "fist_equip": ExtResource("23_q27tk"),
 "flesh_impact": ExtResource("43_qtawl"),
+"friendly_unit_die": ExtResource("57_0qbke"),
 "gold_rewarded": ExtResource("41_gkxbp"),
 "item_buy": ExtResource("30_a57wq"),
 "item_from_convoy": ExtResource("33_p6ya6"),

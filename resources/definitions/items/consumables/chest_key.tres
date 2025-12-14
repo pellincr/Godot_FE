@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://dc3w22d0undqt"]
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=6 format=3 uid="uid://dc3w22d0undqt"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_h2vup"]
 [ext_resource type="Texture2D" uid="uid://dayo2j0qq4l0o" path="res://resources/sprites/items/consumables/keys/chest_key.png" id="1_qx1ti"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_egop1"]
 [ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="3_ur67b"]
@@ -13,5 +14,7 @@ db_key = "chest_key"
 description = "Useable only on Chests"
 item_type = 2
 rarity = ExtResource("2_egop1")
+uses = 3
+max_uses = 3
 worth = 300
 icon = ExtResource("1_qx1ti")

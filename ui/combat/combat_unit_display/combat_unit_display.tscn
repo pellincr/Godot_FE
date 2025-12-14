@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bfk8uscbu36eu"]
 
 [ext_resource type="Script" uid="uid://bb8ohlvcrn0c4" path="res://ui/combat/combat_unit_display/combat_unit_display.gd" id="1_sxmuu"]
-[ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="2_a14u6"]
 [ext_resource type="Shader" uid="uid://byydlos1fnmbu" path="res://resources/shaders/StrokeShader.gdshader" id="2_gmc6e"]
+[ext_resource type="Texture2D" uid="uid://bhjfgerj8e768" path="res://resources/sprites/units/lance_armor.png" id="3_3gj1x"]
 [ext_resource type="Texture2D" uid="uid://dlwke1j3ebs74" path="res://resources/sprites/icons/effective_indicator_icon.png" id="4_v0tcl"]
 [ext_resource type="Texture2D" uid="uid://dw12t6fl2b4lx" path="res://resources/sprites/icons/range_indicator_icon.png" id="5_3gj1x"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_uqo4k"]
@@ -39,6 +39,7 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_3o7by")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_tesjc")
 
 [node name="combat_unit_display" type="Control"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +50,7 @@ script = ExtResource("1_sxmuu")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_p1h6c")
-texture = ExtResource("2_a14u6")
+texture = ExtResource("3_3gj1x")
 
 [node name="WarningIndicator" type="TextureRect" parent="."]
 visible = false

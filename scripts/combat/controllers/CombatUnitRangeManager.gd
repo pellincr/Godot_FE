@@ -22,8 +22,8 @@ func set_game_grid(game_grid : CombatMapGrid):
 	self.game_grid = game_grid
 
 func process_unit_move(combatUnit: CombatUnit):
-	update_combat_unit_range_data(combatUnit)
 	update_effected_entries([combatUnit.map_position, combatUnit.move_position])
+	update_combat_unit_range_data(combatUnit)
 
 func process_unit_die(combatUnit: CombatUnit):
 	remove_unit(combatUnit)
@@ -151,7 +151,7 @@ func get_effective_unit_range(combatUnit : CombatUnit) -> Array[Vector2i]:
 	game_grid.update_astar_points(combatUnit)
 	if combatUnit.ai_type == CombatMapConstants.UNIT_AI_TYPE.DEFEND_POINT:
 		var _max_range = 0
-		var _ranges = combatUnit.unit.inventory.get_available_attack_ranges()
+		var _ranges = combatUnit.unit.get_attackable_ranges()
 		if not _ranges.is_empty:
 			_max_range = _ranges.max()
 		return game_grid.get_range_DFS(_max_range, combatUnit.map_position)
@@ -190,6 +190,12 @@ func remove_selected_unit(combatUnit: CombatUnit):
 	if selected_unit_list.has(combatUnit):
 		selected_unit_list.erase(combatUnit)
 		update_selected_unit_range_tiles()
+
+func get_units_in_range_of_tile(tile: Vector2i):
+	if units_in_range_of_tile.has(tile):
+		return units_in_range_of_tile[tile].data
+	else :
+		return null
 
 func update_output_arrays():
 	update_enemy_range_tiles()

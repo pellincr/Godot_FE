@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=13 format=3 uid="uid://b2fpevimsy0th"]
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=16 format=3 uid="uid://b2fpevimsy0th"]
 
 [ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_gd2u2"]
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_k415r"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_8e5ug"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="4_6gtje"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="5_kca00"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="6_jvdsb"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="6_mixvk"]
 [ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="7_wcy26"]
 
@@ -39,9 +40,24 @@ inventory = Array[ExtResource("3_8e5ug")]([ExtResource("4_6gtje")])
 
 [sub_resource type="Resource" id="Resource_lbw85"]
 script = ExtResource("1_gd2u2")
-turns = Array[int]([3, 5, 7])
+turns = Array[int]([3, 7])
 units = Array[ExtResource("2_k415r")]([SubResource("Resource_hxukb")])
+
+[sub_resource type="Resource" id="Resource_es4k7"]
+script = ExtResource("2_k415r")
+name = "Bandit"
+map_position = Vector2i(5, 11)
+level = 2
+unit_type_key = "fighter"
+inventory = Array[ExtResource("3_8e5ug")]([ExtResource("6_jvdsb")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_amtb8"]
+script = ExtResource("1_gd2u2")
+turns = Array[int]([5])
+units = Array[ExtResource("2_k415r")]([SubResource("Resource_es4k7")])
+metadata/_custom_type_script = "uid://b6akisvlapld8"
 
 [resource]
 script = ExtResource("6_mixvk")
-reinforcements = Array[ExtResource("1_gd2u2")]([SubResource("Resource_e2ixl"), SubResource("Resource_lbw85")])
+reinforcements = Array[ExtResource("1_gd2u2")]([SubResource("Resource_e2ixl"), SubResource("Resource_lbw85"), SubResource("Resource_amtb8")])

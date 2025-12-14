@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cak05utx7a6gb"]
+[gd_scene load_steps=16 format=3 uid="uid://cak05utx7a6gb"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_wevyk"]
 [ext_resource type="Script" uid="uid://xi4hebfdnsqd" path="res://ui/battle_prep_new/battle_prep.gd" id="2_qwaoi"]
 [ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_8eefx"]
 [ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="3_vps4i"]
 [ext_resource type="PackedScene" uid="uid://cj1p82eejb86w" path="res://ui/shared/campaign_header/campaign_header_map_view.tscn" id="4_j7sln"]
-[ext_resource type="Shader" uid="uid://bnraqqufq5mbi" path="res://resources/shaders/BlurShader.gdshader" id="6_qx27e"]
+[ext_resource type="Shader" uid="uid://deeb01tfxlv17" path="res://resources/shaders/BlurShader.gdshader" id="6_qx27e"]
+[ext_resource type="Shader" uid="uid://beely7ddaimrl" path="res://overworld_new/blur_vignette.gdshader" id="7_1a2pq"]
+[ext_resource type="Shader" uid="uid://s14hml614454" path="res://overworld_new/shade_vignette.gdshader" id="8_4ydac"]
 
 [sub_resource type="Theme" id="Theme_kptq3"]
 default_font_size = 48
@@ -21,6 +23,19 @@ PanelContainer/styles/panel = SubResource("StyleBoxEmpty_j7sln")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b37dx"]
 shader = ExtResource("6_qx27e")
 shader_parameter/lod = 1.50000007125
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_53hgp"]
+shader = ExtResource("7_1a2pq")
+shader_parameter/blur_radius = 0.2
+shader_parameter/blur_amount = 1.0
+shader_parameter/blur_inner = 0.6
+shader_parameter/blur_outer = 0.66
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qkps"]
+shader = ExtResource("8_4ydac")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [node name="BattlePrep" type="Control"]
 layout_mode = 3
@@ -77,6 +92,7 @@ horizontal_alignment = 1
 
 [node name="CampaignHeader" parent="MarginContainer/MainContainer/HeaderContainer" instance=ExtResource("3_8eefx")]
 layout_mode = 2
+size_flags_vertical = 4
 
 [node name="CampaignHeaderMapViewSpacer" type="PanelContainer" parent="MarginContainer/MainContainer/HeaderContainer"]
 visible = false
@@ -91,6 +107,7 @@ size_flags_vertical = 10
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BackgroundBlur" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource("ShaderMaterial_b37dx")
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,6 +117,22 @@ grow_vertical = 2
 color = Color(0.45882353, 0.45882353, 0.45882353, 1)
 
 [node name="BackgroundImage" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="blurVignette" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_53hgp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShadeVignette" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_6qkps")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

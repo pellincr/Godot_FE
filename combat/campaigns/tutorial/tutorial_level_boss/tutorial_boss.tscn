@@ -47,6 +47,7 @@ entity_manager = NodePath("CombatMapEntityManager")
 ally_spawn_tiles = Array[Vector2i]([Vector2i(1, 17), Vector2i(0, 18), Vector2i(3, 17), Vector2i(0, 16), Vector2i(2, 18), Vector2i(2, 15)])
 unit_data = ExtResource("5_krj0r")
 level_reward = SubResource("Resource_vtrco")
+is_boss_level = true
 is_key_campaign_level = true
 
 [node name="CombatExchange" type="Node" parent="Combat"]

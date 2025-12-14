@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1r7hwniykoff"
-path="res://.godot/imported/lancer.png-993d2f135ee779646b07f5b8dec7892b.ctex"
+uid="uid://43x1nn0h5ucu"
+path="res://.godot/imported/icon_star.png-d6ee985558f3329f53e798f272e9271f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/units/lancer.png"
-dest_files=["res://.godot/imported/lancer.png-993d2f135ee779646b07f5b8dec7892b.ctex"]
+source_file="res://resources/sprites/icons/icon_star.png"
+dest_files=["res://.godot/imported/icon_star.png-d6ee985558f3329f53e798f272e9271f.ctex"]
 
 [params]
 
