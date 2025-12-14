@@ -21,6 +21,7 @@ default_font_size = 32
 default_font_size = 32
 
 [node name="CampaignPreview" type="PanelContainer"]
+z_index = 1
 offset_right = 198.0
 offset_bottom = 119.0
 theme = ExtResource("1_1nydb")
