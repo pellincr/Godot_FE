@@ -101,7 +101,7 @@ func _on_menu_closed():
 	#tutorial_campaign_selecter.grab_focus()
 
 
-	overworld_terrain.grab_button_foucs()
+	overworld_terrain.grab_button_focus()
 
 func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):
 	seed(campaign_seed)
