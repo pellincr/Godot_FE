@@ -99,6 +99,8 @@ func _on_menu_closed():
 	enable_screen_focus()
 	pause_menu_open = false
 	#tutorial_campaign_selecter.grab_focus()
+
+
 	overworld_terrain.grab_button_foucs()
 
 func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):

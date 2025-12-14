@@ -8,22 +8,27 @@
 default_font = ExtResource("3_ad4at")
 default_font_size = 32
 
+[sub_resource type="Theme" id="Theme_ad4at"]
+default_font_size = 16
+
 [sub_resource type="Theme" id="Theme_j1hui"]
 default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_4pr12"]
 default_font_size = 16
 
-[sub_resource type="Theme" id="Theme_ad4at"]
-default_font_size = 32
-
 [sub_resource type="Theme" id="Theme_cjyef"]
 default_font_size = 32
 
 [node name="CampaignPreview" type="PanelContainer"]
 z_index = 2
-offset_right = 198.0
-offset_bottom = 119.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.0
+offset_right = 142.0
+offset_bottom = 234.0
+grow_horizontal = 2
 theme = ExtResource("1_1nydb")
 script = ExtResource("2_lcgo6")
 
@@ -42,6 +47,14 @@ layout_mode = 2
 theme = SubResource("Theme_lcgo6")
 text = "Campaign Name"
 
+[node name="DifficultyContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="DifficultyHeaderLabel" type="Label" parent="MarginContainer/MainContainer/DifficultyContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ad4at")
+text = "Difficulty : "
+
 [node name="LengthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
 
@@ -54,14 +67,6 @@ text = "Estimated Length :"
 layout_mode = 2
 theme = SubResource("Theme_4pr12")
 text = "30+ minutes"
-
-[node name="DifficultyContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
-layout_mode = 2
-
-[node name="DifficultyHeaderLabel" type="Label" parent="MarginContainer/MainContainer/DifficultyContainer"]
-layout_mode = 2
-theme = SubResource("Theme_ad4at")
-text = "Difficulty : "
 
 [node name="CommanderLimitContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2

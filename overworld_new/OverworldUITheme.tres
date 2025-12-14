@@ -14,6 +14,10 @@
 
 [resource]
 default_font = ExtResource("1_radiv")
+Button/colors/font_color = Color(0.5171839, 0.5171848, 0.51718396, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 5
+Button/font_sizes/font_size = 32
 Button/styles/disabled = SubResource("StyleBoxEmpty_gf31o")
 Button/styles/focus = SubResource("StyleBoxEmpty_jfqfd")
 Button/styles/hover = SubResource("StyleBoxEmpty_s8f5i")

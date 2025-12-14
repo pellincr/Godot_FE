@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cf4tuc0eswp76"]
+[gd_scene load_steps=15 format=3 uid="uid://cf4tuc0eswp76"]
 
 [ext_resource type="Script" uid="uid://h8dn7ru0kb1t" path="res://overworld_new/overworld.gd" id="1_42u1x"]
+[ext_resource type="Shader" uid="uid://beely7ddaimrl" path="res://overworld_new/blur_vignette.gdshader" id="4_fi1vm"]
 [ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
+[ext_resource type="Shader" uid="uid://s14hml614454" path="res://overworld_new/shade_vignette.gdshader" id="6_e2yud"]
 [ext_resource type="Shader" uid="uid://2i00d8dt8wmj" path="res://overworld_new/over_cloud_shader.gdshader" id="9_42u1x"]
 [ext_resource type="PackedScene" uid="uid://dks2id10fw6o4" path="res://overworld_new/overworld_terrain.tscn" id="10_81w18"]
 
@@ -20,6 +22,19 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 Button/icons/icon = ExtResource("6_6rrvc")
 Button/styles/hover = SubResource("StyleBoxFlat_nsq0u")
 Button/styles/normal = SubResource("StyleBoxFlat_etdch")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_odqw7"]
+shader = ExtResource("4_fi1vm")
+shader_parameter/blur_radius = 0.214000010165
+shader_parameter/blur_amount = 0.8450000401375
+shader_parameter/blur_inner = 0.6
+shader_parameter/blur_outer = 0.538000025555
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42u1x"]
+shader = ExtResource("6_e2yud")
+shader_parameter/vignette_intensity = 0.5
+shader_parameter/vignette_opacity = 1.0
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_81w18"]
 frequency = 0.0025
@@ -76,6 +91,24 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 
 [node name="Canvas Layer" type="CanvasLayer" parent="."]
+
+[node name="BlurLayer" type="ColorRect" parent="Canvas Layer"]
+z_index = 1
+material = SubResource("ShaderMaterial_odqw7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VignetteLayer" type="ColorRect" parent="Canvas Layer"]
+z_index = 1
+material = SubResource("ShaderMaterial_42u1x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Canvas Layer"]
 layer = 2
