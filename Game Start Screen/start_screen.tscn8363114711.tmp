@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://du3bm08i3a50w"]
+[gd_scene load_steps=9 format=3 uid="uid://du3bm08i3a50w"]
 
-[ext_resource type="Theme" uid="uid://yl4jtx51di75" path="res://resources/themes/StandardThemeNew.tres" id="1_1fv24"]
 [ext_resource type="Script" uid="uid://dcqpa23sfdscy" path="res://Game Start Screen/start_screen.gd" id="1_2x6th"]
-[ext_resource type="Texture2D" uid="uid://bonk05gancsnl" path="res://resources/sprites/ui/paper_texture.png" id="3_42c1v"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_s5330"]
 [ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_fkkf4"]
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="4_1fv24"]
 [ext_resource type="PackedScene" uid="uid://baixd5nr123uf" path="res://ui/shared/version_label.tscn" id="4_vplos"]
 
 [sub_resource type="Gradient" id="Gradient_1fv24"]
-colors = PackedColorArray(0.03137255, 0.015686275, 0, 0.6784314, 0.1254902, 0, 0.015686275, 0.74509805)
+colors = PackedColorArray(3.4894794e-07, 0.2353723, 0.26666638, 1, 0.19599712, 0.13213909, 0.084304355, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_42c1v"]
 gradient = SubResource("Gradient_1fv24")
@@ -23,15 +22,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_1fv24")
+theme = ExtResource("1_s5330")
 script = ExtResource("1_2x6th")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 1024.0
-texture = ExtResource("3_42c1v")
-expand_mode = 4
 
 [node name="ColorRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -67,9 +59,8 @@ theme_override_constants/margin_bottom = 100
 layout_mode = 2
 
 [node name="TitleName" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 275)
+custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
-size_flags_vertical = 4
 theme = SubResource("Theme_1fv24")
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.63529414)
@@ -84,10 +75,7 @@ horizontal_alignment = 1
 
 [node name="SaveVContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
 
 [node name="Save1HContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SaveVContainer"]
 layout_mode = 2
@@ -153,7 +141,6 @@ metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/MainVContainer"]
 layout_mode = 2

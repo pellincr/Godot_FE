@@ -2,10 +2,10 @@ extends Control
 
 
 
-@onready var main_container = get_node("MainVContainer")
-@onready var save_container = get_node("SaveVContainer")
+@onready var main_container = $MarginContainer/VBoxContainer/MainVContainer#get_node("MainVContainer")
+@onready var save_container = $MarginContainer/VBoxContainer/SaveVContainer#get_node("SaveVContainer")
 
-@onready var start_button: GeneralMenuButton = $MainVContainer/StartButton
+@onready var start_button: GeneralMenuButton = $MarginContainer/VBoxContainer/MainVContainer/StartButton
 
 #Save Files
 #var save_file = ConfigFile.new()
@@ -15,12 +15,12 @@ var save_path_2 = "user://save2/"
 var save_path_3 = "user://save3/"
 #var save_file_2 = "res://save2.cfg"
 #var save_file_3 = "res://save3.cfg"
-@onready var save_button_1: GeneralMenuButton = $SaveVContainer/Save1HContainer/SaveButton1
-@onready var delete_button_1: GeneralMenuButton = $SaveVContainer/Save1HContainer/DeleteButton1
-@onready var save_button_2: GeneralMenuButton = $SaveVContainer/Save2HContainer/SaveButton2
-@onready var delete_button_2: GeneralMenuButton = $SaveVContainer/Save2HContainer/DeleteButton2
-@onready var save_button_3: GeneralMenuButton = $SaveVContainer/Save3HContainer/SaveButton3
-@onready var delete_button_3: GeneralMenuButton = $SaveVContainer/Save3HContainer/DeleteButton3
+@onready var save_button_1: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save1HContainer/SaveButton1
+@onready var delete_button_1: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save1HContainer/DeleteButton1
+@onready var save_button_2: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save2HContainer/SaveButton2
+@onready var delete_button_2: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save2HContainer/DeleteButton2
+@onready var save_button_3: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save3HContainer/SaveButton3
+@onready var delete_button_3: GeneralMenuButton = $MarginContainer/VBoxContainer/SaveVContainer/Save3HContainer/DeleteButton3
 
 
 

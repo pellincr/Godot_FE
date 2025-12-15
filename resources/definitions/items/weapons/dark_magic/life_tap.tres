@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 script = ExtResource("2_uqb62")
 weapon_type = 7
 alignment = 2
+magic_weapon_triangle_type = 3
 item_damage_type = 1
 item_scaling_type = 2
 damage = 10

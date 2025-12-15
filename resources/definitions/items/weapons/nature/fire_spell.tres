@@ -9,6 +9,7 @@
 script = ExtResource("1_gkfxg")
 weapon_type = 9
 alignment = 2
+magic_weapon_triangle_type = 1
 item_damage_type = 1
 item_scaling_type = 2
 damage = 5
