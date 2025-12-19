@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh3fr2ky7e4ub"]
+
+[ext_resource type="Script" uid="uid://c478v7qx1b1lk" path="res://Main Game Scenes/Start Screen/Save Slot Select/save_slot_select.gd" id="1_6cba6"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="1_uu6e1"]
+
+[node name="SaveSlotSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6cba6")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -251.0
+offset_top = -146.0
+offset_right = 251.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Save1Container" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveButton1" type="Button" parent="MainContainer/Save1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SLOT 1 - NEW"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="DeleteButton1" type="Button" parent="MainContainer/Save1Container"]
+visible = false
+layout_mode = 2
+text = "X"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="Save2Container" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveButton2" type="Button" parent="MainContainer/Save2Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SLOT 2 - NEW"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="DeleteButton2" type="Button" parent="MainContainer/Save2Container"]
+visible = false
+layout_mode = 2
+text = "X"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="Save3Container" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SaveButton3" type="Button" parent="MainContainer/Save3Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SLOT 3 - NEW"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="DeleteButton3" type="Button" parent="MainContainer/Save3Container"]
+visible = false
+layout_mode = 2
+text = "X"
+script = ExtResource("1_uu6e1")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[connection signal="focus_entered" from="MainContainer/Save1Container/SaveButton1" to="MainContainer/Save1Container/SaveButton1" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save1Container/SaveButton1" to="." method="_on_save_button_1_pressed"]
+[connection signal="pressed" from="MainContainer/Save1Container/SaveButton1" to="MainContainer/Save1Container/SaveButton1" method="_on_pressed"]
+[connection signal="focus_entered" from="MainContainer/Save1Container/DeleteButton1" to="MainContainer/Save1Container/DeleteButton1" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save1Container/DeleteButton1" to="." method="_on_delete_button_1_pressed"]
+[connection signal="pressed" from="MainContainer/Save1Container/DeleteButton1" to="MainContainer/Save1Container/DeleteButton1" method="_on_pressed"]
+[connection signal="focus_entered" from="MainContainer/Save2Container/SaveButton2" to="MainContainer/Save2Container/SaveButton2" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save2Container/SaveButton2" to="." method="_on_save_button_2_pressed"]
+[connection signal="pressed" from="MainContainer/Save2Container/SaveButton2" to="MainContainer/Save2Container/SaveButton2" method="_on_pressed"]
+[connection signal="focus_entered" from="MainContainer/Save2Container/DeleteButton2" to="MainContainer/Save2Container/DeleteButton2" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save2Container/DeleteButton2" to="." method="_on_delete_button_2_pressed"]
+[connection signal="pressed" from="MainContainer/Save2Container/DeleteButton2" to="MainContainer/Save2Container/DeleteButton2" method="_on_pressed"]
+[connection signal="focus_entered" from="MainContainer/Save3Container/SaveButton3" to="MainContainer/Save3Container/SaveButton3" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save3Container/SaveButton3" to="." method="_on_save_button_3_pressed"]
+[connection signal="pressed" from="MainContainer/Save3Container/SaveButton3" to="MainContainer/Save3Container/SaveButton3" method="_on_pressed"]
+[connection signal="focus_entered" from="MainContainer/Save3Container/DeleteButton3" to="MainContainer/Save3Container/DeleteButton3" method="_on_focus_entered"]
+[connection signal="pressed" from="MainContainer/Save3Container/DeleteButton3" to="." method="_on_delete_button_3_pressed"]
+[connection signal="pressed" from="MainContainer/Save3Container/DeleteButton3" to="MainContainer/Save3Container/DeleteButton3" method="_on_pressed"]

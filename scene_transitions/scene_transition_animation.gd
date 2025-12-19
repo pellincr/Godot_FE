@@ -20,3 +20,17 @@ func set_middle_label_text(text):
 
 func set_lower_label_text(text):
 	set_label_text(lower_label,text)
+
+
+func transition_in_animation(parent_node):
+	#var scene_transition = SceneTransitionAnimation.instantiate()
+	parent_node.add_child(self)
+	play_animation("fade_out")
+	await get_tree().create_timer(.5).timeout
+	queue_free()
+
+func transition_out_animation(parent_node):
+	#var scene_transition = SceneTransitionAnimation.instantiate()
+	parent_node.add_child(self)
+	play_animation("fade_in")
+	await get_tree().create_timer(0.5).timeout

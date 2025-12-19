@@ -37,6 +37,8 @@ AudioManager="*res://audio_manager/AudioManager.tscn"
 OptionsConfig="*res://options/options_config.gd"
 SteamController="*res://steam/steam_controller.gd"
 InputHelper="*res://addons/input_helper/input_helper.gd"
+SignalBus="*res://scripts/Singletons/signal_bus.gd"
+SceneTransitionAnimation="*res://scene_transitions/SceneTransitionAnimation.tscn"
 
 [display]
 

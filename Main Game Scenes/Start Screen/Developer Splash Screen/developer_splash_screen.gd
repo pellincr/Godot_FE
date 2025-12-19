@@ -4,7 +4,7 @@ extends Control
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-const START_SCREEN_SCENE = preload("res://Game Start Screen/start_screen.tscn")
+const START_SCREEN_SCENE = preload("res://Main Game Scenes/Start Screen/start_screen.tscn")
 
 
 func _ready() -> void:

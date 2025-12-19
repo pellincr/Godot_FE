@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c2sppuhwbe843"]
 
 [ext_resource type="Texture2D" uid="uid://4frn41eet1o2" path="res://resources/sprites/derc_development_large.png" id="1_ij7td"]
-[ext_resource type="Script" uid="uid://c3aho66riervl" path="res://Game Start Screen/developer_splash_screen/developer_splash_screen.gd" id="1_san7d"]
+[ext_resource type="Script" uid="uid://c3aho66riervl" path="res://Main Game Scenes/Start Screen/Developer Splash Screen/developer_splash_screen.gd" id="1_san7d"]
 
 [sub_resource type="Animation" id="Animation_san7d"]
 length = 0.001
