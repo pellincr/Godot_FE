@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cl6jyccuv8wi4"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://cl6jyccuv8wi4"]
 
 [ext_resource type="Resource" uid="uid://2fhxdjuvaxu5" path="res://resources/definitions/unit_types/units/lancer/lancer_base_combat_stats.tres" id="1_r4yfu"]
 [ext_resource type="Resource" uid="uid://lulhnn3haqa5" path="res://resources/definitions/unit_types/units/lancer/lancer_growth_stats.tres" id="2_eku0x"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cvtwp0mxiy2mw" path="res://resources/definitions/unit_types/units/lancer/lancer_max_stats.tres" id="4_nvtlh"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_h3cyf"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_psc4j"]
+[ext_resource type="Resource" uid="uid://deot68ho60n2x" path="res://resources/definitions/unit_types/units/lancer/lancer_promotion_stats.tres" id="6_q26tr"]
 
 [resource]
 script = ExtResource("5_h3cyf")
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([3])
 base_stats = ExtResource("1_r4yfu")
 maxuimum_stats = ExtResource("4_nvtlh")
 growth_stats = ExtResource("2_eku0x")
+promotion_to_stats = ExtResource("6_q26tr")
 icon = ExtResource("3_vtus8")
 map_sprite = ExtResource("3_vtus8")
 default_item_resource = ExtResource("2_wnmv4")

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://te15bevj6o47"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://te15bevj6o47"]
 
 [ext_resource type="Resource" uid="uid://bv6vlgimskgl2" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_base_combat_stats.tres" id="1_ib1pp"]
 [ext_resource type="Resource" uid="uid://duv7a1auc5h62" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_default_item_tables.tres" id="2_q3vkg"]
 [ext_resource type="Resource" uid="uid://djyvl8botta4a" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_growth_stats.tres" id="3_rtqps"]
 [ext_resource type="Texture2D" uid="uid://bs4scwnrup3lb" path="res://resources/sprites/units/gunner.png" id="4_j8vng"]
 [ext_resource type="Resource" uid="uid://8yxt8mj5i16q" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_max_stats.tres" id="5_rhiui"]
+[ext_resource type="Resource" uid="uid://b6yc13ga3wrjf" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat_promotion_stats.tres" id="6_uvdl7"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_xn3yv"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_1d3oi"]
 
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([13])
 base_stats = ExtResource("1_ib1pp")
 maxuimum_stats = ExtResource("5_rhiui")
 growth_stats = ExtResource("3_rtqps")
+promotion_to_stats = ExtResource("6_uvdl7")
 icon = ExtResource("4_j8vng")
 map_sprite = ExtResource("4_j8vng")
 default_item_resource = ExtResource("2_q3vkg")

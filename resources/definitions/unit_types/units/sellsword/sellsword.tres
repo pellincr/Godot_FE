@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://bg5poewlr3i7e"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://bg5poewlr3i7e"]
 
 [ext_resource type="Resource" uid="uid://demf1101syuws" path="res://resources/definitions/unit_types/units/sellsword/sellsword_base_stats.tres" id="1_bw08a"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_yn2ql"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://3bixfbriyvty" path="res://resources/sprites/units/sellsword.png" id="3_s2lo5"]
 [ext_resource type="Resource" uid="uid://ilotp7a55ix4" path="res://resources/definitions/unit_types/units/sellsword/sellsword_max_stats.tres" id="4_4pvi0"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_cjhr1"]
+[ext_resource type="Resource" uid="uid://7cxol2a8ofna" path="res://resources/definitions/unit_types/units/sellsword/sellsword_promotion_stats.tres" id="6_gy3jf"]
 
 [resource]
 script = ExtResource("1_yn2ql")
@@ -19,6 +20,7 @@ usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_bw08a")
 maxuimum_stats = ExtResource("4_4pvi0")
 growth_stats = ExtResource("2_innqf")
+promotion_to_stats = ExtResource("6_gy3jf")
 icon = ExtResource("3_s2lo5")
 map_sprite = ExtResource("3_s2lo5")
 default_item_resource = ExtResource("2_exbha")

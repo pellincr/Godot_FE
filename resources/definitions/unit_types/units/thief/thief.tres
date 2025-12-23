@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://bxeaa4qb7n0ni"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://bxeaa4qb7n0ni"]
 
 [ext_resource type="Resource" uid="uid://bcmyym0pdqbxc" path="res://resources/definitions/unit_types/units/thief/thief_base_combat_stats.tres" id="1_dwge8"]
 [ext_resource type="Resource" uid="uid://b2h4ugtbv02if" path="res://resources/definitions/unit_types/units/thief/thief_growth_stats.tres" id="2_2k1oa"]
 [ext_resource type="Texture2D" uid="uid://bs2bmjx5ra0y0" path="res://resources/sprites/units/thief.png" id="3_ydkf7"]
 [ext_resource type="Resource" uid="uid://def64rsg21pim" path="res://resources/definitions/unit_types/units/thief/thief_max_stats.tres" id="4_jqy71"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n1ru5"]
+[ext_resource type="Resource" uid="uid://dln1n3eqpmixx" path="res://resources/definitions/unit_types/units/thief/thief_promotion_stats.tres" id="5_6l4ml"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_n1ru5"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_l1na1"]
 
 [resource]
@@ -12,19 +13,14 @@ script = ExtResource("5_n1ru5")
 unit_type_name = "Thief"
 db_key = "thief"
 description = "Elusive infiltrators who excel at sabotage, theft, and disabling foes."
-initiative = 1
 faction = Array[int]([3])
 traits = Array[int]([4])
 unit_rarity = ExtResource("6_l1na1")
 movement_type = 2
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([13])
 base_stats = ExtResource("1_dwge8")
 maxuimum_stats = ExtResource("4_jqy71")
 growth_stats = ExtResource("2_2k1oa")
+promotion_to_stats = ExtResource("5_6l4ml")
 icon = ExtResource("3_ydkf7")
 map_sprite = ExtResource("3_ydkf7")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

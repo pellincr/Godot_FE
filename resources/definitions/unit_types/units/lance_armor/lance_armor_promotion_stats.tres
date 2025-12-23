@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://dj1skb11sba7h"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_llo4g"]
+
+[resource]
+script = ExtResource("1_llo4g")
+hp = 4
+strength = 3
+skill = 2
+speed = -2
+defense = 5

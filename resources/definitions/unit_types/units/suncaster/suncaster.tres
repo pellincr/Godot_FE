@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://cab8epii6vr32"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://cab8epii6vr32"]
 
 [ext_resource type="Resource" uid="uid://cqvybllucjxd4" path="res://resources/definitions/unit_types/units/suncaster/suncaster_base_combat_stats.tres" id="1_r6hf8"]
 [ext_resource type="Resource" uid="uid://x6588rjimjxt" path="res://resources/definitions/unit_types/units/suncaster/suncaster_default_item_tables.tres" id="2_l1qsa"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cg8wwn3041fo8" path="res://resources/definitions/unit_types/units/suncaster/suncaster_max_stats.tres" id="4_pcma3"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_62w6y"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_10ea6"]
+[ext_resource type="Resource" uid="uid://dmc62agcqvmo3" path="res://resources/definitions/unit_types/units/suncaster/suncaster_promotion_stats.tres" id="6_p6i24"]
 
 [resource]
 script = ExtResource("5_62w6y")
@@ -20,6 +21,7 @@ usable_weapon_types = Array[int]([8])
 base_stats = ExtResource("1_r6hf8")
 maxuimum_stats = ExtResource("4_pcma3")
 growth_stats = ExtResource("2_siiub")
+promotion_to_stats = ExtResource("6_p6i24")
 icon = ExtResource("3_6qpj6")
 map_sprite = ExtResource("3_6qpj6")
 default_item_resource = ExtResource("2_l1qsa")

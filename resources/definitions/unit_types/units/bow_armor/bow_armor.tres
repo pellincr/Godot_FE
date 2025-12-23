@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://5lg6mp5w2p3g"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://5lg6mp5w2p3g"]
 
 [ext_resource type="Resource" uid="uid://cpe3m37v0c81h" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_base_combat_stats.tres" id="1_3er3a"]
 [ext_resource type="Resource" uid="uid://d4hspaaxyflde" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_default_item_tables.tres" id="2_4fl0t"]
 [ext_resource type="Resource" uid="uid://b8cu24xxe3yjv" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_growth_stats.tres" id="3_f5kfk"]
 [ext_resource type="Texture2D" uid="uid://cwepkbcl45vpj" path="res://resources/sprites/units/bow_armor.png" id="4_khivg"]
 [ext_resource type="Resource" uid="uid://dni084g8dqfmu" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_max_stats.tres" id="5_ll3hb"]
+[ext_resource type="Resource" uid="uid://06gyxn346vfe" path="res://resources/definitions/unit_types/units/bow_armor/bow_armor_promotion_stats.tres" id="6_acck3"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_oho0a"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_kp1nx"]
 
@@ -20,6 +21,7 @@ usable_weapon_types = Array[int]([4])
 base_stats = ExtResource("1_3er3a")
 maxuimum_stats = ExtResource("5_ll3hb")
 growth_stats = ExtResource("3_f5kfk")
+promotion_to_stats = ExtResource("6_acck3")
 icon = ExtResource("4_khivg")
 map_sprite = ExtResource("4_khivg")
 default_item_resource = ExtResource("2_4fl0t")

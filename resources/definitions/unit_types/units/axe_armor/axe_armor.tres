@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://chmhvok2b7sgj"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://chmhvok2b7sgj"]
 
 [ext_resource type="Resource" uid="uid://cneoftbrp4hi2" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_base_combat_stats.tres" id="1_jlkb8"]
 [ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="1_o4h4l"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://deth5afjl2c4w" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_max_stats.tres" id="3_eso8f"]
 [ext_resource type="Texture2D" uid="uid://dtv3rkdbibbfa" path="res://resources/sprites/units/axe_armor.png" id="3_qnuew"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_se7vg"]
+[ext_resource type="Resource" uid="uid://cnyy5gmuk580c" path="res://resources/definitions/unit_types/units/axe_armor/axe_armor_promotion_stats.tres" id="6_lxhoi"]
 
 [resource]
 script = ExtResource("1_o4h4l")
@@ -22,6 +23,7 @@ usable_weapon_types = Array[int]([2])
 base_stats = ExtResource("1_jlkb8")
 maxuimum_stats = ExtResource("3_eso8f")
 growth_stats = ExtResource("2_h5kmo")
+promotion_to_stats = ExtResource("6_lxhoi")
 icon = ExtResource("3_qnuew")
 map_sprite = ExtResource("3_qnuew")
 default_item_resource = ExtResource("2_7u6yp")
