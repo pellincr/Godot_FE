@@ -228,13 +228,12 @@ func _draw():
 		if(player_state == CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT_HOVER):
 			draw_hover_movement_ranges(_movable_tiles, true, _attackable_tiles,true)
 
-
+#
+# Called from process, and completes jobs for the beginning phase
 func beginning_phase_processing():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.BEGINNING_PHASE_PROCESS)
-	#await ui.play_turn_banner(turn_owner)
 	await process_terrain_effects()
 	await process_special_effects()
-	# await process_skill_effects()
 	await clean_up() # --> remove debuffs / buffs, flush data structures
 	if (game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN):
 		await focus_player_camera_on_current_tile()
@@ -253,11 +252,14 @@ func begin_battle():
 	autoCursor()
 	##Start Music
 	
-
+#
+# Cleans up resources used in both player and AI actions
 func clean_up():
 	selected_unit_player_state_stack.flush()
 	targetting_resource.clear()
 
+#
+# Processes unit move using delta time
 func process_unit_move(delta):
 	unit_move_fix_overshoots(delta)
 	#if we are ready to get the next place to move to
@@ -292,20 +294,22 @@ func process_unit_move(delta):
 			else: # AI Units
 				pass
 
+
+#
+# Fixes the overshoots created from the time based sprite movement and forces them to anchor points at the center of the tile
 func unit_move_fix_overshoots(delta):
-	#check and resolve potential overshoots
 	if (delta * move_speed) > controlled_node.position.distance_to(_next_position):
 			controlled_node.position = _next_position
 	else :
 		controlled_node.position += controlled_node.position.direction_to(_next_position) * delta * move_speed
 	
-#advance_the game turn
-#connect to UI end turn
+#
+# Advances the turn by forcing the phase to the ending phase
 func advance_turn():
 	update_turn_phase(CombatMapConstants.TURN_PHASE.ENDING_PHASE)
-	#progress_turn_order()
 
-
+#
+# Function gets the next faction in the turn order
 func progress_turn_order():
 	# First advance the turn for current owner
 	combat.advance_turn(turn_order[turn_order_index])
@@ -328,6 +332,8 @@ func progress_turn_order():
 		else:
 			AudioManager.play_music("enemy_theme")
 
+#
+# Called via signal when a combatant is added in the Combat.gd
 func combatant_added(combatant : CombatUnit):
 	grid.set_combat_unit(combatant, combatant.map_position)
 	if combatant.allegience != 0:
@@ -335,10 +341,14 @@ func combatant_added(combatant : CombatUnit):
 	rangeManager.update_effected_entries([combatant.map_position])
 	rangeManager.update_output_arrays()
 
+#
+# Called via signal when an entity is added in the Combat.gd
 func entity_added(cme:CombatEntity):
 	grid.set_entity(cme, cme.map_position)
 	rangeManager.update_effected_entries([cme.map_position])
-	
+
+#
+# Called via signal when a combatant has died
 func combatant_died(combatant: CombatUnit):
 	if grid.get_combat_unit(combatant.map_position):
 		grid.combat_unit_died(combatant.map_position)
@@ -346,6 +356,8 @@ func combatant_died(combatant: CombatUnit):
 	if combatant.map_display:
 		combatant.map_display.queue_free()
 
+#
+#
 func find_path(goal_tile:Vector2i, origin_tile: Vector2i = Vector2i(-999,-999)):
 	_path.clear()
 	if(origin_tile == Vector2i(-999,-999)):
@@ -374,7 +386,7 @@ func return_player():
 	if _path_size >= 1:
 		move_on_path(original_position)
 
-#
+
 # Moves unit on specified path
 #
 func move_on_path(current_position):
@@ -728,10 +740,10 @@ func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
 	selected_action.owner = ai_unit
 	#Step 1 : Get all unit's moveable tiles
 	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
-		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true, ai_unit.allegience)
+		moveable_tiles.append_array(grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true, ai_unit.allegience))
 	# Step 2 : Perform analysis to see what the highest value aiAction is at those moveable tiles (Check if we can do any "COMBAT" actions)
 	for moveable_tile in moveable_tiles:
-		if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type):
+		if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type) or moveable_tile == ai_unit.map_position:
 			var best_tile_action: aiAction = ai_get_best_move_at_tile(ai_unit, moveable_tile, current_position, actionable_range)
 			if selected_action == null or selected_action.rating < best_tile_action.rating:
 				if best_tile_action.action_type != aiAction.ACTION_TYPES.WAIT:
@@ -894,6 +906,8 @@ func ai_move(target_position: Vector2i, ai_unit: CombatUnit):
 	_path = grid.find_path(target_position,current_position)
 	move_on_path(target_position)
 
+#
+# Makes the decisions for the AI and grades the best moves for the AI in order
 func ai_turn ():
 	_in_ai_process = true
 	var enemy_units  = combat.get_ai_units()
@@ -935,11 +949,12 @@ func ai_turn ():
 					if unit.turn_taken == false:
 						if not _effected_units_arr.has(unit) and unit.alive and unit.allegience != Constants.FACTION.PLAYERS:
 								_effected_units_arr.append(unit)
-
+		
 		# Remove these units from the _enemy_action_list, so it can be re-populated with new best move values (we are iterating backwards to avoid issues with removing elements)
 		for _enemy_action_index in range(_enemy_action_list.size() -1, -1, -1):
 			if _effected_units_arr.has(_enemy_action_list[_enemy_action_index].owner):
 				_enemy_action_list.remove_at(_enemy_action_index)
+		
 		# re-calculate best moves for the effected units 
 		for unit in _effected_units_arr:
 			set_controlled_combatant(unit)
@@ -1929,7 +1944,7 @@ func await_entity_resolution():
 	game_state = previous_state
 
 ##TRADE ACTION
-
+#
 # Trade Action targetting
 func fsm_trade_action_targetting(delta):
 	if Input:
@@ -1961,6 +1976,7 @@ func fsm_trade_action_targetting(delta):
 				target_tile = targetting_resource.current_target_positon
 				update_current_tile(target_tile)
 				camera.set_focus_target(grid.map_to_position(target_tile))
+#
 # Trade Action Menu
 func fsm_trade_action_inventory_process(delta):
 	if Input:
@@ -1989,7 +2005,7 @@ func unit_completed_external_trade():
 	combat.get_current_combatant().minor_action_taken = true
 	combat.get_current_combatant().update_map_tile(grid.get_map_tile(combat.get_current_combatant().move_position))
 	
-
+#
 # Battle Prep unit select FSM
 func fsm_prep_unit_select(delta):
 	#Does the current grid position have a unit?
@@ -2031,6 +2047,7 @@ func fsm_prep_unit_select(delta):
 			update_player_state(CombatMapConstants.PLAYER_STATE.PREP_UNIT_SELECT)
 		camera.SimpleFollow(delta)
 
+#
 # Battle Prep Unit Hover FSM, only active when a unit is in the current tile
 func fsm_prep_unit_select_hover_process(delta):
 	#ensure there is a unit in the tile
@@ -2119,6 +2136,8 @@ func player_prep_process(delta):
 func _on_battle_prep_start_battle():
 	begin_battle()
 
+#
+# Swaps units during the combat map prep stage
 func swap_units(selected_position:Vector2i):
 	if selected_tile == Vector2i(-1,-1) or current_tile == selected_tile:
 		selected_tile = selected_position

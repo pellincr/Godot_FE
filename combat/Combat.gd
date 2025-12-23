@@ -1,7 +1,7 @@
 extends Node
 class_name Combat
 ##
-# Combate Node
+# Combat Node
 # This works with the CController to perform combat actions
 # It stores unit data and information
 ##
@@ -40,8 +40,8 @@ var units: Array[CombatUnit]
 	[], #players
 	[], #enemies
 	[], #FRIENDLY
-	[],  #NOMAD
-	[] #Terrain
+	[], #NOMAD
+	[]  #Terrain
 ]
 	
 var current_combatant = 0
