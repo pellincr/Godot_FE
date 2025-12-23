@@ -33,11 +33,22 @@ offset_bottom = 259.0
 theme = SubResource("Theme_e3lwf")
 script = ExtResource("2_3bbfo")
 
-[node name="UnitStatsHeaderLabel" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="UnitStatsHeaderLabel" type="Label" parent="HBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_07khm")
+text = "Unit Stats"
+
+[node name="UnitGrowthsHeaderLabel" type="Label" parent="HBoxContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_07khm")
-text = "Unit Stats"
+text = "Growths"
+horizontal_alignment = 2
 
 [node name="StrengthContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -348,8 +359,13 @@ layout_mode = 2
 size_flags_horizontal = 0
 show_percentage = false
 
-[node name="MoveContainer" type="HBoxContainer" parent="."]
+[node name="UnitStatsHeaderLabel2" type="Label" parent="."]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_07khm")
+text = "Physical Stats"
+
+[node name="MoveContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 4
 theme = SubResource("Theme_rmyy4")
@@ -364,7 +380,7 @@ custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "9"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="MoveEquipmentValueLabel" type="Label" parent="MoveContainer"]
 visible = false
@@ -374,7 +390,6 @@ text = "+1"
 horizontal_alignment = 2
 
 [node name="ConstitutionContainer" type="HBoxContainer" parent="."]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_rmyy4")
 
@@ -388,7 +403,7 @@ custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "17"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="ConstitutionEquipmentValueLabel" type="Label" parent="ConstitutionContainer"]
 visible = false

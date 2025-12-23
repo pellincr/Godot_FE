@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_8eefx"]
 [ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="3_vps4i"]
 [ext_resource type="PackedScene" uid="uid://cj1p82eejb86w" path="res://ui/shared/campaign_header/campaign_header_map_view.tscn" id="4_j7sln"]
-[ext_resource type="Shader" uid="uid://deeb01tfxlv17" path="res://resources/shaders/BlurShader.gdshader" id="6_qx27e"]
+[ext_resource type="Shader" uid="uid://bnraqqufq5mbi" path="res://resources/shaders/BlurShader.gdshader" id="6_qx27e"]
 [ext_resource type="Shader" uid="uid://beely7ddaimrl" path="res://overworld_new/blur_vignette.gdshader" id="7_1a2pq"]
 [ext_resource type="Shader" uid="uid://s14hml614454" path="res://overworld_new/shade_vignette.gdshader" id="8_4ydac"]
 

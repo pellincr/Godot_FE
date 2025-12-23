@@ -47,10 +47,12 @@ layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -51.0
-offset_top = -23.0
-offset_right = 51.0
+offset_left = 243.0
+offset_top = -439.0
+offset_right = 345.0
+offset_bottom = -416.0
 grow_horizontal = 2
+text = " Alpha Version 0.7.4"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

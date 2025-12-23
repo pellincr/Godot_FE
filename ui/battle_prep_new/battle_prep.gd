@@ -262,7 +262,7 @@ func _on_menu_closed():
 	match current_state:
 		PREP_STATE.MENU:
 			var prep_menu = open_screen.get_child(0)
-			prep_menu.grab_start_button_focus()
+			prep_menu.grab_swap_spaces_button_focus()
 		PREP_STATE.UNIT_SELECTION:
 			open_screen.grab_first_army_panel_focus()
 		PREP_STATE.SWAP_SPACES:

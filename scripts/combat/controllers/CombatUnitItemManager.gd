@@ -34,16 +34,13 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 			cu.unit.inventory.give_item(item)
 			cu.update_inventory_stats()
 
-func trade(cu1: CombatUnit, cu2:CombatUnit):
-	pass
-
 func give_item_discard_result_complete(cu: CombatUnit, item : ItemDefinition):
 	if cu.unit.inventory.has_item(item):
 		discard_item(cu,item)
 		give_item_required = true
 	else:
 		give_item_required = false
-		convoy_item.emit(item)
+		convoy_item.emit(item.duplicate())
 	discard_selection_complete.emit()
 
 func generate_combat_unit_inventory_data(cu:CombatUnit) -> Array[UnitInventorySlotData]:

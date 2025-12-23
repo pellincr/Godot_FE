@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://2ir81eqrmk7t"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://2ir81eqrmk7t"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_15irv"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_s6r8v"]
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="2_nu7vh"]
+[ext_resource type="Texture2D" uid="uid://dxi6jbt5cn4rb" path="res://resources/sprites/events/storm_bound_keep.png" id="1_w1iia"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_nu7vh"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_nu7vh"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_w1iia"]
 
@@ -51,6 +52,7 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 script = ExtResource("1_15irv")
 name = "Stormbound Keep"
 description = "Sheets of rain [shake]hammer[/shake] the dark battlements as lightning tears through the clouds overhead. The keep stands unbroken against the storm, its shadowed towers [shake]shuddering[/shake] but refusing to yield to what seems an endless storm."
+background = ExtResource("1_w1iia")
 option1 = SubResource("Resource_4b4rn")
 option2 = SubResource("Resource_ibqu3")
 option3 = SubResource("Resource_t7ax6")

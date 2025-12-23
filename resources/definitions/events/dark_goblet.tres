@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://tt6kdfoktesj" path="res://resources/sprites/events/dark_goblet_background.png" id="1_fkt3n"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_s7r1p"]
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="3_ajhi4"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="3_ajhi4"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="4_8arx8"]
 [ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="4_le0gf"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="5_8n685"]
@@ -24,7 +24,7 @@ unit_stat_change = SubResource("Resource_7h7gb")
 
 [sub_resource type="Resource" id="Resource_8arx8"]
 script = ExtResource("4_8arx8")
-special = 6
+special = 7
 effect_weight = 50
 effect_type = 1
 metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"

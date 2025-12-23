@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Event" load_steps=12 format=3 uid="uid://b0vgpmdla6bsr"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://b0vgpmdla6bsr"]
 
+[ext_resource type="Texture2D" uid="uid://ck8p2e71scb6y" path="res://resources/sprites/events/hall_of_ancestry_background.png" id="1_81sf1"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_dy2hx"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_u2eaq"]
-[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="2_0cjq0"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_0cjq0"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_0cjq0"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_81sf1"]
 
@@ -55,6 +56,7 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 script = ExtResource("1_dy2hx")
 name = "Hall of Ancestry"
 description = "Your footsteps echo through the vast stone hall, each statue watching as if weighing your worth. The firelight flickers across ancient faces, casting long shadows that almost seem to breathe. "
+background = ExtResource("1_81sf1")
 option1 = SubResource("Resource_r6y1y")
 option2 = SubResource("Resource_i2opt")
 option3 = SubResource("Resource_urw2n")
