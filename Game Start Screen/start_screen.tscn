@@ -79,7 +79,7 @@ theme_override_fonts/normal_font = ExtResource("4_1fv24")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
 text = "Gridbound
-Glory"
+Gauntlet"
 horizontal_alignment = 1
 
 [node name="SaveVContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]

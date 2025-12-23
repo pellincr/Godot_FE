@@ -6,8 +6,9 @@
 extends Node2D
 class_name CController
 
-##CONST
-#Grid
+##CONSTANTS
+
+##GRID CONSTANTS
 const GRID_TEXTURE = preload("res://resources/sprites/grid/grid_marker_2.png")
 const PATH_TEXTURE = preload("res://resources/sprites/grid/path_ellipse.png")
 const ATTACKABLE_TILE_TEXTURE = preload("res://resources/sprites/grid/attackable_tile.png")
@@ -740,7 +741,7 @@ func get_ai_unit_best_move(ai_unit: CombatUnit) -> aiAction:
 	selected_action.owner = ai_unit
 	#Step 1 : Get all unit's moveable tiles
 	if ai_unit.ai_type != Constants.UNIT_AI_TYPE.DEFEND_POINT:
-		moveable_tiles.append_array(grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true, ai_unit.allegience))
+		moveable_tiles = grid.get_range_DFS(ai_unit.unit.stats.movement,current_position, ai_unit.unit.movement_type, true, ai_unit.allegience)
 	# Step 2 : Perform analysis to see what the highest value aiAction is at those moveable tiles (Check if we can do any "COMBAT" actions)
 	for moveable_tile in moveable_tiles:
 		if grid.is_map_position_available_for_unit_move(moveable_tile, ai_unit.unit.movement_type) or moveable_tile == ai_unit.map_position:

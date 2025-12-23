@@ -33,7 +33,9 @@ const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information
 #var map_data:Array[Array]
 #var floors_climbed:int
 #var last_room:CampaignRoom
-var camera_edge_y : float
+
+var campaign_map_size_y : float
+const CAMERA_EDGE_BUFFER : int = 1
 
 enum MENU_STATE{
 	NONE, PAUSE, CAMPAIGN_INFORMATION
@@ -48,7 +50,7 @@ func _ready() -> void:
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS - 1)
+	campaign_map_size_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS)# + CAMERA_EDGE_BUFFER)
 	
 	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.CAMPAIGN_MAP
 	controls_ui_container.update_by_control_state()
@@ -68,9 +70,15 @@ func _ready() -> void:
 			unlock_next_rooms()
 		else:
 			unlock_floor(0)
-	
 	grab_first_available_room_foucs()
 	set_map_room_focus_neighbors()
+	var viewport : Vector2 = camera_2d.get_viewport().get_visible_rect().size
+	var y_limit
+	if campaign_map_size_y > viewport.y:
+		y_limit = (campaign_map_size_y - viewport.y/2)
+	else :
+		y_limit = campaign_map_size_y/2
+	camera_2d.position.y = clamp(y_limit,-campaign_map_size_y/2,y_limit)
 	SelectedSaveFile.save(playerOverworldData)
 	
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 0:
@@ -104,7 +112,13 @@ func _input(event:InputEvent) ->void:
 	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
 		if current_menu_state == MENU_STATE.NONE:
 			camera_2d.position.y += SCROLL_SPEED
-	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
+	var viewport : Vector2 = camera_2d.get_viewport().get_visible_rect().size
+	var y_limit
+	if campaign_map_size_y > viewport.y:
+		y_limit = (campaign_map_size_y - viewport.y/2)
+	else :
+		y_limit = campaign_map_size_y/2
+	camera_2d.position.y = clamp(camera_2d.position.y,-campaign_map_size_y/2,y_limit)
 	if event.is_action_pressed("ui_cancel"):
 		match current_menu_state:
 			MENU_STATE.NONE:
