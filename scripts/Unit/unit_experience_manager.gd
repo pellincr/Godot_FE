@@ -2,7 +2,7 @@ extends Node
 
 class_name UnitExperienceManager
 
-const LEVEL_CAP_T2 = [10,20,30,20]
+const UNIT_LEVEL_CAP_TIER = [10,20,30,20]
 signal experience_finished()
 
 const EXPERIENCE_BAR_COMPONENT = preload("res://ui/combat/unit_experience_bar/unit_experience_bar.tscn")
@@ -10,6 +10,8 @@ const LEVEL_UP_COMPONENT = preload("res://ui/combat/unit_level_up/unit_level_up.
 
 func process_experience_gain(unit:CombatUnit, experience_amount: int, hyper_growth:bool = false):
 	print ("Enteredprocess_experience_gain")
+	if check_level_capped(unit.unit):
+		return
 	if (unit.unit.experience + experience_amount >= 100):
 		var experience_excess = unit.unit.experience + experience_amount - 100
 		var experience_bar = EXPERIENCE_BAR_COMPONENT.instantiate()
@@ -37,14 +39,20 @@ func process_experience_gain(unit:CombatUnit, experience_amount: int, hyper_grow
 		unit.unit.apply_level_up_value(level_up_stats)
 		unit.update_unit_stats()
 		level_up_component.queue_free()
-		experience_bar.set_initial_value(0)
-		experience_bar.set_desired_value(experience_excess)
-		experience_bar.visible = true
-		experience_bar.activate_tween()
-		await experience_bar.finished
-		experience_bar.queue_free()
-		unit.unit.experience = experience_excess
-		experience_finished.emit()
+		if check_level_capped(unit.unit):
+			unit.unit.experience = 0
+			experience_bar.queue_free()
+			experience_finished.emit()
+			return
+		else :
+			experience_bar.set_initial_value(0)
+			experience_bar.set_desired_value(experience_excess)
+			experience_bar.visible = true
+			experience_bar.activate_tween()
+			await experience_bar.finished
+			experience_bar.queue_free()
+			unit.unit.experience = experience_excess
+			experience_finished.emit()
 	else :
 		var experience_bar = EXPERIENCE_BAR_COMPONENT.instantiate()
 		await experience_bar
@@ -60,3 +68,9 @@ func process_experience_gain(unit:CombatUnit, experience_amount: int, hyper_grow
 		unit.unit.experience = unit.unit.experience + experience_amount
 		experience_finished.emit()
 	print ("Exit process_experience_gain")
+
+func check_level_capped(unit: Unit) -> bool:
+	var unit_type_definition :UnitTypeDefinition = unit.get_unit_type_definition()
+	if unit.level >= UNIT_LEVEL_CAP_TIER[unit_type_definition.tier]: 
+		return true
+	return false

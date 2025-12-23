@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [sub_resource type="Resource" id="Resource_phbw1"]
 script = ExtResource("3_vrbx3")
-defense = 5
+defense = 4
 movement = -1
 metadata/_custom_type_script = "uid://vapttex4fj3j"
 

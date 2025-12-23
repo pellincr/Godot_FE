@@ -27,7 +27,7 @@ default_font = ExtResource("4_lt3nf")
 default_font_size = 16
 
 [node name="EquipmentDetailedInfo" type="PanelContainer"]
-offset_right = 275.0
+offset_right = 300.0
 offset_bottom = 92.0
 theme = ExtResource("1_1b8bj")
 script = ExtResource("2_jniku")
