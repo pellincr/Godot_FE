@@ -254,11 +254,26 @@ func get_next_unit(cu: CombatUnit = null, forwards: bool = true) -> CombatUnit:
 		var current_unit_index = combatants.find(cu)
 		# get the unit positon in the 2D faction array
 		var faction_index = groups[cu.allegience].find(current_unit_index)
+		var faction_index_iterator = faction_index
 		var next_unit_index = 0 
 		if forwards:
+			for unit_index_entry in range(groups[cu.allegience].size()):
+				next_unit_index = CustomUtilityLibrary.array_next_index_with_loop(groups[cu.allegience], faction_index_iterator)
+				var _pot_next_unit : CombatUnit = combatants[groups[cu.allegience][next_unit_index]]
+				if _pot_next_unit.turn_taken == false:
+					return combatants[groups[cu.allegience][next_unit_index]]
+				faction_index_iterator = next_unit_index
+			## Fallback if there are no available units
 			next_unit_index = CustomUtilityLibrary.array_next_index_with_loop(groups[cu.allegience], faction_index)
 			return combatants[groups[cu.allegience][next_unit_index]]
 		else : 
+			for unit_index_entry in range(groups[cu.allegience].size()):
+				next_unit_index = CustomUtilityLibrary.array_previous_index_with_loop(groups[cu.allegience], faction_index_iterator)
+				var _pot_next_unit : CombatUnit = combatants[groups[cu.allegience][next_unit_index]]
+				if _pot_next_unit.turn_taken == false:
+					return combatants[groups[cu.allegience][next_unit_index]]
+				faction_index_iterator = next_unit_index
+			## Fallback if there are no available units
 			next_unit_index = CustomUtilityLibrary.array_previous_index_with_loop(groups[cu.allegience], faction_index) 
 			return combatants[groups[cu.allegience][next_unit_index]]
 	else: 

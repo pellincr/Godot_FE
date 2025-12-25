@@ -67,12 +67,12 @@ func generate_attack_action_rating(terrain_bonus: float, player_hit: int, estima
 	var kill_bonus = 0
 	var no_damage_recieved_bonus = 0
 	if can_lethal :
-		kill_bonus = 1000
+		kill_bonus = 5000
 	var damage_bonus = 100
 	if estimated_incoming_damage == 0:
 		no_damage_recieved_bonus = 50
-	## TODO add a bonus for damage taken
-	self.rating = ( 1+ (player_hit * kill_bonus) + clamp(estimated_damage/target_max_hp, 0, 1)* (damage_bonus + no_damage_recieved_bonus))
+	## TODO add understanding of x2 hits to the logic, where a unit will most likely die before doing maximum damage
+	self.rating = (1 + (player_hit * kill_bonus) + clamp(estimated_damage/target_max_hp, 0, 1)* (damage_bonus + no_damage_recieved_bonus))
 
 func generate_move_action_rating(terrain_bonus: float):
 	var turns_to_high_value_tile : float = (float(distance_to_high_value_tile)/float(owner.effective_move))

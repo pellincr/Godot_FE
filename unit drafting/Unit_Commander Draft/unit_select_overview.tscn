@@ -61,7 +61,7 @@ uppercase = true
 [node name="GrowthsHeaderLabel" type="Label" parent="VBoxContainer/StatsOverviewContainer/HeaderContainer"]
 layout_mode = 2
 theme = SubResource("Theme_bhcyq")
-text = "Grotwhs"
+text = "Growths"
 uppercase = true
 
 [node name="GradeLabelContainer" type="VBoxContainer" parent="VBoxContainer/StatsOverviewContainer"]

@@ -814,7 +814,7 @@ func select_best_action_position(selected_move: aiAction, move_list:Array[aiActi
 	if selected_move.action_positions.is_empty():
 		return
 	#make a map of tiles and the highest potential action rating on each tile
-	var _positions_value_map : Dictionary[Vector2i, int] = {}
+	var _positions_value_map : Dictionary[Vector2i, float] = {}
 	# populate the map for each available position
 	for position in selected_move.action_positions:
 		_positions_value_map[position] = selected_move.rating
@@ -844,7 +844,7 @@ func select_best_action_position(selected_move: aiAction, move_list:Array[aiActi
 			_highest_rated_positions_after_reductions.append(key_tile)
 	if _highest_rated_positions_after_reductions.size() > 1:
 		# if the output list is larger than 1 entry we need to do terrain analysis on the tiles to see which is better
-		var _terrain_best_action_list :  Dictionary[Vector2i, int] = {}
+		var _terrain_best_action_list :  Dictionary[Vector2i, float] = {}
 		for tile_position in _highest_rated_positions_after_reductions:
 			_terrain_best_action_list[tile_position] = aiAction.calculate_terrain_rating(grid.get_terrain(tile_position))
 		# check and see what is the best tile

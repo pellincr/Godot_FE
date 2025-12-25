@@ -5,16 +5,16 @@ signal state_selected(state:BattlePrep.PREP_STATE)
 signal save_game()
 
 
-@onready var start_battle_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/HBoxContainer/StartBattleButton
-@onready var unit_selection_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/UnitSelectionButton
-@onready var swap_spaces_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/SwapSpacesButton
-@onready var shop_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/ShopButton
-@onready var inventory_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/InventoryButton
-@onready var training_grounds_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/TrainingGroundsButton
-@onready var graveyard_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/GraveyardButton
-@onready var save_preparations_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/ButtonContainer/HBoxContainer/SavePreparationsButton
+@onready var start_battle_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/StartBattleMarginContainer/StartBattleButton
+@onready var unit_selection_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/UnitSelectionButton
+@onready var swap_spaces_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SwapSpacesButton
+@onready var shop_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/ShopButton
+@onready var inventory_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/InventoryButton
+@onready var training_grounds_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/TrainingGroundsButton
+@onready var graveyard_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton
+@onready var save_preparations_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SavePreparationsButton
 #@onready var shop_button: Button = $MarginContainer/ButtonContainer/ShopButton
-@onready var button_container: VBoxContainer = $BattlePrepMenuSelection/MarginContainer/ButtonContainer
+@onready var button_container: VBoxContainer = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer
 
 
 # Called when the node enters the scene tree for the first time.

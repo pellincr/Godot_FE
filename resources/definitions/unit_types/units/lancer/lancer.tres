@@ -13,6 +13,7 @@
 script = ExtResource("5_h3cyf")
 unit_type_name = "Lancer"
 db_key = "lancer"
+description = "Shock troops who trade armor for speed, striking often and with great precision."
 name_genders = Array[int]([1])
 faction = Array[int]([0])
 unit_rarity = ExtResource("6_psc4j")
