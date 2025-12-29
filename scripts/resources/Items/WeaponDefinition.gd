@@ -156,7 +156,7 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 @export_subgroup("Weapon Effectiveness")
 
 ## Unit traits this weapon deals bonus damage against.
-@export var weapon_effectiveness_traiteffectiveness_traits: Array[unitConstants.TRAITS] = []
+@export var weapon_effectiveness_trait: Array[unitConstants.TRAITS] = []
 
 ## Weapon types this weapon deals bonus damage against.
 @export var weapon_effectiveness_weapon_type: Array[ItemConstants.WEAPON_TYPE] = []
