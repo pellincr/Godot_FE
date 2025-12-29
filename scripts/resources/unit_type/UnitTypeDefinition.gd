@@ -34,7 +34,5 @@ class_name UnitTypeDefinition
 @export_group("Unlockables")
 @export var unlocked := true
 
-var tags : Array[String] ##TO BE CALCULATED
-
 @export_group("Generation & Items")
 @export var default_item_resource : UnitTypeDefaultItemTables

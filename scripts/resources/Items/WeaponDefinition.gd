@@ -90,16 +90,16 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 @export var support_type: SUPPORT_TYPES = SUPPORT_TYPES.NONE
 
 ## The type of damage this weapon deals (physical, magical, etc.).
-@export var damage_type: Constants.DAMAGE_TYPE
+@export var item_damage_type: Constants.DAMAGE_TYPE
 
 ## The stat used to calculate damage scaling.
-@export var scaling_type: ItemConstants.SCALING_TYPE
+@export var item_scaling_type: ItemConstants.SCALING_TYPE
 
 ## Multiplier applied to the scaling stat.
-@export var scaling_multiplier: float = DEFAULT_SCALING_MULTIPLIER
+@export var item_scaling_multiplier: float = DEFAULT_SCALING_MULTIPLIER
 
 ## Valid target factions for this weapon.
-@export var target_factions: Array[ItemConstants.AVAILABLE_TARGETS] = [DEFAULT_TARGETS]
+@export var item_target_faction: Array[ItemConstants.AVAILABLE_TARGETS] = [DEFAULT_TARGETS]
 
 # ==============================================================================
 # Exported Variables - Weapon Requirements
@@ -156,10 +156,10 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 @export_subgroup("Weapon Effectiveness")
 
 ## Unit traits this weapon deals bonus damage against.
-@export var effectiveness_traits: Array[unitConstants.TRAITS] = []
+@export var weapon_effectiveness_traiteffectiveness_traits: Array[unitConstants.TRAITS] = []
 
 ## Weapon types this weapon deals bonus damage against.
-@export var effectiveness_weapon_types: Array[ItemConstants.WEAPON_TYPE] = []
+@export var weapon_effectiveness_weapon_type: Array[ItemConstants.WEAPON_TYPE] = []
 
 @export_subgroup("Misc. Specials")
 

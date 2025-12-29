@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://baixd5nr123uf" path="res://ui/shared/version_label.tscn" id="4_vplos"]
 
 [sub_resource type="Gradient" id="Gradient_1fv24"]
-colors = PackedColorArray(0.03137255, 0.015686275, 0, 0.6784314, 0.1254902, 0, 0.015686275, 0.74509805)
+offsets = PackedFloat32Array(0, 0.5173913, 0.98478264)
+colors = PackedColorArray(0.03137255, 0.015686275, 0, 1, 0.1254902, 0, 0.015686275, 1, 0.19607843, 0.08235294, 0, 0.98039216)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_42c1v"]
 gradient = SubResource("Gradient_1fv24")
@@ -26,13 +27,6 @@ grow_vertical = 2
 theme = ExtResource("1_1fv24")
 script = ExtResource("1_2x6th")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 1024.0
-texture = ExtResource("3_42c1v")
-expand_mode = 4
-
 [node name="ColorRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -41,6 +35,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_42c1v")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.13725491)
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 1280.0
+texture = ExtResource("3_42c1v")
+expand_mode = 4
 
 [node name="VersionLabel" parent="." instance=ExtResource("4_vplos")]
 layout_mode = 1

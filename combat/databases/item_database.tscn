@@ -169,7 +169,7 @@
 [ext_resource type="Resource" uid="uid://c27vhlofo7ly6" path="res://resources/definitions/items/equipment/magi_robes.tres" id="165_n7wwd"]
 [ext_resource type="Resource" uid="uid://l6kd2wl63bem" path="res://resources/definitions/items/equipment/mystifying_incense.tres" id="166_ncyn0"]
 [ext_resource type="Resource" uid="uid://cyj3gt2n6yn8y" path="res://resources/definitions/items/equipment/null_sigl.tres" id="167_n308j"]
-[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="168_6rcnr"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="168_6rcnr"]
 [ext_resource type="Resource" uid="uid://bocqqoda422bq" path="res://resources/definitions/items/equipment/old_pendant.tres" id="168_87ert"]
 [ext_resource type="Resource" uid="uid://ch3c7efjp00as" path="res://resources/definitions/items/equipment/old_soldiers_band.tres" id="169_sec5j"]
 [ext_resource type="Resource" uid="uid://dbauvolqrqquy" path="res://resources/definitions/items/equipment/power_band.tres" id="170_e40e4"]
