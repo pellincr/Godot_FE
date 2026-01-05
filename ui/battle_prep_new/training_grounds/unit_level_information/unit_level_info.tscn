@@ -38,6 +38,7 @@ size_flags_horizontal = 3
 
 [node name="UnitTypeLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Brawler"
 
 [node name="UpperContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
@@ -48,10 +49,12 @@ layout_mode = 2
 
 [node name="LevelLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/LevelContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Lv"
 
 [node name="LevelValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/LevelContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "1"
 
 [node name="ExperienceContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer"]
@@ -59,10 +62,12 @@ layout_mode = 2
 
 [node name="ExperienceLabal" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/ExperienceContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Exp"
 
 [node name="ExperienceValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/UpperContainer/ExperienceContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "0"
 
 [node name="BottomContainer" type="HBoxContainer" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer"]
@@ -73,10 +78,12 @@ layout_mode = 2
 
 [node name="HPLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/BottomContainer/HPContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "HP"
 
 [node name="HPValueLabel" type="Label" parent="UpperPanelContainer/MarginContainer/HBoxContainer/UnitBasicInfoContainer/BottomContainer/HPContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "1/1"
 
 [node name="LowerPanelContainer" type="PanelContainer" parent="."]
@@ -91,6 +98,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="GridContainer" type="GridContainer" parent="LowerPanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 8
 columns = 2
 
 [node name="StrengthContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
@@ -99,11 +107,15 @@ size_flags_horizontal = 3
 
 [node name="StrengthLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/StrengthContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Strength"
 
 [node name="StrengthValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/StrengthContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="MagicContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -111,11 +123,15 @@ size_flags_horizontal = 3
 
 [node name="MagicLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/MagicContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Magic"
 
 [node name="MagicValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/MagicContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="SkillContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -123,11 +139,15 @@ size_flags_horizontal = 3
 
 [node name="SkillLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SkillContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Skill"
 
 [node name="SkillValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SkillContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="SpeedContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -135,11 +155,15 @@ size_flags_horizontal = 3
 
 [node name="SpeedLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SpeedContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Speed"
 
 [node name="SpeedValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/SpeedContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="LuckContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -147,11 +171,15 @@ size_flags_horizontal = 3
 
 [node name="LuckLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/LuckContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Luck"
 
 [node name="LuckValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/LuckContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="DefenseContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -159,11 +187,15 @@ size_flags_horizontal = 3
 
 [node name="DefenseLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/DefenseContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Defense"
 
 [node name="DefenseValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/DefenseContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2
 
 [node name="ResistanceContainer" type="HBoxContainer" parent="LowerPanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -171,8 +203,12 @@ size_flags_horizontal = 3
 
 [node name="ResistanceLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/ResistanceContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Resistance"
 
 [node name="ResistanceValueLabel" type="Label" parent="LowerPanelContainer/MarginContainer/GridContainer/ResistanceContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 2

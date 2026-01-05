@@ -1,13 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://cak05utx7a6gb"]
+[gd_scene load_steps=18 format=3 uid="uid://cak05utx7a6gb"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_wevyk"]
 [ext_resource type="Script" uid="uid://xi4hebfdnsqd" path="res://ui/battle_prep_new/battle_prep.gd" id="2_qwaoi"]
+[ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_8eefx"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="3_vps4i"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="4_4ydac"]
+[ext_resource type="PackedScene" uid="uid://cj1p82eejb86w" path="res://ui/shared/campaign_header/campaign_header_map_view.tscn" id="4_j7sln"]
+[ext_resource type="Shader" uid="uid://bnraqqufq5mbi" path="res://resources/shaders/BlurShader.gdshader" id="6_qx27e"]
+[ext_resource type="Shader" uid="uid://beely7ddaimrl" path="res://overworld_new/blur_vignette.gdshader" id="7_1a2pq"]
+[ext_resource type="Shader" uid="uid://s14hml614454" path="res://overworld_new/shade_vignette.gdshader" id="8_4ydac"]
+
+[sub_resource type="Theme" id="Theme_53hgp"]
+PanelContainer/styles/panel = null
 
 [sub_resource type="Theme" id="Theme_kptq3"]
-default_font_size = 48
+default_font = ExtResource("4_4ydac")
+default_font_size = 36
 
 [sub_resource type="Theme" id="Theme_17gso"]
-default_font_size = 28
+default_font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7sln"]
+
+[sub_resource type="Theme" id="Theme_qx27e"]
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_j7sln")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b37dx"]
+shader = ExtResource("6_qx27e")
+shader_parameter/lod = 1.50000007125
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_53hgp"]
+shader = ExtResource("7_1a2pq")
+shader_parameter/blur_radius = 0.2
+shader_parameter/blur_amount = 1.0
+shader_parameter/blur_inner = 0.6
+shader_parameter/blur_outer = 0.66
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qkps"]
+shader = ExtResource("8_4ydac")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [node name="BattlePrep" type="Control"]
 layout_mode = 3
@@ -18,6 +51,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wevyk")
 script = ExtResource("2_qwaoi")
+
+[node name="CampaignHeaderMapView" parent="." instance=ExtResource("4_j7sln")]
+visible = false
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -34,23 +71,76 @@ theme_override_constants/margin_bottom = 15
 [node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="BattlePrepHeader" type="PanelContainer" parent="MarginContainer/MainContainer"]
+[node name="HeaderContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="BattlePrepHeader" type="PanelContainer" parent="MarginContainer/MainContainer/HeaderContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+theme = SubResource("Theme_53hgp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/BattlePrepHeader"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader"]
 layout_mode = 2
 
-[node name="HeaderUpperLabel" type="RichTextLabel" parent="MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer"]
+[node name="HeaderUpperLabel" type="RichTextLabel" parent="MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_kptq3")
-bbcode_enabled = true
-text = "[wave amp=10.0 freq=2.0  connected=1]Prepare For Battle![/wave]"
+text = "BattleType - BattleName"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="HeaderLowerLabel" type="Label" parent="MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer"]
+[node name="HeaderLowerLabel" type="Label" parent="MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_17gso")
+text = "Victory Condition"
 horizontal_alignment = 1
+
+[node name="CampaignHeader" parent="MarginContainer/MainContainer/HeaderContainer" instance=ExtResource("3_8eefx")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="CampaignHeaderMapViewSpacer" type="PanelContainer" parent="MarginContainer/MainContainer/HeaderContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+theme = SubResource("Theme_qx27e")
+
+[node name="ControlsUIContainer" parent="MarginContainer/MainContainer" instance=ExtResource("3_vps4i")]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackgroundBlur" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_b37dx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.45882353, 0.45882353, 0.45882353, 1)
+
+[node name="BackgroundImage" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="blurVignette" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_53hgp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShadeVignette" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_6qkps")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

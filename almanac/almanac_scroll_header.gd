@@ -15,18 +15,25 @@ signal header_swapped(almanac_state)
 @onready var archetypes_label = $ArchetypesPanel/HBoxContainer/ArchetypesLabel
 @onready var archetypes_percent = $ArchetypesPanel/HBoxContainer/ArchetypesPercent
 
-@onready var items_panel = $ItemsPanel
-@onready var items_label = $ItemsPanel/HBoxContainer/ItemsLabel
-@onready var items_percent = $ItemsPanel/HBoxContainer/ItemsPercent
+@onready var weapons_panel: PanelContainer = $WeaponsPanel
+@onready var weapons_label: Label = $WeaponsPanel/HBoxContainer/WeaponsLabel
+@onready var weapons_percent: Label = $WeaponsPanel/HBoxContainer/WeaponsPercent
+@onready var equpiment_panel: PanelContainer = $EqupimentPanel
+@onready var equpiment_label: Label = $EqupimentPanel/HBoxContainer/EqupimentLabel
+@onready var equpiment_percent: Label = $EqupimentPanel/HBoxContainer/EqupimentPercent
+@onready var consumables_panel: PanelContainer = $ConsumablesPanel
+@onready var consumable_label: Label = $ConsumablesPanel/HBoxContainer/ConsumableLabel
+@onready var consumable_percent: Label = $ConsumablesPanel/HBoxContainer/ConsumablePercent
+
 
 var playerOverworldData : PlayerOverworldData
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("right_bumper"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_bumper"):
 		next_header_state()
 		header_swapped.emit(current_state)
-	if Input.is_action_just_pressed("left_bumper"):
+	if event.is_action_pressed("left_bumper"):
 		previous_header_state()
 		header_swapped.emit(current_state)
 
@@ -37,7 +44,9 @@ enum ALMANAC_STATES{
 	UNIT_TYPES,
 	COMMANDER_TYPES,
 	ARCHETYPES,
-	ITEMS
+	WEAPONS,
+	EQUIPMENT,
+	CONSUMABLES
 }
 
 var current_state := ALMANAC_STATES.UNIT_TYPES
@@ -48,9 +57,9 @@ func set_percent_label(label,percent):
 func previous_header_state():
 	match current_state:
 		ALMANAC_STATES.UNIT_TYPES:
-			current_state = ALMANAC_STATES.ITEMS
-			swap_themes(unit_types_panel,items_panel)
-			swap_font_colors(unit_types_label,items_label)
+			current_state = ALMANAC_STATES.CONSUMABLES
+			swap_themes(unit_types_panel,weapons_panel)
+			swap_font_colors(unit_types_label,weapons_label)
 		ALMANAC_STATES.COMMANDER_TYPES:
 			current_state = ALMANAC_STATES.UNIT_TYPES
 			swap_themes(commander_types_panel,unit_types_panel)
@@ -59,10 +68,18 @@ func previous_header_state():
 			current_state = ALMANAC_STATES.COMMANDER_TYPES
 			swap_themes(archetypes_panel,commander_types_panel)
 			swap_font_colors(archetypes_label,commander_types_label)
-		ALMANAC_STATES.ITEMS:
+		ALMANAC_STATES.WEAPONS:
 			current_state = ALMANAC_STATES.ARCHETYPES
-			swap_themes(items_panel,archetypes_panel)
-			swap_font_colors(items_label,archetypes_label)
+			swap_themes(weapons_panel,archetypes_panel)
+			swap_font_colors(weapons_label,archetypes_label)
+		ALMANAC_STATES.EQUIPMENT:
+			current_state = ALMANAC_STATES.WEAPONS
+			swap_themes(equpiment_label,weapons_panel)
+			swap_font_colors(equpiment_label,weapons_label)
+		ALMANAC_STATES.CONSUMABLES:
+			current_state = ALMANAC_STATES.EQUIPMENT
+			swap_themes(consumables_panel,equpiment_panel)
+			swap_font_colors(consumable_label,equpiment_label)
 
 func next_header_state():
 	match current_state:
@@ -75,13 +92,21 @@ func next_header_state():
 			swap_themes(commander_types_panel,archetypes_panel)
 			swap_font_colors(archetypes_label,commander_types_label)
 		ALMANAC_STATES.ARCHETYPES:
-			current_state = ALMANAC_STATES.ITEMS
-			swap_themes(archetypes_panel,items_panel)
-			swap_font_colors(archetypes_label,items_label)
-		ALMANAC_STATES.ITEMS:
+			current_state = ALMANAC_STATES.WEAPONS
+			swap_themes(archetypes_panel, weapons_panel)
+			swap_font_colors(archetypes_label,weapons_label)
+		ALMANAC_STATES.WEAPONS:
+			current_state = ALMANAC_STATES.EQUIPMENT
+			swap_themes(weapons_panel,equpiment_panel)
+			swap_font_colors(weapons_label,equpiment_label)
+		ALMANAC_STATES.EQUIPMENT:
+			current_state = ALMANAC_STATES.CONSUMABLES
+			swap_themes(equpiment_panel,consumables_panel)
+			swap_font_colors(equpiment_label,consumable_label)
+		ALMANAC_STATES.CONSUMABLES:
 			current_state = ALMANAC_STATES.UNIT_TYPES
-			swap_themes(items_panel,unit_types_panel)
-			swap_font_colors(items_label,unit_types_label)
+			swap_themes(consumables_panel,unit_types_panel)
+			swap_font_colors(consumable_label,unit_types_label)
 
 func swap_themes(panel1,panel2):
 	var temp_theme = panel1.theme
@@ -97,4 +122,4 @@ func update_all_percents():
 	set_percent_label(unit_types_percent,playerOverworldData.unlock_manager.get_individual_unlocked_percentage(playerOverworldData.unlock_manager.unit_types_unlocked))
 	set_percent_label(commander_types_percent,playerOverworldData.unlock_manager.get_individual_unlocked_percentage(playerOverworldData.unlock_manager.commander_types_unlocked))
 	set_percent_label(archetypes_percent,playerOverworldData.unlock_manager.get_individual_unlocked_percentage(playerOverworldData.unlock_manager.archetypes_unlocked))
-	set_percent_label(items_percent,playerOverworldData.unlock_manager.get_individual_unlocked_percentage(playerOverworldData.unlock_manager.items_unlocked))
+	#set_percent_label(items_percent,playerOverworldData.unlock_manager.get_individual_unlocked_percentage(playerOverworldData.unlock_manager.items_unlocked))

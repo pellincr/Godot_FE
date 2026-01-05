@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://clh2kojaaeomc"]
+
+[ext_resource type="Resource" uid="uid://bip1rpxrr82je" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer_base_combat_stats.tres" id="1_b2w51"]
+[ext_resource type="Resource" uid="uid://d0ewdn2lc2n7v" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer_default_item_tables.tres" id="2_e2e8u"]
+[ext_resource type="Resource" uid="uid://bhy1rwbm68vab" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer_growth_stats.tres" id="3_8iet3"]
+[ext_resource type="Texture2D" uid="uid://bln25a4jxiuqg" path="res://resources/sprites/units/skeleton_bow.png" id="4_5whir"]
+[ext_resource type="Resource" uid="uid://c1oe5ku3prop2" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer_max_stats.tres" id="5_n4fa6"]
+[ext_resource type="Resource" uid="uid://daryqhl7c8gaj" path="res://resources/definitions/unit_types/units/skeleton_archer/skeleton_archer_promotion_stats.tres" id="6_4vbpq"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="7_x7vt6"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="8_8pc86"]
+
+[resource]
+script = ExtResource("7_x7vt6")
+unit_type_name = "Skeleton Archer"
+db_key = "skeleton_archer"
+faction = Array[int]([5])
+traits = Array[int]([3])
+unit_rarity = ExtResource("8_8pc86")
+usable_weapon_types = Array[int]([4])
+base_stats = ExtResource("1_b2w51")
+maxuimum_stats = ExtResource("5_n4fa6")
+growth_stats = ExtResource("3_8iet3")
+promotion_to_stats = ExtResource("6_4vbpq")
+icon = ExtResource("4_5whir")
+map_sprite = ExtResource("4_5whir")
+unlocked = false
+default_item_resource = ExtResource("2_e2e8u")

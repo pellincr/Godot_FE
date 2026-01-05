@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 var playerOverworldData : PlayerOverworldData
 var save_file_name = "PlayerOverworldSave.tres"
@@ -6,15 +6,16 @@ var save_file_name = "PlayerOverworldSave.tres"
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
+@onready var overworld_terrain: Node2D = $OverworldTerrain
 @onready var return_button = $ReturnButton
-@onready var tutorial_campaign_selecter = $Tutorial
+#@onready var tutorial_campaign_selecter = $Tutorial
 
 var pause_menu_open = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	transition_in_animation()
-	tutorial_campaign_selecter.grab_focus()
+	#tutorial_campaign_selecter.grab_focus()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
 	load_data()
@@ -63,11 +64,14 @@ func _on_campaign_selector_node_campaign_selected(campaign : Campaign):
 	#transition_out_animation()
 	#var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")
 	#get_tree().change_scene_to_packed(army_draft)
-	var set_seed = preload("res://overworld_new/set_seed/set_seed.tscn").instantiate()
+	#var set_seed = preload("res://overworld_new/set_seed/set_seed.tscn").instantiate()
+	var campaign_modifier = preload("res://overworld_new/campaign_modifier/campaign_modifier.tscn").instantiate()
 	disable_screen_focus()
-	add_child(set_seed)
-	set_seed.set_seed.connect(_on_set_seed)
-	set_seed.menu_closed.connect(_on_menu_closed)
+	add_child(campaign_modifier)
+	#set_seed.set_seed.connect(_on_set_seed)
+	#set_seed.menu_closed.connect(_on_menu_closed)
+	campaign_modifier.start_game.connect(_on_start_game)
+	campaign_modifier.menu_closed.connect(_on_menu_closed)
 
 
 func _on_return_button_pressed():
@@ -94,10 +98,20 @@ func disable_screen_focus():
 func _on_menu_closed():
 	enable_screen_focus()
 	pause_menu_open = false
-	tutorial_campaign_selecter.grab_focus()
+	#tutorial_campaign_selecter.grab_focus()
 
-func _on_set_seed(campaign_seed : int):
+
+	overworld_terrain.grab_button_focus()
+
+func _on_start_game(seeded:bool, campaign_seed : int, difficulty : CampaignModifier.DIFFICULTY, selected_modifiers : Array[CampaignModifier.MODIFIER]):
+	seed(campaign_seed)
+	playerOverworldData.gold = playerOverworldData.current_campaign.starting_gold
+	if difficulty == CampaignModifier.DIFFICULTY.EASY:
+		playerOverworldData.gold = playerOverworldData.gold * 2
+	playerOverworldData.campaign_seed_preset = seeded
 	playerOverworldData.capmaign_seed = campaign_seed
+	playerOverworldData.campaign_difficulty = difficulty
+	playerOverworldData.campaign_modifiers = selected_modifiers
 	SelectedSaveFile.save(playerOverworldData)
 	transition_out_animation()
 	var army_draft = preload("res://unit drafting/Unit_Commander Draft/army_drafting.tscn")

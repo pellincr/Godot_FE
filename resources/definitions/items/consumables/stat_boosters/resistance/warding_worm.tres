@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://5jys4074q3pp"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_cnf4q"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_3cqsw"]
+[ext_resource type="Texture2D" uid="uid://cggj0x4cgbp7t" path="res://resources/sprites/items/consumables/stat_boosters/resistance/warding_worm.png" id="2_rahf4"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_3cqsw"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_8nofw"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_lx4up"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_cnf4q")
+resistance = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_8nofw")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Warding Worm"
+db_key = "warding_worm"
+description = "A small, silver-scaled creature said to eat curses and impurities from the soul."
+item_type = 2
+rarity = ExtResource("3_3cqsw")
+worth = 4000
+icon = ExtResource("2_rahf4")

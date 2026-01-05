@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://dbauvolqrqquy"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_j4mmu"]
+[ext_resource type="Texture2D" uid="uid://b08spam3im1h4" path="res://resources/sprites/items/equipment/power_band.png" id="1_sudiw"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_domsq"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="4_yexrb"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_d5ktc"]
+
+[sub_resource type="Resource" id="Resource_phbw1"]
+script = ExtResource("2_domsq")
+damage = 2
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("5_d5ktc")
+name = "Power Band"
+db_key = "power_band"
+description = "A dense leather strap reinforced with tempered metal, designed to focus a warriors attack output."
+item_type = 3
+rarity = ExtResource("4_yexrb")
+worth = 3000
+inventory_bonus_stats = SubResource("Resource_phbw1")
+icon = ExtResource("1_sudiw")

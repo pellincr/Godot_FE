@@ -1,40 +1,27 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://7je7gpvirns"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://7je7gpvirns"]
 
 [ext_resource type="Texture2D" uid="uid://dyyg0kuifhs06" path="res://resources/sprites/items/weapons/nature/living_roots.png" id="1_cq13f"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_fh4y2"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_48jq5"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_h0ecu"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_h0ecu"]
 
 [resource]
 script = ExtResource("3_h0ecu")
 weapon_type = 9
 alignment = 2
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
+magic_weapon_triangle_type = 1
 item_damage_type = 1
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2])
 damage = 13
 hit = 90
-critical_chance = 0
 weight = 12
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
+attack_range = Array[int]([1, 2])
 name = "Earth Split"
 db_key = "earth_split"
 equippable = true
 description = "Common nature magic."
-item_type = 0
 rarity = ExtResource("2_48jq5")
 uses = 20
 max_uses = 20
-unbreakable = false
-worth = 3400
+worth = 1700
 icon = ExtResource("1_cq13f")

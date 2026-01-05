@@ -1,17 +1,25 @@
-extends PanelContainer
+extends Control
 
 signal start_game()
 signal state_selected(state:BattlePrep.PREP_STATE)
 signal save_game()
 
 
-@onready var start_battle_button: Button = $MarginContainer/ButtonContainer/StartBattleButton
+@onready var start_battle_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/StartBattleMarginContainer/StartBattleButton
+@onready var unit_selection_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/UnitSelectionButton
+@onready var swap_spaces_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SwapSpacesButton
+@onready var shop_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/ShopButton
+@onready var inventory_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/InventoryButton
+@onready var training_grounds_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/TrainingGroundsButton
+@onready var graveyard_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton
+@onready var save_preparations_button: GeneralMenuButton = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SavePreparationsButton
 #@onready var shop_button: Button = $MarginContainer/ButtonContainer/ShopButton
-@onready var button_container: VBoxContainer = $MarginContainer/ButtonContainer
+@onready var button_container: VBoxContainer = $BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer
+
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	start_battle_button.grab_focus()
+#func _ready() -> void:
+#	start_battle_button.grab_focus()
 
 
 func _on_unit_selection_button_pressed() -> void:
@@ -27,6 +35,12 @@ func _on_shop_button_pressed() -> void:
 
 func _on_inventory_button_pressed() -> void:
 	state_selected.emit(BattlePrep.PREP_STATE.INVENTORY)
+
+func _on_training_grounds_button_pressed() -> void:
+	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)
+
+func _on_graveyard_button_pressed() -> void:
+	state_selected.emit(BattlePrep.PREP_STATE.GRAVEYARD)
 
 func set_button_focus(focus_bool:bool):
 	var buttons = button_container.get_children()
@@ -53,9 +67,25 @@ func grab_start_button_focus():
 	start_battle_button.grab_focus()
 
 
-func _on_training_grounds_button_pressed() -> void:
-	state_selected.emit(BattlePrep.PREP_STATE.TRAINING_GROUNDS)
+
 
 
 func _on_save_preparations_button_pressed() -> void:
 	save_game.emit()
+
+func grab_focus_by_previous_menu_state(previous_state:BattlePrep.PREP_STATE):
+	match previous_state:
+		BattlePrep.PREP_STATE.MENU:
+			start_battle_button.grab_focus()
+		BattlePrep.PREP_STATE.UNIT_SELECTION:
+			unit_selection_button.grab_focus()
+		BattlePrep.PREP_STATE.SWAP_SPACES:
+			swap_spaces_button.grab_focus()
+		BattlePrep.PREP_STATE.SHOP:
+			shop_button.grab_focus()
+		BattlePrep.PREP_STATE.INVENTORY:
+			inventory_button.grab_focus()
+		BattlePrep.PREP_STATE.TRAINING_GROUNDS:
+			training_grounds_button.grab_focus()
+		BattlePrep.PREP_STATE.GRAVEYARD:
+			graveyard_button.grab_focus()

@@ -10,13 +10,25 @@ signal award_bonus_exp(unit:CombatUnit,xp:int)
 
 @onready var main_container: VBoxContainer = $MarginContainer/MainContainer
 
-@onready var battle_prep_header: PanelContainer = $MarginContainer/MainContainer/BattlePrepHeader
-@onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
-@onready var header_lower_label: Label = $MarginContainer/MainContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
+@onready var battle_prep_header: PanelContainer = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader
+@onready var header_upper_label: RichTextLabel = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer/HeaderUpperLabel
+@onready var header_lower_label: Label = $MarginContainer/MainContainer/HeaderContainer/BattlePrepHeader/VBoxContainer/HeaderLowerLabel
+
+@onready var campaign_header: Control = $MarginContainer/MainContainer/HeaderContainer/CampaignHeader
+@onready var campaign_header_map_view: PanelContainer = $CampaignHeaderMapView
+@onready var campaign_header_map_view_spacer: PanelContainer = $MarginContainer/MainContainer/HeaderContainer/CampaignHeaderMapViewSpacer
+
+
+@onready var background_image: TextureRect = $CanvasLayer/BackgroundImage
+@onready var background_blur: ColorRect = $CanvasLayer/BackgroundBlur
+
+@onready var controls_ui_container: ControlsUI = $MarginContainer/MainContainer/ControlsUIContainer
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
 
+const TRAINING_GROUND_BG = preload("res://ui/battle_prep_new/training_grounds/training_grounds.png")
+const GRAVEYARD_BG = preload("res://ui/battle_prep_new/graveyard/graveyard.png")
 var playerOverworldData : PlayerOverworldData #= ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name)#.duplicate(true)
 
 var tutorial_complete := true
@@ -28,14 +40,27 @@ enum PREP_STATE{
 	SWAP_SPACES,
 	SHOP,
 	INVENTORY,
-	TRAINING_GROUNDS
+	TRAINING_GROUNDS,
+	GRAVEYARD
 }
 
 var current_state := PREP_STATE.MENU
+var previous_state := PREP_STATE.MENU
 var pause_menu_open = false
 
 func _ready() -> void:
+	
 	#transition_in_animation()
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	campaign_header.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header_map_view.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	campaign_header_map_view.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header_map_view_spacer.visible = false
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 1:
 		tutorial_complete = false
 		var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
@@ -47,9 +72,6 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if current_state == PREP_STATE.MENU:
-		if event.is_action_pressed("right_bumper"):
-			main_container.get_child(-1).get_child(-1).visible = !main_container.get_child(-1).get_child(-1).visible
 	if event.is_action_pressed("ui_cancel"):
 		if !pause_menu_open and tutorial_complete and current_state != PREP_STATE.SWAP_SPACES:
 			var main_pause_menu = main_pause_menu_scene.instantiate()
@@ -82,56 +104,106 @@ func tutorial_completed():
 	update_by_state()
 	tutorial_complete = true
 
+func set_control_state(state:ControlsUI.CONTROL_STATE):
+	controls_ui_container.current_control_state = state
+	controls_ui_container.update_by_control_state()
+
+func set_background_image(texture):
+	background_image.texture = texture
+
 func update_by_state():
 	clear_existing_menus()
 	set_header_labels(current_state)
 	match current_state:
 		PREP_STATE.MENU:
-			var hbox_container := HBoxContainer.new()
+			background_blur.visible = true
+			set_background_image(null)
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_MENU)
+			if controls_ui_container.size_flags_vertical == Control.SIZE_SHRINK_BEGIN:
+				controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
+			#var hbox_container := HBoxContainer.new()
 			var battle_prep_menu = preload("res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.tscn").instantiate()
-			var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
+			#var next_level_info = preload("res://ui/battle_prep_new/next_level_info_panel/next_level_info.tscn").instantiate()
 			battle_prep_menu.state_selected.connect(_on_battle_prep_menu_selection_state_selected)
 			battle_prep_menu.save_game.connect(_on_save_game)
 			battle_prep_menu.start_game.connect(_on_start_game)
-			var current_level = playerOverworldData.current_level.instantiate()
-			var combat = current_level.get_child(2)
-			next_level_info.set_upcoming_enemies(combat.enemy_start_group)
-			if combat.entity_manager:
-				next_level_info.set_upcoming_entities(combat.entity_manager.mapEntityData)
-			hbox_container.add_child(battle_prep_menu)
-			hbox_container.add_child(next_level_info)
-			main_container.add_child(hbox_container)
-			next_level_info.fill_all_containers()
-			next_level_info.visible = false
+			#var current_level = playerOverworldData.current_level.instantiate()
+			#var combat = current_level.get_child(2)
+			#next_level_info.set_upcoming_enemies(combat.unit_data.starting_enemy_group)
+			#if combat.entity_manager:
+			#	next_level_info.set_upcoming_entities(combat.entity_manager.mapEntityData)
+			#hbox_container.add_child(battle_prep_menu)
+			#hbox_container.add_child(next_level_info)
+			main_container.add_child(battle_prep_menu)# hbox_container)
+			#next_level_info.fill_all_containers()
+			# next_level_info.visible = false
+			battle_prep_menu.grab_focus_by_previous_menu_state(previous_state)
 		PREP_STATE.UNIT_SELECTION:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_UNIT_SELECT)
 			var unit_selection = preload("res://ui/battle_prep_new/unit_selection/UnitSelection.tscn").instantiate()
 			unit_selection.set_po_data(playerOverworldData)
 			main_container.add_child(unit_selection)
 			unit_selection.return_to_menu.connect(_on_return_to_menu)
 			unit_selection.unit_selected.connect(_on_unit_selected)
 			unit_selection.unit_deselected.connect(_on_unit_deselected)
+			unit_selection.sell_item.connect(_on_item_sold)
+			unit_selection.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.SWAP_SPACES:
+			background_blur.visible = false
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SWAP_SPACES)
+			controls_ui_container.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 			swap_spaces.emit()
 		PREP_STATE.SHOP:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
 			var shop = preload("res://ui/battle_prep_new/shop/shop.tscn").instantiate()
 			shop.set_po_data(playerOverworldData)
 			main_container.add_child(shop)
 			shop.return_to_menu.connect(_on_return_to_menu)
+			shop.shop_entered.connect(_on_shop_entered)
+			shop.shop_exited.connect(_on_shop_exited)
+			shop.item_bought.connect(_on_item_bought)
+			shop.item_sold.connect(_on_item_sold)
+			shop.item_sold.connect(_on_item_sold)
+			shop.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.INVENTORY:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
 			var inventory_prep_screen = preload("res://ui/battle_prep_new/inventory/inventory_prep_screen.tscn").instantiate()
 			inventory_prep_screen.set_po_data(playerOverworldData)
 			inventory_prep_screen.return_to_menu.connect(_on_return_to_menu)
+			inventory_prep_screen.screen_change.connect(_on_inventory_prep_screen_change)
 			main_container.add_child(inventory_prep_screen)
+			inventory_prep_screen.sell_item.connect(_on_item_sold)
+			inventory_prep_screen.send_to_convoy.connect(_on_send_item_to_convoy)
 		PREP_STATE.TRAINING_GROUNDS:
-			var training_ground = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
-			training_ground.set_po_data(playerOverworldData)
-			main_container.add_child(training_ground)
-			training_ground.return_to_menu.connect(_on_return_to_menu)
-			training_ground.award_exp.connect(_on_award_exp)
+			set_background_image(TRAINING_GROUND_BG)
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
+			var training_grounds = preload("res://ui/battle_prep_new/training_grounds/training_grounds.tscn").instantiate()
+			training_grounds.set_po_data(playerOverworldData)
+			main_container.add_child(training_grounds)
+			training_grounds.return_to_menu.connect(_on_return_to_menu)
+			training_grounds.award_exp.connect(_on_award_exp)
+			training_grounds.screen_change.connect(_on_training_ground_screen_change)
+			training_grounds.sell_item.connect(_on_item_sold)
+			training_grounds.send_to_convoy.connect(_on_send_item_to_convoy)
+		PREP_STATE.GRAVEYARD:
+			set_background_image(GRAVEYARD_BG)
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
+			var graveyard = preload("res://ui/battle_prep_new/graveyard/graveyard.tscn").instantiate()
+			graveyard.set_po_data(playerOverworldData)
+			main_container.add_child(graveyard)
+			graveyard.return_to_menu.connect(_on_return_to_menu)
+			graveyard.screen_change.connect(_on_graveyard_screen_change)
+			graveyard.unit_revived.connect(_on_unit_revived)
+			graveyard.sell_item.connect(_on_item_sold)
+			graveyard.send_to_convoy.connect(_on_send_item_to_convoy)
+	main_container.move_child(controls_ui_container,-1)
 
 func _on_battle_prep_menu_selection_state_selected(state: PREP_STATE) -> void:
+	previous_state = current_state
 	current_state = state
 	update_by_state()
+
+
 
 func set_header_labels(state : PREP_STATE) -> void:
 	var upper_label_text = ""
@@ -140,8 +212,16 @@ func set_header_labels(state : PREP_STATE) -> void:
 		PREP_STATE.MENU:
 			upper_label_text = "Prepare For Battle!"
 			battle_prep_header.visible = true
+			campaign_header.visible = true
+			campaign_header_map_view.visible = false
+			campaign_header_map_view_spacer.visible = false
+			controls_ui_container.alignment = BoxContainer.ALIGNMENT_BEGIN
 		PREP_STATE.SWAP_SPACES:
 			battle_prep_header.visible = false
+			campaign_header.visible = false
+			campaign_header_map_view.visible = true
+			campaign_header_map_view_spacer.visible = true
+			controls_ui_container.alignment = BoxContainer.ALIGNMENT_END
 		PREP_STATE.UNIT_SELECTION:
 			upper_label_text = "Unit Selection"
 			lower_label_text = "Select which allies will fight"
@@ -153,7 +233,10 @@ func set_header_labels(state : PREP_STATE) -> void:
 			lower_label_text = "Select An Inventory to Update"
 		PREP_STATE.TRAINING_GROUNDS:
 			upper_label_text = "Training Grounds"
-			lower_label_text= "Choose a Unit to Train"
+			lower_label_text = "Choose a Unit to Train"
+		PREP_STATE.GRAVEYARD:
+			upper_label_text = "Graveyard"
+			lower_label_text = "Choose a Unit to Revive"
 	header_upper_label.text = upper_label_text
 	header_lower_label.text = lower_label_text
 
@@ -164,25 +247,22 @@ func clear_existing_menus():
 			main_container.get_child(1).queue_free()
 
 func _on_return_to_menu():
+	previous_state = current_state
 	current_state = PREP_STATE.MENU
 	update_by_state()
 
 func _on_start_game():
 	if playerOverworldData.selected_party.size() > 0:
-		#playerOverworldData.began_level = true
-		#SelectedSaveFile.save(playerOverworldData)
-		#transition_out_animation()
-		#get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		begin_battle.emit()
 		queue_free()
 
 func _on_menu_closed():
 	pause_menu_open = false
-	var open_screen = main_container.get_child(-1)
+	var open_screen = main_container.get_child(-2)
 	match current_state:
 		PREP_STATE.MENU:
 			var prep_menu = open_screen.get_child(0)
-			prep_menu.grab_start_button_focus()
+			prep_menu.grab_swap_spaces_button_focus()
 		PREP_STATE.UNIT_SELECTION:
 			open_screen.grab_first_army_panel_focus()
 		PREP_STATE.SWAP_SPACES:
@@ -200,15 +280,71 @@ func _on_unit_deselected(unit:Unit):
 
 func _on_award_exp(unit:CombatUnit, xp:int):
 	award_bonus_exp.emit(unit,xp)
+	campaign_header_map_view.set_experience_value_label(playerOverworldData.bonus_experience)
+	campaign_header.set_experience_value_label(playerOverworldData.bonus_experience)
+	
 
 func update_training_grounds_stats():
 	if current_state == PREP_STATE.TRAINING_GROUNDS:
 		var training_grounds = main_container.get_child(1)
-		var unit_level_info = training_grounds.get_child(0)
+		var unit_level_info = training_grounds.get_child(0).get_child(0)
 		unit_level_info.unit.hp = unit_level_info.unit.stats.hp
 		unit_level_info.update_by_unit()
-		var bonus_exp_spend = training_grounds.get_child(1)
+		var bonus_exp_spend = training_grounds.get_child(0).get_child(1)
 		bonus_exp_spend.update_by_unit()
+
+func _on_unit_revived(cost):
+	playerOverworldData.gold -= cost
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
 
 func _on_save_game():
 	SelectedSaveFile.save(playerOverworldData)
+
+
+func _on_shop_entered():
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHAT)
+
+func _on_shop_exited():
+	set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_SHOP_WHERE)
+
+
+
+func _on_item_bought(value):
+	playerOverworldData.gold -= value
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
+
+func _on_item_sold(value):
+	AudioManager.play_sound_effect("item_sell")
+	playerOverworldData.gold += value
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header_map_view.set_gold_value_label(playerOverworldData.gold)
+
+
+func _on_send_item_to_convoy(item):
+	playerOverworldData.convoy.append(item)
+
+
+func _on_inventory_prep_screen_change(state:InventoryPrepScreen.INVENTORY_STATE):
+	match state:
+		InventoryPrepScreen.INVENTORY_STATE.UNIT_SELECT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_UNIT_SELECT)
+		InventoryPrepScreen.INVENTORY_STATE.MANAGE_ITEMS:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_MANAGE_ITEMS)
+		InventoryPrepScreen.INVENTORY_STATE.TRADE:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_INVENTORY_TRADE)
+
+func _on_training_ground_screen_change(state:TrainingGrounds.TRAINING_STATE):
+	match state:
+		TrainingGrounds.TRAINING_STATE.CHOOSE_UNIT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_UNIT_SELECT)
+		TrainingGrounds.TRAINING_STATE.GIVE_EXP:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_TRAINING_GROUNDS_GIVE_EXP)
+
+func _on_graveyard_screen_change(state:Graveyard.STATE):
+	match state:
+		Graveyard.STATE.SELECT_UNIT:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_UNIT_SELECT)
+		Graveyard.STATE.CHOOSE_REVIVE:
+			set_control_state(ControlsUI.CONTROL_STATE.BATTLE_PREP_GRAVEYARD_TOMBSTONE)

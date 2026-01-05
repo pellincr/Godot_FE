@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://cj1p82eejb86w"]
+
+[ext_resource type="Script" uid="uid://d25xr3bis0lpv" path="res://ui/shared/campaign_header/campaign_header_map_view.gd" id="1_kocl8"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_p1an6"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="3_uyqee"]
+
+[sub_resource type="Gradient" id="Gradient_cbvwc"]
+offsets = PackedFloat32Array(0, 0.6868217, 1)
+colors = PackedColorArray(0, 0, 0, 0.75686276, 0, 0, 0, 0.9627907, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kocl8"]
+gradient = SubResource("Gradient_cbvwc")
+use_hdr = true
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0.53846157, 0.66239315)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h1ueb"]
+texture = SubResource("GradientTexture2D_kocl8")
+
+[sub_resource type="Theme" id="Theme_p1an6"]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_h1ueb")
+
+[sub_resource type="Theme" id="Theme_qgsjo"]
+default_font = ExtResource("2_p1an6")
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_kxkye"]
+default_font = ExtResource("3_uyqee")
+default_font_size = 36
+
+[sub_resource type="Theme" id="Theme_wt5b2"]
+default_font = ExtResource("2_p1an6")
+default_font_size = 32
+
+[node name="CampaignHeaderMapView" type="PanelContainer"]
+custom_minimum_size = Vector2(403, 92)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -403.0
+offset_bottom = 92.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme = SubResource("Theme_p1an6")
+script = ExtResource("1_kocl8")
+
+[node name="ObjectiveContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ObjectiveContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="DifficultyContainer" type="HBoxContainer" parent="ObjectiveContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+theme = SubResource("Theme_qgsjo")
+alignment = 2
+
+[node name="DifficultyHeaderLabel" type="Label" parent="ObjectiveContainer/HBoxContainer/DifficultyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Difficulty : "
+horizontal_alignment = 2
+
+[node name="DifficultyValueLabel" type="Label" parent="ObjectiveContainer/HBoxContainer/DifficultyContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+text = "Easy"
+
+[node name="FloorContainer" type="HBoxContainer" parent="ObjectiveContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = SubResource("Theme_kxkye")
+alignment = 2
+
+[node name="FloorLabel" type="Label" parent="ObjectiveContainer/HBoxContainer/FloorContainer"]
+layout_mode = 2
+text = "Floor"
+
+[node name="FloorValueLabel" type="Label" parent="ObjectiveContainer/HBoxContainer/FloorContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="CurrencyContainer" type="HBoxContainer" parent="ObjectiveContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 50
+
+[node name="GoldContainer" type="HBoxContainer" parent="ObjectiveContainer/CurrencyContainer"]
+modulate = Color(1, 0.65882355, 0, 1)
+layout_mode = 2
+theme = SubResource("Theme_wt5b2")
+
+[node name="GoldValueLabel" type="Label" parent="ObjectiveContainer/CurrencyContainer/GoldContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="GoldLabel" type="Label" parent="ObjectiveContainer/CurrencyContainer/GoldContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "G"
+
+[node name="ExperienceContainer" type="HBoxContainer" parent="ObjectiveContainer/CurrencyContainer"]
+layout_mode = 2
+theme = SubResource("Theme_wt5b2")
+
+[node name="ExperienceValueLabel" type="Label" parent="ObjectiveContainer/CurrencyContainer/ExperienceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="ExperienceLabel" type="Label" parent="ObjectiveContainer/CurrencyContainer/ExperienceContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "XP"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://ch3c7efjp00as"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_3ci7o"]
+[ext_resource type="Texture2D" uid="uid://dnpahea5mu4j0" path="res://resources/sprites/items/equipment/old_soldiers_band.png" id="1_gh850"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_31327"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_gh850"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_6c6h5"]
+
+[sub_resource type="Resource" id="Resource_31327"]
+script = ExtResource("2_31327")
+strength = 1
+skill = 1
+luck = -2
+
+[resource]
+script = ExtResource("5_6c6h5")
+name = "Old Soldier’s Band"
+db_key = "old_soldiers_band"
+description = "A worn armband bearing the crest of forgotten campaigns; its weight reminds the bearer of duty over fortune."
+item_type = 3
+rarity = ExtResource("3_gh850")
+worth = 1000
+inventory_bonus_stats = SubResource("Resource_31327")
+icon = ExtResource("1_gh850")

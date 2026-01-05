@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cqtdhgq4k72n0"]
 
-[ext_resource type="Script" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.gd" id="1_4555u"]
+[ext_resource type="Script" uid="uid://b8lkpjkorw8se" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel.gd" id="1_4555u"]
 [ext_resource type="Theme" uid="uid://datpqsugt3tvl" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_selection_panel_enemy_theme.tres" id="2_bv4vu"]
 [ext_resource type="Texture2D" uid="uid://chhc11jvnl7og" path="res://resources/sprites/units/Destroyer.png" id="2_sbcuj"]
 [ext_resource type="PackedScene" uid="uid://b8n36q4lwddv7" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_type_trait_container.tscn" id="3_0u4w0"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c1cmkawbewlwc" path="res://resources/sprites/controls/keyboard/e.png" id="5_54ah4"]
 [ext_resource type="PackedScene" uid="uid://d5hp8wf80ymg" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon.tscn" id="5_blbaf"]
 [ext_resource type="Texture2D" uid="uid://3jnelkfkws46" path="res://resources/sprites/icons/arrow_up.png" id="7_1ww3r"]
-[ext_resource type="PackedScene" uid="uid://cx0jc1hx45ck5" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_compat_weapon_special_containter.tscn" id="7_u2hsc"]
+[ext_resource type="PackedScene" uid="uid://cx0jc1hx45ck5" path="res://ui/combat/combat_exchange_preview/unit_combat_weapon_selection/unit_combat_weapon_special_containter.tscn" id="7_u2hsc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odhkg"]
 border_width_left = 1
@@ -146,6 +146,6 @@ size_flags_vertical = 0
 texture = ExtResource("5_54ah4")
 expand_mode = 4
 
-[node name="UnitCompatWeaponSpecialContainter" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("7_u2hsc")]
+[node name="CombatUnitSpecialContainter" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("7_u2hsc")]
 layout_mode = 2
 size_flags_horizontal = 4

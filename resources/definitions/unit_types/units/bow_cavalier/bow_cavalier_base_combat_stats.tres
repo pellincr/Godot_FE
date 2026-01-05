@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://duhtvvm4ouyaf"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_llujy"]
+
+[resource]
+script = ExtResource("1_llujy")
+hp = 16
+strength = 5
+skill = 4
+speed = 5
+defense = 3
+movement = 7
+constitution = 7

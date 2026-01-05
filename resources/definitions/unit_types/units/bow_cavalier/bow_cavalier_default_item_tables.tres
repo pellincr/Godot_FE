@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://bmawn844007qn"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_1p3a7"]
+[ext_resource type="Resource" uid="uid://caoaqkyvnmuaa" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_treasure_table.tres" id="2_xcf26"]
+[ext_resource type="Resource" uid="uid://bucdxitq272nc" path="res://resources/definitions/unit_types/units/bow_cavalier/bow_cavalier_weapon_table.tres" id="3_m4peh"]
+
+[resource]
+script = ExtResource("1_1p3a7")
+weapon_default = ExtResource("3_m4peh")
+treasure_default = ExtResource("2_xcf26")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

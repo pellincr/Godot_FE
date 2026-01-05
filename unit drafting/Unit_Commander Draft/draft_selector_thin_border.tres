@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://b2mckyi1bs3eo"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_7db0t"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_smddv"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hkg0b"]
 
@@ -23,7 +23,7 @@ border_width_right = 1
 border_width_bottom = 1
 
 [resource]
-default_font = ExtResource("1_7db0t")
+default_font = ExtResource("1_smddv")
 CheckBox/icons/checked = SubResource("CompressedTexture2D_hkg0b")
 CheckBox/styles/normal = SubResource("StyleBoxTexture_lu25v")
 Panel/styles/panel = SubResource("StyleBoxFlat_bk55m")

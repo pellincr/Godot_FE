@@ -1,0 +1,124 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=38 format=3 uid="uid://dtlk73nyvhxwl"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_5k2oa"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_blbto"]
+[ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="3_a5q2q"]
+[ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="4_eocig"]
+[ext_resource type="Script" uid="uid://c8tb5o1xf47f0" path="res://scripts/resources/rarity/RarityDefinition.gd" id="5_iibso"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_ey0o1"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="7_6dx5i"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="8_bb6di"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="9_py455"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="9_y18xn"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="10_6txft"]
+[ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="10_8gk2s"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="11_cuuub"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="11_xmtgo"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="12_bb6di"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="12_hrxv4"]
+[ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="13_gow1n"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="13_y18xn"]
+[ext_resource type="Resource" uid="uid://dm117ek0y3jdu" path="res://resources/definitions/items/weapons/shield/iron_shield.tres" id="14_g337m"]
+[ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="15_n87dw"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="16_k5erh"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="17_yv417"]
+[ext_resource type="Resource" uid="uid://dh26e1safsfu5" path="res://resources/definitions/items/weapons/light_magic/smite_spell.tres" id="18_xf7sa"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="23_vnfxl"]
+
+[sub_resource type="Resource" id="Resource_c30i6"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("6_ey0o1")])
+item_type_whitelist = Array[int]([2])
+item_blacklist = Array[ExtResource("2_blbto")]([ExtResource("3_a5q2q"), ExtResource("4_eocig")])
+probability = 20.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_8njg8"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("6_ey0o1")])
+item_type_whitelist = Array[int]([0, 1])
+item_blacklist = Array[ExtResource("2_blbto")]([ExtResource("8_bb6di"), ExtResource("9_y18xn"), ExtResource("10_6txft"), ExtResource("11_xmtgo"), ExtResource("12_hrxv4"), ExtResource("13_gow1n"), ExtResource("14_g337m"), ExtResource("15_n87dw"), ExtResource("16_k5erh"), ExtResource("17_yv417"), ExtResource("18_xf7sa")])
+probability = 6.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2ypwo"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("6_ey0o1")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 7.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_qaok4"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("9_py455")])
+item_type_whitelist = Array[int]([2])
+probability = 16.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_xb707"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("9_py455")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 10.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_24plj"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("9_py455")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 12.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_nucla"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("11_cuuub")])
+item_type_whitelist = Array[int]([2])
+item_blacklist = Array[ExtResource("2_blbto")]([ExtResource("10_8gk2s")])
+probability = 8.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_8qknx"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("11_cuuub")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 8.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_2k7l8"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("11_cuuub")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 9.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_gss72"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("12_bb6di")])
+item_type_whitelist = Array[int]([2])
+probability = 4.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_e6nju"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("12_bb6di")])
+item_type_whitelist = Array[int]([3, 4])
+probability = 3.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_eqd26"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("12_bb6di")])
+item_type_whitelist = Array[int]([0, 1])
+probability = 3.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_8j6ej"]
+script = ExtResource("7_6dx5i")
+item_rarity_whitelist = Array[ExtResource("5_iibso")]([ExtResource("23_vnfxl")])
+probability = 1.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[resource]
+script = ExtResource("13_y18xn")
+entries = Array[ExtResource("1_5k2oa")]([SubResource("Resource_c30i6"), SubResource("Resource_8njg8"), SubResource("Resource_2ypwo"), SubResource("Resource_qaok4"), SubResource("Resource_xb707"), SubResource("Resource_24plj"), SubResource("Resource_nucla"), SubResource("Resource_8qknx"), SubResource("Resource_2k7l8"), SubResource("Resource_gss72"), SubResource("Resource_e6nju"), SubResource("Resource_eqd26"), SubResource("Resource_8j6ej")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

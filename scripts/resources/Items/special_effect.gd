@@ -1,0 +1,157 @@
+extends Resource
+class_name SpecialEffect
+
+enum SPECIAL_EFFECT
+{
+	#WEAPON SPECIALS
+	WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE,
+	CRITICAL_DISABLED,
+	NEGATES_FOE_DEFENSE,
+	NEGATES_FOE_DEFENSE_ON_CRITICAL,
+	CANNOT_RETALIATE,
+	DEVIL_REVERSAL,
+	CAN_ONLY_ATTACK_ONCE,
+	#WEAPON SPECIAL THAT REQUIRE VALUE
+	VAMPYRIC,
+	#ITEM SPECIALS
+	CRITICAL_PROOF, 
+	EFFECTIVE_PROOF,
+	CANNOT_DO_EFFECTIVE_DAMAGE,
+	REMOVE_FLIER_EFFECTIVE,
+	ADD_FLIER_EFFECTIVE,
+	ADD_FLIER_EFFECTIVE_ATTACK,
+	REMOVE_ARMOR_EFFECTIVE,
+	ADD_ARMOR_EFFECTIVE,
+	ADD_ARMOR_EFFECTIVE_ATTACK,
+	REMOVE_MOUNTED_EFFECTIVE,
+	ADD_MOUNTED_EFFECTIVE,
+	ADD_MOUNTED_EFFECTIVE_ATTACK,
+	REMOVE_TERROR_EFFECTIVE,
+	ADD_TERROR_EFFECTIVE,
+	ADD_TERROR_EFFECTIVE_ATTACK,
+	ALL_DAMAGE_TYPE_MAGIC, #TODO
+	ALL_DAMAGE_TYPE_PHYSICAL, #TODO
+	ALL_DAMAGE_TYPE_TRUE, #TODO
+	#ITEM SPECIAL THAT REQUIRE VALUE
+	HEAL_ON_TURN_BEGIN,
+	HEAL_ON_TURN_END,
+	HEAL_ON_COMBAT_EXCHANGE_END,
+	INCOMING_HEALING_AUGMENT, # ADD OR REMOVE
+	INCOMING_DAMAGE_AUGMENT, # ADD OR REMOVE
+	THORNS,
+}
+
+enum SPECIAL_EFFECT_WEIGHT_TYPE {
+	FLAT_VALUE,
+	PERCENTAGE
+}
+
+enum SPECIAL_EFFECT_ACTIVATION_TYPE {
+	RANDOM_CHANCE, #percent chance
+	UNIT_STAT_HP,
+	UNIT_STAT_STRENGTH,
+	UNIT_STAT_MAGIC,
+	UNIT_STAT_SKILL,
+	UNIT_STAT_SPEED,
+	UNIT_STAT_LUCK,
+	UNIT_STAT_DEFENSE,
+	UNIT_STAT_RESISTANCE,
+	UNIT_STAT_MOVEMENT,
+	UNIT_STAT_CONSITUTION,
+}
+
+# This is what special is being held
+@export var special : SPECIAL_EFFECT
+
+#The power of the said effect if it is configurable
+@export_group("Effect Weight Info")
+@export var effect_weight : int
+@export var effect_type : SPECIAL_EFFECT_WEIGHT_TYPE = SPECIAL_EFFECT_WEIGHT_TYPE.FLAT_VALUE
+
+@export_group("Effect Activation Details")
+@export var always_active : bool = true
+@export var activation_type : SPECIAL_EFFECT_ACTIVATION_TYPE = SPECIAL_EFFECT_ACTIVATION_TYPE.RANDOM_CHANCE
+@export var activation_threshold : float = 100
+@export var activation_chance : float = 100
+
+func effect_weight_to_string() -> String:
+	if effect_weight != 0:
+		match effect_type:
+			SPECIAL_EFFECT_WEIGHT_TYPE.FLAT_VALUE:
+				return " " + str(effect_weight)
+			SPECIAL_EFFECT_WEIGHT_TYPE.PERCENTAGE:
+				return " " + str(effect_weight) + "%"
+	return ""
+
+
+func _to_string() -> String:
+	var s = ""
+	match special:
+		SPECIAL_EFFECT.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE:
+			s = "Weapon Triangle Adv."
+		SPECIAL_EFFECT.CRITICAL_DISABLED:
+			s = "Crits Disabled"
+		SPECIAL_EFFECT.NEGATES_FOE_DEFENSE:
+			s = "Negate Defense"
+		SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL:
+			s = "Negates Def. on Crit"
+		SPECIAL_EFFECT.CANNOT_RETALIATE:
+			s = "No Rettaliation"
+		SPECIAL_EFFECT.DEVIL_REVERSAL:
+			s = "Devil Reversal"
+		SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE:
+			s = "Only 1 Attack"
+		#WEAPON SPECIAL THAT REQUIRE VALUE
+		SPECIAL_EFFECT.VAMPYRIC:
+			s = "Vampyric" + effect_weight_to_string()
+		#ITEM SPECIALS
+		SPECIAL_EFFECT.CRITICAL_PROOF:
+			s = "Crit Proof"
+		SPECIAL_EFFECT.EFFECTIVE_PROOF:
+			s = "Eff. Proof"
+		SPECIAL_EFFECT.CANNOT_DO_EFFECTIVE_DAMAGE:
+			s = "Cannot Do Eff. Dmg"
+		SPECIAL_EFFECT.REMOVE_FLIER_EFFECTIVE:
+			s = "Remove Flier Eff"
+		SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE:
+			s = "Add Flier Eff"
+		SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE_ATTACK:
+			s = "Add Flier Eff Atk"
+		SPECIAL_EFFECT.REMOVE_ARMOR_EFFECTIVE:
+			s = "Remove Armor Eff"
+		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE:
+			s = "Add Armor Trait"
+		SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE_ATTACK:
+			s = "Add Armor Eff Atk"
+		SPECIAL_EFFECT.REMOVE_MOUNTED_EFFECTIVE:
+			s = "Remove Mounted Eff"
+		SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE:
+			s = "Add Mounted Eff"
+		SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE_ATTACK:
+			s = "Add Mounted Eff Atk"
+		SPECIAL_EFFECT.REMOVE_TERROR_EFFECTIVE:
+			s = "Remove Terror Eff"
+		SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE:
+			s = "Add Terror Eff"
+		SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE_ATTACK:
+			s = "Add Terror Eff Atk"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_MAGIC: #TODO
+			s = "All Damage = Magic"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_PHYSICAL: #TODO
+			s = "All Damage = Physical"
+		SPECIAL_EFFECT.ALL_DAMAGE_TYPE_TRUE: #TODO
+			s = "All Damage = True"
+	#ITEM SPECIAL THAT REQUIRE VALUE
+		SPECIAL_EFFECT.HEAL_ON_TURN_BEGIN:
+			s = "Heal on Turn Start" + effect_weight_to_string()
+		SPECIAL_EFFECT.HEAL_ON_TURN_END:
+			s = "Heal on Turn End" + effect_weight_to_string()
+		SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END:
+			s = "Heal Ater Combat" + effect_weight_to_string()
+		SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT: # ADD OR REMOVE
+			s = "Augment Incoming Heal" + effect_weight_to_string()
+		SPECIAL_EFFECT.INCOMING_DAMAGE_AUGMENT: # ADD OR REMOVE
+			s = "Augment Incoming Dmg" + effect_weight_to_string()
+		SPECIAL_EFFECT.THORNS:
+			s = "Thorns" + effect_weight_to_string()
+	return s

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://vi8rfrpi7mo"]
+
+[ext_resource type="Resource" uid="uid://43kmol75nx1i" path="res://resources/definitions/unit_types/units/flesh_prowler/flesh_prowler_base_combat_stats.tres" id="1_ij3dm"]
+[ext_resource type="Resource" uid="uid://v27bcgg4dci" path="res://resources/definitions/unit_types/units/flesh_prowler/flesh_prowler_default_item_tables.tres" id="2_ndu8k"]
+[ext_resource type="Resource" uid="uid://dfhcc3w0pow6c" path="res://resources/definitions/unit_types/units/flesh_prowler/flesh_prowler_growth_stats.tres" id="3_gesh6"]
+[ext_resource type="Texture2D" uid="uid://bme212wnsb1rb" path="res://resources/sprites/units/flesh_prowler.png" id="4_48r2m"]
+[ext_resource type="Resource" uid="uid://es37yn6dsbvn" path="res://resources/definitions/unit_types/units/flesh_prowler/flesh_prowler_max_stats.tres" id="5_hdnr3"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_btmwm"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ij1j1"]
+
+[resource]
+script = ExtResource("6_btmwm")
+unit_type_name = "Flesh Prowler"
+db_key = "flesh_prowler"
+traits = Array[int]([3])
+unit_rarity = ExtResource("7_ij1j1")
+movement_type = 2
+usable_weapon_types = Array[int]([11])
+base_stats = ExtResource("1_ij3dm")
+maxuimum_stats = ExtResource("5_hdnr3")
+growth_stats = ExtResource("3_gesh6")
+icon = ExtResource("4_48r2m")
+map_sprite = ExtResource("4_48r2m")
+unlocked = false
+default_item_resource = ExtResource("2_ndu8k")

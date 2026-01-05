@@ -15,7 +15,8 @@ signal selected_item(item: ItemDefinition)
 @onready var inventory_item_icon: InventoryItemIcon = $MarginContainer/HBoxContainer/LeftContainer/InventoryItemIcon
 @onready var item_name_label: Label = $MarginContainer/HBoxContainer/LeftContainer/ItemNameLabel
 @onready var item_type_icon: ItemTypeIcon = $MarginContainer/HBoxContainer/LeftContainer/ItemTypeIcon
-@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesLabel
+@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesContainer/UsesLabel
+@onready var expended_icon: TextureRect = $MarginContainer/HBoxContainer/UsesContainer/ExpendedIcon
 
 func _ready() -> void:
 	self.update_inventory_item_icon()
@@ -23,6 +24,7 @@ func _ready() -> void:
 	self.update_item_type_icon()
 	self.update_uses_label()
 	self.style_fields()
+	self.update_expended_icon_visibility()
 
 func update_inventory_item_icon():
 	if item != null:
@@ -39,7 +41,16 @@ func update_item_name_label():
 
 func update_item_type_icon():
 	item_type_icon.set_types_from_item(item)
+	
+func update_item_name_color():
+	if item:
+		item_name_label.set("theme_override_colors/font_color",item.rarity.ui_color)
 
+func update_expended_icon_visibility():
+	if item != null:
+		expended_icon.visible = item.has_expended_state
+	else :
+		expended_icon.visible = false
 func update_uses_label():
 	if item != null:
 		if item.unbreakable:
@@ -57,6 +68,7 @@ func set_fields(input_item: ItemDefinition, e:bool = false) :
 	self.update_item_type_icon()
 	self.update_uses_label()
 	self.style_fields()
+	self.update_item_name_color()
 
 func style_fields():
 	if disabled:
@@ -73,9 +85,12 @@ func grab_button_focus():
 	$Button.grab_focus()
 
 func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")
 	if not disabled:
 		emit_signal("_hover_item", item)
+		
 
 func _on_pressed() -> void:
 	if not disabled:
 		emit_signal("selected_item", item)
+		AudioManager.play_sound_effect("menu_confirm")

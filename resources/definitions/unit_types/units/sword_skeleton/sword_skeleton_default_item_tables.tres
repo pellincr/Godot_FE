@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://busliqusoshh7"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_fahpn"]
+[ext_resource type="Resource" uid="uid://dpvhg8e2vsdjx" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_treasure_table.tres" id="2_nrori"]
+[ext_resource type="Resource" uid="uid://d3tsn58xwp3hp" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_weapon_table.tres" id="3_aso7a"]
+
+[resource]
+script = ExtResource("1_fahpn")
+weapon_default = ExtResource("3_aso7a")
+treasure_default = ExtResource("2_nrori")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

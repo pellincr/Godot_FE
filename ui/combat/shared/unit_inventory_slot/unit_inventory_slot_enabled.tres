@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cu8jtbkxt5kwa"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cu8jtbkxt5kwa"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_frtar"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_nkmul"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmtnb"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,8 +34,9 @@ border_width_right = 2
 border_width_bottom = 2
 
 [resource]
+default_font = ExtResource("1_nkmul")
 Button/font_sizes/font_size = 24
-Button/fonts/font = ExtResource("1_frtar")
+Button/fonts/font = ExtResource("1_nkmul")
 Button/styles/disabled = SubResource("StyleBoxFlat_cmtnb")
 Button/styles/focus = SubResource("StyleBoxFlat_cp5rc")
 Button/styles/hover = SubResource("StyleBoxFlat_cp5rc")

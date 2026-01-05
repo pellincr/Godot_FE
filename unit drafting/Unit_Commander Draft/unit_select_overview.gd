@@ -15,5 +15,5 @@ func set_growths_overview_label(grade):
 	growths_overview_label.text = grade
 
 func set_icon_visibility(unit):
-	weapon_trait_icon_container.unit = unit
+	weapon_trait_icon_container.unit = unit.get_unit_type_definition()
 	weapon_trait_icon_container.set_icon_visibility()

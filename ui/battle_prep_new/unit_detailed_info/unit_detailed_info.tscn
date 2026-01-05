@@ -1,14 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://dg60rlh8ct667"]
+[gd_scene load_steps=17 format=3 uid="uid://dg60rlh8ct667"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_37l33"]
-[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.gd" id="2_ike3y"]
+[ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_37l33"]
+[ext_resource type="Script" uid="uid://sn28jpal1lom" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.gd" id="2_ike3y"]
 [ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="3_immfu"]
-[ext_resource type="PackedScene" uid="uid://ducowi3wugv78" path="res://ui/battle_preparation/unit_detailed_info/unit_experience_info.tscn" id="4_g6kyw"]
-[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="5_4a33b"]
-[ext_resource type="PackedScene" uid="uid://bq8widitblsd" path="res://ui/battle_preparation/unit_detailed_info/skills_container.tscn" id="6_nnc5v"]
-[ext_resource type="PackedScene" uid="uid://lyxn6uge7asw" path="res://ui/battle_preparation/unit_detailed_info/unit_inventory_container.tscn" id="7_plx1a"]
-[ext_resource type="PackedScene" uid="uid://bg7on5l6leqo0" path="res://ui/battle_preparation/unit_detailed_info/combat_stat_container.tscn" id="8_pwy3b"]
-[ext_resource type="PackedScene" uid="uid://dno5xha01kqy5" path="res://ui/battle_preparation/unit_detailed_info/unit_stat_progression.tscn" id="9_v51eu"]
+[ext_resource type="PackedScene" uid="uid://dg5gkgx21b8if" path="res://ui/battle_prep_new/unit_detailed_info/unit_experience_info.tscn" id="4_g6kyw"]
+[ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="5_4a33b"]
+[ext_resource type="FontFile" uid="uid://vpblhlfi7lt6" path="res://resources/fonts/m6x11plus.ttf" id="6_8s4jy"]
+[ext_resource type="PackedScene" uid="uid://c2vvckxlecu5i" path="res://ui/battle_prep_new/unit_detailed_info/skills_container.tscn" id="6_nnc5v"]
+[ext_resource type="PackedScene" uid="uid://bvcw57dk23gw2" path="res://ui/battle_prep_new/unit_detailed_info/unit_inventory_container.tscn" id="7_plx1a"]
+[ext_resource type="PackedScene" uid="uid://d7gj6yaxkgwx" path="res://ui/battle_prep_new/unit_detailed_info/combat_stat_container.tscn" id="8_pwy3b"]
+[ext_resource type="PackedScene" uid="uid://b584lx6otusdt" path="res://ui/battle_prep_new/unit_detailed_info/unit_stat_progression.tscn" id="9_v51eu"]
 [ext_resource type="Texture2D" uid="uid://t463djfofapv" path="res://resources/sprites/units/archer.tres" id="10_ke7a1"]
 [ext_resource type="Texture2D" uid="uid://j204awg3vg1a" path="res://resources/sprites/icons/Faction Banner.png" id="11_oibo0"]
 [ext_resource type="PackedScene" uid="uid://uij42thge1m2" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn" id="12_46d64"]
@@ -18,6 +19,10 @@ default_font_size = 36
 
 [sub_resource type="Theme" id="Theme_dvmwh"]
 default_font_size = 18
+
+[sub_resource type="Theme" id="Theme_5mhf7"]
+default_font = ExtResource("6_8s4jy")
+default_font_size = 36
 
 [node name="UnitDetailedInfo" type="Panel"]
 custom_minimum_size = Vector2(500, 460)
@@ -65,11 +70,13 @@ theme = SubResource("Theme_dvmwh")
 [node name="HPHeaderLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftHalfContainer/HBoxContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
+theme = SubResource("Theme_5mhf7")
 text = "HP"
 
 [node name="CurrentHPValueLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftHalfContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme = SubResource("Theme_5mhf7")
 text = "99 / 100"
 
 [node name="HPBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/LeftHalfContainer"]
@@ -79,6 +86,7 @@ value = 99.0
 show_percentage = false
 
 [node name="SkillsContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("6_nnc5v")]
+visible = false
 layout_mode = 2
 
 [node name="UnitInventoryContainer" parent="MarginContainer/HBoxContainer/LeftHalfContainer" instance=ExtResource("7_plx1a")]
@@ -99,7 +107,7 @@ layout_mode = 2
 
 [node name="UnitIcon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
+layout_mode = 0
 offset_left = 200.0
 offset_top = 40.0
 offset_right = 296.0
@@ -108,7 +116,7 @@ texture = ExtResource("10_ke7a1")
 
 [node name="FactionBanner" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
+layout_mode = 0
 offset_left = 433.0
 offset_top = 1.0
 offset_right = 503.0
@@ -124,9 +132,11 @@ offset_bottom = 460.0
 [node name="WeaponDetailedInfo" parent="ItemInfoContainer" instance=ExtResource("12_46d64")]
 visible = false
 layout_mode = 2
+theme = null
 
 [connection signal="item_equipped" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_equipped"]
 [connection signal="item_focused" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_focused"]
 [connection signal="item_used" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_item_used"]
-[connection signal="sell_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_unit_inventory_container_sell_item"]
+[connection signal="sell_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_sell_item"]
+[connection signal="send_to_convoy" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_send_to_convoy"]
 [connection signal="set_trade_item" from="MarginContainer/HBoxContainer/LeftHalfContainer/UnitInventoryContainer" to="." method="_on_set_trade_item"]

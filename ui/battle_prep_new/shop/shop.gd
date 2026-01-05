@@ -3,8 +3,11 @@ extends VBoxContainer
 class_name Shop
 
 signal return_to_menu()
-
-@onready var gold_counter: GoldCounter = $GoldCounter
+signal item_bought(value:int)
+signal item_sold(value:int)
+signal shop_entered()
+signal shop_exited()
+signal send_to_convoy(item)
 
 @onready var main_container: HBoxContainer = $MainContainer
 
@@ -21,8 +24,11 @@ var army_container_scene = preload("res://ui/battle_prep_new/army_container/Army
 var current_state = SHOP_STATE.LOCATION_SELECT
 var selected_buy_location = null
 
+var first_enter := true
+
 func _ready() -> void:
 	update_by_shop_state()
+	first_enter = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_back"):
@@ -32,7 +38,8 @@ func _process(delta: float) -> void:
 			selected_buy_location = null
 		elif current_state == SHOP_STATE.SHOP_MENU:
 			current_state = SHOP_STATE.LOCATION_SELECT
-			selected_buy_location = null
+			#selected_buy_location = null
+			shop_exited.emit()
 			update_by_shop_state()
 
 func set_po_data(po_data):
@@ -40,24 +47,39 @@ func set_po_data(po_data):
 
 func update_by_shop_state():
 	clear_shop_screen()
-	gold_counter.set_gold_count(playerOverworldData.gold)
+	#gold_counter.set_gold_count(playerOverworldData.gold)
 	match current_state:
 		SHOP_STATE.LOCATION_SELECT:
 			var army_container = army_container_scene.instantiate()
 			army_container.set_po_data(playerOverworldData)
+			army_container.set_units_list(playerOverworldData.total_party)
 			main_container.add_child(army_container)
+			if !first_enter:
+				army_container.focused = true
 			army_container.fill_army_scroll_container(true)
 			army_container.unit_panel_pressed.connect(_on_unit_panel_pressed)
 			army_container.convoy_panel_pressed.connect(_on_convoy_panel_pressed)
+			army_container.sell_item.connect(_on_item_sold)
+			army_container.send_to_convoy.connect(_on_send_to_convoy)
+			if selected_buy_location:
+				if selected_buy_location is Unit:
+					army_container.get_unit_panel_from_container(selected_buy_location).grab_focus()
+					selected_buy_location = null
+			else:
+				army_container.grab_last_panel_focus() 
 		SHOP_STATE.SHOP_MENU:
 			var shop_container = preload("res://ui/battle_prep_new/shop/shop_container/shop_container.tscn").instantiate()
 			if selected_buy_location is Unit:
 				var unit_detailed_view_simple = preload("res://ui/battle_prep_new/unit_detailed_view_simple/unit_detailed_view_simple.tscn").instantiate()
 				unit_detailed_view_simple.unit = selected_buy_location
 				main_container.add_child(unit_detailed_view_simple)
-				unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.SELL)
+				#unit_detailed_view_simple.set_invetory_state(InventoryContainer.INVENTORY_STATE.SELL)
 				unit_detailed_view_simple.sell_item.connect(_on_item_sold)
+				unit_detailed_view_simple.send_to_convoy.connect(_on_send_to_convoy)
 				shop_container.item_bought.connect(_on_item_bought_to_unit.bind(unit_detailed_view_simple))
+				main_container.add_child(shop_container)
+				shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
+				shop_container.tab_switched.connect(_on_shop_tab_switch.bind(shop_container,unit_detailed_view_simple))
 			else:
 				var convoy_container = preload("res://ui/battle_prep_new/convoy/convoy_container/convoy_container.tscn").instantiate()
 				convoy_container.set_po_data(playerOverworldData)
@@ -67,10 +89,11 @@ func update_by_shop_state():
 				convoy_container.fill_convoy_scroll_container()
 				convoy_container.item_panel_pressed.connect(_on_item_panel_pressed.bind(convoy_container))
 				shop_container.item_bought.connect(_on_item_bought_to_convoy.bind(convoy_container))
-			main_container.add_child(shop_container)
-			shop_container.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_SHRINK_END
-			if playerOverworldData.floors_climbed / playerOverworldData.current_campaign.max_floor_number > 0.5:
+				main_container.add_child(shop_container)
+			if playerOverworldData.floors_climbed / float(playerOverworldData.current_campaign.max_floor_number) > 0.5:
 				shop_container.expanded_shop = true
+			
+			shop_container.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_SHRINK_END
 
 
 func clear_shop_screen():
@@ -84,6 +107,7 @@ func clear_detailed_view():
 func _on_unit_panel_pressed(unit:Unit):
 	current_state = SHOP_STATE.SHOP_MENU
 	selected_buy_location = unit
+	shop_entered.emit()
 	update_by_shop_state()
 
 
@@ -96,25 +120,37 @@ func _on_item_bought_to_unit(item:ItemDefinition,unit_detailed_view):
 	if !inventory.is_full() and playerOverworldData.gold >= item.worth:
 		inventory.give_item(item.duplicate())
 		unit_detailed_view.update_by_unit()
-		playerOverworldData.gold -= item.worth
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#playerOverworldData.gold -= item.worth
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		item_bought.emit(item.worth)
+		AudioManager.play_sound_effect("item_buy")
 
 func _on_item_bought_to_convoy(item:ItemDefinition,convoy_container):
 	if playerOverworldData.gold >= item.worth:
 		playerOverworldData.convoy.append(item.duplicate())
-		playerOverworldData.gold -= item.worth
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#playerOverworldData.gold -= item.worth
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		item_bought.emit(item.worth)
 		convoy_container.reset_convoy_container()
 
 
 
 func _on_item_sold(item:ItemDefinition):
 	if item:
-		playerOverworldData.gold += item.worth/2
-		gold_counter.set_gold_count(playerOverworldData.gold)
+		#AudioManager.play_sound_effect("item_sell")
+		#playerOverworldData.gold += item.worth/2
+		#gold_counter.set_gold_count(playerOverworldData.gold)
+		@warning_ignore("integer_division")
+		item_sold.emit(item.worth/2)
 
 func _on_item_panel_pressed(item:ItemDefinition, convoy_container):
 	_on_item_sold(item)
 	playerOverworldData.convoy.erase(item)
 	convoy_container.focused = false
 	convoy_container.reset_convoy_container()
+
+func _on_shop_tab_switch(shop_container, unit_detailed_view_simple):
+	shop_container.set_item_panels_focus_neighbor_left(unit_detailed_view_simple.get_first_inventory_container_slot().get_path())
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

@@ -114,6 +114,7 @@ layout_mode = 2
 text = "5"
 
 [node name="TotalMoveValue" type="Label" parent="VBoxContainer/BackPanel/MarginContainer/HBoxContainer/InventoryMarginContainer/UnitInfoInventoryContainer/MarginContainer/UnitInfoContainer/MoveContainer"]
+visible = false
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 text = "5"

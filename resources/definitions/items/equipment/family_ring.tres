@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://c7rpmq73clyum"]
+
+[ext_resource type="Texture2D" uid="uid://cxdb17ngw3dje" path="res://resources/sprites/items/equipment/family_ring.png" id="1_ifmv2"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_mjr3b"]
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_mjr3b"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_ti88p"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_tyjwl"]
+
+[sub_resource type="Resource" id="Resource_ti88p"]
+script = ExtResource("2_mjr3b")
+hp = 8
+strength = 4
+magic = 4
+skill = 4
+speed = 4
+luck = 4
+defense = 4
+resistance = 4
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_tyjwl")
+name = "Family Ring"
+db_key = "family_ring"
+description = "A modest heirloom passed through generations, said to carry faint echoes of those who wore it before."
+item_type = 3
+rarity = ExtResource("3_ti88p")
+worth = 2000
+inventory_growth_bonus_stats = SubResource("Resource_ti88p")
+icon = ExtResource("1_ifmv2")

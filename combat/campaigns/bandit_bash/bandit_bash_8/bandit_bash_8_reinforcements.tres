@@ -1,99 +1,306 @@
-[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=26 format=3 uid="uid://bw36pa36hmgm5"]
+[gd_resource type="Resource" script_class="MapReinforcementData" load_steps=56 format=3 uid="uid://bw36pa36hmgm5"]
 
 [ext_resource type="Script" uid="uid://b6akisvlapld8" path="res://scripts/combat/reinforcements/CombatUnitGroupReinforcementData.gd" id="1_lvh6m"]
 [ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="2_n6avb"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_8lwvs"]
-[ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="4_gnt0w"]
+[ext_resource type="Resource" uid="uid://cs4oh53eg6rj7" path="res://resources/definitions/items/weapons/dagger/tanto.tres" id="4_si1f1"]
 [ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="5_alvux"]
-[ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="6_a6n8g"]
-[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="7_r7853"]
-[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="8_g7235"]
+[ext_resource type="Resource" uid="uid://chd67lh7elx2i" path="res://resources/definitions/items/equipment/sunshard_band.tres" id="6_np7xq"]
+[ext_resource type="Resource" uid="uid://y6uw8w4wpc2h" path="res://resources/definitions/items/weapons/dagger/kunai.tres" id="7_5fiov"]
+[ext_resource type="Resource" uid="uid://pm3p8kf4cm30" path="res://resources/definitions/items/weapons/bow/killer_bow.tres" id="8_fqxha"]
 [ext_resource type="Resource" uid="uid://7wo0tcouu1l6" path="res://resources/definitions/items/weapons/nature/torrent.tres" id="9_k53a3"]
+[ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="9_si1f1"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="10_t247n"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="11_7uc1n"]
+[ext_resource type="Resource" uid="uid://c2luf4vxvy80p" path="res://resources/definitions/items/weapons/axes/steel_axe.tres" id="11_np7xq"]
+[ext_resource type="Resource" uid="uid://b07cyd1bkl6wb" path="res://resources/definitions/items/weapons/swords/dark_sword.tres" id="12_in3kj"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="12_wtk8h"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="13_8v6h2"]
+[ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="13_da0uj"]
 [ext_resource type="Script" uid="uid://dy1yncgaoxu8h" path="res://scripts/combat/reinforcements/combat_map_reinforcement_zone_data.gd" id="14_q7aih"]
+[ext_resource type="Resource" uid="uid://dmhxgxg5q3q5w" path="res://resources/definitions/items/weapons/monster/sharp_claws.tres" id="15_np7xq"]
+[ext_resource type="Resource" uid="uid://g62ghjpsmorp" path="res://resources/definitions/items/stalves/harm_staff.tres" id="16_in3kj"]
+[ext_resource type="Resource" uid="uid://5j253u4wbq8v" path="res://resources/definitions/items/consumables/large_potion_+.tres" id="17_afssm"]
+[ext_resource type="Resource" uid="uid://p7oqxyge7sbw" path="res://resources/definitions/items/weapons/axes/short_axe.tres" id="18_xnftr"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="19_vjhyw"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="20_hhxa5"]
 
 [sub_resource type="Resource" id="Resource_m27s6"]
 script = ExtResource("2_n6avb")
-name = "Dereigns"
+name = "Crag"
 map_position = Vector2i(21, 21)
-level = 14
-level_bonus = 2
-unit_type_key = "night_blade"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_gnt0w"), ExtResource("5_alvux")])
+level = 15
+ai_type = 2
 is_boss = true
+unit_type_key = "night_blade"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("4_si1f1"), ExtResource("5_alvux"), ExtResource("6_np7xq")])
 
 [sub_resource type="Resource" id="Resource_4nmqb"]
 script = ExtResource("2_n6avb")
 name = "Assassin"
-map_position = Vector2i(20, 22)
-level = 10
+map_position = Vector2i(20, 20)
+level = 14
+ai_type = 1
 unit_type_key = "thief"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g"), ExtResource("7_r7853")])
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("7_5fiov")])
 
 [sub_resource type="Resource" id="Resource_3efps"]
 script = ExtResource("2_n6avb")
-name = "Assassin"
+name = "Crag's Creation"
 map_position = Vector2i(22, 20)
-level = 10
-unit_type_key = "thief"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("6_a6n8g")])
+level = 14
+unit_type_key = "skeleton_archer"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("8_fqxha")])
 
 [sub_resource type="Resource" id="Resource_ux6oq"]
 script = ExtResource("2_n6avb")
-name = "Assassin"
-unit_type_key = "runeblade"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("8_g7235")])
+name = "Crag's Creation"
+map_position = Vector2i(20, 22)
+level = 15
+unit_type_key = "skeleton_archer"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("9_si1f1")])
 
 [sub_resource type="Resource" id="Resource_5srre"]
 script = ExtResource("2_n6avb")
 name = "Assassin"
-level_bonus = 10
+map_position = Vector2i(22, 22)
+level = 14
+ai_type = 1
 unit_type_key = "runeblade"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("9_k53a3")])
+
+[sub_resource type="Resource" id="Resource_3gqgr"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(0, 7)
+level = 15
+unit_type_key = "axe_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_afssm"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(21, 2)
+level = 15
+unit_type_key = "skeleton_archer"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("12_in3kj")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_xnftr"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(15, 0)
+level = 15
+unit_type_key = "lance_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("13_da0uj")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_vjhyw"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(5, 0)
+level = 15
+unit_type_key = "lance_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("12_wtk8h")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_da0uj"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(1, 19)
+level = 14
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_hhxa5"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(1, 21)
+level = 14
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_utguq"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(0, 20)
+level = 15
+unit_type_key = "bone_mancer"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("16_in3kj")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_jrf6q"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(16, 21)
+level = 14
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_rskvh"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(16, 18)
+level = 14
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_ndx34"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(20, 21)
+level = 14
+ai_type = 1
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_yt43n"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(22, 21)
+level = 14
+ai_type = 1
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_8lube"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(21, 22)
+level = 14
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_iqn05"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(21, 20)
+level = 16
+unit_type_key = "flesh_prowler"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("15_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_px50o"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(6, 14)
+level = 16
+ai_type = 1
+unit_type_key = "axe_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_np7xq"), ExtResource("17_afssm")])
+drops_item = true
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_4cgod"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(1, 11)
+level = 15
+ai_type = 1
+unit_type_key = "axe_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("18_xnftr")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_e07k0"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(20, 10)
+level = 15
+ai_type = 1
+unit_type_key = "axe_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_np7xq")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_ocqbc"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(17, 16)
+level = 14
+ai_type = 1
+unit_type_key = "axe_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("19_vjhyw")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_p63i7"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(19, 2)
+level = 15
+ai_type = 1
+unit_type_key = "sword_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("20_hhxa5")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_ogcjo"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(20, 14)
+level = 14
+ai_type = 1
+unit_type_key = "sword_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("20_hhxa5")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_oeyjo"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(8, 14)
+level = 15
+ai_type = 1
+unit_type_key = "sword_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("20_hhxa5")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_hoen3"]
+script = ExtResource("2_n6avb")
+name = "Crag's Creation"
+map_position = Vector2i(11, 8)
+level = 14
+ai_type = 1
+unit_type_key = "lance_skeleton"
+inventory = Array[ExtResource("3_8lwvs")]([ExtResource("13_da0uj")])
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
 
 [sub_resource type="Resource" id="Resource_o2kka"]
 script = ExtResource("1_lvh6m")
 trigger_type = 1
 zone_id = "zone_1"
-units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResource("Resource_4nmqb"), SubResource("Resource_3efps"), SubResource("Resource_ux6oq"), SubResource("Resource_5srre")])
+units = Array[ExtResource("2_n6avb")]([SubResource("Resource_m27s6"), SubResource("Resource_4nmqb"), SubResource("Resource_3efps"), SubResource("Resource_ux6oq"), SubResource("Resource_5srre"), SubResource("Resource_3gqgr"), SubResource("Resource_afssm"), SubResource("Resource_xnftr"), SubResource("Resource_vjhyw"), SubResource("Resource_da0uj"), SubResource("Resource_hhxa5"), SubResource("Resource_utguq"), SubResource("Resource_jrf6q"), SubResource("Resource_rskvh"), SubResource("Resource_ndx34"), SubResource("Resource_yt43n"), SubResource("Resource_8lube"), SubResource("Resource_iqn05"), SubResource("Resource_px50o"), SubResource("Resource_4cgod"), SubResource("Resource_e07k0"), SubResource("Resource_ocqbc"), SubResource("Resource_p63i7"), SubResource("Resource_ogcjo"), SubResource("Resource_oeyjo"), SubResource("Resource_hoen3")])
 
 [sub_resource type="Resource" id="Resource_fi7bd"]
 script = ExtResource("2_n6avb")
 name = "Bandit"
-map_position = Vector2i(0, 20)
-level = 10
-level_bonus = 2
-unit_type_key = "sword_cavalier"
+map_position = Vector2i(15, 0)
+level = 12
+unit_type_key = "sellsword"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("10_t247n")])
 
 [sub_resource type="Resource" id="Resource_vq4he"]
 script = ExtResource("2_n6avb")
 name = "Bandit"
-map_position = Vector2i(0, 19)
-unit_type_key = "lance_cavalier"
+map_position = Vector2i(5, 0)
+level = 12
+unit_type_key = "lancer"
 inventory = Array[ExtResource("3_8lwvs")]([ExtResource("11_7uc1n")])
-
-[sub_resource type="Resource" id="Resource_bketw"]
-script = ExtResource("2_n6avb")
-name = "Bandit"
-map_position = Vector2i(0, 21)
-level = 10
-unit_type_key = "lance_cavalier"
-inventory = Array[ExtResource("3_8lwvs")]([ExtResource("12_wtk8h")])
 
 [sub_resource type="Resource" id="Resource_0rspl"]
 script = ExtResource("1_lvh6m")
-turns = Array[int]([5, 7, 10])
-units = Array[ExtResource("2_n6avb")]([SubResource("Resource_fi7bd"), SubResource("Resource_vq4he"), SubResource("Resource_bketw")])
+turns = Array[int]([4, 7, 11])
+units = Array[ExtResource("2_n6avb")]([SubResource("Resource_fi7bd"), SubResource("Resource_vq4he")])
 
 [sub_resource type="Resource" id="Resource_j82or"]
 script = ExtResource("14_q7aih")
 zone_id = "zone_1"
-zone_bottom_left_vertex = Vector2i(4, 11)
-zone_top_right_vertex = Vector2i(16, 0)
+zone_bottom_left_vertex = Vector2i(6, 5)
+zone_top_right_vertex = Vector2i(14, 0)
 
 [resource]
 script = ExtResource("13_8v6h2")

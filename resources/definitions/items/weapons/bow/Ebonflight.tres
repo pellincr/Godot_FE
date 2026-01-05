@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://c4m1lo8xvafk0"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://c4m1lo8xvafk0"]
 
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_varur"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_3a24l"]
 [ext_resource type="Texture2D" uid="uid://d06avbmkpr5wx" path="res://resources/sprites/items/weapons/bow/ebonflight.png" id="2_0282l"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_ytv8n"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_cvf5w"]
@@ -14,12 +15,12 @@ script = ExtResource("4_cvf5w")
 weapon_type = 4
 alignment = 1
 required_mastery = 5
-attack_range = Array[int]([2])
 damage = 12
 hit = 90
 critical_chance = 30
 weight = 10
 attacks_per_combat_turn = 2
+attack_range = Array[int]([2])
 bonus_stat = SubResource("Resource_ayymq")
 weapon_effectiveness_trait = Array[int]([2])
 name = "Ebonflight"

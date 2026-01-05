@@ -1,34 +1,25 @@
-[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=8 format=3 uid="uid://cgaophi6857j"]
+[gd_resource type="Resource" script_class="CommanderDefinition" load_steps=9 format=3 uid="uid://cgaophi6857j"]
 
 [ext_resource type="Resource" uid="uid://bfkt7vxpdyljm" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_base_combat_stats.tres" id="1_0bt7m"]
 [ext_resource type="Resource" uid="uid://ct5ipci4ecpur" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_growth_stats.tres" id="2_unytg"]
 [ext_resource type="Texture2D" uid="uid://cv32n6driqxku" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper.png" id="3_xpflg"]
 [ext_resource type="Resource" uid="uid://b1w3v3373la65" path="res://resources/definitions/unit_types/commanders/iron_viper/iron_viper_max_stats.tres" id="4_5ffw4"]
-[ext_resource type="Script" uid="uid://cbtn0yvmh5y7k" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_lu5y6"]
+[ext_resource type="Script" uid="uid://2hl0vdh123pi" path="res://scripts/resources/unit_type/CommanderDefinition.gd" id="5_lu5y6"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_ob518"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="6_r0im7"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="7_d6rc7"]
 
 [resource]
 script = ExtResource("5_lu5y6")
-boon = ""
-bane = ""
 signature_weapon = ExtResource("6_r0im7")
 unit_type_name = "Iron Viper"
 db_key = "iron_viper"
-description = ""
-initiative = 1
+name_genders = Array[int]([1])
 faction = Array[int]([0])
-traits = Array[int]([])
 unit_rarity = ExtResource("7_d6rc7")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([1, 4])
 base_stats = ExtResource("1_0bt7m")
 maxuimum_stats = ExtResource("4_5ffw4")
 growth_stats = ExtResource("2_unytg")
 icon = ExtResource("3_xpflg")
 map_sprite = ExtResource("3_xpflg")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

@@ -7,8 +7,8 @@ signal selected(room:CampaignRoom)
 const ICONS:={
 	#Stores the Icon and the Scale it should be placed with
 	CampaignRoom.TYPE.NOT_ASSIGNED : [null,Vector2.ONE],
-	CampaignRoom.TYPE.BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/icon_target_2.png"), Vector2.ONE],
-	CampaignRoom.TYPE.KEY_BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/icon_target_2.png"), Vector2.ONE], # TO BE IMPLEMENTED
+	CampaignRoom.TYPE.BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/major_combat_campaign_map_icon.png"), Vector2.ONE],
+	CampaignRoom.TYPE.KEY_BATTLE : [preload("res://resources/sprites/icons/campaign_map_icons/major_combat_new_2.png"), Vector2.ONE], # TO BE IMPLEMENTED
 	CampaignRoom.TYPE.EVENT : [preload("res://resources/sprites/icons/campaign_map_icons/icon_event.png"),Vector2.ONE],
 	CampaignRoom.TYPE.SHOP : [preload("res://resources/sprites/icons/campaign_map_icons/icon_coin.png"),Vector2.ONE],
 	CampaignRoom.TYPE.ELITE : [preload("res://resources/sprites/icons/UnitArchetype.png"),Vector2.ONE],
@@ -52,6 +52,7 @@ func _on_map_room_selected() -> void:
 
 func _on_focus_entered():
 	modulate = Color.WHITE
+	AudioManager.play_sound_effect("campaign_map_room_hovered")
 
 
 func _on_focus_exited():

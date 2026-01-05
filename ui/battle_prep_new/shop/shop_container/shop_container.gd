@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 signal item_bought(item)
+signal tab_switched()
 
 @onready var item_tab_icon: PanelContainer = $HBoxContainer/VBoxContainer/TabScrollContainer/HBoxContainer/ItemTabIcon
 #WEAPONS
@@ -45,6 +46,8 @@ const weapon_detailed_info_scene = preload("res://ui/battle_prep_new/item_detail
 
 @onready var current_tab_theme = ItemConstants.ITEM_TYPE.WEAPON
 @onready var current_tab_subtheme = ItemConstants.WEAPON_TYPE.SWORD
+
+var current_item_panels = []
 
 var expanded_shop = false
 var focused = false
@@ -97,11 +100,13 @@ func _ready():
 	item_tab_icon.set_item_theme(ItemConstants.ITEM_TYPE.USEABLE_ITEM)
 	fill_current_tab_view()
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("right_bumper"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("right_bumper"):
 		next_shop_screen()
-	if Input.is_action_just_pressed("left_bumper"):
+		tab_switched.emit()
+	if event.is_action_pressed("left_bumper"):
 		previous_shop_screen()
+		tab_switched.emit()
 
 func fill_current_tab_view():
 	var items_list
@@ -109,8 +114,10 @@ func fill_current_tab_view():
 		items_list = filter_by_weapon_type(current_tab_subtheme)
 	elif current_tab_theme == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
 		items_list = filter_by_useable_item()
+	items_list.sort_custom(CustomUtilityLibrary.sort_item)
 	for item in items_list:
 		var item_panel_container = item_panel_container_scene.instantiate()
+		current_item_panels.append(item_panel_container)
 		item_panel_container.item = item
 		main_shop_inventory_container.add_child(item_panel_container)
 		if !focused:
@@ -120,6 +127,7 @@ func fill_current_tab_view():
 		item_panel_container.item_panel_pressed.connect(_on_item_bought)
 
 func clear_shop_list():
+	current_item_panels.clear()
 	var children = main_shop_inventory_container.get_children()
 	for child in children:
 		child.queue_free()
@@ -158,19 +166,31 @@ func filter_by_useable_item():
 		var item : ItemDefinition = ItemDatabase.items[item_key]
 		#if item.item_type != ItemConstants.ITEM_TYPE.WEAPON:
 		if item is ConsumableItemDefinition:
+			if item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.HEAL:
+				accum.append(item)
+			elif item.rarity == RarityDatabase.rarities.get("common") and item.use_effect == ItemConstants.CONSUMABLE_USE_EFFECT.STAT_BOOST:
+				accum.append(item)
+		#if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+		#	accum.append(item)
+			"""
 			if item.rarity == RarityDatabase.rarities.get("standard"):
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("common") or  item.rarity == RarityDatabase.rarities.get("uncommon"):
 				accum.append(item)
 			elif item.rarity == RarityDatabase.rarities.get("rare") and expanded_shop:
 				accum.append(item)
+			"""
 	return accum
 
+func set_item_panels_focus_neighbor_left(path):
+	for item_panel in current_item_panels:
+		item_panel.focus_neighbor_left = path
 
 func _on_tab_icon_switch(item_theme, item_subtheme):
 	current_tab_theme = item_theme
 	current_tab_subtheme = item_subtheme
 	update_shop_items()
+	tab_switched.emit()
 
 func update_shop_items():
 	#if current_tab == ItemConstants.ITEM_TYPE.USEABLE_ITEM:
@@ -188,11 +208,17 @@ func clear_main_container():
 
 func on_item_panel_focused(item):
 	clear_main_container()
-	var weapon_detailed_info = weapon_detailed_info_scene.instantiate()
-	weapon_detailed_info.item = item
-	main_container.add_child(weapon_detailed_info)
-	weapon_detailed_info.update_by_item()
-	weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	if item is WeaponDefinition:
+		var weapon_detailed_info = weapon_detailed_info_scene.instantiate()
+		weapon_detailed_info.item = item
+		main_container.add_child(weapon_detailed_info)
+		weapon_detailed_info.update_by_item()
+		weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+	elif item is ConsumableItemDefinition:
+		var consumable_item_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+		consumable_item_detailed_info.item = item
+		main_container.add_child(consumable_item_detailed_info)
+		consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
 
 func _on_item_bought(item):
 	item_bought.emit(item)

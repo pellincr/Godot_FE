@@ -13,36 +13,36 @@ script = ExtResource("1_4uwmr")
 name = "Mundaneman"
 map_position = Vector2i(9, 3)
 level = 1
+ai_type = 2
 unit_type_key = "fighter"
 inventory = Array[ExtResource("2_onauf")]([ExtResource("3_l6o4f")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_waqxt"]
 script = ExtResource("1_4uwmr")
 name = "Magicman"
 map_position = Vector2i(9, 5)
 level = 1
+ai_type = 2
 unit_type_key = "bishop"
 inventory = Array[ExtResource("2_onauf")]([ExtResource("4_ddg8i")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_12k2h"]
 script = ExtResource("1_4uwmr")
 name = "Nimbleman"
 map_position = Vector2i(9, 7)
 level = 1
+ai_type = 2
 unit_type_key = "thief"
 inventory = Array[ExtResource("2_onauf")]([ExtResource("5_g1wwv")])
-ai_type = 2
 
 [sub_resource type="Resource" id="Resource_0d23b"]
 script = ExtResource("1_4uwmr")
 name = "Defenseman"
 map_position = Vector2i(9, 8)
 level = 1
+ai_type = 2
 unit_type_key = "ward"
 inventory = Array[ExtResource("2_onauf")]([ExtResource("6_vdrij")])
-ai_type = 2
 
 [resource]
 script = ExtResource("7_5yye0")

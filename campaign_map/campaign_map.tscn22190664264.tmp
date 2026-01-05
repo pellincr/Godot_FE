@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdcmk38330ekx"]
+
+[ext_resource type="Script" uid="uid://clnq80g36qfs7" path="res://campaign_map/campaign_map.gd" id="1_1bvku"]
+[ext_resource type="Script" uid="uid://stypawclkv3q" path="res://campaign_map/map_generator.gd" id="1_1uwo1"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="2_dll6e"]
+[ext_resource type="PackedScene" uid="uid://cu0nblwxq6ad4" path="res://campaign_map/campaign_map_key/campaign_map_key.tscn" id="3_glfe6"]
+[ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="4_du1s6"]
+
+[sub_resource type="Gradient" id="Gradient_j1yjd"]
+colors = PackedColorArray(0, 0, 0, 1, 0.119911, 0.0829217, 1.02278e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f5731"]
+gradient = SubResource("Gradient_j1yjd")
+width = 50
+
+[node name="CampaignMap" type="Node2D"]
+script = ExtResource("1_1bvku")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Lines" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.509804)
+
+[node name="Rooms" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(643, 360)
+zoom = Vector2(2, 2)
+
+[node name="CampaignMapGenerator" type="Node" parent="."]
+script = ExtResource("1_1uwo1")
+
+[node name="MapBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground"]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_f5731")
+
+[node name="CampaignHeader" parent="MapBackground" instance=ExtResource("4_du1s6")]
+
+[node name="CampaignMapKey" parent="MapBackground" instance=ExtResource("3_glfe6")]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -118.0
+offset_right = -199.0
+offset_bottom = -118.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ControlsUIContainer" parent="MapBackground" instance=ExtResource("2_dll6e")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 973.0
+offset_bottom = 0.0
+grow_vertical = 0

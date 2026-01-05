@@ -1,23 +1,15 @@
-[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=5 format=3 uid="uid://ij7vpsfl6vqo"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3 uid="uid://dxdxaw1qqj2na"]
 
 [ext_resource type="Texture2D" uid="uid://d2k45s1ybrv47" path="res://resources/sprites/items/treasure/wine.png" id="1_6tgta"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_5fvjy"]
-[ext_resource type="Script" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="2_osq5l"]
-[ext_resource type="Script" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="3_ebuoa"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_d28ri"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_8wcmk"]
 
 [resource]
-script = ExtResource("2_osq5l")
-use_effect = 0
-power = 0
-status_effect = Array[ExtResource("3_ebuoa")]([])
-name = "Wine"
+script = ExtResource("3_8wcmk")
+name = "Vintage Wine"
 db_key = "wine"
-equippable = false
-description = "What a delicacy! Shops will buy this for a fair price."
+description = "An extremely valuable wine of rare vintage. Can be sold for a high price."
 item_type = 4
-rarity = ExtResource("2_5fvjy")
-uses = 1
-max_uses = 1
-unbreakable = false
+rarity = ExtResource("2_d28ri")
 worth = 1800
 icon = ExtResource("1_6tgta")

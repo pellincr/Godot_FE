@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://486wcck6i2bf"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_gae1j"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_c0flv"]
+[ext_resource type="Texture2D" uid="uid://cwtqe5mudxa0w" path="res://resources/sprites/items/consumables/stat_boosters/resistance/sanctree_branch.png" id="2_txjtr"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_c0flv"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_expoi"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_khfls"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_gae1j")
+resistance = 12
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_expoi")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Sanctree Branch"
+db_key = "sanctree_branch"
+description = "A consecrated bough from a sacred tree, imbued with centuries of quiet divine protection."
+item_type = 2
+rarity = ExtResource("3_c0flv")
+worth = 2200
+icon = ExtResource("2_txjtr")

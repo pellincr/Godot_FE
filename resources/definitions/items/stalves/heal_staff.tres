@@ -1,40 +1,26 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://5b1f8mg0j3te"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://5b1f8mg0j3te"]
 
 [ext_resource type="Texture2D" uid="uid://b48v0uyoqb775" path="res://resources/sprites/items/weapons/staff/heal_staff.png" id="1_3mthl"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_41cmw"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_wwyp7"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_eo7vp"]
 
 [resource]
 script = ExtResource("1_wwyp7")
 weapon_type = 6
-alignment = 0
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
 support_type = 1
 item_damage_type = 3
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
 item_target_faction = Array[int]([1])
-required_mastery = 0
-attack_range = Array[int]([1])
 damage = 10
-hit = 100
-critical_chance = 0
-weight = 5
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
 status_ailment = 2
-specials = Array[int]([])
-augmented = false
 name = "Heal"
 db_key = "heal"
 equippable = true
 description = "Restores moderate HP to allies in adjacent spaces."
 item_type = 1
 rarity = ExtResource("2_eo7vp")
-uses = 12
-max_uses = 12
-unbreakable = false
+uses = 14
+max_uses = 14
 worth = 1000
 icon = ExtResource("1_3mthl")

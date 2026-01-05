@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=8 format=3 uid="uid://chd67lh7elx2i"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_r6l3t"]
+[ext_resource type="Texture2D" uid="uid://bhf21klsr1o04" path="res://resources/sprites/items/equipment/sunshard_band.png" id="2_r6l3t"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="3_w3qat"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="4_7d7xj"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="5_k05ag"]
+
+[sub_resource type="Resource" id="Resource_uhcht"]
+script = ExtResource("1_r6l3t")
+special = 27
+effect_weight = 20
+effect_type = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[sub_resource type="Resource" id="Resource_4o6k3"]
+script = ExtResource("3_w3qat")
+hp = 10
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("5_k05ag")
+name = "Sunshard Band"
+db_key = "sunshard_band"
+item_type = 3
+rarity = ExtResource("4_7d7xj")
+worth = 4750
+inventory_bonus_stats = SubResource("Resource_4o6k3")
+held_specials = Array[ExtResource("1_r6l3t")]([SubResource("Resource_uhcht")])
+unlocked = false
+icon = ExtResource("2_r6l3t")

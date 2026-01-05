@@ -1,0 +1,144 @@
+[gd_scene load_steps=9 format=3 uid="uid://db1fxx4xyc4ob"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_1nydb"]
+[ext_resource type="Script" uid="uid://bfpd0s7wkpqml" path="res://overworld_new/campaign_preview/campaign_preview.gd" id="2_lcgo6"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_ad4at"]
+
+[sub_resource type="Theme" id="Theme_lcgo6"]
+default_font = ExtResource("3_ad4at")
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_ad4at"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_j1hui"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_4pr12"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_cjyef"]
+default_font_size = 32
+
+[node name="CampaignPreview" type="PanelContainer"]
+z_index = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.0
+offset_right = 142.0
+offset_bottom = 234.0
+grow_horizontal = 2
+theme = ExtResource("1_1nydb")
+script = ExtResource("2_lcgo6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CampaignNameLabel" type="Label" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_lcgo6")
+text = "Campaign Name"
+
+[node name="DifficultyContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="DifficultyHeaderLabel" type="Label" parent="MarginContainer/MainContainer/DifficultyContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ad4at")
+text = "Difficulty : "
+
+[node name="LengthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="LengthHeader" type="Label" parent="MarginContainer/MainContainer/LengthContainer"]
+layout_mode = 2
+theme = SubResource("Theme_j1hui")
+text = "Estimated Length :"
+
+[node name="LengthValue" type="Label" parent="MarginContainer/MainContainer/LengthContainer"]
+layout_mode = 2
+theme = SubResource("Theme_4pr12")
+text = "30+ minutes"
+
+[node name="CommanderLimitContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="CommanderLimitHeader" type="Label" parent="MarginContainer/MainContainer/CommanderLimitContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cjyef")
+text = "Commander Options # : "
+
+[node name="CommanderLimitValue" type="Label" parent="MarginContainer/MainContainer/CommanderLimitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_cjyef")
+text = "0"
+horizontal_alignment = 2
+
+[node name="ArchetypeAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="ArchetypeAmountHeader" type="Label" parent="MarginContainer/MainContainer/ArchetypeAmountContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cjyef")
+text = "Archetypes Given : "
+
+[node name="ArchetypeAmountValue" type="Label" parent="MarginContainer/MainContainer/ArchetypeAmountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_cjyef")
+text = "0"
+horizontal_alignment = 2
+
+[node name="FloorAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="FloorAmountHeader" type="Label" parent="MarginContainer/MainContainer/FloorAmountContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cjyef")
+text = "Floors : "
+
+[node name="FloorsAmountValue" type="Label" parent="MarginContainer/MainContainer/FloorAmountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_cjyef")
+text = "0"
+horizontal_alignment = 2
+
+[node name="RequiredCombatAmountContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="RequiredCombatAmountHeader" type="Label" parent="MarginContainer/MainContainer/RequiredCombatAmountContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cjyef")
+text = "Required Combats : "
+
+[node name="RequiredCombatAmountValue" type="Label" parent="MarginContainer/MainContainer/RequiredCombatAmountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_cjyef")
+text = "0"
+horizontal_alignment = 2
+
+[node name="StartingGoldContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="StartingGoldHeader" type="Label" parent="MarginContainer/MainContainer/StartingGoldContainer"]
+layout_mode = 2
+theme = SubResource("Theme_cjyef")
+text = "Starting Gold :"
+
+[node name="StartingGoldValueLabel" type="Label" parent="MarginContainer/MainContainer/StartingGoldContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_cjyef")
+text = "0"
+horizontal_alignment = 2

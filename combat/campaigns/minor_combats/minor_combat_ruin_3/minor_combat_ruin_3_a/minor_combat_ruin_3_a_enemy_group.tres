@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=9 format=3 uid="uid://c8o4q8d8qi7rc"]
+
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_p5ta5"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_mkrnp"]
+[ext_resource type="Script" uid="uid://dbvwm6gbf27l7" path="res://scripts/combat/combatUnit/randomCombatUnitData.gd" id="3_stmah"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="4_kgb5b"]
+
+[sub_resource type="Resource" id="Resource_15xpf"]
+script = ExtResource("3_stmah")
+unit_group = "A"
+position_variance_weight = 1
+name = "Bandit"
+map_position = Vector2i(10, 6)
+is_boss = true
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_vyxr5"]
+script = ExtResource("3_stmah")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(6, 5)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_8lc6y"]
+script = ExtResource("3_stmah")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(5, 8)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[sub_resource type="Resource" id="Resource_ca082"]
+script = ExtResource("3_stmah")
+unit_group = "A"
+position_variance = true
+name = "Bandit"
+map_position = Vector2i(6, 0)
+metadata/_custom_type_script = "uid://dbvwm6gbf27l7"
+
+[resource]
+script = ExtResource("4_kgb5b")
+group = Array[ExtResource("1_p5ta5")]([SubResource("Resource_15xpf"), SubResource("Resource_vyxr5"), SubResource("Resource_8lc6y"), SubResource("Resource_ca082")])
+metadata/_custom_type_script = "uid://ctoil1vwlbm4k"

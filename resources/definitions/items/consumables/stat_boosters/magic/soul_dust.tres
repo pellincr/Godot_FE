@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://cagnuvsj2ewrl"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_q0153"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_qm3hf"]
+[ext_resource type="Texture2D" uid="uid://bl5dq7pq8tdko" path="res://resources/sprites/items/consumables/stat_boosters/magic/soul_dust.png" id="2_s2let"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_qm3hf"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_fr32x"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_6rkqm"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_q0153")
+magic = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_fr32x")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Soul Dust"
+db_key = "soul_dust"
+description = "Fine crystalline ash gathered from ancient sanctums, humming softly with the echoes of old spirits."
+item_type = 2
+rarity = ExtResource("3_qm3hf")
+worth = 8000
+icon = ExtResource("2_s2let")

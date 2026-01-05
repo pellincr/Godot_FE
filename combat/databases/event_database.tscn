@@ -19,4 +19,4 @@
 
 [node name="EventDatabase" type="Node"]
 script = ExtResource("1_2voe4")
-events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_7hyrf"), ExtResource("5_6nst4"), ExtResource("6_qfkqe"), ExtResource("7_q55w0"), ExtResource("8_inkul"), ExtResource("3_pmen2"), ExtResource("9_g48k5"), ExtResource("10_8hxh8"), ExtResource("11_gqx22"), ExtResource("12_gqx22"), ExtResource("13_wcfob"), ExtResource("14_nqcp3"), ExtResource("15_m6cja"), ExtResource("16_trtkf")])
+events = Array[ExtResource("2_uknaf")]([ExtResource("3_pmen2"), ExtResource("4_7hyrf"), ExtResource("5_6nst4"), ExtResource("6_qfkqe"), ExtResource("7_q55w0"), ExtResource("8_inkul"), ExtResource("9_g48k5"), ExtResource("10_8hxh8"), ExtResource("11_gqx22"), ExtResource("12_gqx22"), ExtResource("13_wcfob"), ExtResource("14_nqcp3"), ExtResource("15_m6cja"), ExtResource("16_trtkf")])

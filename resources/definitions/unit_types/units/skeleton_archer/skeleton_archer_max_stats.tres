@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://c1oe5ku3prop2"]
+
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_cpv4h"]
+
+[resource]
+script = ExtResource("1_cpv4h")
+hp = 50
+strength = 25
+magic = 22
+skill = 26
+speed = 27
+luck = 30
+defense = 16
+resistance = 17
+movement = 10
+constitution = 20

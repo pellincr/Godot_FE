@@ -1,0 +1,393 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwesyjybbvx48"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_ohqp3"]
+[ext_resource type="Script" uid="uid://dpw6qmr8kyuc5" path="res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.gd" id="2_a4wg7"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_2lans"]
+[ext_resource type="Texture2D" uid="uid://dosv45gdwad0p" path="res://resources/sprites/items/consumables/potion.png" id="3_alcit"]
+
+[sub_resource type="Theme" id="Theme_hrc1k"]
+default_font = ExtResource("3_2lans")
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_6h6tc"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_2lans"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_21x8d"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_nl26n"]
+default_font = ExtResource("3_2lans")
+
+[sub_resource type="Theme" id="Theme_hkwbp"]
+default_font = ExtResource("3_2lans")
+GridContainer/constants/h_separation = 10
+
+[node name="ConsumableItemDetailedInfo" type="PanelContainer"]
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("1_ohqp3")
+script = ExtResource("2_a4wg7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/MainContainer"]
+custom_minimum_size = Vector2(228, 60)
+layout_mode = 2
+theme = SubResource("Theme_hrc1k")
+text = "Item Name"
+autowrap_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="MarginContainer/MainContainer/ItemNameLabel"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 21.0
+offset_right = 234.0
+offset_bottom = 69.0
+texture = ExtResource("3_alcit")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="ItemWorthLabel" type="Label" parent="MarginContainer/MainContainer/ItemNameLabel/ItemIcon"]
+modulate = Color(0.8980392, 0.6901961, 0, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+offset_right = 27.0
+grow_vertical = 0
+theme = SubResource("Theme_6h6tc")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "100G"
+
+[node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_2lans")
+
+[node name="ItemTypeHeader" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item Type"
+
+[node name="-" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="ItemType" type="Label" parent="MarginContainer/MainContainer/ItemTypeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Item type"
+
+[node name="ItemDescriptionLabel" type="Label" parent="MarginContainer/MainContainer"]
+modulate = Color(0.50980395, 0.50980395, 0.50980395, 1)
+custom_minimum_size = Vector2(228, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Description"
+autowrap_mode = 3
+
+[node name="ItemEffectContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="DurabilityHeaderLabel2" type="Label" parent="MarginContainer/MainContainer/ItemEffectContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_21x8d")
+text = "Use Effect "
+
+[node name="ItemPowerContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_nl26n")
+
+[node name="PowerHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemPowerContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme = SubResource("Theme_nl26n")
+text = "Power :"
+
+[node name="PowerValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemPowerContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme = SubResource("Theme_nl26n")
+text = "0"
+horizontal_alignment = 2
+
+[node name="ItemUsesContainer" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+theme = SubResource("Theme_nl26n")
+
+[node name="UsesHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemUsesContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Uses :"
+
+[node name="UsesValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemUsesContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ItemStatsBoostContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ItemStatsBoostHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Stats Boosts"
+
+[node name="ItemStatsBoostBoostContainer" type="GridContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hkwbp")
+columns = 2
+
+[node name="HealthStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="HealthStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/HealthStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Health :"
+
+[node name="HealthStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/HealthStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="StrengthStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="StrengthStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/StrengthStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Strength :"
+
+[node name="StrengthStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/StrengthStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="MagicStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="MagicStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/MagicStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Magic :"
+
+[node name="MagicStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/MagicStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="SkillStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="SkillStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/SkillStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Skill :"
+
+[node name="SkillStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/SkillStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="SpeedStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="SpeedStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/SpeedStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Speed :"
+
+[node name="SpeedStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/SpeedStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="LuckStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="LuckStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/LuckStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Luck :"
+
+[node name="LuckStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/LuckStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="DefenseStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="DefenseStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/DefenseStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Defense :"
+
+[node name="DefenseStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/DefenseStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ResistanceStatContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer"]
+layout_mode = 2
+
+[node name="ResistanceStatHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/ResistanceStatContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Resistance :"
+
+[node name="ResistanceStatValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemStatsBoostContainer/ItemStatsBoostBoostContainer/ResistanceStatContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ItemGrowthsBoostContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ItemGrowthsHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.50980395, 0.50980395, 0.50980395, 1)
+text = "Growths Boosts"
+
+[node name="ItemGrowthsBoostContainer" type="GridContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hkwbp")
+columns = 2
+
+[node name="HealthGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="HealthGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Health :"
+
+[node name="HealthGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/HealthGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="StrengthGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="StrengthGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Strength :"
+
+[node name="StrengthGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/StrengthGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="MagicGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="MagicGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/MagicGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Magic :"
+
+[node name="MagicGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/MagicGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="SkillGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="SkillGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SkillGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Skill :"
+
+[node name="SkillGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SkillGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="SpeedGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="SpeedGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SpeedGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Speed :"
+
+[node name="SpeedGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/SpeedGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="LuckGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="LuckGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/LuckGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Luck :"
+
+[node name="LuckGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/LuckGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="DefenseGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="DefenseGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/DefenseGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Defense :"
+
+[node name="DefenseGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/DefenseGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ResistanceGrowthContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer"]
+layout_mode = 2
+
+[node name="ResistanceGrowthHeaderLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Resistance :"
+
+[node name="ResistanceGrowthValueLabel" type="Label" parent="MarginContainer/MainContainer/ItemGrowthsBoostContainer/ItemGrowthsBoostContainer/ResistanceGrowthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2

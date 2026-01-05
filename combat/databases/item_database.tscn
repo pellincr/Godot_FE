@@ -1,6 +1,7 @@
-[gd_scene load_steps=106 format=3 uid="uid://cm5gan74bnf37"]
+[gd_scene load_steps=195 format=3 uid="uid://cm5gan74bnf37"]
 
-[ext_resource type="Script" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" uid="uid://oec25fia216y" path="res://combat/databases/item_database.gd" id="1_t0tvu"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_3lb28"]
 [ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_u1np0"]
 [ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_o8mgg"]
 [ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="5_ge5kc"]
@@ -9,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://bo6o65qd7agqb" path="res://resources/definitions/items/weapons/bow/short_bow.tres" id="7_x6uf5"]
 [ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="8_l7lwn"]
 [ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="9_vblr4"]
-[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="10_n4irs"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_n4irs"]
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="11_uxm7i"]
 [ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="12_6iapf"]
 [ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="13_ha374"]
@@ -35,7 +36,7 @@
 [ext_resource type="Resource" uid="uid://cbf4y33g7byxd" path="res://resources/definitions/items/weapons/lance/killer_lance.tres" id="33_gk068"]
 [ext_resource type="Resource" uid="uid://dbivq6j2j5qrv" path="res://resources/definitions/items/weapons/nature/wind.tres" id="34_ttak5"]
 [ext_resource type="Resource" uid="uid://mav4x1jclqwh" path="res://resources/definitions/items/weapons/nature/bolting.tres" id="35_xal3d"]
-[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/enchanted_shotel.tres" id="36_1rwxd"]
+[ext_resource type="Resource" uid="uid://bvuduv0mq2kqd" path="res://resources/definitions/items/weapons/dagger/spirit_dagger.tres" id="36_1rwxd"]
 [ext_resource type="Resource" uid="uid://ywngwx7ftaom" path="res://resources/definitions/items/consumables/skeleton_key.tres" id="37_psnnm"]
 [ext_resource type="Resource" uid="uid://d2gcae0fe52md" path="res://resources/definitions/items/weapons/fists/brass_knuckles.tres" id="38_ysglg"]
 [ext_resource type="Resource" uid="uid://bxj522h8rq5l6" path="res://resources/definitions/items/weapons/fists/devil_knuckles.tres" id="39_kby4g"]
@@ -48,7 +49,6 @@
 [ext_resource type="Resource" uid="uid://b8mhwgxdloe17" path="res://resources/definitions/items/weapons/light_magic/mandate.tres" id="46_jmx6f"]
 [ext_resource type="Resource" uid="uid://oo2d2ui6ymeg" path="res://resources/definitions/items/weapons/swords/great_sword.tres" id="47_v3anb"]
 [ext_resource type="Resource" uid="uid://dttd16vj7vl7q" path="res://resources/definitions/items/weapons/dark_magic/soul_rip.tres" id="48_m0w6q"]
-[ext_resource type="Resource" uid="uid://b36pv3aminpmj" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="49_bdsdk"]
 [ext_resource type="Resource" uid="uid://dlphnpkojmg82" path="res://resources/definitions/items/weapons/dagger/kukri.tres" id="50_d8m3e"]
 [ext_resource type="Resource" uid="uid://ku2s10vebmh1" path="res://resources/definitions/items/weapons/lance/silver_lance.tres" id="51_5lqt6"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="52_x6n6j"]
@@ -59,9 +59,9 @@
 [ext_resource type="Resource" uid="uid://dpkxvd1xt2kjo" path="res://resources/definitions/items/weapons/shield/silver_shield.tres" id="57_yomul"]
 [ext_resource type="Resource" uid="uid://db7h1w35jj1dn" path="res://resources/definitions/items/weapons/light_magic/ray.tres" id="58_7gmx0"]
 [ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="59_jqcuj"]
-[ext_resource type="Resource" uid="uid://ij7vpsfl6vqo" path="res://resources/definitions/items/treasure/wine.tres" id="60_inhro"]
-[ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/boost_bread.tres" id="61_af6n4"]
-[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/rubbish.tres" id="62_2aj2t"]
+[ext_resource type="Resource" uid="uid://dxdxaw1qqj2na" path="res://resources/definitions/items/treasure/wine.tres" id="60_inhro"]
+[ext_resource type="Resource" uid="uid://cgqplmcwgkvli" path="res://resources/definitions/items/consumables/stat_boosters/boost_bread.tres" id="61_af6n4"]
+[ext_resource type="Resource" uid="uid://bc2ltja6ag1fu" path="res://resources/definitions/items/treasure/gold_coins_small.tres" id="62_2aj2t"]
 [ext_resource type="Resource" uid="uid://bf8ot2t215k2q" path="res://resources/definitions/items/weapons/commander_special/vipers_bite.tres" id="62_xe68h"]
 [ext_resource type="Resource" uid="uid://ctxb7dewvyaxx" path="res://resources/definitions/items/stalves/imbue_staff.tres" id="63_bw6kg"]
 [ext_resource type="Resource" uid="uid://b77kbecyy5xb7" path="res://resources/definitions/items/weapons/axes/great_axe.tres" id="64_g2m76"]
@@ -98,59 +98,178 @@
 [ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="94_xlfug"]
 [ext_resource type="Resource" uid="uid://ba2v7ysctm6nl" path="res://resources/definitions/items/consumables/door_key.tres" id="95_midyp"]
 [ext_resource type="Resource" uid="uid://dc3w22d0undqt" path="res://resources/definitions/items/consumables/chest_key.tres" id="96_q47d5"]
-[ext_resource type="Resource" uid="uid://c5qmyhlq5gf7" path="res://resources/definitions/items/consumables/titan_trout.tres" id="97_41x7d"]
+[ext_resource type="Resource" uid="uid://c5qmyhlq5gf7" path="res://resources/definitions/items/consumables/stat_boosters/health/titan_trout.tres" id="97_41x7d"]
 [ext_resource type="Resource" uid="uid://ca5sf13370j7n" path="res://resources/definitions/items/stalves/minor_heal.tres" id="98_5vscg"]
 [ext_resource type="Resource" uid="uid://cbq718k1dr5kq" path="res://resources/definitions/items/weapons/bow/reinforced_bow.tres" id="99_5bd5o"]
 [ext_resource type="Resource" uid="uid://bu2mr2rk4kr7h" path="res://resources/definitions/items/weapons/commander_special/ashen_shine.tres" id="99_5myvd"]
 [ext_resource type="Resource" uid="uid://cw7f748svawtu" path="res://resources/definitions/items/equipment/oak_wood_charm.tres" id="100_2u5qe"]
 [ext_resource type="Resource" uid="uid://d0624xvpq8x7i" path="res://resources/definitions/items/equipment/resonant_ore.tres" id="101_7bcyb"]
-[ext_resource type="Resource" uid="uid://bk6erqbcy1jtp" path="res://resources/definitions/items/weapons/commander_special/persuaders.tres" id="102_khegi"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="101_7w3tq"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="102_q80qu"]
+[ext_resource type="Resource" uid="uid://btbls8ing2pq0" path="res://resources/definitions/items/weapons/bow/long_bow.tres" id="104_q80qu"]
+[ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="105_l712n"]
+[ext_resource type="Resource" uid="uid://bsoobdnbhhpvl" path="res://resources/definitions/items/consumables/stat_boosters/defense/bastion_crab.tres" id="106_50iop"]
+[ext_resource type="Resource" uid="uid://ccruwnqb2rr1u" path="res://resources/definitions/items/consumables/stat_boosters/defense/infused_obsidian.tres" id="107_igk04"]
+[ext_resource type="Resource" uid="uid://c54py23sdd4jg" path="res://resources/definitions/items/consumables/stat_boosters/defense/stonebark_blossom.tres" id="108_tjwbw"]
+[ext_resource type="Resource" uid="uid://cs7d3e782xcnv" path="res://resources/definitions/items/consumables/stat_boosters/defense/stonebark_essence.tres" id="109_1moet"]
+[ext_resource type="Resource" uid="uid://cxg35djtm8pb0" path="res://resources/definitions/items/consumables/stat_boosters/defense/stonedragon_tail.tres" id="110_kkosx"]
+[ext_resource type="Resource" uid="uid://c56ls2qlttvp" path="res://resources/definitions/items/consumables/stat_boosters/health/century_cheese.tres" id="111_psnd1"]
+[ext_resource type="Resource" uid="uid://bd4ycvf6p50cc" path="res://resources/definitions/items/consumables/stat_boosters/health/godseed_oil.tres" id="112_s84j8"]
+[ext_resource type="Resource" uid="uid://c3rv0ukehgqln" path="res://resources/definitions/items/consumables/stat_boosters/health/heartbeet.tres" id="113_u8lih"]
+[ext_resource type="Resource" uid="uid://e44kr4mj14d2" path="res://resources/definitions/items/consumables/stat_boosters/health/vermillion_tonic.tres" id="114_cws61"]
+[ext_resource type="Resource" uid="uid://beblkoxujkpd5" path="res://resources/definitions/items/consumables/stat_boosters/magic/moonclam_pearl.tres" id="115_35x00"]
+[ext_resource type="Resource" uid="uid://bvxcxn35h4vvd" path="res://resources/definitions/items/consumables/stat_boosters/magic/runewart.tres" id="116_nw817"]
+[ext_resource type="Resource" uid="uid://cagnuvsj2ewrl" path="res://resources/definitions/items/consumables/stat_boosters/magic/soul_dust.tres" id="117_wmi8g"]
+[ext_resource type="Resource" uid="uid://6fkc6kmfk3ol" path="res://resources/definitions/items/consumables/stat_boosters/magic/spirit_ink.tres" id="118_0v30l"]
+[ext_resource type="Resource" uid="uid://dcr5vflhx3xx2" path="res://resources/definitions/items/consumables/stat_boosters/magic/wisdom_wine.tres" id="119_kdxkq"]
+[ext_resource type="Resource" uid="uid://c5kycavef5yw0" path="res://resources/definitions/items/consumables/stat_boosters/resistance/ancient_anchor.tres" id="120_euqrm"]
+[ext_resource type="Resource" uid="uid://b3ak81j3o8v1y" path="res://resources/definitions/items/consumables/stat_boosters/resistance/cave_carrot.tres" id="121_4xm7o"]
+[ext_resource type="Resource" uid="uid://486wcck6i2bf" path="res://resources/definitions/items/consumables/stat_boosters/resistance/sanctree_branch.tres" id="122_niuha"]
+[ext_resource type="Resource" uid="uid://dk6lj5kke6t73" path="res://resources/definitions/items/consumables/stat_boosters/resistance/sanctuary_shell.tres" id="123_4aqvk"]
+[ext_resource type="Resource" uid="uid://5jys4074q3pp" path="res://resources/definitions/items/consumables/stat_boosters/resistance/warding_worm.tres" id="124_86gxh"]
+[ext_resource type="Resource" uid="uid://dbbrcsr0wre2s" path="res://resources/definitions/items/consumables/stat_boosters/skill/adept_anchovy.tres" id="125_7a2us"]
+[ext_resource type="Resource" uid="uid://mxlqck5barqa" path="res://resources/definitions/items/consumables/stat_boosters/skill/finesse_fillet.tres" id="126_kn4gf"]
+[ext_resource type="Resource" uid="uid://coa4735nd2772" path="res://resources/definitions/items/consumables/stat_boosters/skill/hawkweed.tres" id="127_ccn1k"]
+[ext_resource type="Resource" uid="uid://k8coy7rpl6fp" path="res://resources/definitions/items/consumables/stat_boosters/skill/martial_scroll.tres" id="128_8txxg"]
+[ext_resource type="Resource" uid="uid://cqv0qetc37ogd" path="res://resources/definitions/items/consumables/stat_boosters/skill/precise_pepper.tres" id="129_kbtey"]
+[ext_resource type="Resource" uid="uid://crvd3gshuxr6f" path="res://resources/definitions/items/consumables/stat_boosters/speed/hastehawk_feather.tres" id="130_7xe73"]
+[ext_resource type="Resource" uid="uid://cl1ocurrvytss" path="res://resources/definitions/items/consumables/stat_boosters/speed/rushraddish.tres" id="131_4c85a"]
+[ext_resource type="Resource" uid="uid://csmujnyruvv5h" path="res://resources/definitions/items/consumables/stat_boosters/speed/swift_shellfish.tres" id="132_e2yjl"]
+[ext_resource type="Resource" uid="uid://5d0x5t4vuwuf" path="res://resources/definitions/items/consumables/stat_boosters/speed/tempo_tonic.tres" id="133_llvit"]
+[ext_resource type="Resource" uid="uid://dxo3kqxulooms" path="res://resources/definitions/items/consumables/stat_boosters/speed/wyvern_wingdust.tres" id="134_d85kj"]
+[ext_resource type="Resource" uid="uid://c3a7hweyt1ujj" path="res://resources/definitions/items/consumables/stat_boosters/strength/brawn_prawn.tres" id="135_iuj88"]
+[ext_resource type="Resource" uid="uid://d2ufy5svqxhhs" path="res://resources/definitions/items/consumables/stat_boosters/strength/brutvine_heartroot.tres" id="136_5tcy5"]
+[ext_resource type="Resource" uid="uid://bgwayl0oegg0k" path="res://resources/definitions/items/consumables/stat_boosters/strength/brutvine_sap.tres" id="137_eq2cj"]
+[ext_resource type="Resource" uid="uid://d2oqed7tygy48" path="res://resources/definitions/items/consumables/stat_boosters/strength/giants_brew.tres" id="138_p2ujb"]
+[ext_resource type="Resource" uid="uid://cu4v3l3r0d3in" path="res://resources/definitions/items/consumables/stat_boosters/strength/power_rune.tres" id="139_sykvo"]
+[ext_resource type="Resource" uid="uid://bfxa8fiicoqsm" path="res://resources/definitions/items/consumables/refillable_potion.tres" id="140_tjwbw"]
+[ext_resource type="Resource" uid="uid://c41v1auiuq2wj" path="res://resources/definitions/items/consumables/large_potion.tres" id="141_1moet"]
+[ext_resource type="Resource" uid="uid://cmo7c2gqpwpdx" path="res://resources/definitions/items/weapons/axes/valor_axe.tres" id="142_niuha"]
+[ext_resource type="Resource" uid="uid://dco4sixhkecil" path="res://resources/definitions/items/weapons/bow/valor_bow.tres" id="143_4aqvk"]
+[ext_resource type="Resource" uid="uid://yfafgeaai71j" path="res://resources/definitions/items/weapons/lance/valor_lance.tres" id="145_7a2us"]
+[ext_resource type="Resource" uid="uid://rwl0gwhnv6uy" path="res://resources/definitions/items/weapons/swords/valor_blade.tres" id="146_kn4gf"]
+[ext_resource type="Resource" uid="uid://p5wvq1gfcryr" path="res://resources/definitions/items/weapons/axes/tri_axe.tres" id="147_ccn1k"]
+[ext_resource type="Resource" uid="uid://bpv2q2oiapa6i" path="res://resources/definitions/items/weapons/lance/tri_pike.tres" id="148_8txxg"]
+[ext_resource type="Resource" uid="uid://c5crxadul4wou" path="res://resources/definitions/items/weapons/dagger/steel_dagger_new.tres" id="148_xul00"]
+[ext_resource type="Resource" uid="uid://d0isbl0uqtjwy" path="res://resources/definitions/items/weapons/swords/tri_edge.tres" id="149_kbtey"]
+[ext_resource type="Resource" uid="uid://d32nr8htgrya4" path="res://resources/definitions/items/weapons/dagger/armorbreaker.tres" id="150_7xe73"]
+[ext_resource type="Resource" uid="uid://bvnotca20t7r7" path="res://resources/definitions/items/weapons/swords/shotel.tres" id="151_4c85a"]
+[ext_resource type="Resource" uid="uid://ce7orlfww341f" path="res://resources/definitions/items/weapons/lance/great_lance.tres" id="152_e2yjl"]
+[ext_resource type="Resource" uid="uid://b5m7mb73uct4n" path="res://resources/definitions/items/weapons/shield/iron_greatshield.tres" id="153_llvit"]
+[ext_resource type="Resource" uid="uid://dn8nycdpo07q" path="res://resources/definitions/items/weapons/shield/steel_greatshield.tres" id="154_d85kj"]
+[ext_resource type="Resource" uid="uid://cogogvgr7hry6" path="res://resources/definitions/items/weapons/shield/silver_greatshield.tres" id="155_iuj88"]
+[ext_resource type="Resource" uid="uid://buifjastb8bc5" path="res://resources/definitions/items/equipment/band_of_fortune.tres" id="157_ewy5w"]
+[ext_resource type="Resource" uid="uid://bcu8037u4mcol" path="res://resources/definitions/items/equipment/enshrouding_sash.tres" id="158_6rcnr"]
+[ext_resource type="Resource" uid="uid://c7rpmq73clyum" path="res://resources/definitions/items/equipment/family_ring.tres" id="159_cqs85"]
+[ext_resource type="Resource" uid="uid://bjytyu8voutuv" path="res://resources/definitions/items/equipment/fancy_cloak.tres" id="160_smksv"]
+[ext_resource type="Resource" uid="uid://cn50lbgi2bx3t" path="res://resources/definitions/items/equipment/jester_mask.tres" id="161_jongk"]
+[ext_resource type="Resource" uid="uid://cg5wo0fkyh5uw" path="res://resources/definitions/items/equipment/knights_token.tres" id="162_a2n7e"]
+[ext_resource type="Resource" uid="uid://dvm6o4v86cbr0" path="res://resources/definitions/items/equipment/loaded_die.tres" id="163_3lb28"]
+[ext_resource type="Resource" uid="uid://qkuun8cons7a" path="res://resources/definitions/items/equipment/lucky_coin.tres" id="164_xul00"]
+[ext_resource type="Resource" uid="uid://c27vhlofo7ly6" path="res://resources/definitions/items/equipment/magi_robes.tres" id="165_n7wwd"]
+[ext_resource type="Resource" uid="uid://l6kd2wl63bem" path="res://resources/definitions/items/equipment/mystifying_incense.tres" id="166_ncyn0"]
+[ext_resource type="Resource" uid="uid://cyj3gt2n6yn8y" path="res://resources/definitions/items/equipment/null_sigl.tres" id="167_n308j"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/steel_dagger.tres" id="168_6rcnr"]
+[ext_resource type="Resource" uid="uid://bocqqoda422bq" path="res://resources/definitions/items/equipment/old_pendant.tres" id="168_87ert"]
+[ext_resource type="Resource" uid="uid://ch3c7efjp00as" path="res://resources/definitions/items/equipment/old_soldiers_band.tres" id="169_sec5j"]
+[ext_resource type="Resource" uid="uid://dbauvolqrqquy" path="res://resources/definitions/items/equipment/power_band.tres" id="170_e40e4"]
+[ext_resource type="Resource" uid="uid://xyky33pirc2u" path="res://resources/definitions/items/equipment/quick_soles.tres" id="171_stywt"]
+[ext_resource type="Resource" uid="uid://bhhd6h6vtdo23" path="res://resources/definitions/items/equipment/ring_of_favor.tres" id="172_u32r1"]
+[ext_resource type="Resource" uid="uid://bibwkx8e7sl5i" path="res://resources/definitions/items/equipment/royal_crest.tres" id="173_26xed"]
+[ext_resource type="Resource" uid="uid://ckgavju6d8chp" path="res://resources/definitions/items/equipment/scholars_optics.tres" id="174_esb4d"]
+[ext_resource type="Resource" uid="uid://cn232dt8461s3" path="res://resources/definitions/items/equipment/training_weights.tres" id="175_k7afb"]
+[ext_resource type="Resource" uid="uid://xtlbht140mcb" path="res://resources/definitions/items/equipment/travelers_ring.tres" id="176_51rj4"]
+[ext_resource type="Resource" uid="uid://c3u44a8r2o2ch" path="res://resources/definitions/items/weapons/lance/jousting_lance.tres" id="177_ewy5w"]
+[ext_resource type="Resource" uid="uid://b58f56xtumpv1" path="res://resources/definitions/items/equipment/tungsten_ooze.tres" id="177_j81yc"]
+[ext_resource type="Resource" uid="uid://c7nxl3m1wrynx" path="res://resources/definitions/items/equipment/vitality_cloak.tres" id="178_a0mno"]
+[ext_resource type="Resource" uid="uid://5j253u4wbq8v" path="res://resources/definitions/items/consumables/large_potion_+.tres" id="179_smksv"]
+[ext_resource type="Resource" uid="uid://ctxck0urg8ldt" path="res://resources/definitions/items/consumables/potion_+.tres" id="180_jongk"]
+[ext_resource type="Resource" uid="uid://cy3m2nf7cxgul" path="res://resources/definitions/items/equipment/cleansed_goblet.tres" id="181_jongk"]
+[ext_resource type="Resource" uid="uid://be6dwu100hykr" path="res://resources/definitions/items/weapons/commander_special/magelock.tres" id="181_tb7n7"]
+[ext_resource type="Resource" uid="uid://7jgl3w4yco8k" path="res://resources/definitions/items/equipment/heavy_brick.tres" id="182_a2n7e"]
+[ext_resource type="Resource" uid="uid://gui2f0se83ub" path="res://resources/definitions/items/weapons/commander_special/persauders.tres" id="182_ewy5w"]
+[ext_resource type="Resource" uid="uid://br1ypxp6y3bql" path="res://resources/definitions/items/weapons/bow/dragonslayer_bow.tres" id="184_xul00"]
+[ext_resource type="Resource" uid="uid://dss3x6j62pbtk" path="res://resources/definitions/items/weapons/dagger/sword_breaker.tres" id="185_n308j"]
+[ext_resource type="Resource" uid="uid://cs4oh53eg6rj7" path="res://resources/definitions/items/weapons/dagger/tanto.tres" id="186_87ert"]
+[ext_resource type="Resource" uid="uid://y6uw8w4wpc2h" path="res://resources/definitions/items/weapons/dagger/kunai.tres" id="187_sec5j"]
+[ext_resource type="Resource" uid="uid://chd67lh7elx2i" path="res://resources/definitions/items/equipment/sunshard_band.tres" id="188_87ert"]
+[ext_resource type="Resource" uid="uid://diojnt0oqm7x6" path="res://resources/definitions/items/weapons/shield/knight_shield.tres" id="189_sec5j"]
 
 [node name="ItemDatabase" type="Node"]
 script = ExtResource("1_t0tvu")
-items = {
+items = Dictionary[String, ExtResource("2_3lb28")]({
 "abyss_typhoon": ExtResource("73_fi30s"),
+"adept_anchovy": ExtResource("125_7a2us"),
 "all_seeing_hands": ExtResource("76_jk8mo"),
+"ancient_anchor": ExtResource("120_euqrm"),
 "annihilate": ExtResource("74_y5h4k"),
+"armorbreaker": ExtResource("150_7xe73"),
+"band_of_fortune": ExtResource("157_ewy5w"),
+"bastion_crab": ExtResource("106_50iop"),
 "bolting": ExtResource("35_xal3d"),
 "boost_bread": ExtResource("61_af6n4"),
 "brass_knuckles": ExtResource("38_ysglg"),
+"brawn_prawn": ExtResource("135_iuj88"),
+"brutvine_heartroot": ExtResource("136_5tcy5"),
+"brutvine_sap": ExtResource("137_eq2cj"),
 "buckler": ExtResource("42_bjlri"),
+"cave_carrot": ExtResource("121_4xm7o"),
+"century_cheese": ExtResource("111_psnd1"),
 "chest_key": ExtResource("96_q47d5"),
+"cleansed_goblet": ExtResource("181_jongk"),
 "colossus": ExtResource("85_6fek0"),
 "dark_pulse": ExtResource("29_sc5t6"),
 "dark_sword": ExtResource("25_rrx52"),
 "deliverance": ExtResource("86_ogapb"),
 "devil_knuckles": ExtResource("39_kby4g"),
 "door_key": ExtResource("95_midyp"),
+"dragonslayer_bow": ExtResource("184_xul00"),
 "earth_split": ExtResource("88_p6flx"),
 "ebonflight": ExtResource("70_s8rv5"),
 "elixir": ExtResource("93_1d4v0"),
 "enchanted_bow": ExtResource("24_4o3e2"),
-"enchanted_shotel": ExtResource("36_1rwxd"),
+"enshrouding_stash": ExtResource("158_6rcnr"),
 "evil_eye": ExtResource("45_py2vi"),
 "eye_greatshield": ExtResource("43_v0y5j"),
+"family_ring": ExtResource("159_cqs85"),
+"fancy_cloak": ExtResource("160_smksv"),
 "fiend_fire": ExtResource("28_hv28m"),
+"finesse_fillet": ExtResource("126_kn4gf"),
 "fire_spell": ExtResource("19_q1d18"),
+"giants_brew": ExtResource("138_p2ujb"),
+"godseed_oil": ExtResource("112_s84j8"),
+"gold_coins_large": ExtResource("101_7w3tq"),
+"gold_coins_medium": ExtResource("102_q80qu"),
+"gold_coins_small": ExtResource("62_2aj2t"),
 "great_axe": ExtResource("64_g2m76"),
 "great_bow": ExtResource("17_0gxut"),
+"great_lance": ExtResource("152_e2yjl"),
 "greatsword": ExtResource("47_v3anb"),
 "halberd": ExtResource("22_epcxq"),
 "hand_axe": ExtResource("11_uxm7i"),
 "harm": ExtResource("32_xfxu7"),
+"hastehawk_feather": ExtResource("130_7xe73"),
 "hatchet": ExtResource("44_677v3"),
+"hawkweed": ExtResource("127_ccn1k"),
 "heal_staff": ExtResource("16_exr5t"),
+"heartbeet": ExtResource("113_u8lih"),
+"heavy_brick": ExtResource("182_a2n7e"),
+"heavy_knife": ExtResource("105_l712n"),
 "heavy_lance": ExtResource("84_u837s"),
 "holy_fire": ExtResource("89_uiv3h"),
 "imbue_staff": ExtResource("63_bw6kg"),
+"infused_obsidian": ExtResource("107_igk04"),
 "iron_axe": ExtResource("3_u1np0"),
 "iron_bow": ExtResource("5_ge5kc"),
 "iron_dagger": ExtResource("27_fgo5t"),
 "iron_fist": ExtResource("77_4s7is"),
+"iron_greatshield": ExtResource("153_llvit"),
 "iron_lance": ExtResource("4_o8mgg"),
 "iron_shield": ExtResource("40_8cwhn"),
 "iron_sword": ExtResource("5_inufr"),
 "javelin": ExtResource("12_6iapf"),
+"jester_mask": ExtResource("161_jongk"),
+"jousting_lance": ExtResource("177_ewy5w"),
 "killer_axe": ExtResource("66_2c4cv"),
 "killer_bow": ExtResource("15_jhgao"),
 "killer_dagger": ExtResource("72_ckkvo"),
@@ -158,32 +277,61 @@ items = {
 "killer_lance": ExtResource("33_gk068"),
 "killer_sword": ExtResource("18_44h8f"),
 "knife": ExtResource("92_gsk0d"),
+"knight_shield": ExtResource("189_sec5j"),
+"knights_token": ExtResource("162_a2n7e"),
 "kukri": ExtResource("50_d8m3e"),
+"kunai": ExtResource("187_sec5j"),
+"large_potion": ExtResource("141_1moet"),
+"large_potion_+": ExtResource("179_smksv"),
 "life_tap": ExtResource("59_jqcuj"),
+"loaded_die": ExtResource("163_3lb28"),
+"long_bow": ExtResource("104_q80qu"),
+"lucky_coin": ExtResource("164_xul00"),
 "lumen": ExtResource("87_gcqt1"),
 "mage_blade": ExtResource("53_1g7xb"),
+"magi_robes": ExtResource("165_n7wwd"),
 "mandate": ExtResource("46_jmx6f"),
+"martial_scroll": ExtResource("128_8txxg"),
 "minor_heal": ExtResource("98_5vscg"),
+"moonclam_pearl": ExtResource("115_35x00"),
+"mystifying_incense": ExtResource("166_ncyn0"),
+"null_sigil": ExtResource("167_n308j"),
 "oak_wood_charm": ExtResource("100_2u5qe"),
+"old_pendant": ExtResource("168_87ert"),
+"old_soldiers_band": ExtResource("169_sec5j"),
 "pilum": ExtResource("81_qvdqa"),
 "potion": ExtResource("13_ha374"),
+"potion_+": ExtResource("180_jongk"),
+"power_band": ExtResource("170_e40e4"),
+"power_rune": ExtResource("139_sykvo"),
+"precise_pepper": ExtResource("129_kbtey"),
+"quick_soles": ExtResource("171_stywt"),
 "rapier": ExtResource("21_6erag"),
 "ray": ExtResource("58_7gmx0"),
 "recover": ExtResource("41_dpqwc"),
+"refillable_potion": ExtResource("140_tjwbw"),
 "reinforced_bow": ExtResource("99_5bd5o"),
 "resonant_ore": ExtResource("101_7bcyb"),
-"rubbish": ExtResource("62_2aj2t"),
+"ring_of_favor": ExtResource("172_u32r1"),
+"royal_crest": ExtResource("173_26xed"),
+"runewart": ExtResource("116_nw817"),
+"rushraddish": ExtResource("131_4c85a"),
 "sabre": ExtResource("26_3x5tg"),
+"sanctree_branch": ExtResource("122_niuha"),
+"sanctuary_shell": ExtResource("123_4aqvk"),
 "sanguis": ExtResource("71_i5lad"),
+"scholars_optics": ExtResource("174_esb4d"),
 "shade": ExtResource("75_b030a"),
 "sharp_claws": ExtResource("31_wgdpf"),
 "short_axe": ExtResource("67_dh53s"),
 "short_bow": ExtResource("7_x6uf5"),
 "short_sword": ExtResource("94_xlfug"),
+"shotel": ExtResource("151_4c85a"),
 "silver_axe": ExtResource("23_7wv7v"),
 "silver_bow": ExtResource("55_n8hyn"),
 "silver_dagger": ExtResource("56_gbxts"),
 "silver_fist": ExtResource("80_gdl5g"),
+"silver_greatshield": ExtResource("155_iuj88"),
 "silver_lance": ExtResource("51_5lqt6"),
 "silver_shield": ExtResource("57_yomul"),
 "silver_sword": ExtResource("9_vblr4"),
@@ -191,28 +339,57 @@ items = {
 "slim_axe": ExtResource("68_0yebc"),
 "slim_lance": ExtResource("82_3u13d"),
 "smite": ExtResource("30_rffgk"),
+"soul_dust": ExtResource("117_wmi8g"),
 "soul_rip": ExtResource("48_m0w6q"),
 "spear": ExtResource("83_ptnxj"),
+"spirit_dagger": ExtResource("36_1rwxd"),
+"spirit_ink": ExtResource("118_0v30l"),
 "steel_axe": ExtResource("6_meveu"),
 "steel_bow": ExtResource("54_n4b3q"),
-"steel_dagger": ExtResource("49_bdsdk"),
+"steel_dagger": ExtResource("148_xul00"),
 "steel_fist": ExtResource("78_vos4o"),
+"steel_greatshield": ExtResource("154_d85kj"),
 "steel_lance": ExtResource("20_kc6t1"),
 "steel_shield": ExtResource("52_x6n6j"),
 "steel_sword": ExtResource("8_l7lwn"),
+"stonebark_blossom": ExtResource("108_tjwbw"),
+"stonebark_essence": ExtResource("109_1moet"),
+"stonedragon_tail": ExtResource("110_kkosx"),
+"sunshard_band": ExtResource("188_87ert"),
+"swift_shellfish": ExtResource("132_e2yjl"),
+"sword_breaker": ExtResource("185_n308j"),
 "sword_reaver": ExtResource("14_dv5o2"),
+"tanto": ExtResource("186_87ert"),
+"temp_tonic": ExtResource("133_llvit"),
 "titan_trout": ExtResource("97_41x7d"),
 "titans_will": ExtResource("85_qfgim"),
 "tomahawk": ExtResource("69_q45qp"),
 "torrent": ExtResource("90_n7mel"),
-"warhammer": ExtResource("10_n4irs"),
-"wind_blade": ExtResource("34_ttak5"),
+"training_weights": ExtResource("175_k7afb"),
+"travelers_ring": ExtResource("176_51rj4"),
+"tri_axe": ExtResource("147_ccn1k"),
+"tri_edge": ExtResource("149_kbtey"),
+"tri_pike": ExtResource("148_8txxg"),
+"tungsten_ooze": ExtResource("177_j81yc"),
+"valor_axe": ExtResource("142_niuha"),
+"valor_blade": ExtResource("146_kn4gf"),
+"valor_bow": ExtResource("143_4aqvk"),
+"valor_dagger": ExtResource("168_6rcnr"),
+"valor_lance": ExtResource("145_7a2us"),
+"vermillion_tonic": ExtResource("114_cws61"),
+"vitality_cloak": ExtResource("178_a0mno"),
+"warding_worm": ExtResource("124_86gxh"),
+"warpick": ExtResource("10_n4irs"),
+"wind": ExtResource("34_ttak5"),
 "wine": ExtResource("60_inhro"),
+"wisdom_wine": ExtResource("119_kdxkq"),
+"wyvern_wingdust": ExtResource("134_d85kj"),
 "zweihander": ExtResource("91_khgvj")
-}
-commander_weapons = {
+})
+commander_weapons = Dictionary[String, ExtResource("2_3lb28")]({
 "ashen_shine": ExtResource("99_5myvd"),
 "dawnbreak": ExtResource("94_f0nre"),
-"persuaders": ExtResource("102_khegi"),
+"magelock": ExtResource("181_tb7n7"),
+"persauders": ExtResource("182_ewy5w"),
 "vipers_bite": ExtResource("62_xe68h")
-}
+})

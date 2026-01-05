@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://bgwayl0oegg0k"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_qlasj"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_hjvs5"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_hjvs5"]
+[ext_resource type="Texture2D" uid="uid://dmdh0so3q1lgv" path="res://resources/sprites/items/consumables/stat_boosters/strength/brutvine_sap.png" id="3_qa44a"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_nkpk6"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_m021r"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_qlasj")
+strength = 3
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_nkpk6")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Brutvine Sap"
+db_key = "brutvine_sap"
+description = "A thick, amber sap drawn from the wild Brutvine, thrumming with feral vigor."
+item_type = 2
+rarity = ExtResource("3_hjvs5")
+worth = 375
+icon = ExtResource("3_qa44a")

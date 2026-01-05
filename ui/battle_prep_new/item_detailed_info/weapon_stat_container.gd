@@ -48,7 +48,7 @@ func set_range_value(range):
 	var min = range[0]
 	var max = range[-1]
 	if min != max:
-		range_value_label.text = str(min) + "/" + str(max)
+		range_value_label.text = str(min) + "-" + str(max)
 	else:
 		range_value_label.text = str(min)
 
@@ -108,7 +108,8 @@ func set_special_values(bonus_stats:UnitStat, specials:Array[WeaponDefinition.WE
 #Right Container
 @onready var scaling_value_label = $RightContainer/ScalingContainer/ScalingValueLabel
 @onready var scaling_x_value_label = $RightContainer/ScalingXContainer/ScalingXValueLabel
-@onready var durability_value_label = $RightContainer/DurabilityContainer/DurabilityValueLabel
+@onready var durability_value_label = $RightContainer/DurabilityContainer/DurabilityValueContainer/DurabilityValueLabel
+@onready var durability_expended_icon: TextureRect = $RightContainer/DurabilityContainer/DurabilityValueContainer/ExpendedIcon
 @onready var weight_value_label = $RightContainer/WeightContainer/WeightValueLabel
 @onready var requirements_container = $RightContainer/RequirementsContainer
 
@@ -151,8 +152,17 @@ func set_scaling_value(scaler):
 func set_scaling_x_value(mult : float):
 	scaling_x_value_label.text = str(mult)
 
-func set_durability_value(uses):
-	durability_value_label.text = str(uses)
+func set_durability_value(uses, max_uses:int = 0, unbreakable:bool = false, expended_state: bool = false):
+	if unbreakable:
+		durability_value_label.text = "Unbreakable"
+	elif expended_state:
+		durability_value_label.text  = str(uses) + "/" + str(max_uses)
+	else:
+		durability_value_label.text = str(uses)
+	
+
+func set_duribility_expended_icon(state):
+	durability_expended_icon.visible = state
 
 func set_weight_value(wgt):
 	weight_value_label.text = str(wgt)
@@ -185,7 +195,7 @@ func set_effective_trait_visibility(effective_traits, effective_weapon_types):
 		mounted_icon.visible = true
 	if effective_traits.has(unitConstants.TRAITS.FLIER):
 		flier_icon.visible = true
-	if effective_traits.has(unitConstants.TRAITS.UNDEAD):
+	if effective_traits.has(unitConstants.TRAITS.TERROR):
 		undead_icon.visible = true
 	#Weapon Types
 	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):
@@ -227,7 +237,8 @@ func update_by_item():
 		#Right Container
 		set_scaling_value(item.item_scaling_type)
 		set_scaling_x_value(1)#TO BE UPDATED WHEN WEAPON IS UPDATED
-		set_durability_value(item.uses)
+		set_durability_value(item.uses, item.max_uses, item.unbreakable, item.has_expended_state)
+		set_duribility_expended_icon(item.has_expended_state)
 		set_weight_value(item.weight)
 		set_requirements_container(item.required_mastery)
 		set_effective_trait_visibility(item.weapon_effectiveness_trait, item.weapon_effectiveness_weapon_type)

@@ -10,9 +10,9 @@ script = ExtResource("1_plxty")
 name = "Lanceman"
 map_position = Vector2i(9, 5)
 level = 1
+ai_type = 2
 unit_type_key = "pikeman"
 inventory = Array[ExtResource("2_0g3k8")]([ExtResource("3_sm4b4")])
-ai_type = 2
 
 [resource]
 script = ExtResource("4_2x8co")

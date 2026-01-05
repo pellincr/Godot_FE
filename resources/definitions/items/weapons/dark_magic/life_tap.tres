@@ -1,40 +1,35 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://w8dasdm73bpm"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://w8dasdm73bpm"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_6xlf5"]
 [ext_resource type="Texture2D" uid="uid://bvk5thdhknfc7" path="res://resources/sprites/items/weapons/dark/life_tap.png" id="1_i8uoc"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_gov2u"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_uqb62"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_uqb62"]
+
+[sub_resource type="Resource" id="Resource_w1tgj"]
+script = ExtResource("1_6xlf5")
+special = 6
+effect_weight = 100
+effect_type = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 
 [resource]
 script = ExtResource("2_uqb62")
 weapon_type = 7
 alignment = 2
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
+magic_weapon_triangle_type = 3
 item_damage_type = 1
 item_scaling_type = 2
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
-required_mastery = 0
-attack_range = Array[int]([1, 2])
 damage = 10
 hit = 70
-critical_chance = 0
 weight = 14
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
+attack_range = Array[int]([1, 2])
 specials = Array[int]([2])
-augmented = false
+equipped_specials = Array[ExtResource("1_6xlf5")]([SubResource("Resource_w1tgj")])
 name = "Life Tap"
 db_key = "life_tap"
 equippable = true
-description = ""
-item_type = 0
 rarity = ExtResource("2_gov2u")
 uses = 14
 max_uses = 14
-unbreakable = false
 worth = 2500
 icon = ExtResource("1_i8uoc")

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://bd4ycvf6p50cc"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_6v0dp"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_5binl"]
+[ext_resource type="Texture2D" uid="uid://d018ugocxr2dh" path="res://resources/sprites/items/consumables/stat_boosters/health/godseed_oil.png" id="2_6v0dp"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="4_5binl"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_csvxe"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_khr4s"]
+
+[sub_resource type="Resource" id="Resource_hsgn5"]
+script = ExtResource("1_6v0dp")
+hp = 7
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_csvxe")
+use_effect = 3
+boost_stat = SubResource("Resource_hsgn5")
+name = "Godseed Oil"
+db_key = "godseed_oil"
+description = "A radiant golden extract pressed from sacred seeds said to carry the lifeblood of forgotten divinities"
+item_type = 2
+rarity = ExtResource("4_5binl")
+worth = 8000
+icon = ExtResource("2_6v0dp")

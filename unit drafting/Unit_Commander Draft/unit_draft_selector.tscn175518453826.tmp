@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca4gvrhyei6ye"]
+
+[ext_resource type="Theme" uid="uid://b2mckyi1bs3eo" path="res://unit drafting/Unit_Commander Draft/draft_selector_thin_border.tres" id="1_gwjt6"]
+[ext_resource type="Script" uid="uid://desy15e65ifb0" path="res://unit drafting/Unit_Commander Draft/unit_draft_selector.gd" id="1_i638l"]
+[ext_resource type="Texture2D" uid="uid://c2jtwksybv815" path="res://resources/sprites/units/mercenary_map.tres" id="2_70vdx"]
+
+[sub_resource type="Theme" id="Theme_fsx0a"]
+default_font_size = 32
+
+[sub_resource type="Theme" id="Theme_3w5h5"]
+default_font_size = 16
+
+[node name="UnitDraftSelector" type="CenterContainer"]
+custom_minimum_size = Vector2(250, 355)
+offset_right = 254.0
+offset_bottom = 355.0
+focus_mode = 2
+mouse_filter = 0
+theme = ExtResource("1_gwjt6")
+script = ExtResource("1_i638l")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(250, 355)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+custom_minimum_size = Vector2(250, 355)
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 355.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="MainVContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="Panel/MarginContainer/MainVContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_fsx0a")
+text = "Name"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/MainVContainer"]
+layout_mode = 2
+theme_override_constants/separation = 155
+
+[node name="ClassLabel" type="Label" parent="Panel/MarginContainer/MainVContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_3w5h5")
+text = "Class"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(62, 62)
+layout_mode = 0
+offset_left = 175.0
+offset_top = 30.0
+offset_right = 238.0
+offset_bottom = 92.0
+texture = ExtResource("2_70vdx")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="Panel" to="." method="_on_panel_mouse_entered"]

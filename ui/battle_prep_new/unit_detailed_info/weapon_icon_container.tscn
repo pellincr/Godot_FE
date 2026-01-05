@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfaqp8a7p4td4"]
+[gd_scene load_steps=19 format=3 uid="uid://dfaqp8a7p4td4"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_lvo56"]
-[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.gd" id="2_383y0"]
+[ext_resource type="Script" uid="uid://crjcegivagm2g" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.gd" id="2_383y0"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="3_8isnn"]
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="3_iay41"]
 [ext_resource type="Texture2D" uid="uid://dm2414hr3ik0c" path="res://resources/sprites/icons/weapon_icons/axe_icon.png" id="4_fv801"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_xk3sx"]
@@ -14,13 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="12_2m7nh"]
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="13_3cl3t"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="14_ulcjr"]
-[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="15_h3rc2"]
+[ext_resource type="Texture2D" uid="uid://ots6mr21urrf" path="res://resources/sprites/icons/weapon_icons/animal_icon.png" id="15_h3rc2"]
 
 [sub_resource type="Theme" id="Theme_0gbyd"]
 default_font = ExtResource("1_lvo56")
 
 [sub_resource type="Theme" id="Theme_ojs4k"]
-default_font_size = 12
+default_font = ExtResource("3_8isnn")
+default_font_size = 16
 
 [node name="WeaponIconContainer" type="VBoxContainer"]
 theme = SubResource("Theme_0gbyd")

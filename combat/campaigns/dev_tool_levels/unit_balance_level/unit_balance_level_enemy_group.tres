@@ -1,0 +1,275 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=34 format=3 uid="uid://dtxfeem4558e8"]
+
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_hmyhr"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_qrdxd"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="3_0xsgr"]
+
+[sub_resource type="Resource" id="Resource_c7w5v"]
+script = ExtResource("1_hmyhr")
+name = "Apprentice"
+level = 1
+ai_type = 2
+unit_type_key = "apprentice"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_7p76o"]
+script = ExtResource("1_hmyhr")
+name = "Apprentice"
+map_position = Vector2i(0, 1)
+level = 5
+ai_type = 2
+unit_type_key = "apprentice"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_culqo"]
+script = ExtResource("1_hmyhr")
+name = "Apprentice"
+map_position = Vector2i(0, 2)
+level = 10
+unit_type_key = "apprentice"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_o4ux2"]
+script = ExtResource("1_hmyhr")
+name = "Archer"
+map_position = Vector2i(1, 0)
+level = 1
+ai_type = 2
+unit_type_key = "archer"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_4sxim"]
+script = ExtResource("1_hmyhr")
+name = "Archer"
+map_position = Vector2i(1, 1)
+level = 5
+unit_type_key = "archer"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_rq2va"]
+script = ExtResource("1_hmyhr")
+name = "Archer"
+map_position = Vector2i(1, 2)
+level = 10
+ai_type = 2
+unit_type_key = "archer"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_ps6mn"]
+script = ExtResource("1_hmyhr")
+name = "Axe Armor"
+map_position = Vector2i(2, 0)
+level = 1
+ai_type = 2
+unit_type_key = "axe_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_b0pr6"]
+script = ExtResource("1_hmyhr")
+name = "Axe Armor"
+map_position = Vector2i(2, 1)
+level = 5
+ai_type = 2
+unit_type_key = "axe_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_xxekj"]
+script = ExtResource("1_hmyhr")
+name = "Axe Armor"
+map_position = Vector2i(2, 2)
+level = 10
+ai_type = 2
+unit_type_key = "axe_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_l72r1"]
+script = ExtResource("1_hmyhr")
+name = "Axe Cavalier"
+map_position = Vector2i(2, 3)
+level = 1
+ai_type = 2
+unit_type_key = "axe_cavalier"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_nmlcl"]
+script = ExtResource("1_hmyhr")
+name = "Axe Cavalier"
+map_position = Vector2i(2, 4)
+level = 5
+ai_type = 2
+unit_type_key = "axe_cavalier"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_r51p1"]
+script = ExtResource("1_hmyhr")
+name = "Axe Cavalier"
+map_position = Vector2i(2, 5)
+level = 10
+ai_type = 2
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_bjdl3"]
+script = ExtResource("1_hmyhr")
+name = "Bishop"
+map_position = Vector2i(0, 3)
+level = 1
+ai_type = 2
+unit_type_key = "bishop"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_d5vv2"]
+script = ExtResource("1_hmyhr")
+name = "Bishop"
+map_position = Vector2i(0, 4)
+level = 5
+ai_type = 2
+unit_type_key = "bishop"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_fpydy"]
+script = ExtResource("1_hmyhr")
+name = "Bishop"
+map_position = Vector2i(0, 5)
+level = 10
+ai_type = 2
+unit_type_key = "bishop"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_qyujn"]
+script = ExtResource("1_hmyhr")
+name = "BladeHand"
+map_position = Vector2i(4, 0)
+level = 1
+ai_type = 2
+unit_type_key = "bladehand"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_e2jgg"]
+script = ExtResource("1_hmyhr")
+name = "BladeHand"
+map_position = Vector2i(4, 1)
+level = 5
+ai_type = 2
+unit_type_key = "bladehand"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_6vfx5"]
+script = ExtResource("1_hmyhr")
+name = "BladeHand"
+map_position = Vector2i(4, 2)
+level = 10
+unit_type_key = "bladehand"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_pllq2"]
+script = ExtResource("1_hmyhr")
+name = "Bow Armor"
+map_position = Vector2i(0, 2)
+level = 1
+ai_type = 2
+unit_type_key = "bow_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_im1lr"]
+script = ExtResource("1_hmyhr")
+name = "Bow Armor"
+map_position = Vector2i(0, 3)
+level = 5
+ai_type = 2
+unit_type_key = "bow_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_b3eco"]
+script = ExtResource("1_hmyhr")
+name = "Bow Armor"
+map_position = Vector2i(0, 4)
+level = 10
+ai_type = 2
+unit_type_key = "bow_armor"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_hmyhr"]
+script = ExtResource("1_hmyhr")
+name = "Bow Cavalier"
+map_position = Vector2i(0, 5)
+level = 1
+ai_type = 2
+unit_type_key = "bow_cavalier"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_qrdxd"]
+script = ExtResource("1_hmyhr")
+name = "Bow cavalier"
+map_position = Vector2i(0, 6)
+level = 5
+ai_type = 2
+unit_type_key = "bow_cavalier"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_0xsgr"]
+script = ExtResource("1_hmyhr")
+name = "Bow Cavalier"
+map_position = Vector2i(0, 7)
+level = 10
+ai_type = 2
+unit_type_key = "bow_cavalier"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_aspqd"]
+script = ExtResource("1_hmyhr")
+name = "Brawler"
+map_position = Vector2i(7, 0)
+level = 1
+ai_type = 2
+unit_type_key = "brawler"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_yqo0b"]
+script = ExtResource("1_hmyhr")
+name = "Brawler "
+map_position = Vector2i(7, 1)
+level = 5
+ai_type = 2
+unit_type_key = "brawler"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_4ctvc"]
+script = ExtResource("1_hmyhr")
+name = "Brawler"
+map_position = Vector2i(7, 2)
+level = 10
+ai_type = 2
+unit_type_key = "brawler"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_qv83j"]
+script = ExtResource("1_hmyhr")
+name = "Bulwark"
+map_position = Vector2i(6, 0)
+level = 1
+ai_type = 2
+unit_type_key = "bulwark"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_vp3oy"]
+script = ExtResource("1_hmyhr")
+name = "Bulwark"
+map_position = Vector2i(6, 1)
+level = 5
+ai_type = 2
+unit_type_key = "bulwark"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[sub_resource type="Resource" id="Resource_o58ah"]
+script = ExtResource("1_hmyhr")
+name = "Bulwark"
+map_position = Vector2i(6, 2)
+level = 10
+ai_type = 2
+unit_type_key = "bulwark"
+metadata/_custom_type_script = "uid://dx803pfypfpa3"
+
+[resource]
+script = ExtResource("3_0xsgr")
+group = Array[ExtResource("1_hmyhr")]([SubResource("Resource_c7w5v"), SubResource("Resource_7p76o"), SubResource("Resource_culqo"), SubResource("Resource_o4ux2"), SubResource("Resource_4sxim"), SubResource("Resource_rq2va"), SubResource("Resource_ps6mn"), SubResource("Resource_b0pr6"), SubResource("Resource_xxekj"), SubResource("Resource_l72r1"), SubResource("Resource_nmlcl"), SubResource("Resource_r51p1"), SubResource("Resource_bjdl3"), SubResource("Resource_d5vv2"), SubResource("Resource_fpydy"), SubResource("Resource_qyujn"), SubResource("Resource_e2jgg"), SubResource("Resource_6vfx5"), SubResource("Resource_pllq2"), SubResource("Resource_im1lr"), SubResource("Resource_b3eco"), SubResource("Resource_hmyhr"), SubResource("Resource_qrdxd"), SubResource("Resource_0xsgr"), SubResource("Resource_aspqd"), SubResource("Resource_yqo0b"), SubResource("Resource_4ctvc"), SubResource("Resource_qv83j"), SubResource("Resource_vp3oy"), SubResource("Resource_o58ah")])
+metadata/_custom_type_script = "uid://ctoil1vwlbm4k"

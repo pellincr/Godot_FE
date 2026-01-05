@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://bcteldqbxn7l0"]
+[gd_scene load_steps=30 format=3 uid="uid://bcteldqbxn7l0"]
 
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_i1iis"]
 [ext_resource type="Script" uid="uid://ber7tsngt6t74" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.gd" id="1_qgpcr"]
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_uy2uf"]
 [ext_resource type="Texture2D" uid="uid://dfqe6d1fkbu7m" path="res://resources/sprites/icons/unit_trait_icons/armor_icon.png" id="3_dgerc"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_j8tm6"]
 [ext_resource type="Texture2D" uid="uid://b4x5dwqc4ap1w" path="res://resources/sprites/icons/unit_trait_icons/Mounted_icon.png" id="4_ayaq8"]
+[ext_resource type="Texture2D" uid="uid://ubeqtcpt3w7f" path="res://resources/sprites/icons/ui_icons/refreshable.png" id="4_j8tm6"]
 [ext_resource type="Texture2D" uid="uid://blijlre1sii7l" path="res://resources/sprites/icons/unit_trait_icons/flyer_icon.png" id="5_ufbdx"]
 [ext_resource type="Texture2D" uid="uid://ksatkqi6i61s" path="res://resources/sprites/icons/unit_trait_icons/undead_icon.png" id="6_vi1f8"]
 [ext_resource type="Texture2D" uid="uid://c05dp35likkjs" path="res://resources/sprites/icons/weapon_icons/sword_icon.png" id="7_i1iis"]
@@ -18,40 +20,39 @@
 [ext_resource type="Texture2D" uid="uid://djxqef37iwyf3" path="res://resources/sprites/icons/weapon_icons/nature_icon.png" id="16_qcegn"]
 [ext_resource type="Texture2D" uid="uid://bnghw7e1x361u" path="res://resources/sprites/icons/weapon_icons/light_icon.png" id="17_m4ecu"]
 [ext_resource type="Texture2D" uid="uid://1yooy3j0ehbl" path="res://resources/sprites/icons/weapon_icons/dark_icon.png" id="18_umscn"]
-[ext_resource type="Texture2D" uid="uid://c80jd5eu78glh" path="res://resources/sprites/icons/animal_icon.png" id="19_wqdf0"]
-
-[sub_resource type="Theme" id="Theme_eqxhd"]
-default_font = ExtResource("1_uy2uf")
 
 [sub_resource type="Theme" id="Theme_s01ql"]
-default_font_size = 12
+default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_k8s1b"]
-default_font_size = 12
+default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_fiq1w"]
-default_font_size = 12
+default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_dqod4"]
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_k7uiw"]
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_ls2o5"]
-default_font_size = 12
+default_font_size = 16
+
+[sub_resource type="Theme" id="Theme_slfph"]
+default_font = ExtResource("3_j8tm6")
 
 [sub_resource type="Theme" id="Theme_nks8u"]
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_wh1t3"]
-default_font_size = 12
-
-[sub_resource type="Theme" id="Theme_k7uiw"]
-default_font_size = 12
+default_font_size = 16
 
 [node name="WeaponStatContainer" type="HBoxContainer"]
 custom_minimum_size = Vector2(221, 167)
 offset_right = 221.0
 offset_bottom = 157.0
-theme = SubResource("Theme_eqxhd")
+theme = ExtResource("1_i1iis")
 script = ExtResource("1_qgpcr")
 
 [node name="LeftContainer" type="VBoxContainer" parent="."]
@@ -72,6 +73,7 @@ layout_mode = 2
 
 [node name="DamageHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Damage :"
 
 [node name="DamageTypeIcon" type="TextureRect" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
@@ -81,6 +83,7 @@ size_flags_horizontal = 10
 
 [node name="DamageValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/DamageContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="AttackXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -88,11 +91,13 @@ layout_mode = 2
 
 [node name="AttackXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Atk X :"
 
 [node name="AttackXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/AttackXContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="HitContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -100,11 +105,13 @@ layout_mode = 2
 
 [node name="HitHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Hit :"
 
 [node name="HitValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/HitContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="CriticalContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -112,11 +119,13 @@ layout_mode = 2
 
 [node name="CriticalHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Critical :"
 
 [node name="CriticalValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CriticalContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "15"
 
 [node name="CritXContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -124,11 +133,13 @@ layout_mode = 2
 
 [node name="CriticalXHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Crit X :"
 
 [node name="CriticalXValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/CritXContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "3"
 
 [node name="RangeContainer" type="HBoxContainer" parent="LeftContainer/CombatStatsContainer"]
@@ -136,11 +147,13 @@ layout_mode = 2
 
 [node name="RangeHeaderLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Range"
 
 [node name="RangeValueLabel" type="Label" parent="LeftContainer/CombatStatsContainer/RangeContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "1-2"
 
 [node name="SpecialAndBonusContainer" type="VBoxContainer" parent="LeftContainer"]
@@ -156,29 +169,44 @@ text = "Special And Bonus"
 layout_mode = 2
 
 [node name="SpecialValueLabel1" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel2" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel3" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel4" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="SpecialValueLabel5" type="Label" parent="LeftContainer/SpecialAndBonusContainer/SpecialAndBonusValueContainer"]
+custom_minimum_size = Vector2(112, 0)
 layout_mode = 2
 theme = SubResource("Theme_fiq1w")
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Special or Bonus 1"
+autowrap_mode = 2
 
 [node name="RightContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -198,6 +226,7 @@ horizontal_alignment = 2
 [node name="ScalingValueLabel" type="Label" parent="RightContainer/ScalingContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "Mundane"
 horizontal_alignment = 2
 
@@ -215,51 +244,8 @@ horizontal_alignment = 2
 [node name="ScalingXValueLabel" type="Label" parent="RightContainer/ScalingXContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j8tm6")
 text = "1.0"
-horizontal_alignment = 2
-
-[node name="DurabilityContainer" type="VBoxContainer" parent="RightContainer"]
-layout_mode = 2
-
-[node name="DurabilityHeaderLabel" type="Label" parent="RightContainer/DurabilityContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_ls2o5")
-text = "Durability"
-horizontal_alignment = 2
-
-[node name="DurabilityValueLabel" type="Label" parent="RightContainer/DurabilityContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-text = "15"
-horizontal_alignment = 2
-
-[node name="WeightContainer" type="VBoxContainer" parent="RightContainer"]
-layout_mode = 2
-
-[node name="WeightHeaderLabel" type="Label" parent="RightContainer/WeightContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-layout_mode = 2
-theme = SubResource("Theme_nks8u")
-text = "Weight"
-horizontal_alignment = 2
-
-[node name="WeightValueLabel" type="Label" parent="RightContainer/WeightContainer"]
-layout_mode = 2
-size_flags_vertical = 10
-text = "15"
-horizontal_alignment = 2
-
-[node name="RequirementsContainer" type="VBoxContainer" parent="RightContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="RequirementsHeaderLabel" type="Label" parent="RightContainer/RequirementsContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(108, 20)
-layout_mode = 2
-theme = SubResource("Theme_wh1t3")
-text = "Requirements"
 horizontal_alignment = 2
 
 [node name="EffectiveContainer" type="VBoxContainer" parent="RightContainer"]
@@ -267,9 +253,10 @@ layout_mode = 2
 
 [node name="EffectiveHeaderLabel" type="Label" parent="RightContainer/EffectiveContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(108, 20)
+custom_minimum_size = Vector2(108, 0)
 layout_mode = 2
 theme = SubResource("Theme_k7uiw")
+theme_override_font_sizes/font_size = 16
 text = "Effective"
 horizontal_alignment = 2
 
@@ -390,5 +377,68 @@ expand_mode = 2
 visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-texture = ExtResource("19_wqdf0")
 expand_mode = 2
+
+[node name="DurabilityContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+
+[node name="DurabilityHeaderLabel" type="Label" parent="RightContainer/DurabilityContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_ls2o5")
+text = "Durability"
+horizontal_alignment = 2
+
+[node name="DurabilityValueContainer" type="HBoxContainer" parent="RightContainer/DurabilityContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme = SubResource("Theme_slfph")
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="ExpendedIcon" type="TextureRect" parent="RightContainer/DurabilityContainer/DurabilityValueContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_j8tm6")
+stretch_mode = 5
+
+[node name="DurabilityValueLabel" type="Label" parent="RightContainer/DurabilityContainer/DurabilityValueContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "30"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="WeightContainer" type="VBoxContainer" parent="RightContainer"]
+layout_mode = 2
+
+[node name="WeightHeaderLabel" type="Label" parent="RightContainer/WeightContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+theme = SubResource("Theme_nks8u")
+theme_override_font_sizes/font_size = 16
+text = "Weight"
+horizontal_alignment = 2
+
+[node name="WeightValueLabel" type="Label" parent="RightContainer/WeightContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("3_j8tm6")
+text = "15"
+horizontal_alignment = 2
+
+[node name="RequirementsContainer" type="VBoxContainer" parent="RightContainer"]
+visible = false
+layout_mode = 2
+alignment = 2
+
+[node name="RequirementsHeaderLabel" type="Label" parent="RightContainer/RequirementsContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(108, 20)
+layout_mode = 2
+theme = SubResource("Theme_wh1t3")
+text = "Requirements"
+horizontal_alignment = 2

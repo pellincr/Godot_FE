@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=17 format=3 uid="uid://c1r4v42x3yv82"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_wrauk"]
+[ext_resource type="Resource" uid="uid://d3iqq6rxrrcyr" path="res://resources/definitions/items/weapons/dark_magic/shade.tres" id="2_rk4fx"]
+[ext_resource type="Resource" uid="uid://iyqe4qfuefkp" path="res://resources/definitions/items/weapons/dark_magic/annihilate.tres" id="3_61ncy"]
+[ext_resource type="Resource" uid="uid://drlr53p524ouy" path="res://resources/definitions/items/weapons/dark_magic/evil_eye.tres" id="4_qlv3q"]
+[ext_resource type="Resource" uid="uid://w8dasdm73bpm" path="res://resources/definitions/items/weapons/dark_magic/life_tap.tres" id="5_byceo"]
+[ext_resource type="Resource" uid="uid://dttd16vj7vl7q" path="res://resources/definitions/items/weapons/dark_magic/soul_rip.tres" id="6_ap44y"]
+[ext_resource type="Resource" uid="uid://nbx0ga6nag7e" path="res://resources/definitions/items/weapons/dark_magic/fiend_fire.tres" id="7_nioja"]
+[ext_resource type="Resource" uid="uid://d34qpam5lxbd8" path="res://resources/definitions/items/weapons/dark_magic/dark_pulse.tres" id="8_awi6c"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="9_j0te0"]
+
+[sub_resource type="Resource" id="Resource_fe5lr"]
+script = ExtResource("1_wrauk")
+item = ExtResource("2_rk4fx")
+probability = 60.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_6mwxi"]
+script = ExtResource("1_wrauk")
+item = ExtResource("3_61ncy")
+probability = 8.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_c3has"]
+script = ExtResource("1_wrauk")
+item = ExtResource("4_qlv3q")
+probability = 5.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_cwrkh"]
+script = ExtResource("1_wrauk")
+item = ExtResource("5_byceo")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_yavxl"]
+script = ExtResource("1_wrauk")
+item = ExtResource("6_ap44y")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_e5of3"]
+script = ExtResource("1_wrauk")
+item = ExtResource("7_nioja")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_tfcl1"]
+script = ExtResource("1_wrauk")
+item = ExtResource("8_awi6c")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("9_j0te0")
+entries = Array[ExtResource("1_wrauk")]([SubResource("Resource_fe5lr"), SubResource("Resource_6mwxi"), SubResource("Resource_c3has"), SubResource("Resource_cwrkh"), SubResource("Resource_yavxl"), SubResource("Resource_e5of3"), SubResource("Resource_tfcl1")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

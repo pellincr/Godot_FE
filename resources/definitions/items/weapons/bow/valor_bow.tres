@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://dco4sixhkecil"]
+
+[ext_resource type="Texture2D" uid="uid://d0p5hdx1twm2b" path="res://resources/sprites/items/weapons/bow/valor_bow.png" id="1_w1g2n"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="2_fv7yb"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_vn7v3"]
+
+[resource]
+script = ExtResource("3_vn7v3")
+weapon_type = 4
+damage = 12
+hit = 80
+weight = 12
+attacks_per_combat_turn = 2
+attack_range = Array[int]([2])
+weapon_effectiveness_trait = Array[int]([2])
+name = "Valor Bow"
+db_key = "valor_bow"
+equippable = true
+description = "A weapon filled with great bravery. Can strike consecutively"
+rarity = ExtResource("2_fv7yb")
+uses = 20
+max_uses = 20
+worth = 6000
+icon = ExtResource("1_w1g2n")

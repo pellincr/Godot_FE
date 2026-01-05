@@ -2,7 +2,7 @@ extends Panel
 
 signal set_trade_item(item,unit)
 signal sell_item(item)
-signal send_item_to_convoy(item)
+signal send_to_convoy(item)
 
 @onready var unit_name_label = $MarginContainer/VBoxContainer/UnitNameLabel
 @onready var unit_icon = $UnitIcon
@@ -14,7 +14,7 @@ signal send_item_to_convoy(item)
 @onready var hp_bar = $MarginContainer/VBoxContainer/HPBar
 
 @onready var combat_stat_container = $MarginContainer/VBoxContainer/CombatStatContainer
-@onready var unit_inventory_container = $MarginContainer/VBoxContainer/UnitInventoryContainer
+@onready var unit_inventory_container: HBoxContainer = $MarginContainer/VBoxContainer/UnitInventoryContainer
 @onready var constitution_value_label: Label = $MarginContainer/VBoxContainer/CombatStatContainer/ConstitutionContainer/ConstitutionValueLabel
 
 
@@ -88,12 +88,14 @@ func _on_unit_inventory_container_sell_item(item):
 	sell_item.emit(item)
 
 
-func set_invetory_state(state:InventoryContainer.INVENTORY_STATE):
-	unit_inventory_container.set_current_state(state)
+#func set_invetory_state(state:InventoryContainer.INVENTORY_STATE):
+#	unit_inventory_container.set_current_state(state)
 
+func set_inventory_ready_for_trade():
+	unit_inventory_container.ready_for_trade = true
 
 func _on_unit_inventory_container_send_to_convoy(item: Variant) -> void:
-	send_item_to_convoy.emit(item)
+	send_to_convoy.emit(item)
 
 func grab_first_inventory_slot_focus():
 	unit_inventory_container.grab_first_slot_focus()
@@ -106,8 +108,25 @@ func clear_item_detail_panel():
 func _on_unit_inventory_container_item_focused(item: Variant) -> void:
 	clear_item_detail_panel()
 	if item != null:
-		var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
-		weapon_detailed_info.item = item
-		add_child(weapon_detailed_info)
-		weapon_detailed_info.update_by_item()
-		weapon_detailed_info.set_position(Vector2(330,20))
+		if item is WeaponDefinition:
+			var weapon_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn").instantiate()
+			weapon_detailed_info.item = item
+			add_child(weapon_detailed_info)
+			weapon_detailed_info.update_by_item()
+			weapon_detailed_info.set_position(Vector2(330,20))
+		elif item is ConsumableItemDefinition:
+			var consumable_item_detailed_info = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn").instantiate()
+			consumable_item_detailed_info.item = item
+			add_child(consumable_item_detailed_info)
+			consumable_item_detailed_info.set_position(Vector2(330,20))
+			consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+		elif item is ItemDefinition:
+			if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+				var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+				equipment_detaied_info.item = item
+				add_child(equipment_detaied_info)
+				equipment_detaied_info.set_position(Vector2(330,20))
+				equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+
+func get_first_inventory_container_slot():
+	return unit_inventory_container.inventory_container_slot_1

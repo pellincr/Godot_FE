@@ -21,24 +21,44 @@ const scene_transition_scene = preload("res://scene_transitions/SceneTransitionA
 @onready var rooms :Node2D = %Rooms
 @onready var visuals :Node2D = $Visuals
 @onready var camera_2d : Camera2D = $Camera2D
+@onready var map_background: CanvasLayer = $MapBackground
 
-const menu_music = preload("res://resources/music/Menu_-_Dreaming_Darkly.ogg")
+
+@onready var controls_ui_container: ControlsUI = $MapBackground/ControlsUIContainer
+@onready var campaign_header: Control = $MapBackground/CampaignHeader
+
+
 const main_pause_menu_scene = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 #var map_data:Array[Array]
 #var floors_climbed:int
 #var last_room:CampaignRoom
-var camera_edge_y : float
-var pause_menu_open = false
+
+var campaign_map_size_y : float
+const CAMERA_EDGE_BUFFER : int = 1
+
+enum MENU_STATE{
+	NONE, PAUSE, CAMPAIGN_INFORMATION
+}
+var current_menu_state := MENU_STATE.NONE
+
 
 var tutorial_complete := true
 
 func _ready() -> void:
-	
 	AudioManager.play_music("menu_theme")
 	transition_in_animation()
 	campaign_map_generator.FLOORS = playerOverworldData.current_campaign.max_floor_number
 	campaign_map_generator.NUMBER_OF_REQUIRED_COMBAT_MAPS = playerOverworldData.current_campaign.number_of_required_combat_maps
-	camera_edge_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS -1)
+	campaign_map_size_y = CampaignMapGenerator.Y_DIST * (campaign_map_generator.FLOORS)# + CAMERA_EDGE_BUFFER)
+	
+	controls_ui_container.current_control_state = ControlsUI.CONTROL_STATE.CAMPAIGN_MAP
+	controls_ui_container.update_by_control_state()
+	
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
+	
 	if !playerOverworldData.campaign_map_data:
 		#If this is the first time loading into the campaign map for the campaign
 		seed(playerOverworldData.capmaign_seed)
@@ -50,9 +70,15 @@ func _ready() -> void:
 			unlock_next_rooms()
 		else:
 			unlock_floor(0)
-	
 	grab_first_available_room_foucs()
 	set_map_room_focus_neighbors()
+	var viewport : Vector2 = camera_2d.get_viewport().get_visible_rect().size
+	var y_limit
+	if campaign_map_size_y > viewport.y:
+		y_limit = (campaign_map_size_y - viewport.y/2)
+	else :
+		y_limit = campaign_map_size_y/2
+	camera_2d.position.y = clamp(y_limit,-campaign_map_size_y/2,y_limit)
 	SelectedSaveFile.save(playerOverworldData)
 	
 	if playerOverworldData.current_campaign.name == "Tutorial" and playerOverworldData.floors_climbed == 0:
@@ -60,7 +86,8 @@ func _ready() -> void:
 			tutorial_complete = false
 			var tutorial_panel = preload("res://ui/tutorial/tutorial_panel.tscn").instantiate()
 			tutorial_panel.current_state = TutorialPanel.TUTORIAL.CAMPAIGN_MAP
-			camera_2d.add_child(tutorial_panel)
+			map_background.add_child(tutorial_panel)
+			map_background.layer = 99
 			tutorial_panel.tutorial_completed.connect(tutorial_completed)
 
 
@@ -79,27 +106,68 @@ func transition_out_animation():
 
 
 func _input(event:InputEvent) ->void:
-	if !pause_menu_open and (event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up")):
-		camera_2d.position.y -= SCROLL_SPEED
-	if !pause_menu_open and (event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down")):
-		camera_2d.position.y += SCROLL_SPEED
-	camera_2d.position.y = clamp(camera_2d.position.y,-camera_edge_y/4,camera_edge_y/2)
+	if event.is_action_pressed("camera_zoom_in") or event.is_action_pressed("ui_up"):
+		if current_menu_state == MENU_STATE.NONE:
+			camera_2d.position.y -= SCROLL_SPEED
+	if event.is_action_pressed("camera_zoom_out") or event.is_action_pressed("ui_down"):
+		if current_menu_state == MENU_STATE.NONE:
+			camera_2d.position.y += SCROLL_SPEED
+	var viewport : Vector2 = camera_2d.get_viewport().get_visible_rect().size
+	var y_limit
+	if campaign_map_size_y > viewport.y:
+		y_limit = (campaign_map_size_y - viewport.y/2)
+	else :
+		y_limit = campaign_map_size_y/2
+	camera_2d.position.y = clamp(camera_2d.position.y,-campaign_map_size_y/2,y_limit)
 	if event.is_action_pressed("ui_cancel"):
-		if !pause_menu_open and tutorial_complete:
-			var main_pause_menu = main_pause_menu_scene.instantiate()
-			camera_2d.add_child(main_pause_menu)
-			main_pause_menu.menu_closed.connect(_on_menu_closed)
-			disable_available_map_room_focus()
-			pause_menu_open = true
-		else:
-			if tutorial_complete:
-				camera_2d.get_child(-1).queue_free()
-				_on_menu_closed()
+		match current_menu_state:
+			MENU_STATE.NONE:
+				if tutorial_complete:
+					set_menu_state(MENU_STATE.PAUSE)
+				else:
+					map_background.get_child(-1).queue_free()
+					_on_menu_closed()
+					tutorial_complete = true
+			MENU_STATE.PAUSE:
+				set_menu_state(MENU_STATE.NONE)
+			MENU_STATE.CAMPAIGN_INFORMATION:
+				set_menu_state(MENU_STATE.NONE)
+	if event.is_action_pressed("campaign_information"):
+		match current_menu_state:
+			MENU_STATE.NONE:
+				set_menu_state(MENU_STATE.CAMPAIGN_INFORMATION)
 
 func tutorial_completed():
-#	camera_2d.zoom = Vector2(3,3)
+	#camera_2d.zoom = Vector2(3,3)
+	map_background.layer = -1
 	rooms.get_child(0).grab_focus()
 	tutorial_complete = true
+
+func set_menu_state(state:MENU_STATE):
+	current_menu_state = state
+	update_by_menu_state()
+
+func update_by_menu_state():
+	match current_menu_state:
+		MENU_STATE.NONE:
+			map_background.layer = -1
+			map_background.get_child(-1).queue_free()
+			enable_available_map_room_focus()
+			grab_first_available_room_foucs()
+		MENU_STATE.PAUSE:
+			map_background.layer = 99
+			var main_pause_menu = main_pause_menu_scene.instantiate()
+			map_background.add_child(main_pause_menu)
+			main_pause_menu.menu_closed.connect(_on_menu_closed)
+			disable_available_map_room_focus()
+		MENU_STATE.CAMPAIGN_INFORMATION:
+			map_background.layer = 99
+			var campaign_information = CAMPAIGN_INFORMATION_SCENE.instantiate()
+			campaign_information.set_po_data(playerOverworldData)
+			campaign_information.current_availabilty = CampaignInformation.AVAILABILITY_STATE.ARMY_CONVOY_ONLY
+			map_background.add_child(campaign_information)
+			campaign_information.menu_closed.connect(_on_menu_closed)
+			disable_available_map_room_focus()
 
 func generate_new_map() -> void:
 	playerOverworldData.floors_climbed = 0
@@ -173,33 +241,38 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has("EXTRA"):
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("EXTRA").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.KEY_BATTLE:
 			var battle_tier = playerOverworldData.combat_maps_completed
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has(battle_tier):
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get(battle_tier).pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.EVENT:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("event_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(EVENT_SELECT)
 		CampaignRoom.TYPE.BOSS:
 			if playerOverworldData.current_campaign.level_pool.battle_levels.has("BOSS") and not playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").is_empty():
 				playerOverworldData.current_level = playerOverworldData.current_campaign.level_pool.battle_levels.get("BOSS").pick_random()
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("battle_map_enter")
 			transition_out_animation()
 			#get_tree().change_scene_to_packed(BATTLE_PREP)
-			playerOverworldData.began_level = true
+			playerOverworldData.level_entered = true
 			get_tree().change_scene_to_packed(playerOverworldData.current_level)
 		CampaignRoom.TYPE.TREASURE:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("treasure_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(TREASURE_SCENE)
 		CampaignRoom.TYPE.SHOP:
@@ -208,12 +281,14 @@ func _on_map_room_selected(room:CampaignRoom) ->void:
 			get_tree().change_scene_to_packed(PLACEHOLDER)
 		CampaignRoom.TYPE.RECRUITMENT:
 			SelectedSaveFile.save(playerOverworldData)
+			AudioManager.play_sound_effect("recruit_map_enter")
 			transition_out_animation()
 			get_tree().change_scene_to_packed(RECRUITMENT_SCENE)
 		CampaignRoom.TYPE.ELITE:
 			SelectedSaveFile.save(playerOverworldData)
 			transition_out_animation()
 			get_tree().change_scene_to_packed(PLACEHOLDER)
+
 
 func grab_first_available_room_foucs() -> void:
 	for map_room:CampaignMapRoom in rooms.get_children():
@@ -252,6 +327,4 @@ func enable_available_map_room_focus():
 	set_available_map_room_focus(Control.FOCUS_ALL)
 
 func _on_menu_closed():
-	enable_available_map_room_focus()
-	_get_available_map_rooms()[0].grab_focus()
-	pause_menu_open = false
+	set_menu_state(MENU_STATE.NONE)

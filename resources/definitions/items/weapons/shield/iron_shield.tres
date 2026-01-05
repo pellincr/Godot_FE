@@ -1,21 +1,21 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://dm117ek0y3jdu"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://dm117ek0y3jdu"]
 
 [ext_resource type="Texture2D" uid="uid://cmxahoox1gg2l" path="res://resources/sprites/items/weapons/shield/iron_shield.png" id="1_1hoqn"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_akoaa"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="1_qvcxe"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_gncek"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_1l0ku"]
 
 [sub_resource type="Resource" id="Resource_qdqgw"]
 script = ExtResource("1_akoaa")
-defense = 3
+defense = 2
 
 [resource]
 script = ExtResource("1_qvcxe")
 weapon_type = 12
 alignment = 3
-item_scaling_type = 3
-damage = 2
-weight = 12
+damage = 1
+weight = 8
 bonus_stat = SubResource("Resource_qdqgw")
 name = "Iron Shield"
 db_key = "iron_shield"

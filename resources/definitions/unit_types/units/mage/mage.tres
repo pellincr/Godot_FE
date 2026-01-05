@@ -1,30 +1,26 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://06uoo1n8hpyw"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://06uoo1n8hpyw"]
 
 [ext_resource type="Resource" uid="uid://yns2wh66xf3x" path="res://resources/definitions/unit_types/units/mage/mage_base_combat_stats.tres" id="1_c5khd"]
 [ext_resource type="Resource" uid="uid://dfwxoc75idm12" path="res://resources/definitions/unit_types/units/mage/mage_growth_stats.tres" id="2_7xh3r"]
+[ext_resource type="Resource" uid="uid://csut07ryd3guw" path="res://resources/definitions/unit_types/units/mage/mage_default_item_tables.tres" id="2_rjay8"]
 [ext_resource type="Texture2D" uid="uid://cyjkewhq0af7q" path="res://resources/sprites/units/mage.png" id="3_w57ol"]
 [ext_resource type="Resource" uid="uid://djkg0ulanqibv" path="res://resources/definitions/unit_types/units/mage/mage_max_stats.tres" id="4_g36je"]
-[ext_resource type="Script" uid="uid://c1robev0qa1kh" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_dbru7"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_dbru7"]
+[ext_resource type="Resource" uid="uid://c2pragtbxstw1" path="res://resources/definitions/unit_types/units/mage/mage_promotion_stats.tres" id="6_66css"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_n0ybt"]
 
 [resource]
 script = ExtResource("5_dbru7")
 unit_type_name = "Mage"
 db_key = "mage"
-description = ""
-initiative = 1
+name_genders = Array[int]([1])
 faction = Array[int]([1])
-traits = Array[int]([])
 unit_rarity = ExtResource("6_n0ybt")
-movement_type = 0
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([9])
 base_stats = ExtResource("1_c5khd")
 maxuimum_stats = ExtResource("4_g36je")
 growth_stats = ExtResource("2_7xh3r")
+promotion_to_stats = ExtResource("6_66css")
 icon = ExtResource("3_w57ol")
 map_sprite = ExtResource("3_w57ol")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])
+default_item_resource = ExtResource("2_rjay8")

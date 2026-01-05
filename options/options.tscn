@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2wv2v2nfjpci"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_c0xh2"]
+[ext_resource type="Script" uid="uid://b5kj853ncpkar" path="res://options/options.gd" id="2_jtqf2"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_dwof0"]
+[ext_resource type="PackedScene" uid="uid://baixd5nr123uf" path="res://ui/shared/version_label.tscn" id="3_jtqf2"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_c0xh2")
+script = ExtResource("2_jtqf2")
+
+[node name="VersionLabel" parent="." instance=ExtResource("3_jtqf2")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.5
+offset_top = -88.5
+offset_right = 91.5
+offset_bottom = 88.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="OptionTypeContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OptionsHeaderLabel" type="Label" parent="PanelContainer/MarginContainer/OptionTypeContainer"]
+layout_mode = 2
+text = "Options"
+horizontal_alignment = 1
+
+[node name="VideoButton" type="Button" parent="PanelContainer/MarginContainer/OptionTypeContainer"]
+layout_mode = 2
+disabled = true
+text = "Video"
+script = ExtResource("3_dwof0")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="AudioButton" type="Button" parent="PanelContainer/MarginContainer/OptionTypeContainer"]
+layout_mode = 2
+text = "Audio"
+script = ExtResource("3_dwof0")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="GameplayButton" type="Button" parent="PanelContainer/MarginContainer/OptionTypeContainer"]
+layout_mode = 2
+disabled = true
+text = "Gameplay"
+script = ExtResource("3_dwof0")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="AudioContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AudioHeaderLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer"]
+layout_mode = 2
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/AudioContainer"]
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Master"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/AudioContainer/MasterVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+
+[node name="MasterVolumeValueLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/MasterVolumeContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/AudioContainer"]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Music"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/AudioContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+
+[node name="MusicVolumeValueLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/MusicVolumeContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/AudioContainer"]
+layout_mode = 2
+
+[node name="SFXVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/AudioContainer/SFXVolumeContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+
+[node name="SFXVolumeValueLabel" type="Label" parent="PanelContainer/MarginContainer/AudioContainer/SFXVolumeContainer"]
+layout_mode = 2
+text = "0"
+
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/OptionTypeContainer/VideoButton" to="PanelContainer/MarginContainer/OptionTypeContainer/VideoButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/VideoButton" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/VideoButton" to="PanelContainer/MarginContainer/OptionTypeContainer/VideoButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/OptionTypeContainer/AudioButton" to="PanelContainer/MarginContainer/OptionTypeContainer/AudioButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/AudioButton" to="PanelContainer/MarginContainer/OptionTypeContainer/AudioButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/OptionTypeContainer/GameplayButton" to="PanelContainer/MarginContainer/OptionTypeContainer/GameplayButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/GameplayButton" to="." method="_on_gameplay_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/OptionTypeContainer/GameplayButton" to="PanelContainer/MarginContainer/OptionTypeContainer/GameplayButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/AudioContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="_on_volume_slider_focus_entered"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/AudioContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/AudioContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="_on_volume_slider_focus_entered"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/AudioContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/AudioContainer/SFXVolumeContainer/SFXVolumeSlider" to="." method="_on_volume_slider_focus_entered"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/AudioContainer/SFXVolumeContainer/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]

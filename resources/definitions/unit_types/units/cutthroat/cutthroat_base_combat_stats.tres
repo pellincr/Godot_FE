@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://bv6vlgimskgl2"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_cojux"]
+
+[resource]
+script = ExtResource("1_cojux")
+hp = 21
+strength = 5
+magic = 1
+skill = 4
+speed = 5
+defense = 3
+resistance = 2
+movement = 5
+constitution = 8

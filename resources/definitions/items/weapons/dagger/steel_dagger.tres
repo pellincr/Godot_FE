@@ -1,40 +1,25 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b36pv3aminpmj"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://cqebfjgonud70"]
 
-[ext_resource type="Texture2D" uid="uid://dp7e2ioc3iwen" path="res://resources/sprites/items/weapons/dagger/steel_dagger.png" id="1_10v65"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_llh6h"]
-[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_ki8i8"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_15vnp"]
+[ext_resource type="Texture2D" uid="uid://dp7e2ioc3iwen" path="res://resources/sprites/items/weapons/dagger/steel_dagger.png" id="1_moudk"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_f431w"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_tukl3"]
 
 [resource]
-script = ExtResource("2_llh6h")
+script = ExtResource("3_tukl3")
 weapon_type = 13
 alignment = 4
-physical_weapon_triangle_type = 0
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
 required_mastery = 1
-attack_range = Array[int]([1, 2])
 damage = 6
 hit = 80
 critical_chance = 10
-weight = 5
 critical_multiplier = 4.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
+attack_range = Array[int]([1, 2])
 name = "Steel Dagger"
 db_key = "steel_dagger"
 equippable = true
-description = ""
-item_type = 0
-rarity = ExtResource("3_ki8i8")
+rarity = ExtResource("2_f431w")
 uses = 20
 max_uses = 20
-unbreakable = false
 worth = 900
-icon = ExtResource("1_10v65")
+icon = ExtResource("1_moudk")

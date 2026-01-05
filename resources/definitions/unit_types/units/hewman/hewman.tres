@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=11 format=3 uid="uid://bwmanbsn4rpgn"]
+
+[ext_resource type="Resource" uid="uid://c5fqvn605t70c" path="res://resources/definitions/unit_types/units/hewman/hewman_base_combat_stats.tres" id="1_txcj5"]
+[ext_resource type="Resource" uid="uid://bl84sue0uf8y2" path="res://resources/definitions/unit_types/units/hewman/hewman_default_item_tables.tres" id="2_hl2v3"]
+[ext_resource type="Resource" uid="uid://cs10iljaxgdqx" path="res://resources/definitions/unit_types/units/hewman/hewman_growth_stats.tres" id="3_760qv"]
+[ext_resource type="Texture2D" uid="uid://cd4c67gmg8grs" path="res://resources/sprites/units/tier1/hewman.png" id="4_psc2m"]
+[ext_resource type="Resource" uid="uid://c28hsida6n6ig" path="res://resources/definitions/unit_types/units/hewman/hewman_max_stats.tres" id="5_7eabv"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_82f3f"]
+[ext_resource type="Resource" uid="uid://bg5poewlr3i7e" path="res://resources/definitions/unit_types/units/sellsword/sellsword.tres" id="7_mrdeh"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_npocf"]
+[ext_resource type="Resource" uid="uid://p0yw74owchbh" path="res://resources/definitions/unit_types/units/sword_cavalier/sword_cavalier.tres" id="9_ec5hd"]
+[ext_resource type="Resource" uid="uid://w3fe6ovr8565" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor.tres" id="9_mrdeh"]
+
+[resource]
+script = ExtResource("6_82f3f")
+unit_type_name = "Hewman"
+db_key = "hewman"
+unit_rarity = ExtResource("7_npocf")
+tier = 1
+promotion_types_available = Array[ExtResource("6_82f3f")]([ExtResource("7_mrdeh"), ExtResource("9_ec5hd"), ExtResource("9_mrdeh")])
+usable_weapon_types = Array[int]([1])
+base_stats = ExtResource("1_txcj5")
+maxuimum_stats = ExtResource("5_7eabv")
+growth_stats = ExtResource("3_760qv")
+icon = ExtResource("4_psc2m")
+map_sprite = ExtResource("4_psc2m")
+default_item_resource = ExtResource("2_hl2v3")

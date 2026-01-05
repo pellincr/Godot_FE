@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=7 format=3 uid="uid://bocqqoda422bq"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_8ib7s"]
+[ext_resource type="Texture2D" uid="uid://do56i71ji5ssm" path="res://resources/sprites/items/equipment/old_pendant.png" id="1_au7pc"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="2_8ib7s"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_k7uu5"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="4_gpspk"]
+
+[sub_resource type="Resource" id="Resource_txrur"]
+script = ExtResource("2_8ib7s")
+resistance = 1
+
+[resource]
+script = ExtResource("4_gpspk")
+name = "Old Pendant"
+db_key = "old_pendant"
+description = "A weathered charm from another age, its faded blessing offers only faint protection."
+item_type = 3
+rarity = ExtResource("3_k7uu5")
+worth = 1500
+inventory_bonus_stats = SubResource("Resource_txrur")
+icon = ExtResource("1_au7pc")

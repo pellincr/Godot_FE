@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkhtqvl1ee32d"]
+[gd_scene load_steps=5 format=3 uid="uid://bkhtqvl1ee32d"]
 
 [ext_resource type="PackedScene" uid="uid://dkk1vhoxov7g2" path="res://ui/battle_prep_new/army_container/ArmyContainer.tscn" id="1_bw4vk"]
 [ext_resource type="Script" uid="uid://bajk1svmkmvo4" path="res://ui/battle_prep_new/unit_selection/unit_selection.gd" id="1_kiljj"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="2_hqg6r"]
+
+[sub_resource type="Theme" id="Theme_nasny"]
+default_font = ExtResource("2_hqg6r")
+default_font_size = 32
 
 [node name="UnitSelection" type="HBoxContainer"]
 script = ExtResource("1_kiljj")
@@ -13,6 +18,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(315, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme = SubResource("Theme_nasny")
 
 [node name="UnitsLeftHeaderLabel" type="Label" parent="VBoxContainer/UnitSelectionHeader"]
 layout_mode = 2

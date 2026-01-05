@@ -1,40 +1,25 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=4 format=3 uid="uid://b77kbecyy5xb7"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://b77kbecyy5xb7"]
 
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_8vhme"]
 [ext_resource type="Texture2D" uid="uid://bx1cchgpthd43" path="res://resources/sprites/items/weapons/axes/great_axe.png" id="1_gy2j7"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="2_ktiuf"]
-[ext_resource type="Script" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ou3xc"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ou3xc"]
 
 [resource]
 script = ExtResource("3_ou3xc")
 weapon_type = 2
-alignment = 0
 physical_weapon_triangle_type = 2
-magic_weapon_triangle_type = 0
-support_type = 0
-item_damage_type = 0
-item_scaling_type = 0
-item_scaling_multiplier = 1.0
-item_target_faction = Array[int]([0])
 required_mastery = 4
-attack_range = Array[int]([1])
 damage = 20
 hit = 85
 critical_chance = 5
 weight = 20
-critical_multiplier = 3.0
-attacks_per_combat_turn = 1
-weapon_effectiveness = Array[int]([])
-status_ailment = 0
-specials = Array[int]([])
-augmented = false
 name = "Great Axe"
 db_key = "great_axe"
 equippable = true
 description = "Extremely heavy and powerful. "
-item_type = 0
 rarity = ExtResource("2_ktiuf")
 uses = 20
 max_uses = 20
-unbreakable = false
 worth = 2250
 icon = ExtResource("1_gy2j7")

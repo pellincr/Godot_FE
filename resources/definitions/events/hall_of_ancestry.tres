@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Event" load_steps=11 format=3 uid="uid://b0vgpmdla6bsr"]
+[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://b0vgpmdla6bsr"]
 
+[ext_resource type="Texture2D" uid="uid://ck8p2e71scb6y" path="res://resources/sprites/events/hall_of_ancestry_background.png" id="1_81sf1"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_dy2hx"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="1_u2eaq"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="2_0cjq0"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_0cjq0"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_81sf1"]
 
 [sub_resource type="Resource" id="Resource_uxiua"]
@@ -18,6 +20,7 @@ title = "Bow Before the Ancestors"
 description = "The Commander unit gains [color=#FAFA82]1[/color] Defense and  [color=#FAFA82]1[/color] Resistance but loses [color=#FAFA82]1[/color] Speed."
 effect = 4
 unit_stat_change = SubResource("Resource_uxiua")
+requires_commander = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_8bogn"]
@@ -44,14 +47,16 @@ metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 script = ExtResource("1_u2eaq")
 title = "Infuse Weapon"
 description = "Commander weapon gains [color=#8EE15F]2 [/color]Damage and [color=#8EE15F]5[/color] Hit, but its weight increases by [color=#AC3232]1[/color]. "
-effect = 4
+effect = 7
 wpn_stat_change = SubResource("Resource_k2i1n")
+commander_item_required = true
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [resource]
 script = ExtResource("1_dy2hx")
 name = "Hall of Ancestry"
 description = "Your footsteps echo through the vast stone hall, each statue watching as if weighing your worth. The firelight flickers across ancient faces, casting long shadows that almost seem to breathe. "
+background = ExtResource("1_81sf1")
 option1 = SubResource("Resource_r6y1y")
 option2 = SubResource("Resource_i2opt")
 option3 = SubResource("Resource_urw2n")

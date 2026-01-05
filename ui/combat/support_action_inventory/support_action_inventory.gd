@@ -14,6 +14,7 @@ const UNIT_INVENTORY_SLOT = preload("res://ui/combat/shared/unit_inventory_slot/
 
 signal item_selected(item:ItemDefinition)
 signal new_item_hovered(item:ItemDefinition)
+signal back()
 
 @export var data : Array[UnitInventorySlotData] 
 @export var combatUnit: CombatUnit
@@ -29,6 +30,7 @@ func _ready() -> void:
 	unit_inventory_slot_2.connect("selected_item",item_selected_button_press)
 	unit_inventory_slot_3.connect("selected_item",item_selected_button_press)
 	unit_inventory_slot_4.connect("selected_item",item_selected_button_press)
+	backButton.connect("pressed", back_btn_pressed)
 
 func populate(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
 	await equippable_item_information
@@ -46,6 +48,7 @@ func update_display():
 
 func set_unit_inventory_slot_info(target:UnitInventorySlot, item:ItemDefinition, equipped: bool = false, valid : bool = false):
 	target.disabled = !valid
+	target.visible = valid
 	target.set_fields(item, equipped)
 	if valid and focus_grabbed == false:
 		target.grab_focus()
@@ -67,3 +70,6 @@ func reset_focus(item: ItemDefinition):
 
 func item_selected_button_press(item: ItemDefinition):
 	item_selected.emit(item)
+
+func back_btn_pressed():
+	back.emit()

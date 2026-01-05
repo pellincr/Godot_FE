@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=10 format=3 uid="uid://2cm5c6rr2im7"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_sk7ai"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_t6pe2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc3od"]
 bg_color = Color(1, 1, 1, 1)
@@ -53,7 +53,7 @@ border_width_right = 1
 border_width_bottom = 1
 
 [resource]
-default_font = ExtResource("1_sk7ai")
+default_font = ExtResource("1_t6pe2")
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_sc3od")
 HScrollBar/styles/scroll = SubResource("StyleBoxFlat_k8hbq")
 Panel/styles/panel = SubResource("StyleBoxFlat_wx8m3")

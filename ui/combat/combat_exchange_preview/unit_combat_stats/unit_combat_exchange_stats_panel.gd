@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 @onready var unit_health_bar_container = $MarginContainer/VBoxContainer/UnitHealthBarContainer
 @onready var unit_combat_stat_container = $MarginContainer/VBoxContainer/UnitCombatStatContainer

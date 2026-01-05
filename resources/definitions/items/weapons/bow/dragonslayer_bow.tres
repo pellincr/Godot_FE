@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://br1ypxp6y3bql"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_1bhhm"]
+[ext_resource type="Texture2D" uid="uid://b3cd1ipadckl2" path="res://resources/sprites/items/weapons/bow/dragonslayer_bow.png" id="2_1bhhm"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_ohn5r"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_2wlsn"]
+
+[resource]
+script = ExtResource("4_2wlsn")
+weapon_type = 4
+damage = 18
+hit = 65
+weight = 15
+attack_range = Array[int]([3, 4, 5])
+weapon_effectiveness_trait = Array[int]([2])
+name = "Dragonslayer Bow"
+db_key = "dragonslayer_bow"
+equippable = true
+description = "A massive great bow carved from the bones of mighty monsters, the Dragon Slayer Bow fires arrows across vast distances with lethal precision and power"
+rarity = ExtResource("3_ohn5r")
+uses = 10
+max_uses = 10
+worth = 7000
+icon = ExtResource("2_1bhhm")

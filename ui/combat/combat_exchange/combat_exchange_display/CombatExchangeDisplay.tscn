@@ -10,7 +10,7 @@ shader = ExtResource("2_gd6mb")
 shader_parameter/lod = 5.0
 
 [node name="CombatExchangeDisplay" type="Control"]
-custom_minimum_size = Vector2(604, 160)
+custom_minimum_size = Vector2(604, 178)
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5

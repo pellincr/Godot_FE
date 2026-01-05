@@ -30,7 +30,7 @@ func show_icons():
 		mounted_icon.visible = unit_types.has(unitConstants.TRAITS.MOUNTED)
 		armor_icon.visible = unit_types.has(unitConstants.TRAITS.ARMORED)
 		flyer_icon.visible = unit_types.has(unitConstants.TRAITS.FLIER)
-		undead_icon.visible = unit_types.has(unitConstants.TRAITS.UNDEAD)
+		undead_icon.visible = unit_types.has(unitConstants.TRAITS.TERROR)
 	else :
 		mounted_icon.visible = false
 		armor_icon.visible = false

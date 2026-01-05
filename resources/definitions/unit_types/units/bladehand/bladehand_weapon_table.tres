@@ -1,0 +1,114 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=33 format=3 uid="uid://05e85x6cvyls"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_fdl5y"]
+[ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="2_xvnnq"]
+[ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="3_jq6v2"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="4_q8y1t"]
+[ext_resource type="Resource" uid="uid://co7l31ly5a5mj" path="res://resources/definitions/items/weapons/swords/sabre.tres" id="5_c178s"]
+[ext_resource type="Resource" uid="uid://cq5siucueaoku" path="res://resources/definitions/items/weapons/swords/killer_sword.tres" id="6_fm1nh"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="6_kixuw"]
+[ext_resource type="Resource" uid="uid://b2diao7b1lmig" path="res://resources/definitions/items/weapons/swords/silver_sword.tres" id="7_fm1nh"]
+[ext_resource type="Resource" uid="uid://b07cyd1bkl6wb" path="res://resources/definitions/items/weapons/swords/dark_sword.tres" id="8_epwj0"]
+[ext_resource type="Resource" uid="uid://bq66blietc0ie" path="res://resources/definitions/items/weapons/dagger/iron_dagger.tres" id="9_aqhux"]
+[ext_resource type="Resource" uid="uid://cqebfjgonud70" path="res://resources/definitions/items/weapons/dagger/valor_dagger.tres" id="10_dmi81"]
+[ext_resource type="Resource" uid="uid://cs8wva34dhd8m" path="res://resources/definitions/items/weapons/dagger/knife.tres" id="11_4vcbv"]
+[ext_resource type="Resource" uid="uid://c4v85acx6c3qx" path="res://resources/definitions/items/weapons/dagger/heavy_knife.tres" id="12_xr5vu"]
+[ext_resource type="Resource" uid="uid://dss3x6j62pbtk" path="res://resources/definitions/items/weapons/dagger/sword_breaker.tres" id="13_gujfa"]
+[ext_resource type="Resource" uid="uid://cpqf6v7ox1xs6" path="res://resources/definitions/items/weapons/dagger/silver_dagger.tres" id="14_sv8wm"]
+[ext_resource type="Resource" uid="uid://cmljuu3sxx1lf" path="res://resources/definitions/items/weapons/dagger/killer_dagger.tres" id="15_hmbnn"]
+[ext_resource type="Resource" uid="uid://y6uw8w4wpc2h" path="res://resources/definitions/items/weapons/dagger/kunai.tres" id="16_2p0ea"]
+
+[sub_resource type="Resource" id="Resource_epwj0"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("2_xvnnq")
+probability = 19.25
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_aqhux"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("3_jq6v2")
+probability = 4.2
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_dmi81"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("4_q8y1t")
+probability = 8.75
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_pof72"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("5_c178s")
+probability = 2.8
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_5q1qs"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("6_fm1nh")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_4vcbv"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("7_fm1nh")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_xr5vu"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("8_epwj0")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_gujfa"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("9_aqhux")
+probability = 19.25
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_sv8wm"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("10_dmi81")
+probability = 4.2
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_hmbnn"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("11_4vcbv")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_l8ji4"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("12_xr5vu")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_ama4g"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("13_gujfa")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_603jh"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("14_sv8wm")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_w5iho"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("15_hmbnn")
+probability = 2.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_7iomh"]
+script = ExtResource("1_fdl5y")
+item = ExtResource("16_2p0ea")
+probability = 1.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("6_kixuw")
+entries = Array[ExtResource("1_fdl5y")]([SubResource("Resource_epwj0"), SubResource("Resource_aqhux"), SubResource("Resource_dmi81"), SubResource("Resource_pof72"), SubResource("Resource_5q1qs"), SubResource("Resource_4vcbv"), SubResource("Resource_xr5vu"), SubResource("Resource_gujfa"), SubResource("Resource_sv8wm"), SubResource("Resource_hmbnn"), SubResource("Resource_l8ji4"), SubResource("Resource_ama4g"), SubResource("Resource_603jh"), SubResource("Resource_w5iho"), SubResource("Resource_7iomh")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

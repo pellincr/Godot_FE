@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://p1jl1efi0vc2"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://p1jl1efi0vc2"]
 
-[ext_resource type="FontFile" uid="uid://dmpfmefetl601" path="res://resources/fonts/CrimsonText-SemiBold.ttf" id="1_67xuj"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_xjfsi"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="2_qg6rl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgqwr"]
-bg_color = Color(8.18223e-07, 0.37536, 0.629547, 1)
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -11,6 +12,9 @@ border_width_bottom = 2
 border_color = Color(0.699653, 0.699654, 0.699653, 1)
 
 [resource]
-Label/font_sizes/font_size = 28
-Label/fonts/font = ExtResource("1_67xuj")
+default_font = ExtResource("2_qg6rl")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_xjfsi")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_tgqwr")
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("1_xjfsi")

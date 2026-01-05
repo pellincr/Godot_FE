@@ -2,7 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dupi01m8177ob" path="res://ui/battle_prep_new/training_grounds/training_grounds.gd" id="1_v7khi"]
 
-[node name="TrainingGrounds" type="HBoxContainer"]
+[node name="TrainingGrounds" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_v7khi")
+
+[node name="TrainingGroundsContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_v7khi")

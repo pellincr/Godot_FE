@@ -61,14 +61,18 @@ func update_buttons(pressed_button):
 		_on_skip_rewards_pressed()
 
 func _on_gold_pressed() -> void:
+	AudioManager.play_sound_effect("gold_rewarded")
 	gold_obtained.emit(reward.reward_gold)
 	update_buttons(gold)
+	
 
 
 func _on_bonus_exp_pressed() -> void:
+	AudioManager.play_sound_effect("bonus_experience_rewarded")
 	bonus_exp_obtained.emit(reward.reward_bonus_exp)
 	update_buttons(bonus_exp)
 
 func _on_skip_rewards_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
 	queue_free()
 	rewards_complete.emit()

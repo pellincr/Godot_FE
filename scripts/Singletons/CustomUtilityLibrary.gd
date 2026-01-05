@@ -1,12 +1,12 @@
 extends Node
 
 #checks if the current RNG is successful
-func random_rolls_bool(chance: int, number_of_rolls : int) -> bool:
+func random_rolls_bool(chance: int, number_of_rolls : int, threshold: int = 100) -> bool:
 	var aggregated_rolls = 0
 	for rolls in number_of_rolls: 
-		var random_number = randi() % 100
+		var random_number = randi() % threshold
 		aggregated_rolls += random_number
-	var trueHit = clampi(int(aggregated_rolls/ number_of_rolls), 0, 100)
+	var trueHit = clampi(int(aggregated_rolls/ number_of_rolls), 0, threshold)
 	if trueHit < chance:
 		return true
 	else :
@@ -43,6 +43,20 @@ func add_unit_stat(a : UnitStat, b : UnitStat) -> UnitStat:
 	result.resistance = a.resistance + b.resistance
 	result.movement = a.movement + b.movement
 	result.constitution = a.constitution + b.constitution
+	return result
+
+func mult_unit_stat(a : UnitStat, mult: float) -> UnitStat:
+	var result : UnitStat = UnitStat.new()
+	result.hp = int(a.hp * mult)
+	result.strength = int(a.strength * mult)
+	result.magic = int(a.magic * mult)
+	result.skill = int(a.skill * mult)
+	result.speed = int(a.speed * mult)
+	result.luck = int(a.luck * mult)
+	result.defense = int(a.defense * mult)
+	result.resistance = int(a.resistance * mult)
+	result.movement = a.movement
+	result.constitution = a.constitution
 	return result
 
 func add_combat_unit_stat(a : CombatUnitStat, b : CombatUnitStat) -> CombatUnitStat:
@@ -103,3 +117,31 @@ func append_array_unique(arr1: Array, arr2:Array):
 		if not arr1.has(entry):
 			arr1.append(entry)
 	
+func sort_item(a:ItemDefinition, b:ItemDefinition):
+	# First check rarity,
+	if a.rarity != b.rarity:
+		return sort_by_rarity(a.rarity, b.rarity)
+	# Check Name
+	elif a.name != a.name:
+		return sort_name 
+	# Check Value
+	elif a.calculate_price() != b.calculate_price():
+		return a.calculate_price() < b.calculate_price()
+
+func sort_item_by_rarity(a:ItemDefinition, b:ItemDefinition):
+	return sort_by_rarity(a.rarity, b.rarity)
+	
+func sort_by_rarity(a: Rarity, b : Rarity):
+	return a.sort_score < b.sort_score
+
+func sort_name(a:String, b: String):
+	return a < b
+
+func sort_aiAction(a: aiAction, b:aiAction):
+	if a.action_type != b.action_type:
+		return a.action_type < b.action_type
+	return a.rating > b.rating
+
+func append_unique(arr: Array, item):
+	if not arr.has(item):
+		arr.append(item)

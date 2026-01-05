@@ -1,14 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://nkplk3o4b1x3"]
+[gd_scene load_steps=2 format=3 uid="uid://nkplk3o4b1x3"]
 
-[ext_resource type="Script" path="res://ui/battle_prep_new/shop/shop.gd" id="1_uvf4r"]
-[ext_resource type="PackedScene" uid="uid://b8ack2q1osxdy" path="res://gold/gold_counter.tscn" id="2_6dvxm"]
+[ext_resource type="Script" uid="uid://ct7t6s53le6ot" path="res://ui/battle_prep_new/shop/shop.gd" id="1_uvf4r"]
 
 [node name="Shop" type="VBoxContainer"]
 script = ExtResource("1_uvf4r")
-
-[node name="GoldCounter" parent="." instance=ExtResource("2_6dvxm")]
-layout_mode = 2
-size_flags_horizontal = 0
 
 [node name="MainContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

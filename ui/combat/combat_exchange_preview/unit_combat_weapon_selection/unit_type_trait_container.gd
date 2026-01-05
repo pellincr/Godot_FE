@@ -20,5 +20,5 @@ func set_icon_visibility(unit : Unit):
 			mounted_icon.visible = true
 		unitConstants.TRAITS.FLIER:
 			flier_icon.visible = true
-		unitConstants.TRAITS.UNDEAD:
+		unitConstants.TRAITS.TERROR:
 			undead_icon.visible = true

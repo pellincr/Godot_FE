@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ba56bol4rbggp"]
+[gd_scene load_steps=8 format=3 uid="uid://ba56bol4rbggp"]
 
 [ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_8okc1"]
-[ext_resource type="Script" path="res://ui/tutorial/tutorial_panel.gd" id="2_cky66"]
-[ext_resource type="Texture2D" uid="uid://dsyeapnvmd1po" path="res://resources/sprites/controls/keyboard/enteralt.png" id="3_cvlnn"]
-[ext_resource type="Texture2D" uid="uid://cluajaeeln1i4" path="res://resources/sprites/controls/keyboard/backspace.png" id="3_m2474"]
+[ext_resource type="Script" uid="uid://kkvvigdli2it" path="res://ui/tutorial/tutorial_panel.gd" id="2_cky66"]
+[ext_resource type="PackedScene" uid="uid://bmfa1tdx2k3n3" path="res://ui/shared/controls/controls_ui.tscn" id="3_og5p8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpvku"]
 bg_color = Color(0, 0, 0, 0.658824)
@@ -22,12 +21,6 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="Theme" id="Theme_hxsxw"]
 default_font = ExtResource("1_8okc1")
 Panel/styles/panel = SubResource("StyleBoxFlat_w8105")
-
-[sub_resource type="Theme" id="Theme_lbmvr"]
-default_font_size = 16
-
-[sub_resource type="Theme" id="Theme_kh0tn"]
-default_font_size = 16
 
 [node name="PanelContainer" type="PanelContainer"]
 anchors_preset = 15
@@ -85,37 +78,12 @@ layout_mode = 2
 layout_mode = 2
 text = "1/1"
 
-[node name="ControlsContainer" type="HBoxContainer" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="BackContainer" type="HBoxContainer" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer"]
-layout_mode = 2
-
-[node name="BackButtonIcon" type="TextureRect" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/BackContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-texture = ExtResource("3_m2474")
-expand_mode = 3
-
-[node name="Label" type="Label" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/BackContainer"]
-layout_mode = 2
-theme = SubResource("Theme_lbmvr")
-text = "Back"
-
-[node name="NextContainer" type="HBoxContainer" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer"]
-layout_mode = 2
-
-[node name="NextButtonIcon" type="TextureRect" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer"]
-layout_mode = 2
-texture = ExtResource("3_cvlnn")
-expand_mode = 2
-
-[node name="NextLabel" type="Label" parent="TutorialPanel/MarginContainer/MainContainer/PageContainer/ControlsContainer/NextContainer"]
-layout_mode = 2
-theme = SubResource("Theme_kh0tn")
-text = "Next"
+[node name="ControlsUIContainer" parent="TutorialPanel" instance=ExtResource("3_og5p8")]
+layout_mode = 0
+offset_left = 287.0
+offset_top = 419.0
+offset_right = 1307.0
+offset_bottom = 459.0
 
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

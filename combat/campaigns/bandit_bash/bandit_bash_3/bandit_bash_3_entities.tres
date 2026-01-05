@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=26 format=3 uid="uid://dqtnkut51hgal"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=27 format=3 uid="uid://dqtnkut51hgal"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_1q36f"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_2rh85"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dec2yrftycqud" path="res://scripts/combat/entities/mapEntityDefinition.gd" id="6_8ujoo"]
 [ext_resource type="Script" uid="uid://dmwq86kwtprln" path="res://scripts/combat/entities/MapEntityGroupData.gd" id="7_3kjwg"]
 [ext_resource type="Script" uid="uid://jynhkl1330v2" path="res://scripts/combat/entities/map_search_entity_definition.gd" id="8_pvk22"]
+[ext_resource type="Resource" uid="uid://cq1dubh7yqqix" path="res://resources/definitions/loot_tables/house_loot_table.tres" id="9_8d4t7"]
 
 [sub_resource type="Resource" id="Resource_vscu6"]
 script = ExtResource("2_2rh85")
@@ -17,16 +18,6 @@ loot_table = ExtResource("3_j0vyd")
 [sub_resource type="Resource" id="Resource_y823m"]
 script = ExtResource("2_2rh85")
 position = Vector2i(15, 5)
-loot_table = ExtResource("3_j0vyd")
-
-[sub_resource type="Resource" id="Resource_p5hid"]
-script = ExtResource("2_2rh85")
-position = Vector2i(13, 2)
-loot_table = ExtResource("3_j0vyd")
-
-[sub_resource type="Resource" id="Resource_mpx3f"]
-script = ExtResource("2_2rh85")
-position = Vector2i(15, 2)
 loot_table = ExtResource("3_j0vyd")
 
 [sub_resource type="Resource" id="Resource_w5m7s"]
@@ -69,7 +60,8 @@ position = Vector2i(3, 3)
 
 [sub_resource type="Resource" id="Resource_4qfs6"]
 script = ExtResource("4_0aqgn")
-position = Vector2i(11, 1)
+position = Vector2i(12, 1)
+type = 1
 
 [sub_resource type="Resource" id="Resource_ir3n7"]
 script = ExtResource("4_0aqgn")
@@ -79,13 +71,29 @@ position = Vector2i(14, 12)
 script = ExtResource("4_0aqgn")
 position = Vector2i(15, 11)
 
+[sub_resource type="Resource" id="Resource_gweso"]
+script = ExtResource("4_0aqgn")
+position = Vector2i(12, 13)
+type = 1
+metadata/_custom_type_script = "uid://dh6ibyc5nxikd"
+
 [sub_resource type="Resource" id="Resource_lyi6b"]
 script = ExtResource("5_272tv")
 positions = Array[Vector2i]([Vector2i(14, 4)])
 
+[sub_resource type="Resource" id="Resource_krqv3"]
+script = ExtResource("8_pvk22")
+position = Vector2i(0, 13)
+loot_table = ExtResource("9_8d4t7")
+metadata/_custom_type_script = "uid://jynhkl1330v2"
+
 [resource]
 script = ExtResource("7_3kjwg")
-chests = Array[ExtResource("2_2rh85")]([SubResource("Resource_vscu6"), SubResource("Resource_y823m"), SubResource("Resource_p5hid"), SubResource("Resource_mpx3f")])
+chests = Array[ExtResource("2_2rh85")]([SubResource("Resource_vscu6"), SubResource("Resource_y823m")])
+searchs = Array[ExtResource("8_pvk22")]([SubResource("Resource_krqv3")])
 doors = Array[ExtResource("5_272tv")]([SubResource("Resource_lyi6b")])
-debris = Array[ExtResource("4_0aqgn")]([SubResource("Resource_w5m7s"), SubResource("Resource_uwsm4"), SubResource("Resource_t5qxx"), SubResource("Resource_4cye4"), SubResource("Resource_ma2dt"), SubResource("Resource_rm254"), SubResource("Resource_7ex5k"), SubResource("Resource_a32v8"), SubResource("Resource_s25di"), SubResource("Resource_4qfs6"), SubResource("Resource_ir3n7"), SubResource("Resource_nbd0b")])
+debris = Array[ExtResource("4_0aqgn")]([SubResource("Resource_w5m7s"), SubResource("Resource_uwsm4"), SubResource("Resource_t5qxx"), SubResource("Resource_4cye4"), SubResource("Resource_ma2dt"), SubResource("Resource_rm254"), SubResource("Resource_7ex5k"), SubResource("Resource_a32v8"), SubResource("Resource_s25di"), SubResource("Resource_4qfs6"), SubResource("Resource_ir3n7"), SubResource("Resource_nbd0b"), SubResource("Resource_gweso")])
 wooden_debris_hp = 15
+stone_debris_hp = 40
+default_stone_debris_defense = 0
+default_stone_debris_resistance = 0

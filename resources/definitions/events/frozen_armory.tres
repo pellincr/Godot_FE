@@ -1,28 +1,50 @@
-[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://d2rwfvtcf2de2"]
+[gd_resource type="Resource" script_class="Event" load_steps=24 format=3 uid="uid://d2rwfvtcf2de2"]
 
+[ext_resource type="Texture2D" uid="uid://g0l3hqfb6hcs" path="res://resources/sprites/events/frozen_armory_background.png" id="1_34vju"]
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_fhq5a"]
-[ext_resource type="Script" uid="uid://bupixdlbvtyij" path="res://scripts/resources/loot_tables/loot_table_entry.gd" id="1_vi1bu"]
-[ext_resource type="Script" uid="uid://dgaq5vstt54r" path="res://scripts/resources/loot_tables/loot_table.gd" id="2_sg5q4"]
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="2_llx5i"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_d70up"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_erdm1"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="4_atj8j"]
+[ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="4_mg6vf"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="5_gnidv"]
+[ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="6_stm6c"]
+[ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="7_gdjrg"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="8_p5lw5"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="10_qeiym"]
+[ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="11_ymuob"]
 
-[sub_resource type="Resource" id="Resource_74ra3"]
-script = ExtResource("1_vi1bu")
-item_rarity_whitelist = Array[String](["Mythical"])
+[sub_resource type="Resource" id="Resource_y38dn"]
+script = ExtResource("6_stm6c")
+item_rarity_whitelist = Array[ExtResource("4_mg6vf")]([ExtResource("5_gnidv")])
 item_type_whitelist = Array[int]([0])
-metadata/_custom_type_script = "uid://bupixdlbvtyij"
+probability = 7.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
 
-[sub_resource type="Resource" id="Resource_ng0hl"]
-script = ExtResource("2_sg5q4")
-entries = Array[ExtResource("1_vi1bu")]([SubResource("Resource_74ra3")])
-metadata/_custom_type_script = "uid://dgaq5vstt54r"
+[sub_resource type="Resource" id="Resource_eg6ca"]
+script = ExtResource("6_stm6c")
+item_rarity_whitelist = Array[ExtResource("4_mg6vf")]([ExtResource("7_gdjrg")])
+item_type_whitelist = Array[int]([0])
+probability = 3.0
+metadata/_custom_type_script = "uid://cx8ruya2jto7h"
+
+[sub_resource type="Resource" id="Resource_4i1xu"]
+script = ExtResource("8_p5lw5")
+entries = Array[ExtResource("2_llx5i")]([SubResource("Resource_y38dn"), SubResource("Resource_eg6ca")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"
+
+[sub_resource type="Resource" id="Resource_vtk57"]
+script = ExtResource("11_ymuob")
+percent_durability = 0.2
+metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 
 [sub_resource type="Resource" id="Resource_ixt8c"]
 script = ExtResource("3_erdm1")
 title = "Break the Ice"
-description = "Gain a random weapon of[color=#d200b0]Mythical[/color]rarity with low durability."
+description = "Gain a random weapon of [color=#d200b0]Mythical Rarity[/color] or [color=#ff973d]Legendary Rarity [/color]with low durability."
 effect = 8
-loot_table = SubResource("Resource_ng0hl")
+wpn_stat_change = SubResource("Resource_vtk57")
+loot_table = SubResource("Resource_4i1xu")
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_7y6k7"]
@@ -60,7 +82,8 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 [resource]
 script = ExtResource("1_fhq5a")
 name = "Frozen Armory"
-description = "Weapons lie encased in ancient ice."
+description = "Frost clings to every surface of an ancient vault. The air itself bites, each breath stirring only a faint [tornado]swirl [/tornado] of glittering ice crystals across the frozen floor. Even the strongest steel here has grown fragile, its once-perfect edges now [shake]quivering[/shake] beneath the weight of unrelenting winter."
+background = ExtResource("1_34vju")
 option1 = SubResource("Resource_ixt8c")
 option2 = SubResource("Resource_llx5i")
 option3 = SubResource("Resource_mg6vf")

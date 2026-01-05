@@ -6,12 +6,16 @@ extends HBoxContainer
 signal unit_panel_pressed(unit:Unit)
 signal convoy_panel_pressed()
 
+signal sell_item(item)
+signal send_to_convoy(item)
+
 @onready var main_scroll_container: VBoxContainer = $ArmyScrollContainer/MainScrollContainer
 
 
 var unit_army_panel_container_scene = preload("res://ui/battle_prep_new/unit_army_panel/unit_army_panel_container.tscn")
 
 var playerOverworldData : PlayerOverworldData
+var units_list : Array
 
 var focused := false
 
@@ -21,9 +25,18 @@ var unit_panels = []
 func set_po_data(po_data):
 	playerOverworldData = po_data
 
+func set_units_list(u_list):
+	units_list = u_list
+
+func get_unit_panel_from_container(unit:Unit):
+	for unit_panel in unit_panels:
+		if unit_panel.unit == unit:
+			return unit_panel
 
 func fill_army_scroll_container(add_convoy:=false):
-	for unit in playerOverworldData.total_party:
+	var sorted_units_list = get_selected_units()
+	sorted_units_list.append_array(get_nonselected_units())
+	for unit in sorted_units_list:
 		var unit_army_panel_container = unit_army_panel_container_scene.instantiate()
 		unit_army_panel_container.unit = unit
 		#unit_army_panel_container.set_po_data(playerOverworldData)
@@ -47,8 +60,14 @@ func fill_army_scroll_container(add_convoy:=false):
 func unit_focus_entered(unit):
 	var unit_detailed_info = preload("res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tscn").instantiate()
 	unit_detailed_info.unit = unit
+	var unit_panel = get_unit_panel_from_container(unit)
 	clear_detailed_view()
 	add_child(unit_detailed_info)
+	unit_panel.focus_neighbor_right = unit_detailed_info.get_first_inventory_container_slot().get_path()
+	unit_detailed_info.unit_inventory_container.set_inventory_slots_left_focus_neighbor(unit_panel.get_path())
+	unit_detailed_info.sell_item.connect(_on_sell_item)
+	unit_detailed_info.send_to_convoy.connect(_on_send_to_convoy)
+
 
 func _on_unit_panel_pressed(unit:Unit):
 	unit_panel_pressed.emit(unit)
@@ -98,6 +117,9 @@ func enable_army_container_focus():
 func grab_first_army_panel_focus():
 	main_scroll_container.get_child(0).grab_focus()
 
+func grab_last_panel_focus():
+	main_scroll_container.get_child(-1).grab_focus()
+
 func remove_unit_panel(unit):
 	var unit_army_panels = main_scroll_container.get_children()
 	for army_panel in unit_army_panels:
@@ -106,3 +128,24 @@ func remove_unit_panel(unit):
 			unit_panels.erase(army_panel)
 	
 	grab_first_army_panel_focus()
+
+
+func get_selected_units() -> Array:
+	var accum = []
+	for unit in units_list:
+		if playerOverworldData.selected_party.has(unit):
+			accum.append(unit)
+	return accum
+
+func get_nonselected_units() -> Array:
+	var accum = []
+	for unit in units_list:
+		if !playerOverworldData.selected_party.has(unit):
+			accum.append(unit)
+	return accum
+
+func _on_sell_item(item):
+	sell_item.emit(item)
+
+func _on_send_to_convoy(item):
+	send_to_convoy.emit(item)

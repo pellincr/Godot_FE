@@ -1,13 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cei3lp41phd8n"]
+[gd_scene load_steps=15 format=3 uid="uid://cf4tuc0eswp76"]
 
-[ext_resource type="PackedScene" uid="uid://73uf76y6romg" path="res://overworld_new/overworld_map.tscn" id="1_538l4"]
-[ext_resource type="Script" uid="uid://ddudeqjb8a7a7" path="res://overworld_new/overworld.gd" id="2_okeuv"]
-[ext_resource type="PackedScene" uid="uid://bd2qvs1l5ippn" path="res://overworld_new/campaign_selector_node.tscn" id="2_xtlnu"]
-[ext_resource type="Resource" uid="uid://bufy43rodyy5x" path="res://resources/definitions/campaigns/test.tres" id="3_cxrwx"]
-[ext_resource type="Resource" uid="uid://dupcjl6ugp2d4" path="res://combat/campaigns/tutorial/tutorial_campaign.tres" id="5_6wia4"]
-[ext_resource type="Resource" uid="uid://dwy1wchlwt6dw" path="res://combat/campaigns/bandit_bash/bandit_bash.tres" id="5_c0epp"]
+[ext_resource type="Script" uid="uid://h8dn7ru0kb1t" path="res://overworld_new/overworld.gd" id="1_42u1x"]
+[ext_resource type="Shader" uid="uid://beely7ddaimrl" path="res://overworld_new/blur_vignette.gdshader" id="4_fi1vm"]
 [ext_resource type="Texture2D" uid="uid://cwdyyknu4s20l" path="res://resources/sprites/overworld_map/colosseum_tutorial.png" id="6_6rrvc"]
-[ext_resource type="Resource" uid="uid://cghxx7c2042ce" path="res://resources/definitions/campaigns/isle_of_woe.tres" id="6_ls3an"]
+[ext_resource type="Shader" uid="uid://s14hml614454" path="res://overworld_new/shade_vignette.gdshader" id="6_e2yud"]
+[ext_resource type="Shader" uid="uid://2i00d8dt8wmj" path="res://overworld_new/over_cloud_shader.gdshader" id="9_42u1x"]
+[ext_resource type="PackedScene" uid="uid://dks2id10fw6o4" path="res://overworld_new/overworld_terrain.tscn" id="10_81w18"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsq0u"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -25,49 +23,48 @@ Button/icons/icon = ExtResource("6_6rrvc")
 Button/styles/hover = SubResource("StyleBoxFlat_nsq0u")
 Button/styles/normal = SubResource("StyleBoxFlat_etdch")
 
-[node name="OverworldMap" instance=ExtResource("1_538l4")]
-script = ExtResource("2_okeuv")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_odqw7"]
+shader = ExtResource("4_fi1vm")
+shader_parameter/blur_radius = 0.214000010165
+shader_parameter/blur_amount = 0.8450000401375
+shader_parameter/blur_inner = 0.6
+shader_parameter/blur_outer = 0.538000025555
 
-[node name="TextureRect" parent="." index="0"]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 4096.0
-offset_bottom = 3072.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42u1x"]
+shader = ExtResource("6_e2yud")
+shader_parameter/vignette_intensity = 0.5
+shader_parameter/vignette_opacity = 1.0
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
-[node name="Test" parent="." index="1" instance=ExtResource("2_xtlnu")]
-layout_mode = 0
-offset_left = 612.0
-offset_top = 64.0
-offset_right = 652.0
-offset_bottom = 104.0
-campaign = ExtResource("3_cxrwx")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_81w18"]
+frequency = 0.0025
 
-[node name="BanditBash" parent="." index="2" instance=ExtResource("2_xtlnu")]
-layout_mode = 0
-offset_left = 367.0
-offset_top = 401.0
-offset_right = 407.0
-offset_bottom = 441.0
-campaign = ExtResource("5_c0epp")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qkdsa"]
+width = 1280
+height = 720
+noise = SubResource("FastNoiseLite_81w18")
+seamless = true
+seamless_blend_skirt = 0.75
 
-[node name="Tutorial" parent="." index="3" instance=ExtResource("2_xtlnu")]
-layout_mode = 0
-offset_left = 847.0
-offset_top = 96.0
-offset_right = 887.0
-offset_bottom = 136.0
-campaign = ExtResource("5_6wia4")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_74hr0"]
+shader = ExtResource("9_42u1x")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_qkdsa")
+shader_parameter/density = 0.25
+shader_parameter/speed = Vector2(0.02, 0.01)
 
-[node name="Isle of Woe" parent="." index="4" instance=ExtResource("2_xtlnu")]
-layout_mode = 0
-offset_left = 308.0
-offset_top = 258.0
-offset_right = 348.0
-offset_bottom = 298.0
-campaign = ExtResource("6_ls3an")
+[node name="Overworld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_42u1x")
 
-[node name="ReturnButton" type="Button" parent="." index="5"]
+[node name="OverworldTerrain" parent="." instance=ExtResource("10_81w18")]
+
+[node name="ReturnButton" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 1217.0
 offset_top = 1061.0
@@ -75,15 +72,16 @@ offset_right = 1278.0
 offset_bottom = 1092.0
 text = "Return"
 
-[node name="TutorialColosseumButton" type="Button" parent="." index="6"]
+[node name="TutorialColosseumButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 428.0
-offset_top = 168.0
-offset_right = 521.0
-offset_bottom = 300.333
+offset_left = 603.0
+offset_top = 146.0
+offset_right = 696.0
+offset_bottom = 278.3333
 grow_horizontal = 2
 theme = SubResource("Theme_48x5t")
 text = "Colosseum of Tutorials"
@@ -92,15 +90,36 @@ autowrap_mode = 2
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="Canvas Layer" type="CanvasLayer" parent="." index="7"]
+[node name="Canvas Layer" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="Canvas Layer" index="0"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="BlurLayer" type="ColorRect" parent="Canvas Layer"]
+z_index = 1
+material = SubResource("ShaderMaterial_odqw7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[connection signal="campaign_selected" from="Test" to="." method="_on_campaign_selector_node_campaign_selected"]
-[connection signal="campaign_selected" from="BanditBash" to="." method="_on_campaign_selector_node_campaign_selected"]
-[connection signal="campaign_selected" from="Tutorial" to="." method="_on_campaign_selector_node_campaign_selected"]
-[connection signal="campaign_selected" from="Isle of Woe" to="." method="_on_campaign_selector_node_campaign_selected"]
-[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
-[connection signal="pressed" from="TutorialColosseumButton" to="." method="_on_colosseum_button_pressed"]
+[node name="VignetteLayer" type="ColorRect" parent="Canvas Layer"]
+z_index = 1
+material = SubResource("ShaderMaterial_42u1x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Canvas Layer"]
+layer = 2
+scroll_ignore_camera_zoom = true
+
+[node name="Parallax2D" type="ParallaxLayer" parent="Canvas Layer/ParallaxBackground"]
+motion_mirroring = Vector2(1280, 720)
+
+[node name="ColorRect" type="ColorRect" parent="Canvas Layer/ParallaxBackground/Parallax2D"]
+material = SubResource("ShaderMaterial_74hr0")
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[connection signal="campaign_selected" from="OverworldTerrain" to="." method="_on_campaign_selector_node_campaign_selected"]

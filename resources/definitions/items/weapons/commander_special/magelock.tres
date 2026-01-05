@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=8 format=3 uid="uid://be6dwu100hykr"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_k6kes"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_v1d6u"]
+[ext_resource type="Texture2D" uid="uid://d0m81bdx6shye" path="res://resources/sprites/items/weapons/commander_specific/magelock.png" id="3_k6kes"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="4_it6ly"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="5_b1iqd"]
+
+[sub_resource type="Resource" id="Resource_k6kes"]
+script = ExtResource("1_k6kes")
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[sub_resource type="Resource" id="Resource_okj6i"]
+script = ExtResource("2_v1d6u")
+special = 6
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[resource]
+script = ExtResource("5_b1iqd")
+weapon_type = 9
+alignment = 2
+magic_weapon_triangle_type = 1
+item_scaling_type = 2
+damage = 15
+critical_chance = 25
+weight = 8
+attack_range = Array[int]([2, 3, 4])
+bonus_stat = SubResource("Resource_k6kes")
+weapon_effectiveness_trait = Array[int]([2])
+specials = Array[int]([6])
+equipped_specials = Array[ExtResource("2_v1d6u")]([SubResource("Resource_okj6i")])
+name = "Magelock"
+db_key = "magelock"
+equippable = true
+description = "Forged by knights who sought to match mages in range and sorcerers in might, the Magelock binds spell and shot as one — a weapon that hums like an incantation, then roars like a cannon."
+rarity = ExtResource("4_it6ly")
+uses = 2
+max_uses = 2
+has_expended_state = true
+refreshes_after_combat = 3
+worth = 0
+icon = ExtResource("3_k6kes")

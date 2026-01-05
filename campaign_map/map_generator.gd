@@ -2,7 +2,8 @@ extends Node
 
 class_name CampaignMapGenerator
 
-const X_DIST := 30 #x distance between rooms
+## X distance between room nodes
+const X_DIST := 30
 const Y_DIST : = 25#y distance between rooms
 const PLACEMENT_RANDOMNESS := 5 #randomly move the rooms a bit to give a bt extra feel
 var FLOORS := 15 #TO BE CHANGED TO A VARYING NUMBER LATER, number of rows
@@ -130,7 +131,6 @@ func _would_cross_existing_path(row:int,col:int,room:CampaignRoom) -> bool:
 func _setup_boss_room() -> void:
 	var middle := floori(MAP_WIDTH * .5)
 	var boss_room := map_data[FLOORS-1][middle] as CampaignRoom
-	
 	for col in MAP_WIDTH:
 		#connects all previous rooms to the boss room
 		var current_room = map_data[FLOORS-2][col] as CampaignRoom
@@ -173,7 +173,7 @@ func _setup_room_types() -> void:
 					_set_room_randomly(next_room)
 	#for room : CampaignRoom in map_data[0]:
 	#	if room.next_rooms.size() > 0:
-	#		room.type = CampaignRoom.TYPE.BATTLE
+	#		room.type = CampaignRoom.TYPE.EVENT
 
 func _set_room_randomly(room_to_set : CampaignRoom) -> void:
 	#OMITTING NO CAMPFIRES BEFORE FLOOR 4 RULE

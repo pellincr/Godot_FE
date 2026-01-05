@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://b4rcxa2ml17y0"]
+
+[ext_resource type="Resource" uid="uid://dmotk13ypbysf" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_base_stats.tres" id="1_4jf50"]
+[ext_resource type="Resource" uid="uid://busliqusoshh7" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_default_item_tables.tres" id="2_26hvw"]
+[ext_resource type="Resource" uid="uid://d3wi0fcp4cwm0" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_growth_stats.tres" id="3_e7005"]
+[ext_resource type="Texture2D" uid="uid://bnq31l414kb1b" path="res://resources/sprites/units/skeleton_sword.png" id="4_c8xcc"]
+[ext_resource type="Resource" uid="uid://dkk7o2doin8kh" path="res://resources/definitions/unit_types/units/sword_skeleton/sword_skeleton_max_stats.tres" id="5_u3nfs"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_v0o1i"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ffin7"]
+
+[resource]
+script = ExtResource("6_v0o1i")
+unit_type_name = "Sword Skeleton"
+db_key = "sword_skeleton"
+faction = Array[int]([5])
+traits = Array[int]([3])
+unit_rarity = ExtResource("7_ffin7")
+usable_weapon_types = Array[int]([1])
+base_stats = ExtResource("1_4jf50")
+maxuimum_stats = ExtResource("5_u3nfs")
+growth_stats = ExtResource("3_e7005")
+icon = ExtResource("4_c8xcc")
+map_sprite = ExtResource("4_c8xcc")
+unlocked = false
+default_item_resource = ExtResource("2_26hvw")

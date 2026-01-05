@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://c4v85acx6c3qx"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_c2tcm"]
+[ext_resource type="Texture2D" uid="uid://dvms3onlc0ob3" path="res://resources/sprites/items/weapons/dagger/heavy_knife.png" id="1_h5fyv"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_c2tcm"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_ichxd"]
+
+[resource]
+script = ExtResource("3_ichxd")
+weapon_type = 13
+alignment = 4
+item_scaling_multiplier = 1.2
+damage = 15
+hit = 75
+weight = 15
+attack_range = Array[int]([1, 2])
+name = "Great Knife"
+db_key = "heavy_knife"
+equippable = true
+rarity = ExtResource("3_c2tcm")
+uses = 18
+max_uses = 18
+worth = 1800
+icon = ExtResource("1_h5fyv")

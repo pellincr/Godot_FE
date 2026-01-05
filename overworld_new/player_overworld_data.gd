@@ -2,13 +2,16 @@ extends Resource
 
 class_name PlayerOverworldData
 @export_group("Main Save Data")
-@export var unlock_manager = UnlockManager.new()
-@export var hall_of_heroes_manager = HallOfHeroesManager.new()
-@export var game_stats_manager = GameStatsManager.new()
+@export var unlock_manager := UnlockManager.new()
+@export var hall_of_heroes_manager := HallOfHeroesManager.new()
+@export var game_stats_manager := GameStatsManager.new()
 
 @export_group("Campaign Data")
 @export var current_campaign : Campaign
+@export var campaign_seed_preset : bool
 @export var capmaign_seed : int
+@export var campaign_difficulty : CampaignModifier.DIFFICULTY
+@export var campaign_modifiers : Array[CampaignModifier.MODIFIER]
 @export var campaign_map_data : Array[Array]
 @export var floors_climbed: int
 @export var combat_maps_completed : int
@@ -26,22 +29,25 @@ class_name PlayerOverworldData
 
 @export_group("Level Data")
 @export var current_level : PackedScene
-@export var began_level : bool = false
+@export var level_entered : bool = false #determines if the combat level was entered
+@export var battle_prep_complete := false #determines if the level prep was complete
 @export var total_party_capacity = 15 #number of units the player is allowed to own
 @export var available_party_capacity = 4 #number of units the player is allowed to use in dungeon
 @export var max_archetype = 4
 @export var total_party = []
 @export var dead_party_members = []
 @export var selected_party = []
+@export var unit_positions : Dictionary
 
 
 #THIS CAN BE MOVE ELSEWHERE
 @export var new_recruits = []
-@export var temp_name_list = ["Craig",
- "Devin",
- "Jacob",
- "Porter",
- "Jarry",
+@export var temp_name_list = [
+"Craig",
+"Devin",
+"Jacob",
+"Porter",
+"Jarry",
 "Aarall",
 "Abiala",
 "Acanos",

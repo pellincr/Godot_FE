@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ca5uexfcenaem"]
 
 [ext_resource type="Theme" uid="uid://c8byph20nnc1c" path="res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres" id="1_p7ipp"]
-[ext_resource type="Script" path="res://unit drafting/Unit_Commander Draft/stat_view.gd" id="2_gquhp"]
+[ext_resource type="Script" uid="uid://c6mwkxws4xp8u" path="res://unit drafting/Unit_Commander Draft/stat_view.gd" id="2_gquhp"]
 
 [node name="StatView" type="Control"]
 layout_mode = 3

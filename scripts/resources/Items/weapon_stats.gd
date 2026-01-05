@@ -16,7 +16,7 @@ class_name WeaponStats
 @export var critical_multiplier : float = 0
 @export var attacks_per_combat_turn : int = 0
 
-@export_group("Bonus Stats")
+@export_group("Bonus Stats On Equip")
 @export var bonus_stat : UnitStat = null
 
 @export_group("Weapon Specials") 
@@ -24,15 +24,15 @@ class_name WeaponStats
 @export var weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
 @export var weapon_effectiveness_weapon_type : Array[ItemConstants.WEAPON_TYPE] = []
 @export var specials : Array[WeaponDefinition.WEAPON_SPECIALS] = [] # Activated on weapon equipped
-
+@export var equipped_specials : Array[SpecialEffect] = []
 
 func apply_weapon_stats(weapon: WeaponDefinition):
 	#item_stats
-	weapon.max_uses = weapon.max_uses - max_uses
-	weapon.uses = clampi(weapon.uses - max_uses, 1, 10000000000)
+	weapon.max_uses = clampi(weapon.max_uses + max_uses, 1 , 1000000)
+	weapon.uses = clampi(weapon.uses + max_uses, 1, 1000000)
 	
 	if percent_durability != 1:
-		weapon.uses = int(weapon.uses * percent_durability)
+		weapon.uses = clampi(int(weapon.uses * percent_durability),1, 1000000)
 	if ubreakable:
 		weapon.unbreakable = true
 	if inventory_bonus_stats != null:
@@ -64,4 +64,6 @@ func apply_weapon_stats(weapon: WeaponDefinition):
 		weapon.weapon_effectiveness_weapon_type.append_array(weapon_effectiveness_weapon_type)
 	if not specials.is_empty():
 		weapon.specials.append_array(specials)
+	if not equipped_specials.is_empty():
+		weapon.equipped_specials.append_array(equipped_specials)
 	

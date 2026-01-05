@@ -96,5 +96,9 @@ func update_entity_display(entity : CombatEntity):
 		if entity.active:
 			entity_info_panel.visible = true
 			entity_name.text = entity.name
-			entity_hp.text = str(entity.hp) + "HP"
+			if entity.interaction_type == mapEntityDefinition.TYPE.DEBRIS or entity.interaction_type == mapEntityDefinition.TYPE.BREAKABLE_TERRAIN:
+				entity_hp.text = str(entity.hp) + "HP"
+				entity_hp.visible = true
+			else :
+				entity_hp.visible = false
 	pass

@@ -1,0 +1,77 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3gtys3lwwqhf"]
+
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_c5le3"]
+[ext_resource type="Script" uid="uid://cg8nxo88fnmme" path="res://ui/battle_prep_new/unit_detailed_info/inventory_slot_options/inventory_slot_options.gd" id="2_qxk0n"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_1w3h4"]
+
+[node name="InventorySlotOptions" type="Control"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_c5le3")
+script = ExtResource("2_qxk0n")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="EquipButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Equip"
+script = ExtResource("3_1w3h4")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="UseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Use"
+script = ExtResource("3_1w3h4")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="ToConvoyButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "To Convoy"
+script = ExtResource("3_1w3h4")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="SellButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sell"
+script = ExtResource("3_1w3h4")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+script = ExtResource("3_1w3h4")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
+
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/EquipButton" to="PanelContainer/MarginContainer/VBoxContainer/EquipButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/EquipButton" to="." method="_on_equip_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/EquipButton" to="PanelContainer/MarginContainer/VBoxContainer/EquipButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/UseButton" to="PanelContainer/MarginContainer/VBoxContainer/UseButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/UseButton" to="PanelContainer/MarginContainer/VBoxContainer/UseButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/ToConvoyButton" to="PanelContainer/MarginContainer/VBoxContainer/ToConvoyButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ToConvoyButton" to="." method="_on_to_convoy_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ToConvoyButton" to="PanelContainer/MarginContainer/VBoxContainer/ToConvoyButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/SellButton" to="PanelContainer/MarginContainer/VBoxContainer/SellButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SellButton" to="PanelContainer/MarginContainer/VBoxContainer/SellButton" method="_on_pressed"]
+[connection signal="focus_entered" from="PanelContainer/MarginContainer/VBoxContainer/CancelButton" to="PanelContainer/MarginContainer/VBoxContainer/CancelButton" method="_on_focus_entered"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/CancelButton" to="PanelContainer/MarginContainer/VBoxContainer/CancelButton" method="_on_pressed"]

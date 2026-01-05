@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bixh7odyximcb"]
+[gd_scene load_steps=8 format=3 uid="uid://bixh7odyximcb"]
 
 [ext_resource type="Theme" uid="uid://jimlxhugl2wg" path="res://ui/battle_prep_new/panel_option_not_focused.tres" id="1_kr0qd"]
-[ext_resource type="Script" path="res://ui/battle_prep_new/item_panel/item_panel_container.gd" id="2_2qk5x"]
+[ext_resource type="Script" uid="uid://hhghdllg808w" path="res://ui/battle_prep_new/item_panel/item_panel_container.gd" id="2_2qk5x"]
 [ext_resource type="Texture2D" uid="uid://dnckbxrnna2l1" path="res://resources/sprites/items/weapons/axes/hand_axe.png" id="3_xjkbn"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_54dlt"]
+[ext_resource type="Texture2D" uid="uid://ubeqtcpt3w7f" path="res://resources/sprites/icons/ui_icons/refreshable.png" id="5_4wpas"]
 
 [sub_resource type="Theme" id="Theme_s1kxt"]
-default_font_size = 24
+default_font = ExtResource("4_54dlt")
+default_font_size = 32
 
-[sub_resource type="Theme" id="Theme_w0oe3"]
-default_font_size = 24
+[sub_resource type="Theme" id="Theme_4wpas"]
+default_font = ExtResource("4_54dlt")
+default_font_size = 32
 
 [node name="ItemPanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 50)
@@ -43,12 +47,28 @@ layout_mode = 2
 theme = SubResource("Theme_s1kxt")
 text = "Hand Axe"
 
-[node name="UsesLabel" type="Label" parent="MarginContainer/HBoxContainer"]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
-custom_minimum_size = Vector2(50, 0)
+[node name="UsesContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_w0oe3")
-text = "35"
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="ExpendedIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/UsesContainer"]
+custom_minimum_size = Vector2(16, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("5_4wpas")
+stretch_mode = 5
+
+[node name="UsesLabel" type="Label" parent="MarginContainer/HBoxContainer/UsesContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme = SubResource("Theme_4wpas")
+text = "30"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

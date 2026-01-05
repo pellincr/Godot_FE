@@ -8,8 +8,8 @@ signal item_panel_pressed(item)
 @onready var left_container: HBoxContainer = $MarginContainer/HBoxContainer/LeftContainer
 @onready var item_icon: TextureRect = $MarginContainer/HBoxContainer/LeftContainer/ItemIcon
 @onready var item_name_label: Label = $MarginContainer/HBoxContainer/LeftContainer/ItemNameLabel
-
-@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesLabel
+@onready var expended_icon : TextureRect = $MarginContainer/HBoxContainer/UsesContainer/ExpendedIcon
+@onready var uses_label: Label = $MarginContainer/HBoxContainer/UsesContainer/UsesLabel
 
 var item : ItemDefinition
 
@@ -22,12 +22,17 @@ func _on_mouse_entered():
 	grab_focus()
 
 
+func set_item_expendable_icon(expendable):
+	expended_icon.visible = expendable
 
 func set_item_icon(texture):
 	item_icon.texture = texture
 
 func set_item_name_label(item_name):
 	item_name_label.text = item_name
+
+func set_item_rarity_header(rarity : Rarity):
+	item_name_label.set("theme_override_colors/font_color",rarity.ui_color)
 
 func set_uses_label(use_count):
 	if use_count > 0:
@@ -39,6 +44,8 @@ func update_by_item():
 	set_item_icon(item.icon)
 	update_item_type_icon_by_item()
 	set_item_name_label(item.name)
+	set_item_rarity_header(item.rarity)
+	set_item_expendable_icon(item.has_expended_state)
 	if item.unbreakable:
 		set_uses_label(0)
 	else :
@@ -141,7 +148,7 @@ func update_item_type_icon_by_item():
 
 
 func _on_focus_entered() -> void:
-	AudioManager.play_sound_effect("menu_cursor")
+	#AudioManager.play_sound_effect("menu_cursor")
 	item_name_label.self_modulate = "FFFFFF"
 	self.theme = preload("res://ui/battle_prep_new/panel_option_focused.tres")
 
@@ -153,5 +160,5 @@ func _on_focus_exited() -> void:
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
-		AudioManager.play_sound_effect("menu_confirm")
+		#AudioManager.play_sound_effect("menu_confirm")
 		item_panel_pressed.emit(item)

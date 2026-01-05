@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://c5crxadul4wou"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_20ter"]
+[ext_resource type="Texture2D" uid="uid://dp7e2ioc3iwen" path="res://resources/sprites/items/weapons/dagger/steel_dagger.png" id="2_kn33u"]
+[ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_0swb7"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_ibye1"]
+
+[resource]
+script = ExtResource("4_ibye1")
+weapon_type = 13
+alignment = 4
+required_mastery = 1
+damage = 6
+hit = 80
+critical_chance = 10
+critical_multiplier = 4.0
+attack_range = Array[int]([1, 2])
+name = "Steel Dagger"
+db_key = "steel_dagger"
+equippable = true
+rarity = ExtResource("3_0swb7")
+uses = 20
+max_uses = 20
+worth = 900
+icon = ExtResource("2_kn33u")

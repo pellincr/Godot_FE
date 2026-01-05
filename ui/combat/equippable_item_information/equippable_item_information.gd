@@ -37,14 +37,14 @@ var increase_color : Color = Color(0, 0.826, 0.946)
 @onready var dark_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/DarkIcon
 @onready var animal_icon: TextureRect = $HBoxContainer/EffectivenessContainer/Value/AnimalIcon
 
-var current_equipped_stat: CombatMapUnitNetStat 
+var current_equipped_stat: EffectiveUnitStat 
 var current_damage_type : Constants.DAMAGE_TYPE = 0
 var current_attack_range : Array[int] = []
 var current_weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
 var current_weapon_effectiveness_wpn_type : Array[ItemConstants.WEAPON_TYPE] = []
 var current_required_mastery : ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
 
-@export var hover_stat : CombatMapUnitNetStat = CombatMapUnitNetStat.new() 
+@export var hover_stat : EffectiveUnitStat = EffectiveUnitStat.new() 
 var hover_damage_type : Constants.DAMAGE_TYPE = 0
 var hover_attack_range : Array[int] = []
 var hover_weapon_effectiveness_trait : Array[unitConstants.TRAITS] = []
@@ -60,7 +60,7 @@ func calculate_hover_stats(combat_unit: CombatUnit, weapon :WeaponDefinition = n
 		hover_stat.populate_unit_stats(combat_unit.unit)
 		hover_stat.populate_weapon_stats(combat_unit, weapon)
 
-func populate_equipped_stats(current_stats: CombatMapUnitNetStat, current_weapon: WeaponDefinition):
+func populate_equipped_stats(current_stats: EffectiveUnitStat, current_weapon: WeaponDefinition):
 	self.current_equipped_stat = current_stats
 	if current_weapon != null:
 		self.current_damage_type = current_weapon.item_damage_type
@@ -129,7 +129,7 @@ func update_fields_consumable():
 	crit_mult_value.text = "--"
 	set_effective_trait_visibility([],[])
 
-func populate_hover_stats(hover_stats: CombatMapUnitNetStat, hover_weapon: WeaponDefinition):
+func populate_hover_stats(hover_stats: EffectiveUnitStat, hover_weapon: WeaponDefinition):
 	self.hover_stat = hover_stats
 	self.hover_damage_type = hover_weapon.item_damage_type
 	self.hover_attack_range = hover_weapon.attack_range
@@ -156,7 +156,7 @@ func set_effective_trait_visibility(effective_traits, effective_weapon_types):
 		mounted_icon.visible = true
 	if effective_traits.has(unitConstants.TRAITS.FLIER):
 		flier_icon.visible = true
-	if effective_traits.has(unitConstants.TRAITS.UNDEAD):
+	if effective_traits.has(unitConstants.TRAITS.TERROR):
 		undead_icon.visible = true
 	#Weapon Types
 	if effective_weapon_types.has(ItemConstants.WEAPON_TYPE.AXE):

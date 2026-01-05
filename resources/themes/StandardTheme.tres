@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c4lkfm562pmc7"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c4lkfm562pmc7"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_2065r"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_rgcsp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7uvd"]
 content_margin_left = 5.0
@@ -13,18 +13,50 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(1, 1, 1, 1)
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hssry"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.6)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgcsp"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dyv8t"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixfwj"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmxb7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8def"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mypmb"]
 bg_color = Color(0, 0, 0, 1)
@@ -43,7 +75,7 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [resource]
-default_font = ExtResource("1_2065r")
+default_font = ExtResource("1_rgcsp")
 Button/colors/font_color = Color(0.509804, 0.509804, 0.509804, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
@@ -51,5 +83,10 @@ Button/font_sizes/font_size = 36
 Button/styles/focus = SubResource("StyleBoxFlat_s7uvd")
 Button/styles/hover = SubResource("StyleBoxFlat_s7uvd")
 Button/styles/normal = SubResource("StyleBoxFlat_hssry")
+Button/styles/pressed = SubResource("StyleBoxFlat_rgcsp")
+CheckButton/styles/focus = SubResource("StyleBoxFlat_dyv8t")
+CheckButton/styles/hover = SubResource("StyleBoxFlat_ixfwj")
+CheckButton/styles/normal = SubResource("StyleBoxFlat_fmxb7")
+CheckButton/styles/pressed = SubResource("StyleBoxFlat_l8def")
 Panel/styles/panel = SubResource("StyleBoxFlat_mypmb")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_f3bml")

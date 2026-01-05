@@ -34,8 +34,8 @@ metadata/_custom_type_script = "uid://dq6q58q1nixv"
 
 [sub_resource type="Resource" id="Resource_ep4ti"]
 script = ExtResource("1_eydhi")
-title = "Collect the Masonry"
-description = "Obtain [color=#deda00]Bridge Mortar[/color] (Grants [color=#8EE15F]2[/color] Constitution when held). "
+title = "Scavenge"
+description = "Obtain [color=#deda00]Bridge Mortar[/color] (Grants [color=#8EE15F]."
 effect = 8
 metadata/_custom_type_script = "uid://dq6q58q1nixv"
 

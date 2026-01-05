@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="LootTableItem" load_steps=14 format=3 uid="uid://bsavhcmaskene"]
+
+[ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="1_c7411"]
+[ext_resource type="Resource" uid="uid://c6i1wwuj0wqqq" path="res://resources/definitions/items/treasure/gold_coins_medium.tres" id="3_0oiyc"]
+[ext_resource type="Resource" uid="uid://duoivcf8qbn34" path="res://resources/definitions/items/treasure/gold_coins_large.tres" id="4_xom4u"]
+[ext_resource type="Resource" uid="uid://cxk8ovtotpucl" path="res://resources/definitions/items/consumables/potion.tres" id="5_q2b15"]
+[ext_resource type="Resource" uid="uid://b6bof28m5atar" path="res://resources/definitions/items/weapons/lance/javelin.tres" id="6_2ey86"]
+[ext_resource type="Script" uid="uid://b61hlua22dboi" path="res://scripts/resources/loot_tables/loot_table_item.gd" id="6_dbmku"]
+
+[sub_resource type="Resource" id="Resource_wyudb"]
+script = ExtResource("1_c7411")
+probability = 90.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_c1k8m"]
+metadata/__load_path__ = "res://resources/definitions/items/treasure/rubbish.tres"
+
+[sub_resource type="Resource" id="Resource_vyf6g"]
+script = ExtResource("1_c7411")
+item = SubResource("Resource_c1k8m")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_bjgxw"]
+script = ExtResource("1_c7411")
+item = ExtResource("3_0oiyc")
+probability = 2.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_glj7u"]
+script = ExtResource("1_c7411")
+item = ExtResource("4_xom4u")
+probability = 0.5
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_lc3tj"]
+script = ExtResource("1_c7411")
+item = ExtResource("5_q2b15")
+probability = 1.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[sub_resource type="Resource" id="Resource_lvtny"]
+script = ExtResource("1_c7411")
+item = ExtResource("6_2ey86")
+probability = 3.0
+metadata/_custom_type_script = "uid://dss2u86tfdpgs"
+
+[resource]
+script = ExtResource("6_dbmku")
+entries = Array[ExtResource("1_c7411")]([SubResource("Resource_wyudb"), SubResource("Resource_vyf6g"), SubResource("Resource_bjgxw"), SubResource("Resource_glj7u"), SubResource("Resource_lc3tj"), SubResource("Resource_lvtny")])
+metadata/_custom_type_script = "uid://b61hlua22dboi"

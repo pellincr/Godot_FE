@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=4 format=3 uid="uid://duoivcf8qbn34"]
+
+[ext_resource type="Texture2D" uid="uid://bb5dsllc8o5fl" path="res://resources/sprites/items/treasure/treasure_coins_medium.png" id="1_tp305"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="2_ecnut"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_hyrcd"]
+
+[resource]
+script = ExtResource("3_hyrcd")
+name = "Gold Coins"
+db_key = "gold_coins_large"
+description = "An asssortment of gold coins worth 750 gold."
+item_type = 4
+rarity = ExtResource("2_ecnut")
+worth = 750
+icon = ExtResource("1_tp305")

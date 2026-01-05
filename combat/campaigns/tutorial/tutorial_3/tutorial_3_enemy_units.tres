@@ -1,0 +1,102 @@
+[gd_resource type="Resource" script_class="EnemyGroup" load_steps=23 format=3 uid="uid://das3nby4hielm"]
+
+[ext_resource type="Script" uid="uid://dx803pfypfpa3" path="res://scripts/combat/combatUnit/combatUnitData.gd" id="1_liofw"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="2_pcjw0"]
+[ext_resource type="Resource" uid="uid://bmyc03suasno" path="res://resources/definitions/items/weapons/axes/iron_axe.tres" id="3_8h6yu"]
+[ext_resource type="Resource" uid="uid://chyi446dfmveq" path="res://resources/definitions/items/weapons/lance/iron_lance.tres" id="4_guakl"]
+[ext_resource type="Resource" uid="uid://b357lwx72yeer" path="res://resources/definitions/items/weapons/fists/iron_fist.tres" id="5_axoll"]
+[ext_resource type="Resource" uid="uid://db355gw1lvem7" path="res://resources/definitions/items/weapons/bow/iron_bow.tres" id="6_w6f50"]
+[ext_resource type="Resource" uid="uid://dp624fv7qre82" path="res://resources/definitions/items/weapons/axes/slim_axe.tres" id="7_2fqhb"]
+[ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="8_pdbh8"]
+[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="9_yl0ds"]
+[ext_resource type="Resource" uid="uid://cwiws7bsjnbyk" path="res://resources/definitions/items/weapons/nature/fire_spell.tres" id="10_cte71"]
+[ext_resource type="Resource" uid="uid://bm3egckbu7db8" path="res://resources/definitions/items/weapons/swords/short_sword.tres" id="11_i6uwq"]
+[ext_resource type="Resource" uid="uid://dxdxaw1qqj2na" path="res://resources/definitions/items/treasure/wine.tres" id="12_uotdo"]
+[ext_resource type="Script" uid="uid://ctoil1vwlbm4k" path="res://scripts/resources/enemy_group/enemy_group.gd" id="13_c2c6g"]
+
+[sub_resource type="Resource" id="Resource_uinjt"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(6, 5)
+level = 3
+unit_type_key = "fighter"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("3_8h6yu")])
+
+[sub_resource type="Resource" id="Resource_atl36"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(7, 9)
+level = 2
+ai_type = 1
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("4_guakl")])
+
+[sub_resource type="Resource" id="Resource_iq1ji"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(11, 8)
+level = 2
+ai_type = 1
+unit_type_key = "brawler"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("5_axoll")])
+
+[sub_resource type="Resource" id="Resource_o80dc"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(13, 8)
+level = 2
+ai_type = 1
+unit_type_key = "pikeman"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("4_guakl")])
+
+[sub_resource type="Resource" id="Resource_dhpdn"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(10, 4)
+level = 2
+ai_type = 1
+unit_type_key = "archer"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("6_w6f50")])
+
+[sub_resource type="Resource" id="Resource_2b83t"]
+script = ExtResource("1_liofw")
+name = "Ulba"
+map_position = Vector2i(11, 1)
+level = 7
+ai_type = 2
+is_boss = true
+unit_type_key = "vandal"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("7_2fqhb"), ExtResource("8_pdbh8")])
+
+[sub_resource type="Resource" id="Resource_skwkg"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(12, 6)
+level = 3
+level_bonus = 1
+ai_type = 1
+unit_type_key = "sellsword"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("9_yl0ds")])
+
+[sub_resource type="Resource" id="Resource_8ceps"]
+script = ExtResource("1_liofw")
+name = "bandit"
+map_position = Vector2i(13, 0)
+level = 4
+level_bonus = 1
+unit_type_key = "magewing"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("10_cte71")])
+
+[sub_resource type="Resource" id="Resource_kk33s"]
+script = ExtResource("1_liofw")
+name = "Bandit"
+map_position = Vector2i(14, 1)
+level = 4
+level_bonus = 1
+unit_type_key = "freewing"
+inventory = Array[ExtResource("2_pcjw0")]([ExtResource("11_i6uwq"), ExtResource("12_uotdo")])
+drops_item = true
+
+[resource]
+script = ExtResource("13_c2c6g")
+group = Array[ExtResource("1_liofw")]([SubResource("Resource_uinjt"), SubResource("Resource_atl36"), SubResource("Resource_iq1ji"), SubResource("Resource_o80dc"), SubResource("Resource_dhpdn"), SubResource("Resource_2b83t"), SubResource("Resource_skwkg"), SubResource("Resource_8ceps"), SubResource("Resource_kk33s")])

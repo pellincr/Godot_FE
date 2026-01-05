@@ -1,15 +1,23 @@
-[gd_resource type="Resource" script_class="LevelPool" load_steps=11 format=3 uid="uid://hqthe3tnpex1"]
+[gd_resource type="Resource" script_class="LevelPool" load_steps=19 format=3 uid="uid://hqthe3tnpex1"]
 
-[ext_resource type="PackedScene" uid="uid://p3yk5cxfw000" path="res://combat/campaigns/bandit_bash/bandit_bash_1/bandit_bash_1_a.tscn" id="1_u4xoo"]
-[ext_resource type="PackedScene" uid="uid://cofvc6bc7oc74" path="res://combat/campaigns/bandit_bash/bandit_bash_2/bandit_bash_2_a.tscn" id="2_o0p5b"]
+[ext_resource type="PackedScene" uid="uid://p3yk5cxfw000" path="res://combat/campaigns/bandit_bash/bandit_bash_1/bandit_bash_1.tscn" id="1_u4xoo"]
+[ext_resource type="PackedScene" uid="uid://cofvc6bc7oc74" path="res://combat/campaigns/bandit_bash/bandit_bash_2/bandit_bash_2.tscn" id="2_o0p5b"]
 [ext_resource type="Script" uid="uid://ktkgeds6abeh" path="res://scripts/resources/level_pool/LevelPool.gd" id="3_blc4s"]
-[ext_resource type="PackedScene" uid="uid://c5lppyaupps08" path="res://combat/campaigns/bandit_bash/bandit_bash_3/bandit_bash_3_a.tscn" id="3_jf733"]
+[ext_resource type="PackedScene" uid="uid://c5lppyaupps08" path="res://combat/campaigns/bandit_bash/bandit_bash_3/bandit_bash_3.tscn" id="3_jf733"]
 [ext_resource type="PackedScene" uid="uid://cqa5trr0omena" path="res://combat/campaigns/bandit_bash/bandit_bash_8/bandit_bash_8.tscn" id="4_7kqes"]
 [ext_resource type="PackedScene" uid="uid://d3tk5v3rvjvec" path="res://combat/campaigns/bandit_bash/bandit_bash_4/bandit_bash_4.tscn" id="5_0go45"]
 [ext_resource type="PackedScene" uid="uid://bk8b7vmkl0wbh" path="res://combat/campaigns/bandit_bash/bandit_bash_5/bandit_bash_5.tscn" id="6_gsv6m"]
 [ext_resource type="PackedScene" uid="uid://n01dyp4shrgf" path="res://combat/campaigns/bandit_bash/bandit_bash_6/bandit_bash_6.tscn" id="7_ruyb3"]
 [ext_resource type="PackedScene" uid="uid://bwh2mplnd8dpq" path="res://combat/campaigns/bandit_bash/bandit_bash_7/bandit_bash_7.tscn" id="8_1y2q3"]
-[ext_resource type="PackedScene" uid="uid://qqbr2yx8qmg4" path="res://combat/campaigns/minor_combat/minor_combat_1.tscn" id="9_etf6b"]
+[ext_resource type="PackedScene" uid="uid://qqbr2yx8qmg4" path="res://combat/campaigns/minor_combats/minor_combat_ruin_1/minor_combat_ruin_1_a/minor_combat_ruin_1_a.tscn" id="9_etf6b"]
+[ext_resource type="PackedScene" uid="uid://hemksceal6in" path="res://combat/campaigns/minor_combats/minor_combat_ruin_1/minor_combat_ruin_1_b/minor_combat_ruin_1_b.tscn" id="10_yfmar"]
+[ext_resource type="PackedScene" uid="uid://ytdgarhntvf6" path="res://combat/campaigns/minor_combats/minor_combat_ruin_1/minor_combat_ruin_1_c/minor_combat_ruin_1_c.tscn" id="11_jxyvu"]
+[ext_resource type="PackedScene" uid="uid://c5xyvloiirobl" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_a/minor_combat_ruin_2_a.tscn" id="12_be40g"]
+[ext_resource type="PackedScene" uid="uid://dqh8d3udxv86" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_b/minor_combat_ruin_2_b.tscn" id="13_wo2be"]
+[ext_resource type="PackedScene" uid="uid://bey0bbvktykhg" path="res://combat/campaigns/minor_combats/minor_combat_ruin_2/minor_combat_ruin_2_c/minor_combat_ruin_2_c.tscn" id="14_tptmn"]
+[ext_resource type="PackedScene" uid="uid://dps167ui0llwy" path="res://combat/campaigns/minor_combats/minor_combat_ruin_3/minor_combat_ruin_3_a/minor_combat_ruin_3_a.tscn" id="15_wo2be"]
+[ext_resource type="PackedScene" uid="uid://dn3i2i4s8pos4" path="res://combat/campaigns/minor_combats/minor_combat_ruin_3/minor_combat_ruin_3_b/minor_combat_ruin_3_b.tscn" id="16_tptmn"]
+[ext_resource type="PackedScene" uid="uid://bifuodmxphr46" path="res://combat/campaigns/minor_combats/minor_combat_ruin_3/minor_combat_ruin_3_c/minor_combat_ruin_3_c.tscn" id="17_xmbr4"]
 
 [resource]
 script = ExtResource("3_blc4s")
@@ -22,6 +30,6 @@ battle_levels = {
 5: [ExtResource("7_ruyb3")],
 6: [ExtResource("8_1y2q3")],
 "BOSS": [ExtResource("4_7kqes")],
-"EXTRA": [ExtResource("9_etf6b")],
+"EXTRA": [ExtResource("9_etf6b"), ExtResource("10_yfmar"), ExtResource("11_jxyvu"), ExtResource("12_be40g"), ExtResource("13_wo2be"), ExtResource("14_tptmn"), ExtResource("15_wo2be"), ExtResource("16_tptmn"), ExtResource("17_xmbr4")],
 "MID_BOSS": []
 }

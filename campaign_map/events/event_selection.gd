@@ -2,12 +2,26 @@ extends Control
 
 @onready var background: TextureRect = $background
 @onready var event_selection_container: VBoxContainer = $MarginContainer2/EventSelectionContainer
+@onready var detailed_info_margin_container : MarginContainer = $DetailedInfoMarginContainer
+
+@onready var campaign_header: Control = $CampaignHeader
 
 @onready var playerOverworldData : PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + SelectedSaveFile.save_file_name).duplicate(true)
 
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
+const MAIN_PAUSE_MENU_SCENE = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 const EVENT_UNIT_SELECT = preload("res://campaign_map/events/event_unit_select/event_unit_select.tscn")
 const EVENT_ITEM_SELECT = preload("res://campaign_map/events/event_item_select/event_item_select.tscn")
+
+const WEAPON_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.tscn")
+const CONSUMABLE_ITEM_DETAILED_INFO = preload("res://ui/battle_prep_new/item_detailed_info/consumable_item_detailed_info.tscn")
+
+
+
+enum MENU_STATE{
+	NONE, PAUSE, CAMPAIGN_INFO
+}
 
 enum STATE {
 	INIT,
@@ -19,29 +33,149 @@ enum STATE {
 	PROCESS
 }
 
+var current_menu_state = MENU_STATE.NONE
 var state = STATE.INIT
-var current_event : Event
+@export var current_event : Event
 var selected_event_option : EventOption
 
 func _ready():
 	transition_in_animation()
 	if !playerOverworldData:
 		playerOverworldData = PlayerOverworldData.new()
+	campaign_header.set_gold_value_label(playerOverworldData.gold)
+	campaign_header.set_floor_value_label(playerOverworldData.floors_climbed)
+	campaign_header.set_difficulty_value_label(playerOverworldData.campaign_difficulty)
 	select_event()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		match current_menu_state:
+			MENU_STATE.NONE:
+				set_menu_state(MENU_STATE.PAUSE)
+			MENU_STATE.PAUSE:
+				set_menu_state(MENU_STATE.NONE)
+			MENU_STATE.CAMPAIGN_INFO:
+				set_menu_state(MENU_STATE.NONE)
+	if event.is_action_pressed("campaign_information"):
+		if current_menu_state == MENU_STATE.NONE:
+			set_menu_state(MENU_STATE.CAMPAIGN_INFO)
+
+func set_menu_state(m_state:MENU_STATE):
+	current_menu_state = m_state
+	update_by_menu_state()
+
+func _on_menu_closed():
+	set_menu_state(MENU_STATE.NONE)
+
+
+func update_by_menu_state():
+	match current_menu_state:
+			MENU_STATE.NONE:
+				get_child(-1).queue_free()
+				event_selection_container.enable_focus()
+				event_selection_container.grab_first_effective_focus()
+			MENU_STATE.PAUSE:
+				var main_pause_menu = MAIN_PAUSE_MENU_SCENE.instantiate()
+				add_child(main_pause_menu)
+				main_pause_menu.menu_closed.connect(_on_menu_closed)
+				event_selection_container.disable_focus()
+			MENU_STATE.CAMPAIGN_INFO:
+				var campaign_info = CAMPAIGN_INFORMATION_SCENE.instantiate()
+				campaign_info.set_po_data(playerOverworldData)
+				campaign_info.current_availabilty = CampaignInformation.AVAILABILITY_STATE.FULL_AVAILABLE
+				add_child(campaign_info)
+				campaign_info.menu_closed.connect(_on_menu_closed)
+				event_selection_container.disable_focus()
 
 func select_event():
 	#get all events
 	var events = EventDatabase.events
 	
-	#Do some filtering based on params here
+	#Do some filtering based on params here, and make sure user doesnt get same event twice
 	var chosen_event : Event = events.pick_random()
 	
 	#Update the display
 	set_event_background(chosen_event.background)
 	event_selection_container.event = chosen_event
 	event_selection_container.update_by_event()
+	event_selection_container.update_valid_event_options(valid_event_option_requirement(chosen_event.option1), valid_event_option_requirement(chosen_event.option2), valid_event_option_requirement(chosen_event.option3))
+	event_selection_container.connect("event_option_hovered", _on_event_option_hovered)
 	current_event = chosen_event
 
+func valid_event_option_requirement(event_option:EventOption) -> bool:
+	# check the gold requirement
+	#var _has_any_unit = false
+	var _has_commander = false
+	var _has_non_commander_unit = false
+	var _has_any_item = not event_option.requires_any_item
+	var _has_item_of_type = event_option.required_item_type_white_list.is_empty()
+	var _has_required_item = event_option.required_item == null
+	var _has_commander_item = not event_option.commander_item_required
+	
+	if playerOverworldData.gold < event_option.gold_requirement:
+		return false
+		
+	# Check Unit Requirements
+	if not playerOverworldData.total_party.is_empty():
+		for unit in playerOverworldData.total_party:
+			if unit != null:
+				#_has_any_unit = true
+				if not _has_commander and not _has_non_commander_unit :
+					if UnitTypeDatabase.get_commander_definition(unit.unit_type_key) != null:
+						_has_commander = true
+					else:
+						if unit is Unit:
+							_has_non_commander_unit = true
+				if _has_non_commander_unit and _has_commander: 
+					break
+			if event_option.requires_any_unit:
+				if not (_has_commander or _has_non_commander_unit):
+					return false
+			if event_option.requires_commander:
+				if not _has_commander:
+					return false
+			if event_option.requires_non_commander_unit:
+				if not _has_commander:
+					return false
+	
+	#Check Item Requirements
+	if not (_has_item_of_type and _has_required_item and _has_commander_item):
+		#check the convoy first
+		for item :ItemDefinition in playerOverworldData.convoy:
+			if item != null:
+
+				if ItemDatabase.is_commander_weapon(item.db_key) and not _has_commander_item:
+					_has_commander_item = true
+					_has_any_item = true
+				if event_option.required_item_type_white_list.has(item.item_type) and not _has_item_of_type:
+					_has_item_of_type = true
+					_has_any_item = true
+				if not _has_required_item:
+					if item.db_key == event_option.required_item.db_key:
+						_has_required_item = true
+						_has_any_item = true
+				if (_has_item_of_type and _has_required_item and _has_commander_item):
+					break
+	# check all units
+	if not (_has_item_of_type and _has_required_item and _has_commander_item):
+		for player_unit: Unit in playerOverworldData.total_party:
+			for item in player_unit.inventory.items:
+				if item != null and item is ItemDefinition:
+					if ItemDatabase.is_commander_weapon(item.db_key) and not _has_commander_item:
+						_has_commander_item = true
+						_has_any_item = true
+					if event_option.required_item_type_white_list.has(item.item_type) and not _has_item_of_type:
+						_has_item_of_type = true
+						_has_any_item = true
+					if not _has_required_item:
+						if item.db_key == event_option.required_item.db_key:
+							_has_required_item = true
+							_has_any_item = true
+					if (_has_item_of_type and _has_required_item and _has_commander_item):
+						break
+	if not (_has_item_of_type and _has_required_item and _has_commander_item and _has_any_item):
+		return false
+	return true
 
 func set_event_background(texture):
 	background.texture = texture
@@ -121,7 +255,7 @@ func _on_event_option_selected(event_option: EventOption):
 				# check all units
 				for player_unit: Unit in playerOverworldData.total_party:
 					for item in player_unit.inventory.items:
-						if item is WeaponDefinition and not ItemDatabase.is_commander_weapon(item.db_key):
+						if item is WeaponDefinition:
 							var new_info = event_item_selection_info.new(item, player_unit.name, player_unit.get_unit_type_definition().icon)
 							_wpn_array.append(new_info)
 
@@ -313,3 +447,38 @@ class event_item_selection_info:
 		item = i
 		owner_name = o_name
 		owner_icon = o_texture
+
+func clear_detailed_info_container():
+	var _arr = detailed_info_margin_container.get_children()
+	if not _arr.is_empty():
+		for child in _arr:
+			child.queue_free()
+
+func _on_event_option_hovered(event_option:EventOption) -> void:
+	clear_detailed_info_container()
+	if event_option != null:
+		if event_option.effect == EventOption.EVENT_EFFECT.GIVE_ITEM:
+			if event_option.target_item != null:
+				var item = event_option.target_item
+				if item is WeaponDefinition:
+					var weapon_detailed_info = WEAPON_DETAILED_INFO.instantiate()
+					weapon_detailed_info.item = item
+					detailed_info_margin_container.add_child(weapon_detailed_info)
+					weapon_detailed_info.update_by_item()
+					weapon_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+				elif item is ConsumableItemDefinition:
+					var consumable_item_detailed_info = CONSUMABLE_ITEM_DETAILED_INFO.instantiate()
+					consumable_item_detailed_info.item = item
+					detailed_info_margin_container.add_child(consumable_item_detailed_info)
+					consumable_item_detailed_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+				elif item is ItemDefinition:
+					if item.item_type == ItemConstants.ITEM_TYPE.EQUIPMENT:
+						var equipment_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/equipment_detailed_info.tscn").instantiate()
+						equipment_detaied_info.item = item
+						detailed_info_margin_container.add_child(equipment_detaied_info)
+						equipment_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR
+					elif item.item_type == ItemConstants.ITEM_TYPE.TREASURE:
+						var treasure_detaied_info = preload("res://ui/battle_prep_new/item_detailed_info/treasure_detailed_info.tscn").instantiate()
+						treasure_detaied_info.item = item
+						detailed_info_margin_container.add_child(treasure_detaied_info)
+						treasure_detaied_info.layout_direction = Control.LAYOUT_DIRECTION_LTR

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://cl1ocurrvytss"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_kdr6b"]
+[ext_resource type="Texture2D" uid="uid://cdcc00okppeh7" path="res://resources/sprites/items/consumables/stat_boosters/speed/rush_raddish.png" id="2_dpds8"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_oi0q6"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_6fn3g"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_dfnbe"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_eia8n"]
+
+[sub_resource type="Resource" id="Resource_x03sh"]
+script = ExtResource("1_kdr6b")
+speed = 3
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_dfnbe")
+use_effect = 3
+boost_growth = SubResource("Resource_x03sh")
+name = "Rushraddish"
+db_key = "rushraddish"
+description = "A crisp, fiery root that floods the body with a fleeting surge of energy and focus."
+item_type = 2
+rarity = ExtResource("3_6fn3g")
+worth = 600
+icon = ExtResource("2_dpds8")

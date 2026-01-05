@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://bula1g6niv7bf"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://bula1g6niv7bf"]
 
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_2pn20"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_q6oph"]
 [ext_resource type="Texture2D" uid="uid://dy4rkn8cprnaa" path="res://resources/sprites/items/weapons/lance/titans_will.png" id="2_sdtnt"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_2dyab"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_5ivm6"]
@@ -19,11 +20,11 @@ script = ExtResource("4_5ivm6")
 weapon_type = 3
 physical_weapon_triangle_type = 3
 required_mastery = 5
-attack_range = Array[int]([1, 2])
 damage = 12
 hit = 80
 critical_chance = 5
 weight = 20
+attack_range = Array[int]([1, 2])
 bonus_stat = SubResource("Resource_mqrh0")
 name = "Titan's Will"
 db_key = "titans_will"

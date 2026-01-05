@@ -1,55 +1,203 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwe24m6b53kci"]
+[gd_scene load_steps=18 format=3 uid="uid://cwe24m6b53kci"]
 
+[ext_resource type="Theme" uid="uid://yl4jtx51di75" path="res://resources/themes/StandardThemeNew.tres" id="1_hdl0j"]
 [ext_resource type="Script" uid="uid://da8n6k0e4gt7x" path="res://ui/battle_prep_new/menu_selection/battle_prep_menu_selection.gd" id="1_ogtpg"]
 [ext_resource type="PackedScene" uid="uid://c2ht6vn6wolmv" path="res://ui/shared/general_menu_button/general_menu_button.tscn" id="2_p50n5"]
+[ext_resource type="Script" uid="uid://cocfcmwelj8nc" path="res://ui/shared/general_menu_button/general_menu_button.gd" id="3_homp3"]
+[ext_resource type="Theme" uid="uid://dd4rfahaetj44" path="res://resources/themes/combat_prep_screen_theme.tres" id="4_cb78y"]
 
-[node name="BattlePrepMenuSelection" type="PanelContainer"]
-custom_minimum_size = Vector2(380, 500)
-size_flags_horizontal = 0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cb78y"]
+
+[sub_resource type="Theme" id="Theme_8sjww"]
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_cb78y")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_cb78y"]
+color = Color(0.8039216, 0.74509805, 0.6745098, 1)
+vertical = true
+
+[sub_resource type="Theme" id="Theme_71iof"]
+Panel/styles/panel = SubResource("StyleBoxLine_cb78y")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_homp3"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+shadow_color = Color(1, 1, 1, 0.6)
+
+[sub_resource type="Gradient" id="Gradient_hdl0j"]
+offsets = PackedFloat32Array(0, 0.98511904, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.36862746, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cb78y"]
+gradient = SubResource("Gradient_hdl0j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sjww"]
+texture = SubResource("GradientTexture1D_cb78y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_71iof"]
+
+[sub_resource type="Theme" id="Theme_hdl0j"]
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_homp3")
+Button/styles/hover = SubResource("StyleBoxTexture_8sjww")
+Button/styles/normal = SubResource("StyleBoxTexture_71iof")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_n4xje"]
+color = Color(0.8039216, 0.74509805, 0.6745098, 1)
+
+[sub_resource type="Theme" id="Theme_n4xje"]
+Panel/styles/panel = SubResource("StyleBoxLine_n4xje")
+
+[node name="BattlePrepMenuSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+theme = ExtResource("1_hdl0j")
 script = ExtResource("1_ogtpg")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="BattlePrepMenuSelection" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 314.0
+size_flags_horizontal = 0
+theme = SubResource("Theme_8sjww")
+
+[node name="MarginContainer" type="MarginContainer" parent="BattlePrepMenuSelection"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BattlePrepMenuSelection/MarginContainer"]
 layout_mode = 2
 
-[node name="StartBattleButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="Linepanel" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Start Battle"
+size_flags_horizontal = 0
+theme = SubResource("Theme_71iof")
 
-[node name="UnitSelectionButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="ButtonContainer" type="VBoxContainer" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_hdl0j")
+
+[node name="ArmyHeader" type="Label" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.74509805, 0.6745098, 1)
+theme_override_font_sizes/font_size = 16
+text = "Army"
+
+[node name="LinePanel" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/ArmyHeader"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 0
+offset_top = 17.0
+offset_right = 196.0
+offset_bottom = 18.0
+size_flags_vertical = 4
+theme = SubResource("Theme_n4xje")
+
+[node name="UnitSelectionButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+theme = ExtResource("4_cb78y")
 text = "Unit Selection"
+alignment = 0
 
-[node name="SwapSpacesButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="SwapSpacesButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
-text = "Swap Spaces"
+theme = ExtResource("4_cb78y")
+text = "View Map"
+alignment = 0
 
-[node name="ShopButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="InventoryButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
 layout_mode = 2
-text = "Shop"
-
-[node name="InventoryButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
-layout_mode = 2
+theme = ExtResource("4_cb78y")
 text = "Inventory"
+alignment = 0
 
-[node name="TrainingGroundsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="CampHeader" type="Label" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.74509805, 0.6745098, 1)
+theme_override_font_sizes/font_size = 16
+text = "Camp"
+
+[node name="LinePanel" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/CampHeader"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 0
+offset_top = 17.0
+offset_right = 196.0
+offset_bottom = 18.0
+size_flags_vertical = 4
+theme = SubResource("Theme_n4xje")
+
+[node name="ShopButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+theme = ExtResource("4_cb78y")
+text = "Shop"
+alignment = 0
+
+[node name="TrainingGroundsButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+theme = ExtResource("4_cb78y")
 text = "Training Grounds"
+alignment = 0
 
-[node name="SavePreparationsButton" parent="MarginContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+[node name="GraveyardButton" type="Button" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer"]
 layout_mode = 2
-text = "Save Preparations"
+theme = ExtResource("4_cb78y")
+text = "Graveyard"
+alignment = 0
+script = ExtResource("3_homp3")
+metadata/_custom_type_script = "uid://cocfcmwelj8nc"
 
-[connection signal="pressed" from="MarginContainer/ButtonContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
+[node name="SystemHeader" type="Label" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8039216, 0.74509805, 0.6745098, 1)
+theme_override_font_sizes/font_size = 16
+text = "System"
+
+[node name="Linepanel" type="Panel" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SystemHeader"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 0
+offset_top = 17.0
+offset_right = 196.0
+offset_bottom = 18.0
+size_flags_vertical = 4
+theme = SubResource("Theme_n4xje")
+
+[node name="SavePreparationsButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+theme = ExtResource("4_cb78y")
+text = "Save"
+alignment = 0
+
+[node name="StartBattleMarginContainer" type="MarginContainer" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="StartBattleButton" parent="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/StartBattleMarginContainer" instance=ExtResource("2_p50n5")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_cb78y")
+text = "Fight!"
+alignment = 0
+
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/UnitSelectionButton" to="." method="_on_unit_selection_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SwapSpacesButton" to="." method="_on_swap_spaces_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/TrainingGroundsButton" to="." method="_on_training_grounds_button_pressed"]
+[connection signal="focus_entered" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton" method="_on_focus_entered"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton" to="." method="_on_graveyard_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton" to="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/GraveyardButton" method="_on_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/SavePreparationsButton" to="." method="_on_save_preparations_button_pressed"]
+[connection signal="pressed" from="BattlePrepMenuSelection/MarginContainer/HBoxContainer/ButtonContainer/StartBattleMarginContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]

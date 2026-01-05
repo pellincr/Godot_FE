@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://kdfakjl724jb"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_wxsi4"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_xsn33"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8s26j"]
 bg_color = Color(0, 0, 0, 1)
@@ -11,6 +11,6 @@ border_width_bottom = 1
 border_color = Color(0.758192, 0.758192, 0.758192, 1)
 
 [resource]
-default_font = ExtResource("1_wxsi4")
-default_font_size = 24
+default_font = ExtResource("1_xsn33")
+default_font_size = 32
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_8s26j")

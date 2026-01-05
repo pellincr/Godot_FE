@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://gui2f0se83ub"]
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://gui2f0se83ub"]
 
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_ixg20"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_05560"]
 [ext_resource type="Texture2D" uid="uid://c6fxujt7hj730" path="res://resources/sprites/items/weapons/commander_specific/persuaders.png" id="2_ifu23"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_60jq6"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_4pi35"]
@@ -26,5 +27,7 @@ description = "Heavy gauntlets of tempered steel that make any squeal."
 rarity = ExtResource("3_60jq6")
 uses = 6
 max_uses = 6
+has_expended_state = true
+refreshes_after_combat = 3
 worth = 0
 icon = ExtResource("2_ifu23")

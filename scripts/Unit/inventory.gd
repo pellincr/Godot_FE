@@ -42,9 +42,11 @@ func update_range_map():
 			if items[item_index] is WeaponDefinition:
 				for attack_range in items[item_index].attack_range:
 					if attack_range_map.has(attack_range):
-						attack_range_map.get(attack_range).append(item_index)
+						attack_range_map.get(attack_range).append(items[item_index])
 					else:
-						attack_range_map.put([item_index])
+						var _arr : Array[ItemDefinition] = [items[item_index]]
+						attack_range_map[attack_range] = _arr
+	attack_range_map.sort()
 
 #
 # Force sets the currently equipped item
@@ -55,6 +57,8 @@ func set_equipped(item : ItemDefinition):
 		items.push_front(item)
 		items.remove_at(index + 1)
 		equipped = true
+
+
 
 #
 # Equips currently onwed item at specified index
@@ -89,6 +93,23 @@ func get_max_attack_range() -> int:
 		return get_available_attack_ranges().max()
 	else:
 		return 0
+
+
+#
+# Returns a list of weapons structured by item with the most range first
+#
+func get_items_by_range() -> Array[ItemDefinition]:
+	update_range_map()
+	var _item_arr :Array[ItemDefinition]
+	var _key_arr: Array = attack_range_map.keys();
+	for x in _key_arr.size():
+		var key = _key_arr[-x-1]
+		if attack_range_map.has(key):
+			for item in attack_range_map[key]:
+				if not _item_arr.has(item):
+					_item_arr.append(item)
+	return _item_arr
+
 
 #
 # Returns the maximum attack range of the items contained in the inventory
@@ -146,15 +167,19 @@ func is_empty() -> bool:
 		return true 
 	return false
 
-func use_at_index(index : int): 
+func use_at_index(index : int) -> ItemDefinition: 
 	if index < capacity:
 		var target_item :ItemDefinition = items[index]
 		target_item.expend_use()
+		# What is the state of the item, is it broken and does it have to be removed?
 		if target_item.uses <= 0:
-			items.remove_at(index)
-			#items.push_back(null)
-				
-
+			if not target_item.expended and not target_item.unbreakable:
+				items.remove_at(index)
+				if index == 0:
+					equipped = false
+				return target_item
+				#emit something here indicating a break so UI can display it
+	return null
 
 func set_item_at_index(index: int, item: ItemDefinition):
 	if item != null:
@@ -178,6 +203,7 @@ func give_item(item: ItemDefinition) -> bool:
 	else:
 		items.append(item)
 		item_gave = true
+		update_range_map()
 	return item_gave
 
 
@@ -227,6 +253,7 @@ func discard_at_index(index : int) -> bool:
 #
 func discard_item(target_item: ItemDefinition):
 	items.erase(target_item)
+	update_range_map()
 
 #
 # Swaps two items with indexes
@@ -290,7 +317,10 @@ func arrange(item: ItemDefinition):
 	var index :int = get_item_index(item)
 	if index > 1:
 		swap_at_indexes(index, 1)
-	
+
+#Move item in front spot to the back
+func send_back():
+	swap_at_indexes(0, items.size()-1)
 #
 # Returns all weapons in inventory that contain input attack ranges
 #
@@ -310,9 +340,10 @@ func get_items() -> Array[ItemDefinition]:
 		_item_arr[i] = items[i]
 	return _item_arr
 
-func use_item(item: ItemDefinition):
+func use_item(item: ItemDefinition) -> ItemDefinition:
 	if has(item):
-		use_at_index(get_item_index(item))
+		return use_at_index(get_item_index(item))
+	return null
 
 func has_item(item: ItemDefinition):
 	return items.has(item)
@@ -345,3 +376,29 @@ func total_item_held_bonus_growths() -> UnitStat:
 			if item.inventory_growth_bonus_stats != null:
 				_net_stat = CustomUtilityLibrary.add_unit_stat(_net_stat, item.inventory_growth_bonus_stats)
 	return _net_stat
+
+func get_all_specials_from_inventory_and_equipped() ->  Array[SpecialEffect]:
+	var _specials : Array[SpecialEffect] = []
+	# DO Equipped first
+	if equipped:
+		if get_equipped_weapon() != null:
+			_specials.append_array(get_equipped_weapon().equipped_specials)
+	for item in items:
+		_specials.append_array(item.held_specials)
+	return _specials
+	
+func get_all_stats_from_held_items() -> CombatUnitStat:
+	var net_stat : CombatUnitStat = CombatUnitStat.new()
+	for item in get_items():
+		if item != null:
+			if item.inventory_bonus_stats != null:
+				net_stat = CustomUtilityLibrary.add_combat_unit_stat(net_stat,item.inventory_bonus_stats)
+	return net_stat
+
+func get_all_growths_from_held_items() -> UnitStat:
+	var net_stat : UnitStat = UnitStat.new()
+	for item in get_items():
+		if item != null:
+			if item.inventory_growth_bonus_stats != null:
+				net_stat = CustomUtilityLibrary.add_unit_stat(net_stat,item.inventory_growth_bonus_stats)
+	return net_stat

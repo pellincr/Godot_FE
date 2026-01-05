@@ -4,11 +4,11 @@ class_name UnitCombatExchangePreview
 const UNIT_COMBAT_EXCHANGE_ARROW = preload("res://ui/combat/combat_exchange_preview/unit_combat_exchange_arrow.tscn")
 #Attacking Unit
 @onready var attacking_unit_header: PanelContainer = $HBoxContainer/LeftContainer/UnitCombatWeaponSelectionPanel
-@onready var attacking_unit_stats: Panel = $HBoxContainer/LeftContainer/UnitCombatExchangeStatsPanel
+@onready var attacking_unit_stats: PanelContainer = $HBoxContainer/LeftContainer/UnitCombatExchangeStatsPanel
 
 #Defending Unit
 @onready var defending_unit_header: PanelContainer = $HBoxContainer/RightContainer/UnitCombatWeaponSelectionPanel
-@onready var defending_unit_stats: Panel = $HBoxContainer/RightContainer/UnitCombatExchangeStatsPanel
+@onready var defending_unit_stats: PanelContainer = $HBoxContainer/RightContainer/UnitCombatExchangeStatsPanel
 
 
 #Arrows & Combat visualization

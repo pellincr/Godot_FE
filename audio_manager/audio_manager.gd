@@ -12,6 +12,7 @@ extends Node
 
 var from_position := 0.0
 
+
 func get_music_library_song(key:String):
 	return main_music_library.sounds.get(key)
 

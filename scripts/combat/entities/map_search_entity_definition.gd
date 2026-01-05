@@ -16,7 +16,7 @@ enum TYPE {
 }
 @export var type : TYPE
 @export var position : Vector2i
-@export var loot_table : LootTable
+@export var loot_table : LootTableItem
 
 func get_active_map_view():
 	match self.type:

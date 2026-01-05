@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://dcg1per38s866"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://dcg1per38s866"]
 
 [ext_resource type="Resource" uid="uid://dq6vmb66mbl8i" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor_base_combat_stats.tres" id="1_2ye6s"]
+[ext_resource type="Resource" uid="uid://d0dcs6wglre6e" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor_default_item_tables.tres" id="2_7yn5e"]
 [ext_resource type="Resource" uid="uid://dis4igh4jro1g" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor_growth_stats.tres" id="2_el5w1"]
 [ext_resource type="Texture2D" uid="uid://bhjfgerj8e768" path="res://resources/sprites/units/lance_armor.png" id="3_jb2jq"]
 [ext_resource type="Resource" uid="uid://cnsf8xd87c247" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor_max_stats.tres" id="4_83xlk"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_ym57y"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_ym57y"]
+[ext_resource type="Resource" uid="uid://dj1skb11sba7h" path="res://resources/definitions/unit_types/units/lance_armor/lance_armor_promotion_stats.tres" id="6_2ftg3"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_kp6vm"]
 
 [resource]
@@ -12,19 +14,16 @@ script = ExtResource("5_ym57y")
 unit_type_name = "Lance Amor"
 db_key = "lance_armor"
 description = "Stalwart royal defenders who anchor the line with reach and resolve."
-initiative = 1
+name_genders = Array[int]([0, 1])
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("6_kp6vm")
 movement_type = 1
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([3])
 base_stats = ExtResource("1_2ye6s")
 maxuimum_stats = ExtResource("4_83xlk")
 growth_stats = ExtResource("2_el5w1")
+promotion_to_stats = ExtResource("6_2ftg3")
 icon = ExtResource("3_jb2jq")
 map_sprite = ExtResource("3_jb2jq")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])
+default_item_resource = ExtResource("2_7yn5e")

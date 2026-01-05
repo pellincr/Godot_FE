@@ -10,11 +10,10 @@ enum SELECTOR_STATE{
 	OVERVIEW, STATS, GROWTHS
 }
 
-var menu_hover_effect = preload("res://resources/sounds/ui/menu_cursor.wav")
-var menu_enter_effect = preload("res://resources/sounds/ui/menu_confirm.wav")
-
 @onready var name_label = $Panel/MarginContainer/MainVContainer/NameLabel
-@onready var class_label = $Panel/MarginContainer/MainVContainer/HBoxContainer/ClassLabel
+@onready var class_label: Label = $Panel/MarginContainer/MainVContainer/ClassLabel
+@onready var tier_container: HBoxContainer = $Panel/MarginContainer/MainVContainer/TierContainer
+
 @onready var icon = $Panel/Icon
 
 @onready var selection_hovered = false
@@ -49,7 +48,7 @@ var randomized_commander_types = []
 func _ready():
 	if playerOverworldData == null:
 		playerOverworldData = PlayerOverworldData.new()
-	randomize_selection(playerOverworldData.combat_maps_completed)
+	randomize_selection(clampi(playerOverworldData.combat_maps_completed, 1, 99))
 	update_information()
 	instantiate_unit_draft_selector()
 	
@@ -57,8 +56,10 @@ func _ready():
 
 func _on_gui_input(event):
 	if event.is_action_pressed("ui_confirm") and has_focus():
-		$AudioStreamPlayer.stream = menu_enter_effect
-		$AudioStreamPlayer.play()
+		#$AudioStreamPlayer.stream = menu_enter_effect
+		#AudioManager.play_sound_effect("menu_confirm")
+		AudioManager.play_sound_effect("draft_confirm")
+		#$AudioStreamPlayer.play()
 		unit_selected.emit(unit)
 	if event.is_action_pressed("right_bumper"):
 		#show_next_screen()
@@ -82,6 +83,18 @@ func set_name_label(name):
 		#rarity = unit.rarity
 	#if rarity:
 		#name_label.self_modulate = rarity.ui_color
+
+func set_tier_container_icons(tier):
+	for child in tier_container.get_children():
+		if child is TextureRect:
+			child.queue_free()
+	var i = 0
+	while i < tier:
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = preload("res://resources/sprites/icons/star_icon.png")
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+		tier_container.add_child(texture_rect)
+		i += 1
 
 func set_rarity_shadow_hue(rarity):
 	var panel_stylebox :StyleBoxFlat = theme.get_stylebox("panel","Panel").duplicate()
@@ -174,6 +187,8 @@ func show_previous_screen():
 			#When in stats, go back to the unit or commander overview scene
 			if current_draft_state == Constants.DRAFT_STATE.COMMANDER:
 				var overview_view = commander_overview_scene.instantiate()
+				if UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon:
+					overview_view.weapon = UnitTypeDatabase.commander_types[unit.unit_type_key].signature_weapon
 				main_container.add_child(overview_view)
 				overview_view.set_icon_visibility(unit)
 				current_state = SELECTOR_STATE.OVERVIEW
@@ -199,8 +214,9 @@ func _on_panel_mouse_entered():
 
 func _on_focus_entered():
 	self.theme = preload("res://unit drafting/Unit_Commander Draft/draft_selector_thick_border.tres")
-	$AudioStreamPlayer.stream = menu_hover_effect
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream = menu_hover_effect
+	#$AudioStreamPlayer.play()
+	AudioManager.play_sound_effect("draft_hover")
 	print("Selection Focused")
 	if unit is Unit:
 		var unit_type : UnitTypeDefinition = UnitTypeDatabase.get_definition(unit.unit_type_key)
@@ -236,10 +252,20 @@ func instantiate_unit_draft_selector():
 		weapon_draft.update_all()
 	#create the unit to be drafted (will be different between commanders and units)
 	
-
-func randomize_selection(unit_bonus_levels : int = 0):
+##
+# @unit_level = the level of the target unit will be used to set the unit's level on generation
+# @unit_bonus_levels = used for soft leveling or hidden leveling, bonus levels given to the unit to be simulated BUT NOT ADDED TO ACTUAL LEVEL
+##
+func randomize_selection(unit_level : int = 1 , unit_bonus_levels : int = 0):
 	var rarity: Rarity = RarityDatabase.rarities.get(get_random_rarity())
 	var new_randomized_pick
+	var _effective_level = unit_level
+	var _bonus_levels = _effective_level + unit_bonus_levels - 1
+	if playerOverworldData.campaign_difficulty == CampaignModifier.DIFFICULTY.EASY:
+		_bonus_levels = _bonus_levels + 1
+	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.LEVEL_SURGE):
+		_bonus_levels = _bonus_levels + 9
+		_effective_level = _effective_level + 9
 	if current_draft_state == Constants.DRAFT_STATE.UNIT:
 		#get what the the archetype pick that is the main filter
 		var current_archetype_pick
@@ -255,13 +281,14 @@ func randomize_selection(unit_bonus_levels : int = 0):
 			#if the player is picking from a choice of units
 			var filtered_unit_classes = filter_classes_by_archetype_pick(current_archetype_pick, rarity)
 			new_randomized_pick = filtered_unit_classes.pick_random()
-			var new_unit_name = playerOverworldData.temp_name_list.pick_random()
+			var new_unit_name =randomize_name(UnitTypeDatabase.get_definition(new_randomized_pick).name_genders)#layerOverworldData.temp_name_list.pick_random()
 			var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 			var unit_character = UnitCharacter.new()
 			unit_character.name = new_unit_name
+			unit_character.level = _effective_level
 			randomize_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
 			randomize_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,unit_bonus_levels) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+			var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels, playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 			unit = new_recruit
 	else:
 		#For Commander Drafting
@@ -269,19 +296,16 @@ func randomize_selection(unit_bonus_levels : int = 0):
 		var unlocked_commander_classes = filter_all_commander_by_unlocked(all_commander_classes)
 		var available_commander_classes = filter_commander_by_already_generated(unlocked_commander_classes)
 		new_randomized_pick = available_commander_classes.pick_random()
-		var new_unit_name = playerOverworldData.temp_name_list.pick_random()
+		var new_unit_name = randomize_name(UnitTypeDatabase.get_definition(new_randomized_pick).name_genders)#playerOverworldData.temp_name_list.pick_random()
 		var inventory_array : Array[ItemDefinition] = set_starting_inventory(new_randomized_pick)
 		var unit_character = UnitCharacter.new()
 		unit_character.name = new_unit_name
-		 
-		#set_base_unit_stats(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
-		#set_base_unit_growths(unit_character, new_randomized_pick)#THIS WON"E BE DONE FOR COMMANDERS IN THE FUTURE
+		unit_character.level = _effective_level
 		var stats = UnitStat.new()
 		var growths = UnitStat.new()
 		unit_character.stats = stats
 		unit_character.growths = growths
-		
-		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
+		var new_recruit = Unit.create_unit_unit_character(new_randomized_pick,unit_character, inventory_array,_bonus_levels,playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GOLIATH_MODE), playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.HYPER_GROWTH)) #create_generic(new_recruit_class,iventory_array, new_unit_name, 2)
 		unit = new_recruit
 
 func get_random_rarity():
@@ -303,44 +327,64 @@ func randomize_unit_stats(unit_character, unit_type_key):
 	var deviation = 1.75
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 12) 
-	var strength_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.strength, 5) 
-	var magic_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.magic, 5) 
-	var skill_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.skill, 5) 
-	var speed_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.speed, 5) 
-	var luck_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.luck, 5) 
-	var defense_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.defense, 5) 
-	var resistance_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.resistance, 5) 
-	stats.hp = health_rand
-	stats.strength = strength_rand
-	stats.magic = magic_rand
-	stats.skill = skill_rand
-	stats.speed = speed_rand
-	stats.luck = luck_rand
-	stats.defense = defense_rand
-	stats.resistance = resistance_rand
+	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GENERICS):
+		stats.hp = 0 #unit_type.base_stats.hp
+		stats.strength = 0 #unit_type.base_stats.strength
+		stats.magic = 0 #unit_type.base_stats.magic
+		stats.skill = 0 #unit_type.base_stats.skill
+		stats.speed = 0 #unit_type.base_stats.speed
+		stats.luck = 0 #unit_type.base_stats.luck
+		stats.defense = 0 #unit_type.base_stats.defense
+		stats.resistance = 0 #unit_type.base_stats.resistance
+	else:
+		var health_rand = clampi(randfn( 0.25, 3), - unit_type.base_stats.hp, 12) 
+		var strength_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.strength, 5) 
+		var magic_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.magic, 5) 
+		var skill_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.skill, 5) 
+		var speed_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.speed, 5) 
+		var luck_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.luck, 5) 
+		var defense_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.defense, 5) 
+		var resistance_rand = clampi(randfn( 0.25, deviation), - unit_type.base_stats.resistance, 5) 
+		stats.hp = health_rand
+		stats.strength = strength_rand
+		stats.magic = magic_rand
+		stats.skill = skill_rand
+		stats.speed = speed_rand
+		stats.luck = luck_rand
+		stats.defense = defense_rand
+		stats.resistance = resistance_rand
 	unit_character.stats = stats
 
 func randomize_unit_growths(unit_character, unit_type_key):
 	var growths = UnitStat.new()
 	var unit_type : UnitTypeDefinition
 	unit_type = UnitTypeDatabase.get_definition(unit_type_key)
-	var health_rand = clampi(randfn(1.75, 10), - unit_type.growth_stats.hp, 50) 
-	var strength_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.strength, 25) 
-	var magic_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.magic, 25) 
-	var skill_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.skill, 25) 
-	var speed_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.speed, 25) 
-	var luck_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.luck, 25) 
-	var defense_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.defense, 25) 
-	var resistance_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.resistance, 25) 
-	growths.hp = health_rand
-	growths.strength = strength_rand
-	growths.magic = magic_rand
-	growths.skill = skill_rand
-	growths.speed = speed_rand
-	growths.luck = luck_rand
-	growths.defense = defense_rand
-	growths.resistance = resistance_rand
+	if playerOverworldData.campaign_modifiers.has(CampaignModifier.MODIFIER.GENERICS):
+		growths.hp = 0 #unit_type.growth_stats.hp
+		growths.strength = 0 #unit_type.growth_stats.strength
+		growths.magic = 0 #unit_type.growth_stats.magic
+		growths.skill = 0 #unit_type.growth_stats.skill
+		growths.speed = 0 #unit_type.growth_stats.speed
+		growths.luck = 0 #unit_type.growth_stats.luck
+		growths.defense = 0 #unit_type.growth_stats.defense
+		growths.resistance = 0 #unit_type.growth_stats.resistance
+	else:
+		var health_rand = clampi(randfn(1.75, 10), - unit_type.growth_stats.hp, 50) 
+		var strength_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.strength, 25) 
+		var magic_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.magic, 25) 
+		var skill_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.skill, 25) 
+		var speed_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.speed, 25) 
+		var luck_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.luck, 25) 
+		var defense_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.defense, 25) 
+		var resistance_rand = clampi(randfn( 1.75, 10), - unit_type.growth_stats.resistance, 25) 
+		growths.hp = health_rand
+		growths.strength = strength_rand
+		growths.magic = magic_rand
+		growths.skill = skill_rand
+		growths.speed = speed_rand
+		growths.luck = luck_rand
+		growths.defense = defense_rand
+		growths.resistance = resistance_rand
 	unit_character.growths = growths
 
 func set_starting_inventory(unit_class) -> Array[ItemDefinition]: 
@@ -392,12 +436,15 @@ func update_information():
 		var weapon_types = unit_type.usable_weapon_types
 		set_class_label(unit_type.unit_type_name)
 		set_icon(unit.map_sprite)
+		tier_container.visible = true
+		set_tier_container_icons(unit_type.tier)
 		unit_growth_grade = get_growth_grade(get_unit_growth_difference_total())
 		unit_stat_grade = get_stat_grade(get_unit_stat_difference_total())
 	elif unit is WeaponDefinition:
 		set_name_label(unit.name)
 		set_icon(unit.icon)
 		set_class_label("")
+		tier_container.visible = false
 	#var last_child = main_container.get_children()[-1]
 	#last_child.queue_free()
 	#instantiate_unit_draft_selector()
@@ -426,24 +473,32 @@ func get_units_by_class(given_unit_classes, unit_trait, rarity):
 func filter_all_commander_by_unlocked(commander_type_keys: Array) -> Array:
 	var accum = []
 	for commander_type_key in commander_type_keys:
-		if playerOverworldData.unlock_manager.commander_types_unlocked.keys().has(commander_type_key):
-			if playerOverworldData.unlock_manager.commander_types_unlocked[commander_type_key]:
+		var commander_type = UnitTypeDatabase.get_definition(commander_type_key)
+		if playerOverworldData.unlock_manager.commander_types_unlocked.keys().has(commander_type):
+			#Check if the manager has that type to unlock
+			if playerOverworldData.unlock_manager.commander_types_unlocked[commander_type]:
+				#check if the type is unlocked
 				accum.append(commander_type_key)
 	return accum
 
 func filter_all_classes_by_unlocked(unit_type_keys: Array) -> Array:
 	var accum = []
 	for unit_type_key in unit_type_keys:
-		if playerOverworldData.unlock_manager.unit_types_unlocked.keys().has(unit_type_key):
-			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type_key]:
-				accum.append(unit_type_key)
+		var unit_type = UnitTypeDatabase.get_definition(unit_type_key)
+		if playerOverworldData.unlock_manager.unit_types_unlocked.keys().has(unit_type):
+			#Check if the manager has that type to unlock
+			if playerOverworldData.unlock_manager.unit_types_unlocked[unit_type]:
+				#check if the type is unlocked
+				if unit_type.tier < 4:
+					accum.append(unit_type_key)
 	return accum
 
 func filter_all_items_by_unlocked(item_keys: Array) -> Array:
 	var accum = []
 	for item_key in item_keys:
-		if playerOverworldData.unlock_manager.items_unlocked.keys().has(item_key):
-			if playerOverworldData.unlock_manager.items_unlocked[item_key]:
+		var item = ItemDatabase.items.get(item_key)
+		if playerOverworldData.unlock_manager.items_unlocked.keys().has(item):
+			if playerOverworldData.unlock_manager.items_unlocked[item]:
 				accum.append(item_key)
 	return accum
 
@@ -577,6 +632,15 @@ func randomize_weapon(archetype_pick, weapon_rarity):
 	var combo1 = get_list_in_common(weapon_type_filtered_list,damage_type_filtered_list)
 	var combo2 = get_list_in_common(combo1,scaling_type_filtered_list)
 	return filter_items_by_rarity(combo2,weapon_rarity)
+
+func randomize_name(name_constraints : Array[unitConstants.NAME_GENDERS]) -> String:
+	var _active_name_bank : Array[String] = []
+	_active_name_bank.append_array(unitConstants.UNISEX_NAME_BANK)
+	if name_constraints.has(unitConstants.NAME_GENDERS.MALE):
+		_active_name_bank.append_array(unitConstants.MALE_NAME_BANK)
+	if name_constraints.has(unitConstants.NAME_GENDERS.FEMALE):
+		_active_name_bank.append_array(unitConstants.FEMALE_NAME_BANK)
+	return _active_name_bank.pick_random()
 
 func filter_items_by_weapon_type(items_list:Array, weapon_type_list : Array):
 	var accum = []

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://h1lmy7pu0hfk"]
 
-[ext_resource type="Script" path="res://almanac/almanac_scroll_container.gd" id="1_biyiu"]
+[ext_resource type="Script" uid="uid://bi20005spebxy" path="res://almanac/almanac_scroll_container.gd" id="1_biyiu"]
 [ext_resource type="PackedScene" uid="uid://b36cv6rktmlvl" path="res://almanac/almanac_scroll_header.tscn" id="2_8xwna"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyh7k"]

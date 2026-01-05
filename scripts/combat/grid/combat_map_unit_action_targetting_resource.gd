@@ -35,7 +35,7 @@ func create_target_methods_weapon(unit:Unit) -> Dictionary:
 	var attack_range_map : Dictionary = {}
 	for item in unit.inventory.get_items():
 			if item is WeaponDefinition:
-				if unit.can_equip(item):
+				if unit.can_equip(item) and item.expended == false:
 					for attack_range in item.attack_range:
 						if item.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 							if attack_range_map.has(attack_range):
@@ -134,7 +134,7 @@ func update_dynamic_maps_new_method(method):
 					if ! _available_methods_at_target.has(new_method):
 						_available_methods_at_target.append(new_method)
 		# Ensure the indexes used to move through the method arrays is in bounds
-		if _available_targets_at_range_index > _available_targets_with_method.size() and _available_targets_with_method.find(current_target_positon) != -1:
+		if _available_targets_at_range_index >= _available_targets_with_method.size() and _available_targets_with_method.find(current_target_positon) != -1:
 			_available_targets_at_range_index = _available_targets_with_method.find(current_target_positon)
 	# set the current_target's position
 	current_target_positon =_available_targets_with_method[_available_targets_at_range_index] #THIS WAS DEEMED REDUNDANT AS WE ARE CHANGING THE METHOD NOT THE TARGET

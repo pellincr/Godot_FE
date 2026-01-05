@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://cu4v3l3r0d3in"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_ha137"]
+[ext_resource type="Texture2D" uid="uid://b5ihrlll8m8fv" path="res://resources/sprites/items/consumables/stat_boosters/strength/power_rune.png" id="2_ha137"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_xjah7"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_4kyan"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_8kk46"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_jlykq"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_ha137")
+strength = 1
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_8kk46")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Power Rune"
+db_key = "power_rune"
+description = "A carved stone etched with a simple glyph that channels latent might into the bearer’s body."
+item_type = 2
+rarity = ExtResource("3_4kyan")
+worth = 4000
+icon = ExtResource("2_ha137")

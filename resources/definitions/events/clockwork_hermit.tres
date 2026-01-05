@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="Event" load_steps=13 format=3 uid="uid://corcejfovracv"]
+[gd_resource type="Resource" script_class="Event" load_steps=14 format=3 uid="uid://corcejfovracv"]
 
 [ext_resource type="Script" uid="uid://cq0qa6sqx3jiq" path="res://scripts/resources/events/events.gd" id="1_n5hup"]
 [ext_resource type="Texture2D" uid="uid://biwt8l6p0or0i" path="res://resources/sprites/events/clockwerk_hermit_background.png" id="1_qcw5y"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="2_m4ltd"]
 [ext_resource type="Script" uid="uid://detuwhfuwuwbj" path="res://scripts/resources/Items/weapon_stats.gd" id="3_86osf"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_m4ltd"]
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="4_lfo8y"]
 
 [sub_resource type="Resource" id="Resource_g45uy"]
 script = ExtResource("3_86osf")
+item_new_damage_type = 3
+item_new_scaling_type = 4
 damage = 1
 critical_chance = 5
 weight = 1
-attacks_per_combat_turn = 5
+max_uses = 5
 metadata/_custom_type_script = "uid://detuwhfuwuwbj"
 
 [sub_resource type="Resource" id="Resource_32gki"]

@@ -8,8 +8,9 @@ extends HBoxContainer
 
 @onready var unit_type_full_stat_container = $VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/UnitTypeFullStatContainer
 
-@onready var weapon_type_container = $VBoxContainer/HBoxContainer/UnitTypeAlmanacWeaponTypes
-@onready var trait_type_container = $VBoxContainer/HBoxContainer/UnitTypeTraitContainer
+@onready var weapon_type_container = $VBoxContainer/HBoxContainer/VBoxContainer/UnitTypeAlmanacWeaponTypes
+@onready var trait_type_container = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/UnitTypeTraitContainer
+@onready var tier_container: HBoxContainer = $VBoxContainer/HBoxContainer/Panel/MarginContainer/MainContainer/HeaderContainer/TierContainer
 
 @onready var mercenary_label = $VBoxContainer/HBoxContainer/FactionContainer/Mercenary
 @onready var kingdom_label = $VBoxContainer/HBoxContainer/FactionContainer/Kingdom
@@ -19,7 +20,7 @@ extends HBoxContainer
 @onready var skeletal_label = $VBoxContainer/HBoxContainer/FactionContainer/Skeletal
 @onready var monster_label = $VBoxContainer/HBoxContainer/FactionContainer/Monster
 
-@onready var unit_icon = $VBoxContainer/HBoxContainer/Panel/UnitIcon
+@onready var unit_icon = $VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/UnitIcon
 
 @onready var unit_type_description_label = $VBoxContainer/PanelContainer/UnitTypeDescription
 
@@ -68,6 +69,7 @@ func update_by_unit_type():
 	set_value_label(constitution_value_label,unit_type.base_stats.constitution)
 	set_label(unit_type_description_label,unit_type.description)
 	set_unit_icon(unit_type.icon)
+	set_tier_container_icons(unit_type.tier)
 	set_faction_text()
 	weapon_type_container.weapon_type = unit_type.usable_weapon_types
 	weapon_type_container.set_icon_visibility()
@@ -84,3 +86,17 @@ func update_by_locked():
 	set_label(unit_type_description_label,"Complete More Campaigns to See Potential New Secrets")
 	set_unit_icon(locked_icon)
 	unit_type_full_stat_container.update_by_locked()
+
+func set_tier_container_icons(tier):
+	if not tier_container.get_children().is_empty():
+		for child in tier_container.get_children():
+			if child is TextureRect:
+				child.queue_free()
+	var i = 0
+	while i < tier:
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = preload("res://resources/sprites/icons/star_icon.png")
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		tier_container.add_child(texture_rect)
+		i += 1

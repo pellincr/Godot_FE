@@ -12,6 +12,10 @@ const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_
 signal unit_defeated(unit: CombatUnit)
 signal entity_destroyed(entity: CombatEntity)
 signal entity_destroyed_processing_completed()
+signal item_broken_popup_create(item: ItemDefinition)
+signal item_broken_popup_completed()
+signal item_expended_popup_create(item: ItemDefinition)
+signal item_expended_popup_completed()
 signal combat_exchange_finished(friendly_unit_alive: bool)
 signal unit_hit_ui(hit_unit: Unit)
 signal update_information(text: String)
@@ -35,35 +39,55 @@ enum EXCHANGE_OUTCOME
 var audio_player_busy: bool = false
 var in_experience_flow: bool = false
 var ce_display : CombatExchangeDisplay
+var se_resource : SpecialEffectResource = SpecialEffectResource.new()
+
+var active_funciton
 
 func perform_hit(attacker: CombatUnit, target: CombatUnit, hit_chance:int, critical_chance:int):
-	if attacker.get_equipped() != null:
-		var damage_dealt
-		if check_hit(hit_chance):
-			if check_critical(critical_chance) :
-				#emit critical
-				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE_ON_CRITICAL):
-					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
-				else:
-					damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
-				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.DEVIL_REVERSAL):
-					var backfire_chance : int = 31 - attacker.get_luck()
-					var roll = randi_range(0,100)
-					if roll <= backfire_chance: 
-						await do_damage(attacker,damage_dealt, true)
-					else: 
-						await do_damage(target,damage_dealt, true)
-				await do_damage(target,damage_dealt, true)
-			else : 
-				#emit generic damage
-				damage_dealt = calc_damage(attacker, target)
-				await do_damage(target,damage_dealt)
-			if attacker.unit.inventory.get_equipped_weapon():
-				if attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.VAMPYRIC):
-					await heal_unit(attacker, damage_dealt)
-			attacker.unit.inventory.use_item(attacker.get_equipped())
-		else : ## Attack has missed
-			await hit_missed(target)
+	var attacker_specials = attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var damage_dealt
+	if check_hit(hit_chance):
+		if check_critical(critical_chance) :
+			# Is the critical augmented?
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.NEGATES_FOE_DEFENSE_ON_CRITICAL, attacker_specials):
+				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target, true))
+			else:
+				damage_dealt = floori(attacker.unit.inventory.get_equipped_weapon().critical_multiplier * calc_damage(attacker, target))
+			#Check for devil reversal
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
+				var backfire_chance : int = 31 - attacker.get_luck()
+				var roll = randi_range(0,100)
+				if roll <= backfire_chance: 
+					await do_damage(attacker,damage_dealt, true)
+				else: 
+					await do_damage(target,damage_dealt, true)
+			await do_damage(target,damage_dealt, true)
+		else : 
+			#calc default damage
+			damage_dealt = calc_damage(attacker, target)
+			#Check for devil reversal
+			if se_resource.has(SpecialEffect.SPECIAL_EFFECT.DEVIL_REVERSAL, attacker_specials):
+				var backfire_chance : int = 31 - attacker.get_luck()
+				var roll = randi_range(0,100)
+				if roll <= backfire_chance: 
+					await do_damage(attacker,damage_dealt)
+				else: 
+					await do_damage(target,damage_dealt)
+			await do_damage(target,damage_dealt)
+		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials):
+			var _vampyric_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.VAMPYRIC, attacker_specials)
+			await trigger_heal_unit(attacker, se_resource.calculate_aggregate_effect(_vampyric_effects, damage_dealt))
+		#Durability Code
+		var broken_item = attacker.unit.inventory.use_item(attacker.get_equipped())
+		if broken_item != null:
+			item_broken_popup_create.emit(broken_item)
+			await item_broken_popup_completed
+		elif attacker.unit.inventory.get_equipped_weapon().expended:
+			item_expended_popup_create.emit(attacker.unit.inventory.get_equipped_weapon())
+			await item_expended_popup_completed
+	else : ## Attack has missed
+		await hit_missed(target)
 
 func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: int):
 	if attacker.get_equipped() != null:
@@ -72,33 +96,49 @@ func perform_hit_entity(attacker: CombatUnit, target: CombatEntity, hit_damage: 
 
 func do_damage_entity(target: CombatEntity, damage:int):
 	if(damage == 0):
-		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		#await use_audio_player(no_damage_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
-		#play no damage noise
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		await DamageNumbers.complete
 	if (damage > 0):
-		#await use_audio_player(hit_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("entity_hit")
 		DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.hp = target.hp - damage
+		await DamageNumbers.complete
 		if target.hp <= 0:
 			target.destroyed = true
 			entity_destroyed.emit(target)
 			await entity_destroyed_processing_completed
 
-func perform_heal(attacker: CombatUnit, target: CombatUnit, scaling_type: int):
-	if attacker.unit.inventory.get_equipped_weapon() is WeaponDefinition:
-		var heal_amount = attacker.unit.inventory.get_equipped_weapon().damage + get_stat_scaling_bonus(attacker.unit, scaling_type)
-		attacker.unit.inventory.get_equipped_weapon().use()
-		#await use_audio_player(heal_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_heal")
-		target.current_hp = clampi(heal_amount + target.current_hp, target.current_hp, target.get_max_hp())
-		DamageNumbers.heal((32* target.map_position + Vector2i(16,16)), heal_amount)
-		target.map_display.update_values()
-		await target.map_display.update_complete
+func perform_heal(healer: CombatUnit, recipient: CombatUnit, amount: int):
+	#check that it can be used
+	var _healing_tool = healer.unit.inventory.get_equipped_weapon()
+	if _healing_tool != null:
+		if _healing_tool is WeaponDefinition:
+			if _healing_tool.support_type == WeaponDefinition.SUPPORT_TYPES.HEAL:
+			# Do the heal
+				await heal_unit(recipient, amount)
+				#Durability Code
+				var broken_item = healer.unit.inventory.use_item(healer.get_equipped())
+				if broken_item != null:
+					item_broken_popup_create.emit(broken_item)
+					await item_broken_popup_completed
+				elif healer.unit.inventory.get_equipped_weapon().expended:
+					item_expended_popup_create.emit(healer.unit.inventory.get_equipped_weapon())
+					await item_expended_popup_completed
 
+
+# Calculates the heal and any bonuses if applicable
+func trigger_heal_unit(combat_unit: CombatUnit, amount:int):
+	var _healing_amount = amount
+	var healed_unit_specials = combat_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	if healed_unit_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
+		var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, healed_unit_specials)
+		_healing_amount = _healing_amount + se_resource.calculate_aggregate_effect(_heal_bonus_effects, _healing_amount)
+	await heal_unit(combat_unit, _healing_amount)
+
+# Does the heal itself
 func heal_unit(unit: CombatUnit, amount: int):
 	#await use_audio_player(heal_sound)
 	AudioManager.play_sound_effect_pitch_randomized("unit_heal")
@@ -107,31 +147,52 @@ func heal_unit(unit: CombatUnit, amount: int):
 	unit.map_display.update_values()
 	if ce_display != null:
 		await ce_display.update_unit_hp(unit, unit.current_hp)
-	#await unit.map_display.update_complete
+	#await DamageNumbers.complete
 
 func hit_missed(dodging_unit: CombatUnit):
-	#await use_audio_player(miss_sound)
-	await AudioManager.play_sound_effect_pitch_randomized("unit_miss")
+	await AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
 	DamageNumbers.miss(32* dodging_unit.map_position + Vector2i(16,16))
 	await DamageNumbers.complete
 
 func complete_combat_exchange(player_unit:CombatUnit, enemy_unit:CombatUnit, combat_exchange_outcome: EXCHANGE_OUTCOME):
-	if player_unit.get_equipped() != null and player_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
-		await heal_unit(player_unit, 3)
-	if enemy_unit.get_equipped() != null and enemy_unit.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.HEAL_ON_COMBAT_END):
-		await heal_unit(enemy_unit, 3)
+	# get unit specials 
+	var player_unit_specials : Array[SpecialEffect]
+	var enemy_unit_specials : Array[SpecialEffect]
+	if player_unit != null:
+		player_unit_specials = player_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	if enemy_unit != null:
+		enemy_unit_specials = enemy_unit.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	
+	#check if the player unit has broken or expended its weapon and equip a new one
+	if player_unit.unit.inventory.equipped == false:
+		player_unit.unit.equip_next_available_weapon()
+	elif player_unit.unit.inventory.get_equipped_weapon().expended and player_unit.unit.inventory.equipped:
+		player_unit.unit.inventory.send_back()
+		player_unit.unit.equip_next_available_weapon()
+	
+	if se_resource.has(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, player_unit_specials):
+		var _heal_weight = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, player_unit_specials)
+		await heal_unit(player_unit, _heal_weight)
+	if se_resource.has(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, enemy_unit_specials):
+		var _heal_weight = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.HEAL_ON_COMBAT_EXCHANGE_END, enemy_unit_specials)
+		await heal_unit(enemy_unit, _heal_weight)
 	if ce_display != null:
 		ce_display.queue_free()
 	if combat_exchange_outcome == EXCHANGE_OUTCOME.PLAYER_DEFEATED:
+		AudioManager.play_sound_effect("friendly_unit_die")
+		emit_signal("unit_defeated", player_unit)
 		combat_exchange_finished.emit(false)
 		return
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.MISS or combat_exchange_outcome == EXCHANGE_OUTCOME.NO_DAMAGE:
 		emit_signal("gain_experience", player_unit, 1)
+		update_ai_type(enemy_unit)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.DAMAGE_DEALT:
 		emit_signal("gain_experience", player_unit, calculate_experience_gain_hit(player_unit, enemy_unit))
+		update_ai_type(enemy_unit)
 		await unit_gain_experience_finished
 	elif combat_exchange_outcome == EXCHANGE_OUTCOME.ENEMY_DEFEATED:
+		emit_signal("unit_defeated", enemy_unit)
 		emit_signal("gain_experience", player_unit, calculate_experience_gain_kill(player_unit, enemy_unit))
 		await unit_gain_experience_finished
 		if enemy_unit.drops_item:
@@ -148,9 +209,8 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 	#check and see if it actually does any damage
 	#var outcome : int
 	if(damage == 0):
-		#outcome = DAMAGE_OUTCOME.NO_DAMAGE
-		#await use_audio_player(no_damage_sound)
-		AudioManager.play_sound_effect_pitch_randomized("unit_no_damage")
+		AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+		AudioManager.play_sound_effect_pitch_randomized("no_damage")
 		DamageNumbers.no_damage(32* target.map_position + Vector2i(16,16))
 		#play no damage noise
 		await DamageNumbers.complete
@@ -159,22 +219,25 @@ func do_damage(target: CombatUnit, damage:int, is_critical: bool = false):
 		#outcome = DAMAGE_OUTCOME.DAMAGE_DEALT
 		if is_critical:
 			#await use_audio_player(crit_sound)
-			AudioManager.play_sound_effect_pitch_randomized("unit_crit")
+			#AudioManager.play_sound_effect_pitch_randomized("unit_crit")
+			#AudioManager.play_sound_effect_pitch_randomized("sword_swing_heavy")
+			AudioManager.play_sound_effect("crit_sound")
+			AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), true)
 		else :
 			#await use_audio_player(hit_sound)
-			AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+			#AudioManager.play_sound_effect_pitch_randomized("unit_hit")
+			AudioManager.play_sound_effect_pitch_randomized("sword_swing_light")
+			AudioManager.play_sound_effect_pitch_randomized("flesh_impact")
 			DamageNumbers.display_number(damage, (32* target.map_position + Vector2i(16,16)), false)
 		target.map_display.update_values()
 		await ce_display.update_unit_hp(target, target.current_hp) and DamageNumbers.complete
-		#await target.map_display.update_complete
 	##check and see if the unit has died
 	if target.current_hp <= 0:
 		#outcome = DAMAGE_OUTCOME.OPPONENT_DEFEATED
 		target.map_display.update_values()
 		await target.map_display.update_complete
 		target.alive = false
-		emit_signal("unit_defeated", target)
 		#broadcast unit death
 	#return outcome
 
@@ -191,6 +254,8 @@ func calc_hit(attacker: CombatUnit, target: CombatUnit) -> int:
 	return clamp(attacker.get_hit() + wpn_triangle_hit_active_bonus - target.calc_map_avoid(), 0, 100)
 
 func calc_crit(attacker: CombatUnit, target: CombatUnit) -> int:
+	if se_resource.get_all_special_effect_types(target.unit.inventory.get_all_specials_from_inventory_and_equipped()).has(SpecialEffect.SPECIAL_EFFECT.CRITICAL_PROOF) or se_resource.get_all_special_effect_types(attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()).has(SpecialEffect.SPECIAL_EFFECT.CRITICAL_PROOF):
+		return 0
 	return clamp(attacker.get_critical_chance() - target.get_critical_avoid(), 0, 100)
 
 func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : bool = false) -> int:
@@ -201,6 +266,9 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : boo
 	var effective = false
 	var wpn_triangle_active_bonus = 0
 	var defense_mult = 1
+	
+	var attacker_specials = attacker.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped() 
 	#is the weapon effective?
 	effective = check_effective(attacker.unit, target.unit)
 	#does the attacker have weapon triangle advantage? 
@@ -215,7 +283,8 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : boo
 	else :
 		max_damage = attacker.get_damage() + wpn_triangle_active_bonus
 	# check the damage type of the source
-	if defense_negated or attacker.get_equipped().specials.has(WeaponDefinition.WEAPON_SPECIALS.NEGATES_FOE_DEFENSE):
+	
+	if defense_negated or se_resource.get_all_special_effect_types(attacker_specials).has(SpecialEffect.SPECIAL_EFFECT.NEGATES_FOE_DEFENSE):
 		defense_mult = 0
 	if attacker.get_equipped().item_damage_type == Constants.DAMAGE_TYPE.PHYSICAL : 
 		damage = clampi(max_damage - (target.get_defense() * defense_mult),0, 999)
@@ -244,8 +313,9 @@ func check_can_attack(attacker: CombatUnit, defender:CombatUnit, distance:int) -
 
 func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int) -> bool:
 	var defender_weapon = defender.get_equipped()
+	var defender_specials =  se_resource.get_all_special_effect_types(defender.unit.inventory.get_all_specials_from_inventory_and_equipped())
 	if defender_weapon is WeaponDefinition:
-		if not defender_weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.CANNOT_RETALIATE):
+		if not defender_specials.has(SpecialEffect.SPECIAL_EFFECT.CANNOT_RETALIATE):
 		#if attacker_weapon.item_target_faction.has(defender.allegience):
 			if defender_weapon.attack_range.has(distance):
 				if defender_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
@@ -328,6 +398,9 @@ func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, di
 func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, distance:int) -> UnitSupportExchangeData:
 	#How many hits are performed?
 	var return_object : UnitSupportExchangeData = UnitSupportExchangeData.new()
+	var supporter_specials = supporter.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	var target_specials = target.unit.inventory.get_all_specials_from_inventory_and_equipped()
+	
 	return_object.supporter = supporter
 	return_object.target = target
 	var turn_count = 1
@@ -336,6 +409,11 @@ func generate_support_exchange_data(supporter: CombatUnit, target:CombatUnit, di
 		turn_data.attack_count = supporter.get_equipped().attacks_per_combat_turn
 		turn_data.effect_type = supporter.get_equipped().status_ailment
 		turn_data.effect_weight = supporter.get_damage()
+		
+		if se_resource.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target_specials):
+		#if target_specials.has(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT):
+			var _heal_bonus_effects = se_resource.get_all_special_effects_with_type(SpecialEffect.SPECIAL_EFFECT.INCOMING_HEALING_AUGMENT, target.unit.inventory.get_all_specials_from_inventory_and_equipped())
+			turn_data.effect_weight = turn_data.effect_weight + se_resource.calculate_aggregate_effect(_heal_bonus_effects, turn_data.effect_weight)
 		return_object.exchange_data.append(turn_data)
 	return_object.populate()
 	return return_object
@@ -382,6 +460,9 @@ func create_turn_order(attacker: CombatUnit, defender:CombatUnit, a_turn_count: 
 	return _arr
 
 func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_turns: int, defender_turns: int) ->Vector2i: #Vector(attacker_turns, defender_turns)
+	var _attacker_specials = se_resource.get_all_special_effect_types(attacker.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	var _defender_specials = se_resource.get_all_special_effect_types(attacker.unit.inventory.get_all_specials_from_inventory_and_equipped())
+	
 	var net_attack_speed = attacker.get_attack_speed() - defender.get_attack_speed()
 	var additional_turn_threshold = 4
 	var net_turn_count = 0
@@ -390,11 +471,14 @@ func calc_unit_turn_count(attacker: CombatUnit, defender:CombatUnit, attacker_tu
 		net_turn_count = net_turn_count + 1
 		_nas = _nas - additional_turn_threshold
 		additional_turn_threshold = additional_turn_threshold + 2
-	#var net_turn_count = int(net_attack_speed / floor(4))
 	if net_attack_speed > 0:
 		attacker_turns = attacker_turns + abs(net_turn_count)
 	elif net_attack_speed < 0: 
 		defender_turns = defender_turns + abs(net_turn_count)
+	if _attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE):
+		attacker_turns = 1 
+	if _defender_specials.has(SpecialEffect.SPECIAL_EFFECT.CAN_ONLY_ATTACK_ONCE):
+		defender_turns = 1 
 	return Vector2i(attacker_turns, defender_turns)
 
 func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
@@ -419,41 +503,38 @@ func check_weapon_triangle(unit_a: Unit, unit_b: Unit) -> Unit:
 
 func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) -> WeaponDefinition:
 	if wpn_a and wpn_b:
-		match wpn_a.alignment:
-			ItemConstants.ALIGNMENT.MUNDANE:
-				match wpn_a.physical_weapon_triangle_type:
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-							return wpn_b
-						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return wpn_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
-						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
-							return wpn_b
-						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
-							return wpn_a
-					ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+		match wpn_a.physical_weapon_triangle_type:
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+					if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+						return wpn_b
+					elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						return wpn_a
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
+					if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
+						return wpn_b
+					elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
+						return wpn_a
+				ItemConstants.MUNDANE_WEAPON_TRIANGLE.LANCE:
 						if wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.AXE:
 							return wpn_b
 						elif wpn_b.physical_weapon_triangle_type == ItemConstants.MUNDANE_WEAPON_TRIANGLE.SWORD:
 							return wpn_a
-			ItemConstants.ALIGNMENT.MAGIC:
-				match wpn_a.magic_weapon_triangle_type:
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return wpn_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return wpn_a
-					ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
-						if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
-							return wpn_b
-						elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
-							return wpn_a
+		match wpn_a.magic_weapon_triangle_type:
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						return wpn_a
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						return wpn_a
+				ItemConstants.MAGICAL_WEAPON_TRIANGLE.LIGHT:
+					if wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.NATURE:
+						return wpn_b
+					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
+						return wpn_a
 	return null
 	
 func use_audio_player(sound:AudioStream):
@@ -468,16 +549,63 @@ func use_audio_player(sound:AudioStream):
 func check_effective(attacker: Unit, target:Unit) -> bool:
 	#check weapon effectiveness
 	var _effectiveness = false
-	_effectiveness = check_weapon_effective(attacker.inventory.get_equipped_weapon(), target)
+	_effectiveness = check_weapon_effective(attacker.inventory.get_equipped_weapon(), target, se_resource.get_all_special_effect_types(attacker.inventory.get_all_specials_from_inventory_and_equipped()))
 	# TO BE IMPL SKILLS & ETC that force effectiveness
 	return _effectiveness
 	
-func check_weapon_effective(weapon: WeaponDefinition, target: Unit) -> bool:
+func check_weapon_effective(weapon: WeaponDefinition, target: Unit, attacker_specials: Array[SpecialEffect.SPECIAL_EFFECT] = []) -> bool:
 	#var _outcome = false
 	var _target_unit_type = UnitTypeDatabase.get_definition(target.unit_type_key)
+	var _target_specials =  se_resource.get_all_special_effect_types(target.inventory.get_all_specials_from_inventory_and_equipped())
+	var attacker_trait_effectives : Array[unitConstants.TRAITS] = weapon.weapon_effectiveness_trait.duplicate()
+	var _target_unit_traits : Array[unitConstants.TRAITS] = _target_unit_type.traits.duplicate()
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.EFFECTIVE_PROOF) or attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.CANNOT_DO_EFFECTIVE_DAMAGE):
+		return false
 	#TRAITS
-	if not weapon.weapon_effectiveness_trait.is_empty():
-		var _target_unit_traits : Array[unitConstants.TRAITS] = _target_unit_type.traits.duplicate()
+	# ADD ADDITITONAL TARGET TRAITS FROM ITEMS 
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE):
+		if not _target_unit_traits.has(unitConstants.TRAITS.ARMORED):
+			_target_unit_traits.append(unitConstants.TRAITS.ARMORED)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE):
+		if not _target_unit_traits.has(unitConstants.TRAITS.MOUNTED):
+			_target_unit_traits.append(unitConstants.TRAITS.MOUNTED)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE):
+		if not _target_unit_traits.has(unitConstants.TRAITS.FLIER):
+			_target_unit_traits.append(unitConstants.TRAITS.FLIER)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE):
+		if not _target_unit_traits.has(unitConstants.TRAITS.TERROR):
+			_target_unit_traits.append(unitConstants.TRAITS.TERROR)
+	
+	# REMOVE TARGET TRAITS BC SPECIALS WITH PROTECTION
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.REMOVE_ARMOR_EFFECTIVE):
+		if _target_unit_traits.has(unitConstants.TRAITS.ARMORED):
+			_target_unit_traits.erase(unitConstants.TRAITS.ARMORED)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.REMOVE_MOUNTED_EFFECTIVE):
+		if _target_unit_traits.has(unitConstants.TRAITS.MOUNTED):
+			_target_unit_traits.erase(unitConstants.TRAITS.MOUNTED)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.REMOVE_FLIER_EFFECTIVE):
+		if _target_unit_traits.has(unitConstants.TRAITS.FLIER):
+			_target_unit_traits.erase(unitConstants.TRAITS.FLIER)
+	if _target_specials.has(SpecialEffect.SPECIAL_EFFECT.REMOVE_TERROR_EFFECTIVE):
+		if _target_unit_traits.has(unitConstants.TRAITS.TERROR):
+			_target_unit_traits.erase(unitConstants.TRAITS.TERROR)
+	
+	# ADD ATTACKER TRAITS FROM SPECIALS
+	if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_ARMOR_EFFECTIVE_ATTACK):
+		if not attacker_trait_effectives.has(unitConstants.TRAITS.ARMORED):
+			attacker_trait_effectives.append(unitConstants.TRAITS.ARMORED)
+	if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_MOUNTED_EFFECTIVE_ATTACK):
+		if not attacker_trait_effectives.has(unitConstants.TRAITS.MOUNTED):
+			attacker_trait_effectives.append(unitConstants.TRAITS.MOUNTED)
+	if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_FLIER_EFFECTIVE_ATTACK):
+		if not attacker_trait_effectives.has(unitConstants.TRAITS.FLIER):
+			attacker_trait_effectives.append(unitConstants.TRAITS.FLIER)
+	if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.ADD_TERROR_EFFECTIVE_ATTACK):
+		if not attacker_trait_effectives.has(unitConstants.TRAITS.TERROR):
+			attacker_trait_effectives.append(unitConstants.TRAITS.TERROR)
+	
+	#Create special effect and weapon trait effectiveness
+	if not attacker_trait_effectives.is_empty():
 		# do subtraction of traits if target has something that negates effectiveness here
 		if not _target_unit_traits.is_empty():
 			for effective_trait in weapon.weapon_effectiveness_trait:
@@ -487,9 +615,9 @@ func check_weapon_effective(weapon: WeaponDefinition, target: Unit) -> bool:
 	if target.inventory.get_equipped_weapon() != null:
 		if target.inventory.get_equipped_weapon().weapon_type in weapon.weapon_effectiveness_weapon_type:
 			return true
-	#SPECIALS
+	#NON-TRAIT SPECIALS
 	if not weapon.specials.is_empty():
-		if weapon.specials.has(WeaponDefinition.WEAPON_SPECIALS.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
+		if attacker_specials.has(SpecialEffect.SPECIAL_EFFECT.WEAPON_TRIANGLE_ADVANTAGE_EFFECTIVE):
 			if  target.inventory.get_equipped_weapon() != null:
 				if check_wepon_triangle_wpn(weapon, target.inventory.get_equipped_weapon()) == weapon:
 					return true
@@ -519,39 +647,20 @@ func unit_gain_experience_complete():
 	in_experience_flow = false
 
 #
-# Used for healing
+# Used for healing TODO RE-WRITE THIS FOR BUFFS LATER
 #
 func enact_support_exchange(supporter: CombatUnit, target:CombatUnit, data:UnitSupportExchangeData):
 	var player_unit: CombatUnit
 	var enemy_unit: CombatUnit
 	# Check to see if it is an an AI or a player attacking ##THIS MAY BE HAVE TO BE RE-WRITTEN FOR ALLY ALLY COMBAT
-	
 	for turn in data.exchange_data:
 		for attack in turn.attack_count:
-			await heal_unit(target, turn.effect_weight)
-			# ADD THE USE ITEM HERE
+			await perform_heal(supporter, target, turn.effect_weight)
 	if supporter.allegience == Constants.FACTION.PLAYERS:
 		await complete_combat_exchange(supporter, target, EXCHANGE_OUTCOME.ALLY_SUPPORTED)
 	else :
-			pass
+		pass
 	supporter.turn_taken = true
-
-#
-# Gets the scaling bonus based on the item scaling type for calc damage
-###MOVED CAN THIS BE REMOVED?
-func get_stat_scaling_bonus(owner: Unit, item_scaling_type: ItemConstants.SCALING_TYPE) -> int:
-	match item_scaling_type:
-		ItemConstants.SCALING_TYPE.STRENGTH:
-			return owner.stats.strength
-		ItemConstants.SCALING_TYPE.SKILL:
-			return owner.stats.skill
-		ItemConstants.SCALING_TYPE.MAGIC:
-			return owner.stats.magic
-		ItemConstants.SCALING_TYPE.CONSTITUTION:
-			return 0 #THIS NEEDS TO BE IDIATED FURTHER
-		ItemConstants.SCALING_TYPE.NONE:
-			return 0
-	return 0
 
 #
 # Called when the attacker can hit and begin combat sequence
@@ -579,21 +688,23 @@ func enact_combat_exchange_new(attacker: CombatUnit, defender:CombatUnit, exchan
 	for turn in exchange_data.exchange_data:
 		for attack in turn.attack_count:
 			if turn.owner == attacker:
-				await perform_hit(attacker,defender,turn.hit,turn.critical)
-				if not defender.alive:
-					if player_unit == defender:
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else : 
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if attacker.get_equipped() != null and not attacker.get_equipped().expended:
+					await perform_hit(attacker,defender,turn.hit,turn.critical)
+					if not defender.alive:
+						if player_unit == defender:
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else : 
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 			elif turn.owner == defender:
-				await perform_hit(defender,attacker,turn.hit,turn.critical)
-				if not attacker.alive: 
-					if attacker == player_unit: 
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
-					else:
-						await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
-					return
+				if defender.get_equipped() != null and not defender.get_equipped().expended:
+					await perform_hit(defender,attacker,turn.hit,turn.critical)
+					if not attacker.alive: 
+						if attacker == player_unit: 
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.PLAYER_DEFEATED)
+						else:
+							await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.ENEMY_DEFEATED)
+						return
 	# Both units have survived the exchange
 	if enemy_unit.current_hp < enemy_unit_starting_hp:
 		await complete_combat_exchange(player_unit, enemy_unit, EXCHANGE_OUTCOME.DAMAGE_DEALT)
@@ -620,27 +731,20 @@ func enact_combat_exchange_entity(attacker: CombatUnit, defender:CombatEntity, e
 				else:
 					break
 
-func _on_entity_destroyed_processing_completed():
-	await get_tree().create_timer(.1).timeout
-	entity_destroyed_processing_completed.emit()
-	
-func _on_give_item_complete():
-	give_items_complete.emit()
-
-
 func calculate_experience_gain_hit(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
 	var experience_gain = 0
 	var player_unit_value = 0
 	var enemy_unit_value = 0
-	if(player_unit.unit.get_unit_type_definition().promoted):
+	if(player_unit.unit.get_unit_type_definition().tier == 3):
 		player_unit_value = 20
-	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+	if (enemy_unit.unit.get_unit_type_definition().tier == 3) :
 		enemy_unit_value = 20
 	
-	var unit_value_difference = ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value))
+	var unit_value_difference = ((enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - ((player_unit.unit.level + player_unit_value)))
 	#Experience Formula
-	experience_gain = clamp(((2* unit_value_difference) +31)  / 3, 1, 25)
-	#print ("calculate_experience_gain_hit = " + str(experience_gain))
+	
+	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
+	experience_gain = clamp(tier_multiplier * ((2* unit_value_difference) +31)/ 3, 1, 25)
 	return experience_gain
 
 func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUnit) -> int:
@@ -649,13 +753,36 @@ func calculate_experience_gain_kill(player_unit:CombatUnit, enemy_unit:CombatUni
 	var enemy_unit_value = 0
 	var base_experience_gain = calculate_experience_gain_hit(player_unit, enemy_unit)
 	var boss_bonus = 0
-
-	if(player_unit.unit.get_unit_type_definition().promoted):
+	var tier_multiplier = float(enemy_unit.unit.get_unit_type_definition().tier /player_unit.unit.get_unit_type_definition().tier)
+	if(player_unit.unit.get_unit_type_definition().tier == 3):
 		player_unit_value = 60
-	if (enemy_unit.unit.get_unit_type_definition().promoted) :
+	if (enemy_unit.unit.get_unit_type_definition().tier == 3) :
 		enemy_unit_value = 60
 	if enemy_unit.is_boss:
 		boss_bonus = 40
 	#Experience Formula
-	experience_gain = clampi(base_experience_gain + ((enemy_unit.unit.level + enemy_unit_value) - (player_unit.unit.level + player_unit_value)) + 20 + boss_bonus, 2, 100)
+	experience_gain = clampi(tier_multiplier*(base_experience_gain + ((enemy_unit.unit.get_unit_type_definition().tier * (enemy_unit.unit.level + enemy_unit_value)) - (player_unit.unit.get_unit_type_definition().tier*(player_unit.unit.level + player_unit_value))) + 20 + boss_bonus), 2, 100)
 	return experience_gain
+
+##
+# Update the targetted unit's ai type if its an ai unit
+##
+func update_ai_type(unit: CombatUnit):
+	if not unit.is_boss:
+		if unit.ai_type == Constants.UNIT_AI_TYPE.ATTACK_IN_RANGE:
+			unit.ai_type = Constants.UNIT_AI_TYPE.DEFAULT
+
+func _on_entity_destroyed_processing_completed():
+	await get_tree().create_timer(.1).timeout
+	entity_destroyed_processing_completed.emit()
+	
+func _on_give_item_complete():
+	give_items_complete.emit()
+
+func _on_item_broken_popup_completed():
+#	await get_tree().create_timer(.1).timeout
+	item_broken_popup_completed.emit()
+
+func _on_item_expended_popup_completed():
+	await get_tree().create_timer(.1).timeout
+	item_expended_popup_completed.emit()

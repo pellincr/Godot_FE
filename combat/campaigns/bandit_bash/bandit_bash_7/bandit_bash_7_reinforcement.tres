@@ -8,8 +8,8 @@
 [ext_resource type="Resource" uid="uid://xw5blar04bqb" path="res://resources/definitions/items/weapons/axes/hand_axe.tres" id="6_h46dk"]
 [ext_resource type="Resource" uid="uid://dd1ykyn7p5ryd" path="res://resources/definitions/items/weapons/swords/iron_sword.tres" id="7_aoe7f"]
 [ext_resource type="Resource" uid="uid://b75qqxpr2a6kk" path="res://resources/definitions/items/weapons/lance/steel_lance.tres" id="8_rxd1g"]
-[ext_resource type="Resource" uid="uid://2w80i71bep67" path="res://resources/definitions/items/weapons/swords/steel_sword.tres" id="9_7bodt"]
-[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warhammer.tres" id="10_ys14t"]
+[ext_resource type="Resource" uid="uid://c5crxadul4wou" path="res://resources/definitions/items/weapons/dagger/steel_dagger_new.tres" id="9_f3jxm"]
+[ext_resource type="Resource" uid="uid://dqb48wswsnj1e" path="res://resources/definitions/items/weapons/axes/warpick.tres" id="10_ys14t"]
 [ext_resource type="Resource" uid="uid://bc4h5cwsmimmu" path="res://resources/definitions/items/weapons/shield/steel_shield.tres" id="11_4f8tt"]
 [ext_resource type="Resource" uid="uid://c34i2kofuphkf" path="res://resources/definitions/items/weapons/lance/heavy_lance.tres" id="12_t07uk"]
 [ext_resource type="Script" uid="uid://b5ifualrxa8pa" path="res://scripts/combat/reinforcements/MapReinforcementData.gd" id="13_ovmd8"]
@@ -19,8 +19,7 @@
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 1)
-level = 8
-level_bonus = 2
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 
@@ -33,7 +32,7 @@ units = Array[ExtResource("2_y1r37")]([SubResource("Resource_gelp6")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(1, 0)
-level = 8
+level = 12
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("5_beupd"), ExtResource("6_h46dk")])
 
@@ -41,7 +40,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("5_beupd"), ExtResource("
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 2)
-level = 8
+level = 10
 unit_type_key = "sellsword"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("7_aoe7f")])
 
@@ -49,7 +48,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("7_aoe7f")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(9, 17)
-level = 8
+level = 10
 unit_type_key = "lancer"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 
@@ -57,9 +56,9 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(7, 17)
-level = 8
-unit_type_key = "bladehand"
-inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_7bodt")])
+level = 10
+unit_type_key = "cutthroat"
+inventory = Array[ExtResource("3_53nlm")]([ExtResource("9_f3jxm")])
 
 [sub_resource type="Resource" id="Resource_inwj6"]
 script = ExtResource("1_l0xyi")
@@ -70,7 +69,7 @@ units = Array[ExtResource("2_y1r37")]([SubResource("Resource_ood86"), SubResourc
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(1, 0)
-level = 8
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 
@@ -78,7 +77,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(0, 2)
-level = 8
+level = 10
 unit_type_key = "fighter"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("10_ys14t")])
 
@@ -86,7 +85,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("10_ys14t")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 9)
-level = 8
+level = 12
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 
@@ -94,7 +93,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("8_rxd1g")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 11)
-level = 8
+level = 10
 unit_type_key = "sword_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("11_4f8tt")])
 
@@ -107,7 +106,7 @@ units = Array[ExtResource("2_y1r37")]([SubResource("Resource_hjk6q"), SubResourc
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 9)
-level = 10
+level = 14
 unit_type_key = "lance_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("12_t07uk")])
 
@@ -115,7 +114,7 @@ inventory = Array[ExtResource("3_53nlm")]([ExtResource("12_t07uk")])
 script = ExtResource("2_y1r37")
 name = "Raider"
 map_position = Vector2i(14, 11)
-level = 10
+level = 14
 unit_type_key = "axe_cavalier"
 inventory = Array[ExtResource("3_53nlm")]([ExtResource("4_2yvq3")])
 

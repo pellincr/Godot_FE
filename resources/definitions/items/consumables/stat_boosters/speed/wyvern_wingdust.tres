@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://dxo3kqxulooms"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_sb1e0"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_8dvwt"]
+[ext_resource type="Texture2D" uid="uid://36puvbl4it2v" path="res://resources/sprites/items/consumables/stat_boosters/speed/wyvern_wingdust.png" id="2_g4el7"]
+[ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="3_k602d"]
+[ext_resource type="Script" uid="uid://vrffi4i1mld7" path="res://scripts/resources/Items/ConsumableItemDefinition.gd" id="4_1d3rs"]
+[ext_resource type="Script" uid="uid://ct5ypxpje4qhx" path="res://scripts/resources/effects/combat_unit_status_effect.gd" id="5_p1ru3"]
+
+[sub_resource type="Resource" id="Resource_xjah7"]
+script = ExtResource("1_sb1e0")
+speed = 2
+metadata/_custom_type_script = "uid://cr1ldq6s45fjd"
+
+[resource]
+script = ExtResource("4_1d3rs")
+use_effect = 3
+boost_stat = SubResource("Resource_xjah7")
+name = "Wyvern Wingdust"
+db_key = "wyvern_wingdust"
+description = "Fine gray powder shed from wyvern wings mid-flight, swirling with barely-contained kinetic force."
+item_type = 2
+rarity = ExtResource("3_k602d")
+worth = 8000
+icon = ExtResource("2_g4el7")

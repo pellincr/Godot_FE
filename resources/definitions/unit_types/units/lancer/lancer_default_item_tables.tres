@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://cafcew7g22agn"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_bf0qr"]
+[ext_resource type="Resource" uid="uid://davx8u6ai6jf2" path="res://resources/definitions/unit_types/units/lancer/lancer_treasure_table.tres" id="2_fxwkw"]
+[ext_resource type="Resource" uid="uid://t7wov12ctpe2" path="res://resources/definitions/unit_types/units/lancer/lancer_weapon_table.tres" id="2_mhnyg"]
+
+[resource]
+script = ExtResource("1_bf0qr")
+weapon_default = ExtResource("2_mhnyg")
+treasure_default = ExtResource("2_fxwkw")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

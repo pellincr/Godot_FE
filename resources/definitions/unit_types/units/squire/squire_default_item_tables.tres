@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitTypeDefaultItemTables" load_steps=4 format=3 uid="uid://cp01rf3ug38vh"]
+
+[ext_resource type="Script" uid="uid://q1pglvnjnos3" path="res://scripts/resources/unit_type/UnitTypeDefaultItemTables.gd" id="1_k0r28"]
+[ext_resource type="Resource" uid="uid://c1exdwy7hoke1" path="res://resources/definitions/unit_types/units/squire/squire_weapon_table.tres" id="2_nvaxk"]
+[ext_resource type="Resource" uid="uid://dgrxfln3bvcce" path="res://resources/definitions/unit_types/units/squire/squire_treasure_table.tres" id="2_vpu37"]
+
+[resource]
+script = ExtResource("1_k0r28")
+weapon_default = ExtResource("2_nvaxk")
+treasure_default = ExtResource("2_vpu37")
+metadata/_custom_type_script = "uid://q1pglvnjnos3"

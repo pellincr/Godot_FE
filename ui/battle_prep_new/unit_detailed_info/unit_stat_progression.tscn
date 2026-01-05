@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b584lx6otusdt"]
+[gd_scene load_steps=9 format=3 uid="uid://b584lx6otusdt"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_fxxdm"]
-[ext_resource type="Script" path="res://ui/battle_preparation/unit_detailed_info/unit_stat_progression.gd" id="2_3bbfo"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="1_yvkr2"]
+[ext_resource type="Script" uid="uid://dg7g3ks37ju8b" path="res://ui/battle_prep_new/unit_detailed_info/unit_stat_progression.gd" id="2_3bbfo"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="3_sw66v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo4mh"]
 bg_color = Color(0, 0, 0, 1)
@@ -14,15 +15,17 @@ border_width_bottom = 1
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Theme" id="Theme_e3lwf"]
-default_font = ExtResource("1_fxxdm")
+default_font = ExtResource("1_yvkr2")
+default_font_size = 32
 ProgressBar/styles/background = SubResource("StyleBoxFlat_uo4mh")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_wx011")
 
 [sub_resource type="Theme" id="Theme_07khm"]
-default_font_size = 12
+default_font = ExtResource("3_sw66v")
+default_font_size = 16
 
 [sub_resource type="Theme" id="Theme_rmyy4"]
-default_font_size = 18
+default_font_size = 16
 
 [node name="UnitStatProgression" type="VBoxContainer"]
 offset_right = 210.0
@@ -30,11 +33,22 @@ offset_bottom = 259.0
 theme = SubResource("Theme_e3lwf")
 script = ExtResource("2_3bbfo")
 
-[node name="UnitStatsHeaderLabel" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="UnitStatsHeaderLabel" type="Label" parent="HBoxContainer"]
+modulate = Color(0.509804, 0.509804, 0.509804, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_07khm")
+text = "Unit Stats"
+
+[node name="UnitGrowthsHeaderLabel" type="Label" parent="HBoxContainer"]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_07khm")
-text = "Unit Stats"
+text = "Growths"
+horizontal_alignment = 2
 
 [node name="StrengthContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -49,20 +63,36 @@ layout_mode = 2
 text = "Strength : "
 
 [node name="StrengthValueLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="StrengthEquipmentStatLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="StrengthGrowthLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="StrengthEquipmentGrowthLabel" type="Label" parent="StrengthContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="StrengthProgress" type="ProgressBar" parent="StrengthContainer"]
 custom_minimum_size = Vector2(134, 3)
 layout_mode = 2
 size_flags_horizontal = 0
+step = 1.0
 show_percentage = false
 
 [node name="MagicContainer" type="VBoxContainer" parent="."]
@@ -78,14 +108,29 @@ layout_mode = 2
 text = "Magic : "
 
 [node name="MagicValueLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="MagicEquipmentStatLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="MagicGrowthLabel" type="Label" parent="MagicContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="MagicEquipmentGrowthLabel" type="Label" parent="MagicContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="MagicProgress" type="ProgressBar" parent="MagicContainer"]
@@ -107,14 +152,29 @@ layout_mode = 2
 text = "Skill : "
 
 [node name="SkillValueLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="SkillEquipmentStatLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="SkillGrowthLabel" type="Label" parent="SkillContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="SkillEquipmentGrowthLabel" type="Label" parent="SkillContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="SkillProgress" type="ProgressBar" parent="SkillContainer"]
@@ -136,14 +196,29 @@ layout_mode = 2
 text = "Speed : "
 
 [node name="SpeedValueLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="SpeedEquipmentStatLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="SpeedGrowthLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="SpeedEquipmentGrowthLabel" type="Label" parent="SpeedContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="SpeedProgress" type="ProgressBar" parent="SpeedContainer"]
@@ -165,14 +240,29 @@ layout_mode = 2
 text = "Luck : "
 
 [node name="LuckValueLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="LuckEquipmentStatLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="LuckGrowthLabel" type="Label" parent="LuckContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="LuckEquipmentGrowthLabel" type="Label" parent="LuckContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="LuckProgress" type="ProgressBar" parent="LuckContainer"]
@@ -194,14 +284,29 @@ layout_mode = 2
 text = "Defense : "
 
 [node name="DefenseValueLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="DefenseEquipmentStatLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="DefenseGrowthLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="DefenseEquipmentGrowthLabel" type="Label" parent="DefenseContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="DefenseProgress" type="ProgressBar" parent="DefenseContainer"]
@@ -223,14 +328,29 @@ layout_mode = 2
 text = "Resistance : "
 
 [node name="ResistanceValueLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 text = "123"
+
+[node name="ResistanceEquipmentStatLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+1"
 
 [node name="ResistanceGrowthLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
 self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
 custom_minimum_size = Vector2(40, 16)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "123"
+horizontal_alignment = 2
+
+[node name="ResistanceEquipmentGrowthLabel" type="Label" parent="ResistanceContainer/HBoxContainer"]
+visible = false
+self_modulate = Color(0.509804, 0.509804, 0.509804, 1)
+custom_minimum_size = Vector2(40, 16)
+layout_mode = 2
+text = "+1"
 horizontal_alignment = 2
 
 [node name="ResistanceProgress" type="ProgressBar" parent="ResistanceContainer"]
@@ -239,25 +359,37 @@ layout_mode = 2
 size_flags_horizontal = 0
 show_percentage = false
 
-[node name="MoveContainer" type="HBoxContainer" parent="."]
+[node name="UnitStatsHeaderLabel2" type="Label" parent="."]
 modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
+theme = SubResource("Theme_07khm")
+text = "Physical Stats"
+
+[node name="MoveContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
 theme = SubResource("Theme_rmyy4")
 
 [node name="MoveHeaderLabel" type="Label" parent="MoveContainer"]
 custom_minimum_size = Vector2(134, 18)
 layout_mode = 2
-text = "Move
-"
+text = "Move"
 
 [node name="MoveValueLabel" type="Label" parent="MoveContainer"]
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "9"
 horizontal_alignment = 2
 
+[node name="MoveEquipmentValueLabel" type="Label" parent="MoveContainer"]
+visible = false
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "+1"
+horizontal_alignment = 2
+
 [node name="ConstitutionContainer" type="HBoxContainer" parent="."]
-modulate = Color(0.509804, 0.509804, 0.509804, 1)
 layout_mode = 2
 theme = SubResource("Theme_rmyy4")
 
@@ -269,5 +401,14 @@ text = "Constitution"
 [node name="ConstitutionValueLabel" type="Label" parent="ConstitutionContainer"]
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "17"
+horizontal_alignment = 2
+
+[node name="ConstitutionEquipmentValueLabel" type="Label" parent="ConstitutionContainer"]
+visible = false
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "+1"
 horizontal_alignment = 2

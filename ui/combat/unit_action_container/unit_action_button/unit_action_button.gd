@@ -10,6 +10,7 @@ const support_icon = preload("res://resources/sprites/icons/unit_action_icons/su
 const wait_icon = preload("res://resources/sprites/icons/unit_action_icons/wait_icon.png")
 const trade_icon = preload("res://resources/sprites/icons/unit_action_icons/trade_icon.png")
 const item_icon = preload("res://resources/sprites/icons/unit_action_icons/inventory_icon.png")
+const demolish_icon = preload("res://resources/sprites/icons/unit_action_icons/demolish_icon.png")
 
 func set_button(text:String):
 	if CustomUtilityLibrary.equals_ignore_case(text, "Attack"):
@@ -18,6 +19,9 @@ func set_button(text:String):
 	elif CustomUtilityLibrary.equals_ignore_case(text, "Support"):
 		self.text = "Support"
 		self.icon = support_icon
+	elif CustomUtilityLibrary.equals_ignore_case(text, "Demolish"):
+		self.text = "Demolish"
+		self.icon = demolish_icon
 	elif CustomUtilityLibrary.equals_ignore_case(text, "Skill"):
 		self.text = "Skill"
 		self.icon = skill_icon
@@ -42,3 +46,11 @@ func set_button(text:String):
 	elif CustomUtilityLibrary.equals_ignore_case(text, "Cancel"):
 		self.text = "Cancel"
 		self.icon = cancel_icon
+
+
+func _on_pressed() -> void:
+	AudioManager.play_sound_effect("menu_confirm")
+
+
+func _on_focus_entered() -> void:
+	AudioManager.play_sound_effect("menu_cursor")

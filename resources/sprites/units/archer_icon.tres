@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bawxrbd0ffc4e"]
-
-[ext_resource type="Texture2D" uid="uid://vq25fygd70cn" path="res://resources/sprites/units/lance_cavalier.png" id="1_lgth3"]
-
-[resource]
-atlas = ExtResource("1_lgth3")
-region = Rect2(0, 0, 32, 16)

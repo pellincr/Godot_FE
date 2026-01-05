@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://pyui2qjdy5lu"]
+[gd_scene load_steps=7 format=3 uid="uid://pyui2qjdy5lu"]
 
 [ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_knt25"]
 [ext_resource type="PackedScene" uid="uid://6leg2pgnfdjg" path="res://campaign_map/events/event_selection_container.tscn" id="2_5kxem"]
 [ext_resource type="Script" uid="uid://cks77666ws3cr" path="res://campaign_map/events/event_selection.gd" id="2_tmuj8"]
+[ext_resource type="Resource" uid="uid://iowm3ipdn3b4" path="res://resources/definitions/events/ghastly_library.tres" id="3_l3te4"]
+[ext_resource type="PackedScene" uid="uid://c3oqbgaxos113" path="res://ui/shared/campaign_header/campaign_header.tscn" id="3_mjhah"]
 
 [sub_resource type="Theme" id="Theme_q5c1h"]
 default_font_size = 36
@@ -16,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_knt25")
 script = ExtResource("2_tmuj8")
+current_event = ExtResource("3_l3te4")
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -24,6 +27,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CampaignHeader" parent="." instance=ExtResource("3_mjhah")]
+layout_mode = 1
+offset_bottom = 40.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -35,15 +42,30 @@ offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 600
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 125
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_bottom = 50
 
 [node name="EventSelectionContainer" parent="MarginContainer2" instance=ExtResource("2_5kxem")]
 layout_mode = 2
 size_flags_vertical = 4
 
+[node name="DetailedInfoMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 125
+theme_override_constants/margin_right = 700
+theme_override_constants/margin_bottom = 50
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 0
 offset_right = 1280.0
@@ -52,14 +74,15 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 

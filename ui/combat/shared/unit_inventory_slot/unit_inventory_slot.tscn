@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxd4y8qg56hq3"]
+[gd_scene load_steps=9 format=3 uid="uid://cxd4y8qg56hq3"]
 
 [ext_resource type="Theme" uid="uid://cu8jtbkxt5kwa" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot_enabled.tres" id="1_djri8"]
 [ext_resource type="Script" uid="uid://ca6tg0vmry453" path="res://ui/combat/shared/unit_inventory_slot/unit_inventory_slot.gd" id="1_kpyca"]
 [ext_resource type="PackedScene" uid="uid://diqrf4hmvqdtg" path="res://ui/combat/shared/unit_inventory_slot/inventory_item_icon/InventoryItemIcon.tscn" id="3_11e7w"]
 [ext_resource type="Script" uid="uid://d4mtodvoref3h" path="res://ui/combat/shared/unit_inventory_slot/item_type_icon.gd" id="4_4b1qe"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_un5da"]
+[ext_resource type="Texture2D" uid="uid://ubeqtcpt3w7f" path="res://resources/sprites/icons/ui_icons/refreshable.png" id="6_crlxc"]
 
 [sub_resource type="Theme" id="Theme_hxiho"]
-default_font_size = 24
+default_font = ExtResource("4_un5da")
+default_font_size = 32
 
 [sub_resource type="Theme" id="Theme_nkl5n"]
-default_font_size = 24
+default_font = ExtResource("4_un5da")
+default_font_size = 32
 
 [node name="UnitInventorySlot" type="Button"]
 custom_minimum_size = Vector2(290, 50)
@@ -61,7 +65,21 @@ size_flags_vertical = 4
 stretch_mode = 2
 script = ExtResource("4_4b1qe")
 
-[node name="UsesLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="UsesContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="ExpendedIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/UsesContainer"]
+custom_minimum_size = Vector2(16, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("6_crlxc")
+stretch_mode = 3
+
+[node name="UsesLabel" type="Label" parent="MarginContainer/HBoxContainer/UsesContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme = SubResource("Theme_nkl5n")

@@ -13,7 +13,7 @@ var ui_node_stack : Stack = Stack.new()
 @onready var unit_status: UnitSelectedFooterUI = $UnitStatus
 @onready var combat_tile_info: VBoxContainer = $combat_tile_info
 
-@onready var level_info_container: HBoxContainer = $LevelInfoContainer
+@onready var level_info_container: VBoxContainer = $LevelInfoContainer
 #@onready var battle_prep: BattlePrep = $BattlePrep
 
 
@@ -24,7 +24,7 @@ const BATTLE_PREP_MENU = preload("res://ui/battle_prep_new/battle_prep.tscn")
 const COMBAT_MAP_MENU = preload("res://ui/combat/combat_map_menu/combat_map_menu.tscn")
 const COMBAT_MAP_CAMPAIGN_MENU = preload("res://ui/combat/combat_map_menu/combat_map_campaign_menu.tscn")
 # Detail Menu
-const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/unit_detailed_info_combat_map.tscn")
+const UNIT_DETAILED_INFO_COMBAT_MAP = preload("res://ui/combat/unit_detailed_info_combat_map/combat_unit_detailed_info.tscn")
 
 #Combat Action
 const ATTACK_ACTION_INVENTORY = preload("res://ui/combat/attack_action_inventory/attack_action_inventory.tscn")
@@ -54,9 +54,9 @@ const DISCARD_ACTION_INVENTORY = preload("res://ui/combat/discard_action_invento
 const COMBAT_UNIT_INTERACT_ACTION_INVENTORY = preload("res://ui/combat/unit_interact_inventory/combat_unit_interact_action_inventory.tscn")
 
 #Audio imports
-const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
-const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
-const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
+#const menu_back_sound = preload("res://resources/sounds/ui/menu_back.wav")
+#const menu_confirm_sound = preload("res://resources/sounds/ui/menu_confirm.wav")
+#const cursor_sound = preload("res://resources/sounds/ui/menu_cursor.wav")
 
 #transition
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
@@ -76,15 +76,18 @@ func _ready():
 	#signal wiring
 	#set_level_info_container
 	level_info_container.set_objective_label(get_objective_text(combat.victory_condition))
-	level_info_container.set_turn_count_label(str(combat.current_turn))
-	var battle_prep = BATTLE_PREP_MENU.instantiate()
-	battle_prep.set_po_data(playerOverworldData)
-	add_child(battle_prep)
-	battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
-	battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
-	battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
-	battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
-	battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
+	set_turn_count_label(str(combat.current_turn))
+	set_turn_count_color(combat.current_turn,combat.level_reward.par_turns)
+	set_par_turn_value_label(combat.level_reward.par_turns)
+	if !playerOverworldData.battle_prep_complete:
+		var battle_prep = BATTLE_PREP_MENU.instantiate()
+		battle_prep.set_po_data(playerOverworldData)
+		add_child(battle_prep)
+		battle_prep.begin_battle.connect(_on_battle_prep_begin_battle)
+		battle_prep.swap_spaces.connect(_on_battle_prep_swap_spaces)
+		battle_prep.unit_deselected.connect(_on_battle_prep_unit_deselected)
+		battle_prep.unit_selected.connect(_on_battle_prep_unit_selected)
+		battle_prep.award_bonus_exp.connect(_on_battle_prep_award_bonus_exp)
 
 func set_po_data(po_data):
 	playerOverworldData = po_data
@@ -252,10 +255,24 @@ func create_attack_action_inventory(inputCombatUnit : CombatUnit, inventory: Arr
 	await attack_action_inventory
 	attack_action_inventory.item_selected.connect(controller.fsm_attack_action_inventory_confirm.bind())
 	attack_action_inventory.new_item_hovered.connect(controller.fsm_attack_action_inventory_confirm_new_hover.bind())
-	#TO BE CONNECTED CANCEL
+	attack_action_inventory.back.connect(controller.fsm_attack_action_inventory_cancel)
 	attack_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(attack_action_inventory)
 	attack_action_inventory.grab_focus()
+
+#
+# Creates the attack action inventory used to select the weapon to be used in the combat preview
+#
+func create_demolish_action_inventory(inputCombatUnit : CombatUnit, inventory: Array[UnitInventorySlotData]):
+	var demolish_action_inventory = ATTACK_ACTION_INVENTORY.instantiate()
+	self.add_child(demolish_action_inventory)
+	await demolish_action_inventory
+	demolish_action_inventory.item_selected.connect(controller.fsm_demolish_action_inventory_confirm.bind()) 
+	demolish_action_inventory.new_item_hovered.connect(controller.fsm_demolish_action_inventory_confirm_new_hover.bind())
+	demolish_action_inventory.back.connect(controller.fsm_demolish_action_inventory_cancel)
+	demolish_action_inventory.populate(inputCombatUnit, inventory)
+	push_ui_node_stack(demolish_action_inventory)
+	demolish_action_inventory.grab_focus()
 
 #
 # Creates the trade action inventory used to select the weapon to be used in the combat preview
@@ -279,7 +296,7 @@ func create_support_action_inventory(inputCombatUnit : CombatUnit, inventory: Ar
 	await support_action_inventory
 	support_action_inventory.item_selected.connect(controller.fsm_support_action_inventory_confirm.bind())
 	support_action_inventory.new_item_hovered.connect(controller.fsm_support_action_inventory_confirm_new_hover.bind())
-	#TO BE CONNECTED CANCEL
+	support_action_inventory.back.connect(controller.fsm_support_action_inventory_cancel)
 	support_action_inventory.populate(inputCombatUnit, inventory)
 	push_ui_node_stack(support_action_inventory)
 	support_action_inventory.grab_focus()
@@ -298,20 +315,20 @@ func create_attack_action_combat_exchange_preview(exchange_info: UnitCombatExcha
 #
 #
 #
-func create_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity,weapon_swap_visable : bool = false):
-	var combat_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
-	self.add_child(combat_exchange_preview)
-	await combat_exchange_preview
-	combat_exchange_preview.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
-	push_ui_node_stack(combat_exchange_preview)
-	combat_exchange_preview.grab_focus()
+func create_demolish_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity,weapon_swap_visable : bool = false):
+	var demolish_exchange_preview = UNIT_COMBAT_EXCHANGE_PREVIEW.instantiate()
+	self.add_child(demolish_exchange_preview)
+	await demolish_exchange_preview
+	demolish_exchange_preview.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
+	push_ui_node_stack(demolish_exchange_preview)
+	demolish_exchange_preview.grab_focus()
 
 func update_weapon_attack_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, weapon_swap_visable: bool = false):
 	var active_ui_node = ui_node_stack.peek()
 	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all(exchange_info,weapon_swap_visable)
 
-func update_weapon_attack_action_combat_exchange_preview_entity(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
+func update_weapon_demolish_action_combat_exchange_preview(exchange_info: UnitCombatExchangeData, target_entity: CombatEntity, weapon_swap_visable: bool = false):
 	var active_ui_node = ui_node_stack.peek()
 	if  active_ui_node is UnitCombatExchangePreview:
 		active_ui_node.set_all_entity(exchange_info,target_entity,weapon_swap_visable)
@@ -368,21 +385,25 @@ func create_unit_inventory_action_item_selected_menu(data:UnitInventorySlotData)
 # Populates and displayes the detailed info for a combat unit
 #
 func create_combat_unit_detail_panel(combat_unit: CombatUnit):
-	var unit_detailed_info_combat_map = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
-	self.add_child(unit_detailed_info_combat_map)
-	await unit_detailed_info_combat_map
-	unit_detailed_info_combat_map.unit = combat_unit
-	unit_detailed_info_combat_map.update_by_unit()
-	push_ui_node_stack(unit_detailed_info_combat_map)
+	var combat_unit_detailed_info : = UNIT_DETAILED_INFO_COMBAT_MAP.instantiate()
+	self.add_child(combat_unit_detailed_info)
+	await combat_unit_detailed_info
+	combat_unit_detailed_info.set_combat_unit(combat_unit)
+	#unit_detailed_info_combat_map.update_by_unit()
+	push_ui_node_stack(combat_unit_detailed_info)
 	
 #
 # Populates and displayes the detailed info for a combat unit
 #
 func update_combat_unit_detail_panel(combat_unit: CombatUnit):
 	var active_ui_node = ui_node_stack.peek()
-	active_ui_node.unit = combat_unit
-	active_ui_node.update_by_unit()
-	
+	active_ui_node.set_combat_unit(combat_unit)
+	#active_ui_node.update_by_unit()
+
+func inspect_combat_unit_detail_panel():
+	var active_ui_node = ui_node_stack.peek()
+	active_ui_node.grab_inventory_focus()
+
 #
 #
 #
@@ -421,20 +442,21 @@ func hide_unit_experience_bar():
 # Calls play_audio with parameters to play the cursor, or move sound in menus
 #
 func play_cursor():
-	play_audio(cursor_sound, ui_map_audio)
+	#play_audio(cursor_sound, ui_map_audio)
+	AudioManager.play_sound_effect("menu_cursor")
 
 #
 # Calls play_audio with parameters to play the confirm sound
 #
 func play_menu_confirm():
-	play_audio(menu_confirm_sound, ui_menu_audio)
+	AudioManager.play_sound_effect("menu_confirm")
 
 #
 # Calls play_audio with parameters to play the back or cancel sound
 #
 #
 func play_menu_back():
-	play_audio(menu_back_sound, ui_menu_audio)
+	AudioManager.play_sound_effect("menu_back")
 
 #
 # Used to play audio in ui components
@@ -461,11 +483,58 @@ func create_combat_unit_discard_inventory(unit: CombatUnit, inventory: Array[Uni
 	push_ui_node_stack(discard_container)
 	discard_container.grab_focus_btn()
 
-func create_item_obtained_pop_up(item:ItemDefinition):
-	var _pop_up = COMBAT_VIEW_POP_UP.instantiate()
+##
+# @Signal, used to call the correct pop up
+##
+
+##
+#
+##
+func create_combat_view_pop_up_expended(item:ItemDefinition):
+	AudioManager.play_sound_effect("weapon_expended")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
 	await _pop_up
 	self.add_child(_pop_up)
-	_pop_up.set_item(item)
+	_pop_up.init_expended_item(item.name, item.icon)
+	_pop_up.visible = true
+	await get_tree().create_timer(1.5).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_item_broken(item:ItemDefinition):
+	AudioManager.play_sound_effect("weapon_break")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_broke_item_panel(item.name, item.icon)
+	_pop_up.visible = true
+	await get_tree().create_timer(1.5).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_item_obtained(item:ItemDefinition):
+	AudioManager.play_sound_effect("item_obtained")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_obtained_item_panel(item.name, item.icon, item.rarity.ui_color)
+	_pop_up.visible = true
+	await get_tree().create_timer(1).timeout
+	_pop_up.queue_free()
+
+##
+#
+##
+func create_combat_view_pop_up_stats_increased(item:ItemDefinition):
+	AudioManager.play_sound_effect("item_obtained")
+	var _pop_up :CombatViewPopUp = COMBAT_VIEW_POP_UP.instantiate()
+	await _pop_up
+	self.add_child(_pop_up)
+	_pop_up.init_stats_increased()
 	_pop_up.visible = true
 	await get_tree().create_timer(1).timeout
 	_pop_up.queue_free()
@@ -500,6 +569,12 @@ func display_turn_transition_scene(state:CombatMapConstants.COMBAT_MAP_STATE):
 func set_turn_count_label(turn_count):
 	level_info_container.set_turn_count_label(str(turn_count))
 
+func set_turn_count_color(current_turn, par_turns):
+	level_info_container.set_turn_count_value_color(current_turn,par_turns)
+
+func set_par_turn_value_label(par_turns):
+	level_info_container.set_turn_par_label(str(par_turns))
+
 
 func _on_battle_prep_swap_spaces() -> void:
 	combat_tile_info.visible = true
@@ -510,13 +585,17 @@ func _on_battle_prep_swap_spaces() -> void:
 func return_to_battle_prep_screen():
 	combat_tile_info.visible = false
 	level_info_container.visible = false
+	unit_status.visible = false
 	var battle_prep = get_child(-1)
+	battle_prep.previous_state = battle_prep.current_state
 	battle_prep.current_state = BattlePrep.PREP_STATE.MENU
 	battle_prep.update_by_state()
 
 
 func _on_battle_prep_begin_battle() -> void:
 	controller._on_battle_prep_start_battle()
+	#playerOverworldData.battle_prep_complete = true
+	SelectedSaveFile.save(playerOverworldData)
 	combat_tile_info.visible = true
 	level_info_container.visible = true
 

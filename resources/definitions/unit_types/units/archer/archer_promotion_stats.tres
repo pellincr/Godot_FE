@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnitStat" load_steps=2 format=3 uid="uid://b5jjkaie6a4mi"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_mkfyl"]
+
+[resource]
+script = ExtResource("1_mkfyl")
+hp = 1
+strength = 1
+skill = 2
+speed = 3
+resistance = 1

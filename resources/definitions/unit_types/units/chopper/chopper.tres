@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=10 format=3 uid="uid://c4iis1udi7kta"]
+
+[ext_resource type="Resource" uid="uid://chiumo4qk6rlt" path="res://resources/definitions/unit_types/units/chopper/chopper_base_combat_stats.tres" id="1_u8kiv"]
+[ext_resource type="Resource" uid="uid://db3vxmhxpjsoq" path="res://resources/definitions/unit_types/units/chopper/chopper_default_item_tables.tres" id="2_37vsr"]
+[ext_resource type="Resource" uid="uid://c3io265rg4lws" path="res://resources/definitions/unit_types/units/chopper/choppper_growth_stats.tres" id="3_64ckv"]
+[ext_resource type="Texture2D" uid="uid://dsuythq0uygpd" path="res://resources/sprites/units/tier1/chopper.png" id="4_vweqp"]
+[ext_resource type="Resource" uid="uid://d0kr54vapjd4c" path="res://resources/definitions/unit_types/units/chopper/chopper_max_stats.tres" id="5_8t334"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_ycgc1"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_4qiom"]
+[ext_resource type="Resource" uid="uid://d0ewglo4bmena" path="res://resources/definitions/unit_types/units/fighter/fighter.tres" id="7_i11a1"]
+[ext_resource type="Resource" uid="uid://dvwklbav4enqn" path="res://resources/definitions/unit_types/units/vandal/vandal.tres" id="8_refhm"]
+
+[resource]
+script = ExtResource("6_ycgc1")
+unit_type_name = "Chopper"
+db_key = "chopper"
+unit_rarity = ExtResource("7_4qiom")
+tier = 1
+promotion_types_available = Array[ExtResource("6_ycgc1")]([ExtResource("7_i11a1"), ExtResource("8_refhm")])
+usable_weapon_types = Array[int]([2])
+base_stats = ExtResource("1_u8kiv")
+maxuimum_stats = ExtResource("5_8t334")
+growth_stats = ExtResource("3_64ckv")
+icon = ExtResource("4_vweqp")
+map_sprite = ExtResource("4_vweqp")
+default_item_resource = ExtResource("2_37vsr")

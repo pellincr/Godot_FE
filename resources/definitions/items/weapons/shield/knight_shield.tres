@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://diojnt0oqm7x6"]
+
+[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_wr2h0"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_s6h5x"]
+[ext_resource type="Texture2D" uid="uid://o5t8l4bg15tr" path="res://resources/sprites/items/weapons/shield/knight_shield.png" id="2_wr2h0"]
+[ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_s6h5x"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_q58bw"]
+
+[sub_resource type="Resource" id="Resource_5g3cf"]
+script = ExtResource("1_wr2h0")
+speed = 3
+defense = 3
+resistance = 3
+
+[resource]
+script = ExtResource("4_q58bw")
+weapon_type = 12
+alignment = 3
+damage = 5
+weight = 14
+bonus_stat = SubResource("Resource_5g3cf")
+name = "Knight Shield"
+db_key = "knight_shield"
+equippable = true
+rarity = ExtResource("3_s6h5x")
+uses = 20
+max_uses = 20
+worth = 3500
+icon = ExtResource("2_wr2h0")

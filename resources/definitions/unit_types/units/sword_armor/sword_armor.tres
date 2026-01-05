@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=7 format=3 uid="uid://w3fe6ovr8565"]
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://w3fe6ovr8565"]
 
 [ext_resource type="Resource" uid="uid://c3nqhgjmwruws" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_base_combat_stats.tres" id="1_g5w76"]
 [ext_resource type="Resource" uid="uid://dosv7iky1mfwm" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_growth_stats.tres" id="2_ul5n3"]
 [ext_resource type="Texture2D" uid="uid://cormjc531hgl1" path="res://resources/sprites/units/sword_armor.png" id="3_1pb76"]
 [ext_resource type="Resource" uid="uid://c7pm12kuxejhd" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_max_stats.tres" id="4_nhddp"]
-[ext_resource type="Script" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_74trf"]
+[ext_resource type="Resource" uid="uid://bbypj67qdyad6" path="res://resources/definitions/unit_types/units/sword_armor/sword_armor_promotion_stats.tres" id="5_3m485"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_74trf"]
 [ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_4byi6"]
 
 [resource]
@@ -12,19 +13,15 @@ script = ExtResource("5_74trf")
 unit_type_name = "Sword Amor"
 db_key = "sword_armor"
 description = "Disciplined knights trained in the royal guard, unmatched in frontline endurance."
-initiative = 1
+name_genders = Array[int]([0, 1])
 faction = Array[int]([1])
 traits = Array[int]([0])
 unit_rarity = ExtResource("6_4byi6")
 movement_type = 1
-tier = 2
-promoted = false
-unit_promoted_from_key = ""
 usable_weapon_types = Array[int]([1])
 base_stats = ExtResource("1_g5w76")
 maxuimum_stats = ExtResource("4_nhddp")
 growth_stats = ExtResource("2_ul5n3")
+promotion_to_stats = ExtResource("5_3m485")
 icon = ExtResource("3_1pb76")
 map_sprite = ExtResource("3_1pb76")
-skills = Array[String]([])
-skilL_unlock_level = Array[int]([])

@@ -25,8 +25,14 @@ layout_mode = 1
 [node name="combat_tile_info" parent="." instance=ExtResource("3_ha77v")]
 visible = false
 layout_mode = 1
-offset_top = 43.0
-offset_bottom = -518.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1280.0
+offset_top = 82.0
+offset_right = -1030.0
+offset_bottom = 246.0
+grow_horizontal = 0
 
 [node name="Header" parent="." instance=ExtResource("11_m0dmj")]
 visible = false
@@ -43,6 +49,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 
 [node name="LevelInfoContainer" parent="." instance=ExtResource("7_vjb5m")]
+visible = false
 layout_mode = 1
+offset_right = 504.0
 
 [connection signal="finished" from="unit_experience_bar" to="." method="_on_unit_experience_bar_finished"]

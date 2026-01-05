@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=8 format=3 uid="uid://b6uvluubeedpa"]
+
+[ext_resource type="Resource" uid="uid://ddnmljs0jr8ee" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_base_combat_stats.tres" id="1_8s6lp"]
+[ext_resource type="Resource" uid="uid://kigd7k2wdmmn" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_default_item_tables.tres" id="2_p25ba"]
+[ext_resource type="Resource" uid="uid://mw4qeo1t0y28" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_growth_stats.tres" id="3_4rkey"]
+[ext_resource type="Texture2D" uid="uid://bjqpooxrd0tjk" path="res://resources/sprites/units/lance_skeleton.png" id="4_i3ev7"]
+[ext_resource type="Resource" uid="uid://d2l3mh0cu4fwq" path="res://resources/definitions/unit_types/units/lance_skeleton/lance_skeleton_max_stats.tres" id="5_0q4sd"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_a3tk1"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_ylp56"]
+
+[resource]
+script = ExtResource("6_a3tk1")
+unit_type_name = "Lance Skeleton"
+db_key = "lance_skeleton"
+faction = Array[int]([5])
+traits = Array[int]([3])
+unit_rarity = ExtResource("7_ylp56")
+usable_weapon_types = Array[int]([3])
+base_stats = ExtResource("1_8s6lp")
+maxuimum_stats = ExtResource("5_0q4sd")
+growth_stats = ExtResource("3_4rkey")
+icon = ExtResource("4_i3ev7")
+map_sprite = ExtResource("4_i3ev7")
+unlocked = false
+default_item_resource = ExtResource("2_p25ba")

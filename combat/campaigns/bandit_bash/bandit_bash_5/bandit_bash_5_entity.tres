@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=14 format=3 uid="uid://b4idmgwstjsed"]
+[gd_resource type="Resource" script_class="MapEntityGroupData" load_steps=15 format=3 uid="uid://b4idmgwstjsed"]
 
 [ext_resource type="Script" uid="uid://8cc7j8aijiqy" path="res://scripts/combat/entities/map_breakable_terrain_entity_definition.gd" id="1_onwkv"]
 [ext_resource type="Script" uid="uid://cuti71ugtexdy" path="res://scripts/combat/entities/map_chest_entity_definition.gd" id="2_ghdfw"]
@@ -33,7 +33,13 @@ script = ExtResource("7_wb4lr")
 position = Vector2i(3, 1)
 loot_table = ExtResource("8_6crke")
 
+[sub_resource type="Resource" id="Resource_ydhio"]
+script = ExtResource("7_wb4lr")
+position = Vector2i(3, 14)
+loot_table = ExtResource("8_6crke")
+metadata/_custom_type_script = "uid://jynhkl1330v2"
+
 [resource]
 script = ExtResource("6_1ifs3")
-searchs = Array[ExtResource("7_wb4lr")]([SubResource("Resource_x2qix"), SubResource("Resource_wd7hp"), SubResource("Resource_cj2li"), SubResource("Resource_jpyjd")])
+searchs = Array[ExtResource("7_wb4lr")]([SubResource("Resource_x2qix"), SubResource("Resource_wd7hp"), SubResource("Resource_cj2li"), SubResource("Resource_jpyjd"), SubResource("Resource_ydhio")])
 debris = Array[ExtResource("3_woqpd")]([SubResource("Resource_0lldd")])

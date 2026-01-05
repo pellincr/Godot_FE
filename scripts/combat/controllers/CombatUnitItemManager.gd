@@ -9,6 +9,7 @@ signal create_give_item_pop_up(item:ItemDefinition)
 signal give_item_popup_completed()
 signal create_discard_container(cu:CombatUnit, item:ItemDefinition)
 signal unit_inventory_updated(cu: CombatUnit)
+signal convoy_item(item:ItemDefinition)
 
 const POP_UP_COMPONENT = preload("res://ui/shared/pop_up/combat_view_pop_up.tscn")
 const DISCARD_ITEM_COMPONENT = preload("res://ui/combat/discard_item_inventory/discard_item_inventory.tscn")
@@ -27,14 +28,11 @@ func give_combat_unit_item(cu:CombatUnit, item:ItemDefinition):
 			create_discard_container.emit(cu, item)
 			await discard_selection_complete
 			if give_item_required:
-				cu.unit.inventory.give_item(item)
+				cu.unit.inventory.give_item(item.duplicate())
 				cu.update_inventory_stats()
 		else:
 			cu.unit.inventory.give_item(item)
 			cu.update_inventory_stats()
-
-func trade(cu1: CombatUnit, cu2:CombatUnit):
-	pass
 
 func give_item_discard_result_complete(cu: CombatUnit, item : ItemDefinition):
 	if cu.unit.inventory.has_item(item):
@@ -42,6 +40,7 @@ func give_item_discard_result_complete(cu: CombatUnit, item : ItemDefinition):
 		give_item_required = true
 	else:
 		give_item_required = false
+		convoy_item.emit(item.duplicate())
 	discard_selection_complete.emit()
 
 func generate_combat_unit_inventory_data(cu:CombatUnit) -> Array[UnitInventorySlotData]:
@@ -100,10 +99,14 @@ func use_item(user: CombatUnit, item: ItemDefinition):
 		user.update_inventory_stats()
 
 func discard_item(owner: CombatUnit, item: ItemDefinition):
+	# changed to send item to convoy
+	convoy_item.emit(item)
 	owner.unit.inventory.discard_item(item)
 	owner.update_inventory_stats()
 
 func discard_item_at_index(owner: CombatUnit, index: int):
+	# changed to send item to convoy
+	convoy_item.emit(owner.unit.inventory.get_item(index))
 	owner.unit.inventory.discard_at_index(index)
 	owner.update_inventory_stats()
 

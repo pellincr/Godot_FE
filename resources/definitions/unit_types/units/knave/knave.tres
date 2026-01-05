@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=11 format=3 uid="uid://d3yjqcqcsb6ny"]
+
+[ext_resource type="Resource" uid="uid://bwvuriuyjaewp" path="res://resources/definitions/unit_types/units/knave/knave_base_combat_stats.tres" id="1_da31p"]
+[ext_resource type="Resource" uid="uid://b60thid1qj4st" path="res://resources/definitions/unit_types/units/knave/knave_default_item_tables.tres" id="2_4wh73"]
+[ext_resource type="Resource" uid="uid://c75hdoync63e6" path="res://resources/definitions/unit_types/units/knave/knave_growth_stats.tres" id="3_xphc7"]
+[ext_resource type="Texture2D" uid="uid://ditl5j54hnppf" path="res://resources/sprites/units/tier1/knave.png" id="4_t3bqv"]
+[ext_resource type="Resource" uid="uid://cqhgxuf18lcrn" path="res://resources/definitions/unit_types/units/knave/knave_max_stats.tres" id="5_y3bnn"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="6_hamm4"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="7_pa2tc"]
+[ext_resource type="Resource" uid="uid://bxeaa4qb7n0ni" path="res://resources/definitions/unit_types/units/thief/thief.tres" id="7_x0l42"]
+[ext_resource type="Resource" uid="uid://wdv3uyvn50no" path="res://resources/definitions/unit_types/units/field_medic/field_medic.tres" id="8_oy2ml"]
+[ext_resource type="Resource" uid="uid://te15bevj6o47" path="res://resources/definitions/unit_types/units/cutthroat/cutthroat.tres" id="9_x0l42"]
+
+[resource]
+script = ExtResource("6_hamm4")
+unit_type_name = "Knave"
+db_key = "knave"
+unit_rarity = ExtResource("7_pa2tc")
+tier = 1
+promotion_types_available = Array[ExtResource("6_hamm4")]([ExtResource("7_x0l42"), ExtResource("8_oy2ml"), ExtResource("9_x0l42")])
+usable_weapon_types = Array[int]([13])
+base_stats = ExtResource("1_da31p")
+maxuimum_stats = ExtResource("5_y3bnn")
+growth_stats = ExtResource("3_xphc7")
+icon = ExtResource("4_t3bqv")
+map_sprite = ExtResource("4_t3bqv")
+default_item_resource = ExtResource("2_4wh73")

@@ -15,6 +15,7 @@ const UNIT_COMBAT_WEAPON_SELECTION_PANEL_ENEMY_THEME = preload("res://ui/combat/
 @onready var advantage_arrow: AnimatedSprite2D = $Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/HBoxContainer/AdvantageArrow
 @onready var disadvantage_arrow: AnimatedSprite2D = $Panel/MarginContainer/VBoxContainer/WeaponSelectionContainer/HBoxContainer/DisadvantageArrow
 
+@onready var unit_specials = $Panel/MarginContainer/VBoxContainer/CombatUnitSpecialContainter
 @onready var panel: Panel = $Panel
 
 @export var wpn_triangle_state : String
@@ -58,6 +59,7 @@ func update_theme():
 func update():
 	set_unit_icon(unit.unit.icon)
 	set_unit_name(unit.unit.name)
+	set_specials()
 	unit_type_trait_container.set_icon_visibility(unit.unit)
 	unit_combat_weapon.item = unit.get_equipped()
 	unit_combat_weapon.effective = effective_damage
@@ -79,3 +81,8 @@ func update_entity():
 	unit_combat_weapon.update_by_item()
 	set_toggle_button_visibility(weapon_swap_enabled)
 	update_theme()
+
+func set_specials():
+	if unit:
+		unit_specials.update_special_container(unit.unit.inventory.get_all_specials_from_inventory_and_equipped())
+		

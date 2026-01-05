@@ -146,19 +146,48 @@ func set_overall_difference(overall_diff):
 func set_overall_stat_grade_level(grade):
 	overall_stat_grade_label.text = grade
 
+func set_object_color(object, value):
+	if value  < unitConstants.LOW_STAT_LEVEL_BAR + roundi(unit.level*.4):
+		object.modulate = Color.DARK_RED
+	#elif value + unit.level < 4:
+	#	object.modulate = Color.RED
+	elif value  < unitConstants.HIGH_STAT_LEVEL_BAR + roundi(unit.level*.4):
+		object.modulate = Color.YELLOW
+	else:
+		object.modulate = Color.GREEN
+
+func set_object_color_health(object, value):
+	if value< unitConstants.LOW_HEALTH_STAT_LEVEL_BAR  + roundi(unit.level*.4) :
+		object.modulate = Color.DARK_RED
+	#elif value + unit.level < 4:
+	#	object.modulate = Color.RED
+	elif value < unitConstants.HIGH_HEALTH_STAT_LEVEL_BAR + roundi(unit.level*.4) :
+		object.modulate = Color.YELLOW
+	else:
+		object.modulate = Color.GREEN
+
+
 
 func update_all():
 	set_move(unit.stats.movement)
 	set_constitution(unit.stats.constitution)
 	
 	set_health_val(unit.stats.hp)
+	set_object_color_health(health_value_label,unit.stats.hp)
 	set_strength_val(unit.stats.strength)
+	set_object_color(strength_value_label,unit.stats.strength)
 	set_magic_val(unit.stats.magic)
+	set_object_color(magic_value_label,unit.stats.magic)
 	set_skill_val(unit.stats.skill)
+	set_object_color(skill_value_label,unit.stats.skill)
 	set_speed_val(unit.stats.speed)
+	set_object_color(speed_value_label,unit.stats.speed)
 	set_luck_val(unit.stats.luck)
+	set_object_color(luck_value_label,unit.stats.luck)
 	set_defense_val(unit.stats.defense)
+	set_object_color(defense_value_label,unit.stats.defense)
 	set_resistance_val(unit.stats.resistance)
+	set_object_color(resistance_value_label,unit.stats.resistance)
 	
 	#THIS NEEDS TO BE UPDATED WHEN THE RANDOMIZATION OF STATS IS IMPLEMENTED
 	var hp_difference = unit.unit_character.stats.hp

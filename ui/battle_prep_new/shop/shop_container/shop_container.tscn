@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgqwr0fbkpx5x"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_oo1qq"]
-[ext_resource type="Script" path="res://ui/battle_prep_new/shop/shop_container/shop_container.gd" id="2_4kdwl"]
+[ext_resource type="Theme" uid="uid://2cm5c6rr2im7" path="res://ui/battle_prep_new/unit_detailed_info/unit_detailed_info.tres" id="1_oo1qq"]
+[ext_resource type="Script" uid="uid://jfks86cves62" path="res://ui/battle_prep_new/shop/shop_container/shop_container.gd" id="2_4kdwl"]
 [ext_resource type="PackedScene" uid="uid://bp0ajjfrcs2dv" path="res://ui/battle_prep_new/shop/shop_container/tab_icon/tab_icon.tscn" id="3_mn3eq"]
 
 [node name="ShopContainer" type="VBoxContainer"]

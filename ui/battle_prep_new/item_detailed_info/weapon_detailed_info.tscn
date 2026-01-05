@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://uij42thge1m2"]
+[gd_scene load_steps=11 format=3 uid="uid://uij42thge1m2"]
 
-[ext_resource type="Theme" uid="uid://cypnnlojt3rfg" path="res://ui/battle_preparation/unit_detailed_info/unit_detailed_info.tres" id="1_ccack"]
+[ext_resource type="Theme" uid="uid://c4lkfm562pmc7" path="res://resources/themes/StandardTheme.tres" id="1_bgdbb"]
 [ext_resource type="Script" uid="uid://d1n5jle7lq5bi" path="res://ui/battle_prep_new/item_detailed_info/weapon_detailed_info.gd" id="2_0w8q6"]
-[ext_resource type="PackedScene" uid="uid://cvigt8uh757tm" path="res://ui/battle_preparation/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
+[ext_resource type="FontFile" uid="uid://dr2pggbgbnye0" path="res://resources/fonts/m6x11.ttf" id="3_2jgc7"]
+[ext_resource type="PackedScene" uid="uid://dfaqp8a7p4td4" path="res://ui/battle_prep_new/unit_detailed_info/weapon_icon_container.tscn" id="3_xvemf"]
 [ext_resource type="PackedScene" uid="uid://bcteldqbxn7l0" path="res://ui/battle_prep_new/item_detailed_info/weapon_stat_container.tscn" id="4_6v2xw"]
 [ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="4_644mu"]
-[ext_resource type="Texture2D" uid="uid://2fn3ipsn7s7f" path="res://resources/sprites/items/weapons/lance/iron_lance.tres" id="5_4kelt"]
+[ext_resource type="Texture2D" uid="uid://1jkxdw7s4ay2" path="res://resources/sprites/items/weapons/swords/claymore.png" id="7_vka8p"]
 
 [sub_resource type="Theme" id="Theme_trk22"]
 default_font_size = 36
@@ -22,11 +23,11 @@ layout_direction = 2
 offset_top = 1.0
 offset_right = 250.0
 offset_bottom = 461.0
-theme = ExtResource("1_ccack")
+theme = ExtResource("1_bgdbb")
 script = ExtResource("2_0w8q6")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 251.0
@@ -37,13 +38,16 @@ theme_override_constants/margin_right = 14
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 
 [node name="ItemNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme = SubResource("Theme_trk22")
+theme_override_fonts/font = ExtResource("3_2jgc7")
+theme_override_font_sizes/font_size = 32
 text = "Item Name"
+vertical_alignment = 1
 
 [node name="ItemTypeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -51,6 +55,7 @@ theme = SubResource("Theme_wgwh4")
 
 [node name="ItemTypeHeader" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Item Type"
 
 [node name="-" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
@@ -59,9 +64,11 @@ text = "-"
 
 [node name="ItemType" type="Label" parent="MarginContainer/VBoxContainer/ItemTypeContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 text = "Item type"
 
 [node name="FullWeaponIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MainWeaponIconContainer" parent="MarginContainer/VBoxContainer/FullWeaponIconContainer" instance=ExtResource("3_xvemf")]
@@ -83,6 +90,7 @@ custom_minimum_size = Vector2(221, 72)
 layout_mode = 2
 size_flags_horizontal = 0
 theme = SubResource("Theme_6j0ny")
+theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("4_644mu")
 theme_override_font_sizes/font_size = 16
 text = "Example description goes here, this box should be able to wrap and hold a fair amount of text for all differnt item types. If this text is being shown, there is an error."
@@ -94,12 +102,12 @@ layout_mode = 2
 
 [node name="ItemIcon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
+layout_mode = 0
 offset_left = 174.0
 offset_top = 43.0
 offset_right = 238.0
 offset_bottom = 107.0
-texture = ExtResource("5_4kelt")
+texture = ExtResource("7_vka8p")
 
 [node name="PriceLabel" type="Label" parent="ItemIcon"]
 modulate = Color(0.899619, 0.69149, 0, 1)
@@ -111,5 +119,7 @@ offset_top = -15.0
 offset_right = 58.0
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_2jgc7")
 text = "50G"
+horizontal_alignment = 2

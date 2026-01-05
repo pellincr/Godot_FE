@@ -14,13 +14,71 @@ extends Control
 
 @onready var playerOverworldData:PlayerOverworldData = ResourceLoader.load(SelectedSaveFile.selected_save_path + "PlayerOverworldSave.tres").duplicate(true)
 
+const MAIN_PAUSE_MENU_SCENE = preload("res://ui/main_pause_menu/main_pause_menu.tscn")
+const CAMPAIGN_INFORMATION_SCENE = preload("res://ui/shared/campaign_information/campaign_information.tscn")
 const scene_transition_scene = preload("res://scene_transitions/SceneTransitionAnimation.tscn")
 const treasure_blacklist = ["iron_sword","iron_axe","iron_lance","iron_bow","iron_fist","minor_heal", "shade","smite", "fire_spell","iron_shield","iron_dagger"]
+
+enum MENU_STATE{
+	NONE, PAUSE, CAMPAIGN_INFO
+}
+
+var current_menu_state = MENU_STATE.NONE
 
 func _ready():
 	transition_in_animation()
 	treasure_button_1.grab_focus()
 	set_all_buttons()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		match current_menu_state:
+			MENU_STATE.NONE:
+				set_menu_state(MENU_STATE.PAUSE)
+			MENU_STATE.PAUSE:
+				set_menu_state(MENU_STATE.NONE)
+			MENU_STATE.CAMPAIGN_INFO:
+				set_menu_state(MENU_STATE.NONE)
+	if event.is_action_pressed("campaign_information"):
+		if current_menu_state == MENU_STATE.NONE:
+			set_menu_state(MENU_STATE.CAMPAIGN_INFO)
+
+func set_menu_state(m_state:MENU_STATE):
+	current_menu_state = m_state
+	update_by_menu_state()
+
+func _on_menu_closed():
+	set_menu_state(MENU_STATE.NONE)
+
+
+func update_by_menu_state():
+	match current_menu_state:
+			MENU_STATE.NONE:
+				get_child(-1).queue_free()
+				enable_focus()
+				treasure_button_1.grab_focus()
+			MENU_STATE.PAUSE:
+				var main_pause_menu = MAIN_PAUSE_MENU_SCENE.instantiate()
+				add_child(main_pause_menu)
+				main_pause_menu.menu_closed.connect(_on_menu_closed)
+				disable_focus()
+			MENU_STATE.CAMPAIGN_INFO:
+				var campaign_info = CAMPAIGN_INFORMATION_SCENE.instantiate()
+				campaign_info.set_po_data(playerOverworldData)
+				campaign_info.current_availabilty = CampaignInformation.AVAILABILITY_STATE.FULL_AVAILABLE
+				add_child(campaign_info)
+				campaign_info.menu_closed.connect(_on_menu_closed)
+				disable_focus()
+
+func enable_focus():
+	treasure_button_1.focus_mode = FOCUS_ALL
+	treasure_button_2.focus_mode = FOCUS_ALL
+	treasure_button_3.focus_mode = FOCUS_ALL
+
+func disable_focus():
+	treasure_button_1.focus_mode = FOCUS_NONE
+	treasure_button_2.focus_mode = FOCUS_NONE
+	treasure_button_3.focus_mode = FOCUS_NONE
 
 #
 # Plays the transition animation on combat map begin
@@ -101,6 +159,7 @@ func _on_treasure_selected(item):
 	transition_out_animation()
 	var campaign_map_scene = preload("res://campaign_map/campaign_map.tscn")
 	get_tree().change_scene_to_file("res://campaign_map/campaign_map.tscn")
+
 
 
 func _on_leave_button_pressed():

@@ -4,8 +4,8 @@ signal return_to_menu()
 signal unit_selected(unit:Unit)
 #signal unit_deselected(unit:Unit)
 
-@onready var army_container: HBoxContainer = $VBoxContainer/ArmyContainer
-@onready var selection_effect: RichTextLabel = $VBoxContainer/SelectionEffect
+@onready var army_container: HBoxContainer = $MarginContainer/VBoxContainer/ArmyContainer
+@onready var selection_effect: RichTextLabel = $MarginContainer/VBoxContainer/SelectionEffect
 @onready var background: TextureRect = $background
 
 var description : String 
@@ -15,8 +15,9 @@ var event_selection_requirements #TO BE IMPL
 
 func _ready() -> void:
 	#SelectedSaveFile.save(playerOverworldData)
-	army_container.unit_selection = true
+	army_container.unit_selection = false
 	army_container.set_po_data(playerOverworldData)
+	army_container.set_units_list(playerOverworldData.total_party)
 	army_container.fill_army_scroll_container()
 	army_container.connect("unit_panel_pressed",_on_army_scroll_container_unit_panel_pressed)
 	selection_effect.text = description

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="UnitTypeDefinition" load_steps=9 format=3 uid="uid://ob1s6tdmj477"]
+
+[ext_resource type="Resource" uid="uid://d11dvajmo8ehk" path="res://resources/definitions/unit_types/units/bulwark/bulwark_base_combat_stats.tres" id="1_7el81"]
+[ext_resource type="Resource" uid="uid://p3j6pn74gs0b" path="res://resources/definitions/unit_types/units/bulwark/bulwark_growth_stats.tres" id="2_15nkx"]
+[ext_resource type="Resource" uid="uid://0usbkxlhlc80" path="res://resources/definitions/unit_types/units/bulwark/bulwark_default_item_tables.tres" id="2_r6ymt"]
+[ext_resource type="Texture2D" uid="uid://bs2f3gk3mn2kq" path="res://resources/sprites/units/Bulwark.png" id="4_nplxm"]
+[ext_resource type="Resource" uid="uid://c7nlefb8igvi7" path="res://resources/definitions/unit_types/units/bulwark/bulwark_max_stats.tres" id="4_rsqp8"]
+[ext_resource type="Script" uid="uid://ryuhan5vyivg" path="res://scripts/resources/unit_type/UnitTypeDefinition.gd" id="5_nplxm"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="6_lrf5s"]
+[ext_resource type="Resource" uid="uid://des27x1oxeiih" path="res://resources/definitions/unit_types/units/bulwark/bulwark_promotion_stats.tres" id="6_r6ymt"]
+
+[resource]
+script = ExtResource("5_nplxm")
+unit_type_name = "Bulwark"
+db_key = "bulwark"
+description = "A fortress of flesh and iron, impenetrable to steel yet frail before the arcane."
+name_genders = Array[int]([0, 1])
+faction = Array[int]([1])
+traits = Array[int]([0])
+unit_rarity = ExtResource("6_lrf5s")
+movement_type = 1
+usable_weapon_types = Array[int]([12])
+base_stats = ExtResource("1_7el81")
+maxuimum_stats = ExtResource("4_rsqp8")
+growth_stats = ExtResource("2_15nkx")
+promotion_to_stats = ExtResource("6_r6ymt")
+icon = ExtResource("4_nplxm")
+map_sprite = ExtResource("4_nplxm")
+default_item_resource = ExtResource("2_r6ymt")

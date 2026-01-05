@@ -112,10 +112,6 @@ func get_trait_icon(unit_trait : unitConstants.TRAITS):
 			return mounted_icon
 		unitConstants.TRAITS.FLIER:
 			return flyer_icon
-		unitConstants.TRAITS.LOCKPICK:
-			pass
-		unitConstants.TRAITS.MOBILE:
-			return mobile_icon
 
 
 func update_by_rarity(rarity:Rarity):

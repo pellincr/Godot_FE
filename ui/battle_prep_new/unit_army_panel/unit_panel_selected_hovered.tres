@@ -1,6 +1,16 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ba5b4xeniri1a"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://ba5b4xeniri1a"]
 
-[ext_resource type="FontFile" uid="uid://cicppa12acwpw" path="res://resources/fonts/alagard.ttf" id="1_1wtbp"]
+[ext_resource type="FontFile" uid="uid://bukl6c1gyp51f" path="res://resources/fonts/m5x7.ttf" id="1_6l75o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6l75o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1b34"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8k1y5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s0j64"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cwua5"]
 
 [sub_resource type="Gradient" id="Gradient_sur73"]
 offsets = PackedFloat32Array(0, 0.145749, 1)
@@ -20,6 +30,12 @@ border_width_right = 4
 border_width_bottom = 4
 
 [resource]
-default_font = ExtResource("1_1wtbp")
+default_font = ExtResource("1_6l75o")
+default_font_size = 32
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_6l75o")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_s1b34")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_8k1y5")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_s0j64")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_cwua5")
 Panel/styles/panel = SubResource("StyleBoxTexture_kh28c")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_bbyrm")

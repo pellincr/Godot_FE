@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=8 format=3 uid="uid://cy3m2nf7cxgul"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_4o6k3"]
+[ext_resource type="Texture2D" uid="uid://ca8wqfnyhqbaw" path="res://resources/sprites/items/equipment/cleansed_goblet.png" id="2_uhcht"]
+[ext_resource type="Script" uid="uid://vapttex4fj3j" path="res://scripts/Unit/combat_unit_stat.gd" id="3_mp4ie"]
+[ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="5_ig2o7"]
+[ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="6_ta0qb"]
+
+[sub_resource type="Resource" id="Resource_uhcht"]
+script = ExtResource("1_4o6k3")
+special = 29
+effect_weight = 20
+effect_type = 1
+metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
+
+[sub_resource type="Resource" id="Resource_4o6k3"]
+script = ExtResource("3_mp4ie")
+luck = 4
+metadata/_custom_type_script = "uid://vapttex4fj3j"
+
+[resource]
+script = ExtResource("6_ta0qb")
+name = "Cleansed Goblet"
+db_key = "cleansed_goblet"
+description = "A once-cursed chalice, now purified, thought to bring fortune to its bearer."
+item_type = 3
+rarity = ExtResource("5_ig2o7")
+worth = 3400
+inventory_bonus_stats = SubResource("Resource_4o6k3")
+held_specials = Array[ExtResource("1_4o6k3")]([SubResource("Resource_uhcht")])
+icon = ExtResource("2_uhcht")
