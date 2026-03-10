@@ -14,11 +14,11 @@ func random_rolls_bool(chance: int, number_of_rolls : int, threshold: int = 100)
 
 #
 # Converts string into Vector2i
-#
-func vector2i(string : String) -> Vector2i: #(0, 0) RE-WORK THIS TO HAVE ERROR CATCHING
-	string.replace("(", "")
-	string.replace(")", "")
-	var arr = string.split(",")
+#@input String : (x,y)
+#@output Vector2i x,y
+func toVector2i(string : String) -> Vector2i: #(0, 0)
+	var modifiedString = string.replace("(", "")
+	var arr = modifiedString.split(",")
 	return Vector2i(int(arr[0]), int(arr[1]))
 
 ##Checks if strings are equal ignoring thier case
@@ -122,11 +122,12 @@ func sort_item(a:ItemDefinition, b:ItemDefinition):
 	if a.rarity != b.rarity:
 		return sort_by_rarity(a.rarity, b.rarity)
 	# Check Name
-	elif a.name != a.name:
-		return sort_name 
+	elif a.name != b.name:
+		return sort_name(a.name,b.name)
 	# Check Value
 	elif a.calculate_price() != b.calculate_price():
 		return a.calculate_price() < b.calculate_price()
+	return false
 
 func sort_item_by_rarity(a:ItemDefinition, b:ItemDefinition):
 	return sort_by_rarity(a.rarity, b.rarity)
@@ -134,7 +135,7 @@ func sort_item_by_rarity(a:ItemDefinition, b:ItemDefinition):
 func sort_by_rarity(a: Rarity, b : Rarity):
 	return a.sort_score < b.sort_score
 
-func sort_name(a:String, b: String):
+func sort_name(a:String, b: String) -> bool:
 	return a < b
 
 func sort_aiAction(a: aiAction, b:aiAction):

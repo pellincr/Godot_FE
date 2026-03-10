@@ -1575,7 +1575,6 @@ func combatExchangeComplete(friendly_unit_alive: bool) -> void:
 ## Handles unit's major action completion.
 func major_action_complete() -> void:
 	var current_unit: CombatUnit = get_current_combatant()
-	current_unit.minor_action_taken = true
 	current_unit.turn_taken = true
 	current_unit.minor_action_taken = true
 	current_unit.update_display()

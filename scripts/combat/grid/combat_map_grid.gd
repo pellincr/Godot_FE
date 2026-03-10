@@ -166,7 +166,7 @@ func is_position_occupied_by_enemy_faction(position:Vector2i, faction:int) -> bo
 func update_astar_points(combatUnit: CombatUnit):
 	for key : String in game_map.keys():
 		var entry : CombatMapTile = game_map[key]
-		var tile = CustomUtilityLibrary.vector2i(key)
+		var tile = CustomUtilityLibrary.toVector2i(key)
 		if _astargrid.is_in_boundsv(tile):
 			_astargrid.set_point_solid(tile, false)
 			_astargrid.set_point_weight_scale(tile, get_tile_cost(tile, combatUnit.unit.movement_type))

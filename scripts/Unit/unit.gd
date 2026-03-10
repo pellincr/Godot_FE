@@ -467,7 +467,7 @@ func get_usable_weapons_at_ranges(ranges: Array[int]) -> Array[WeaponDefinition]
 	var inventoryWeaponList : Array[WeaponDefinition] = inventory.get_weapons_with_range(ranges)
 	var usable_weapons : Array[WeaponDefinition] = []
 	for weapon in inventoryWeaponList:
-		if !can_equip(weapon):
+		if can_equip(weapon):
 			usable_weapons.append(weapon)
 	return usable_weapons
 

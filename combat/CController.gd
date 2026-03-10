@@ -181,17 +181,17 @@ func _process(delta):
 						if not _enemy_units_turn_taken:
 							ai_turn()
 						else :
-							print("moved to enemy end phase")
+							#print("moved to enemy end phase")
 							update_turn_phase(CombatMapConstants.TURN_PHASE.ENDING_PHASE)
 					#DO PLAYER ACTION PROCESS HERE, WE GIVE PLAYER CONTROL
 			elif(turn_phase == CombatMapConstants.TURN_PHASE.ENDING_PHASE):
 				if game_state == CombatMapConstants.COMBAT_MAP_STATE.PLAYER_TURN : 
 					update_game_state(CombatMapConstants.COMBAT_MAP_STATE.TURN_TRANSITION)
 				elif game_state == CombatMapConstants.COMBAT_MAP_STATE.AI_TURN :
-					print("Enemy Ended Turn")
+					#print("Enemy Ended Turn")
 					_in_ai_process = false
 					_enemy_units_turn_taken = false
-					print("Triggered Reinforcements")
+					#print("Triggered Reinforcements")
 					trigger_reinforcements()
 		elif(game_state == CombatMapConstants.COMBAT_MAP_STATE.BATTLE_PREPARATION):
 			player_prep_process(delta)

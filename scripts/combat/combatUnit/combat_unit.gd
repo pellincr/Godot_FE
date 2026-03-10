@@ -115,11 +115,10 @@ func update_inventory_stats():
 	#stats.populate_inventory_stats(self)
 
 func un_equip_current_weapon():
-	if get_equipped != null:
+	if get_equipped() != null:
 		unit.inventory.equipped = false
 		unit.update_stats()
 		update_unit_stats()
-		#stats.populate_weapon_stats(self, null)
 
 func update_display():
 	if map_display != null:
