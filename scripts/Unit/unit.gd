@@ -50,6 +50,7 @@ class_name Unit
 
 @export_group("Combat Stats")
 @export var hp : int
+@export var armor : int
 @export var attack : int
 @export var hit : int
 @export var avoid : int

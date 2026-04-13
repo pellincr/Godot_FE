@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_8rg1s"]
 [ext_resource type="Texture2D" uid="uid://d2bynq7apdoay" path="res://resources/sprites/items/weapons/shield/buckler.png" id="1_ewuvi"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_522gm"]
-[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_nml3b"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_nml3b"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_tgg5h"]
 
 [sub_resource type="Resource" id="Resource_7reny"]
@@ -15,15 +15,39 @@ resistance = 2
 [resource]
 script = ExtResource("2_522gm")
 weapon_type = 12
-alignment = 3
-damage = 2
 weight = 8
+support_type = null
+item_damage_type = null
+item_scaling_type = null
+item_scaling_multiplier = null
+item_target_faction = null
+class_lock = null
+damage = 2
+hit = null
+critical_chance = null
+critical_multiplier = null
+attacks_per_combat_turn = null
+attack_range = null
 bonus_stat = SubResource("Resource_7reny")
+weapon_effectiveness_trait = null
+weapon_effectiveness_weapon_type = null
+status_ailment = null
+equipped_specials = null
 name = "Buckler"
 db_key = "buckler"
 equippable = true
+description = null
+item_type = null
 rarity = ExtResource("3_tgg5h")
 uses = 20
 max_uses = 20
+unbreakable = null
+has_expended_state = null
+refreshes_after_combat = null
+refresh_weight = null
 worth = 1200
+unsellable = null
+price = null
+held_specials = null
+unlocked = null
 icon = ExtResource("1_ewuvi")

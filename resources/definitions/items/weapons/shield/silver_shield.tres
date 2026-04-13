@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_ky2q4"]
 [ext_resource type="Texture2D" uid="uid://c03gmahxq8fnl" path="res://resources/sprites/items/weapons/shield/silver_shield.png" id="2_nxm05"]
-[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_ph7hw"]
 [ext_resource type="Resource" uid="uid://bkum8s41x2au5" path="res://resources/definitions/rarity/Rare.tres" id="3_4dcne"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_aqgsm"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_ph7hw"]
 
 [sub_resource type="Resource" id="Resource_fb5s5"]
 script = ExtResource("1_ky2q4")
@@ -14,16 +14,39 @@ resistance = 1
 [resource]
 script = ExtResource("3_aqgsm")
 weapon_type = 12
-alignment = 3
-damage = 5
-critical_chance = 10
 weight = 20
+support_type = null
+item_damage_type = null
+item_scaling_type = null
+item_scaling_multiplier = null
+item_target_faction = null
+class_lock = null
+damage = 5
+hit = null
+critical_chance = 10
+critical_multiplier = null
+attacks_per_combat_turn = null
+attack_range = null
 bonus_stat = SubResource("Resource_fb5s5")
+weapon_effectiveness_trait = null
+weapon_effectiveness_weapon_type = null
+status_ailment = null
+equipped_specials = null
 name = "Silver Shield"
 db_key = "silver_shield"
 equippable = true
+description = null
+item_type = null
 rarity = ExtResource("3_4dcne")
 uses = 8
 max_uses = 8
+unbreakable = null
+has_expended_state = null
+refreshes_after_combat = null
+refresh_weight = null
 worth = 2500
+unsellable = null
+price = null
+held_specials = null
+unlocked = null
 icon = ExtResource("2_nxm05")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=6 format=3 uid="uid://dx371xef2mx4i"]
 
-[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_nu1h0"]
 [ext_resource type="Texture2D" uid="uid://bxbmyi1gghpiw" path="res://resources/sprites/sheets/items.png" id="1_y6iis"]
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_nu1h0"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="2_p8t3m"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_ycb2s"]
 
@@ -12,17 +12,38 @@ region = Rect2(64, 96, 32, 32)
 [resource]
 script = ExtResource("2_ycb2s")
 weapon_type = 2
-physical_weapon_triangle_type = 2
-required_mastery = 2
+weight = 15
+support_type = null
+item_damage_type = null
+item_scaling_type = null
+item_scaling_multiplier = null
+item_target_faction = null
+class_lock = null
 damage = 10
 hit = 80
-weight = 15
+critical_chance = null
+critical_multiplier = null
+attacks_per_combat_turn = null
+attack_range = null
 weapon_effectiveness_trait = Array[int]([1])
+weapon_effectiveness_weapon_type = null
+status_ailment = null
+equipped_specials = null
 name = "Halberd"
 db_key = "halberd"
 equippable = true
+description = null
+item_type = null
 rarity = ExtResource("2_p8t3m")
 uses = 18
 max_uses = 18
+unbreakable = null
+has_expended_state = null
+refreshes_after_combat = null
+refresh_weight = null
 worth = 2000
+unsellable = null
+price = null
+held_specials = null
+unlocked = null
 icon = SubResource("AtlasTexture_kscmt")

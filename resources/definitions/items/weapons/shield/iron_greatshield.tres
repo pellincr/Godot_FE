@@ -13,9 +13,9 @@ defense = 3
 [resource]
 script = ExtResource("4_tvxj6")
 weapon_type = 12
-alignment = 3
+profile = 1
+usability = Array[int]([0, 1])
 damage = 1
-weight = 12
 bonus_stat = SubResource("Resource_qdqgw")
 name = "Iron Greatshield"
 db_key = "iron_greatshield"

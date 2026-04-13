@@ -174,43 +174,16 @@ enum CONSUMABLE_USE_EFFECT {
 	KEY = 5,
 }
 
+
+## Weapon Profile categories for combat exchanges.
+##
+enum PROFILE {
+	NIMBLE,
+	BALANCED,
+	POWER,
+	NONE
+}
+
 # ==============================================================================
 # Deprecated / Unused Enums
 # ==============================================================================
-
-## Weapon mastery rank requirements.
-##
-## @deprecated: This enum is not currently in use. Evaluate for removal.
-## @todo: TOD-001 - Remove if permanently unused.
-enum MASTERY_REQUIREMENT {
-	## Rank E - Lowest mastery level.
-	E = 0,
-	## Rank D.
-	D = 1,
-	## Rank C.
-	C = 2,
-	## Rank B.
-	B = 3,
-	## Rank A.
-	A = 4,
-	## Rank S - Highest mastery level.
-	S = 5,
-}
-
-
-## Item alignment categories for combat exchanges.
-##
-## @deprecated: This system has been deprovisioned. Evaluate for removal.
-## @todo: TOD-002 - Remove if permanently deprovisioned.
-enum ALIGNMENT {
-	## Mundane physical alignment.
-	MUNDANE = 0,
-	## Agility-focused alignment.
-	NIMBLE = 1,
-	## Magic-focused alignment.
-	MAGIC = 2,
-	## Defense-focused alignment.
-	DEFENSIVE = 3,
-	## No alignment assigned.
-	NONE = 4,
-}

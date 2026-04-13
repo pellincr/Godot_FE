@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dlwke1j3ebs74" path="res://resources/sprites/icons/effective_indicator_icon.png" id="4_v0tcl"]
 [ext_resource type="Texture2D" uid="uid://dw12t6fl2b4lx" path="res://resources/sprites/icons/range_indicator_icon.png" id="5_3gj1x"]
 [ext_resource type="Texture2D" uid="uid://bvq4waceawoy5" path="res://resources/sprites/icons/weapon_icons/lance_icon.png" id="5_uqo4k"]
-[ext_resource type="Script" uid="uid://s6od5fcbiqvf" path="res://ui/healthbar.gd" id="6_13a20"]
+[ext_resource type="Script" uid="uid://c1oyoo4hrkwve" path="res://ui/healthbar.gd" id="6_13a20"]
 [ext_resource type="Texture2D" uid="uid://xb1okf8u8p5q" path="res://resources/sprites/icons/unit_action_icons/inventory_icon.png" id="7_u1d3e"]
 [ext_resource type="Texture2D" uid="uid://rdgquuhqygmo" path="res://resources/sprites/icons/boss_icon.png" id="7_uv63t"]
 
@@ -19,7 +19,7 @@ shader_parameter/color_factor = 1.0
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o7by"]
-bg_color = Color(0.201527, 0.201527, 0.201527, 1)
+bg_color = Color(0.2, 0.2, 0.2, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -27,7 +27,7 @@ border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tesjc"]
-bg_color = Color(4.52429e-06, 0.700928, 0.572457, 1)
+bg_color = Color(9.62615e-07, 0.77458495, 0.5533176, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -93,7 +93,6 @@ texture = ExtResource("7_u1d3e")
 stretch_mode = 3
 
 [node name="Healthbar" type="ProgressBar" parent="."]
-visible = false
 layout_mode = 0
 offset_left = -16.0
 offset_top = 12.0
@@ -101,6 +100,6 @@ offset_right = 16.0
 offset_bottom = 16.0
 theme = SubResource("Theme_h8nj1")
 step = 1.0
-value = 55.0
+value = 100.0
 show_percentage = false
 script = ExtResource("6_13a20")

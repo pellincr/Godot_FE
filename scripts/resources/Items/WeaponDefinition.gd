@@ -44,6 +44,20 @@ enum SUPPORT_TYPES {
 	#TODO implement buff
 }
 
+## Defines the equipable locations of a weapon
+enum EQUIP_SLOT {
+	MAIN_HAND,
+	OFF_HAND,
+	VERSATILE, #both
+	NONE #should not be used
+}
+
+## Defines the equipable locations of a weapon
+enum USE_TYPE {
+	ATTACK,
+	SUPPORT
+}
+
 # ==============================================================================
 # Constants
 # ==============================================================================
@@ -63,6 +77,9 @@ const DEFAULT_ATTACKS_PER_TURN: int = 1
 ## Default target faction in this case others
 const DEFAULT_TARGETS: ItemConstants.AVAILABLE_TARGETS = 0
 
+## Default target faction in this case others
+const DEFAULT_USE_TYPE: WeaponDefinition.USE_TYPE = WeaponDefinition.USE_TYPE.ATTACK
+
 ## Default scaling multiplier for weapons
 const DEFAULT_SCALING_MULTIPLIER: float = 1.0
 
@@ -72,21 +89,17 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 # ==============================================================================
 # Exported Variables - Weapon Type
 # ==============================================================================
-@export_group("Weapon Type")
+@export_group("Weapon Information")
 ## The category of weapon (sword, axe, lance, etc.).
 @export var weapon_type : ItemConstants.WEAPON_TYPE
 
-## The alignment of the weapon.
-## @deprecated: No longer used in combat calculations.
-@export var alignment: ItemConstants.ALIGNMENT
+## The profile of the weapon.
+@export var profile: ItemConstants.PROFILE
 
-## The physical weapon triangle type for mundane weapons.
-@export var physical_weapon_triangle_type: ItemConstants.MUNDANE_WEAPON_TRIANGLE
+## Weight of the weapon, affects attack speed.
+@export_range(0, 30, 1, "or_greater") var weight: int = DEFAULT_WEIGHT
 
-## The magical weapon triangle type for magic weapons.
-@export var magic_weapon_triangle_type: ItemConstants.MAGICAL_WEAPON_TRIANGLE
-
-## The support action this weapon can perform.
+## The support action this weapon can perform. TODO move this elsewhere
 @export var support_type: SUPPORT_TYPES = SUPPORT_TYPES.NONE
 
 ## The type of damage this weapon deals (physical, magical, etc.).
@@ -107,18 +120,16 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 
 @export_group("Weapon Requirements")
 
-## Minimum weapon mastery rank required to wield this weapon. #TODO IMPLEMENT THESE CHANGES
-@export var required_mastery: ItemConstants.MASTERY_REQUIREMENT = ItemConstants.MASTERY_REQUIREMENT.E
-
 ## Class name that can exclusively use this weapon. Empty string means no restriction.
 @export var class_lock: String = ""
 
+@export var equip_slot : Array [EQUIP_SLOT] = []
 
 # ==============================================================================
 # Exported Variables - Combat Stats
 # ==============================================================================
 
-@export_group("Combat Stats")
+@export_group("Main Hand Stats")
 
 ## Base damage dealt by this weapon.
 @export_range(0, 30, 1, "or_greater") var damage: int = 0
@@ -129,8 +140,7 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 ## Base critical hit chance percentage.
 @export_range(0, 30, 1, "or_greater") var critical_chance: int = 0
 
-## Weight of the weapon, affects attack speed.
-@export_range(0, 30, 1, "or_greater") var weight: int = DEFAULT_WEIGHT
+
 
 ## Damage multiplier applied on critical hits.
 @export var critical_multiplier: float = DEFAULT_CRITICAL_MULTIPLIER
@@ -141,12 +151,18 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 ## Valid attack ranges for this weapon (1 = adjacent, 2 = one tile away, etc.).
 @export_range(0, 30, 1) var attack_range: Array[int] = [1]
 
+@export var use_type: int = DEFAULT_USE_TYPE
 
-# ==============================================================================
-# Exported Variables - Weapon Specials
-# ==============================================================================
+@export_subgroup("Block")
 
-@export_group("Weapon Specials")
+## Block on 
+@export var block_beginning_of_turn : int = 0
+## Block on 
+@export var block_end_of_turn : int = 0
+## Block on 
+@export var block_before_combat_exchange : int = 0
+## Block on 
+@export var block_after_combat_exchange : int = 0
 
 @export_subgroup("Bonus Stats on Equip")
 
@@ -163,16 +179,57 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 
 @export_subgroup("Misc. Specials")
 
-## Status ailment inflicted on hit (used by staves and special weapons).
+## Status ailment inflicted on hit (used by staves and special weapons). #TODO IMPLEMENT THIS
 @export var status_ailment: EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE
-
-## Built-in special effects for this weapon.
-## @deprecated: No longer in use, use special efects instead.
-@export var specials: Array[WEAPON_SPECIALS] = []
 
 ## Custom special effect resources activated while equipped.
 @export var equipped_specials: Array[SpecialEffect] = []
 
-## Experience multiplier for combat with this weapon.
-## Values greater than 1.0 grant bonus experience.
-@export var experience_modifier: float = DEFAULT_EXPERIENCE_MULTIPLIER #TODO IMPLEMENT THIS MODIFIER
+@export_group("Off Hand Stats")
+
+## Base damage dealt by this weapon.
+@export_range(0, 30, 1, "or_greater") var offhand_damage: int = 0
+
+## Base hit chance percentage.
+@export_range(0, 100, 1, "or_greater") var offhand_hit: int = 0
+
+## Base critical hit chance percentage.
+@export_range(0, 30, 1, "or_greater") var offhand_critical_chance: int = 0
+
+## Damage multiplier applied on critical hits.
+@export var offhand_critical_multiplier: float = 0
+
+## Number of attacks this weapon performs per combat turn.
+@export var offhand_attacks_per_combat_turn: int = 0
+
+@export_subgroup("Block")
+
+## Block on 
+@export var offhand_block_beginning_of_turn : int = 0
+## Block on 
+@export var offhand_block_end_of_turn : int = 0
+## Block on 
+@export var offhand_block_before_combat_exchange : int = 0
+## Block on 
+@export var offhand_block_after_combat_exchange : int = 0
+
+@export_subgroup("Bonus Stats on Equip")
+
+## Stat bonuses applied while this weapon is equipped.
+@export var offhand_bonus_stat: UnitStat = UnitStat.new()
+
+@export_subgroup("Weapon Effectiveness")
+
+## Unit traits this weapon deals bonus damage against.
+@export var offhand_weapon_effectiveness_trait: Array[unitConstants.TRAITS] = []
+
+## Weapon types this weapon deals bonus damage against.
+@export var offhand_weapon_effectiveness_weapon_type: Array[ItemConstants.WEAPON_TYPE] = []
+
+@export_subgroup("Misc. Specials")
+
+## Status ailment inflicted on hit (used by staves and special weapons). #TODO IMPLEMENT THIS
+@export var offhand_status_ailment: EffectConstants.EFFECT_TYPE = EffectConstants.EFFECT_TYPE.NONE
+
+## Custom special effect resources activated while equipped.
+@export var offhand_equipped_specials: Array[SpecialEffect] = []
