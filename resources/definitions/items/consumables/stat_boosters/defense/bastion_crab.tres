@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConsumableItemDefinition" load_steps=8 format=3 uid="uid://bsoobdnbhhpvl"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_p1xko"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_p1xko"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_gs5w3"]
 [ext_resource type="Texture2D" uid="uid://dymgobqygpppw" path="res://resources/sprites/items/consumables/stat_boosters/defense/bastion_crab.png" id="2_m3d0a"]
 [ext_resource type="Resource" uid="uid://cnsl1std6fasn" path="res://resources/definitions/rarity/Uncommon.tres" id="3_gs5w3"]

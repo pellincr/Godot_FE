@@ -37,10 +37,12 @@ enum WEAPON_SPECIALS
 	HEAL_ON_COMBAT_END,
 	DEVIL_REVERSAL
 }
-## Defines the support action type, NONE is default
-enum SUPPORT_TYPES {
-	NONE,
-	HEAL 
+## Defines the action type, NONE is default ##CHANGE TO SKILL
+enum ACTION_TYPES {
+	NONE, #DEFAULT USED FOR WEAPONS WITHOUT ACTION
+	HEAL,
+	BLOCK,
+	DEBUFF
 	#TODO implement buff
 }
 
@@ -48,14 +50,15 @@ enum SUPPORT_TYPES {
 enum EQUIP_SLOT {
 	MAIN_HAND,
 	OFF_HAND,
-	VERSATILE, #both
+	VERSATILE,
+	TWO_HANDED,
 	NONE #should not be used
 }
 
 ## Defines the equipable locations of a weapon
 enum USE_TYPE {
 	ATTACK,
-	SUPPORT
+	ACTION
 }
 
 # ==============================================================================
@@ -100,7 +103,7 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 @export_range(0, 30, 1, "or_greater") var weight: int = DEFAULT_WEIGHT
 
 ## The support action this weapon can perform. TODO move this elsewhere
-@export var support_type: SUPPORT_TYPES = SUPPORT_TYPES.NONE
+@export var action_type: ACTION_TYPES = ACTION_TYPES.NONE
 
 ## The type of damage this weapon deals (physical, magical, etc.).
 @export var item_damage_type: Constants.DAMAGE_TYPE
@@ -153,7 +156,7 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 
 @export var use_type: int = DEFAULT_USE_TYPE
 
-@export_subgroup("Block")
+@export_subgroup("Main Hand Block")
 
 ## Block on 
 @export var block_beginning_of_turn : int = 0

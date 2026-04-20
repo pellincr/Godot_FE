@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://bu2mr2rk4kr7h"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_10kj5"]
 [ext_resource type="Texture2D" uid="uid://ct6y08p6cq2lv" path="res://resources/sprites/items/weapons/commander_specific/ashen_shine.png" id="2_qr5kh"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="3_4y7ii"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="3_vkdbr"]
@@ -13,39 +13,21 @@ luck = 10
 [resource]
 script = ExtResource("4_cppig")
 weapon_type = 13
-weight = null
-support_type = null
-item_damage_type = null
 item_scaling_type = 2
 item_scaling_multiplier = 1.5
-item_target_faction = null
-class_lock = null
 damage = 5
 hit = 85
 critical_chance = 25
 critical_multiplier = 4.5
-attacks_per_combat_turn = null
 attack_range = Array[int]([1, 2])
 bonus_stat = SubResource("Resource_xq0mb")
-weapon_effectiveness_trait = null
-weapon_effectiveness_weapon_type = null
-status_ailment = null
-equipped_specials = null
 name = "Ashen Shine"
 db_key = "ashen_shine"
 equippable = true
-description = null
-item_type = null
 rarity = ExtResource("3_vkdbr")
 uses = 4
 max_uses = 4
-unbreakable = null
 has_expended_state = true
 refreshes_after_combat = 3
-refresh_weight = null
 worth = 0
-unsellable = null
-price = null
-held_specials = null
-unlocked = null
 icon = ExtResource("2_qr5kh")

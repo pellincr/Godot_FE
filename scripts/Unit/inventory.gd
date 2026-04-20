@@ -83,6 +83,7 @@ func equip_main_hand():
 	if main_hand != null:
 		if main_hand.equippable:
 			main_hand_equipped = true
+			main_hand_suppressed = false
 
 func get_main_hand()-> ItemDefinition:
 	if main_hand != null:
@@ -135,7 +136,7 @@ func stash_remove_item(item:ItemDefinition):
 func stash_remove(index:int):
 	stash.remove(index)
 
-func get_stash():
+func get_stash() -> Array[ItemDefinition]:
 	return stash.get_items()
 
 func full() -> bool:
@@ -155,6 +156,13 @@ func get_equipped() -> Array[ItemDefinition]:
 			equipped.append(off_hand)
 	return equipped
 
+func update_supressed_flags():
+	if main_hand_equipped:
+		if main_hand is WeaponDefinition:
+			if main_hand.equip_slot == WeaponDefinition.EQUIP_SLOT.TWO_HANDED:
+				off_hand_suppressed = true
+	
+	# is it two handed?
 #
 # get the attack ranges of active item
 #
@@ -213,7 +221,6 @@ func get_max_support_range() -> int:
 		return ranges.max()
 	return 0
 
-
 func get_available_support_ranges_healing()-> Array[int]:
 	var ranges : Array[int]
 	for item in items:
@@ -240,64 +247,26 @@ func get_available_weapons_at_attack_range(attack_range: int) -> Array[ItemDefin
 							available_weapons.append(item)
 	return available_weapons
 
-func use_at_index(index : int) -> ItemDefinition: 
-	if index < capacity:
-		var target_item :ItemDefinition = items[index]
-		target_item.expend_use()
-		# What is the state of the item, is it broken and does it have to be removed?
-		if target_item.uses <= 0:
-			if not target_item.expended and not target_item.unbreakable:
-				items.remove_at(index)
-				if index == 0:
-					equipped = false
-				return target_item
-				#emit something here indicating a break so UI can display it
-	return null
-
-func set_item_at_index(index: int, item: ItemDefinition):
-	if item != null:
-		if index >= 0 and index < capacity:
-			if index < items.size():
-				items[index] = item
-			else: 
-				items.append(item)
-		else : 
-			items.append(item)
-	else : 
-		if index < capacity:
-			items.remove_at(index)
-#
-# Gives an item to the inventory, at the end of the list
-#
-func give_item(item: ItemDefinition) -> bool:
-	if item is WeaponDefinition:
-		if item.equip_slot == WeaponDefinition.EQUIP_SLOT.MAIN_HAND or item.equip_slot == WeaponDefinition.EQUIP_SLOT.VERSATILE:
-			if 
-		elif item.equip_slot == WeaponDefinition.EQUIP_SLOT.OFF_HAND or item.equip_slot == WeaponDefinition.EQUIP_SLOT.VERSATILE:
-			pass
-		else:
-			pass
-	if main_hand == null:
-		
-	var item_gave = false
-	if is_full() :
-		return item_gave
-	else:
-		items.append(item)
-		item_gave = true
-		update_range_map()
-	return item_gave
-
-
 #
 # Returns a list of WeaponDefinitions contained in the inventory
 # 
 func get_weapons() -> Array[WeaponDefinition]:
-	var weapon_array : Array[WeaponDefinition]
-	for item in items:
-		if item is WeaponDefinition: 
-			weapon_array.append(item)
-	return weapon_array
+	var _item_array : Array[ItemDefinition]
+	var _valid_weapons : Array[WeaponDefinition]
+	_item_array.append(main_hand)
+	_item_array.append(off_hand)
+	_item_array.append_array(get_stash())
+	for item in _item_array:
+		if is_main_handable(item):
+			_valid_weapons.append(item)
+	return _valid_weapons
+
+func is_main_handable(item: ItemDefinition) -> bool:
+	if item != null:
+		if item is WeaponDefinition:
+			if item.EQUIP_SLOT == WeaponDefinition.EQUIP_SLOT.MAIN_HAND || item.EQUIP_SLOT == WeaponDefinition.EQUIP_SLOT.VERSATILE || item.EQUIP_SLOT == WeaponDefinition.EQUIP_SLOT.TWO_HANDED:
+				return true
+	return false
 
 #
 # checks if a version of the target item is inside 
@@ -383,6 +352,16 @@ func get_equipped_item() -> ItemDefinition:
 		if items.front() != null: 
 			return items.front()
 	return null
+
+#
+# gets the item that is currently equipped
+#
+func get_active_items() -> ItemDefinition:
+	if equipped == true:
+		if items.front() != null: 
+			return items.front()
+	return null
+
 
 
 #
@@ -475,16 +454,11 @@ func get_special_from_off_hand() -> Array[SpecialEffect]:
 	return _specials
 
 func get_specials_from_equipped() -> Array[SpecialEffect]:
-	pass
+	var _specials : Array[SpecialEffect] = []
+	return _specials
 
 func get_all_specials_from_inventory_and_equipped() ->  Array[SpecialEffect]:
 	var _specials : Array[SpecialEffect] = []
-	# DO Equipped first
-	if equipped:
-		if get_equipped_weapon() != null:
-			_specials.append_array(get_equipped_weapon().equipped_specials)
-	for item in items:
-		_specials.append_array(item.held_specials)
 	return _specials
 	
 func get_all_stats_from_held_items() -> CombatUnitStat:

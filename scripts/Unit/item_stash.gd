@@ -47,6 +47,13 @@ func pop_item(item:ItemDefinition) -> ItemDefinition:
 func find(item:ItemDefinition) -> int:
 	return data.find(item)
 
+func has_item_type(item:ItemDefinition) ->  bool:
+	var key = item.db_key
+	for stash_item in data:
+		if stash_item.db_key == key: 
+			return true
+	return false
+
 func remove(index : int):
 	if index < data.size():
 		data[index] = null
@@ -78,3 +85,13 @@ func add_item(item: ItemDefinition):
 		data[index] = item
 	else :
 		push_error("Attempted to add item to full itemStash")
+
+func swap(index_a: int, index_b:int) -> bool:
+	if index_a != index_b:
+		if index_a < data.size() and index_b < data.size():
+			var a = data[index_a]
+			var b = data[index_b]
+			data[index_b] = a
+			data[index_a] = b
+			return true
+	return false

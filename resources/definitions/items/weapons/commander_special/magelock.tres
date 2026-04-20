@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=8 format=3 uid="uid://be6dwu100hykr"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_k6kes"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_k6kes"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_v1d6u"]
 [ext_resource type="Texture2D" uid="uid://d0m81bdx6shye" path="res://resources/sprites/items/weapons/commander_specific/magelock.png" id="3_k6kes"]
 [ext_resource type="Resource" uid="uid://bv4ffn17y4yqu" path="res://resources/definitions/rarity/Unique.tres" id="4_it6ly"]
@@ -19,38 +19,21 @@ metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 script = ExtResource("5_b1iqd")
 weapon_type = 9
 weight = 8
-support_type = null
-item_damage_type = null
 item_scaling_type = 2
-item_scaling_multiplier = null
-item_target_faction = null
-class_lock = null
 damage = 15
-hit = null
 critical_chance = 25
-critical_multiplier = null
-attacks_per_combat_turn = null
 attack_range = Array[int]([2, 3, 4])
 bonus_stat = SubResource("Resource_k6kes")
 weapon_effectiveness_trait = Array[int]([2])
-weapon_effectiveness_weapon_type = null
-status_ailment = null
 equipped_specials = Array[ExtResource("2_v1d6u")]([SubResource("Resource_okj6i")])
 name = "Magelock"
 db_key = "magelock"
 equippable = true
 description = "Forged by knights who sought to match mages in range and sorcerers in might, the Magelock binds spell and shot as one — a weapon that hums like an incantation, then roars like a cannon."
-item_type = null
 rarity = ExtResource("4_it6ly")
 uses = 2
 max_uses = 2
-unbreakable = null
 has_expended_state = true
 refreshes_after_combat = 3
-refresh_weight = null
 worth = 0
-unsellable = null
-price = null
-held_specials = null
-unlocked = null
 icon = ExtResource("3_k6kes")

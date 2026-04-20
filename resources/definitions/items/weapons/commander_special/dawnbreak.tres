@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=8 format=3 uid="uid://cpajlj7mngeuj"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_w6w4y"]
 [ext_resource type="Texture2D" uid="uid://7b0ave7e2trh" path="res://resources/sprites/items/weapons/commander_specific/dawnbreak.png" id="2_5uwg8"]
 [ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="2_okj6i"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="2_wyt6w"]
@@ -21,38 +21,20 @@ metadata/_custom_type_script = "uid://dxkqp7a1xpv5y"
 script = ExtResource("2_wyt6w")
 weapon_type = 1
 weight = 15
-support_type = null
-item_damage_type = null
-item_scaling_type = null
-item_scaling_multiplier = null
-item_target_faction = null
-class_lock = null
 damage = 11
 hit = 85
-critical_chance = null
-critical_multiplier = null
-attacks_per_combat_turn = null
-attack_range = null
 bonus_stat = SubResource("Resource_x076x")
 weapon_effectiveness_trait = Array[int]([3])
-weapon_effectiveness_weapon_type = null
-status_ailment = null
 equipped_specials = Array[ExtResource("2_okj6i")]([SubResource("Resource_okj6i")])
 name = "Dawnbreak"
 db_key = "dawnbreak"
 equippable = true
 description = "A radiant blade that gleams like sunrise, it contains a sustaining warmth and that aids the user in battle ."
-item_type = null
 rarity = ExtResource("3_yxnf8")
 uses = 4
 max_uses = 4
-unbreakable = null
 has_expended_state = true
 refreshes_after_combat = 3
 refresh_weight = 100
 worth = 0
-unsellable = null
-price = null
-held_specials = null
-unlocked = null
 icon = ExtResource("2_5uwg8")

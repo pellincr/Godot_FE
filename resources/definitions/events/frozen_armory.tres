@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dss2u86tfdpgs" path="res://scripts/resources/loot_tables/loot_table_item_entry.gd" id="2_llx5i"]
 [ext_resource type="Script" uid="uid://pqs3oxombjyh" path="res://scripts/resources/Items/ItemDefinition.gd" id="3_d70up"]
 [ext_resource type="Script" uid="uid://dq6q58q1nixv" path="res://scripts/resources/events/event_option/EventOption.gd" id="3_erdm1"]
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="4_atj8j"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="4_atj8j"]
 [ext_resource type="Script" uid="uid://dbofg7k1r58dw" path="res://scripts/resources/rarity/RarityDefinition.gd" id="4_mg6vf"]
 [ext_resource type="Resource" uid="uid://bira0i2pnesjw" path="res://resources/definitions/rarity/Mythical.tres" id="5_gnidv"]
 [ext_resource type="Script" uid="uid://cx8ruya2jto7h" path="res://scripts/resources/loot_tables/loot_table_entry_item_expanded.gd" id="6_stm6c"]

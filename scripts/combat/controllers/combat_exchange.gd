@@ -8,6 +8,8 @@ class_name CombatExchange
 #const miss_sound = preload("res://resources/sounds/combat/miss.wav")
 #const no_damage_sound = preload("res://resources/sounds/combat/no_damage.wav")
 const combat_exchange_display = preload("res://ui/combat/combat_exchange/combat_exchange_display/CombatExchangeDisplay.tscn")
+const WEAPON_ADVANTAGE_BONUS = 1.25
+
 
 signal unit_defeated(unit: CombatUnit)
 signal entity_destroyed(entity: CombatEntity)
@@ -296,6 +298,9 @@ func calc_damage(attacker: CombatUnit, target: CombatUnit, defense_negated : boo
 		damage = 0
 	return damage
 
+func calculate_damage_advantage(weapon: WeaponDefinition) -> int:
+	return clampi((float(weapon.damage) * WEAPON_ADVANTAGE_BONUS), weapon.damage + 1, 9999)
+
 func check_hit(hit_chance: int) -> bool:
 	return CustomUtilityLibrary.random_rolls_bool(hit_chance, 2)
 
@@ -321,7 +326,6 @@ func check_can_retaliate(attacker: CombatUnit, defender:CombatUnit, distance:int
 				if defender_weapon.item_target_faction.has(ItemConstants.AVAILABLE_TARGETS.ENEMY):
 					return true
 	return false
-
 
 func generate_combat_exchange_data(attacker: CombatUnit, defender:CombatUnit, distance:int) -> UnitCombatExchangeData:
 	#How many hits are performed?
@@ -536,7 +540,29 @@ func check_wepon_triangle_wpn(wpn_a: WeaponDefinition, wpn_b: WeaponDefinition) 
 					elif wpn_b.magic_weapon_triangle_type == ItemConstants.MAGICAL_WEAPON_TRIANGLE.DARK:
 						return wpn_a
 	return null
-	
+
+func check_weapon_profile_advantage(weapon_a: WeaponDefinition, weapon_b: WeaponDefinition) -> WeaponDefinition:
+	if weapon_a and weapon_b:
+		match weapon_a.profile:
+			ItemConstants.PROFILE.NONE:
+				return
+			ItemConstants.PROFILE.NIMBLE:
+				if weapon_b.profile == ItemConstants.PROFILE.POWER:
+					return weapon_a
+				if weapon_b.profile == ItemConstants.PROFILE.BALANCED:
+					return weapon_b
+			ItemConstants.PROFILE.BALANCED:
+				if weapon_b.profile == ItemConstants.PROFILE.NIMBLE:
+					return weapon_a
+				if weapon_b.profile == ItemConstants.PROFILE.POWER:
+					return weapon_b
+			ItemConstants.PROFILE.POWER:
+				if weapon_b.profile == ItemConstants.PROFILE.BALANCED:
+					return weapon_a
+				if weapon_b.profile == ItemConstants.PROFILE.NIMBLE:
+					return weapon_b
+	return null
+
 func use_audio_player(sound:AudioStream):
 	if  audio_player_busy:
 		await play_audio_finished

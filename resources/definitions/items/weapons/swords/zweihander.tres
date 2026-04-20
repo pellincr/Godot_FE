@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponDefinition" load_steps=7 format=3 uid="uid://bvhngcd2psio"]
 
-[ext_resource type="Script" uid="uid://cr1ldq6s45fjd" path="res://scripts/Unit/unit_stat.gd" id="1_18y3t"]
+[ext_resource type="Script" uid="uid://bimyfw55ab1gl" path="res://scripts/Unit/unit_stat.gd" id="1_18y3t"]
 [ext_resource type="Texture2D" uid="uid://b20ryvdulj5ib" path="res://resources/sprites/items/weapons/swords/zweihander.png" id="2_2yq0j"]
 [ext_resource type="Resource" uid="uid://cjb6i4xhstxv8" path="res://resources/definitions/rarity/Legendary.tres" id="3_b2fdk"]
 [ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="3_h65wo"]
@@ -16,38 +16,16 @@ speed = 2
 script = ExtResource("3_h65wo")
 weapon_type = 1
 weight = 13
-support_type = null
-item_damage_type = null
-item_scaling_type = null
-item_scaling_multiplier = null
-item_target_faction = null
-class_lock = null
 damage = 22
 hit = 80
 critical_chance = 20
-critical_multiplier = null
-attacks_per_combat_turn = null
-attack_range = null
 bonus_stat = SubResource("Resource_eba4i")
-weapon_effectiveness_trait = null
-weapon_effectiveness_weapon_type = null
-status_ailment = null
-equipped_specials = null
 name = "Zweihander"
 db_key = "zweihander"
 equippable = true
 description = "A colossal sword that stretches longer than a man’s height, allowing it to strike at range. It has been imbued with enchantments of strength and speed, letting its wielder carve through foes with impossible power and swiftness."
-item_type = null
 rarity = ExtResource("3_b2fdk")
 uses = 12
 max_uses = 12
-unbreakable = null
-has_expended_state = null
-refreshes_after_combat = null
-refresh_weight = null
 worth = 11000
-unsellable = null
-price = null
-held_specials = null
-unlocked = null
 icon = ExtResource("2_2yq0j")

@@ -50,7 +50,7 @@ class_name Unit
 
 @export_group("Combat Stats")
 @export var hp : int
-@export var armor : int
+@export var block : int
 @export var attack : int
 @export var hit : int
 @export var avoid : int
@@ -568,3 +568,18 @@ func get_max_attack_range() -> int:
 
 func set_hp_to_max():
 	hp = stats.hp
+
+func can_equip_items():
+	pass
+
+func update_inventory_flags():
+	if can_equip(inventory.main_hand):
+		inventory.equip_main_hand()
+		# what is the state of the main hand?
+	if can_equip(inventory.off_hand):
+		inventory.equip_off_hand()
+		#does the main hand supress the off hand?
+		if inventory.main_hand.
+		
+	
+	#check off_hand
