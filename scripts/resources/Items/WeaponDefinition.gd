@@ -42,7 +42,7 @@ enum ACTION_TYPES {
 	NONE, #DEFAULT USED FOR WEAPONS WITHOUT ACTION
 	HEAL,
 	BLOCK,
-	DEBUFF
+	STATUS
 	#TODO implement buff
 }
 
@@ -58,7 +58,7 @@ enum EQUIP_SLOT {
 ## Defines the equipable locations of a weapon
 enum USE_TYPE {
 	ATTACK,
-	ACTION
+	ACTION ## Replaces SUPPORT, this means the weapon gives the player "action" instead of attack
 }
 
 # ==============================================================================
@@ -126,7 +126,7 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 ## Class name that can exclusively use this weapon. Empty string means no restriction.
 @export var class_lock: String = ""
 
-@export var equip_slot : Array [EQUIP_SLOT] = []
+@export var equip_slot : EQUIP_SLOT = EQUIP_SLOT.NONE
 
 # ==============================================================================
 # Exported Variables - Combat Stats
@@ -236,3 +236,8 @@ const DEFAULT_EXPERIENCE_MULTIPLIER: float = 1.0
 
 ## Custom special effect resources activated while equipped.
 @export var offhand_equipped_specials: Array[SpecialEffect] = []
+
+func is_main_hand_equippable() -> bool:
+	if equip_slot == EQUIP_SLOT.MAIN_HAND or EQUIP_SLOT.VERSATILE or EQUIP_SLOT.TWO_HANDED:
+		return true
+	return false

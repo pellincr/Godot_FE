@@ -579,7 +579,7 @@ func update_inventory_flags():
 	if can_equip(inventory.off_hand):
 		inventory.equip_off_hand()
 		#does the main hand supress the off hand?
-		if inventory.main_hand.
+		pass
 		
 	
 	#check off_hand

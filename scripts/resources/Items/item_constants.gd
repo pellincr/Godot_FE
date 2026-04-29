@@ -100,6 +100,7 @@ enum DAMAGE_TYPE {
 
 ## Weapon triangle for mundane (physical) weapons.
 ## Sword beats Axe, Axe beats Lance, Lance beats Sword.
+## @DEPRECIATED 
 enum MUNDANE_WEAPON_TRIANGLE {
 	## Weapon is not part of the mundane triangle.
 	NONE = 0,
@@ -113,6 +114,7 @@ enum MUNDANE_WEAPON_TRIANGLE {
 
 ## Weapon triangle for magical weapons.
 ## Nature beats Dark, Dark beats Light, Light beats Nature.
+## @DEPRECIATED 
 enum MAGICAL_WEAPON_TRIANGLE {
 	## Weapon is not part of the magical triangle.
 	NONE = 0,

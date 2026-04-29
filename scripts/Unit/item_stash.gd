@@ -22,6 +22,14 @@ func get_items() -> Array[ItemDefinition]:
 			items.append(item)
 	return items
 
+func get_weapons() -> Array[ItemDefinition]:
+	var items : Array[ItemDefinition] = []
+	for item in data:
+		if item != null:
+			if item is WeaponDefinition:
+				items.append(item)
+	return items
+
 func set_item(index:int, item: ItemDefinition):
 	if index < data.size():
 		data[index] = item
@@ -47,12 +55,14 @@ func pop_item(item:ItemDefinition) -> ItemDefinition:
 func find(item:ItemDefinition) -> int:
 	return data.find(item)
 
-func has_item_type(item:ItemDefinition) ->  bool:
-	var key = item.db_key
+func has_item_with_db_key(key:String) ->  bool:
 	for stash_item in data:
 		if stash_item.db_key == key: 
 			return true
 	return false
+
+func has(item:ItemDefinition) -> bool:
+	return data.has(item)
 
 func remove(index : int):
 	if index < data.size():
