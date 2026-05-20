@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=5 format=3 uid="uid://v4vhjs4s5m52"]
+
+[ext_resource type="Script" uid="uid://dxkqp7a1xpv5y" path="res://scripts/resources/Items/special_effect.gd" id="1_rq6fn"]
+[ext_resource type="Texture2D" uid="uid://b48v0uyoqb775" path="res://resources/sprites/items/weapons/staff/heal_staff.png" id="2_1k3ri"]
+[ext_resource type="Resource" uid="uid://cukv2bd0pvx0n" path="res://resources/definitions/rarity/Common.tres" id="3_jpp4b"]
+[ext_resource type="Script" uid="uid://bdxr5p4j4x0wh" path="res://scripts/resources/Items/WeaponDefinition.gd" id="4_vr4yp"]
+
+[resource]
+script = ExtResource("4_vr4yp")
+weapon_type = 6
+profile = 2
+action_type = 2
+item_damage_type = 3
+item_scaling_type = 2
+item_target_faction = Array[int]([1])
+damage = 10
+status_ailment = 2
+name = "Guard"
+db_key = "guard_staff"
+equippable = true
+item_type = 1
+rarity = ExtResource("3_jpp4b")
+unbreakable = true
+worth = 1000
+icon = ExtResource("2_1k3ri")
